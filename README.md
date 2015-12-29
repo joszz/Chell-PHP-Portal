@@ -10,6 +10,7 @@ Some functionality might not yet be fully decoupled from my own setup but the go
 Screenshots
 -----------
 ![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/home.png "Home")
+![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/menu.png "Menu")
 
 Prerequisites
 -------------
