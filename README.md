@@ -7,12 +7,17 @@ It aggregates different services and webapplications that I want easily accessib
 The current state of the project is still very much a work in progress. 
 Some functionality might not yet be fully decoupled from my own setup but the goal is to work toward this and have a generic solution for anyone.
 
+Screenshots
+-----------
+![Home](/../<branch name>/screenshots/home.png?raw=true "Home")
+
 Prerequisites
 -------------
 - PHP 5.x
 - MySQL 5.x
-- Phalcon PHP framework 2.x
+- [Phalcon PHP framework 2.x](https://phalconphp.com/)
 - Apache 2.x
+- [rCPU](https://github.com/davidsblog/rCPU)
 
 Installation and configuration
 ------------------------------
