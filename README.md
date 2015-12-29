@@ -28,3 +28,19 @@ For now this would have to be manually edited through the database. You can find
 Next copy over source files to a directory on your server, preferrably (for security considerations) outside of the DocumentRoot directory of your webserver. The "app" directory of this project should NOT be accessible from the web. The "public" directory however, should be. This can be achieved with some Apache configuration, setting up an alias etc. I will not go into detail (for now) on how to achieve this.
 
 Finally you can edit the config.ini file. You can find this file in "app/config/config.ini", the values to be specified speak for themselves.
+
+Database documentation
+----------------------
+In this chapter you will find information about the database tables and associated columns.
+
+#### devices
+A table used to store the various devices in your network. Used for WOL and menu items which should only be active when a device is awake (pingable).
+
+#### diskdrives
+A table used to store the various local drives on the server. This will be used to display these drives and there available/total space.
+
+#### menu_items
+The different items/links in the collapsable menu. It is associated with a menu by the column parent_id (so multiple menus can be created). A menu_item can be depended on a device to be disabled in the GUI.
+
+#### menus
+The available menus. For now only one menu will be displayed (ID 1, hardcoded for now).
