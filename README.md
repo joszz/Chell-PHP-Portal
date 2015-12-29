@@ -9,7 +9,7 @@ Some functionality might not yet be fully decoupled from my own setup but the go
 
 Screenshots
 -----------
-![Home](/../master/screenshots/home.png?raw=true "Home")
+![Home](master/screenshots/home.png?raw=true "Home")
 
 Prerequisites
 -------------
