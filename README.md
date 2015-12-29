@@ -9,10 +9,10 @@ Some functionality might not yet be fully decoupled from my own setup but the go
 
 Screenshots
 -----------
+#### Home screenshot
 ![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/home.png "Home")
-Home screenshot
+#### Menu screenshot
 ![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/menu.jpg "Menu")
-Menu screenshot
 
 Prerequisites
 -------------
