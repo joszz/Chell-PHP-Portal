@@ -9,7 +9,7 @@ Some functionality might not yet be fully decoupled from my own setup but the go
 
 Screenshots
 -----------
-![Home](master/screenshots/home.png?raw=true "Home")
+![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/home.png "Home")
 
 Prerequisites
 -------------
