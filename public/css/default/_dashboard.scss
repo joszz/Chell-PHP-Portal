@@ -1,0 +1,37 @@
+﻿div.harddisks,
+div.devices {
+    width: 100%;
+}
+
+div.harddisks div.progress {
+    margin: 0;
+    width: 100%;
+    position: relative;
+}
+
+div.harddisks div.progress div {
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    line-height: 22px;
+    text-shadow: 1px 1px 0px #fff;
+}
+
+div.harddisks div.progress-bar {
+    border-radius: inherit;
+    height: inherit;
+    position: relative;
+}
+
+div.devices li.list-group-item div {
+    line-height: 32px;
+}
+
+div.cpu iframe {
+    height: 346px;
+}
+
+canvas {
+    width: 100%;
+}

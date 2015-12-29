@@ -1,0 +1,52 @@
+﻿body {
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 300;
+    overflow: hidden;
+}
+
+body#bootstrap {
+    padding: 70px 0 52px;
+    overflow: auto;
+}
+
+body.nopadding {
+    padding: 0;
+    overflow: auto;
+}
+
+img {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300 !important;
+}
+
+h4 {
+    margin: 0 !important;
+    line-height: 36px !important;
+}
+
+div.container-fluid {
+    padding: 0;
+}
+
+iframe {
+    width: 100%;
+    border: 0;
+}
+
+.full-height {
+    height: 100%;
+}
+
+div.alert{
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 2;
+    margin-bottom: 0;
+    display: none;
+}
