@@ -1,6 +1,7 @@
 ﻿var checkDeviceStatesTimeout = 30, alertTimeout = 5;
 var checkDeviceStatesIntervalId, alertIntervalId;
 var altPressed = false;
+var fancyboxMargin = [70, 0, 60, 0];
 
 $(function () {
     initializeEventHandlers();
@@ -22,7 +23,7 @@ function initializeEventHandlers() {
         return false;
     });
 
-    $("a.fancybox.iframe").fancybox({ type: "iframe" });
+    $("a.fancybox.iframe").fancybox({ type: "iframe", margin: fancyboxMargin });
     $(".shorten").shorten();
     $("a, button").vibrate();
 
@@ -68,7 +69,8 @@ function openShutdownDialog() {
     $("div.shutdown input[name='ip']").val($(this).data("ip"));
 
     $.fancybox({
-        content: $("div.shutdown").show()
+        content: $("div.shutdown").show(),
+        margin: fancyboxMargin
     });
 }
 
