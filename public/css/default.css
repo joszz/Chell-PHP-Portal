@@ -174,6 +174,9 @@ canvas {
 div.shutdown {
   display: none; }
 
+div.shutdown h2 {
+  white-space: nowrap; }
+
 footer.navbar {
   position: fixed;
   bottom: 0;
