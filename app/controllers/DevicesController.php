@@ -7,8 +7,18 @@ class DevicesController extends BaseController
     {
         if (isset($_GET['mac'])){
             Devices::wakeOnLan($_GET['mac']);
-            die;
         }
+
+        die;
+    }
+
+    public function shutdownAction()
+    {
+        if (isset($_GET['ip']) && isset($_GET['user']) && isset($_GET['password'])){
+            echo print_r(Devices::shutdown($_GET['ip'], $_GET['user'], $_GET['password']));
+        }
+
+        die;
     }
 
     public function stateAction()

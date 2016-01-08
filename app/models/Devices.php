@@ -55,7 +55,7 @@ class Devices extends BaseModel
         return $latency;
     }
 
-    public function wakeOnLan($mac, $socket_number = "7", $repetition = 16) 
+    public function wakeOnLan($mac, $socket_number = '7', $repetition = 16) 
     {
         $addr_byte = explode(':', $mac);
         $hw_addr = '';
@@ -68,8 +68,8 @@ class Devices extends BaseModel
         $s = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
         if ($s == false) 
         {
-            echo "Error creating socket!\n";
-            echo "Error code is '".socket_last_error($s)."' - " . socket_strerror(socket_last_error($s));
+            echo 'Error creating socket!\n';
+            echo 'Error code is "' . socket_last_error($s) . '" - ' . socket_strerror(socket_last_error($s));
             return FALSE;
         }
         else 
@@ -78,20 +78,32 @@ class Devices extends BaseModel
             $opt_ret = socket_set_option($s, 1, 6, TRUE);
             if($opt_ret <0) 
             {
-                echo "setsockopt() failed, error: " . strerror($opt_ret) . "\n";
+                echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
                 return false;
             }
             if(socket_sendto($s, $msg, strlen($msg), 0, $this->config->network->broadcast . '.255', $socket_number)) 
             {
-                echo "Magic Packet sent successfully!";
+                echo 'Magic Packet sent successfully!';
                 socket_close($s);
                 return true;
             }
             else 
             {
-                echo "Magic packet failed!";
+                echo 'Magic packet failed!';
                 return false;
             }
         }
     }
+
+    public function shutdown($ip, $user, $password)
+    {
+        $ip = escapeshellcmd($ip);
+        $user = trim(escapeshellcmd($user));
+        $password = trim(escapeshellcmd($password));
+        $output = array();
+
+        exec('net rpc shutdown -I ' . $ip . ' -U ' . $user . '%' . $password, $output);
+
+        return $output;
+    }   
 }

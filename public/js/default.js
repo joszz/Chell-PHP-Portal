@@ -11,6 +11,9 @@ $(function () {
 
 function initializeEventHandlers() {
     $("div.devices").on("click", "a.btn-danger", wol);
+    $("div.devices").on("click", "a.btn-success", openShutdownDialog);
+    $("div.shutdown input[type='submit']").click(doShutdown);
+
     $("div.devices div.panel-heading a.glyphicon-refresh").click(function () {
         clearInterval(checkDeviceStatesIntervalId);
         checkDeviceStates();
@@ -58,6 +61,38 @@ function wol() {
     }
 }
 
+function openShutdownDialog() {
+    var name = $(this).closest("li").find("div:first").html().trim();
+
+    $("div.shutdown h2 span").html(name);
+    $("div.shutdown input[name='ip']").val($(this).data("ip"));
+
+    $.fancybox({
+        content: $("div.shutdown").show()
+    });
+}
+
+function doShutdown() {
+    user = $("div.shutdown input[name='user']").val();
+    password = $("div.shutdown input[name='password']").val();
+    ip = $("div.shutdown input[name='ip']").val();
+    name = $("div.shutdown h2 span").html();
+
+    //do something with password and user
+    $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (name) {
+        $.fancybox.close();
+        clearTimeout(alertIntervalId);
+
+        $("div.alert").addClass("alert-success");
+        $("div.alert").html("Shutdown command send to: " + name);
+        $("div.alert").fadeIn("fast");
+
+        fadeOutAlert();
+    }(name));
+
+    return false;
+}
+
 function checkDeviceStates() {
     var d = new Date();
 
@@ -78,12 +113,12 @@ function checkDeviceStates() {
                 icon.removeClass("glyphicon-refresh icon-refresh-animate");
                 icon.addClass("glyphicon-off");
 
+                device.removeClass("disabled");
+
                 if (!data["state"]) {
-                    device.removeClass("disabled");
                     dependentMenuItems.addClass("disabled");
                 }
                 else {
-                    device.addClass("disabled");
                     dependentMenuItems.removeClass("disabled");
                 }
 

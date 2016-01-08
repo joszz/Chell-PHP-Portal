@@ -171,6 +171,9 @@ div.cpu iframe {
 canvas {
   width: 100%; }
 
+div.shutdown {
+  display: none; }
+
 footer.navbar {
   position: fixed;
   bottom: 0;
