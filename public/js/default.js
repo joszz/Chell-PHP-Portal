@@ -73,12 +73,11 @@ function openShutdownDialog() {
 }
 
 function doShutdown() {
-    user = $("div.shutdown input[name='user']").val();
-    password = $("div.shutdown input[name='password']").val();
-    ip = $("div.shutdown input[name='ip']").val();
-    name = $("div.shutdown h2 span").html();
+    user        = $("div.shutdown input[name='user']").val();
+    password    = $("div.shutdown input[name='password']").val();
+    ip          = $("div.shutdown input[name='ip']").val();
+    name        = $("div.shutdown h2 span").html();
 
-    //do something with password and user
     $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (name) {
         $.fancybox.close();
         clearTimeout(alertIntervalId);
@@ -114,8 +113,12 @@ function checkDeviceStates() {
                 icon.addClass("glyphicon-off");
 
                 device.removeClass("disabled");
-
+                
                 if (!data["state"]) {
+                    if (device.data("shutdown-method") == "none") {
+                        device.addClass("disabled");
+                    }
+                    
                     dependentMenuItems.addClass("disabled");
                 }
                 else {

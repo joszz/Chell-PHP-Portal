@@ -28,6 +28,7 @@ CREATE TABLE `devices` (
   `ip` varchar(15) NOT NULL,
   `mac` varchar(18) NOT NULL,
   `webtemp` varchar(255) DEFAULT NULL,
+  `shutdown_method` enum('none','rpc') DEFAULT 'none',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -63,7 +64,7 @@ CREATE TABLE `menu_items` (
   `icon` varchar(255) DEFAULT NULL,
   `device_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,4 +91,4 @@ CREATE TABLE `menus` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-29 13:13:19
+-- Dump completed on 2016-01-08 12:24:40
