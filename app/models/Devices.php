@@ -81,7 +81,7 @@ class Devices extends BaseModel
                 echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
                 return false;
             }
-            if(socket_sendto($s, $msg, strlen($msg), 0, $this->config->network->broadcast . '.255', $socket_number)) 
+            if(socket_sendto($s, $msg, strlen($msg), 0, $this->config->network->broadcast, $socket_number)) 
             {
                 echo 'Magic Packet sent successfully!';
                 socket_close($s);
