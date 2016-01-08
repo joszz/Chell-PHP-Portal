@@ -1,9 +1,10 @@
 ﻿var checkDeviceStatesTimeout = 30, alertTimeout = 5;
 var checkDeviceStatesIntervalId, alertIntervalId;
 var altPressed = false;
-var fancyboxMargin = [70, 0, 60, 0];
 
 $(function () {
+    $.fancybox.defaults.margin = [70, 0, 60, 0];
+
     initializeEventHandlers();
 
     checkDeviceStates();
@@ -23,7 +24,7 @@ function initializeEventHandlers() {
         return false;
     });
 
-    $("a.fancybox.iframe").fancybox({ type: "iframe", margin: fancyboxMargin });
+    $("a.fancybox.iframe").fancybox({ type: "iframe" });
     $(".shorten").shorten();
     $("a, button").vibrate();
 
@@ -70,7 +71,6 @@ function openShutdownDialog() {
 
     $.fancybox({
         content: $("div.shutdown").show(),
-        margin: fancyboxMargin
     });
 }
 
