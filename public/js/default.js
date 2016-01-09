@@ -71,6 +71,9 @@ function openShutdownDialog() {
 
     $.fancybox({
         content: $("div.shutdown").show(),
+        afterShow: function () {
+            $("div.shutdown input:first").focus();
+        }
     });
 }
 
@@ -98,10 +101,10 @@ function checkDeviceStates() {
     var d = new Date();
 
     $("div.devices a.devicestate").each(function () {
-        var device = $(this);
-        var icon = $(this).find("span.glyphicon");
-        var ip = $(this).data("ip");
-        var dependentMenuItems = $("ul.nav li[data-ip='" + ip + "'");
+        var device              = $(this);
+        var icon                = $(this).find("span.glyphicon");
+        var ip                  = $(this).data("ip");
+        var dependentMenuItems  = $("ul.nav li[data-ip='" + ip + "'");
 
         $(this).removeClass("btn-danger btn-success");
         $(this).addClass("disabled");
@@ -116,11 +119,11 @@ function checkDeviceStates() {
 
                 device.removeClass("disabled");
                 
-                if (!data["state"]) {
-                    if (device.data("shutdown-method") == "none") {
-                        device.addClass("disabled");
-                    }
-                    
+                if (device.data("shutdown-method") == "none") {
+                    device.addClass("disabled");
+                }
+
+                if (!data["state"]) {                    
                     dependentMenuItems.addClass("disabled");
                 }
                 else {

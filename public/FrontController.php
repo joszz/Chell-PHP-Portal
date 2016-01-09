@@ -118,12 +118,13 @@ class FrontController
                     ->collection('footer')
                     ->setTargetPath('js/final.js')
                     ->setTargetUri('js/final.js')
-                    ->addJs('js/jquery-2.1.4.js')
+                    ->addJs('js/jquery-2.2.0.js')
                     ->addJs('js/fancybox/jquery.fancybox.js')
                     ->addJs('js/bootstrap.js')
                     ->addJs('js/jquery.shorten.js')
                     ->addJs('js/jquery.vibrate.js')
                     ->addJs('js/default.js')
+                    //;
                     ->join(true)
                     ->addFilter(new Jsmin());
     }
