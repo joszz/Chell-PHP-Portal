@@ -7,6 +7,10 @@ It aggregates different services and webapplications that I want easily accessib
 The current state of the project is still very much a work in progress. 
 Some functionality might not yet be fully decoupled from my own setup but the goal is to work toward this and have a generic solution for anyone.
 
+Video
+-----------
+[![Demo](http://img.youtube.com/vi/68rfm7rZtYY/0.jpg)](https://youtu.be/68rfm7rZtYY)
+
 Screenshots
 -----------
 #### Home screenshot
