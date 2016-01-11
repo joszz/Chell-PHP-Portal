@@ -4,7 +4,7 @@ var altPressed = false;
 
 $(function () {
     $.fancybox.defaults.margin = [70, 0, 60, 0];
-
+    getPHPSysInfo();
     initializeEventHandlers();
 
     checkDeviceStates();
@@ -27,6 +27,10 @@ function initializeEventHandlers() {
     $("a.fancybox.iframe").fancybox({ type: "iframe" });
     $(".shorten").shorten();
     $("a, button").vibrate();
+
+    $("div.cpu-model a").on("click", " div.sysinfo", function () {
+
+    });
 
     $("body").keydown(function (e) {
         if (altPressed) {
@@ -134,6 +138,83 @@ function checkDeviceStates() {
 
             });
         }(device, dependentMenuItems, icon, ip));
+    });
+}
+
+function getPHPSysInfo() {
+    $.get("/sysinfo/xml.php?plugin=complete&json", function (data) {
+        data = $.parseJSON(data);
+
+        $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
+        $("div.distro").html(data.Vitals["@attributes"].Distro);
+        $("<img />", {
+            src: "/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon,
+            alt: data.Vitals["@attributes"].Distro,
+            title: data.Vitals["@attributes"].Distro
+        }).prependTo("div.distro");
+        $("div.kernel").html(data.Vitals["@attributes"].Kernel);
+        $("div.uptime").html(data.Vitals["@attributes"].Uptime);
+        
+        $("span.update-packages").html("Packeges: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+        $("span.update-security").html("Security: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+
+        //Get processes
+        $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+            var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
+            var name = $("<div />", { class: "col-xs-10" });
+            var status = $("<div />", { class: "col-xs-2" });
+            var label = $("<span />", { class: "label" });
+
+            name.html(value["@attributes"].Name);
+            name.appendTo(listItem);
+            
+            if (value["@attributes"].Status == 1) {
+                label.html("On");
+                label.addClass("label-success");
+            }
+            else {
+                label.html("Off");
+                label.addClass("label-danger");
+            }
+
+            label.appendTo(status);
+            status.appendTo(listItem);
+            listItem.appendTo($("div.processes ul"));
+        });
+        
+        //Get CPU Model
+        $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
+        $("a#cpu-model-label").click(function () {
+            $("div#cpu-cores").slideToggle();
+            return false;
+        });
+
+        //Get CPU cores
+        $.each(data.Hardware.CPU.CpuCore, function (index, value) {
+            clone = $("div#cpu-cores div:first").clone();
+            clone.find(".cpu-core").html(data.MBInfo.Temperature.Item[index]["@attributes"].Label);
+            clone.find(".core-temp").html("Temp: " + data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase());
+            clone.find(".core-current").html("Current: " + (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + "GHz");
+            clone.find(".core-min").html("Min: " +  (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + "GHz");
+            clone.find(".core-max").html("Max: " + (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + "GHz");
+            clone.click(function () {
+                $(this).find(".core-stats").slideToggle();
+                return false;
+            });
+            clone.appendTo($("div#cpu-cores"));
+        });
+
+        ///TODO!
+        //Get memory
+        var memory = new Object();
+        memory.free = data.Memory["@attributes"].Free;
+        memory.used = data.Memory["@attributes"].Used;
+        memory.total = data.Memory["@attributes"].Total;
+        memory.percent = data.Memory["@attributes"].percent;
+
+        //Get hardware
+        var hardware = new Object();
+        hardware.MB = data.Hardware["@attributes"].Name;
     });
 }
 

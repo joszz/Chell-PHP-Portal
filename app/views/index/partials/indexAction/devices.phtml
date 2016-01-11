@@ -1,0 +1,27 @@
+<div class="col-xs-12 col-md-3">
+    <div class="panel panel-success pull-left devices">
+        <div class="panel-heading">
+            <a href="#" class="btn btn-default glyphicon glyphicon-refresh pull-right"></a>
+            <h4>Devices</h4>
+        </div>
+        <ul class="list-group">
+            <?php foreach($devices as $device) : ?>
+            <li class="list-group-item col-xs-12 col-md-12">
+                <div class="col-xs-7 col-md-6">
+                    <?php echo $device->name ?>
+                </div>
+                <div class="col-xs-5 col-md-6">
+                    <a class="btn btn-default disabled devicestate" data-ip="<?php echo $device->ip ?>" data-mac="<?php echo $device->mac ?>" data-shutdown-method="<?php echo $device->shutdown_method ?>">
+                        <span class="glyphicon glyphicon-refresh icon-refresh-animate"></span>
+                    </a>
+                    <?php if(!empty($device->webtemp)) : ?>
+                    <a href="devices/webtemp/?id=<?php echo $device->id ?>" class="fancybox iframe btn btn-default" title="Webtemp: <?php echo $device->name ?>">
+                        <span class="glyphicon glyphicon-dashboard"></span>
+                    </a>
+                    <?php endif ?>
+                </div>
+            </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+</div>

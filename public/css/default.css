@@ -140,13 +140,17 @@ nav div.navbar-collapse li:hover a {
   to {
     -o-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg); } }
+canvas,
 div.harddisks,
-div.devices {
+div.harddisks div.progress,
+div.devices,
+div.processes,
+div.temperatures,
+div.cpu {
   width: 100%; }
 
 div.harddisks div.progress {
   margin: 0;
-  width: 100%;
   position: relative; }
 
 div.harddisks div.progress div {
@@ -166,12 +170,11 @@ div.devices li.list-group-item div {
   line-height: 32px; }
 
 div.cpu iframe {
-  height: 346px; }
+  height: 347px; }
 
-canvas {
-  width: 100%; }
-
-div.shutdown {
+div.shutdown,
+div#cpu-cores,
+div.core-stats {
   display: none; }
 
 div.shutdown h2 {
