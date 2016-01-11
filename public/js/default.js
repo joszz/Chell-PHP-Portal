@@ -143,13 +143,14 @@ function getPHPSysInfo() {
 
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
         $("div.distro span").html(data.Vitals["@attributes"].Distro);
-        $("div.distro img").attr("src", "/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon);
+        $("div.distro div.icon").css("background-image", "url('/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon +"')");
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
         $("div.uptime").html(data.Vitals["@attributes"].Uptime);
         $("div.motherboard").html(data.Hardware["@attributes"].Name);
+        $("div.motherboard").shorten({showChars: 30});
         
-        $("span.update-packages").html("Packages: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
-        $("span.update-security").html("Security: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+        $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+        $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
 
         //Get processes
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
@@ -177,6 +178,7 @@ function getPHPSysInfo() {
         
         //Get CPU Model
         $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
+        $("a#cpu-model-label").shorten({ showChars: 30 });
         $("a#cpu-model-label").click(function () {
             $("div#cpu-cores").slideToggle();
             return false;
@@ -197,15 +199,8 @@ function getPHPSysInfo() {
             clone.appendTo($("div#cpu-cores"));
         });
 
-        ///TODO!
-        //Get memory
-
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
-
-        //Get hardware
-        var hardware = new Object();
-        hardware.MB = data.Hardware["@attributes"].Name;
     });
 }
 

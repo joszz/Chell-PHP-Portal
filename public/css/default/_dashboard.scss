@@ -29,8 +29,18 @@ div.harddisks div.progress-bar {
     position: relative;
 }
 
+li.os,
 div.devices li.list-group-item div {
     line-height: 32px;
+}
+
+li.os div.icon {
+    width: 32px;
+    height: 32px;
+}
+
+div.sysinfo a.morelink {
+    display: none;
 }
 
 div.cpu iframe {
