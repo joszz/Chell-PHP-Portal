@@ -4,14 +4,18 @@ var altPressed = false;
 
 $(function () {
     $.fancybox.defaults.margin = [70, 0, 60, 0];
-    getPHPSysInfo();
+    
     initializeEventHandlers();
-
+    getPHPSysInfo();
     checkDeviceStates();
     checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesTimeout * 1000);
 });
 
 function initializeEventHandlers() {
+    $("a.fancybox.iframe").fancybox({ type: "iframe" });
+    $(".shorten").shorten();
+    $("a, button").vibrate();
+
     $("div.devices").on("click", "a.btn-danger", wol);
     $("div.devices").on("click", "a.btn-success", openShutdownDialog);
     $("div.shutdown input[type='submit']").click(doShutdown);
@@ -22,14 +26,6 @@ function initializeEventHandlers() {
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesTimeout * 1000);
 
         return false;
-    });
-
-    $("a.fancybox.iframe").fancybox({ type: "iframe" });
-    $(".shorten").shorten();
-    $("a, button").vibrate();
-
-    $("div.cpu-model a").on("click", " div.sysinfo", function () {
-
     });
 
     $("body").keydown(function (e) {
@@ -146,16 +142,13 @@ function getPHPSysInfo() {
         data = $.parseJSON(data);
 
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
-        $("div.distro").html(data.Vitals["@attributes"].Distro);
-        $("<img />", {
-            src: "/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon,
-            alt: data.Vitals["@attributes"].Distro,
-            title: data.Vitals["@attributes"].Distro
-        }).prependTo("div.distro");
+        $("div.distro span").html(data.Vitals["@attributes"].Distro);
+        $("div.distro img").attr("src", "/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon);
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
         $("div.uptime").html(data.Vitals["@attributes"].Uptime);
+        $("div.motherboard").html(data.Hardware["@attributes"].Name);
         
-        $("span.update-packages").html("Packeges: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+        $("span.update-packages").html("Packages: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
         $("span.update-security").html("Security: " + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
 
         //Get processes
@@ -206,11 +199,9 @@ function getPHPSysInfo() {
 
         ///TODO!
         //Get memory
-        var memory = new Object();
-        memory.free = data.Memory["@attributes"].Free;
-        memory.used = data.Memory["@attributes"].Used;
-        memory.total = data.Memory["@attributes"].Total;
-        memory.percent = data.Memory["@attributes"].percent;
+
+        $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
+        $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
         //Get hardware
         var hardware = new Object();
