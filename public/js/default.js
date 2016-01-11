@@ -141,16 +141,31 @@ function getPHPSysInfo() {
     $.get("/sysinfo/xml.php?plugin=complete&json", function (data) {
         data = $.parseJSON(data);
 
+        //Sysinfo
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
+
         $("div.distro span").html(data.Vitals["@attributes"].Distro);
         $("div.distro div.icon").css("background-image", "url('/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon +"')");
+
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
-        $("div.uptime").html(data.Vitals["@attributes"].Uptime);
-        $("div.motherboard").html(data.Hardware["@attributes"].Name);
-        $("div.motherboard").shorten({showChars: 30});
-        
+
         $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
         $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+        
+        $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
+        $("a#cpu-model-label").click(function () {
+            $("div#cpu-cores").slideToggle();
+            return false;
+        });
+
+        $("div.motherboard").html(data.Hardware["@attributes"].Name);
+
+        $("div.motherboard, div.kernel, a#cpu-model-label").shorten({
+            width: 200,
+            tail: '...',
+            tooltip: true
+        });
+        $("div.uptime").html(data.Vitals["@attributes"].Uptime);
 
         //Get processes
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
@@ -176,14 +191,6 @@ function getPHPSysInfo() {
             listItem.appendTo($("div.processes ul"));
         });
         
-        //Get CPU Model
-        $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
-        $("a#cpu-model-label").shorten({ showChars: 30 });
-        $("a#cpu-model-label").click(function () {
-            $("div#cpu-cores").slideToggle();
-            return false;
-        });
-
         //Get CPU cores
         $.each(data.Hardware.CPU.CpuCore, function (index, value) {
             clone = $("div#cpu-cores div:first").clone();
