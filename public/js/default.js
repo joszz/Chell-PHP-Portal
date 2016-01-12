@@ -164,7 +164,16 @@ function getPHPSysInfo() {
             tail: '...',
             tooltip: true
         });
-        $("div.uptime").html(data.Vitals["@attributes"].Uptime);
+
+        var seconds = Math.floor(data.Vitals["@attributes"].Uptime);
+        var minutes = Math.floor(seconds / 60);
+        var hours = Math.floor(minutes / 60);
+        var days = Math.floor(hours / 24);
+
+        hours = ("0" + (hours - (days * 24))).slice(-2);
+        minutes = ("0" + (minutes - (days * 24 * 60) - (hours * 60))).slice(-2);
+        seconds = ("0" + (seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60))).slice(-2);
+        $("div.uptime").html(days + " days " + hours + ":" + minutes + ":" + seconds);
 
         //Get processes
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
@@ -210,6 +219,9 @@ function getPHPSysInfo() {
 
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
+
+        $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
+        $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
     });
 }
 
