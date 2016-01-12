@@ -1,0 +1,44 @@
+<nav class="navbar navbar-inverse navbar-fixed-top always-open">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" id="menu_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="/portal/">
+                <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" />
+                <span><?php echo $title ?></span>
+            </a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <?php foreach($menu->getItems(array('order' => 'name ASC'))  as $menuItem) : ?>
+                <?php if(strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
+
+                <li class="col-xs-6 col-sm-3 col-lg-2 hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip . '"' : '"' ?>>
+                    <a href="<?php echo $menuItem->url ?>" target="_blank">
+                        <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16" />
+                        <?php echo $menuItem->name ?>
+                    </a>
+                </li>
+                <?php endforeach ?>
+            </ul>
+
+            <div class="col-xs-6 user">
+                <a class="btn navbar-toggle disabled pull-left">
+                    <span class="glyphicon glyphicon-user"></span>
+                    &nbsp;&nbsp;&nbsp;<?php echo ucfirst($_SERVER['REMOTE_USER']) ?>
+                </a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn navbar-toggle pull-right settings" href="settings/">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

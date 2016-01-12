@@ -23,6 +23,7 @@ class FrontController
 
     public function __construct()
     {
+        $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
         $this->di = new FactoryDefault();
@@ -37,10 +38,12 @@ class FrontController
         $this->setSession();
 
         $this->application = new Application($this->di);
-        $this->setCSSCollection($this->application);
-        $this->setJSCollection($this->application);
-        $this->setMenu($this->application);
-        $this->setTitle($this->application);
+        $this->application->view->executionTime = $executionTime;
+
+        $this->setCSSCollection();
+        $this->setJSCollection();
+        $this->setMenu();
+        $this->setTitle();
     }
 
     private function setDisplayErrors()
@@ -106,46 +109,46 @@ class FrontController
         });
     }
 
-    private function setCSSCollection($application)
+    private function setCSSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
         $finalFile = 'css/final_' . $mtimeHash . '.css';
 
         $this->cleanupCompressedFiles($finalFile, '/css/final_*.css');
 
-        $application->assets
-                    ->collection('header')
-                    ->setTargetPath($finalFile)
-                    ->setTargetUri($finalFile);
+        $this->application->assets
+                          ->collection('header')
+                          ->setTargetPath($finalFile)
+                          ->setTargetUri($finalFile);
 
         if(!file_exists(getcwd() . '/' . $finalFile))
         {
-            $application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+            $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
 
-            foreach($this->css as $css) $application->assets->collection('header')->addCss('css/' . $css);
+            foreach($this->css as $css) $this->application->assets->collection('header')->addCss('css/' . $css);
         }
-        else $application->assets->collection('header')->addCss($finalFile);
+        else $this->application->assets->collection('header')->addCss($finalFile);
     }
 
-    private function setJSCollection($application)
+    private function setJSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
         $finalFile = 'js/final_' . $mtimeHash . '.js';
         
         $this->cleanupCompressedFiles($finalFile, '/js/final_*.js');
 
-        $application->assets
+        $this->application->assets
                     ->collection('footer')
                     ->setTargetPath($finalFile)
                     ->setTargetUri($finalFile);
 
         if(!file_exists(getcwd() . '/' . $finalFile))
         {
-            $application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
+            $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
 
-            foreach($this->js as $js) $application->assets->collection('footer')->addJs('js/' . $js);
+            foreach($this->js as $js) $this->application->assets->collection('footer')->addJs('js/' . $js);
         }
-        else $application->assets->collection('footer')->addJs($finalFile);
+        else $this->application->assets->collection('footer')->addJs($finalFile);
     }
 
     private function cleanupCompressedFiles($finalFile, $pattern)
@@ -175,18 +178,18 @@ class FrontController
         return md5($mtimes);
     }
 
-    private function setMenu($application)
+    private function setMenu()
     {
-        $application->view->menu = Menus::findFirst(array(
+        $this->application->view->menu = Menus::findFirst(array(
             'conditions' => 'id = ?1',
             'order'      => 'name',
             'bind'       => array(1 => 1),
         ));
     }
 
-    private function setTitle($application)
+    private function setTitle()
     {
-        $application->tag->setTitle($application->view->title = $this->title);
+        $this->application->tag->setTitle($this->application->view->title = $this->title);
     }
 
     public function tostring()
