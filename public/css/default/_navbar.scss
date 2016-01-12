@@ -42,3 +42,8 @@ nav div.navbar-collapse li:hover a {
     background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
     color: #FFF;
 }
+
+nav div.navbar-collapse li.disabled:hover a
+{
+    background: none;
+}

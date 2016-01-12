@@ -127,7 +127,10 @@ class FrontController
 
             foreach($this->css as $css) $this->application->assets->collection('header')->addCss('css/' . $css);
         }
-        else $this->application->assets->collection('header')->addCss($finalFile);
+        else 
+        {
+            $this->application->assets->collection('header')->addCss($finalFile);
+        }
     }
 
     private function setJSCollection()
@@ -148,7 +151,10 @@ class FrontController
 
             foreach($this->js as $js) $this->application->assets->collection('footer')->addJs('js/' . $js);
         }
-        else $this->application->assets->collection('footer')->addJs($finalFile);
+        else
+        {
+            $this->application->assets->collection('footer')->addJs($finalFile);
+        }
     }
 
     private function cleanupCompressedFiles($finalFile, $pattern)

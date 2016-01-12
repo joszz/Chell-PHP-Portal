@@ -32,6 +32,10 @@ function initializeEventHandlers() {
         return false;
     });
 
+    $("ul.nav li.disabled a").click(function () {
+        return false;
+    });
+
     $("body").keydown(function (e) {
         if (altPressed) {
             if (e.which == 77 && altPressed) {
@@ -209,9 +213,9 @@ function getPHPSysInfo() {
             var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
             var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
             var coreVCore = 0;
-            var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + "GHz";
-            var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + "GHz";
-            var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + "GHz";
+            var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + " GHz";
+            var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + " GHz";
+            var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + " GHz";
 
             $.each(data.MBInfo.Voltage.Item, function (index, value) {
                 if (value["@attributes"].Label == config.phpSysInfoVCore) {
@@ -222,7 +226,7 @@ function getPHPSysInfo() {
             clone = $("div#cpu-cores div:first").clone();
             clone.find(".cpu-core").html(coreLabel);
             clone.find(".core-temp").html("Temp: " + coreTemp);
-            clone.find(".core-vcore").html("vCore: " + coreVCore + "V");
+            clone.find(".core-vcore").html("vCore: " + coreVCore + " V");
             clone.find(".core-current").html("Current: " + coreSpeedCurrent);
             clone.find(".core-min").html("Min: " +  coreSpeedMin);
             clone.find(".core-max").html("Max: " + coreSpeedMax);
