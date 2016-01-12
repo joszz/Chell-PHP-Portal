@@ -17,6 +17,8 @@ class FrontController
     private $title;
     private $config;
     private $di;
+    private $js = array('jquery-2.2.0.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'default.js');
+    private $css = array('default.css', 'bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css');
 
     public function __construct()
     {
@@ -99,34 +101,45 @@ class FrontController
 
     private function setCSSCollection($application)
     {
+        $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
+        $finalFile = 'css/final_' . $mtimeHash . '.css';
         $application->assets
                     ->collection('header')
-                    ->setTargetPath('css/final.css')
-                    ->setTargetUri('css/final.css')
-                    ->addCss('css/default.css')
-                    ->addCss('css/bootstrap.css')
-                    ->addCss('css/bootstrap-theme.css')
-                    ->addCss('css/fancybox/jquery.fancybox.css')
-                    ->join(true)
-                    ->addFilter(new Cssmin())
-                    ;
+                    ->setTargetPath($finalFile)
+                    ->setTargetUri($finalFile);
+
+        if(!file_exists(getcwd() . '/' . $finalFile))
+        {
+            $application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+
+            foreach($this->css as $css) $application->assets->collection('header')->addCss('css/' . $css);
+        }
+        else $application->assets->collection('header')->addCss($finalFile);
     }
 
     private function setJSCollection($application)
     {
+        $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
+        $finalFile = 'js/final_' . $mtimeHash . '.js';
         $application->assets
                     ->collection('footer')
-                    ->setTargetPath('js/final.js')
-                    ->setTargetUri('js/final.js')
-                    ->addJs('js/jquery-2.2.0.js')
-                    ->addJs('js/fancybox/jquery.fancybox.js')
-                    ->addJs('js/bootstrap.js')
-                    ->addJs('js/jquery.shorten.js')
-                    ->addJs('js/jquery.vibrate.js')
-                    ->addJs('js/default.js')
-                    //;
-                    ->join(true)
-                    ->addFilter(new Jsmin());
+                    ->setTargetPath($finalFile)
+                    ->setTargetUri($finalFile);
+
+        if(!file_exists(getcwd() . '/' . $finalFile))
+        {
+            $application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
+
+            foreach($this->js as $js) $application->assets->collection('footer')->addJs('js/' . $js);
+        }
+        else $application->assets->collection('footer')->addJs($finalFile);
+    }
+
+    private function createMTimeHash(array $files, $basepath)
+    {
+        $mtimes = 0;
+        foreach($files as $file) $mtimes += filemtime($basepath . $file);
+        return md5($mtimes);
     }
 
     private function setMenu($application)
