@@ -14,7 +14,7 @@ div.progress {
     position: relative;
 }
 
-div.progress div {
+div.progress div.percent {
     text-align: center;
     z-index: 1;
     position: absolute;
@@ -23,10 +23,11 @@ div.progress div {
     text-shadow: 1px 1px 0px #fff;
 }
 
-div.harddisks div.progress-bar {
+div.progress-bar {
     border-radius: inherit;
     height: inherit;
     position: relative;
+    width: 0;
 }
 
 li.os,
@@ -39,6 +40,8 @@ li.os div.icon {
     height: 32px;
 }
 
+div.processes ul,
+div.sysinfo .value,
 div.sysinfo a.morelink {
     display: none;
 }

@@ -1,5 +1,4 @@
-﻿var checkDeviceStatesTimeout = 30, alertTimeout = 5;
-var checkDeviceStatesIntervalId, alertIntervalId;
+﻿var checkDeviceStatesIntervalId, alertIntervalId;
 var altPressed = false;
 
 $(function () {
@@ -138,7 +137,7 @@ function checkDeviceStates() {
 }
 
 function getPHPSysInfo() {
-    $.get("/sysinfo/xml.php?plugin=complete&json", function (data) {
+    $.get(phpSysInfoURL + "xml.php?plugin=complete&json", function (data) {
         data = $.parseJSON(data);
 
         //Sysinfo
@@ -205,6 +204,9 @@ function getPHPSysInfo() {
             });
             clone.appendTo($("div#cpu-cores"));
         });
+
+        $("div.sysinfo .value").fadeIn();
+        $("div.processes ul").slideDown();
 
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);

@@ -76,7 +76,7 @@
 			$this.data(options_identifier, options);
 
 			// for consistency with the text-overflow method (which requires these properties), but not actually neccessary.
-			this.style.display = "block";
+			//this.style.display = "block";
 			//this.style.overflow = "hidden"; // firefox: a floated li will cause the ul to have a "bottom padding" if this is set.
 			this.style.whiteSpace = "nowrap";
 
