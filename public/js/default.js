@@ -1,13 +1,18 @@
 ﻿var checkDeviceStatesIntervalId, alertIntervalId;
 var altPressed = false;
+var config;
 
 $(function () {
     $.fancybox.defaults.margin = [70, 0, 60, 0];
     
-    initializeEventHandlers();
-    getPHPSysInfo();
-    checkDeviceStates();
-    checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesTimeout * 1000);
+    $.get("index/dashboardsettings", function (data) {
+        config = $.parseJSON(data);
+        
+        initializeEventHandlers();
+        getPHPSysInfo();
+        checkDeviceStates();
+        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
+    });
 });
 
 function initializeEventHandlers() {
@@ -22,7 +27,7 @@ function initializeEventHandlers() {
     $("div.devices div.panel-heading a.glyphicon-refresh").click(function () {
         clearInterval(checkDeviceStatesIntervalId);
         checkDeviceStates();
-        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesTimeout * 1000);
+        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
 
         return false;
     });
@@ -137,7 +142,7 @@ function checkDeviceStates() {
 }
 
 function getPHPSysInfo() {
-    $.get(phpSysInfoURL + "xml.php?plugin=complete&json", function (data) {
+    $.get(config.phpSysInfoURL + "xml.php?plugin=complete&json", function (data) {
         data = $.parseJSON(data);
 
         //Sysinfo
@@ -201,12 +206,26 @@ function getPHPSysInfo() {
         
         //Get CPU cores
         $.each(data.Hardware.CPU.CpuCore, function (index, value) {
+            var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
+            var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
+            var coreVCore = 0;
+            var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + "GHz";
+            var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + "GHz";
+            var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + "GHz";
+
+            $.each(data.MBInfo.Voltage.Item, function (index, value) {
+                if (value["@attributes"].Label == config.phpSysInfoVCore) {
+                    coreVCore = value["@attributes"].Value;
+                }
+            });
+
             clone = $("div#cpu-cores div:first").clone();
-            clone.find(".cpu-core").html(data.MBInfo.Temperature.Item[index]["@attributes"].Label);
-            clone.find(".core-temp").html("Temp: " + data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase());
-            clone.find(".core-current").html("Current: " + (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + "GHz");
-            clone.find(".core-min").html("Min: " +  (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + "GHz");
-            clone.find(".core-max").html("Max: " + (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + "GHz");
+            clone.find(".cpu-core").html(coreLabel);
+            clone.find(".core-temp").html("Temp: " + coreTemp);
+            clone.find(".core-vcore").html("vCore: " + coreVCore + "V");
+            clone.find(".core-current").html("Current: " + coreSpeedCurrent);
+            clone.find(".core-min").html("Min: " +  coreSpeedMin);
+            clone.find(".core-max").html("Max: " + coreSpeedMax);
             clone.click(function () {
                 $(this).find(".core-stats").slideToggle();
                 return false;
@@ -230,5 +249,5 @@ function fadeOutAlert() {
         $("div.alert").fadeOut("fast", function () {
             $("div.alert").removeClass("alert-success alert-danger");
         });
-    }, alertTimeout * 1000);
+    }, config.alertTimeout * 1000);
 }
