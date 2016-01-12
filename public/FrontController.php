@@ -103,6 +103,9 @@ class FrontController
     {
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
         $finalFile = 'css/final_' . $mtimeHash . '.css';
+
+        $this->cleanupCompressedFiles($finalFile, '/css/final_*.css');
+
         $application->assets
                     ->collection('header')
                     ->setTargetPath($finalFile)
@@ -121,6 +124,9 @@ class FrontController
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
         $finalFile = 'js/final_' . $mtimeHash . '.js';
+        
+        $this->cleanupCompressedFiles($finalFile, '/js/final_*.js');
+
         $application->assets
                     ->collection('footer')
                     ->setTargetPath($finalFile)
@@ -133,6 +139,16 @@ class FrontController
             foreach($this->js as $js) $application->assets->collection('footer')->addJs('js/' . $js);
         }
         else $application->assets->collection('footer')->addJs($finalFile);
+    }
+
+    private function cleanupCompressedFiles($finalFile, $pattern)
+    {
+        $files = glob(getcwd() . $pattern);
+        
+        if(($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
+            unset($files[$key]);
+
+        array_map('unlink', $files);
     }
 
     private function createMTimeHash(array $files, $basepath)
