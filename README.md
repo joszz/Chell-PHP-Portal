@@ -24,7 +24,8 @@ Prerequisites
 - MySQL 5.x
 - [Phalcon PHP framework 2.x](https://phalconphp.com/)
 - Apache 2.x
-- [rCPU](https://github.com/davidsblog/rCPU)
+- [rCPU](https://github.com/davidsblog/rCPU) (optional)
+- - [rCPU](http://phpsysinfo.github.io/phpsysinfo/) (optional)
 
 Installation and configuration
 ------------------------------
