@@ -17,6 +17,7 @@ class FrontController
     private $title;
     private $config;
     private $di;
+    private $application;
     private $js = array('jquery-2.2.0.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'default.js');
     private $css = array('default.css', 'bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css');
 
@@ -34,6 +35,12 @@ class FrontController
         $this->setViewProvider();
         $this->setURLProvider();
         $this->setSession();
+
+        $this->application = new Application($this->di);
+        $this->setCSSCollection($this->application);
+        $this->setJSCollection($this->application);
+        $this->setMenu($this->application);
+        $this->setTitle($this->application);
     }
 
     private function setDisplayErrors()
@@ -146,15 +153,25 @@ class FrontController
         $files = glob(getcwd() . $pattern);
         
         if(($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
+        {
             unset($files[$key]);
+        }
 
-        array_map('unlink', $files);
+        if(count($files)) 
+        {
+            array_map('unlink', $files);
+        }
     }
 
     private function createMTimeHash(array $files, $basepath)
     {
         $mtimes = 0;
-        foreach($files as $file) $mtimes += filemtime($basepath . $file);
+        
+        foreach($files as $file)
+        {
+            $mtimes += filemtime($basepath . $file);
+        }
+
         return md5($mtimes);
     }
 
@@ -174,12 +191,6 @@ class FrontController
 
     public function tostring()
     {
-        $application = new Application($this->di);
-        $this->setCSSCollection($application);
-        $this->setJSCollection($application);
-        $this->setMenu($application);
-        $this->setTitle($application);
-
-        return $application->handle()->getContent();
+        return $this->application->handle()->getContent();
     }
 }
