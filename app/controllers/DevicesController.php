@@ -1,8 +1,17 @@
 <?php
-use Phalcon\Mvc\View;
 
+/**
+ * This controller is responsible for handling all actions that have to do with the devices in your network.
+ * 
+ * @package Controllers
+ */
 class DevicesController extends BaseController
 {
+    /**
+     * This action will try to send a WOL package to the device that is specified by $_GET['mac'].
+     * 
+     * @return  void
+     */
     public function wolAction()
     {
         if (isset($_GET['mac'])){
@@ -12,6 +21,11 @@ class DevicesController extends BaseController
         die;
     }
 
+    /**
+     * This action will try to send a shutdown message to the device specified by $_GET['ip'].
+     * 
+     * @return  void
+     */
     public function shutdownAction()
     {
         if (isset($_GET['ip'], $_GET['user'], $_GET['password'])){
@@ -21,6 +35,11 @@ class DevicesController extends BaseController
         die;
     }
 
+    /**
+     * This action will return the power state of each device specified in the database.
+     * 
+     * @return  A JSON encoded object with the state of each device
+     */
     public function stateAction()
     {
         $device = Devices::findFirst(array(
@@ -34,6 +53,11 @@ class DevicesController extends BaseController
         die(json_encode($state));
     }
 
+    /**
+     * Shows the webtemp image exports for all devices configured.
+     * 
+     * @return  The webtemp view
+     */
     public function webtempAction()
     {
         $this->view->setMainView('layouts/webtemp');

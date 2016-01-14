@@ -1,13 +1,17 @@
 <?php
 
+/**
+ * The model responsible for all actions related to menu items.
+ * 
+ * @package Models
+ */
 class MenuItems extends BaseModel
 {
-    public $id;
-    public $menuId;
-    public $parentId;
-    public $name;
-    public $url;
-
+    /**
+     * Sets the database relations
+     * 
+     * @return  void
+     */
     public function initialize()
     {
         $this->belongsTo(

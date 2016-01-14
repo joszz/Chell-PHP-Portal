@@ -50,7 +50,8 @@ div.cpu iframe {
     height: 340px;
 }
 
-div.shutdown,
+div#shutdown-dialog,
+div#wol-dialog,
 div#cpu-cores,
 div.core-stats {
     display: none;
@@ -58,4 +59,13 @@ div.core-stats {
 
 div.shutdown h2 {
     white-space: nowrap;
+}
+
+div#wol-dialog button {
+    margin-top: 15px;
+    width: 100px;
+}
+
+div#wol-dialog button#wol-yes {
+    margin-right: 15px;
 }

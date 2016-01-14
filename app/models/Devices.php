@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * The model responsible for all actions related to devices.
+ * 
+ * @package Models
+ */
 class Devices extends BaseModel
 {
+    /**
+     * Sets the database relations
+     * 
+     * @return  void
+     */
     public function initialize()
     {
         $this->hasMany(
@@ -11,11 +21,24 @@ class Devices extends BaseModel
         );
     }
 
+    /**
+     * Calls pingExec with IP and returns the state of the device.
+     * 
+     * @param mixed $ip Which device to ping
+     * @return bool Whether the device is on (true) or off (false)
+     */
     public function isDeviceOn($ip) 
     {
         return self::pingExec($ip) !== false;
     }
 
+    /**
+     * Pings a device and returns the response time.
+     * 
+     * @param mixed $host   Which host to ping
+     * @param mixed $ttl    The TimeToLive for the ping request. Defaults to 1 second
+     * @return bool|double  The time it took for the device to respond or false if failed.
+     */
     private function pingExec($host, $ttl = 1) 
     {
         $latency = false;
@@ -55,6 +78,14 @@ class Devices extends BaseModel
         return $latency;
     }
 
+    /**
+     * Wakes up a device by MAC address.
+     * 
+     * @param mixed $mac            The device to wake.
+     * @param mixed $socket_number  The port to send the magic packet to.
+     * @param mixed $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
+     * @return bool
+     */
     public function wakeOnLan($mac, $socket_number = '7', $repetition = 16) 
     {
         $addr_byte = explode(':', $mac);
@@ -95,6 +126,14 @@ class Devices extends BaseModel
         }
     }
 
+    /**
+     * Executes a RPC command to shutdown Windows based devices.
+     * 
+     * @param mixed $ip         The device to shutdown
+     * @param mixed $user       A valid Windows account to authenticate with.
+     * @param mixed $password   A valid Windows password to authenticate with.
+     * @return array
+     */
     public function shutdown($ip, $user, $password)
     {
         $ip = escapeshellcmd($ip);

@@ -1,7 +1,17 @@
 <?php
 
+/**
+ * The model repsonisble for all actions related to harddisks.
+ * 
+ * @package Models
+ */
 class Diskdrives extends BaseModel
 {
+    /**
+     * Calculates the total- and free space/percentage for each drive configured in the database.
+     * 
+     * @return array    An array with harddisk usage information.
+     */
     public function DiskStatisticsLocal()
     {
         $drivespace = array();

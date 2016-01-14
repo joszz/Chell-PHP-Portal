@@ -20,19 +20,16 @@ function initializeEventHandlers() {
     $(".shorten").shorten();
     $("a, button").vibrate();
 
-    $("div.devices").on("click", "a.btn-danger", wol);
+    $("div.devices").on("click", "a.btn-danger", openWolDialog);
+    $("div#wol-dialog button").click(wol);
     $("div.devices").on("click", "a.btn-success", openShutdownDialog);
-    $("div.shutdown input[type='submit']").click(doShutdown);
+    $("div#shutdown-dialog input[type='submit']").click(doShutdown);
 
     $("div.devices div.panel-heading a.glyphicon-refresh").click(function () {
         clearInterval(checkDeviceStatesIntervalId);
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
 
-        return false;
-    });
-
-    $("ul.nav li.disabled a").click(function () {
         return false;
     });
 
@@ -55,11 +52,24 @@ function initializeEventHandlers() {
     });
 }
 
-function wol() {
+function openWolDialog() {
     var name = $(this).closest("li").find("div:first").html().trim();
 
-    if (confirm("Are you sure you want to wake " + name + "?")) {
-        $.get("devices/wol?mac=" + $(this).data("mac"), function (name) {
+    $("div#wol-dialog h2 span").html(name);
+    $("div#wol-dialog input[name='mac']").val($(this).data("mac"));
+
+    $.fancybox({
+        content: $("div#wol-dialog").show(),
+    });
+}
+
+function wol() {
+    $.fancybox.close();
+
+    if ($(this).attr("id") == "wol-yes") {
+        var name = $(this).closest("div").find("h2 span").html().trim();
+
+        $.get("devices/wol?mac=" + $(this).closest("div").find("input[name='mac']").val(), function (name) {
             clearTimeout(alertIntervalId);
 
             $("div.alert").addClass("alert-success");
@@ -74,22 +84,22 @@ function wol() {
 function openShutdownDialog() {
     var name = $(this).closest("li").find("div:first").html().trim();
 
-    $("div.shutdown h2 span").html(name);
-    $("div.shutdown input[name='ip']").val($(this).data("ip"));
+    $("div#shutdown-dialog h2 span").html(name);
+    $("div#shutdown-dialog input[name='ip']").val($(this).data("ip"));
 
     $.fancybox({
-        content: $("div.shutdown").show(),
+        content: $("div#shutdown-dialog").show(),
         afterShow: function () {
-            $("div.shutdown input:first").focus();
+            $("div#shutdown-dialog input:first").focus();
         }
     });
 }
 
 function doShutdown() {
-    user        = $("div.shutdown input[name='user']").val();
-    password    = $("div.shutdown input[name='password']").val();
-    ip          = $("div.shutdown input[name='ip']").val();
-    name        = $("div.shutdown h2 span").html();
+    user        = $("div#shutdown-dialog input[name='user']").val();
+    password    = $("div#shutdown-dialog input[name='password']").val();
+    ip          = $("div#shutdown-dialog input[name='ip']").val();
+    name        = $("div#shutdown-dialog h2 span").html();
 
     $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (name) {
         $.fancybox.close();
@@ -114,6 +124,8 @@ function checkDeviceStates() {
         var ip                  = $(this).data("ip");
         var dependentMenuItems  = $("ul.nav li[data-ip='" + ip + "'");
 
+        dependentMenuItems.find("a").bind("click", false);
+
         $(this).removeClass("btn-danger btn-success");
         $(this).addClass("disabled");
 
@@ -136,6 +148,7 @@ function checkDeviceStates() {
                 }
                 else {
                     dependentMenuItems.removeClass("disabled");
+                    dependentMenuItems.find("a").unbind("click", false);
                 }
 
                 device.addClass("btn-" + (data["state"] ? "success" : "danger"));
@@ -157,8 +170,10 @@ function getPHPSysInfo() {
 
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
 
-        $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
-        $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+        if (data.Plugins.Plugin_UpdateNotifier != undefined) {
+            $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+            $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+        }
         
         $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
         $("a#cpu-model-label").click(function () {
