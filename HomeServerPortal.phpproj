@@ -66,12 +66,15 @@
   <ItemGroup>
     <Content Include="app\config\config.ini" />
     <Content Include="app\views\favicons.phtml" />
+    <Content Include="app\views\footer.phtml" />
     <Content Include="app\views\index\partials\indexAction\devices.phtml" />
     <Content Include="app\views\index\partials\indexAction\disks.phtml" />
     <Content Include="app\views\index\partials\indexAction\generic_list.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
+    <Content Include="app\views\index\partials\indexAction\wol.phtml" />
+    <Content Include="app\views\navbar.phtml" />
     <Content Include="public\css\bootstrap-theme.css" />
     <Content Include="public\css\bootstrap.css" />
     <Content Include="public\css\bootstrap.css.map" />
@@ -151,7 +154,6 @@
     <Content Include="public\css\fancybox\jquery.fancybox-buttons.css" />
     <Content Include="public\css\fancybox\jquery.fancybox-thumbs.css" />
     <Content Include="public\css\fancybox\jquery.fancybox.css" />
-    <Content Include="public\css\final.css" />
     <Content Include="public\css\default\_dashboard.scss" />
     <Content Include="public\css\default\_footer.scss" />
     <Content Include="public\css\default\_general.scss" />
@@ -238,8 +240,7 @@
     <Content Include="public\js\fancybox\jquery.fancybox-media.js" />
     <Content Include="public\js\fancybox\jquery.fancybox-thumbs.js" />
     <Content Include="public\js\fancybox\jquery.fancybox.js" />
-    <Content Include="public\js\final.js" />
-    <Content Include="public\js\jquery-2.2.0.js" />
+    <Content Include="public\js\jquery-2.2.1.js" />
     <Content Include="public\js\jquery.shorten.js" />
     <Content Include="public\js\jquery.vibrate.js" />
     <Content Include="watch.bat" />
