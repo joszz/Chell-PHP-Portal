@@ -18,7 +18,7 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-2.2.0.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'default.js');
+    private $js = array('jquery-2.2.1.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'default.js');
     private $css = array('default.css', 'bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css');
 
     public function __construct()
