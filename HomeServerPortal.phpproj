@@ -242,6 +242,7 @@
     <Content Include="public\js\fancybox\jquery.fancybox.js" />
     <Content Include="public\js\jquery-2.2.1.js" />
     <Content Include="public\js\jquery.shorten.js" />
+    <Content Include="public\js\jquery.tinytimer.js" />
     <Content Include="public\js\jquery.vibrate.js" />
     <Content Include="watch.bat" />
   </ItemGroup>
