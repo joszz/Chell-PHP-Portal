@@ -191,7 +191,7 @@ function getPHPSysInfo() {
         
         var date = new Date();
         date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
-        $("div.uptime").tinyTimer({ from: date, format: "%d days %h:%m:%s" });
+        $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 
         //Get processes
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
