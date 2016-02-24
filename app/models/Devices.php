@@ -49,7 +49,7 @@ class Devices extends BaseModel
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') 
         {
             // -n = number of pings; -i = ttl.
-            $exec_string = 'ping -n 1 -i ' . $ttl . ' ' . $host;
+            $exec_string = 'ping -n 1 -w 1 -i ' . $ttl . ' ' . $host;
         }
         // Exec string for UNIX-based systems (Mac, Linux).
         else 
