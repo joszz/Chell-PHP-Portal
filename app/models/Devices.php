@@ -55,7 +55,7 @@ class Devices extends BaseModel
         else 
         {
             // -n = numeric output; -c = number of pings; -t = ttl.
-            $exec_string = 'ping -n -c 1 -t ' . $ttl . ' ' . $host;
+            $exec_string = 'ping -n -c 1 -w 1 -t ' . $ttl . ' ' . $host;
         }
 
         exec($exec_string, $output, $return);

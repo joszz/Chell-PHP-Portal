@@ -203,7 +203,7 @@ function getPHPSysInfo() {
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
             var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
             var name = $("<div />", { class: "col-xs-10" });
-            var status = $("<div />", { class: "col-xs-2" });
+            var status = $("<div />", { class: "col-xs-2 text-right" });
             var label = $("<span />", { class: "label" });
 
             name.html(value["@attributes"].Name);
