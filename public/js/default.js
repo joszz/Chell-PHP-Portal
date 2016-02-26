@@ -10,6 +10,8 @@ $(function () {
         
         initializeEventHandlers();
         getPHPSysInfo();
+        getPHPSysInfoPSStatus();
+        getPHPSysInfoUpdateNotifier();
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
     });
@@ -30,6 +32,17 @@ function initializeEventHandlers() {
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
 
+        return false;
+    });
+
+    $("div.processes a.glyphicon-refresh").click(function () {
+        getPHPSysInfoPSStatus();
+        return false;
+    });
+
+    $("div.sysinfo a.glyphicon-refresh").click(function () {
+        getPHPSysInfo();
+        getPHPSysInfoUpdateNotifier();
         return false;
     });
 
@@ -152,16 +165,15 @@ function checkDeviceStates() {
                 }
 
                 device.addClass("btn-" + (data["state"] ? "success" : "danger"));
-
             });
         }(device, dependentMenuItems, icon, ip));
     });
 }
 
 function getPHPSysInfo() {
-    $.get(config.phpSysInfoURL + "xml.php?plugin=complete&json", function (data) {
-        data = $.parseJSON(data);
+    var d = new Date();
 
+    $.getJSON(config.phpSysInfoURL + "xml.php?json&" + d.getTime(), function (data) {
         //Sysinfo
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
 
@@ -169,11 +181,6 @@ function getPHPSysInfo() {
         $("div.distro div.icon").css("background-image", "url('/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon +"')");
 
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
-
-        if (data.Plugins.Plugin_UpdateNotifier != undefined) {
-            $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
-            $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
-        }
         
         $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
         $("a#cpu-model-label").click(function () {
@@ -193,30 +200,6 @@ function getPHPSysInfo() {
         date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
         $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 
-        //Get processes
-        $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
-            var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
-            var name = $("<div />", { class: "col-xs-10" });
-            var status = $("<div />", { class: "col-xs-2 text-right" });
-            var label = $("<span />", { class: "label" });
-
-            name.html(value["@attributes"].Name);
-            name.appendTo(listItem);
-            
-            if (value["@attributes"].Status == 1) {
-                label.html("On");
-                label.addClass("label-success");
-            }
-            else {
-                label.html("Off");
-                label.addClass("label-danger");
-            }
-
-            label.appendTo(status);
-            status.appendTo(listItem);
-            listItem.appendTo($("div.processes ul"));
-        });
-        
         //Get CPU cores
         $.each(data.Hardware.CPU.CpuCore, function (index, value) {
             var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
@@ -247,13 +230,58 @@ function getPHPSysInfo() {
         });
 
         $("div.sysinfo .value").fadeIn();
-        $("div.processes ul").slideDown();
 
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
         $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
         $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
+    });
+}
+
+function getPHPSysInfoPSStatus() {
+    var d = new Date();
+
+    $("div.processes ul").slideUp("fast", function(){
+        $("div.processes li").remove();
+
+        $.getJSON(config.phpSysInfoURL + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
+            $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+                var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
+                var name = $("<div />", { class: "col-xs-10" });
+                var status = $("<div />", { class: "col-xs-2 text-right" });
+                var label = $("<span />", { class: "label" });
+
+                name.html(value["@attributes"].Name);
+                name.appendTo(listItem);
+
+                if (value["@attributes"].Status == 1) {
+                    label.html("On");
+                    label.addClass("label-success");
+                }
+                else {
+                    label.html("Off");
+                    label.addClass("label-danger");
+                }
+
+                label.appendTo(status);
+                status.appendTo(listItem);
+                listItem.appendTo($("div.processes ul"));
+            });
+
+            $("div.processes ul").slideDown();
+        });
+    });
+}
+
+function getPHPSysInfoUpdateNotifier() {
+    var d = new Date();
+
+    $.getJSON(config.phpSysInfoURL + "xml.php?plugin=updatenotifier&json&" + d.getTime(), function (data) {
+        if (data.Plugins.Plugin_UpdateNotifier != undefined) {
+            $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+            $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+        }
     });
 }
 

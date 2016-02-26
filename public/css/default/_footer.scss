@@ -9,6 +9,13 @@
     z-index: 1;
 }
 
+footer a,
+footer a:hover,
+footer a:active
+{
+    color: #777;
+}
+
 @media only screen and (max-width : 767px)
 {
     footer div.pull-right {
