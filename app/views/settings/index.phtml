@@ -1,0 +1,33 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4>Settings</h4>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="#general">General</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#dashboard">Dashboard</a>
+            </li>
+            <li>
+                <a data-toggle="tab">Menu</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <form id="general" class="tab-pane fade active panel panel-square">
+                <?php foreach($form AS $element) : ?>
+                    <div class="form-group">
+                        <div class="control-label col-lg-2"><?php echo $element->label() ?></div>
+                        <div class="col-lg-10"><?php echo $element ?></div>
+                    </div>
+                <?php endforeach ?>
+            </form>
+
+            <form id="dashboard" class="tab-pane fade panel panel-square">
+                test
+            </form>
+        </div>
+    </div>
+</div>
