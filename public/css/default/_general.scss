@@ -6,12 +6,17 @@
 
 body#bootstrap {
     padding: 70px 0 52px;
-    overflow: auto;
+    overflow-y: scroll;
 }
 
 body.nopadding {
     padding: 0;
     overflow: auto;
+}
+
+*:active,
+*:focus {
+    outline: 0 !important;
 }
 
 img {
@@ -21,12 +26,12 @@ img {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300 !important;
+    font-weight: 300;
 }
 
 h4 {
-    margin: 0 !important;
-    line-height: 36px !important;
+    margin: 0;
+    line-height: 36px;
 }
 
 div.container-fluid {
@@ -35,6 +40,18 @@ div.container-fluid {
 
 .full-height {
     height: 100%;
+}
+
+.no-gutter {
+    padding: 0;
+}
+
+.no-gutter-left {
+    padding-left: 0;
+}
+
+.no-gutter-right {
+    padding-right: 0;
 }
 
 div.alert {

@@ -18,8 +18,8 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-2.2.1.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'default.js');
-    private $css = array('default.css', 'bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css');
+    private $js = array('jquery-2.2.3.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'jquery.tinytimer.js', 'waves.js', 'bootstrap-select/bootstrap-select.js', 'default.js');
+    private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 
     public function __construct()
     {
@@ -136,24 +136,72 @@ class FrontController
     private function setJSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
-        $finalFile = 'js/final_' . $mtimeHash . '.js';
+        $finalDefaultFile = 'js/default_' . $mtimeHash . '.min.js';
         
-        $this->cleanupCompressedFiles($finalFile, '/js/final_*.js');
+        $this->cleanupCompressedFiles($finalDefaultFile, '/js/default_*.min.js');
 
         $this->application->assets
-                    ->collection('footer')
-                    ->setTargetPath($finalFile)
-                    ->setTargetUri($finalFile);
+             ->collection('footer')
+             ->setTargetPath($finalDefaultFile)
+             ->setTargetUri($finalDefaultFile);
 
-        if(!file_exists(getcwd() . '/' . $finalFile))
+        if(!file_exists(getcwd() . '/' . $finalDefaultFile))
         {
             $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
-
-            foreach($this->js as $js) $this->application->assets->collection('footer')->addJs('js/' . $js);
+            foreach($this->js as $js)
+            {
+                $this->application->assets->collection('footer')->addJs('js/' . $js);
+            }
         }
         else
         {
-            $this->application->assets->collection('footer')->addJs($finalFile);
+            $this->application->assets->collection('footer')->addJs($finalDefaultFile);
+        }
+
+        //Dashboard file
+        $mtimeHash = $this->createMTimeHash(array('dashboard.js'), getcwd() . '/js/');
+        $finalDashboardFile = 'js/dashboard_' . $mtimeHash . '.min.js';
+
+        $this->cleanupCompressedFiles($finalDashboardFile, '/js/dashboard_*.min.js');
+        
+        $this->application->assets
+             ->collection('dashboard')
+             ->setTargetPath($finalDashboardFile)
+             ->setTargetUri($finalDashboardFile);
+
+        if(!file_exists(getcwd() . '/' . $finalDashboardFile))
+        {
+            $this->application->assets->collection('dashboard')
+                 ->addJs('js/dashboard.js')
+                ->join(true)
+                ->addFilter(new Jsmin());
+        }
+        else 
+        {
+            $this->application->assets->collection('dashboard')->addJs($finalDashboardFile);
+        }
+
+        //Settings file
+        $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
+        $finalSettingsFile = 'js/settings_' . $mtimeHash . '.min.js';
+
+        $this->cleanupCompressedFiles($finalSettingsFile, '/js/settings_*.min.js');
+        
+        $this->application->assets
+             ->collection('settings')
+             ->setTargetPath($finalSettingsFile)
+             ->setTargetUri($finalSettingsFile);
+
+        if(!file_exists(getcwd() . '/' . $finalSettingsFile))
+        {
+            $this->application->assets->collection('settings')
+                 ->addJs('js/settings.js')
+                ->join(true)
+                ->addFilter(new Jsmin());
+        }
+        else 
+        {
+            $this->application->assets->collection('settings')->addJs($finalSettingsFile);
         }
     }
 

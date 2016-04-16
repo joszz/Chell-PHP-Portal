@@ -4,29 +4,69 @@
     </div>
     <div class="panel-body">
         <ul class="nav nav-tabs">
-            <li class="active">
-                <a data-toggle="tab" href="#general">General</a>
-            </li>
+            <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
+                <li<?php echo $i++ == 0 ? ' class="active"' : null ?>>
+                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
+                </li>
+            <?php endforeach ?>
             <li>
-                <a data-toggle="tab" href="#dashboard">Dashboard</a>
-            </li>
-            <li>
-                <a data-toggle="tab">Menu</a>
+                <a data-toggle="tab" href="#menu">Menu</a>
             </li>
         </ul>
 
         <div class="tab-content">
-            <form id="general" class="tab-pane fade active panel panel-square">
-                <?php foreach($form AS $element) : ?>
-                    <div class="form-group">
-                        <div class="control-label col-lg-2"><?php echo $element->label() ?></div>
-                        <div class="col-lg-10"><?php echo $element ?></div>
+            <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
+                <form id="<?php echo strtolower($formId) ?>" action="<?php echo $formContent->getAction() ?>" method="post"
+                    class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
+                    <div class="form-group col-lg-12 col-xs-12">
+                        <button type="submit" class="btn btn-success pull-right">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </button>
                     </div>
-                <?php endforeach ?>
-            </form>
 
-            <form id="dashboard" class="tab-pane fade panel panel-square">
-                test
+                    <?php foreach($formContent AS $element) : ?>
+                        <div class="form-group col-lg-12 col-xs-12">
+                            <div class="control-label col-lg-2 col-xs-2 no-gutter-left text-right"><?php echo $element->label() ?></div>
+                            <div class="col-lg-10 col-xs-10 no-gutter"><?php echo $element ?></div>
+                        </div>
+                    <?php endforeach ?>
+
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-success pull-right">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </button>
+                    </div>
+                </form>
+            <?php endforeach ?>
+
+            <form id="menu" class="tab-pane fade panel panel-square" action="<?php echo $formMenu->getAction() ?>" method="post">
+                <div class="form-group col-lg-12">
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="glyphicon glyphicon-floppy-disk"></i>
+                    </button>
+                </div>
+                
+                <div class="form-group col-lg-12">
+                <?php $i= 0; foreach($formMenu AS $element) : ?>
+                    <?php if($i++ % 4 == 0) : ?>
+                        <div class="control-label col-lg-2 no-gutter-left text-right"><?php echo $element->label() ?></div>
+                    <?php endif ?> 
+                    
+                    <?php if(get_class($element) != 'Phalcon\Forms\Element\Hidden') : ?>
+                        <div class="col-lg-3 no-gutter-right"><?php echo $element ?></div>
+                    <?php else  : ?>
+                        <div class="col-lg-1 no-gutter-right actions">
+                            <a href="menuitem_delete?id=<?php echo $element->getValue() ?>" class="btn btn-danger glyphicon glyphicon-remove pull-right"></a>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                    <?php endif ?>
+                <?php endforeach ?>
+
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="glyphicon glyphicon-floppy-disk"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>

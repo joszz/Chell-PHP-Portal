@@ -21,7 +21,19 @@
 
     <div class="alert" role="alert"></div>
 
-    <?php $this->partial('footer') ?>
-    <?php $this->assets->outputJs('footer') ?>
+    <?php  
+    
+    $this->partial('footer');
+    $this->assets->outputJs('footer');
+
+    if($this->dispatcher->getControllerName() == 'index')
+    {
+        $this->assets->outputJs('dashboard');
+    }
+    else if($this->dispatcher->getControllerName() == 'settings')
+    {
+        $this->assets->outputJs('settings');
+    }
+   ?>
 </body>
 </html>

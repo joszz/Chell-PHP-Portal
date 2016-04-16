@@ -3,6 +3,6 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
     <StartAction>SpecificPage</StartAction>
-    <SpecificPageValue>app/views/devices/</SpecificPageValue>
+    <SpecificPageValue>app/config/</SpecificPageValue>
   </PropertyGroup>
 </Project>
