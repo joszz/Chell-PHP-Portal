@@ -1,3 +1,30 @@
+.panel-group .panel-heading {
+  padding: 0; }
+
+.panel-group .panel-heading a {
+  display: block;
+  padding: 5px 10px; }
+
+.panel-heading a:hover {
+  text-decoration: none; }
+
+.nav.nav-tabs li a,
+.nav.nav-tabs li.active > a:hover,
+.nav.nav-tabs li.active > a:active,
+.nav.nav-tabs li.active > a:focus {
+  border-bottom-width: 0px;
+  outline: none;
+  text-decoration: none; }
+
+.nav.nav-tabs li a {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+
+.tab-pane {
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #ddd; }
+
 body {
   font-family: "Roboto", sans-serif !important;
   font-weight: 300;
@@ -41,6 +68,12 @@ div.container-fluid {
 
 .no-gutter-right {
   padding-right: 0; }
+
+.hidden_not_important {
+  display: none; }
+
+.fancybox-wrap .dropdown-menu {
+  position: relative; }
 
 div.alert {
   position: fixed;
@@ -229,7 +262,7 @@ footer.navbar {
   padding: 15px 0;
   border-radius: 0;
   opacity: 0.9;
-  z-index: 1; }
+  z-index: 100; }
 
 footer a,
 footer a:hover,
@@ -248,7 +281,27 @@ footer a:active {
   width: 100%; }
 
 label {
-  line-height: 29px;
   font-weight: normal; }
+
+.table > tbody > tr > td {
+  border: 0; }
+
+.table > thead > tr > th {
+  line-height: 34px;
+  font-weight: 300;
+  font-size: 24px; }
+
+.table input,
+.bootstrap-select > .dropdown-toggle {
+  min-width: 100px; }
+
+span.input-group-addon label {
+  margin: 0; }
+
+th.actions {
+  min-width: 110px; }
+
+.actions .add {
+  margin-right: 10px; }
 
 /*# sourceMappingURL=default.css.map */

@@ -54,6 +54,16 @@ div.container-fluid {
     padding-right: 0;
 }
 
+.hidden_not_important
+{
+    display: none;
+}
+
+.fancybox-wrap .dropdown-menu
+{
+    position: relative;
+}
+
 div.alert {
     position: fixed;
     bottom: 15px;

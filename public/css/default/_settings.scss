@@ -9,6 +9,38 @@
 
 label
 {
-    line-height: 29px;
     font-weight: normal;
+}
+
+.table > tbody > tr > td
+{
+    border: 0;
+}
+
+.table > thead > tr > th
+{
+    line-height: 34px;
+    font-weight: 300;
+    font-size: 24px;
+}
+
+.table input,
+.bootstrap-select > .dropdown-toggle
+{
+    min-width: 100px;
+}
+
+span.input-group-addon label
+{
+    margin: 0;
+}
+
+th.actions
+{
+    min-width: 110px;
+}
+
+.actions .add
+{
+    margin-right: 10px;
 }

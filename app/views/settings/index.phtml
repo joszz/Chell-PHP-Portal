@@ -10,6 +10,9 @@
                 </li>
             <?php endforeach ?>
             <li>
+                <a data-toggle="tab" href="#devices">Devices</a>
+            </li>
+            <li>
                 <a data-toggle="tab" href="#menu">Menu</a>
             </li>
         </ul>
@@ -18,20 +21,22 @@
             <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
                 <form id="<?php echo strtolower($formId) ?>" action="<?php echo $formContent->getAction() ?>" method="post"
                     class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
-                    <div class="form-group col-lg-12 col-xs-12">
+                    <div class="form-group col-lg-12 col-xs-12 no-gutter">
                         <button type="submit" class="btn btn-success pull-right">
                             <i class="glyphicon glyphicon-floppy-disk"></i>
                         </button>
                     </div>
 
                     <?php foreach($formContent AS $element) : ?>
-                        <div class="form-group col-lg-12 col-xs-12">
-                            <div class="control-label col-lg-2 col-xs-2 no-gutter-left text-right"><?php echo $element->label() ?></div>
-                            <div class="col-lg-10 col-xs-10 no-gutter"><?php echo $element ?></div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><?php echo $element->label() ?></span>
+                            <?php echo $element ?>
                         </div>
+                    </div>
                     <?php endforeach ?>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 col-xs-12 no-gutter">
                         <button type="submit" class="btn btn-success pull-right">
                             <i class="glyphicon glyphicon-floppy-disk"></i>
                         </button>
@@ -39,35 +44,9 @@
                 </form>
             <?php endforeach ?>
 
-            <form id="menu" class="tab-pane fade panel panel-square" action="<?php echo $formMenu->getAction() ?>" method="post">
-                <div class="form-group col-lg-12">
-                    <button type="submit" class="btn btn-success pull-right">
-                        <i class="glyphicon glyphicon-floppy-disk"></i>
-                    </button>
-                </div>
-                
-                <div class="form-group col-lg-12">
-                <?php $i= 0; foreach($formMenu AS $element) : ?>
-                    <?php if($i++ % 4 == 0) : ?>
-                        <div class="control-label col-lg-2 no-gutter-left text-right"><?php echo $element->label() ?></div>
-                    <?php endif ?> 
-                    
-                    <?php if(get_class($element) != 'Phalcon\Forms\Element\Hidden') : ?>
-                        <div class="col-lg-3 no-gutter-right"><?php echo $element ?></div>
-                    <?php else  : ?>
-                        <div class="col-lg-1 no-gutter-right actions">
-                            <a href="menuitem_delete?id=<?php echo $element->getValue() ?>" class="btn btn-danger glyphicon glyphicon-remove pull-right"></a>
-                        </div>
-                    </div>
-                    <div class="form-group col-lg-12">
-                    <?php endif ?>
-                <?php endforeach ?>
 
-                    <button type="submit" class="btn btn-success pull-right">
-                        <i class="glyphicon glyphicon-floppy-disk"></i>
-                    </button>
-                </div>
-            </form>
+            <?php $this->partial('settings/partials/devices') ?>
+            <?php $this->partial('settings/partials/menu') ?>
         </div>
     </div>
 </div>

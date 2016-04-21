@@ -8,16 +8,21 @@ class SettingsGeneralForm extends Form
 {
     private $_config;
 
-    public function initialize($config)
+    public function __construct($config)
     {
         $this->_config = $config;
+        parent::__construct();
+    }
+
+    public function initialize()
+    {
         $this->_action = 'general';
 
         $title = new Text('title');
         $title->setLabel('Title');
         $title->setFilters(array('striptags', 'string'));
         $title->setAttributes(array('class' => 'form-control'));
-        $title->setDefault($config->application->title);
+        $title->setDefault($this->_config->application->title);
         $title->addValidators(array(
             new PresenceOf(array(
                 'Message' => 'Title is required'
@@ -33,7 +38,7 @@ class SettingsGeneralForm extends Form
 
         if($valid)
         {
-            $this->config->application->title = $data['title'];
+            $this->_config->application->title = $data['title'];
         }
 
         return $valid;

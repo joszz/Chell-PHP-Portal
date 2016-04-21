@@ -2,7 +2,7 @@
 var altPressed = false;
 
 $(function () {
-    $.fancybox.defaults.margin = [70, 0, 60, 0];
+    $.fancybox.defaults.margin = [70, 20, 60, 20];
     $("select").selectpicker({ width: '100%' });
 
     Waves.attach(".btn, button, div#navbar a");

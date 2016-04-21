@@ -1,0 +1,71 @@
+<form id="devices" class="tab-pane fade panel panel-square" action="<?php echo $formDevices->getAction() ?>" method="post">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover success">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>IP</th>
+                    <th>MAC</th>
+                    <th>Webtemp</th>
+                    <th>Shutdown</th>
+                    <th class="actions">
+                        <button type="submit" class="btn btn-success pull-right">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </button>
+                        <a class="btn btn-primary pull-right add" href="#new_device">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <?php $i= 0; foreach($formDevices AS $element) : ?>
+                <?php if($i % 6 == 0) : ?>
+                </tr>
+                <tr>
+                <?php endif ?>
+                    <?php if(get_class($element) != 'Phalcon\Forms\Element\Hidden') : ?>
+                     <td><?php echo $element ?></td>
+                    <?php else : ?>
+                    <td>
+                        <a href="devices_delete?id=<?php echo $element->getValue() ?>" class="btn btn-danger glyphicon glyphicon-remove pull-right"></a>
+                    </td>
+                    <?php endif ?>
+                <?php $i++;
+                      endforeach ?> 
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="actions">
+                        <button type="submit" class="btn btn-success pull-right">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                        </button>
+                        <a class="btn btn-primary pull-right add"  href="#new_device">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</form>
+
+<div class="hidden_not_important" id="new_device">
+    <h2>New device</h2>
+    <form  action="<?php echo $formNewDevice->getAction() ?>" method="post">
+        <?php foreach($formNewDevice AS $element) : ?>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><?php echo $element->label() ?></span>
+                <?php echo $element ?>
+            </div>
+        </div>
+        <?php endforeach ?>
+
+        <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-floppy-disk"></i>
+        </button>
+    </form>
+</div>

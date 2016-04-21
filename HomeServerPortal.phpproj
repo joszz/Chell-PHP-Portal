@@ -20,9 +20,11 @@
     <Compile Include="app\controllers\IndexController.php" />
     <Compile Include="app\controllers\SettingsController.php" />
     <Compile Include="app\forms\SettingsDevicesForm.php" />
-    <Compile Include="app\forms\SettingsMenuForm.php" />
+    <Compile Include="app\forms\SettingsDevicesNewForm.php" />
+    <Compile Include="app\forms\SettingsMenuItemsForm.php" />
     <Compile Include="app\forms\SettingsDashboardForm.php" />
     <Compile Include="app\forms\SettingsGeneralForm.php" />
+    <Compile Include="app\forms\SettingsMenuItemsNewForm.php" />
     <Compile Include="app\models\BaseModel.php" />
     <Compile Include="app\models\Devices.php" />
     <Compile Include="app\models\Diskdrives.php" />
@@ -33,6 +35,7 @@
     <Compile Include="app\views\index.phtml" />
     <Compile Include="app\views\layouts\webtemp.phtml" />
     <Compile Include="app\views\settings\index.phtml" />
+    <Compile Include="app\views\settings\partials\menu.phtml" />
     <Compile Include="public\.htaccess" />
     <Compile Include=".htaccess" />
     <Compile Include="public\css\default\_settings.scss" />
@@ -48,6 +51,7 @@
     <Folder Include="app\views\index\partials\indexAction\" />
     <Folder Include="app\views\layouts\" />
     <Folder Include="app\views\settings\" />
+    <Folder Include="app\views\settings\partials\" />
     <Folder Include="public\css\bootstrap\" />
     <Folder Include="public\css\bootstrap\mixins\" />
     <Folder Include="public\css\fancybox\" />
@@ -83,6 +87,7 @@
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\wol.phtml" />
     <Content Include="app\views\navbar.phtml" />
+    <Content Include="app\views\settings\partials\devices.phtml" />
     <Content Include="public\css\bootstrap-select.css" />
     <Content Include="public\css\bootstrap-theme.css" />
     <Content Include="public\css\bootstrap.css" />
@@ -160,6 +165,7 @@
     <Content Include="public\css\default.css" />
     <Content Include="public\css\default.css.map" />
     <Content Include="public\css\default\default.scss" />
+    <Content Include="public\css\default\_responsive-tabs.scss" />
     <Content Include="public\css\fancybox\jquery.fancybox-buttons.css" />
     <Content Include="public\css\fancybox\jquery.fancybox-thumbs.css" />
     <Content Include="public\css\fancybox\jquery.fancybox.css" />
@@ -293,6 +299,7 @@
     <Content Include="public\js\bootstrap-select\i18n\defaults-zh_CN.min.js" />
     <Content Include="public\js\bootstrap-select\i18n\defaults-zh_TW.js" />
     <Content Include="public\js\bootstrap-select\i18n\defaults-zh_TW.min.js" />
+    <Content Include="public\js\bootstrap-tabcollapse.js" />
     <Content Include="public\js\bootstrap.js" />
     <Content Include="public\js\bootstrap\affix.js" />
     <Content Include="public\js\bootstrap\alert.js" />

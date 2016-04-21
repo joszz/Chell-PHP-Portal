@@ -18,7 +18,7 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-2.2.3.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'jquery.tinytimer.js', 'waves.js', 'bootstrap-select/bootstrap-select.js', 'default.js');
+    private $js = array('jquery-2.2.3.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'jquery.tinytimer.js', 'waves.js', 'bootstrap-select/bootstrap-select.js', 'bootstrap-tabcollapse.js', 'default.js');
     private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 
     public function __construct()
@@ -112,9 +112,9 @@ class FrontController
     private function setCSSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
-        $finalFile = 'css/final_' . $mtimeHash . '.css';
+        $finalFile = 'css/compressed/final_' . $mtimeHash . '.css';
 
-        $this->cleanupCompressedFiles($finalFile, '/css/final_*.css');
+        $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
 
         $this->application->assets
                           ->collection('header')
@@ -136,9 +136,9 @@ class FrontController
     private function setJSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
-        $finalDefaultFile = 'js/default_' . $mtimeHash . '.min.js';
+        $finalDefaultFile = 'js/compressed/default_' . $mtimeHash . '.min.js';
         
-        $this->cleanupCompressedFiles($finalDefaultFile, '/js/default_*.min.js');
+        $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
 
         $this->application->assets
              ->collection('footer')
@@ -160,9 +160,9 @@ class FrontController
 
         //Dashboard file
         $mtimeHash = $this->createMTimeHash(array('dashboard.js'), getcwd() . '/js/');
-        $finalDashboardFile = 'js/dashboard_' . $mtimeHash . '.min.js';
+        $finalDashboardFile = 'js/compressed/dashboard_' . $mtimeHash . '.min.js';
 
-        $this->cleanupCompressedFiles($finalDashboardFile, '/js/dashboard_*.min.js');
+        $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
         
         $this->application->assets
              ->collection('dashboard')
@@ -183,7 +183,7 @@ class FrontController
 
         //Settings file
         $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
-        $finalSettingsFile = 'js/settings_' . $mtimeHash . '.min.js';
+        $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
 
         $this->cleanupCompressedFiles($finalSettingsFile, '/js/settings_*.min.js');
         

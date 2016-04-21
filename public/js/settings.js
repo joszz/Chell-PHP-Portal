@@ -4,7 +4,17 @@
         $("a[href='" + location.hash + "']").tab("show");
     }
 
-    $("form#menu a.glyphicon-remove").click(function () {
+    $(".nav-tabs a").click(function () {
+        location.hash = $(this).attr("href");
+    });
+
+    $("form a.glyphicon-remove").click(function () {
         return (confirm("Are you sure you want to delete this item?"));
     });
+
+    $(".actions .add").fancybox({
+        maxWidth: "400px"
+    });
+
+    $('.nav-tabs').tabCollapse();
 });
