@@ -155,6 +155,7 @@
     <Content Include="public\css\bootstrap\_responsive-utilities.scss" />
     <Content Include="public\css\bootstrap\_scaffolding.scss" />
     <Content Include="public\css\bootstrap\_tables.scss" />
+    <Content Include="public\css\bootstrap\_text-align.scss" />
     <Content Include="public\css\bootstrap\_theme.scss" />
     <Content Include="public\css\bootstrap\_thumbnails.scss" />
     <Content Include="public\css\bootstrap\_tooltip.scss" />

@@ -185,7 +185,7 @@ class FrontController
         $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
         $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
 
-        $this->cleanupCompressedFiles($finalSettingsFile, '/js/settings_*.min.js');
+        $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
         
         $this->application->assets
              ->collection('settings')

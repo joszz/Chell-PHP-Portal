@@ -12,7 +12,7 @@ class SettingsController extends BaseController
         );
 
         $this->view->formDevices = new SettingsDevicesForm(Devices::Find());
-        $this->view->formMenu = new SettingsMenuItemsForm(MenuItems::Find());
+        $this->view->formMenu = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
         $this->view->formNewMenuItem = new SettingsMenuItemsNewForm();
         $this->view->formNewDevice = new SettingsDevicesNewForm();
     }
@@ -100,7 +100,7 @@ class SettingsController extends BaseController
 
     public function menuAction()
     {
-        $form = new SettingsMenuForm($this->config);
+        $form = new SettingsMenuItemsForm($this->config);
         $data = $this->request->getPost();
         
         if($form->isValid($data))

@@ -10,6 +10,7 @@
 label
 {
     font-weight: normal;
+    line-height: 29px;
 }
 
 .table > tbody > tr > td
@@ -35,12 +36,27 @@ span.input-group-addon label
     margin: 0;
 }
 
-th.actions
+
+.actions
 {
-    min-width: 110px;
+    margin-left: 7px;
 }
 
-.actions .add
+.actions a.add
 {
-    margin-right: 10px;
+    margin-left: 10px;
+}
+
+ul.nav-tabs,
+div.tab-content
+{
+    display: none;
+}
+
+
+div.fancybox_form h2
+{
+    margin: 10px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #CCC;
 }

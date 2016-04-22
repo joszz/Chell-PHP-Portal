@@ -72,6 +72,9 @@ div.container-fluid {
 .hidden_not_important {
   display: none; }
 
+.table-responsive {
+  border: 0; }
+
 .fancybox-wrap .dropdown-menu {
   position: relative; }
 
@@ -281,7 +284,8 @@ footer a:active {
   width: 100%; }
 
 label {
-  font-weight: normal; }
+  font-weight: normal;
+  line-height: 29px; }
 
 .table > tbody > tr > td {
   border: 0; }
@@ -298,10 +302,19 @@ label {
 span.input-group-addon label {
   margin: 0; }
 
-th.actions {
-  min-width: 110px; }
+.actions {
+  margin-left: 7px; }
 
-.actions .add {
-  margin-right: 10px; }
+.actions a.add {
+  margin-left: 10px; }
+
+ul.nav-tabs,
+div.tab-content {
+  display: none; }
+
+div.fancybox_form h2 {
+  margin: 10px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #CCC; }
 
 /*# sourceMappingURL=default.css.map */
