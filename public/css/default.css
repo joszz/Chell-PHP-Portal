@@ -230,17 +230,17 @@ li.os div.icon {
   height: 32px; }
 
 div.processes ul,
-div.sysinfo .value,
-div.sysinfo a.morelink {
+div.sysinfo .value {
   display: none; }
+
+div.sysinfo .glyphicon-wrench {
+  margin-right: 15px; }
 
 div.cpu iframe {
   height: 340px; }
 
 div#shutdown-dialog,
-div#wol-dialog,
-div#cpu-cores,
-div.core-stats {
+div#wol-dialog {
   display: none; }
 
 div.shutdown h2 {

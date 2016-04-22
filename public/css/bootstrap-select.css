@@ -97,7 +97,7 @@ select.selectpicker {
   position: absolute;
 }
 .bootstrap-select.btn-group.bs-container .dropdown-menu {
-  z-index: 1060;
+  z-index: 9999;
 }
 .bootstrap-select.btn-group .dropdown-toggle .filter-option {
   display: inline-block;

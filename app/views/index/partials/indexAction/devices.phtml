@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-xs-2 col-sm-2 col-lg-3 text-right">
                     <?php if(!empty($device->webtemp)) : ?>
-                    <a href="devices/webtemp/?id=<?php echo $device->id ?>" class="fancybox iframe btn btn-default" title="Webtemp: <?php echo $device->name ?>">
+                    <a href="devices/webtemp/?id=<?php echo $device->id ?>" class="fancybox btn btn-default" data-fancybox-type="iframe" title="Webtemp: <?php echo $device->name ?>">
                         <span class="glyphicon glyphicon-dashboard"></span>
                     </a>
                     <?php endif ?>

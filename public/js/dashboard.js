@@ -157,16 +157,10 @@ function getPHPSysInfo() {
         $("div.distro div.icon").css("background-image", "url('/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
 
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
-
-        $("a#cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
-        $("a#cpu-model-label").click(function () {
-            $("div#cpu-cores").slideToggle();
-            return false;
-        });
-
+        $(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
         $("div.motherboard").html(data.Hardware["@attributes"].Name);
 
-        $("div.motherboard, div.kernel, a#cpu-model-label").shorten({
+        $("div.kernel").shorten({
             width: 200,
             tail: '...',
             tooltip: true
@@ -191,18 +185,34 @@ function getPHPSysInfo() {
                 }
             });
 
-            clone = $("div#cpu-cores div:first").clone();
+            clone = $("li.cpu-cores:first").clone();
+            clone.removeClass("hidden_not_important");
             clone.find(".cpu-core").html(coreLabel);
-            clone.find(".core-temp").html("Temp: " + coreTemp);
-            clone.find(".core-vcore").html("vCore: " + coreVCore + " V");
-            clone.find(".core-current").html("Current: " + coreSpeedCurrent);
-            clone.find(".core-min").html("Min: " + coreSpeedMin);
-            clone.find(".core-max").html("Max: " + coreSpeedMax);
-            clone.click(function () {
-                $(this).find(".core-stats").slideToggle();
-                return false;
-            });
-            clone.appendTo($("div#cpu-cores"));
+            clone.find(".core-temp").html(coreTemp);
+            clone.find(".core-vcore").html(coreVCore + " V");
+            clone.find(".core-current").html(coreSpeedCurrent);
+            clone.find(".core-min").html(coreSpeedMin);
+            clone.find(".core-max").html(coreSpeedMax);
+            clone.insertAfter($("li.cpu-cores:last"));
+        });
+
+        //Todo: foreach network device
+        var rx = Math.round(data.Network.NetDevice[0]["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+        var tx = Math.round(data.Network.NetDevice[0]["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+        var info = data.Network.NetDevice[0]["@attributes"].Info.split(";");
+
+        $(".lan-name").html(data.Network.NetDevice[0]["@attributes"].Name);
+        $(".lan-mac").html(info[0]);
+        $(".lan-ip").html(info[1]);
+        $(".lan-speed").html(info[2]);
+        $(".lan-rx").html(rx);
+        $(".lan-tx").html(tx);
+
+        $.each(data.MBInfo.Fans.Item, function (index, value) {
+            clone = $("li.fans .fan-stats div:first").clone();
+            clone.find(".name").html(value["@attributes"].Label);
+            clone.find(".value").html(value["@attributes"].Value + " RPM");
+            clone.appendTo($("li.fans .fan-stats"));
         });
 
         $("div.sysinfo .value").fadeIn();
@@ -212,6 +222,8 @@ function getPHPSysInfo() {
 
         $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
         $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
+
+        $(".sysinfo .glyphicon-wrench").removeClass("disabled");
     });
 }
 

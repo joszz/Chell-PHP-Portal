@@ -1,4 +1,5 @@
-﻿footer.navbar {
+﻿footer.navbar 
+{
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -18,7 +19,8 @@ footer a:active
 
 @media only screen and (max-width : 767px)
 {
-    footer div.pull-right {
+    footer div.pull-right
+    {
         display: none;
     }
 }

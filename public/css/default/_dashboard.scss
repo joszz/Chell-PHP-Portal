@@ -4,20 +4,24 @@ div.harddisks div.progress,
 div.devices,
 div.processes,
 div.temperatures,
-div.cpu {
+div.cpu
+{
     width: 100%;
 }
 
-div.panel ul div {
+div.panel ul div
+{
     padding: 0;
 }
 
-div.progress {
+div.progress
+{
     margin: 0;
     position: relative;
 }
 
-div.progress div.percent {
+div.progress div.percent
+{
     text-align: center;
     z-index: 1;
     position: absolute;
@@ -26,7 +30,8 @@ div.progress div.percent {
     text-shadow: 1px 1px 0px #fff;
 }
 
-div.progress-bar {
+div.progress-bar
+{
     border-radius: inherit;
     height: inherit;
     position: relative;
@@ -34,46 +39,57 @@ div.progress-bar {
 }
 
 li.os,
-div.devices li.list-group-item div {
+div.devices li.list-group-item div
+{
     line-height: 32px;
 }
 
-li.os div.icon {
+li.os div.icon
+{
     width: 32px;
     height: 32px;
 }
 
 div.processes ul,
 div.sysinfo .value,
-div.sysinfo a.morelink {
+{
     display: none;
 }
 
-div.cpu iframe {
+div.sysinfo .glyphicon-wrench
+{
+    margin-right: 15px;
+}
+
+div.cpu iframe
+{
     height: 340px;
 }
 
 div#shutdown-dialog,
-div#wol-dialog,
-div#cpu-cores,
-div.core-stats {
+div#wol-dialog
+{
     display: none;
 }
 
-div.shutdown h2 {
+div.shutdown h2
+{
     white-space: nowrap;
 }
 
-div#wol-dialog button {
+div#wol-dialog button
+{
     margin-top: 15px;
     width: 100px;
 }
 
-div#wol-dialog button#wol-yes {
+div#wol-dialog button#wol-yes
+{
     margin-right: 15px;
 }
 
-div.cpu iframe {
+div.cpu iframe
+{
     width: 100%;
     border: 0;
 }

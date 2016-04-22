@@ -3,7 +3,7 @@ var altPressed = false;
 
 $(function () {
     $.fancybox.defaults.margin = [70, 20, 60, 20];
-    $("select").selectpicker({ width: '100%' });
+    $("select").selectpicker({ width: "100%", container: "body" });
 
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
@@ -12,7 +12,14 @@ $(function () {
 });
 
 function initializeGlobalEventHandlers() {
-    $("a.fancybox.iframe").fancybox({ type: "iframe" });
+    $(".fancybox").fancybox({
+        afterLoad: function () {
+            $.extend(this, {
+                maxWidth: this.element.data("fancybox-maxwidth")
+            })
+        }
+    });
+
     $(".shorten").shorten();
     $("a, button").vibrate();
 
