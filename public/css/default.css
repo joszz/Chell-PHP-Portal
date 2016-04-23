@@ -73,6 +73,11 @@ img {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300; }
 
+h2 {
+  margin: 10px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #CCC; }
+
 h4 {
   margin: 0;
   line-height: 36px; }
@@ -139,6 +144,9 @@ nav div.navbar-collapse ul a {
   padding: 5px 10px;
   text-decoration: none; }
 
+@media only screen and (max-width: 767px) {
+  nav div.navbar-collapse ul a {
+    padding: 10px; } }
 nav div.navbar-collapse ul a img {
   float: left;
   margin: 2px 15px 0 0; }
@@ -151,6 +159,13 @@ nav div.navbar-collapse li:hover a {
 
 nav div.navbar-collapse li.disabled:hover a {
   background: none; }
+
+.nav {
+  margin-top: 0; }
+
+.nav > li {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #101010; }
 
 .glyphicon-spin,
 .icon-refresh-animate {
@@ -270,7 +285,6 @@ div.shutdown h2 {
   white-space: nowrap; }
 
 div#wol-dialog button {
-  margin-top: 15px;
   width: 100px; }
 
 div#wol-dialog button#wol-yes {
@@ -334,10 +348,5 @@ span.input-group-addon label {
 ul.nav-tabs,
 div.tab-content {
   display: none; }
-
-div.fancybox_form h2 {
-  margin: 10px 0 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #CCC; }
 
 /*# sourceMappingURL=default.css.map */

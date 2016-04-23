@@ -42,6 +42,14 @@ nav div.navbar-collapse ul a
     text-decoration: none;
 }
 
+@media only screen and (max-width : 767px)
+{
+nav div.navbar-collapse ul a
+{
+    padding: 10px;
+}
+}
+
 nav div.navbar-collapse ul a img
 {
     float: left;
@@ -59,4 +67,15 @@ nav div.navbar-collapse li:hover a
 nav div.navbar-collapse li.disabled:hover a
 {
     background: none;
+}
+
+.nav
+{
+    margin-top: 0;
+}
+
+.nav > li
+{
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid #101010;
 }

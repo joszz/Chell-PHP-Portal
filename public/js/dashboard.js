@@ -49,6 +49,7 @@ function openWolDialog() {
 
     $.fancybox({
         content: $("div#wol-dialog").show(),
+        closeBtn: false
     });
 }
 
