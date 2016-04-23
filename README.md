@@ -18,9 +18,9 @@ Screenshots
 #### Desktop menu screenshot
 ![Desktop menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/menu.png "Desktop menu")
 
-#### Desktop home screenshot
+#### Mobile home screenshot
 ![Mobile home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/mobile_home.png "Mobile home")
-#### Desktop menu screenshot
+#### Mobile menu screenshot
 ![Mobile menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/mobile_menu.png "Mobile menu")
 
 Prerequisites
