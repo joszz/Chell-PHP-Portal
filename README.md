@@ -13,15 +13,12 @@ Video
 
 Screenshots
 -----------
-#### Desktop home screenshot
-![Desktop home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.png "Desktop home")
+#### Home screenshot
+![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.png "Desktop home")
 #### Desktop menu screenshot
-![Desktop menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/menu.png "Desktop menu")
+![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_menu.png "Desktop menu")
 
-#### Mobile home screenshot
-![Mobile home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/mobile_home.png "Mobile home")
-#### Mobile menu screenshot
-![Mobile menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/mobile_menu.png "Mobile menu")
+![More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/screenshots)
 
 Prerequisites
 -------------
