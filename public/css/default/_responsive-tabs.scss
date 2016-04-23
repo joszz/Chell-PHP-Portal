@@ -1,26 +1,37 @@
-﻿.panel-group .panel-heading {
+﻿.panel-group .panel-heading
+{
     padding: 0
 }
-.panel-group .panel-heading a {
+
+.panel-group .panel-heading a
+{
     display: block;
     padding: 5px 10px;
 }
-.panel-heading a:hover{
+
+.panel-heading a:hover
+{
     text-decoration: none;
 }
+
 .nav.nav-tabs li a,
 .nav.nav-tabs li.active > a:hover,
 .nav.nav-tabs li.active > a:active,
-.nav.nav-tabs li.active > a:focus {
+.nav.nav-tabs li.active > a:focus
+{
     border-bottom-width: 0px;
     outline: none;
     text-decoration: none;
 }
-.nav.nav-tabs li a {
+
+.nav.nav-tabs li a
+{
     padding-top: 20px;
     padding-bottom: 20px;
 }
-.tab-pane {
+
+.tab-pane
+{
     background: #fff;
     padding: 10px;
     border: 1px solid #ddd;

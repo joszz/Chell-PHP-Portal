@@ -1,56 +1,68 @@
-﻿body {
+﻿body
+{
     font-family: "Roboto", sans-serif !important;
     font-weight: 300;
     overflow: hidden;
 }
 
-body#bootstrap {
+body#bootstrap
+{
     padding: 70px 0 52px;
     overflow-y: scroll;
 }
 
-body.nopadding {
+body.nopadding
+{
     padding: 0;
     overflow: auto;
 }
 
 *:active,
-*:focus {
+*:focus
+{
     outline: 0 !important;
 }
 
-img {
+img
+{
     display: inline-block;
     height: auto;
     max-width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6
+{
     font-weight: 300;
 }
 
-h4 {
+h4
+{
     margin: 0;
     line-height: 36px;
 }
 
-div.container-fluid {
+div.container-fluid
+{
     padding: 0;
 }
 
-.full-height {
+.full-height
+{
     height: 100%;
 }
 
-.no-gutter {
+.no-gutter
+{
     padding: 0;
 }
 
-.no-gutter-left {
+.no-gutter-left
+{
     padding-left: 0;
 }
 
-.no-gutter-right {
+.no-gutter-right
+{
     padding-right: 0;
 }
 
@@ -69,11 +81,12 @@ div.container-fluid {
     position: relative;
 }
 
-div.alert {
+div.alert
+{
     position: fixed;
     bottom: 15px;
     right: 15px;
-    z-index: 2;
+    z-index: 101;
     margin-bottom: 0;
     display: none;
 }

@@ -21,12 +21,6 @@
             <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
                 <form id="<?php echo strtolower($formId) ?>" action="<?php echo $formContent->getAction() ?>" method="post"
                     class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
-                    <div class="form-group col-lg-12 col-xs-12 no-gutter">
-                        <button type="submit" class="btn btn-success pull-left">
-                            <i class="glyphicon glyphicon-floppy-disk"></i>
-                        </button>
-                    </div>
-
                     <?php foreach($formContent AS $element) : ?>
                     <div class="form-group row">
                         <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
@@ -36,10 +30,12 @@
                     </div>
                     <?php endforeach ?>
 
-                    <div class="col-lg-12 col-xs-12 no-gutter">
-                        <button type="submit" class="btn btn-success pull-left">
-                            <i class="glyphicon glyphicon-floppy-disk"></i>
-                        </button>
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-3 col-xs-12">
+                            <button type="submit" class="btn btn-success">
+                                <i class="glyphicon glyphicon-floppy-disk"></i>
+                            </button>
+                        </div>
                     </div>
                 </form>
             <?php endforeach ?>

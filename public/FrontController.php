@@ -18,7 +18,17 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-2.2.3.js', 'fancybox/jquery.fancybox.js', 'bootstrap.js', 'jquery.shorten.js', 'jquery.vibrate.js', 'jquery.tinytimer.js', 'waves.js', 'bootstrap-select/bootstrap-select.js', 'bootstrap-tabcollapse.js', 'default.js');
+    private $js = array('jquery-2.2.3.js', 
+                        'fancybox/jquery.fancybox.js', 
+                        'bootstrap.js', 
+                        'bootstrap-select/bootstrap-select.js', 
+                        'bootstrap-tabcollapse.js', 
+                        'jquery.shorten.js', 
+                        'jquery.vibrate.js', 
+                        'jquery.tinytimer.js',
+                        'jquery.isloading.js',
+                        'waves.js', 
+                        'default.js');
     private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 
     public function __construct()

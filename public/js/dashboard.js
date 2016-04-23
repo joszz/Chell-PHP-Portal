@@ -34,7 +34,7 @@ function initializeDashboardEventHandlers() {
         return false;
     });
 
-    $("div.sysinfo a.glyphicon-refresh").click(function () {
+    $("div.sysinfo a.glyphicon-refresh, div#hardware a.glyphicon-refresh").click(function () {
         getPHPSysInfo();
         getPHPSysInfoUpdateNotifier();
         return false;
@@ -147,6 +147,11 @@ function checkDeviceStates() {
 }
 
 function getPHPSysInfo() {
+    $(".sysinfo, #hardware").isLoading({
+        text: "Loading",
+        position: "overlay"
+    });
+
     var d = new Date();
 
     $.getJSON(config.phpSysInfoURL + "xml.php?json&" + d.getTime(), function (data) {
@@ -154,23 +159,19 @@ function getPHPSysInfo() {
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
 
         $("div.distro span").html(data.Vitals["@attributes"].Distro);
-        $("div.distro div.icon").css("background-image", "url('/sysinfo/gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
+        $("div.distro div.icon").css("background-image", "url('" + config.phpSysInfoURL + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
 
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
         $(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
         $("div.motherboard").html(data.Hardware["@attributes"].Name);
-
-        $("div.kernel").shorten({
-            width: 200,
-            tail: '...',
-            tooltip: true
-        });
 
         var date = new Date();
         date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
         $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 
         //Get CPU cores
+        $("li.cpu-cores:gt(0)").remove();
+
         $.each(data.Hardware.CPU.CpuCore, function (index, value) {
             var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
             var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
@@ -184,8 +185,8 @@ function getPHPSysInfo() {
                     coreVCore = value["@attributes"].Value;
                 }
             });
-
-            clone = $("li.cpu-cores:first").clone();
+            
+            var clone = $("li.cpu-cores:first").clone();
             clone.removeClass("hidden_not_important");
             clone.find(".cpu-core").html(coreLabel);
             clone.find(".core-temp").html(coreTemp);
@@ -208,8 +209,10 @@ function getPHPSysInfo() {
         $(".lan-rx").html(rx);
         $(".lan-tx").html(tx);
 
+        $("li.fans .fan-stats > div:gt(0)").remove();
         $.each(data.MBInfo.Fans.Item, function (index, value) {
-            clone = $("li.fans .fan-stats div:first").clone();
+            
+            var clone = $("li.fans .fan-stats div:first").clone();
             clone.find(".name").html(value["@attributes"].Label);
             clone.find(".value").html(value["@attributes"].Value + " RPM");
             clone.appendTo($("li.fans .fan-stats"));
@@ -224,41 +227,46 @@ function getPHPSysInfo() {
         $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
 
         $(".sysinfo .glyphicon-wrench").removeClass("disabled");
+
+        $(".sysinfo, #hardware").isLoading("hide")
     });
 }
 
 function getPHPSysInfoPSStatus() {
+    $(".processes").isLoading({
+        text: "Loading",
+        position: "overlay"
+    });
+
     var d = new Date();
 
-    $("div.processes ul").slideUp("fast", function () {
-        $("div.processes li").remove();
+    $.getJSON(config.phpSysInfoURL + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
+        $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+            var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
+            var name = $("<div />", { class: "col-xs-10" });
+            var status = $("<div />", { class: "col-xs-2 text-right" });
+            var label = $("<span />", { class: "label" });
 
-        $.getJSON(config.phpSysInfoURL + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
-            $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
-                var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
-                var name = $("<div />", { class: "col-xs-10" });
-                var status = $("<div />", { class: "col-xs-2 text-right" });
-                var label = $("<span />", { class: "label" });
+            name.html(value["@attributes"].Name);
+            name.appendTo(listItem);
 
-                name.html(value["@attributes"].Name);
-                name.appendTo(listItem);
+            if (value["@attributes"].Status == 1) {
+                label.html("On");
+                label.addClass("label-success");
+            }
+            else {
+                label.html("Off");
+                label.addClass("label-danger");
+            }
 
-                if (value["@attributes"].Status == 1) {
-                    label.html("On");
-                    label.addClass("label-success");
-                }
-                else {
-                    label.html("Off");
-                    label.addClass("label-danger");
-                }
+            label.appendTo(status);
+            status.appendTo(listItem);
 
-                label.appendTo(status);
-                status.appendTo(listItem);
-                listItem.appendTo($("div.processes ul"));
-            });
-
-            $("div.processes ul").slideDown();
+            $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
+            listItem.appendTo($("div.processes ul"));
         });
+
+        $(".processes").isLoading("hide");
     });
 }
 

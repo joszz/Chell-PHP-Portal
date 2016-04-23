@@ -82,6 +82,7 @@
     <Content Include="app\views\index\partials\indexAction\devices.phtml" />
     <Content Include="app\views\index\partials\indexAction\disks.phtml" />
     <Content Include="app\views\index\partials\indexAction\generic_list.phtml" />
+    <Content Include="app\views\index\partials\indexAction\hardware.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />

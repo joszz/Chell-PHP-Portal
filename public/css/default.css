@@ -25,6 +25,29 @@
   padding: 10px;
   border: 1px solid #ddd; }
 
+.isloading-wrapper.isloading-right {
+  margin-left: 10px; }
+
+.isloading-overlay {
+  position: relative;
+  text-align: center;
+  border-radius: 3px;
+  z-index: 7001 !important; }
+
+.isloading-overlay .isloading-wrapper {
+  background: #FFF;
+  -webkit-border-radius: 7px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 7px;
+  -moz-background-clip: padding;
+  border-radius: 7px;
+  background-clip: padding-box;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 10px 20px;
+  top: 10%;
+  z-index: 7000; }
+
 body {
   font-family: "Roboto", sans-serif !important;
   font-weight: 300;
@@ -82,7 +105,7 @@ div.alert {
   position: fixed;
   bottom: 15px;
   right: 15px;
-  z-index: 2;
+  z-index: 101;
   margin-bottom: 0;
   display: none; }
 
@@ -129,6 +152,7 @@ nav div.navbar-collapse li:hover a {
 nav div.navbar-collapse li.disabled:hover a {
   background: none; }
 
+.glyphicon-spin,
 .icon-refresh-animate {
   -webkit-animation-name: rotateThis;
   -moz-animation-name: rotateThis;
@@ -229,7 +253,6 @@ li.os div.icon {
   width: 32px;
   height: 32px; }
 
-div.processes ul,
 div.sysinfo .value {
   display: none; }
 
