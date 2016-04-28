@@ -1,4 +1,5 @@
 ﻿var checkDeviceStatesIntervalId;
+var tinyTimerInterval;
 var config;
 
 $(function () {
@@ -6,8 +7,8 @@ $(function () {
         config = data;
 
         initializeDashboardEventHandlers();
-        getPHPSysInfo();
-        getPHPSysInfoPSStatus();
+        getPHPSysInfo(true);
+        getPHPSysInfoPSStatus(true);
         
         getPHPSysInfoUpdateNotifier();
         checkDeviceStates();
@@ -49,7 +50,14 @@ function openWolDialog() {
 
     $.fancybox({
         content: $("div#wol-dialog").show(),
-        closeBtn: false
+        closeBtn: false,
+        closeClick: false,
+        helpers: {
+            overlay: {
+                closeClick: false,
+                locked: true
+            }
+        },
     });
 }
 
@@ -81,26 +89,37 @@ function openShutdownDialog() {
         content: $("div#shutdown-dialog").show(),
         afterShow: function () {
             $("div#shutdown-dialog input:first").focus();
+        },
+        helpers: {
+            overlay: {
+                locked: true
+            }
         }
     });
 }
 
 function doShutdown() {
-    user = $("div#shutdown-dialog input[name='user']").val();
-    password = $("div#shutdown-dialog input[name='password']").val();
-    ip = $("div#shutdown-dialog input[name='ip']").val();
-    name = $("div#shutdown-dialog h2 span").html();
+    var user = $("div#shutdown-dialog input[name='user']").val();
+    var password = $("div#shutdown-dialog input[name='password']").val();
+    var ip = $("div#shutdown-dialog input[name='ip']").val();
+    var name = $("div#shutdown-dialog h2 span").html();
 
-    $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (name) {
+    $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
         $.fancybox.close();
         clearTimeout(alertIntervalId);
 
-        $("div.alert").addClass("alert-success");
-        $("div.alert").html("Shutdown command send to: " + name);
-        $("div.alert").fadeIn("fast");
+        if(data == "true") {
+            $("div.alert").addClass("alert-success");
+            $("div.alert").html("Shutdown command send to: " + name);
+        }
+        else {
+            $("div.alert").addClass("alert-danger");
+            $("div.alert").html("Shutdown command failed for: " + name);
+        }
 
+        $("div.alert").fadeIn("fast");
         fadeOutAlert();
-    }(name));
+    });
 
     return false;
 }
@@ -147,11 +166,15 @@ function checkDeviceStates() {
     });
 }
 
-function getPHPSysInfo() {
-    $(".sysinfo, #hardware").isLoading({
-        text: "Loading",
-        position: "overlay"
-    });
+function getPHPSysInfo(onload) {
+    onload = typeof onload === 'undefined' ? false : onload;
+
+    if(!onload) {
+        $(".sysinfo, #hardware").isLoading({
+            text: "Loading",
+            position: "overlay"
+        });
+    }
 
     var d = new Date();
 
@@ -168,6 +191,10 @@ function getPHPSysInfo() {
 
         var date = new Date();
         date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
+        
+        if ($("div.uptime").data("tinyTimer") != undefined) {
+            clearInterval($("div.uptime").data("tinyTimer").interval);
+        }
         $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 
         //Get CPU cores
@@ -212,7 +239,6 @@ function getPHPSysInfo() {
 
         $("li.fans .fan-stats > div:gt(0)").remove();
         $.each(data.MBInfo.Fans.Item, function (index, value) {
-            
             var clone = $("li.fans .fan-stats div:first").clone();
             clone.find(".name").html(value["@attributes"].Label);
             clone.find(".value").html(value["@attributes"].Value + " RPM");
@@ -229,15 +255,21 @@ function getPHPSysInfo() {
 
         $(".sysinfo .glyphicon-wrench").removeClass("disabled");
 
-        $(".sysinfo, #hardware").isLoading("hide")
+        if (!onload) {
+            $(".sysinfo, #hardware").isLoading("hide")
+        }
     });
 }
 
-function getPHPSysInfoPSStatus() {
-    $(".processes").isLoading({
-        text: "Loading",
-        position: "overlay"
-    });
+function getPHPSysInfoPSStatus(onload) {
+    onload = typeof onload === 'undefined' ? false : onload;
+
+    if (!onload) {
+        $(".processes").isLoading({
+            text: "Loading",
+            position: "overlay"
+        });
+    }
 
     var d = new Date();
 
@@ -267,7 +299,9 @@ function getPHPSysInfoPSStatus() {
             listItem.appendTo($("div.processes ul"));
         });
 
-        $(".processes").isLoading("hide");
+        if (!onload) {
+            $(".processes").isLoading("hide");
+        }
     });
 }
 

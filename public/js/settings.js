@@ -16,9 +16,5 @@
         return (confirm("Are you sure you want to delete this item?"));
     });
 
-    $(".actions .add").fancybox({
-        maxWidth: "400px"
-    });
-
     $('.nav-tabs').tabCollapse();
 });

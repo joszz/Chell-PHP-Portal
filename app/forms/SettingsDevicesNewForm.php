@@ -15,22 +15,22 @@ class SettingsDevicesNewForm extends Form
         $name = new Text('name');
         $name->setLabel('Devicename');
         $name->setFilters(array('striptags', 'string'));
-        $name->setAttributes(array('class' => 'form-control'));
+        $name->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
 
         $ip = new Text('ip');
         $ip->setLabel('IP');
         $ip->setFilters(array('striptags', 'string'));
-        $ip->setAttributes(array('class' => 'form-control'));
+        $ip->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
 
         $mac = new Text('mac');
         $mac->setLabel('MAC');
         $mac->setFilters(array('striptags', 'string'));
-        $mac->setAttributes(array('class' => 'form-control'));
+        $mac->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
 
         $webtemp = new Text('webtemp');
         $webtemp->setLabel('Webtemp path');
         $webtemp->setFilters(array('striptags', 'string'));
-        $webtemp->setAttributes(array('class' => 'form-control'));
+        $webtemp->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
 
         $shutdownMethod = new Select(
             'shutdown_method',

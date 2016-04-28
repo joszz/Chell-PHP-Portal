@@ -35,7 +35,7 @@
         <button type="submit" class="btn btn-success pull-left" title="Save">
             <i class="glyphicon glyphicon-floppy-disk"></i>
         </button>
-        <a class="btn btn-primary pull-left add" href="#new_menuitem" title="Add menu item">
+        <a class="btn btn-primary pull-left add fancybox" data-fancybox-maxwidth="400" href="#new_menuitem" title="Add menu item">
             <i class="glyphicon glyphicon-plus"></i>
         </a>
     </div>
@@ -48,8 +48,8 @@
         
             <?php if(get_class($element) != 'Phalcon\Forms\Element\Hidden') : ?>
             <div class="form-group col-lg-12 no-gutter">
-                <div class="col-lg-4 no-gutter-left"><?php echo $element->label() ?></div>
-                <div class="col-lg-8 no-gutter-right"><?php echo $element ?></div>
+                <div class="col-lg-4 no-gutter"><?php echo $element->label() ?></div>
+                <div class="col-lg-8 no-gutter"><?php echo $element ?></div>
             </div>
             <?php else : ?>
             <?php echo $element ?>

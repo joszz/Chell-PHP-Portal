@@ -13,17 +13,17 @@ class SettingsMenuItemsNewForm extends Form
 
         $name = new Text('name');
         $name->setFilters(array('striptags', 'string'));
-        $name->setAttributes(array('class' => 'form-control'));
+        $name->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
         $name->setLabel('Name');
 
         $url = new Text('url');
         $url->setFilters(array('striptags', 'string'));
-        $url->setAttributes(array('class' => 'form-control'));
+        $url->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
         $url->setLabel('URL');
 
         $icon = new Text('icon');
         $icon->setFilters(array('striptags', 'string'));
-        $icon->setAttributes(array('class' => 'form-control'));
+        $icon->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
         $icon->setLabel('Icon');
 
         $device = new Select(

@@ -36,7 +36,7 @@
         <button type="submit" class="btn btn-success pull-left" title="Save">
             <i class="glyphicon glyphicon-floppy-disk"></i>
         </button>
-        <a class="btn btn-primary pull-left add" href="#new_device" title="Add device">
+        <a class="btn btn-primary pull-left add fancybox" data-fancybox-maxwidth="400" href="#new_device" title="Add device">
             <i class="glyphicon glyphicon-plus"></i>
         </a>
     </div>
@@ -47,8 +47,8 @@
     <form action="<?php echo $formNewDevice->getAction() ?>" method="post">
         <?php foreach($formNewDevice AS $element) : ?>
         <div class="form-group col-lg-12 no-gutter">
-            <div class="col-lg-6 no-gutter-left"><?php echo $element->label() ?></div>
-            <div class="col-lg-6 no-gutter-right"><?php echo $element ?></div>
+            <div class="col-lg-6 no-gutter"><?php echo $element->label() ?></div>
+            <div class="col-lg-6 no-gutter"><?php echo $element ?></div>
         </div>
         <?php endforeach ?>
 

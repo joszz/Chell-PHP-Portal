@@ -3,11 +3,18 @@
     top: 0;
     margin: 0;
     opacity: 0.9;
+    z-index: 7500;
 }
 
 div#navbar
 {
     overflow: hidden;
+}
+
+.navbar-fixed-top .navbar-collapse, 
+.navbar-fixed-bottom .navbar-collapse
+{
+    max-height: 400px;
 }
 
 a.navbar-brand
@@ -27,12 +34,8 @@ div.user a,
 a.settings
 {
     margin: 8px 0;
+    padding: 6px 10px;
     color: #FFF;
-}
-
-div.user
-{
-    padding-left: 0;
 }
 
 nav div.navbar-collapse ul a
@@ -44,10 +47,10 @@ nav div.navbar-collapse ul a
 
 @media only screen and (max-width : 767px)
 {
-nav div.navbar-collapse ul a
-{
-    padding: 10px;
-}
+    nav div.navbar-collapse ul a
+    {
+        padding: 10px;
+    }
 }
 
 nav div.navbar-collapse ul a img
@@ -74,7 +77,7 @@ nav div.navbar-collapse li.disabled:hover a
     margin-top: 0;
 }
 
-.nav > li
+nav.navbar ul.nav > li
 {
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid #101010;

@@ -17,7 +17,12 @@ function initializeGlobalEventHandlers() {
             $.extend(this, {
                 maxWidth: this.element.data("fancybox-maxwidth")
             })
-        }
+        },
+        helpers: {
+            overlay: {
+                locked: true
+            }
+        },
     });
 
     $(".shorten").shorten();

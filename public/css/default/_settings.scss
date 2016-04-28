@@ -14,6 +14,15 @@ label
     line-height: 29px;
 }
 
+@media only screen and (max-width : 767px)
+{
+    label
+    {
+        line-height: initial;
+        margin-bottom: 0;
+    }
+}
+
 .table > tbody > tr > td
 {
     border: 0;
@@ -36,7 +45,6 @@ span.input-group-addon label
 {
     margin: 0;
 }
-
 
 .actions
 {

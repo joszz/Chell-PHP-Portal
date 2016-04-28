@@ -117,10 +117,15 @@ div.alert {
 nav.navbar-fixed-top {
   top: 0;
   margin: 0;
-  opacity: 0.9; }
+  opacity: 0.9;
+  z-index: 7500; }
 
 div#navbar {
   overflow: hidden; }
+
+.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+  max-height: 400px; }
 
 a.navbar-brand {
   padding-top: 10px;
@@ -134,10 +139,8 @@ a.navbar-brand img {
 div.user a,
 a.settings {
   margin: 8px 0;
+  padding: 6px 10px;
   color: #FFF; }
-
-div.user {
-  padding-left: 0; }
 
 nav div.navbar-collapse ul a {
   color: #FFF;
@@ -163,7 +166,7 @@ nav div.navbar-collapse li.disabled:hover a {
 .nav {
   margin-top: 0; }
 
-.nav > li {
+nav.navbar ul.nav > li {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid #101010; }
 
@@ -324,6 +327,10 @@ label {
   font-weight: normal;
   line-height: 29px; }
 
+@media only screen and (max-width: 767px) {
+  label {
+    line-height: initial;
+    margin-bottom: 0; } }
 .table > tbody > tr > td {
   border: 0; }
 

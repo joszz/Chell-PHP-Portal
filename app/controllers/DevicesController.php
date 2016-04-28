@@ -29,7 +29,8 @@ class DevicesController extends BaseController
     public function shutdownAction()
     {
         if (isset($_GET['ip'], $_GET['user'], $_GET['password'])){
-            echo print_r(Devices::shutdown($_GET['ip'], $_GET['user'], $_GET['password']));
+            $output = Devices::shutdown($_GET['ip'], $_GET['user'], $_GET['password']);
+            die(strpos($output[1], 'succeeded') !== false ? "true" : "false");
         }
 
         die;
