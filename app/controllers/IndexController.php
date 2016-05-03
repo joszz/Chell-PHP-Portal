@@ -13,6 +13,12 @@ class IndexController extends BaseController
      */
     public function indexAction()
     {
+        $this->view->menu = Menus::findFirst(array(
+            'conditions' => 'id = ?1',
+            'order'      => 'name',
+            'bind'       => array(1 => 1),
+        ));
+
         $this->view->disks = Diskdrives::DiskStatisticsLocal();
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
     }

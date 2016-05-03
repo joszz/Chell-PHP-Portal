@@ -8,9 +8,15 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 class LoginForm extends Form
 {
+    public function __construct($config)
+    {
+        $this->_config = $config;
+        parent::__construct();
+    }
+
     public function initialize()
     {
-        $this->_action = 'session/login';
+        $this->_action = $this->config->application->baseUri . 'session/login';
 
         $username = new Text('username');
         $username->setLabel('Username');

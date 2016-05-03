@@ -1,4 +1,6 @@
 <?php
+
+use Phalcon\Crypt;
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
@@ -50,7 +52,8 @@ class FrontController
         });
 
         $this->di->set('crypt', function() {
-            $crypt = new Phalcon\Crypt();
+            $crypt = new Crypt();
+            $crypt->setKey($this->config->application->phalconCryptKey);
             return $crypt;
         });
 
@@ -67,7 +70,6 @@ class FrontController
 
         $this->setCSSCollection();
         $this->setJSCollection();
-        $this->setMenu();
         $this->setTitle();
     }
 
@@ -198,8 +200,8 @@ class FrontController
         {
             $this->application->assets->collection('dashboard')
                  ->addJs('js/dashboard.js')
-                ->join(true)
-                ->addFilter(new Jsmin());
+                 ->join(true)
+                 ->addFilter(new Jsmin());
         }
         else 
         {
@@ -221,8 +223,8 @@ class FrontController
         {
             $this->application->assets->collection('settings')
                  ->addJs('js/settings.js')
-                ->join(true)
-                ->addFilter(new Jsmin());
+                 ->join(true)
+                 ->addFilter(new Jsmin());
         }
         else 
         {
@@ -255,15 +257,6 @@ class FrontController
         }
 
         return md5($mtimes);
-    }
-
-    private function setMenu()
-    {
-        $this->application->view->menu = Menus::findFirst(array(
-            'conditions' => 'id = ?1',
-            'order'      => 'name',
-            'bind'       => array(1 => 1),
-        ));
     }
 
     private function setTitle()

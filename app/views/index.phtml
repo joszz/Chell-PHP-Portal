@@ -12,7 +12,7 @@
     <?php $this->partial('favicons') ?>
 </head>
 
-<body id="bootstrap">
+<body id="bootstrap"<?php echo isset($bodybg) ? ' class="' . $bodybg . '"' : null ?>>
     <?php $this->partial('navbar') ?>
 
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">

@@ -5,12 +5,12 @@ use Phalcon\Mvc\Dispatcher;
 
 class SecurityPlugin extends Plugin
 {
-
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {
         $controller = $dispatcher->getControllerName();
         
-        if (!$this->session->get('auth') && $controller != 'session') {
+        if (!$this->session->get('auth') && $controller != 'session')
+        {
             $dispatcher->forward(
                 array(
                     'controller' => 'session',
@@ -19,6 +19,6 @@ class SecurityPlugin extends Plugin
             );
 
             return false;
-        } 
+        }
     }
 }
