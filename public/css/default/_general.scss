@@ -1,4 +1,10 @@
-﻿body
+﻿html,
+body
+{
+    height: 100%;
+}
+
+body
 {
     font-family: "Roboto", sans-serif !important;
     font-weight: 300;
@@ -7,7 +13,7 @@
 
 body#bootstrap
 {
-    padding: 70px 0 52px;
+    padding: 50px 0 52px;
     overflow-y: scroll;
 }
 
@@ -46,6 +52,11 @@ h4
 {
     margin: 0;
     line-height: 36px;
+}
+
+div.content
+{
+    padding-top: 20px;
 }
 
 div.container-fluid

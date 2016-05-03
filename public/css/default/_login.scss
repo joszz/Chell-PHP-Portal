@@ -1,0 +1,38 @@
+﻿.container.full-height
+{
+    display: table;
+    height: 100%;
+}
+
+.login
+{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.login .panel
+{
+    width: 300px;
+    margin: 0 auto;
+}
+
+.login input
+{
+    position: relative;
+}
+
+.login input:focus
+{
+    z-index:2;
+}
+
+.login input[type="text"]
+{
+    border-radius: 4px 4px 0 0;
+    margin-bottom: -1px;
+}
+
+.login input[type="password"]
+{
+    border-radius: 0 0 4px 4px;
+}

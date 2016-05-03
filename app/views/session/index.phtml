@@ -1,0 +1,20 @@
+<div class="login">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4>Login</h4>
+        </div>
+        <div class="panel-body">
+            <form action="<?php echo $form->getAction() ?>" method="post">
+
+                <?php foreach($form AS $element) : ?>
+                    <?php echo $element ?>
+                    <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>    
+                    <?php echo $element->label() ?>
+                    <?php endif ?>
+                <?php endforeach ?>
+
+                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+            </form>
+        </div>
+    </div>
+</div>

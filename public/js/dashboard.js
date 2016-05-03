@@ -250,8 +250,13 @@ function getPHPSysInfo(onload) {
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
-        $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
-        $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
+        if (data.Memory.Swap != undefined){
+            $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
+            $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
+        }
+        else {
+            $("div.swap").closest("li").hide();
+        }
 
         $(".sysinfo .glyphicon-wrench").removeClass("disabled");
 

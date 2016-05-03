@@ -18,7 +18,9 @@
     <Compile Include="app\controllers\BaseController.php" />
     <Compile Include="app\controllers\DevicesController.php" />
     <Compile Include="app\controllers\IndexController.php" />
+    <Compile Include="app\controllers\SessionController.php" />
     <Compile Include="app\controllers\SettingsController.php" />
+    <Compile Include="app\forms\LoginForm.php" />
     <Compile Include="app\forms\SettingsDevicesForm.php" />
     <Compile Include="app\forms\SettingsDevicesNewForm.php" />
     <Compile Include="app\forms\SettingsMenuItemsForm.php" />
@@ -30,6 +32,8 @@
     <Compile Include="app\models\Diskdrives.php" />
     <Compile Include="app\models\MenuItems.php" />
     <Compile Include="app\models\Menus.php" />
+    <Compile Include="app\models\Users.php" />
+    <Compile Include="app\plugins\SecurityPlugin.php" />
     <Compile Include="app\views\devices\webtemp.phtml" />
     <Compile Include="app\views\index\index.phtml" />
     <Compile Include="app\views\index.phtml" />
@@ -45,11 +49,13 @@
   <ItemGroup>
     <Folder Include="app\config\" />
     <Folder Include="app\forms\" />
+    <Folder Include="app\plugins\" />
     <Folder Include="app\views\index\" />
     <Folder Include="app\views\devices\" />
     <Folder Include="app\views\index\partials\" />
     <Folder Include="app\views\index\partials\indexAction\" />
     <Folder Include="app\views\layouts\" />
+    <Folder Include="app\views\session\" />
     <Folder Include="app\views\settings\" />
     <Folder Include="app\views\settings\partials\" />
     <Folder Include="public\css\bootstrap\" />
@@ -88,6 +94,7 @@
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\wol.phtml" />
     <Content Include="app\views\navbar.phtml" />
+    <Content Include="app\views\session\index.phtml" />
     <Content Include="app\views\settings\partials\devices.phtml" />
     <Content Include="public\css\bootstrap-select.css" />
     <Content Include="public\css\bootstrap-theme.css" />
@@ -168,6 +175,7 @@
     <Content Include="public\css\default.css.map" />
     <Content Include="public\css\default\default.scss" />
     <Content Include="public\css\default\_jquery.isloading.scss" />
+    <Content Include="public\css\default\_login.scss" />
     <Content Include="public\css\default\_responsive-tabs.scss" />
     <Content Include="public\css\fancybox\jquery.fancybox-buttons.css" />
     <Content Include="public\css\fancybox\jquery.fancybox-thumbs.css" />

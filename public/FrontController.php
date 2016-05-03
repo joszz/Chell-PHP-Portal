@@ -39,6 +39,21 @@ class FrontController
         $this->di = new FactoryDefault();
         $this->di->set('config', $this->config = new ConfigIni(APP_PATH . 'app/config/config.ini'));
 
+        $this->di->set('dispatcher', function () {
+            $eventsManager = new EventsManager();
+            $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
+
+            $dispatcher = new Dispatcher();
+            $dispatcher->setEventsManager($eventsManager);
+
+            return $dispatcher;
+        });
+
+        $this->di->set('crypt', function() {
+            $crypt = new Phalcon\Crypt();
+            return $crypt;
+        });
+
         $this->setDisplayErrors();
         $this->title = $this->config->application->title;
         $this->registerDirs();

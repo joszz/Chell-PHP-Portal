@@ -48,13 +48,17 @@
   top: 10%;
   z-index: 7000; }
 
+html,
+body {
+  height: 100%; }
+
 body {
   font-family: "Roboto", sans-serif !important;
   font-weight: 300;
   overflow: hidden; }
 
 body#bootstrap {
-  padding: 70px 0 52px;
+  padding: 50px 0 52px;
   overflow-y: scroll; }
 
 body.nopadding {
@@ -81,6 +85,9 @@ h2 {
 h4 {
   margin: 0;
   line-height: 36px; }
+
+div.content {
+  padding-top: 20px; }
 
 div.container-fluid {
   padding: 0; }
@@ -355,5 +362,30 @@ span.input-group-addon label {
 ul.nav-tabs,
 div.tab-content {
   display: none; }
+
+.container.full-height {
+  display: table;
+  height: 100%; }
+
+.login {
+  display: table-cell;
+  vertical-align: middle; }
+
+.login .panel {
+  width: 300px;
+  margin: 0 auto; }
+
+.login input {
+  position: relative; }
+
+.login input:focus {
+  z-index: 2; }
+
+.login input[type="text"] {
+  border-radius: 4px 4px 0 0;
+  margin-bottom: -1px; }
+
+.login input[type="password"] {
+  border-radius: 0 0 4px 4px; }
 
 /*# sourceMappingURL=default.css.map */
