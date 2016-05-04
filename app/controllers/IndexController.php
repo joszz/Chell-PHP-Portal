@@ -21,6 +21,8 @@ class IndexController extends BaseController
 
         $this->view->disks = Diskdrives::DiskStatisticsLocal();
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
+        $this->view->movies = KodiVideoModel::getLatestMovies();
+        $this->view->albums = KodiMusicModel::getLatestAlbums();
     }
 
     /**

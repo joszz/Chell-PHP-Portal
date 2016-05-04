@@ -1,13 +1,12 @@
-<div class="row">
-    <?php $this->partial('index/partials/indexAction/sysinfo') ?>
-    <?php $this->partial('index/partials/indexAction/devices') ?>
-    <?php $this->partial('index/partials/indexAction/disks') ?>
-</div>
-
-<div class="row">
-    <?php $this->partial('index/partials/indexAction/generic_list', array('title' => 'Processes')) ?>
-    <?php $this->partial('index/partials/indexAction/rcpu') ?>
-</div>
+<?php $this->partial('index/partials/indexAction/sysinfo') ?>
+<?php $this->partial('index/partials/indexAction/devices') ?>
+<div class="clearfix visible-sm"></div>
+<?php $this->partial('index/partials/indexAction/disks') ?>
+<div class="clearfix visible-lg visible-md"></div>
+<?php $this->partial('index/partials/indexAction/generic_list', array('title' => 'Processes')) ?>
+<?php $this->partial('index/partials/indexAction/rcpu') ?>
 
 <?php $this->partial('index/partials/indexAction/shutdown') ?>
 <?php $this->partial('index/partials/indexAction/wol') ?>
+<?php $this->partial('index/partials/indexAction/latest_movies') ?>
+<?php $this->partial('index/partials/indexAction/latest_albums') ?>

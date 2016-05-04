@@ -95,13 +95,30 @@ class FrontController
     // Setup the database service
     private function setDB()
     {
-        $config = $this->config;
-        $this->di->set('db', function() use ($config){
+        $this->di->set('db', function() {
             return new DbAdapter(array(
                 'host'     => $this->config->database->host,
                 'username' => $this->config->database->username,
                 'password' => $this->config->database->password,
                 'dbname'   => $this->config->database->name
+            ));
+        });
+
+        $this->di->set('dbKodiMusic', function() {
+            return new DbAdapter(array(
+                'host'     => $this->config->database->host,
+                'username' => $this->config->database->username,
+                'password' => $this->config->database->password,
+                'dbname'   => $this->config->database->kodiMusic
+            ));
+        });
+
+        $this->di->set('dbKodiVideo', function() {
+            return new DbAdapter(array(
+                'host'     => $this->config->database->host,
+                'username' => $this->config->database->username,
+                'password' => $this->config->database->password,
+                'dbname'   => $this->config->database->kodiVideo
             ));
         });
     }

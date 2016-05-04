@@ -37,8 +37,8 @@ class SessionController extends BaseController
     {
         if ($this->request->isPost())
         {
-            $username = $this->request->getPost('username');
-            $password = $this->request->getPost('password');
+            $username = trim($this->request->getPost('username'));
+            $password = trim($this->request->getPost('password'));
             $rememberMe = $this->request->getPost('rememberme');
         }
         else if( $this->cookies->has('username') && $this->cookies->has('password'))
@@ -46,7 +46,7 @@ class SessionController extends BaseController
             $username = trim($this->cookies->get('username')->getValue());
             $password = trim($this->cookies->get('password')->getValue());
         }
-        
+
         $user = Users::findFirst(
             array(
                 "username = :username:",

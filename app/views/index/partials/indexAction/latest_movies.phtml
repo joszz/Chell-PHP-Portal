@@ -1,0 +1,23 @@
+<div class="col-xs-12 col-sm-8 col-lg-4">
+    <div class="panel panel-success movies">
+        <div class="panel-heading">
+            <h4>Latest movies</h4>
+        </div>
+        <div class="panel-body">
+            <?php $i = 0; foreach($movies as $movie) : ?>
+            <img src="<?php echo $movie['thumb'] ?>"<?php echo $i++ > 0 ? ' class="hidden_not_important"' : null ?> />
+            <?php $i++;
+                  endforeach ?> 
+
+            <nav>
+                <ul class="pagination pagination-sm">
+                    <?php for($i = 1; $i <= count($movies); $i++) : ?>
+                    <li<?php echo $i == 1 ? ' class="active"' : null ?>>
+                        <a href="#"><?php echo $i ?></a>
+                    </li>
+                    <?php endfor ?>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

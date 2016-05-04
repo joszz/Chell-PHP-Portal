@@ -1,5 +1,4 @@
-﻿var checkDeviceStatesIntervalId;
-var tinyTimerInterval;
+﻿var checkDeviceStatesIntervalId, rotateMoviesInterval, rotateAlbumsInterval;
 var config;
 
 $(function () {
@@ -40,6 +39,40 @@ function initializeDashboardEventHandlers() {
         getPHPSysInfoUpdateNotifier();
         return false;
     });
+
+    rotateMoviesInterval = setInterval(function () { rotate("movies"); }, config.rotateMoviesTimeout * 1000);
+    $("div.movies li a").click(function () {
+        clearInterval(rotateMoviesInterval);
+        rotate("movies", parseInt($(this).html()) - 1);
+        rotateMoviesInterval = setInterval(function () { rotate("movies"); }, config.rotateMoviesTimeout * 1000);
+
+        return false;
+    });
+
+    rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
+    $("div.albums li a").click(function () {
+        clearInterval(rotateAlbumsInterval);
+        rotate("albums", parseInt($(this).html()) - 1);
+        rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
+
+        return false;
+    });
+}
+
+function rotate(which, nextIndex) {
+    var parent = $("div." + which);
+    var currentIndex = parseInt(parent.find("li.active a").html()) - 1;
+
+    if(typeof nextIndex === 'undefined'){
+        nextIndex = $("div.movies li:eq(" + (currentIndex + 1) + ")").length == 1 ? currentIndex + 1 : 0;
+    }
+
+    parent.find("li:eq(" + nextIndex + ")").addClass("active");
+    parent.find("li:eq(" + currentIndex + ")").removeClass("active");
+
+    parent.find("img:eq(" + currentIndex + ")").fadeOut("fast", function () {
+        parent.find("img:eq(" + nextIndex + ")").fadeIn("fast");
+    })
 }
 
 function openWolDialog() {

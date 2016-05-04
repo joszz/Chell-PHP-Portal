@@ -27,9 +27,12 @@
     <Compile Include="app\forms\SettingsDashboardForm.php" />
     <Compile Include="app\forms\SettingsGeneralForm.php" />
     <Compile Include="app\forms\SettingsMenuItemsNewForm.php" />
+    <Compile Include="app\forms\SettingsUsersForm.php" />
     <Compile Include="app\models\BaseModel.php" />
     <Compile Include="app\models\Devices.php" />
     <Compile Include="app\models\Diskdrives.php" />
+    <Compile Include="app\models\KodiMusicModel.php" />
+    <Compile Include="app\models\KodiVideoModel.php" />
     <Compile Include="app\models\MenuItems.php" />
     <Compile Include="app\models\Menus.php" />
     <Compile Include="app\models\Users.php" />
@@ -89,6 +92,8 @@
     <Content Include="app\views\index\partials\indexAction\disks.phtml" />
     <Content Include="app\views\index\partials\indexAction\generic_list.phtml" />
     <Content Include="app\views\index\partials\indexAction\hardware.phtml" />
+    <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />
+    <Content Include="app\views\index\partials\indexAction\latest_music.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
