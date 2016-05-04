@@ -92,32 +92,38 @@ div.cpu iframe
     border: 0;
 }
 
-div.movies img {
+div.movie.item,
+div.album.item
+{
+    height: 320px;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+div.album.item div.overlay
+{
+    position: absolute;
     width: 100%;
+    height: 70px;
+    bottom: 0;
+    background-color: #FFF;
+    opacity: 0.8;
+    z-index: 1;
 }
 
-.pagination
+div.album.item div.artists,
+div.album.item div.title
 {
-    margin-bottom: 0;
+    width: 100%;
+    bottom: 10px;
+    position: absolute;
+    text-align: center;
+    z-index: 2;
 }
 
-.pagination > .active > a, 
-.pagination > .active > a:hover, 
-.pagination > .active > a:focus
+div.album.item div.artists
 {
-    background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
-    border-color: #d6e9c6;
-    color: #3c763d;
-}
-
-.pagination > li > a
-{
-    color: #333;
-}
-
-.pagination > li > a:hover,
-.pagination > li > a:active,
-.pagination > li > a:focus
-{
-    color: #3c763d;
+    bottom: 40px;
 }

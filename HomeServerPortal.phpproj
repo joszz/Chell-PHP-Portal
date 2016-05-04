@@ -93,7 +93,7 @@
     <Content Include="app\views\index\partials\indexAction\generic_list.phtml" />
     <Content Include="app\views\index\partials\indexAction\hardware.phtml" />
     <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />
-    <Content Include="app\views\index\partials\indexAction\latest_music.phtml" />
+    <Content Include="app\views\index\partials\indexAction\latest_albums.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />

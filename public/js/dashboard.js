@@ -46,15 +46,17 @@ function initializeDashboardEventHandlers() {
         rotate("movies", parseInt($(this).html()) - 1);
         rotateMoviesInterval = setInterval(function () { rotate("movies"); }, config.rotateMoviesTimeout * 1000);
 
+        $(this).blur();
         return false;
     });
 
-    rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
+    //rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
     $("div.albums li a").click(function () {
         clearInterval(rotateAlbumsInterval);
         rotate("albums", parseInt($(this).html()) - 1);
         rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
 
+        $(this).blur();
         return false;
     });
 }
@@ -67,12 +69,14 @@ function rotate(which, nextIndex) {
         nextIndex = $("div.movies li:eq(" + (currentIndex + 1) + ")").length == 1 ? currentIndex + 1 : 0;
     }
 
-    parent.find("li:eq(" + nextIndex + ")").addClass("active");
-    parent.find("li:eq(" + currentIndex + ")").removeClass("active");
+    if (currentIndex != nextIndex){
+        parent.find("li:eq(" + nextIndex + ")").addClass("active");
+        parent.find("li:eq(" + currentIndex + ")").removeClass("active");
 
-    parent.find("img:eq(" + currentIndex + ")").fadeOut("fast", function () {
-        parent.find("img:eq(" + nextIndex + ")").fadeIn("fast");
-    })
+        parent.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
+            parent.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
+        });
+    }
 }
 
 function openWolDialog() {

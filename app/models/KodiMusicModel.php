@@ -19,6 +19,7 @@ class KodiMusicModel extends BaseModel
         for($i = 0; $i < $albumCount; $i++)
         {
             $albums[$i]['thumb'] = substr($albums[$i]['strImage'], $start = strpos($albums[$i]['strImage'], '>') + 1, strpos($albums[$i]['strImage'], '<', $start) - $start);
+            $albums[$i]['thumb'] = str_replace('http://', 'https://', $albums[$i]['thumb']);
         }
         
         return $albums;

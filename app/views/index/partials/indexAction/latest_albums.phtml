@@ -5,13 +5,19 @@
         </div>
         <div class="panel-body">
             <?php $i = 0; foreach($albums as $album) : ?>
-            <img src="<?php echo $album['thumb'] ?>"<?php echo $i++ > 0 ? ' class="hidden_not_important"' : null ?> />
+            <div class="album item <?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" 
+                style="background-image: url('<?php echo !empty($album['thumb']) ? $album['thumb'] : 'img/icons/unknown.jpg'  ?>')">
+                <div class="overlay"></div>
+                <div class="artists"><?php echo $album['strArtists'] ?></div>
+                <div class="title"><?php echo $album['strAlbum'] ?></div>
+            </div>
+            
             <?php $i++;
                   endforeach ?> 
 
             <nav>
                 <ul class="pagination pagination-sm success">
-                    <?php for($i = 1; $i <= count($movies); $i++) : ?>
+                    <?php for($i = 1; $i <= count($albums); $i++) : ?>
                     <li<?php echo $i == 1 ? ' class="active"' : null ?>>
                         <a href="#"><?php echo $i ?></a>
                     </li>

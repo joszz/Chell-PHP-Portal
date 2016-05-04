@@ -158,8 +158,6 @@ class FrontController
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
         $finalFile = 'css/compressed/final_' . $mtimeHash . '.css';
 
-        $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
-
         $this->application->assets
                           ->collection('header')
                           ->setTargetPath($finalFile)
@@ -167,6 +165,7 @@ class FrontController
 
         if(!file_exists(getcwd() . '/' . $finalFile))
         {
+            $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
             $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
 
             foreach($this->css as $css) $this->application->assets->collection('header')->addCss('css/' . $css);

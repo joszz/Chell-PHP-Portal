@@ -5,6 +5,8 @@ use Phalcon\Http\Response\Cookies;
 
 class SessionController extends BaseController
 {
+    private $cookieLoginFailed = false;
+
     private function _registerSession($user)
     {
         $this->session->set(
@@ -18,11 +20,11 @@ class SessionController extends BaseController
 
     public function indexAction()
     {
-        $this->view->bodybg = 'bg-black';
+        $this->view->htmlClass = 'login';
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->config);
         
-        if( $this->cookies->has('username') && $this->cookies->has('password'))
+        if(!$this->cookieLoginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {
             return $this->dispatcher->forward(
                 array(
@@ -69,7 +71,11 @@ class SessionController extends BaseController
             
             return $response->redirect('');
         }
-            
+        else 
+        {
+            $this->cookieLoginFailed = true;
+        }    
+
         return $this->dispatcher->forward(
             array(
                 'controller' => 'session',

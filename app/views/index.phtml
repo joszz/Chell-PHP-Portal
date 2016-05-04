@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"<?php echo isset($htmlClass) ? ' class="' . $htmlClass . '"' : null ?>>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
@@ -12,7 +12,7 @@
     <?php $this->partial('favicons') ?>
 </head>
 
-<body id="bootstrap"<?php echo isset($bodybg) ? ' class="' . $bodybg . '"' : null ?>>
+<body id="bootstrap">
     <?php $this->partial('navbar') ?>
 
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">
