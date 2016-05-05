@@ -246,6 +246,9 @@ div.temperatures,
 div.cpu {
   width: 100%; }
 
+div.panel {
+  width: 100%; }
+
 div.panel ul div {
   padding: 0; }
 
@@ -277,9 +280,6 @@ li.os div.icon {
 
 div.sysinfo .value {
   display: none; }
-
-div.sysinfo .glyphicon-wrench {
-  margin-right: 15px; }
 
 div.cpu iframe {
   height: 340px; }

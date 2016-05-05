@@ -1,9 +1,10 @@
 <div class="col-xs-12 col-sm-8 col-lg-4">
     <div class="panel panel-success episodes">
         <div class="panel-heading">
+            <a href="#" class="btn btn-default glyphicon glyphicon-plus visible-xs pull-right toggle"></a>
             <h4>Latest episodes</h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($episodes as $episode) : ?>
             <div class="episode item <?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" 
                 style="background-image: url('<?php echo !empty($episode->c06) ? $episode->c06 : 'img/icons/unknown.jpg'  ?>')">

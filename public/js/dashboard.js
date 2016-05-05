@@ -16,6 +16,14 @@ $(function () {
         initGallery("movies");
         initGallery("episodes");
         initGallery("albums");
+
+        $("a.toggle").click(function () {
+            $(this).toggleClass("glyphicon-minus glyphicon-plus");
+            $(this).closest(".panel").find(".list-group, .panel-body").slideToggle("fast");
+
+            $(this).blur();
+            return false;
+        });
     });
 });
 
@@ -30,17 +38,22 @@ function initializeDashboardEventHandlers() {
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
 
+        $(this).blur();
         return false;
     });
 
     $("div.processes a.glyphicon-refresh").click(function () {
         getPHPSysInfoPSStatus();
+
+        $(this).blur();
         return false;
     });
 
     $("div.sysinfo a.glyphicon-refresh, div#hardware a.glyphicon-refresh").click(function () {
         getPHPSysInfo();
         getPHPSysInfoUpdateNotifier();
+
+        $(this).blur();
         return false;
     });
 }
@@ -81,6 +94,7 @@ function rotateGallery(which, nextIndex) {
 }
 
 function openWolDialog() {
+    $(this).blur();
     var name = $(this).closest("li").find("div:first").html().trim();
 
     $("div#wol-dialog h2 span").html(name);
@@ -118,6 +132,7 @@ function wol() {
 }
 
 function openShutdownDialog() {
+    $(this).blur();
     var name = $(this).closest("li").find("div:first").html().trim();
 
     $("div#shutdown-dialog h2 span").html(name);
