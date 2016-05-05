@@ -12,6 +12,10 @@ $(function () {
         getPHPSysInfoUpdateNotifier();
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
+
+        initGallery("movies");
+        initGallery("episodes");
+        initGallery("albums");
     });
 });
 
@@ -39,29 +43,26 @@ function initializeDashboardEventHandlers() {
         getPHPSysInfoUpdateNotifier();
         return false;
     });
+}
 
-    rotateMoviesInterval = setInterval(function () { rotate("movies"); }, config.rotateMoviesTimeout * 1000);
-    $("div.movies li a").click(function () {
-        clearInterval(rotateMoviesInterval);
-        rotate("movies", parseInt($(this).html()) - 1);
-        rotateMoviesInterval = setInterval(function () { rotate("movies"); }, config.rotateMoviesTimeout * 1000);
+function initGallery(which) {
+    window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
+        rotateGallery(which);
+    }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
 
-        $(this).blur();
-        return false;
-    });
-
-    //rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
-    $("div.albums li a").click(function () {
-        clearInterval(rotateAlbumsInterval);
-        rotate("albums", parseInt($(this).html()) - 1);
-        rotateAlbumsInterval = setInterval(function () { rotate("albums"); }, config.rotateMoviesTimeout * 1000);
+    $("div." + which + " li a").click(function () {
+        clearInterval(window["rotate" + which.capitalize() + "Interval"]);
+        rotateGallery(which, parseInt($(this).html()) - 1);
+        window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
+            rotateGallery(which);
+        }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
 
         $(this).blur();
         return false;
     });
 }
 
-function rotate(which, nextIndex) {
+function rotateGallery(which, nextIndex) {
     var parent = $("div." + which);
     var currentIndex = parseInt(parent.find("li.active a").html()) - 1;
 

@@ -92,7 +92,23 @@ div.cpu iframe
     border: 0;
 }
 
+div.movies .panel-body,
+div.episodes .panel-body,
+div.albums .panel-body
+{
+    padding: 0;
+}
+
+div.movies nav,
+div.episodes nav,
+div.albums nav
+{
+    text-align: center;
+    margin: 10px 0 5px;
+}
+
 div.movie.item,
+div.episode.item,
 div.album.item
 {
     height: 320px;
@@ -102,19 +118,26 @@ div.album.item
     background-repeat: no-repeat;
 }
 
-div.album.item div.overlay
+
+div.episode.item,
+div.album.item
+{
+    background-size: cover;
+}
+
+div.item div.overlay
 {
     position: absolute;
     width: 100%;
     height: 70px;
     bottom: 0;
-    background-color: #FFF;
+    background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
     opacity: 0.8;
     z-index: 1;
 }
 
-div.album.item div.artists,
-div.album.item div.title
+div.item .title,
+div.item .subtitle
 {
     width: 100%;
     bottom: 10px;
@@ -123,7 +146,7 @@ div.album.item div.title
     z-index: 2;
 }
 
-div.album.item div.artists
+div.item div.title
 {
     bottom: 40px;
 }

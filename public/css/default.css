@@ -89,9 +89,6 @@ h4 {
 div.content {
   padding-top: 20px; }
 
-div.container-fluid {
-  padding: 0; }
-
 .full-height {
   height: 100%; }
 
@@ -304,7 +301,19 @@ div.cpu iframe {
   width: 100%;
   border: 0; }
 
+div.movies .panel-body,
+div.episodes .panel-body,
+div.albums .panel-body {
+  padding: 0; }
+
+div.movies nav,
+div.episodes nav,
+div.albums nav {
+  text-align: center;
+  margin: 10px 0 5px; }
+
 div.movie.item,
+div.episode.item,
 div.album.item {
   height: 320px;
   position: relative;
@@ -312,24 +321,28 @@ div.album.item {
   background-position: center;
   background-repeat: no-repeat; }
 
-div.album.item div.overlay {
+div.episode.item,
+div.album.item {
+  background-size: cover; }
+
+div.item div.overlay {
   position: absolute;
   width: 100%;
   height: 70px;
   bottom: 0;
-  background-color: #FFF;
+  background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
   opacity: 0.8;
   z-index: 1; }
 
-div.album.item div.artists,
-div.album.item div.title {
+div.item .title,
+div.item .subtitle {
   width: 100%;
   bottom: 10px;
   position: absolute;
   text-align: center;
   z-index: 2; }
 
-div.album.item div.artists {
+div.item div.title {
   bottom: 40px; }
 
 footer.navbar {
@@ -344,7 +357,8 @@ footer.navbar {
 
 footer a,
 footer a:hover,
-footer a:active {
+footer a:active,
+footer a:focus {
   color: #777; }
 
 @media only screen and (max-width: 767px) {
@@ -424,7 +438,7 @@ div.login input[type="password"] {
   border-radius: 0 0 4px 4px; }
 
 .pagination {
-  margin-bottom: 0; }
+  margin: 0; }
 
 .pagination > .active > a,
 .pagination > .active > a:hover,

@@ -5,7 +5,7 @@
         </div>
         <div class="panel-body">
             <?php $i = 0; foreach($movies as $movie) : ?>
-            <div class="movie item<?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" style="background-image: url('<?php echo $movie['thumb'] ?>')"></div>
+            <div class="movie item<?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" style="background-image: url('<?php echo $movie->c08 ?>')"></div>
             <?php $i++;
                   endforeach ?> 
 
