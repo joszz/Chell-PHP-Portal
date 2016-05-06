@@ -64,6 +64,7 @@ class SettingsController extends BaseController
                 $item->mac = $device['mac'];
                 $item->webtemp = $device['webtemp'];
                 $item->shutdown_method= $device['shutdown_method'];
+                $item->show_on_dashboard = $device['show_on_dashboard'];
                 $item->save();
             }
         }
@@ -101,7 +102,7 @@ class SettingsController extends BaseController
 
     public function menuAction()
     {
-        $form = new SettingsMenuItemsForm($this->config);
+        $form = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
         $data = $this->request->getPost();
         
         if($form->isValid($data))
@@ -112,15 +113,17 @@ class SettingsController extends BaseController
                     'conditions' => 'id = ?1',
                     'bind'       => array(1 => intval($menuItemId))
                 ));
-                
+               
                 //Todo check for $item ! null
+                $item->name = $menuItem['name'];
                 $item->url = $menuItem['url'];
                 $item->icon = $menuItem['icon'];
-                $item->device = $menuItem['device'];
+                $item->device_id = $menuItem['device'];
+
                 $item->save();
             }
         }
-
+        
         return (new Response())->redirect('settings/index#menu');
     }
 

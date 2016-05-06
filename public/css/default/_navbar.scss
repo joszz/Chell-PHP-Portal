@@ -11,6 +11,11 @@ div#navbar
     overflow: hidden;
 }
 
+.navbar-nav
+{
+    margin: 0;
+}
+
 .navbar-fixed-top .navbar-collapse, 
 .navbar-fixed-bottom .navbar-collapse
 {

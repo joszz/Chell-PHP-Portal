@@ -60,14 +60,15 @@ function initializeDashboardEventHandlers() {
 
 function initGallery(which) {
     window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
-        rotateGallery(which);
+        rotateGallery(which, "right");
     }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
 
-    $("div." + which + " li a").click(function () {
+    $("div." + which + " .glyphicon-chevron-left, div." + which + " .glyphicon-chevron-right").click(function () {
         clearInterval(window["rotate" + which.capitalize() + "Interval"]);
-        rotateGallery(which, parseInt($(this).html()) - 1);
+        rotateGallery(which, $(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+
         window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
-            rotateGallery(which);
+            rotateGallery(which, "right");
         }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
 
         $(this).blur();
@@ -75,18 +76,14 @@ function initGallery(which) {
     });
 }
 
-function rotateGallery(which, nextIndex) {
+function rotateGallery(which, direction) {
     var parent = $("div." + which);
-    var currentIndex = parseInt(parent.find("li.active a").html()) - 1;
+    var currentIndex = parent.find("div.item:visible").index();
+    var offset = direction == "right" ? 1 : -1;
 
-    if(typeof nextIndex === 'undefined'){
-        nextIndex = $("div.movies li:eq(" + (currentIndex + 1) + ")").length == 1 ? currentIndex + 1 : 0;
-    }
+    nextIndex = parent.find("div.item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
 
     if (currentIndex != nextIndex){
-        parent.find("li:eq(" + nextIndex + ")").addClass("active");
-        parent.find("li:eq(" + currentIndex + ")").removeClass("active");
-
         parent.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
             parent.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
         });

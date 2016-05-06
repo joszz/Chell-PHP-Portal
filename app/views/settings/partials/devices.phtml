@@ -8,23 +8,24 @@
                     <th>MAC</th>
                     <th>Webtemp</th>
                     <th>Shutdown</th>
+                    <th>Dashboard</th>
                     <th> </th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                 <?php $i= 0; foreach($formDevices AS $element) : ?>
-                <?php if($i % 6 == 0) : ?>
+                <?php if($i % 7 == 0) : ?>
                 </tr>
                 <tr>
                 <?php endif ?>
-                    <?php if(get_class($element) != 'Phalcon\Forms\Element\Hidden') : ?>
-                     <td><?php echo $element ?></td>
-                    <?php else : ?>
                     <td>
+                        <?php if(get_class($element) == 'Phalcon\Forms\Element\Hidden') : ?>
                         <a href="devices_delete?id=<?php echo $element->getValue() ?>" class="btn btn-danger glyphicon glyphicon-remove pull-right"></a>
+                        <?php else : ?>
+                        <?php echo $element ?>
+                        <?php endif ?>
                     </td>
-                    <?php endif ?>
                 <?php $i++;
                       endforeach ?> 
                 </tr>

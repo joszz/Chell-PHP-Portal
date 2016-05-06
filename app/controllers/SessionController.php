@@ -5,15 +5,15 @@ use Phalcon\Http\Response\Cookies;
 
 class SessionController extends BaseController
 {
-    private $cookieLoginFailed = false;
+    private $loginFailed = false;
 
     private function _registerSession($user)
     {
         $this->session->set(
             'auth',
             array(
-                'id'   => $user->id,
-                'username' => $user->username
+                'id'        => $user->id,
+                'username'  => $user->username
             )
         );
     }
@@ -24,7 +24,7 @@ class SessionController extends BaseController
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->config);
         
-        if(!$this->cookieLoginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
+        if(!$this->loginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {
             return $this->dispatcher->forward(
                 array(
@@ -37,6 +37,8 @@ class SessionController extends BaseController
 
     public function loginAction()
     {
+        $rememberMe = false;
+
         if ($this->request->isPost())
         {
             $username = trim($this->request->getPost('username'));
@@ -69,11 +71,14 @@ class SessionController extends BaseController
                 $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year')));
             }
             
+            $user->last_login = date('Y-m-d H:i:s');
+            $user->save();
+
             return $response->redirect('');
         }
         else 
         {
-            $this->cookieLoginFailed = true;
+            $this->loginFailed = true;
         }    
 
         return $this->dispatcher->forward(

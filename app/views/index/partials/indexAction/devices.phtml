@@ -9,7 +9,7 @@
         </div>
         <ul class="list-group hidden-xs">
             <?php foreach($devices as $device) : ?>
-            <li class="list-group-item col-xs-12 col-sm-12 col-lg-12">
+            <li class="list-group-item col-xs-12 col-sm-12 col-lg-12<?php echo $device->show_on_dashboard ? null : ' hidden' ?>">
                 <div class="col-xs-6 col-sm-5 col-lg-6">
                     <?php echo $device->name ?>
                 </div>

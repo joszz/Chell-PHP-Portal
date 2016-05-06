@@ -2,6 +2,7 @@
 
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
@@ -47,6 +48,12 @@ class SettingsDevicesForm extends Form
             );
             $shutdownMethod->setDefault($device->shutdown_method);
 
+            $showDasboard = new Check('device[' . $device->id . '][show_on_dashboard]');
+            $showDasboard->setLabel('Show on dashboard');
+            $showDasboard->setFilters(array('striptags', 'int'));
+            $showDasboard->setAttributes(array('class' => 'form-control'));
+            $showDasboard->setDefault($device->show_on_dashboard);
+
             $id = new Hidden('device[' . $device->id . '][id]');
             $id->setDefault($device->id);
             
@@ -55,6 +62,7 @@ class SettingsDevicesForm extends Form
             $this->add($mac);
             $this->add($webtemp);
             $this->add($shutdownMethod);
+            $this->add($showDasboard);
             $this->add($id);
         }
     }

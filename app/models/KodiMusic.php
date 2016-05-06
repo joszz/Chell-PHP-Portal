@@ -21,7 +21,7 @@ class KodiMusic extends BaseModel
             if(!empty($album->strImage))
             {
                 $album->strImage = substr($album->strImage, $start = strpos($album->strImage, '>') + 1, strpos($album->strImage, '<', $start) - $start);
-                //$album->strImage = str_replace('http://', 'https://', $album->strImage);
+                $album->strImage = current(explode('?', $album->strImage));
             }
 
             $return[] = $album;

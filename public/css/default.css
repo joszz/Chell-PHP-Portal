@@ -127,6 +127,9 @@ nav.navbar-fixed-top {
 div#navbar {
   overflow: hidden; }
 
+.navbar-nav {
+  margin: 0; }
+
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse {
   max-height: 400px; }
@@ -281,9 +284,6 @@ li.os div.icon {
 div.sysinfo .value {
   display: none; }
 
-div.cpu iframe {
-  height: 340px; }
-
 div#shutdown-dialog,
 div#wol-dialog {
   display: none; }
@@ -299,7 +299,11 @@ div#wol-dialog button#wol-yes {
 
 div.cpu iframe {
   width: 100%;
+  height: 340px;
   border: 0; }
+
+div.cpu .panel-body {
+  padding-bottom: 0; }
 
 div.movies .panel-body,
 div.episodes .panel-body,
@@ -317,13 +321,10 @@ div.episode.item,
 div.album.item {
   height: 320px;
   position: relative;
-  background-size: contain;
+  background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; }
-
-div.episode.item,
-div.album.item {
-  background-size: cover; }
+  background-repeat: no-repeat;
+  border-radius: 0 0 4px 4px; }
 
 div.item div.overlay {
   position: absolute;
@@ -337,13 +338,18 @@ div.item div.overlay {
 div.item .title,
 div.item .subtitle {
   width: 100%;
+  height: 20px;
   bottom: 10px;
   position: absolute;
   text-align: center;
-  z-index: 2; }
+  z-index: 2;
+  padding: 0 10px;
+  overflow: hidden; }
 
 div.item div.title {
-  bottom: 40px; }
+  bottom: 22px;
+  font-size: 26px;
+  height: 45px; }
 
 footer.navbar {
   position: fixed;
