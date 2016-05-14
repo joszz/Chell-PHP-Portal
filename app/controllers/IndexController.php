@@ -26,16 +26,6 @@ class IndexController extends BaseController
         $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
     }
 
-    /**
-     * Called through AJAX to retrieve settings from config.ini [dashboard]
-     * 
-     * @return  A JSON encoded object containing variables from [dashboard]
-     */
-    public function dashboardSettingsAction()
-    {
-        die(json_encode($this->config->dashboard));
-    }
-
     public function getImageAction()
     {
         if(isset($_GET['url']))

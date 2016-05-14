@@ -39,7 +39,7 @@ class Devices extends BaseModel
      * @param mixed $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double  The time it took for the device to respond or false if failed.
      */
-    private function pingExec($host, $ttl = 5) 
+    private function pingExec($host, $ttl = 10) 
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);

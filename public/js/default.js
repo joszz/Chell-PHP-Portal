@@ -1,7 +1,9 @@
-﻿var alertIntervalId;
+﻿var alertTimeout;
 var altPressed = false;
 
 $(function () {
+    alertTimeout = $(".alert").data("alert-timeout");
+
     $.fancybox.defaults.margin = [70, 20, 60, 20];
     $("select").selectpicker({ width: "100%", container: "body" });
 
@@ -50,11 +52,11 @@ function initializeGlobalEventHandlers() {
 }
 
 function fadeOutAlert() {
-    alertIntervalId = window.setTimeout(function () {
+    window.setTimeout(function () {
         $("div.alert").fadeOut("fast", function () {
             $("div.alert").removeClass("alert-success alert-danger");
         });
-    }, config.alertTimeout * 1000);
+    }, alertTimeout * 1000);
 }
 
 String.prototype.capitalize= function () {

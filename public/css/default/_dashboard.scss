@@ -100,14 +100,6 @@ div.albums .panel-body
     padding: 0;
 }
 
-div.movies nav,
-div.episodes nav,
-div.albums nav
-{
-    text-align: center;
-    margin: 10px 0 5px;
-}
-
 div.movie.item,
 div.episode.item,
 div.album.item
@@ -139,6 +131,8 @@ div.item .subtitle
     bottom: 10px;
     position: absolute;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     z-index: 2;
     padding:0 10px;
     overflow: hidden;
@@ -149,4 +143,13 @@ div.item div.title
     bottom: 22px;
     font-size: 26px;
     height: 45px;
+}
+
+@media only screen and (min-width : 481px)
+{
+    div.panel .list-group, 
+    div.panel .panel-body
+    {
+        display: block !important;
+    }
 }

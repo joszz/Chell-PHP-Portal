@@ -20,6 +20,7 @@
     <Compile Include="app\controllers\IndexController.php" />
     <Compile Include="app\controllers\SessionController.php" />
     <Compile Include="app\controllers\SettingsController.php" />
+    <Compile Include="app\controllers\TransmissionController.php" />
     <Compile Include="app\forms\LoginForm.php" />
     <Compile Include="app\forms\SettingsDevicesForm.php" />
     <Compile Include="app\forms\SettingsDevicesNewForm.php" />
@@ -35,6 +36,7 @@
     <Compile Include="app\models\KodiTVShows.php" />
     <Compile Include="app\models\KodiMusic.php" />
     <Compile Include="app\models\KodiMovies.php" />
+    <Compile Include="app\models\KodiTVShowSeasons.php" />
     <Compile Include="app\models\MenuItems.php" />
     <Compile Include="app\models\Menus.php" />
     <Compile Include="app\models\Users.php" />
@@ -101,6 +103,7 @@
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
+    <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
     <Content Include="app\views\index\partials\indexAction\wol.phtml" />
     <Content Include="app\views\navbar.phtml" />
     <Content Include="app\views\session\index.phtml" />

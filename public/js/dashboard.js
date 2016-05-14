@@ -1,30 +1,46 @@
-﻿var checkDeviceStatesIntervalId, rotateMoviesInterval, rotateAlbumsInterval;
-var config;
+﻿var config;
+var checkDeviceStatesIntervalId, rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId, transmissionUpdateIntervalId;
+var checkDeviceStatesInterval, phpSysInfoUrl, phpSysInfoVcore;
+
+var transmissionUsername, transmissionPassword, transmissionUpdateInterval, transmissionSessionID = -1;
+var transmissionDefaultData = {
+    type: "POST",
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", "Basic " + btoa(transmissionUsername + ":" + transmissionPassword));
+        xhr.setRequestHeader("X-Transmission-Session-Id", transmissionSessionID);
+    },
+    statusCode: {
+        409: function (request, status, error) {
+            transmissionSessionID = request.getResponseHeader("X-Transmission-Session-Id")
+        }
+    }
+};
 
 $(function () {
-    $.getJSON("index/dashboardsettings", function (data) {
-        config = data;
+    checkDeviceStatesInterval = $(".devices").data("device-state-interval");
+    transmissionUpdateInterval = $(".transmission").data("transmission-update-interval");
+    transmissionUsername = $(".transmission").data("transmission-username");
+    transmissionPassword = $(".transmission").data("transmission-password");
+    phpSysInfoUrl = $(".sysinfo").data("phpsysinfo-url");
+    phpSysInfoVcore = $(".sysinfo").data("phpsysinfo-vcore");
 
-        initializeDashboardEventHandlers();
-        getPHPSysInfo(true);
-        getPHPSysInfoPSStatus(true);
-        
-        getPHPSysInfoUpdateNotifier();
-        checkDeviceStates();
-        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
+    transmissionDefaultData.url = $(".transmission").data("transmission-url");
 
-        initGallery("movies");
-        initGallery("episodes");
-        initGallery("albums");
+    initializeDashboardEventHandlers();
 
-        $("a.toggle").click(function () {
-            $(this).toggleClass("glyphicon-minus glyphicon-plus");
-            $(this).closest(".panel").find(".list-group, .panel-body").slideToggle("fast");
+    getPHPSysInfo(true);
+    getPHPSysInfoPSStatus(true);
+    getPHPSysInfoUpdateNotifier();
 
-            $(this).blur();
-            return false;
-        });
-    });
+    checkDeviceStates();
+    checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
+
+    transmissionGetTorrents(true);
+    transmissionUpdateIntervalId = setInterval(transmissionGetTorrents, transmissionUpdateInterval * 1000);
+
+    initGallery("movies", rotateMoviesIntervalId);
+    initGallery("episodes", rotateEpisodesIntervalId);
+    initGallery("albums", rotateAlbumsIntervalId);
 });
 
 function initializeDashboardEventHandlers() {
@@ -36,7 +52,7 @@ function initializeDashboardEventHandlers() {
     $("div.devices div.panel-heading a.glyphicon-refresh").click(function () {
         clearInterval(checkDeviceStatesIntervalId);
         checkDeviceStates();
-        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, config.checkDeviceStatesTimeout * 1000);
+        checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
 
         $(this).blur();
         return false;
@@ -56,20 +72,37 @@ function initializeDashboardEventHandlers() {
         $(this).blur();
         return false;
     });
+
+    $("div.transmission a.glyphicon-refresh").click(function () {
+        clearTimeout(transmissionUpdateIntervalId);
+        transmissionGetTorrents();
+        transmissionUpdateIntervalId = setInterval(transmissionGetTorrents, transmissionUpdateInterval * 1000);
+
+        $(this).blur();
+        return false;
+    });
+
+    $("a.toggle").click(function () {
+        $(this).toggleClass("glyphicon-minus glyphicon-plus");
+        $(this).closest(".panel").find(".list-group, .panel-body").slideToggle("fast");
+
+        $(this).blur();
+        return false;
+    });
 }
 
-function initGallery(which) {
-    window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
+function initGallery(which, intervalId) {
+    intervalId = setInterval(function () {
         rotateGallery(which, "right");
-    }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
+    }, $("div." + which).data("rotate-interval") * 1000);
 
     $("div." + which + " .glyphicon-chevron-left, div." + which + " .glyphicon-chevron-right").click(function () {
-        clearInterval(window["rotate" + which.capitalize() + "Interval"]);
+        clearInterval(intervalId);
         rotateGallery(which, $(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
 
-        window["rotate" + which.capitalize() + "Interval"] = setInterval(function () {
+        intervalId = setInterval(function () {
             rotateGallery(which, "right");
-        }, window["config"]["rotate" + which.capitalize() + "Timeout"] * 1000);
+        }, $("div." + which).data("rotate-interval") * 1000);
 
         $(this).blur();
         return false;
@@ -83,7 +116,7 @@ function rotateGallery(which, direction) {
 
     nextIndex = parent.find("div.item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
 
-    if (currentIndex != nextIndex){
+    if (currentIndex != nextIndex) {
         parent.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
             parent.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
         });
@@ -117,8 +150,6 @@ function wol() {
         var name = $(this).closest("div").find("h2 span").html().trim();
 
         $.get("devices/wol?mac=" + $(this).closest("div").find("input[name='mac']").val(), function (name) {
-            clearTimeout(alertIntervalId);
-
             $("div.alert").addClass("alert-success");
             $("div.alert").html("Magic packet send to: " + name);
             $("div.alert").fadeIn("fast");
@@ -156,9 +187,8 @@ function doShutdown() {
 
     $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
         $.fancybox.close();
-        clearTimeout(alertIntervalId);
 
-        if(data == "true") {
+        if (data == "true") {
             $("div.alert").addClass("alert-success");
             $("div.alert").html("Shutdown command send to: " + name);
         }
@@ -219,7 +249,7 @@ function checkDeviceStates() {
 function getPHPSysInfo(onload) {
     onload = typeof onload === 'undefined' ? false : onload;
 
-    if(!onload) {
+    if (!onload) {
         $(".sysinfo, #hardware").isLoading({
             text: "Loading",
             position: "overlay"
@@ -228,12 +258,12 @@ function getPHPSysInfo(onload) {
 
     var d = new Date();
 
-    $.getJSON(config.phpSysInfoURL + "xml.php?json&" + d.getTime(), function (data) {
+    $.getJSON(phpSysInfoUrl + "xml.php?json&" + d.getTime(), function (data) {
         //Sysinfo
         $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
 
         $("div.distro span").html(data.Vitals["@attributes"].Distro);
-        $("div.distro div.icon").css("background-image", "url('" + config.phpSysInfoURL + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
+        $("div.distro div.icon").css("background-image", "url('" + phpSysInfoUrl + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
 
         $("div.kernel").html(data.Vitals["@attributes"].Kernel);
         $(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
@@ -241,7 +271,7 @@ function getPHPSysInfo(onload) {
 
         var date = new Date();
         date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
-        
+
         if ($("div.uptime").data("tinyTimer") != undefined) {
             clearInterval($("div.uptime").data("tinyTimer").interval);
         }
@@ -259,11 +289,11 @@ function getPHPSysInfo(onload) {
             var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + " GHz";
 
             $.each(data.MBInfo.Voltage.Item, function (index, value) {
-                if (value["@attributes"].Label == config.phpSysInfoVCore) {
+                if (value["@attributes"].Label == phpSysInfoVcore) {
                     coreVCore = value["@attributes"].Value;
                 }
             });
-            
+
             var clone = $("li.cpu-cores:first").clone();
             clone.removeClass("hidden_not_important");
             clone.find(".cpu-core").html(coreLabel);
@@ -300,7 +330,7 @@ function getPHPSysInfo(onload) {
         $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
         $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
-        if (data.Memory.Swap != undefined){
+        if (data.Memory.Swap != undefined) {
             $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
             $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
         }
@@ -311,7 +341,7 @@ function getPHPSysInfo(onload) {
         $(".sysinfo .glyphicon-wrench").removeClass("disabled");
 
         if (!onload) {
-            $(".sysinfo, #hardware").isLoading("hide")
+            $(".sysinfo, #hardware").isLoading("hide");
         }
     });
 }
@@ -328,7 +358,11 @@ function getPHPSysInfoPSStatus(onload) {
 
     var d = new Date();
 
-    $.getJSON(config.phpSysInfoURL + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
+    $.getJSON(phpSysInfoUrl + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
+        data.Plugins.Plugin_PSStatus.Process.sort(function(a, b){
+            return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
+        });
+
         $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
             var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
             var name = $("<div />", { class: "col-xs-10" });
@@ -363,10 +397,93 @@ function getPHPSysInfoPSStatus(onload) {
 function getPHPSysInfoUpdateNotifier() {
     var d = new Date();
 
-    $.getJSON(config.phpSysInfoURL + "xml.php?plugin=updatenotifier&json&" + d.getTime(), function (data) {
+    $.getJSON(phpSysInfoUrl + "xml.php?plugin=updatenotifier&json&" + d.getTime(), function (data) {
         if (data.Plugins.Plugin_UpdateNotifier != undefined) {
             $("span.update-packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
             $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
         }
     });
+}
+
+function transmissionGetTorrents(onload) {
+    onload = typeof onload === 'undefined' ? false : onload;
+    
+    if (!onload) {
+        $(".transmission").isLoading({
+            text: "Loading",
+            position: "overlay"
+        });
+    }
+
+    var data = transmissionDefaultData;
+    data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
+    data.complete = function (xhr, status) {
+        //No sessionID set, do function again
+        if (xhr.status == 409) {
+            transmissionGetTorrents(onload);
+        }
+        else if (xhr.status == 200) {
+            var responseData = $.parseJSON(xhr.responseText);
+            
+            $.each(responseData.arguments.torrents, function (index, value) {
+                var torrent;
+                
+                if(onload) {
+                    torrent = $(".transmission li:first").clone();
+                    torrent.attr("data-id", value.id);
+                    torrent.removeClass("hidden");
+                    torrent.find(".torrentname").html(value.name);
+                }
+                else {
+                    torrent = $(".transmission li[data-id=" + value.id + "]");
+                }
+
+                torrent.find(".torrentprogress .percent").html((value.percentDone * 100) + "%");
+                torrent.find(".torrentprogress .progress-bar").width(value.percentDone * 100);
+
+                if (value.status == 4) {
+                    torrent.find(".torrentactions .status").removeClass("glyphicon-play");
+                    torrent.find(".torrentactions .status").addClass("glyphicon-pause");
+                }
+                else if (value.status == 0) {
+                    torrent.find(".torrentactions .status").removeClass("glyphicon-pause");
+                    torrent.find(".torrentactions .status").addClass("glyphicon-play");
+                }
+
+                torrent.find(".torrentactions .status").attr("href", torrent.find(".torrentactions .status").attr("href") + value.id);
+                torrent.find(".torrentactions .status").off().on("click", function () {
+                    transmissionStartTorrents($(this).closest("li").data("id"));
+                });
+
+                if (onload) {
+                    torrent.appendTo($(".transmission ul"));
+                }
+            });
+
+            if (!onload) {
+                $(".transmission").isLoading("hide");
+            }
+        }
+    };
+
+    $.ajax(data);
+}
+
+function transmissionStartTorrents(torrentId) {
+    var data = transmissionDefaultData;
+    data.data =  '{"method":"torrent-start-now", "arguments":{"ids":[' + torrentId + ']}}';
+    data.complete = function (xhr, status) {
+        //No sessionID set, do function again
+        if (xhr.status == 409) {
+            transmissionStartTorrents(torrentId);
+        }
+        else if (xhr.status == 200) {
+            var responseData = $.parseJSON(xhr.responseText);
+            if (responseData.result == "success") {
+                $("li[data-id=" + torrentId + "] button.status").toggleClass("glyphicon-pause glyphicon-play");
+            }
+        }
+    };
+
+    $.ajax(data);
 }

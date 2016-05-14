@@ -13,6 +13,12 @@ class KodiTVShowEpisodes extends BaseModel
             'idShow',
             array('alias' => 'show')
         );
+        $this->belongsTo(
+            'idSeason',
+            'KodiTVShowSeasons',
+            'idSeason',
+            array('alias' => 'season')
+        );
     }
 
     public static function getLatestEpisodes($limit = 10){
