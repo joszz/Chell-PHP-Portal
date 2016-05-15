@@ -31,7 +31,10 @@ class FrontController
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',
                         'waves.js', 
-                        'default.js');
+                        'default.js',
+                        'dashboard-blocks/transmission.js',
+                        'dashboard-blocks/phpsysinfo.js',
+                        );
     private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 
     public function __construct()

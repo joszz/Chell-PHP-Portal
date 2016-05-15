@@ -20,7 +20,6 @@
     <Compile Include="app\controllers\IndexController.php" />
     <Compile Include="app\controllers\SessionController.php" />
     <Compile Include="app\controllers\SettingsController.php" />
-    <Compile Include="app\controllers\TransmissionController.php" />
     <Compile Include="app\forms\LoginForm.php" />
     <Compile Include="app\forms\SettingsDevicesForm.php" />
     <Compile Include="app\forms\SettingsDevicesNewForm.php" />
@@ -89,6 +88,7 @@
     <Folder Include="public\js\bootstrap-select\i18n\" />
     <Folder Include="public\js\bootstrap\" />
     <Folder Include="public\js\fancybox\" />
+    <Folder Include="public\js\dashboard-blocks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\config\config.ini" />
@@ -338,6 +338,8 @@
     <Content Include="public\js\bootstrap\tab.js" />
     <Content Include="public\js\bootstrap\tooltip.js" />
     <Content Include="public\js\bootstrap\transition.js" />
+    <Content Include="public\js\dashboard-blocks\phpsysinfo.js" />
+    <Content Include="public\js\dashboard-blocks\transmission.js" />
     <Content Include="public\js\dashboard.js" />
     <Content Include="public\js\default.js" />
     <Content Include="public\js\fancybox\jquery.fancybox-buttons.js" />

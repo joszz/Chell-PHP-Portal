@@ -1,30 +1,12 @@
 ﻿var config;
-var checkDeviceStatesIntervalId, rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId, transmissionUpdateIntervalId;
+var checkDeviceStatesIntervalId, rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId;
 var checkDeviceStatesInterval, phpSysInfoUrl, phpSysInfoVcore;
-
-var transmissionUsername, transmissionPassword, transmissionUpdateInterval, transmissionSessionID = -1;
-var transmissionDefaultData = {
-    type: "POST",
-    beforeSend: function (xhr) {
-        xhr.setRequestHeader("Authorization", "Basic " + btoa(transmissionUsername + ":" + transmissionPassword));
-        xhr.setRequestHeader("X-Transmission-Session-Id", transmissionSessionID);
-    },
-    statusCode: {
-        409: function (request, status, error) {
-            transmissionSessionID = request.getResponseHeader("X-Transmission-Session-Id")
-        }
-    }
-};
+var transmission;
 
 $(function () {
     checkDeviceStatesInterval = $(".devices").data("device-state-interval");
-    transmissionUpdateInterval = $(".transmission").data("transmission-update-interval");
-    transmissionUsername = $(".transmission").data("transmission-username");
-    transmissionPassword = $(".transmission").data("transmission-password");
     phpSysInfoUrl = $(".sysinfo").data("phpsysinfo-url");
     phpSysInfoVcore = $(".sysinfo").data("phpsysinfo-vcore");
-
-    transmissionDefaultData.url = $(".transmission").data("transmission-url");
 
     initializeDashboardEventHandlers();
 
@@ -35,8 +17,7 @@ $(function () {
     checkDeviceStates();
     checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
 
-    transmissionGetTorrents(true);
-    transmissionUpdateIntervalId = setInterval(transmissionGetTorrents, transmissionUpdateInterval * 1000);
+    transmission = $(".transmission").transmission().getTorrents(true);
 
     initGallery("movies", rotateMoviesIntervalId);
     initGallery("episodes", rotateEpisodesIntervalId);
@@ -74,9 +55,7 @@ function initializeDashboardEventHandlers() {
     });
 
     $("div.transmission a.glyphicon-refresh").click(function () {
-        clearTimeout(transmissionUpdateIntervalId);
-        transmissionGetTorrents();
-        transmissionUpdateIntervalId = setInterval(transmissionGetTorrents, transmissionUpdateInterval * 1000);
+        transmission.getTorrents();
 
         $(this).blur();
         return false;
@@ -403,87 +382,4 @@ function getPHPSysInfoUpdateNotifier() {
             $("span.update-security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
         }
     });
-}
-
-function transmissionGetTorrents(onload) {
-    onload = typeof onload === 'undefined' ? false : onload;
-    
-    if (!onload) {
-        $(".transmission").isLoading({
-            text: "Loading",
-            position: "overlay"
-        });
-    }
-
-    var data = transmissionDefaultData;
-    data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
-    data.complete = function (xhr, status) {
-        //No sessionID set, do function again
-        if (xhr.status == 409) {
-            transmissionGetTorrents(onload);
-        }
-        else if (xhr.status == 200) {
-            var responseData = $.parseJSON(xhr.responseText);
-            
-            $.each(responseData.arguments.torrents, function (index, value) {
-                var torrent;
-                
-                if(onload) {
-                    torrent = $(".transmission li:first").clone();
-                    torrent.attr("data-id", value.id);
-                    torrent.removeClass("hidden");
-                    torrent.find(".torrentname").html(value.name);
-                }
-                else {
-                    torrent = $(".transmission li[data-id=" + value.id + "]");
-                }
-
-                torrent.find(".torrentprogress .percent").html((value.percentDone * 100) + "%");
-                torrent.find(".torrentprogress .progress-bar").width(value.percentDone * 100);
-
-                if (value.status == 4) {
-                    torrent.find(".torrentactions .status").removeClass("glyphicon-play");
-                    torrent.find(".torrentactions .status").addClass("glyphicon-pause");
-                }
-                else if (value.status == 0) {
-                    torrent.find(".torrentactions .status").removeClass("glyphicon-pause");
-                    torrent.find(".torrentactions .status").addClass("glyphicon-play");
-                }
-
-                torrent.find(".torrentactions .status").attr("href", torrent.find(".torrentactions .status").attr("href") + value.id);
-                torrent.find(".torrentactions .status").off().on("click", function () {
-                    transmissionStartTorrents($(this).closest("li").data("id"));
-                });
-
-                if (onload) {
-                    torrent.appendTo($(".transmission ul"));
-                }
-            });
-
-            if (!onload) {
-                $(".transmission").isLoading("hide");
-            }
-        }
-    };
-
-    $.ajax(data);
-}
-
-function transmissionStartTorrents(torrentId) {
-    var data = transmissionDefaultData;
-    data.data =  '{"method":"torrent-start-now", "arguments":{"ids":[' + torrentId + ']}}';
-    data.complete = function (xhr, status) {
-        //No sessionID set, do function again
-        if (xhr.status == 409) {
-            transmissionStartTorrents(torrentId);
-        }
-        else if (xhr.status == 200) {
-            var responseData = $.parseJSON(xhr.responseText);
-            if (responseData.result == "success") {
-                $("li[data-id=" + torrentId + "] button.status").toggleClass("glyphicon-pause glyphicon-play");
-            }
-        }
-    };
-
-    $.ajax(data);
 }
