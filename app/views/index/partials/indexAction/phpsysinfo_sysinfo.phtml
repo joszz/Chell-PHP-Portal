@@ -36,9 +36,9 @@
 
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Updates</div>
-                <div class="col-xs-9 value">
-                    <span class="label label-default update-packages" title="Update packages">Packages: -</span>
-                    <span class="label label-default update-security" title="Update security">Security: -</span>
+                <div class="col-xs-9 value sysinfo update" data-phpsysinfo-url="<?php echo $this->config->dashboard->phpSysInfoURL ?>">
+                    <span class="label label-default packages" title="Update packages">Packages: -</span>
+                    <span class="label label-default security" title="Update security">Security: -</span>
                 </div>
             </li>
 
@@ -65,4 +65,4 @@
     </div>
 </div>
 
-<?php $this->partial('index/partials/indexAction/hardware') ?>
+<?php $this->partial('index/partials/indexAction/phpsysinfo_hardware') ?>

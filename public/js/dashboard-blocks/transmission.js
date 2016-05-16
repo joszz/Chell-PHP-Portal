@@ -1,7 +1,7 @@
 ﻿(function ($) {
     $.fn.transmission = function (options) {
         var settings = $.extend({
-            transmissionDefaultData: {
+            defaultData: {
                 type: "POST",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.transmissionBlock.data("transmission-username") + ":" + settings.transmissionBlock.data("transmission-password")));
@@ -37,7 +37,7 @@
                     self.getTorrents(false, self);
                 }, settings.updateInterval * 1000);
 
-                var data = settings.transmissionDefaultData;
+                var data = settings.defaultData;
 
                 data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
                 data.complete = function (xhr, status) {
@@ -63,7 +63,7 @@
                             }
 
                             torrent.find(".torrentprogress .percent").html((value.percentDone * 100) + "%");
-                            torrent.find(".torrentprogress .progress-bar").width(value.percentDone * 100);
+                            torrent.find(".torrentprogress .progress-bar").width(value.percentDone * 100 + "%");
 
                             if (value.status == 4) {
                                 torrent.find(".torrentactions .status").removeClass("glyphicon-play");
@@ -98,7 +98,7 @@
             startTorrents: function (torrentId, self) {
                 self = typeof self === 'undefined' ? this : self;
 
-                var data = settings.transmissionDefaultData;
+                var data = settings.defaultData;
                 data.data = '{"method":"torrent-start-now", "arguments":{"ids":[' + torrentId + ']}}';
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
