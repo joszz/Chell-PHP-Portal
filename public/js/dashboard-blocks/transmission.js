@@ -2,21 +2,21 @@
     $.fn.transmission = function (options) {
         var settings = $.extend({
             defaultData: {
-                type: "POST",
+                type: 'POST',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.transmissionBlock.data("transmission-username") + ":" + settings.transmissionBlock.data("transmission-password")));
-                    xhr.setRequestHeader("X-Transmission-Session-Id", settings.transmissionSessionId);
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.transmissionBlock.data('transmission-username') + ':' + settings.transmissionBlock.data('transmission-password')));
+                    xhr.setRequestHeader('X-Transmission-Session-Id', settings.transmissionSessionId);
                 },
                 statusCode: {
                     409: function (request, status, error) {
-                        settings.transmissionSessionId = request.getResponseHeader("X-Transmission-Session-Id")
+                        settings.transmissionSessionId = request.getResponseHeader('X-Transmission-Session-Id')
                     }
                 },
-                url: this.data("transmission-url")
+                url: this.data('transmission-url')
             },
             transmissionBlock: this,
             transmissionSessionId: -1,
-            updateInterval: this.data("transmission-update-interval"),
+            updateInterval: this.data('transmission-update-interval'),
             updateIntervalId: -1
         }, options);
 
@@ -27,8 +27,8 @@
 
                 if (!onload) {
                     settings.transmissionBlock.isLoading({
-                        text: "Loading",
-                        position: "overlay"
+                        text: 'Loading',
+                        position: 'overlay'
                     });
                 }
 
@@ -47,46 +47,44 @@
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
+                        settings.transmissionBlock.find('li').not('.hidden').remove();
 
                         $.each(responseData.arguments.torrents, function (index, value) {
-                            var torrent;
+                            var torrent = settings.transmissionBlock.find('li.hidden').clone();
+                            torrent.attr('data-id', value.id);
+                            torrent.removeClass('hidden');
+                            torrent.find('.torrentname').html(value.name);
 
-                            //todo: do not clone but create inline if not exists, so on update new torrents will be added
-                            if (onload) {
-                                torrent = settings.transmissionBlock.find("li:first").clone();
-                                torrent.attr("data-id", value.id);
-                                torrent.removeClass("hidden");
-                                torrent.find(".torrentname").html(value.name);
-                            }
-                            else {
-                                torrent = settings.transmissionBlock.find("li[data-id=" + value.id + "]");
-                            }
+                            value.percentDone = Math.round(value.percentDone * 10000) / 100;
+                            torrent.find('.torrentprogress .percent').html(value.percentDone + '%');
+                            torrent.find('.torrentprogress .progress-bar').width(value.percentDone + '%');
 
-                            torrent.find(".torrentprogress .percent").html((value.percentDone * 100) + "%");
-                            torrent.find(".torrentprogress .progress-bar").width(value.percentDone * 100 + "%");
-
+                            //Downloading
                             if (value.status == 4) {
-                                torrent.find(".torrentactions .status").removeClass("glyphicon-play");
-                                torrent.find(".torrentactions .status").addClass("glyphicon-pause");
+                                torrent.find('.torrentactions .status').removeClass('glyphicon-play');
+                                torrent.find('.torrentactions .status').addClass('glyphicon-pause');
                             }
+                            //Paused
                             else if (value.status == 0) {
-                                torrent.find(".torrentactions .status").removeClass("glyphicon-pause");
-                                torrent.find(".torrentactions .status").addClass("glyphicon-play");
+                                torrent.find('.torrentactions .status').removeClass('glyphicon-pause');
+                                torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
+                                torrent.find('.torrentactions .status').addClass('glyphicon-play');
                             }
 
-                            torrent.find(".torrentactions .status").attr("href", torrent.find(".torrentactions .status").attr("href") + value.id);
-                            torrent.find(".torrentactions .status").off().on("click", function () {
-                                self.startTorrents($(this).closest("li").data("id"), self);
+                            torrent.find('.torrentactions .status').off().on('click', function () {
+                                self.startStopTorrents($(this).closest('li').data('id'), self);
+                                return false;
                             });
 
-                            if (onload) {
-                                torrent.appendTo($(".transmission ul"));
-                            }
+                            torrent.find('.torrentactions .glyphicon-remove').off().on('click', function () {
+                                self.removeTorrents($(this).closest('li').data('id'), self);
+                                return false;
+                            });
+
+                             torrent.appendTo($('.transmission ul'));
                         });
 
-                        if (!onload) {
-                            settings.transmissionBlock.isLoading("hide");
-                        }
+                        settings.transmissionBlock.isLoading('hide');
                     }
                 };
 
@@ -95,26 +93,50 @@
                 return self;
             },
 
-            startTorrents: function (torrentId, self) {
+            startStopTorrents: function (torrentIds, self) {
                 self = typeof self === 'undefined' ? this : self;
 
                 var data = settings.defaultData;
-                data.data = '{"method":"torrent-start-now", "arguments":{"ids":[' + torrentId + ']}}';
+                data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('glyphicon-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
+
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
                     if (xhr.status == 409) {
-                        self.transmissionStartTorrents(torrentId, self);
+                        self.startTorrents(torrentIds, self);
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
-                        if (responseData.result == "success") {
-                            $("li[data-id=" + torrentId + "] button.status").toggleClass("glyphicon-pause glyphicon-play");
+                        if (responseData.result == 'success') {
+                            $('li[data-id=' + torrentIds + '] button.status').toggleClass('glyphicon-pause glyphicon-play');
+                            $('li[data-id=' + torrentIds + '] .progress-bar').toggleClass('progress-bar-success progress-bar-primary');
                         }
                     }
                 };
 
                 $.ajax(data);
-            }
+            },
+
+            removeTorrents: function (torrentIds, self) {
+                self = typeof self === 'undefined' ? this : self;
+
+                var data = settings.defaultData;
+                data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data: true}';
+
+                data.complete = function (xhr, status) {
+                    //No sessionID set, do function again
+                    if (xhr.status == 409) {
+                        self.removeTorrents(torrentIds, self);
+                    }
+                    else if (xhr.status == 200) {
+                        var responseData = $.parseJSON(xhr.responseText);
+                        if (responseData.result == 'success') {
+                            $('li[data-id=' + torrentIds + ']').remove();
+                        }
+                    }
+                };
+
+                $.ajax(data);
+            },
         };
 
         return functions;
