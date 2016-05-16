@@ -1,7 +1,6 @@
 ﻿var config;
 var checkDeviceStatesIntervalId, rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId;
 var checkDeviceStatesInterval;
-var transmission;
 
 $(function () {
     checkDeviceStatesInterval = $(".devices").data("device-state-interval");
@@ -10,12 +9,10 @@ $(function () {
 
     $(".sysinfo, #hardware").phpsysinfo().getAll(true);
     $(".processes").phpsysinfo().psstatus(true);
-    $(".sysinfo.update").phpsysinfo().updatenotifier();
+    $(".transmission").transmission().getTorrents(true);
 
     checkDeviceStates();
     checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
-
-    transmission = $(".transmission").transmission().getTorrents(true);
 
     initGallery("movies", rotateMoviesIntervalId);
     initGallery("episodes", rotateEpisodesIntervalId);
@@ -32,28 +29,6 @@ function initializeDashboardEventHandlers() {
         clearInterval(checkDeviceStatesIntervalId);
         checkDeviceStates();
         checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
-
-        $(this).blur();
-        return false;
-    });
-
-    $("div.processes a.glyphicon-refresh").click(function () {
-        getPHPSysInfoPSStatus();
-
-        $(this).blur();
-        return false;
-    });
-
-    $("div.sysinfo a.glyphicon-refresh, div#hardware a.glyphicon-refresh").click(function () {
-        getPHPSysInfo();
-        getPHPSysInfoUpdateNotifier();
-
-        $(this).blur();
-        return false;
-    });
-
-    $("div.transmission a.glyphicon-refresh").click(function () {
-        transmission.getTorrents();
 
         $(this).blur();
         return false;

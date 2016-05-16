@@ -7,7 +7,8 @@
         }, options);
         
         return {
-            getAll: function (onload) {
+            getAll: function (onload, self) {
+                self = typeof self === 'undefined' ? this : self;
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
@@ -16,6 +17,13 @@
                         position: "overlay"
                     });
                 }
+
+                settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                    self.getAll(false, self);
+
+                    $(this).blur();
+                    return false;
+                });
 
                 var d = new Date();
 
@@ -105,9 +113,12 @@
                         $(".sysinfo, #hardware").isLoading("hide");
                     }
                 });
+
+                self.updatenotifier();
             },
 
-            psstatus: function (onload) {
+            psstatus: function (onload, self) {
+                self = typeof self === 'undefined' ? this : self;
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
@@ -116,6 +127,13 @@
                         position: "overlay"
                     });
                 }
+
+                settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                    self.psstatus(false, self);
+
+                    $(this).blur();
+                    return false;
+                });
 
                 var d = new Date();
 

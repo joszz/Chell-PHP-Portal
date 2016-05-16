@@ -4,7 +4,7 @@
             defaultData: {
                 type: 'POST',
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.transmissionBlock.data('transmission-username') + ':' + settings.transmissionBlock.data('transmission-password')));
+                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('transmission-username') + ':' + settings.block.data('transmission-password')));
                     xhr.setRequestHeader('X-Transmission-Session-Id', settings.transmissionSessionId);
                 },
                 statusCode: {
@@ -14,7 +14,7 @@
                 },
                 url: this.data('transmission-url')
             },
-            transmissionBlock: this,
+            block: this,
             transmissionSessionId: -1,
             updateInterval: this.data('transmission-update-interval'),
             updateIntervalId: -1
@@ -26,7 +26,7 @@
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
-                    settings.transmissionBlock.isLoading({
+                    settings.block.isLoading({
                         text: 'Loading',
                         position: 'overlay'
                     });
@@ -36,6 +36,13 @@
                 settings.updateIntervalId = setInterval(function (functions) {
                     self.getTorrents(false, self);
                 }, settings.updateInterval * 1000);
+
+                settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                    self.getTorrents(false, self);
+
+                    $(this).blur();
+                    return false;
+                });
 
                 var data = settings.defaultData;
 
@@ -47,10 +54,10 @@
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
-                        settings.transmissionBlock.find('li').not('.hidden').remove();
+                        settings.block.find('li').not('.hidden').remove();
 
                         $.each(responseData.arguments.torrents, function (index, value) {
-                            var torrent = settings.transmissionBlock.find('li.hidden').clone();
+                            var torrent = settings.block.find('li.hidden').clone();
                             torrent.attr('data-id', value.id);
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html(value.name);
@@ -84,7 +91,9 @@
                              torrent.appendTo($('.transmission ul'));
                         });
 
-                        settings.transmissionBlock.isLoading('hide');
+                        if(!onload){
+                            settings.block.isLoading('hide');
+                        }
                     }
                 };
 
