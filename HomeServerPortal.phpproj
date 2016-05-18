@@ -96,13 +96,13 @@
     <Content Include="app\views\footer.phtml" />
     <Content Include="app\views\index\partials\indexAction\devices.phtml" />
     <Content Include="app\views\index\partials\indexAction\disks.phtml" />
-    <Content Include="app\views\index\partials\indexAction\generic_list.phtml" />
-    <Content Include="app\views\index\partials\indexAction\hardware.phtml" />
+    <Content Include="app\views\index\partials\indexAction\phpsysinfo_processes.phtml" />
+    <Content Include="app\views\index\partials\indexAction\phpsysinfo_hardware.phtml" />
     <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />
     <Content Include="app\views\index\partials\indexAction\latest_albums.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
-    <Content Include="app\views\index\partials\indexAction\sysinfo.phtml" />
+    <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
     <Content Include="app\views\index\partials\indexAction\wol.phtml" />
     <Content Include="app\views\navbar.phtml" />
@@ -338,6 +338,8 @@
     <Content Include="public\js\bootstrap\tab.js" />
     <Content Include="public\js\bootstrap\tooltip.js" />
     <Content Include="public\js\bootstrap\transition.js" />
+    <Content Include="public\js\dashboard-blocks\devices.js" />
+    <Content Include="public\js\dashboard-blocks\gallery.js" />
     <Content Include="public\js\dashboard-blocks\phpsysinfo.js" />
     <Content Include="public\js\dashboard-blocks\transmission.js" />
     <Content Include="public\js\dashboard.js" />

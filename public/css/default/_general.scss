@@ -103,3 +103,20 @@ div.alert
     margin-bottom: 0;
     display: none;
 }
+
+.btn-dark,
+.btn-dark:hover
+{
+    color: #FFF;
+    border: 1px solid #333;
+}
+
+.btn-dark:hover
+{
+    background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
+}
+
+.fancybox-margin
+{
+    margin-right: 0 !important;
+}

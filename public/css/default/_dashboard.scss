@@ -145,6 +145,12 @@ div.item div.title
     height: 45px;
 }
 
+div.transmission li div.torrentname,
+div.transmission li div.torrentprogress
+{
+    margin-top: 7px;
+}
+
 @media only screen and (min-width : 481px)
 {
     div.panel .list-group, 

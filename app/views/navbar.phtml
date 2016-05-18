@@ -30,12 +30,12 @@
                 <?php endforeach ?>
             </ul>
             <div class="col-xs-6 user no-gutter">
-                <a class="btn navbar-toggle pull-left" href="<?php echo $this->config->application->baseUri ?>session/logout/">
+                <a class="btn btn-dark pull-left" href="<?php echo $this->config->application->baseUri ?>session/logout/">
                     <span class="glyphicon glyphicon-log-out" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
                 </a>
             </div>
             <div class="col-xs-6 no-gutter">
-                <a class="btn navbar-toggle pull-right settings" href="<?php echo $this->config->application->baseUri ?>settings/">
+                <a class="btn btn-dark pull-right settings" href="<?php echo $this->config->application->baseUri ?>settings/">
                     <span class="glyphicon glyphicon-cog"></span>
                 </a>
             </div>

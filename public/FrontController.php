@@ -26,7 +26,7 @@ class FrontController
                         'bootstrap-select/bootstrap-select.js', 
                         'bootstrap-tabcollapse.js', 
                         'responsive-paginate.js', 
-                        'jquery.shorten.js', 
+                        //'jquery.shorten.js', 
                         'jquery.vibrate.js', 
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',

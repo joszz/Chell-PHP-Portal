@@ -4,24 +4,22 @@
     bottom: 0;
     width: 100%;
     margin: 0;
-    padding: 15px 0;
+    padding: 5px 0;
     border-radius: 0;
     opacity: 0.9;
     z-index: 100;
 }
 
-footer a,
-footer a:hover,
-footer a:active,
-footer a:focus
+footer .execution-time
 {
-    color: #777;
+    line-height: 36px;
 }
 
-@media only screen and (max-width : 767px)
+footer a.copyright,
+footer a.copyright:hover,
+footer a.copyright:active,
+footer a.copyright:focus
 {
-    footer div.pull-right
-    {
-        display: none;
-    }
+    color: #777;
+    line-height: 36px;
 }

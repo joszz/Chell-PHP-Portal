@@ -56,6 +56,14 @@
                         var responseData = $.parseJSON(xhr.responseText);
                         settings.block.find('li').not('.hidden').remove();
 
+                        if(responseData.arguments.torrents.length == 0) {
+                            var torrent = settings.block.find('li.hidden').clone();
+                            torrent.removeClass('hidden');
+                            torrent.find('.torrentname').html('No torrents found');
+                            torrent.find('.torrentprogress, .torrentactions').remove();
+                            torrent.appendTo($('.transmission ul'));
+                        }
+
                         $.each(responseData.arguments.torrents, function (index, value) {
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.attr('data-id', value.id);

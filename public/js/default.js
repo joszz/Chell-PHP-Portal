@@ -29,7 +29,6 @@ function initializeGlobalEventHandlers() {
         },
     });
 
-    $(".shorten").shorten();
     $("a, button").vibrate();
 
     $("body").keydown(function (e) {
@@ -59,6 +58,6 @@ function fadeOutAlert() {
     }, alertTimeout * 1000);
 }
 
-String.prototype.capitalize= function () {
+String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }

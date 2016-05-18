@@ -118,6 +118,17 @@ div.alert {
   margin-bottom: 0;
   display: none; }
 
+.btn-dark,
+.btn-dark:hover {
+  color: #FFF;
+  border: 1px solid #333; }
+
+.btn-dark:hover {
+  background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%); }
+
+.fancybox-margin {
+  margin-right: 0 !important; }
+
 nav.navbar-fixed-top {
   top: 0;
   margin: 0;
@@ -142,12 +153,6 @@ a.navbar-brand {
 a.navbar-brand img {
   float: left;
   margin: 0 15px 0 5px; }
-
-div.user a,
-a.settings {
-  margin: 8px 0;
-  padding: 6px 10px;
-  color: #FFF; }
 
 nav div.navbar-collapse ul a {
   color: #FFF;
@@ -347,6 +352,10 @@ div.item div.title {
   font-size: 26px;
   height: 45px; }
 
+div.transmission li div.torrentname,
+div.transmission li div.torrentprogress {
+  margin-top: 7px; }
+
 @media only screen and (min-width: 481px) {
   div.panel .list-group,
   div.panel .panel-body {
@@ -356,20 +365,21 @@ footer.navbar {
   bottom: 0;
   width: 100%;
   margin: 0;
-  padding: 15px 0;
+  padding: 5px 0;
   border-radius: 0;
   opacity: 0.9;
   z-index: 100; }
 
-footer a,
-footer a:hover,
-footer a:active,
-footer a:focus {
-  color: #777; }
+footer .execution-time {
+  line-height: 36px; }
 
-@media only screen and (max-width: 767px) {
-  footer div.pull-right {
-    display: none; } }
+footer a.copyright,
+footer a.copyright:hover,
+footer a.copyright:active,
+footer a.copyright:focus {
+  color: #777;
+  line-height: 36px; }
+
 .panel-square {
   border-color: #ddd;
   border-radius: 0 0 4px 4px;
