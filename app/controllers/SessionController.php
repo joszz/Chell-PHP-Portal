@@ -20,7 +20,7 @@ class SessionController extends BaseController
 
     public function indexAction()
     {
-        $this->view->htmlClass = 'login';
+        $this->view->htmlClass = 'blackbg';
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->config);
         

@@ -29,15 +29,18 @@
                 </li>
                 <?php endforeach ?>
             </ul>
-            <div class="col-xs-6 user no-gutter">
-                <a class="btn btn-dark pull-left" href="<?php echo $this->config->application->baseUri ?>session/logout/">
-                    <span class="glyphicon glyphicon-log-out" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
-                </a>
-            </div>
-            <div class="col-xs-6 no-gutter">
-                <a class="btn btn-dark pull-right settings" href="<?php echo $this->config->application->baseUri ?>settings/">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
+            <div class="col-xs-12">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>settings/">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </a>
+                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>about/">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </a>
+                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>session/logout/">
+                        <span class="glyphicon glyphicon-log-out" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
+                    </a>
+                </div>
             </div>
             <?php endif ?>
         </div>

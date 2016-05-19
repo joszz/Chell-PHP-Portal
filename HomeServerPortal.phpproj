@@ -15,6 +15,7 @@
     <IncludeDebugInformation>false</IncludeDebugInformation>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\controllers\AboutController.php" />
     <Compile Include="app\controllers\BaseController.php" />
     <Compile Include="app\controllers\DevicesController.php" />
     <Compile Include="app\controllers\IndexController.php" />
@@ -62,6 +63,7 @@
     <Folder Include="app\views\index\partials\" />
     <Folder Include="app\views\index\partials\indexAction\" />
     <Folder Include="app\views\layouts\" />
+    <Folder Include="app\views\about\" />
     <Folder Include="app\views\session\" />
     <Folder Include="app\views\settings\" />
     <Folder Include="app\views\settings\partials\" />
@@ -92,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\config\config.ini" />
+    <Content Include="app\views\about\index.phtml" />
     <Content Include="app\views\favicons.phtml" />
     <Content Include="app\views\footer.phtml" />
     <Content Include="app\views\index\partials\indexAction\devices.phtml" />
@@ -101,10 +104,10 @@
     <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />
     <Content Include="app\views\index\partials\indexAction\latest_albums.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
-    <Content Include="app\views\index\partials\indexAction\shutdown.phtml" />
+    <Content Include="app\views\index\partials\indexAction\dialog-shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
-    <Content Include="app\views\index\partials\indexAction\wol.phtml" />
+    <Content Include="app\views\index\partials\indexAction\dialog-confirm.phtml" />
     <Content Include="app\views\navbar.phtml" />
     <Content Include="app\views\session\index.phtml" />
     <Content Include="app\views\settings\partials\devices.phtml" />

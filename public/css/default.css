@@ -52,6 +52,13 @@ html,
 body {
   min-height: 100%; }
 
+html.full-height,
+html.full-height body {
+  height: 100%; }
+
+html.blackbg body {
+  background: transparent linear-gradient(to bottom, #3c3c3c 0%, #222 100%) repeat scroll 0 0; }
+
 body {
   font-family: "Roboto", sans-serif !important;
   font-weight: 300;
@@ -92,6 +99,9 @@ div.content {
 .full-height {
   height: 100%; }
 
+.container.full-height {
+  display: table; }
+
 .no-gutter {
   padding: 0; }
 
@@ -129,6 +139,10 @@ div.alert {
 .fancybox-margin {
   margin-right: 0 !important; }
 
+div.vertical-center {
+  display: table-cell;
+  vertical-align: middle; }
+
 nav.navbar-fixed-top {
   top: 0;
   margin: 0;
@@ -136,7 +150,8 @@ nav.navbar-fixed-top {
   z-index: 7500; }
 
 div#navbar {
-  overflow: hidden; }
+  overflow: hidden;
+  padding: 0; }
 
 .navbar-nav {
   margin: 0; }
@@ -181,6 +196,9 @@ nav div.navbar-collapse li.disabled:hover a {
 nav.navbar ul.nav > li {
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid #101010; }
+
+div#navbar div.btn-group {
+  margin: 8px 0; }
 
 .glyphicon-spin,
 .icon-refresh-animate {
@@ -290,16 +308,16 @@ div.sysinfo .value {
   display: none; }
 
 div#shutdown-dialog,
-div#wol-dialog {
+div#confirm-dialog {
   display: none; }
 
 div.shutdown h2 {
   white-space: nowrap; }
 
-div#wol-dialog button {
+div#confirm-dialog button {
   width: 100px; }
 
-div#wol-dialog button#wol-yes {
+div#confirm-dialog button#confirm-yes {
   margin-right: 15px; }
 
 div.cpu iframe {
@@ -421,22 +439,8 @@ ul.nav-tabs,
 div.tab-content {
   display: none; }
 
-html.login,
-html.login body {
-  height: 100%; }
-
-html.login body {
-  background: transparent linear-gradient(to bottom, #3c3c3c 0%, #222 100%) repeat scroll 0 0; }
-
-.container.full-height {
-  display: table;
-  height: 100%; }
-
-div.login {
-  display: table-cell;
-  vertical-align: middle; }
-
-div.login .panel {
+div.login .panel,
+div.about .panel {
   width: 300px;
   margin: 0 auto; }
 

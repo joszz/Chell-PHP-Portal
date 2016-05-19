@@ -20,7 +20,7 @@
             updateIntervalId: -1
         }, options);
 
-        var functions =  {
+        var functions = {
             getTorrents: function (onload, self) {
                 self = typeof self === 'undefined' ? this : self;
                 onload = typeof onload === 'undefined' ? false : onload;
@@ -56,7 +56,7 @@
                         var responseData = $.parseJSON(xhr.responseText);
                         settings.block.find('li').not('.hidden').remove();
 
-                        if(responseData.arguments.torrents.length == 0) {
+                        if (responseData.arguments.torrents.length == 0) {
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html('No torrents found');
@@ -79,7 +79,7 @@
                                 torrent.find('.torrentactions .status').removeClass('glyphicon-play');
                                 torrent.find('.torrentactions .status').addClass('glyphicon-pause');
                             }
-                            //Paused
+                                //Paused
                             else if (value.status == 0) {
                                 torrent.find('.torrentactions .status').removeClass('glyphicon-pause');
                                 torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
@@ -92,14 +92,21 @@
                             });
 
                             torrent.find('.torrentactions .glyphicon-remove').off().on('click', function () {
-                                self.removeTorrents($(this).closest('li').data('id'), self);
+                                openConfirmDialog('Delete torrent?', [], function () {
+                                    $.fancybox.close();
+
+                                    if ($(this).attr('id') == 'confirm-yes') {
+                                        self.removeTorrents(torrent.data('id'), self);
+                                    }
+                                });
+
                                 return false;
                             });
 
-                             torrent.appendTo($('.transmission ul'));
+                            torrent.appendTo($('.transmission ul'));
                         });
 
-                        if(!onload){
+                        if (!onload) {
                             settings.block.isLoading('hide');
                         }
                     }

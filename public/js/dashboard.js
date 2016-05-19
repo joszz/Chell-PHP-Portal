@@ -21,7 +21,7 @@ $(function () {
 
 function initializeDashboardEventHandlers() {
     $("div.devices").on("click", "a.btn-danger", openWolDialog);
-    $("div#wol-dialog button").click(wol);
+    $("div#confirm-dialog button").click(wol);
     $("div.devices").on("click", "a.btn-success", openShutdownDialog);
     $("div#shutdown-dialog button").click(doShutdown);
 
@@ -47,6 +47,7 @@ function initializeDashboardEventHandlers() {
 
         $("a.glyphicon-" + (icon.hasClass("glyphicon-resize-full") ? "plus" : "minus")).trigger("click");
         icon.toggleClass("glyphicon-resize-full glyphicon-resize-small");
+        $(this).blur();
     });
 }
 
@@ -84,13 +85,24 @@ function rotateGallery(which, direction) {
 
 function openWolDialog() {
     $(this).blur();
-    var name = $(this).closest("li").find("div:first").html().trim();
 
-    $("div#wol-dialog h2 span").html(name);
-    $("div#wol-dialog input[name='mac']").val($(this).data("mac"));
+    var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim()+ "</span>?";
+    openConfirmDialog(title, [{ mac: $(this).data("mac") }], wol);
+}
+
+function openConfirmDialog(title, data, buttonClick) {
+    $("div#confirm-dialog h2").html(title);
+
+    $.each(data, function (index, value) {
+        $.each(value, function (index, value) {
+            $("div#confirm-dialog").data(index, value);
+        });
+    });
+
+    $("div#confirm-dialog button").off().on("click", buttonClick);
 
     $.fancybox({
-        content: $("div#wol-dialog").show(),
+        content: $("div#confirm-dialog").show(),
         closeBtn: false,
         closeClick: false,
         helpers: {
@@ -99,16 +111,19 @@ function openWolDialog() {
                 locked: true
             }
         },
+        keys: {
+            close: null
+        }
     });
 }
 
 function wol() {
     $.fancybox.close();
-
-    if ($(this).attr("id") == "wol-yes") {
+    
+    if ($(this).attr("id") == "confirm-yes") {
         var name = $(this).closest("div").find("h2 span").html().trim();
-
-        $.get("devices/wol?mac=" + $(this).closest("div").find("input[name='mac']").val(), function (name) {
+        
+        $.get("devices/wol?mac=" + $(this).closest("div").data("mac"), function (name) {
             $("div.alert").addClass("alert-success");
             $("div.alert").html("Magic packet send to: " + name);
             $("div.alert").fadeIn("fast");

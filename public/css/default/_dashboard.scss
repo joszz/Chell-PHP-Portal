@@ -61,7 +61,7 @@ div.sysinfo .value
 }
 
 div#shutdown-dialog,
-div#wol-dialog
+div#confirm-dialog
 {
     display: none;
 }
@@ -71,12 +71,12 @@ div.shutdown h2
     white-space: nowrap;
 }
 
-div#wol-dialog button
+div#confirm-dialog button
 {
     width: 100px;
 }
 
-div#wol-dialog button#wol-yes
+div#confirm-dialog button#confirm-yes
 {
     margin-right: 15px;
 }

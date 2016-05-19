@@ -9,6 +9,7 @@
 div#navbar
 {
     overflow: hidden;
+    padding: 0;
 }
 
 .navbar-nav
@@ -78,4 +79,9 @@ nav.navbar ul.nav > li
 {
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid #101010;
+}
+
+div#navbar div.btn-group
+{
+    margin: 8px 0;
 }

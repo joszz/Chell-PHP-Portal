@@ -4,6 +4,17 @@ body
     min-height: 100%;
 }
 
+html.full-height,
+html.full-height body
+{
+    height: 100%;
+}
+
+html.blackbg body
+{
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #3c3c3c 0%, #222 100%) repeat scroll 0 0;
+}
+
 body
 {
     font-family: "Roboto", sans-serif !important;
@@ -64,6 +75,11 @@ div.content
     height: 100%;
 }
 
+.container.full-height
+{
+    display: table;
+}
+
 .no-gutter
 {
     padding: 0;
@@ -119,4 +135,11 @@ div.alert
 .fancybox-margin
 {
     margin-right: 0 !important;
+}
+
+
+div.vertical-center
+{
+    display: table-cell;
+    vertical-align: middle;
 }
