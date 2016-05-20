@@ -435,10 +435,6 @@ span.input-group-addon label {
 .actions a.add {
   margin-left: 10px; }
 
-ul.nav-tabs,
-div.tab-content {
-  display: none; }
-
 div.login .panel,
 div.about .panel {
   width: 300px;

@@ -5,9 +5,9 @@
     <div class="panel-body">
         <ul class="nav nav-tabs">
             <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
-                <li<?php echo $i++ == 0 ? ' class="active"' : null ?>>
-                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
-                </li>
+            <li<?php echo $i++ == 0 ? ' class="active"' : null ?>>
+                <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
+            </li>
             <?php endforeach ?>
             <li>
                 <a data-toggle="tab" href="#devices">Devices</a>
@@ -19,8 +19,8 @@
 
         <div class="tab-content">
             <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
-                <form id="<?php echo strtolower($formId) ?>" action="<?php echo $formContent->getAction() ?>" method="post"
-                    class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
+            <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
+                <form action="<?php echo $formContent->getAction() ?>" method="post">
                     <?php foreach($formContent AS $element) : ?>
                     <div class="form-group row">
                         <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
@@ -38,6 +38,7 @@
                         </div>
                     </div>
                 </form>
+            </div>
             <?php endforeach ?>
 
 
