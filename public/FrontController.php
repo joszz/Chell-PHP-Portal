@@ -25,7 +25,7 @@ class FrontController
                         'bootstrap.js', 
                         'bootstrap-select/bootstrap-select.js', 
                         'bootstrap-tabcollapse.js', 
-                        'responsive-paginate.js', 
+                        //'responsive-paginate.js', 
                         //'jquery.shorten.js', 
                         'jquery.vibrate.js', 
                         'jquery.tinytimer.js',
@@ -34,6 +34,7 @@ class FrontController
                         'default.js',
                         'dashboard-blocks/transmission.js',
                         'dashboard-blocks/phpsysinfo.js',
+                        'dashboard-blocks/devices.js',
                         );
     private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 

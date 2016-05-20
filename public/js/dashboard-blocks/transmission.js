@@ -16,7 +16,7 @@
             },
             block: this,
             transmissionSessionId: -1,
-            updateInterval: this.data('transmission-update-interval'),
+            updateInterval: this.data('transmission-update-interval') * 1000,
             updateIntervalId: -1
         }, options);
 
@@ -33,9 +33,9 @@
                 }
 
                 clearInterval(settings.updateIntervalId);
-                settings.updateIntervalId = setInterval(function (functions) {
+                settings.updateIntervalId = setInterval(function () {
                     self.getTorrents(false, self);
-                }, settings.updateInterval * 1000);
+                }, settings.updateInterval);
 
                 settings.block.find(".glyphicon-refresh").off().on("click", function () {
                     self.getTorrents(false, self);
@@ -79,7 +79,7 @@
                                 torrent.find('.torrentactions .status').removeClass('glyphicon-play');
                                 torrent.find('.torrentactions .status').addClass('glyphicon-pause');
                             }
-                                //Paused
+                            //Paused
                             else if (value.status == 0) {
                                 torrent.find('.torrentactions .status').removeClass('glyphicon-pause');
                                 torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
@@ -144,7 +144,7 @@
                 self = typeof self === 'undefined' ? this : self;
 
                 var data = settings.defaultData;
-                data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data: true}';
+                data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data": true}';
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again

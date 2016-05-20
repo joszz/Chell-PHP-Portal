@@ -10,8 +10,6 @@ $(function () {
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    $(".pagination").rPage();
-
     initializeGlobalEventHandlers();
 });
 

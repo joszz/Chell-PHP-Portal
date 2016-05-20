@@ -1,6 +1,5 @@
 ﻿var config;
-var checkDeviceStatesIntervalId, rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId;
-var checkDeviceStatesInterval;
+var rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId;
 
 $(function () {
     checkDeviceStatesInterval = $(".devices").data("device-state-interval");
@@ -10,9 +9,7 @@ $(function () {
     $(".sysinfo, #hardware").phpsysinfo().getAll(true);
     $(".processes").phpsysinfo().psstatus(true);
     $(".transmission").transmission().getTorrents(true);
-
-    checkDeviceStates();
-    checkDeviceStatesIntervalId = setInterval(checkDeviceStates, checkDeviceStatesInterval * 1000);
+    $(".devices").devices().checkstates();
 
     initGallery("movies", rotateMoviesIntervalId);
     initGallery("episodes", rotateEpisodesIntervalId);
@@ -20,7 +17,11 @@ $(function () {
 });
 
 function initializeDashboardEventHandlers() {
-    $("div.devices").on("click", "a.btn-danger", openWolDialog);
+    $("div.devices").on("click", "a.btn-danger", function () {
+        var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
+        openConfirmDialog(title, [{ mac: $(this).data("mac") }], wol);
+    });
+
     $("div#confirm-dialog button").click(wol);
     $("div.devices").on("click", "a.btn-success", openShutdownDialog);
     $("div#shutdown-dialog button").click(doShutdown);
@@ -81,13 +82,6 @@ function rotateGallery(which, direction) {
             parent.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
         });
     }
-}
-
-function openWolDialog() {
-    $(this).blur();
-
-    var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim()+ "</span>?";
-    openConfirmDialog(title, [{ mac: $(this).data("mac") }], wol);
 }
 
 function openConfirmDialog(title, data, buttonClick) {
@@ -176,46 +170,4 @@ function doShutdown() {
     });
 
     return false;
-}
-
-function checkDeviceStates() {
-    var d = new Date();
-
-    $("div.devices a.devicestate").each(function () {
-        var device = $(this);
-        var icon = $(this).find("span.glyphicon");
-        var ip = $(this).data("ip");
-        var dependentMenuItems = $("ul.nav li[data-ip='" + ip + "'");
-
-        dependentMenuItems.find("a").bind("click", false);
-
-        $(this).removeClass("btn-danger btn-success");
-        $(this).addClass("disabled");
-
-        icon.removeClass("glyphicon-off");
-        icon.addClass("glyphicon-refresh icon-refresh-animate");
-
-        (function (device, dependentMenuItems, icon, ip) {
-            $.getJSON("devices/state?ip=" + ip + "&" + d.getTime(), "", function (data) {
-                icon.removeClass("glyphicon-refresh icon-refresh-animate");
-                icon.addClass("glyphicon-off");
-
-                device.removeClass("disabled");
-
-                if (device.data("shutdown-method") == "none") {
-                    device.addClass("disabled");
-                }
-
-                if (!data["state"]) {
-                    dependentMenuItems.addClass("disabled");
-                }
-                else {
-                    dependentMenuItems.removeClass("disabled");
-                    dependentMenuItems.find("a").unbind("click", false);
-                }
-
-                device.addClass("btn-" + (data["state"] ? "success" : "danger"));
-            });
-        }(device, dependentMenuItems, icon, ip));
-    });
 }
