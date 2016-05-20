@@ -27,6 +27,7 @@ Prerequisites
 - Apache 2.x
 - [rCPU](https://github.com/davidsblog/rCPU) (optional)
 - [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/) (optional)
+- [Transmission](https://www.transmissionbt.com/) (optional)
 
 Installation and configuration
 ------------------------------
