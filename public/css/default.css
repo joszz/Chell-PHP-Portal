@@ -129,6 +129,7 @@ div.alert {
   display: none; }
 
 .btn-dark,
+.btn-dark:active,
 .btn-dark:hover {
   color: #FFF;
   border: 1px solid #333; }

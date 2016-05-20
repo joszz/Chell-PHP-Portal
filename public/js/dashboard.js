@@ -25,7 +25,6 @@ function initializeDashboardEventHandlers() {
 
         $("a.glyphicon-" + (icon.hasClass("glyphicon-resize-full") ? "plus" : "minus")).trigger("click");
         icon.toggleClass("glyphicon-resize-full glyphicon-resize-small");
-        $(this).blur();
     });
 }
 
