@@ -4,7 +4,6 @@ class AboutController extends BaseController
 {
     public function indexAction()
     {
-        $this->view->htmlClass = 'blackbg';
         $this->view->containerFullHeight = true;
 
         $url = "https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors";

@@ -7,35 +7,40 @@
         }, options);
 
         var functions = {
-            rotateGallery: function (which, direction) {
-                var parent = $("div." + which);
-                var currentIndex = parent.find("div.item:visible").index();
+            rotateGallery: function (direction) {
+                var currentIndex = settings.block.find("div.item:visible").index();
                 var offset = direction == "right" ? 1 : -1;
 
-                nextIndex = parent.find("div.item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
+                nextIndex = settings.block.find("div.item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
 
                 if (currentIndex != nextIndex) {
-                    parent.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
-                        parent.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
+                    settings.block.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
+                        settings.block.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
                     });
                 }
-            }
+            },
         }
 
         settings.rotateIntervalId = setInterval(function () {
-            rotateGallery(which, "right");
+            functions.rotateGallery("right");
         }, settings.rotateInterval);
 
-        $("div." + which + " .glyphicon-chevron-left, div." + which + " .glyphicon-chevron-right").click(function () {
+        this.find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
             clearInterval(settings.rotateIntervalId);
-            functions.rotateGallery(which, $(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+            functions.rotateGallery($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
 
             settings.rotateIntervalId = setInterval(function () {
-                rotateGallery(which, "right");
+                rotateGallery("right");
             }, settings.rotateInterval);
 
             $(this).blur();
             return false;
+        });
+
+        //Preload images
+        this.find(".item").each(function (index, value) {
+            $("<img />").attr("src", $(this).css("background-image"));
+            
         });
 
         return functions;
