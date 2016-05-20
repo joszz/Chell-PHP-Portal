@@ -10,7 +10,7 @@
             </button>
             <?php endif ?>
             <a class="navbar-brand" href="/portal/">
-                <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" />
+                <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" alt="Logo" />
                 <span><?php echo $title ?></span>
             </a>
         </div>
@@ -23,7 +23,8 @@
 
                 <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip . '"' : '"' ?>>
                     <a href="<?php echo $menuItem->url ?>" target="_blank">
-                        <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16" />
+                        <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16"
+                            alt="<?php echo $menuItem->name ?>" />
                         <?php echo $menuItem->name ?>
                     </a>
                 </li>

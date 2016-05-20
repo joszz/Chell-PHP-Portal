@@ -11,7 +11,7 @@ class SettingsController extends BaseController
             'Dashboard' => new SettingsDashboardForm($this->config),
         );
 
-        $this->view->formUsers = new SettingsUsersForm(Users::Find());
+        //$this->view->formUsers = new SettingsUsersForm(Users::Find());
         $this->view->formDevices = new SettingsDevicesForm(Devices::Find());
         $this->view->formMenu = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
         $this->view->formNewMenuItem = new SettingsMenuItemsNewForm();

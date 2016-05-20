@@ -13,7 +13,7 @@ class SettingsMenuItemsNewForm extends Form
 
         $name = new Text('name');
         $name->setFilters(array('striptags', 'string'));
-        $name->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
+        $name->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'));
         $name->setLabel('Name');
 
         $url = new Text('url');
