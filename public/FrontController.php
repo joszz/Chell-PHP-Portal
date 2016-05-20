@@ -32,9 +32,10 @@ class FrontController
                         'jquery.isloading.js',
                         'waves.js', 
                         'default.js',
-                        'dashboard-blocks/transmission.js',
-                        'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/devices.js',
+                        'dashboard-blocks/gallery.js',
+                        'dashboard-blocks/phpsysinfo.js',
+                        'dashboard-blocks/transmission.js',
                         );
     private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
 

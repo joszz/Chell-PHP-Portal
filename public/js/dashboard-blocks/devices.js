@@ -5,8 +5,33 @@
             updateInterval: this.data('device-state-interval') * 1000,
             updateIntervalId: -1
         }, options);
-        
-        return {
+
+        this.find("a.glyphicon-refresh").click(function () {
+            clearInterval(settings.updateIntervalId);
+            functions.checkstates(settings.block);
+            settings.updateIntervalId = setInterval(function () {
+                self.checkstates(self);
+            }, settings.updateInterval);
+
+            return false;
+        });
+
+        this.on("click", "a.btn-danger", function () {
+            var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
+            openConfirmDialog(title, [{ mac: $(this).data("mac") }], function () {
+                functions.wol($(this));
+            });
+        });
+
+        this.on("click", "a.btn-success", function () {
+            functions.openShutdownDialog($(this));
+        });
+
+        $("div#shutdown-dialog button").click(function () {
+            return functions.doShutdown();
+        });
+
+        var functions = {
             checkstates: function (self) {
                 self = typeof self === 'undefined' ? this : self;
                 var d = new Date();
@@ -53,7 +78,72 @@
                         });
                     }(device, dependentMenuItems, icon, ip));
                 });
+            },
+
+            wol: function (btn) {
+                $.fancybox.close();
+
+                if (btn.attr("id") == "confirm-yes") {
+                    var name = btn.closest("div").find("h2 span").html().trim();
+
+                    $.get("devices/wol?mac=" + btn.closest("div").data("mac"), function (name) {
+                        $("div.alert").addClass("alert-success");
+                        $("div.alert").html("Magic packet send to: " + name);
+                        $("div.alert").fadeIn("fast");
+
+                        fadeOutAlert();
+                    }(name));
+                }
+            },
+
+            openShutdownDialog: function (btn) {
+                btn.blur();
+                var name = btn.closest("li").find("div:first").html().trim();
+
+                $("div#shutdown-dialog h2 span").html(name);
+                $("div#shutdown-dialog input[name='ip']").val(btn.data("ip"));
+
+
+
+                $.fancybox({
+                    content: $("div#shutdown-dialog").show(),
+                    afterShow: function () {
+                        $("div#shutdown-dialog input:first").focus();
+                    },
+                    helpers: {
+                        overlay: {
+                            locked: true
+                        }
+                    }
+                });
+            },
+
+            doShutdown: function () {
+                var user = $("div#shutdown-dialog input[name='user']").val();
+                var password = $("div#shutdown-dialog input[name='password']").val();
+                var ip = $("div#shutdown-dialog input[name='ip']").val();
+                var name = $("div#shutdown-dialog h2 span").html();
+
+                $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
+                    $.fancybox.close();
+
+                    if (data == "true") {
+                        $("div.alert").addClass("alert-success");
+                        $("div.alert").html("Shutdown command send to: " + name);
+                    }
+                    else {
+                        $("div.alert").addClass("alert-danger");
+                        $("div.alert").html("Shutdown command failed for: " + name);
+                    }
+
+                    $("div.alert").fadeIn("fast");
+                    fadeOutAlert();
+                });
+
+                return false;
             }
         }
+
+        return functions;
     }
 })(jQuery);
