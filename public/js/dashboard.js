@@ -1,9 +1,4 @@
-﻿var config;
-var rotateMoviesIntervalId, rotateAlbumsIntervalId, rotateEpisodesIntervalId;
-
-$(function () {
-    checkDeviceStatesInterval = $(".devices").data("device-state-interval");
-
+﻿$(function () {
     initializeDashboardEventHandlers();
 
     $(".sysinfo, #hardware").phpsysinfo().getAll(true);

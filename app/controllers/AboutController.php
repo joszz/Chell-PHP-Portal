@@ -19,6 +19,6 @@ class AboutController extends BaseController
         $this->view->versionMajor = 0;
         $this->view->versionMinor = 1;
         $this->view->versionCommit = $content->total; 
-        $this->view->versionStability = 'alpha';
+        $this->view->versionStability = '&alpha;';
     }
 }
