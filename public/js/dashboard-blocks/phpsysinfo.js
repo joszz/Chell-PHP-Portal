@@ -12,7 +12,7 @@
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
-                    $(".sysinfo, #hardware").isLoading({
+                    $(".sysinfo, .hardware, .harddisks").isLoading({
                         text: "Loading",
                         position: "overlay"
                     });
@@ -75,6 +75,7 @@
                     });
 
                     //Todo: foreach network device
+                    //Network
                     var rx = Math.round(data.Network.NetDevice[0]["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                     var tx = Math.round(data.Network.NetDevice[0]["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                     var info = data.Network.NetDevice[0]["@attributes"].Info.split(";");
@@ -86,6 +87,7 @@
                     $(".lan-rx").html(rx);
                     $(".lan-tx").html(tx);
 
+                    //Fans
                     $("li.fans .fan-stats > div:gt(0)").remove();
                     $.each(data.MBInfo.Fans.Item, function (index, value) {
                         var clone = $("li.fans .fan-stats div:first").clone();
@@ -96,9 +98,11 @@
 
                     $("div.sysinfo .value").fadeIn();
 
+                    //RAM
                     $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
                     $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
+                    //SWAP
                     if (data.Memory.Swap != undefined) {
                         $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
                         $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
@@ -107,10 +111,42 @@
                         $("div.swap").closest("li").hide();
                     }
 
+                    //Disks
+                    data.FileSystem.Mount.sort(function (a, b) {
+                        return a["@attributes"].MountPoint < b["@attributes"].MountPoint ? -1 : 1;
+                    });
+
+                    $.each(data.FileSystem.Mount, function (index, value) {
+                        var clone = $(".harddisks li:first-child").clone();
+                        var percent = value["@attributes"].Percent + "%";
+
+                        clone.find(".name").html(value["@attributes"].MountPoint);
+                        clone.find(".progress-bar").css("width", percent);
+                        clone.find(".percent").html(percent);
+                        clone.removeClass("hidden");
+
+                        if (value["@attributes"].Percent > 90) {
+                            clone.find(".progress-bar").addClass("progress-bar-danger");
+                        }
+                        else if (value["@attributes"].Percent > 70) {
+                            clone.find(".progress-bar").addClass("progress-bar-warning");
+                        }
+                        else if (value["@attributes"].Percent > 50) {
+                            clone.find(".progress-bar").addClass("progress-bar-info");
+                        }
+                        else {
+                            clone.find(".progress-bar").addClass("progress-bar-success");
+                        }
+
+                        $("div.harddisks li div:contains('" + value["@attributes"].MountPoint + "')").parent().remove();
+                        clone.appendTo(".harddisks ul");
+                    });
+                    
+
                     $(".sysinfo .glyphicon-wrench").removeClass("disabled");
 
                     if (!onload) {
-                        $(".sysinfo, #hardware").isLoading("hide");
+                        $(".sysinfo, .hardware, .harddisks").isLoading("hide");
                     }
                 });
 

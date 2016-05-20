@@ -1,7 +1,7 @@
 ﻿$(function () {
     initializeDashboardEventHandlers();
 
-    $(".sysinfo, #hardware").phpsysinfo().getAll(true);
+    $(".sysinfo, .hardware, .harddisks").phpsysinfo().getAll(true);
     $(".processes").phpsysinfo().psstatus(true);
     $(".transmission").transmission().getTorrents(true);
     $(".devices").devices().checkstates();

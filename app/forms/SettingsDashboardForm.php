@@ -67,6 +67,24 @@ class SettingsDashboardForm extends Form
         $transmissionInterval->setAttributes(array('class' => 'form-control'));
         $transmissionInterval->setDefault($this->_config->dashboard->transmissionUpdateInterval);
 
+        $rotateMoviesInterval = new Text('rotate-movies-interval');
+        $rotateMoviesInterval->setLabel('Rotate movies inteval');
+        $rotateMoviesInterval->setFilters(array('striptags', 'int'));
+        $rotateMoviesInterval->setAttributes(array('class' => 'form-control'));
+        $rotateMoviesInterval->setDefault($this->_config->dashboard->rotateMoviesInterval);
+
+        $rotateEpisodesInterval = new Text('rotate-episodes-interval');
+        $rotateEpisodesInterval->setLabel('Rotate episode inteval');
+        $rotateEpisodesInterval->setFilters(array('striptags', 'int'));
+        $rotateEpisodesInterval->setAttributes(array('class' => 'form-control'));
+        $rotateEpisodesInterval->setDefault($this->_config->dashboard->rotateEpisodesInterval);
+
+        $rotateAlbumsInterval = new Text('rotate-albums-interval');
+        $rotateAlbumsInterval->setLabel('Rotate albums inteval');
+        $rotateAlbumsInterval->setFilters(array('striptags', 'int'));
+        $rotateAlbumsInterval->setAttributes(array('class' => 'form-control'));
+        $rotateAlbumsInterval->setDefault($this->_config->dashboard->rotateAlbumsInterval);
+
         $this->add($devicestateTimeouts);
         $this->add($alertTimeout);
         $this->add($phpSysInfoURL);
@@ -75,6 +93,9 @@ class SettingsDashboardForm extends Form
         $this->add($transmissionUsername);
         $this->add($transmissionPassword);
         $this->add($transmissionInterval);
+        $this->add($rotateMoviesInterval);
+        $this->add($rotateEpisodesInterval);
+        $this->add($rotateAlbumsInterval);
     }
 
     public function IsValid($data)
@@ -91,6 +112,9 @@ class SettingsDashboardForm extends Form
             $this->_config->dashboard->transmissionUsername = $data['transmission-username'];
             $this->_config->dashboard->transmissionPassword = $data['transmission-password'];
             $this->_config->dashboard->transmissionUpdateInterval = $data['transmission-update-interval'];
+            $this->_config->dashboard->rotateMoviesInterval = $data['rotate-movies-interval'];
+            $this->_config->dashboard->rotateEpisodesInterval = $data['rotate-episodes-interval'];
+            $this->_config->dashboard->rotateAlbumsInterval = $data['rotate-albums-interval'];
         }
 
         return $valid;

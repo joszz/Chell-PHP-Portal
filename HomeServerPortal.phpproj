@@ -98,7 +98,7 @@
     <Content Include="app\views\favicons.phtml" />
     <Content Include="app\views\footer.phtml" />
     <Content Include="app\views\index\partials\indexAction\devices.phtml" />
-    <Content Include="app\views\index\partials\indexAction\disks.phtml" />
+    <Content Include="app\views\index\partials\indexAction\phpsysinfo_disks.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_processes.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_hardware.phtml" />
     <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />

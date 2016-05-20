@@ -3,8 +3,7 @@
 try 
 {
     require_once('FrontController.php');
-    $fc = new FrontController();
-    echo $fc->tostring();
+    echo (new FrontController())->tostring();
 }
 catch (\Exception $e) 
 {
