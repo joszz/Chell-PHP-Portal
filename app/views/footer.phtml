@@ -6,8 +6,10 @@
             </a>
         </div>
         <div class="col-sm-7 col-md-6 text-right visible-sm visible-md visible-lg execution-time">
-            Execution time | Total: <?php echo round(($executionTime + microtime(true)) * 1000, 2) ?> &micro;s | 
-            PHPSinfo: <?php echo $PHPSysinfoExecutionTime ?>
+            Execution time | Total: <?php echo round(($executionTime + microtime(true)) * 1000, 2) ?> &micro;s
+            <?php if(isset($PHPSysinfoExecutionTime)) : ?>
+            | PHPSinfo: <?php echo $PHPSysinfoExecutionTime ?>
+            <?php endif ?>
         </div>
         <div class="col-xs-2 visible-xs text-right">
             <a class="btn btn-dark toggle-all">
