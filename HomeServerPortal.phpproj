@@ -31,7 +31,6 @@
     <Compile Include="app\forms\SettingsUsersForm.php" />
     <Compile Include="app\models\BaseModel.php" />
     <Compile Include="app\models\Devices.php" />
-    <Compile Include="app\models\Diskdrives.php" />
     <Compile Include="app\models\KodiTVShowEpisodes.php" />
     <Compile Include="app\models\KodiTVShows.php" />
     <Compile Include="app\models\KodiMusic.php" />

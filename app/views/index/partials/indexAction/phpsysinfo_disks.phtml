@@ -7,16 +7,18 @@
             </div>
             <h4>Disk usage</h4>
         </div>
-        <ul class="list-group hidden-xs">
-            <li class="list-group-item col-xs-12 col-sm-12 col-lg-12 hidden">
-                <div class="col-xs-3 name"></div>
+        <ul class="list-group hidden-xs">            
+            <?php foreach($phpsysinfoData->FileSystem->Mount as $mount) : ?>
+            <li class="list-group-item col-xs-12 col-sm-12 col-lg-12">
+                <div class="col-xs-3 name"><?php echo $mount->MountPoint ?></div>
                 <div class="col-xs-9">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar"></div>
-                        <div class="percent"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-<?php echo $mount->Class ?>" role="progressbar" style="width:<?php echo $mount->Percent ?>%"></div>
+                        <div class="percent"><?php echo $mount->Percent ?>%</div>
                     </div>
                 </div>
             </li>
+            <?php endforeach ?>
         </ul>
     </div>
 </div>

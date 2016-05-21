@@ -1,14 +1,19 @@
 ﻿$(function () {
     initializeDashboardEventHandlers();
 
-    $(".sysinfo, .hardware, .harddisks").phpsysinfo().getAll(true);
-    $(".processes").phpsysinfo().psstatus(true);
+    $(".sysinfo, .hardware").phpsysinfo();
+    $(".harddisks").phpsysinfo();
+    $(".processes").phpsysinfo();
     $(".transmission").transmission().getTorrents(true);
     $(".devices").devices().checkstates();
 
     $(".movies").gallery();
     $(".episodes").gallery();
     $(".albums").gallery();
+
+    var date = new Date();
+    date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
+    $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 });
 
 function initializeDashboardEventHandlers() {

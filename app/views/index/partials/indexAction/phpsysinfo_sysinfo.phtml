@@ -4,7 +4,7 @@
         data-phpsysinfo-vcore="<?php echo $this->config->dashboard->phpSysInfoVCore ?>">
         <div class="panel-heading">
             <div class="btn-group pull-right">
-                <a href="#hardware" class="btn btn-default glyphicon glyphicon-wrench fancybox disabled" data-fancybox-maxwidth="500" title="Hardware"></a>
+                <a href="#hardware" class="btn btn-default glyphicon glyphicon-wrench fancybox" data-fancybox-maxwidth="500" title="Hardware"></a>
                 <a href="#" class="btn btn-default glyphicon glyphicon-refresh"></a>
                 <a href="#" class="btn btn-default glyphicon glyphicon-minus visible-xs toggle"></a>
             </div>
@@ -13,32 +13,41 @@
         <ul class="list-group">
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Host</div>
-                <div class="col-xs-9 host value">&nbsp;</div>
+                <div class="col-xs-9 host value">
+                    <?php echo $phpsysinfoData->Vitals->{'@attributes'}->Hostname ?>
+                    (<?php echo $phpsysinfoData->Vitals->{'@attributes'}->IPAddr ?>)
+                </div>
             </li>
 
             <li class="list-group-item col-xs-12 col-lg-12 os">
                 <div class="col-xs-3">OS</div>
                 <div class="col-xs-9 distro value">
-                    <span class="pull-left"></span>
-                    <div class="icon pull-right"></div>
+                    <span class="pull-left"><?php echo $phpsysinfoData->Vitals->{'@attributes'}->Distro ?></span>
+                    <div class="icon pull-right" 
+                        style="background-image:url('<?php echo $this->config->dashboard->phpSysInfoURL . 'gfx/images/' . $phpsysinfoData->Vitals->{'@attributes'}->Distroicon ?>')">
+                    </div>
                 </div>
             </li>
 
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Uptime</div>
-                <div class="col-xs-9 uptime value">&nbsp;</div>
+                <div class="col-xs-9 uptime value"><?php echo $phpsysinfoData->Vitals->{'@attributes'}->Uptime ?></div>
             </li>
 
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Kernel</div>
-                <div class="col-xs-9 kernel value">&nbsp;</div>
+                <div class="col-xs-9 kernel value"><?php echo $phpsysinfoData->Vitals->{'@attributes'}->Kernel ?></div>
             </li>
 
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Updates</div>
                 <div class="col-xs-9 value update" data-phpsysinfo-url="<?php echo $this->config->dashboard->phpSysInfoURL ?>">
-                    <span class="label label-default packages" title="Update packages">Packages: -</span>
-                    <span class="label label-default security" title="Update security">Security: -</span>
+                    <span class="label label-default packages" title="Update packages">
+                        Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? $phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages : '-' ?>
+                    </span>
+                    <span class="label label-default security" title="Update security">
+                        Security: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? $phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->security : '-' ?>
+                    </span>
                 </div>
             </li>
 
@@ -46,8 +55,9 @@
                 <div class="col-xs-3 ">RAM</div>
                 <div class="col-xs-9">
                     <div class="progress ram">
-                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"></div>
-                        <div class="percent"><span>0</span>% used</div>
+                        <div class="progress-bar progress-bar-success progress-bar-striped" 
+                            style="width:<?php echo $phpsysinfoData->Memory->{'@attributes'}->Percent ?>%" role="progressbar"></div>
+                        <div class="percent"><span><?php echo $phpsysinfoData->Memory->{'@attributes'}->Percent ?></span>% used</div>
                     </div>
                 </div>
             </li>
@@ -57,7 +67,7 @@
                 <div class="col-xs-9">
                     <div class="progress swap">
                         <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"></div>
-                        <div class="percent"><span>0</span>% used</div>
+                        <div class="percent"><span><?php echo $phpsysinfoData->Memory->Swap->{'@attributes'}->Percent ?></span>% used</div>
                     </div>
                 </div>
             </li>

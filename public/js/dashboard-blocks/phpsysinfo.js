@@ -3,26 +3,26 @@
         var settings = $.extend({
             url: this.data("phpsysinfo-url"),
             vCore: this.data("phpsysinfo-vcore"),
-            block: this
+            block: this,
         }, options);
-        
-        return {
-            getAll: function (onload, self) {
-                self = typeof self === 'undefined' ? this : self;
-                onload = typeof onload === 'undefined' ? false : onload;
 
-                if (!onload) {
-                    $(".sysinfo, .hardware, .harddisks").isLoading({
-                        text: "Loading",
-                        position: "overlay"
-                    });
-                }
+        settings.block.find(".glyphicon-refresh").off().on("click", function () {
+            if (settings.block.hasClass("processes")) {
+                functions.psstatus();
+            }
+            else {
+                functions.getAll();
+            }
 
-                settings.block.find(".glyphicon-refresh").off().on("click", function () {
-                    self.getAll(false, self);
+            $(this).blur();
+            return false;
+        });
 
-                    $(this).blur();
-                    return false;
+        var functions = {
+            getAll: function () {
+                $(".sysinfo, .hardware, .harddisks").isLoading({
+                    text: "Loading",
+                    position: "overlay"
                 });
 
                 var d = new Date();
@@ -47,8 +47,6 @@
                     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 
                     //Get CPU cores
-                    $("li.cpu-cores:gt(0)").remove();
-
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
                         var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
                         var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
@@ -63,37 +61,38 @@
                             }
                         });
 
-                        var clone = $("li.cpu-cores:first").clone();
-                        clone.removeClass("hidden_not_important");
-                        clone.find(".cpu-core").html(coreLabel);
-                        clone.find(".core-temp").html(coreTemp);
-                        clone.find(".core-vcore").html(coreVCore + " V");
-                        clone.find(".core-current").html(coreSpeedCurrent);
-                        clone.find(".core-min").html(coreSpeedMin);
-                        clone.find(".core-max").html(coreSpeedMax);
-                        clone.insertAfter($("li.cpu-cores:last"));
+                        var core = $("li.cpu-cores:eq(" + index + ")");
+                        core.find(".cpu-core").html(coreLabel);
+                        core.find(".core-temp").html(coreTemp);
+                        core.find(".core-vcore").html(coreVCore + " V");
+                        core.find(".core-current").html(coreSpeedCurrent);
+                        core.find(".core-min").html(coreSpeedMin);
+                        core.find(".core-max").html(coreSpeedMax);
                     });
 
                     //Todo: foreach network device
                     //Network
-                    var rx = Math.round(data.Network.NetDevice[0]["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                    var tx = Math.round(data.Network.NetDevice[0]["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                    var info = data.Network.NetDevice[0]["@attributes"].Info.split(";");
+                    $.each(data.Network.NetDevice, function (index, value) {
+                        var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var info = value["@attributes"].Info.split(";");
 
-                    $(".lan-name").html(data.Network.NetDevice[0]["@attributes"].Name);
-                    $(".lan-mac").html(info[0]);
-                    $(".lan-ip").html(info[1]);
-                    $(".lan-speed").html(info[2]);
-                    $(".lan-rx").html(rx);
-                    $(".lan-tx").html(tx);
+                        network = $(".lan-stats div:eq(" + index + ")");
+
+                        network.find(".lan-name").html(value["@attributes"].Name);
+                        network.find(".lan-mac").html(info[0]);
+                        network.find(".lan-ip").html(info[1]);
+                        network.find(".lan-speed").html(info[2]);
+                        network.find(".lan-rx").html(rx);
+                        network.find(".lan-tx").html(tx);
+                    });
+
 
                     //Fans
-                    $("li.fans .fan-stats > div:gt(0)").remove();
                     $.each(data.MBInfo.Fans.Item, function (index, value) {
-                        var clone = $("li.fans .fan-stats div:first").clone();
-                        clone.find(".name").html(value["@attributes"].Label);
-                        clone.find(".value").html(value["@attributes"].Value + " RPM");
-                        clone.appendTo($("li.fans .fan-stats"));
+                        var fan = $("li.fans .fan-stats > div:eq(" + index +")");
+                        fan.find(".name").html(value["@attributes"].Label);
+                        fan.find(".value").html(value["@attributes"].Value + " RPM");
                     });
 
                     $("div.sysinfo .value").fadeIn();
@@ -117,55 +116,41 @@
                     });
 
                     $.each(data.FileSystem.Mount, function (index, value) {
-                        var clone = $(".harddisks li:first-child").clone();
+                        var disk = $(".harddisks li:eq(" + index + ")");
                         var percent = value["@attributes"].Percent + "%";
 
-                        clone.find(".name").html(value["@attributes"].MountPoint);
-                        clone.find(".progress-bar").css("width", percent);
-                        clone.find(".percent").html(percent);
-                        clone.removeClass("hidden");
+                        disk.find(".name").html(value["@attributes"].MountPoint);
+                        disk.find(".progress-bar").css("width", percent);
+                        disk.find(".percent").html(percent);
 
                         if (value["@attributes"].Percent > 90) {
-                            clone.find(".progress-bar").addClass("progress-bar-danger");
+                            disk.find(".progress-bar").addClass("progress-bar-danger");
                         }
                         else if (value["@attributes"].Percent > 70) {
-                            clone.find(".progress-bar").addClass("progress-bar-warning");
+                            disk.find(".progress-bar").addClass("progress-bar-warning");
                         }
                         else if (value["@attributes"].Percent > 50) {
-                            clone.find(".progress-bar").addClass("progress-bar-info");
+                            disk.find(".progress-bar").addClass("progress-bar-info");
                         }
                         else {
-                            clone.find(".progress-bar").addClass("progress-bar-success");
+                            disk.find(".progress-bar").addClass("progress-bar-success");
                         }
-
-                        $("div.harddisks li div:contains('" + value["@attributes"].MountPoint + "')").parent().remove();
-                        clone.appendTo(".harddisks ul");
                     });
-                    
 
-                    $(".sysinfo .glyphicon-wrench").removeClass("disabled");
-
-                    if (!onload) {
-                        $(".sysinfo, .hardware, .harddisks").isLoading("hide");
-                    }
+                    $(".sysinfo, .hardware, .harddisks").isLoading("hide");
                 });
 
-                self.updatenotifier();
+                functions.updatenotifier();
             },
 
-            psstatus: function (onload, self) {
-                self = typeof self === 'undefined' ? this : self;
-                onload = typeof onload === 'undefined' ? false : onload;
-
-                if (!onload) {
-                    $(".processes").isLoading({
-                        text: "Loading",
-                        position: "overlay"
-                    });
-                }
+            psstatus: function () {
+                $(".processes").isLoading({
+                    text: "Loading",
+                    position: "overlay"
+                });
 
                 settings.block.find(".glyphicon-refresh").off().on("click", function () {
-                    self.psstatus(false, self);
+                    functions.psstatus();
 
                     $(this).blur();
                     return false;
@@ -203,9 +188,7 @@
                         listItem.appendTo($("div.processes ul"));
                     });
 
-                    if (!onload) {
-                        $(".processes").isLoading("hide");
-                    }
+                    $(".processes").isLoading("hide");
                 });
             },
 
@@ -220,5 +203,7 @@
                 });
             }
         }
+
+        return functions;
     }
 })(jQuery);

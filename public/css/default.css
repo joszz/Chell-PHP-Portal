@@ -305,8 +305,8 @@ li.os div.icon {
   width: 32px;
   height: 32px; }
 
-div.sysinfo .value {
-  display: none; }
+span.packages {
+  margin-right: 15px; }
 
 div#shutdown-dialog,
 div#confirm-dialog {

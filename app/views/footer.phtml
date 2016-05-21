@@ -1,11 +1,14 @@
 <footer class="navbar navbar-inverse">
     <div class="container text-muted">
-        <div class="col-xs-10 col-sm-8 col-md-8">
+        <div class="col-xs-10 col-sm-5 col-md-6">
             <a href="https://github.com/joszz/Chell-PHP-Portal" target="_blank" class="copyright">Copyright &copy; <?php echo '2015 - ' . (date('Y') != 2015 ? date('Y') : null) ?>
                 Jos Nienhuis
             </a>
         </div>
-        <div class="col-sm-4 col-md-4 text-right visible-sm visible-md visible-lg execution-time">Execution time: <?php echo round(($executionTime + microtime(true)) * 1000, 2) ?> &micro;s</div>
+        <div class="col-sm-7 col-md-6 text-right visible-sm visible-md visible-lg execution-time">
+            Execution time | Total: <?php echo round(($executionTime + microtime(true)) * 1000, 2) ?> &micro;s | 
+            PHPSinfo: <?php echo $PHPSysinfoExecutionTime ?>
+        </div>
         <div class="col-xs-2 visible-xs text-right">
             <a class="btn btn-dark toggle-all">
                 <span class="glyphicon glyphicon-resize-full"></span>
