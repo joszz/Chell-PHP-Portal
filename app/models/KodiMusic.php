@@ -12,7 +12,7 @@ class KodiMusic extends BaseModel
         return self::extractAlbumImagesFromXML(self::find(array('order' => 'idAlbum DESC', 'limit' => $limit)));
     }
 
-    private static function extractAlbumImagesFromXML($albums)
+    public static function extractAlbumImagesFromXML($albums)
     {
         $return = array();
 

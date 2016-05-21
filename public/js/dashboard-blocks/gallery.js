@@ -38,13 +38,6 @@
                 return false;
             });
 
-            //Preload images
-            /*
-            this.find(".item").each(function (index, value) {
-                $("<img />").attr("src", $(this).css("background-image"));
-            });
-            */
-
             return functions;
         });
     }

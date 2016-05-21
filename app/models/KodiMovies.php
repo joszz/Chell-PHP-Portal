@@ -12,7 +12,7 @@ class KodiMovies extends BaseModel
         return self::extractMovieImagesFromXML(self::find(array('order' => 'idMovie DESC', 'limit' => $limit)));
     }
 
-    private static function extractMovieImagesFromXML($movies)
+    public static function extractMovieImagesFromXML($movies)
     {
         $return = array();
 

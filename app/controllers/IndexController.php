@@ -33,18 +33,48 @@ class IndexController extends BaseController
 
     public function getImageAction()
     {
-        if(isset($_GET['url']))
+        switch($_GET['which'])
+        {
+            case 'movies':
+                $item = KodiMovies::findFirst(array(
+                    'conditions' => 'idMovie = ?1',
+                    'bind'       => array(1 => $_GET['id']),
+                ));
+                $url = current(KodiMovies::extractMovieImagesFromXML(array($item)))->c08;
+
+                break;
+
+            case 'albums':
+                $item = KodiMusic::findFirst(array(
+                    'conditions' => 'idAlbum = ?1',
+                    'bind'       => array(1 => $_GET['id']),
+                ));
+                $url = current(KodiMusic::extractAlbumImagesFromXML(array($item)))->strImage;
+
+                break;
+
+            case 'episodes':
+                $item = KodiTVShowEpisodes::findFirst(array(
+                    'conditions' => 'idEpisode = ?1',
+                    'bind'       => array(1 => $_GET['id']),
+                ));
+                $url = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)))->c06;
+
+                break;
+        }
+
+        if(isset($url))
         {
             $ntct = Array('1' => 'image/gif',
                           '2' => 'image/jpeg',
                           '3' => 'image/png',
                           '6' => 'image/bmp');
-            $filename = getcwd() . '/img/cache/' . basename($_GET['url']);
+            $filename = getcwd() . '/img/cache/' . basename($url);
 
             if(!file_exists($filename))
             {
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $_GET['url']);
+                curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 $output = curl_exec($ch);
                 curl_close($ch);

@@ -11,7 +11,7 @@
         <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($albums as $album) : ?>
             <div class="album item <?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" 
-                style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($album->strImage) ? 'index/getImage?url=' . $album->strImage : 'img/icons/unknown.jpg')  ?>')">
+                style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($album->strImage) ? 'index/getImage?which=albums&id=' . $album->idAlbum : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $title = utf8_encode($album->strArtists) ?>"><?php echo $title ?></div>
                 <div class="subtitle" title="<?php echo $title = utf8_encode($album->strAlbum) ?>"><?php echo $title ?></div>

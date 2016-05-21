@@ -25,7 +25,7 @@ class KodiTVShowEpisodes extends BaseModel
         return self::extractMovieImagesFromXML(self::find(array('order' => 'idEpisode DESC', 'limit' => $limit)));
     }
 
-    private static function extractMovieImagesFromXML($episodes)
+    public static function extractMovieImagesFromXML($episodes)
     {
         $return = array();
 
