@@ -1,15 +1,11 @@
 ﻿$(function () {
     initializeDashboardEventHandlers();
 
-    $(".sysinfo, .hardware").phpsysinfo();
-    $(".harddisks").phpsysinfo();
-    $(".processes").phpsysinfo();
-    $(".transmission").transmission().getTorrents(true);
+    $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
+    $(".transmission").transmission();
     $(".devices").devices().checkstates();
 
-    $(".movies").gallery();
-    $(".episodes").gallery();
-    $(".albums").gallery();
+    $(".movies, .episodes, .albums").gallery();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

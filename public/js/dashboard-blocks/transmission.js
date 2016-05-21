@@ -163,6 +163,8 @@
             },
         };
 
+        functions.getTorrents(true);
+
         return functions;
     };
 })(jQuery);
