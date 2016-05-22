@@ -14,9 +14,9 @@ Video
 Screenshots
 -----------
 #### Home screenshot
-![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.png "Home")
+![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.jpg "Home")
 #### Menu screenshot
-![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_menu.png "Menu")
+![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_menu.jpg "Menu")
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/screenshots)
 
 Prerequisites
