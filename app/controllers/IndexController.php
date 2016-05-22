@@ -27,7 +27,8 @@ class IndexController extends BaseController
         $this->view->albums = KodiMusic::getLatestAlbums();
         $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
         
-        $this->getPHPSysinfoData();
+        $this->executionTime = -microtime(true);
+        $this->view->phpsysinfoData = PHPSysInfo::getData();
         $this->view->PHPSysinfoExecutionTime = round(($this->executionTime + microtime(true)) * 1000, 2) . '&micro;s';
     }
 
@@ -41,7 +42,6 @@ class IndexController extends BaseController
                     'bind'       => array(1 => $_GET['id']),
                 ));
                 $url = current(KodiMovies::extractMovieImagesFromXML(array($item)))->c08;
-
                 break;
 
             case 'albums':
@@ -50,7 +50,6 @@ class IndexController extends BaseController
                     'bind'       => array(1 => $_GET['id']),
                 ));
                 $url = current(KodiMusic::extractAlbumImagesFromXML(array($item)))->strImage;
-
                 break;
 
             case 'episodes':
@@ -59,7 +58,6 @@ class IndexController extends BaseController
                     'bind'       => array(1 => $_GET['id']),
                 ));
                 $url = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)))->c06;
-
                 break;
         }
 
@@ -82,77 +80,19 @@ class IndexController extends BaseController
                 file_put_contents($filename, $output);
             }
 
+            session_cache_limiter('none');
+            header('Cache-control: max-age='.(60 * 60 * 24 * 365));
+            header('Expires: '.gmdate(DATE_RFC1123,time()+ 60 * 60 * 24 * 365));
+            header('Last-Modified: '.gmdate(DATE_RFC1123,filemtime($filename)));
             header('Content-type: ' . $ntct[exif_imagetype($filename)]);
+            header("Pragma: cache");
+
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) 
+            {
+                header('HTTP/1.1 304 Not Modified');
+            }
+
             die(readfile($filename));
-        }
-    }
-
-    private function getPHPSysinfoData()
-    {
-        $this->executionTime = -microtime(true);
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
-        
-        $this->view->phpsysinfoData = json_decode(curl_exec($curl));
-        curl_close($curl);
-
-        sort($this->view->phpsysinfoData->Plugins->Plugin_PSStatus->Process);
-        usort($this->view->phpsysinfoData->FileSystem->Mount, 
-            function($a, $b)
-            {
-                return strcmp(current($a)->MountPoint, current($b)->MountPoint);
-            }
-        );
-
-        $this->setPHPSysinfoMountClasses();
-        $this->setPHPSysinfoCPUData();
-    }
-
-    private function setPHPSysinfoMountClasses()
-    {
-        for($i = 0; $i < count($this->view->phpsysinfoData->FileSystem->Mount); $i++)
-        {
-            $mount = current($this->view->phpsysinfoData->FileSystem->Mount[$i]);
-            
-            if($mount->Percent > 90) $mount->Class = 'danger';
-            else if($mount->Percent > 70) $mount->Class = 'warning';
-            else if($mount->Percent > 50) $mount->Class = 'info';
-
-            $this->view->phpsysinfoData->FileSystem->Mount[$i] = $mount;
-        }
-    }
-
-    private function setPHPSysinfoCPUData()
-    {
-        for($i = 0; $i < count($this->view->phpsysinfoData->Hardware->CPU->CpuCore); $i++)
-        {
-            $cpuCore = $this->view->phpsysinfoData->Hardware->CPU->CpuCore[$i];
-
-            foreach($this->view->phpsysinfoData->MBInfo->Temperature->Item as $temp) 
-            {
-                if($temp->{'@attributes'}->Label == 'Core ' . $i)
-                {
-                    $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $this->view->phpsysinfoData->Options->{'@attributes'}->tempFormat;
-                }
-            }
-
-            foreach($this->view->phpsysinfoData->MBInfo->Voltage->Item as $voltage)
-            {
-                if($voltage->{'@attributes'}->Label == $this->config->dashboard->phpSysInfoVCore)
-                {
-                    $cpuCore->Voltage = $voltage->{'@attributes'}->Value;
-                }
-            }
-
-            $cpuCore->{'@attributes'}->CpuSpeed = round($cpuCore->{'@attributes'}->CpuSpeed / 1000, 2);
-            $cpuCore->{'@attributes'}->CpuSpeedMin = round($cpuCore->{'@attributes'}->CpuSpeedMin / 1000, 2);
-            $cpuCore->{'@attributes'}->CpuSpeedMax = round($cpuCore->{'@attributes'}->CpuSpeedMax / 1000, 2);
-
-            $this->view->phpsysinfoData->Hardware->CPU->CpuCore[$i] = $cpuCore;
         }
     }
 }
