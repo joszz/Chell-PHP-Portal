@@ -9,7 +9,7 @@ class KodiTVShows extends BaseModel
 
         $this->hasMany(
             'idShow',
-            'KodieTVShowEpisodes',
+            'KodiTVShowEpisodes',
             'idShow',
             array('alias' => 'episodes')
         );

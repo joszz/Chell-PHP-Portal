@@ -46,9 +46,6 @@ In this chapter you will find information about the database tables and associat
 #### devices
 A table used to store the various devices in your network. Used for WOL and menu items which should only be active when a device is awake (pingable).
 
-#### diskdrives
-A table used to store the various local drives on the server. This will be used to display these drives and their available/total space.
-
 #### menu_items
 The different items/links in the collapsable menu. It is associated with a menu by the column parent_id (so multiple menus can be created). A menu_item can be dependent on a device to be disabled in the GUI when that device is not pingable.
 

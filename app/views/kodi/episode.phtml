@@ -1,0 +1,39 @@
+<div>
+    <div class="panel panel-success">
+        <ul class="list-group panel-success">
+            <li class="list-group-item list-group-item-success">
+                <h4><?php echo $episode->getShow()->c00 ?></h4>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-3">Episode</div>
+                <div class="col-xs-9"><?php echo $episode->c13 ?></div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-3">Season</div>
+                <div class="col-xs-9"><?php echo $episode->getSeason()->season ?></div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-3">Date</div>
+                <div class="col-xs-9"><?php echo $episode->c05 ?></div>
+            </li>
+            <?php if(!empty($episode->rating)) : ?>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-3">Rating</div>
+                <div class="col-xs-9">
+                    <?php for($i = 1; $i <= $episode->rating; $i++) : ?>
+                    <span class="glyphicon glyphicon-star text-success"></span>
+                    <?php endfor ?>
+
+                    <?php if($i -1 < $episode->rating) : ?>
+                    <span class="glyphicon glyphicon-half glyphicon-star text-success"></span>
+                    <?php endif ?>
+                </div>
+            </li>
+            <?php endif ?>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-3">Plot</div>
+                <div class="col-xs-9"><?php echo $episode->c01 ?></div>
+            </li>
+        </ul>
+    </div>
+</div>

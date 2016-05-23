@@ -14,7 +14,7 @@ div.panel
     width: 100%;
 }
 
-div.panel ul div
+div.panel ul div:not(.embed-responsive)
 {
     padding: 0;
 }
@@ -100,9 +100,9 @@ div.albums .panel-body
     padding: 0;
 }
 
-div.movie.item,
-div.episode.item,
-div.album.item
+.movie.item,
+.episode.item,
+.album.item
 {
     height: 320px;
     position: relative;
@@ -110,9 +110,10 @@ div.album.item
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 0 0 4px 4px;
+    cursor: pointer;
 }
 
-div.item div.overlay
+.item div.overlay
 {
     position: absolute;
     width: 100%;
@@ -123,8 +124,8 @@ div.item div.overlay
     z-index: 1;
 }
 
-div.item .title,
-div.item .subtitle
+.item .title,
+.item .subtitle
 {
     width: 100%;
     height: 20px;
@@ -138,7 +139,7 @@ div.item .subtitle
     overflow: hidden;
 }
 
-div.item div.title
+.item div.title
 {
     bottom: 22px;
     font-size: 26px;
@@ -151,6 +152,21 @@ div.transmission li div.torrentprogress
     margin-top: 7px;
 }
 
+.glyphicon-half
+{
+    position:relative;
+}
+.glyphicon-half:after 
+{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 50%;
+    height: 100%;
+    left: 47%;
+}
+
 @media only screen and (min-width : 481px)
 {
     div.panel .list-group, 
@@ -159,3 +175,4 @@ div.transmission li div.torrentprogress
         display: block !important;
     }
 }
+

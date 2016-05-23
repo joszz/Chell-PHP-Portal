@@ -19,6 +19,7 @@
     <Compile Include="app\controllers\BaseController.php" />
     <Compile Include="app\controllers\DevicesController.php" />
     <Compile Include="app\controllers\IndexController.php" />
+    <Compile Include="app\controllers\KodiController.php" />
     <Compile Include="app\controllers\SessionController.php" />
     <Compile Include="app\controllers\SettingsController.php" />
     <Compile Include="app\forms\LoginForm.php" />
@@ -31,6 +32,7 @@
     <Compile Include="app\forms\SettingsUsersForm.php" />
     <Compile Include="app\models\BaseModel.php" />
     <Compile Include="app\models\Devices.php" />
+    <Compile Include="app\models\KodiFiles.php" />
     <Compile Include="app\models\KodiTVShowEpisodes.php" />
     <Compile Include="app\models\KodiTVShows.php" />
     <Compile Include="app\models\KodiMusic.php" />
@@ -38,13 +40,14 @@
     <Compile Include="app\models\KodiTVShowSeasons.php" />
     <Compile Include="app\models\MenuItems.php" />
     <Compile Include="app\models\Menus.php" />
+    <Compile Include="app\models\PHPSysInfo.php" />
     <Compile Include="app\models\Users.php" />
     <Compile Include="app\plugins\SecurityPlugin.php" />
     <Compile Include="app\views\devices\webtemp.phtml" />
     <Compile Include="app\views\index\index.phtml" />
     <Compile Include="app\views\index.phtml" />
     <Compile Include="app\views\index\partials\indexAction\latest_episodes.phtml" />
-    <Compile Include="app\views\layouts\webtemp.phtml" />
+    <Compile Include="app\views\layouts\empty.phtml" />
     <Compile Include="app\views\settings\index.phtml" />
     <Compile Include="app\views\settings\partials\menu.phtml" />
     <Compile Include="public\.htaccess" />
@@ -63,6 +66,7 @@
     <Folder Include="app\views\index\partials\indexAction\" />
     <Folder Include="app\views\layouts\" />
     <Folder Include="app\views\about\" />
+    <Folder Include="app\views\kodi\" />
     <Folder Include="app\views\session\" />
     <Folder Include="app\views\settings\" />
     <Folder Include="app\views\settings\partials\" />
@@ -107,6 +111,9 @@
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
     <Content Include="app\views\index\partials\indexAction\dialog-confirm.phtml" />
+    <Content Include="app\views\kodi\album.phtml" />
+    <Content Include="app\views\kodi\episode.phtml" />
+    <Content Include="app\views\kodi\movie.phtml" />
     <Content Include="app\views\navbar.phtml" />
     <Content Include="app\views\session\index.phtml" />
     <Content Include="app\views\settings\partials\devices.phtml" />
@@ -350,7 +357,7 @@
     <Content Include="public\js\fancybox\jquery.fancybox-media.js" />
     <Content Include="public\js\fancybox\jquery.fancybox-thumbs.js" />
     <Content Include="public\js\fancybox\jquery.fancybox.js" />
-    <Content Include="public\js\jquery-2.2.3.js" />
+    <Content Include="public\js\jquery-2.2.4.js" />
     <Content Include="public\js\jquery.isloading.js" />
     <Content Include="public\js\jquery.shorten.js" />
     <Content Include="public\js\jquery.tinytimer.js" />

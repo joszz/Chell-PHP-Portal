@@ -61,7 +61,7 @@ class DevicesController extends BaseController
      */
     public function webtempAction()
     {
-        $this->view->setMainView('layouts/webtemp');
+        $this->view->setMainView('layouts/empty');
 
         $this->view->device = Devices::findFirst(array(
             'conditions' => 'id = ?1',

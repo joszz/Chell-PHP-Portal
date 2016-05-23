@@ -1,0 +1,23 @@
+<div class="movie_detail">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4><?php echo $album->strArtists ?></h4>
+        </div>
+        <ul class="list-group panel-success">
+            <li class="list-group-item col-xs-12 col-lg-12">
+                <div class="col-xs-3">Genre</div>
+                <div class="col-xs-9"><?php echo $album->strGenres ?></div>
+            </li>
+            <li class="list-group-item col-xs-12 col-lg-12">
+                <div class="col-xs-3">Year</div>
+                <div class="col-xs-9"><?php echo $album->iYear ?></div>
+            </li>
+            <?php if(!empty($album->strLabel)) : ?>
+            <li class="list-group-item col-xs-12 col-lg-12">
+                <div class="col-xs-3">Label</div>
+                <div class="col-xs-9"><?php echo $album->strLabel ?></div>
+            </li>
+            <?php endif ?>
+        </ul>
+    </div>
+</div>

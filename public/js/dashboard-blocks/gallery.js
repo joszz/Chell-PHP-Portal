@@ -20,7 +20,7 @@
                         });
                     }
                 },
-            }
+            };
 
             settings.rotateIntervalId = setInterval(function () {
                 functions.rotateGallery("right");
@@ -36,6 +36,25 @@
 
                 $(this).blur();
                 return false;
+            });
+
+            $(this).find(".item").click(function () {
+                var maxwidth = $(this).data("fancybox-maxwidth");
+                $.fancybox({
+                    href: $(this).data("detail"),
+                    type: "iframe",
+                    title: $(this).attr("title"),
+                    afterLoad: function () {
+                        $.extend(this, {
+                            maxWidth: maxwidth
+                        })
+                    },
+                    helpers: {
+                        overlay: {
+                            locked: true
+                        }
+                    },
+                });
             });
 
             return functions;

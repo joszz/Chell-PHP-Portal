@@ -19,16 +19,16 @@ body
 {
     font-family: "Roboto", sans-serif !important;
     font-weight: 300;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 body#bootstrap
 {
     padding: 50px 0 52px;
-    overflow-y: scroll;
 }
 
-body.nopadding
+body.nopadding,
+body.nopadding div.container
 {
     padding: 0;
     overflow: auto;
@@ -135,7 +135,7 @@ div.alert
 
 .fancybox-margin
 {
-    margin-right: 0 !important;
+    margin-right: 17px !important;
 }
 
 

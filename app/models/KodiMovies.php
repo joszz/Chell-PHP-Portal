@@ -6,6 +6,13 @@ class KodiMovies extends BaseModel
     {
         $this->setConnectionService('dbKodiVideo');
         $this->setSource('movie');
+
+        $this->hasOne(
+            'idFile',
+            'KodiFiles',
+            'idFile',
+            array('alias' => 'file')
+        );
     }
 
     public static function getLatestMovies($limit = 10){
