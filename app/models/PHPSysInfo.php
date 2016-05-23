@@ -6,11 +6,8 @@ class PHPSysInfo extends BaseModel
 
     public function getData()
     {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
+        $curl = curl_init($this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
         
         $this->data = json_decode(curl_exec($curl));
         curl_close($curl);
