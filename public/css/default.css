@@ -120,6 +120,12 @@ div.content {
 .fancybox-wrap .dropdown-menu {
   position: relative; }
 
+.fancybox-margin {
+  margin-right: 17px !important; }
+
+.fancybox-lock body {
+  overflow: hidden; }
+
 div.alert {
   position: fixed;
   bottom: 15px;
@@ -136,9 +142,6 @@ div.alert {
 
 .btn-dark:hover {
   background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%); }
-
-.fancybox-margin {
-  margin-right: 17px !important; }
 
 div.vertical-center {
   display: table-cell;

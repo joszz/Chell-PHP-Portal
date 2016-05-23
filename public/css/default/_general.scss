@@ -110,6 +110,16 @@ div.content
     position: relative;
 }
 
+.fancybox-margin
+{
+    margin-right: 17px !important;
+}
+
+.fancybox-lock body
+{
+    overflow: hidden;
+}
+
 div.alert
 {
     position: fixed;
@@ -133,10 +143,6 @@ div.alert
     background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
 }
 
-.fancybox-margin
-{
-    margin-right: 17px !important;
-}
 
 
 div.vertical-center
