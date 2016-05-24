@@ -5,21 +5,21 @@
                 <h4><?php echo $episode->getShow()->c00 ?></h4>
             </li>
             <li class="list-group-item col-xs-12">
-                <div class="col-xs-3">Episode</div>
-                <div class="col-xs-9"><?php echo $episode->c13 ?></div>
+                <div class="col-xs-4 col-lg-2">Episode</div>
+                <div class="col-xs-8 col-lg-10"><?php echo $episode->c13 ?></div>
             </li>
             <li class="list-group-item col-xs-12">
-                <div class="col-xs-3">Season</div>
-                <div class="col-xs-9"><?php echo $episode->getSeason()->season ?></div>
+                <div class="col-xs-4 col-lg-2">Season</div>
+                <div class="col-xs-8 col-lg-10"><?php echo $episode->getSeason()->season ?></div>
             </li>
             <li class="list-group-item col-xs-12">
-                <div class="col-xs-3">Date</div>
-                <div class="col-xs-9"><?php echo $episode->c05 ?></div>
+                <div class="col-xs-4 col-lg-2">Date</div>
+                <div class="col-xs-8 col-lg-10"><?php echo $episode->c05 ?></div>
             </li>
             <?php if(!empty($episode->rating)) : ?>
             <li class="list-group-item col-xs-12">
-                <div class="col-xs-3">Rating</div>
-                <div class="col-xs-9">
+                <div class="col-xs-4 col-lg-2">Rating</div>
+                <div class="col-xs-8 col-lg-10">
                     <?php for($i = 1; $i <= $episode->rating; $i++) : ?>
                     <span class="glyphicon glyphicon-star text-success"></span>
                     <?php endfor ?>
@@ -31,8 +31,8 @@
             </li>
             <?php endif ?>
             <li class="list-group-item col-xs-12">
-                <div class="col-xs-3">Plot</div>
-                <div class="col-xs-9"><?php echo $episode->c01 ?></div>
+                <div class="col-xs-4 col-lg-2">Plot</div>
+                <div class="col-xs-8 col-lg-10"><?php echo $episode->c01 ?></div>
             </li>
         </ul>
     </div>
