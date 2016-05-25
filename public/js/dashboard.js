@@ -42,16 +42,6 @@ function openConfirmDialog(title, data, buttonClick) {
 
     $.fancybox({
         content: $("div#confirm-dialog").show(),
-        closeBtn: false,
-        closeClick: false,
-        helpers: {
-            overlay: {
-                closeClick: false,
-                locked: true
-            }
-        },
-        keys: {
-            close: null
-        }
+        modal: true
     });
 }

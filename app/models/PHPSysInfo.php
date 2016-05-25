@@ -8,7 +8,6 @@ class PHPSysInfo extends BaseModel
     {
         $curl = curl_init($this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        
         $this->data = json_decode(curl_exec($curl));
         curl_close($curl);
 

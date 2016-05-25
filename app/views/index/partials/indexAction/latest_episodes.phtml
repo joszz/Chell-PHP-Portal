@@ -13,7 +13,7 @@
             <div class="episode item <?php echo $i++ > 0 ? ' hidden_not_important' : null ?>"
                 data-detail="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
                 data-fancybox-maxwidth="500px"
-                title="<?php echo $episode->c00 ?>"
+                title="<?php echo utf8_encode($episode->c00) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($episode->c06) ? 'kodi/getImage?which=episodes&id=' . $episode->idEpisode : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $title = utf8_encode($episode->getShow()->c00) ?>"><?php echo $title ?></div>

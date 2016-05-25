@@ -21,8 +21,7 @@
         }, options);
 
         var functions = {
-            getTorrents: function (onload, self) {
-                self = typeof self === 'undefined' ? this : self;
+            getTorrents: function (onload) {
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
@@ -34,11 +33,11 @@
 
                 clearInterval(settings.updateIntervalId);
                 settings.updateIntervalId = setInterval(function () {
-                    self.getTorrents(false, self);
+                    functions.getTorrents(false);
                 }, settings.updateInterval);
 
                 settings.block.find(".glyphicon-refresh").off().on("click", function () {
-                    self.getTorrents(false, self);
+                    functions.getTorrents(false);
 
                     $(this).blur();
                     return false;
@@ -50,7 +49,7 @@
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
                     if (xhr.status == 409) {
-                        self.getTorrents(onload, self);
+                        functions.getTorrents(onload);
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
@@ -96,7 +95,7 @@
                                     $.fancybox.close();
 
                                     if ($(this).attr('id') == 'confirm-yes') {
-                                        self.removeTorrents(torrent.data('id'), self);
+                                        functions.removeTorrents(torrent.data('id'));
                                     }
                                 });
 
@@ -117,16 +116,14 @@
                 return self;
             },
 
-            startStopTorrents: function (torrentIds, self) {
-                self = typeof self === 'undefined' ? this : self;
-
+            startStopTorrents: function (torrentIds) {
                 var data = settings.defaultData;
                 data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('glyphicon-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
                     if (xhr.status == 409) {
-                        self.startTorrents(torrentIds, self);
+                        functions.startTorrents(torrentIds);
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
@@ -140,21 +137,20 @@
                 $.ajax(data);
             },
 
-            removeTorrents: function (torrentIds, self) {
-                self = typeof self === 'undefined' ? this : self;
-
+            removeTorrents: function (torrentIds) {
                 var data = settings.defaultData;
                 data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data": true}';
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
                     if (xhr.status == 409) {
-                        self.removeTorrents(torrentIds, self);
+                        functions.removeTorrents(torrentIds);
                     }
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
                         if (responseData.result == 'success') {
                             $('li[data-id=' + torrentIds + ']').remove();
+                            functions.getTorrents(false);
                         }
                     }
                 };

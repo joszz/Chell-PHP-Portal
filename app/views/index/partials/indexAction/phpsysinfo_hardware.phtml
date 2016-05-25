@@ -53,9 +53,9 @@
                         <div class="lan-speed col-xs-6"><?php echo $info[2] ?></div>
                         <?php endif ?>
                         <div class="col-xs-6">Rx: </div>
-                        <div class="lan-rx col-xs-6"><?php echo round($network->{'@attributes'}->RxBytes / 1024 / 1024 / 1024 * 100, 2) / 100 ?> GB</div>
+                        <div class="lan-rx col-xs-6"><?php echo round($network->{'@attributes'}->RxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
                         <div class="col-xs-6">Tx: </div>
-                        <div class="lan-tx col-xs-6"><?php echo round($network->{'@attributes'}->TxBytes / 1024 / 1024 / 1024 * 100, 2) / 100 ?> GB</div>
+                        <div class="lan-tx col-xs-6"><?php echo round($network->{'@attributes'}->TxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
                         <?php if(++$i != count($phpsysinfoData->Network->NetDevice)) : ?>
                         <hr class="pull-left col-xs-12 no-gutter" />
                         <?php endif ?>
