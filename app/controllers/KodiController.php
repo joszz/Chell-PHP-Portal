@@ -19,6 +19,7 @@ class KodiController extends BaseController
         $movie->rating = floor($movie->c05 * 2) / 2;
         //$movie->filePath = str_replace('/', '\\', str_replace('smb://', '', $movie->c22)) . $movie->getFile()->strFilename;
         
+        $this->view->bgImage = $movie->c20;
         $this->view->movie = $movie;
     }
 
@@ -39,7 +40,8 @@ class KodiController extends BaseController
             'conditions' => 'idAlbum = ?1',
             'bind'       => array(1 => $id),
         ));
-        
+
+        $this->view->bgImage = $movie->c20;
         $this->view->album = $album;
     }
 

@@ -100,6 +100,11 @@ div.content
     display: none;
 }
 
+.show_not_important
+{
+    display: block;
+}
+
 .table-responsive
 {
     border: 0;
@@ -112,13 +117,9 @@ div.content
 
 .fancybox-margin
 {
-    margin-right: 17px !important;
+    margin-right: 0 !important;
 }
 
-.fancybox-lock body
-{
-    overflow: hidden;
-}
 
 div.alert
 {

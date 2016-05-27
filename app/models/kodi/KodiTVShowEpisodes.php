@@ -5,20 +5,7 @@ class KodiTVShowEpisodes extends BaseModel
     public function initialize()
     {
         $this->setConnectionService('dbKodiVideo');
-        $this->setSource('episode');
-
-        $this->belongsTo(
-            'idShow',
-            'KodiTVShows',
-            'idShow',
-            array('alias' => 'show')
-        );
-        $this->belongsTo(
-            'idSeason',
-            'KodiTVShowSeasons',
-            'idSeason',
-            array('alias' => 'season')
-        );
+        $this->setSource('episode_view');
     }
 
     public static function getLatestEpisodes($limit = 10){

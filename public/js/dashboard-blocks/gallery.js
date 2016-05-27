@@ -9,14 +9,14 @@
 
             var functions = {
                 rotateGallery: function (direction) {
-                    var currentIndex = settings.block.find("div.item:visible").index();
+                    var currentIndex = settings.block.find(".item:visible").index();
                     var offset = direction == "right" ? 1 : -1;
 
-                    nextIndex = settings.block.find("div.item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
+                    nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
 
                     if (currentIndex != nextIndex) {
-                        settings.block.find("div.item:eq(" + currentIndex + ")").fadeOut("fast", function () {
-                            settings.block.find("div.item:eq(" + nextIndex + ")").fadeIn("fast");
+                        settings.block.find(".item:eq(" + currentIndex + ")").fadeOut("fast", function () {
+                            settings.block.find(".item:eq(" + nextIndex + ")").fadeIn("fast").css("display", "block");
                         });
                     }
                 },
@@ -36,25 +36,6 @@
 
                 $(this).blur();
                 return false;
-            });
-
-            $(this).find(".item").click(function () {
-                var maxwidth = $(this).data("fancybox-maxwidth");
-                $.fancybox({
-                    href: $(this).data("detail"),
-                    type: "iframe",
-                    title: $(this).attr("title"),
-                    afterLoad: function () {
-                        $.extend(this, {
-                            maxWidth: maxwidth
-                        })
-                    },
-                    helpers: {
-                        overlay: {
-                            locked: true
-                        }
-                    },
-                });
             });
 
             return functions;

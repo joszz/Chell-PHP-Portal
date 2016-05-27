@@ -29,8 +29,8 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 
-<body class="nopadding">
-    <div class="container">
+<body class="nopadding"<?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?>>
+    <div class="container container-relative">
         <?php echo $this->getContent() ?>
     </div>
 

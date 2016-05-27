@@ -22,6 +22,7 @@ class FrontController
     private $application;
     private $js = array('jquery-2.2.4.js', 
                         'fancybox/jquery.fancybox.js', 
+                        //'fancybox/jquery.fancybox-buttons.js', 
                         'bootstrap.js', 
                         'bootstrap-select/bootstrap-select.js', 
                         'bootstrap-tabcollapse.js', 
@@ -37,7 +38,13 @@ class FrontController
                         'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/transmission.js',
                         );
-    private $css = array('bootstrap.css', 'bootstrap-theme.css', 'fancybox/jquery.fancybox.css', 'waves.css', 'bootstrap-select.css', 'default.css');
+    private $css = array('bootstrap.css', 
+                         'bootstrap-theme.css', 
+                         'fancybox/jquery.fancybox.css', 
+                         //'fancybox/jquery.fancybox-buttons.css', 
+                         'waves.css', 
+                         'bootstrap-select.css', 
+                         'default.css');
 
     public function __construct()
     {
@@ -93,6 +100,7 @@ class FrontController
                 APP_PATH . $this->config->application->pluginsDir,
                 APP_PATH . $this->config->application->libraryDir,
                 APP_PATH . $this->config->application->modelsDir,
+                APP_PATH . $this->config->application->modelsDir . 'kodi/',
                 APP_PATH . $this->config->application->formsDir,
             )
         )->register();

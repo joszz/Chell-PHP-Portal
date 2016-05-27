@@ -32,12 +32,9 @@
     <Compile Include="app\forms\SettingsUsersForm.php" />
     <Compile Include="app\models\BaseModel.php" />
     <Compile Include="app\models\Devices.php" />
-    <Compile Include="app\models\KodiFiles.php" />
-    <Compile Include="app\models\KodiTVShowEpisodes.php" />
-    <Compile Include="app\models\KodiTVShows.php" />
-    <Compile Include="app\models\KodiMusic.php" />
-    <Compile Include="app\models\KodiMovies.php" />
-    <Compile Include="app\models\KodiTVShowSeasons.php" />
+    <Compile Include="app\models\Kodi\KodiTVShowEpisodes.php" />
+    <Compile Include="app\models\Kodi\KodiMusic.php" />
+    <Compile Include="app\models\Kodi\KodiMovies.php" />
     <Compile Include="app\models\MenuItems.php" />
     <Compile Include="app\models\Menus.php" />
     <Compile Include="app\models\PHPSysInfo.php" />
@@ -59,6 +56,7 @@
   <ItemGroup>
     <Folder Include="app\config\" />
     <Folder Include="app\forms\" />
+    <Folder Include="app\models\Kodi\" />
     <Folder Include="app\plugins\" />
     <Folder Include="app\views\index\" />
     <Folder Include="app\views\devices\" />

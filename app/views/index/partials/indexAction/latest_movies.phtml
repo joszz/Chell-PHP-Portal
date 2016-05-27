@@ -10,15 +10,17 @@
         </div>
         <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($movies as $movie) : ?>
-            <div class="movie item<?php echo $i++ > 0 ? ' hidden_not_important' : null ?>" 
-                data-detail="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
+            <a class="movie item fancybox <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" 
+                href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
+                data-fancybox-type="iframe"
                 data-fancybox-maxwidth="600px"
+                rel="movies" 
                 title="<?php echo utf8_encode($movie->c03) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($movie->c08) ? 'kodi/getImage?which=movies&id=' . $movie->idMovie : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $title = utf8_encode($movie->c00) ?>"><?php echo $title ?></div>
                 <div class="subtitle" title="<?php echo $title = utf8_encode($movie->c03) ?>"><?php echo $title ?></div>
-            </div>
+            </a>
             <?php endforeach ?> 
         </div>
     </div>
