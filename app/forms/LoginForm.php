@@ -8,9 +8,13 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 class LoginForm extends Form
 {
-    public function __construct($config)
+    private $_loginFailed = false;
+
+    public function __construct($config, $loginFailed)
     {
         $this->_config = $config;
+        $this->_loginFailed = $loginFailed;
+
         parent::__construct();
     }
 
@@ -21,12 +25,12 @@ class LoginForm extends Form
         $username = new Text('username');
         $username->setLabel('Username');
         $username->setFilters(array('striptags', 'string'));
-        $username->setAttributes(array('placeholder' => 'Username', 'class' => 'form-control'));
+        $username->setAttributes(array('placeholder' => 'Username', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)));
 
         $password = new Password('password');
         $password->setLabel('Password');
         $password->setFilters(array('striptags', 'string'));
-        $password->setAttributes(array('placeholder' => 'Password', 'class' => 'form-control'));
+        $password->setAttributes(array('placeholder' => 'Password', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)));
 
         $rememberme = new Check('rememberme');
         $rememberme->setLabel('Remember me');

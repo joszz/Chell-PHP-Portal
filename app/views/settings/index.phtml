@@ -4,8 +4,8 @@
     </div>
     <div class="panel-body">
         <ul class="nav nav-tabs">
-            <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
-            <li<?php echo $i++ == 0 ? ' class="active"' : null ?>>
+            <?php foreach ($forms AS $formId => $formContent) : ?>
+            <li<?php echo $activeForm == $formId ? ' class="active"' : null ?>>
                 <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
             </li>
             <?php endforeach ?>
@@ -18,11 +18,11 @@
         </ul>
 
         <div class="tab-content">
-            <?php $i = 0; foreach ($forms AS $formId => $formContent) : ?>
-            <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $i++ == 0 ? ' in active' : null ?> panel panel-square">
+            <?php foreach ($forms AS $formId => $formContent) : ?>
+            <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeForm == $formId ? ' in active' : null ?> panel panel-square">
                 <form action="<?php echo $formContent->getAction() ?>" method="post">
                     <?php foreach($formContent AS $element) : ?>
-                    <div class="form-group row">
+                    <div class="form-group row<?php echo $formContent->hasMessagesFor($element->getName()) ? ' has-error' : null ?>">
                         <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
                         <div class="col-lg-4 col-sm-6 col-xs-12">
                             <?php echo $element ?>

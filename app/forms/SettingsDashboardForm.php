@@ -4,6 +4,7 @@ use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Regex;
 
 class SettingsDashboardForm extends Form
 {
@@ -24,12 +25,14 @@ class SettingsDashboardForm extends Form
         $devicestateTimeouts->setFilters(array('striptags', 'int'));
         $devicestateTimeouts->setAttributes(array('class' => 'form-control'));
         $devicestateTimeouts->setDefault($this->_config->dashboard->checkDeviceStatesInterval);
+        $devicestateTimeouts->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $alertTimeout = new Text('alert-timeout');
         $alertTimeout->setLabel('Alert timeout');
         $alertTimeout->setFilters(array('striptags', 'int'));
         $alertTimeout->setAttributes(array('class' => 'form-control'));
         $alertTimeout->setDefault($this->_config->dashboard->alertTimeout);
+        $alertTimeout->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $phpSysInfoURL = new Text('phpsysinfo-url');
         $phpSysInfoURL->setLabel('PHPSysInfo URL');
@@ -66,24 +69,28 @@ class SettingsDashboardForm extends Form
         $transmissionInterval->setFilters(array('striptags', 'int'));
         $transmissionInterval->setAttributes(array('class' => 'form-control'));
         $transmissionInterval->setDefault($this->_config->dashboard->transmissionUpdateInterval);
+        $transmissionInterval->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $rotateMoviesInterval = new Text('rotate-movies-interval');
         $rotateMoviesInterval->setLabel('Rotate movies inteval');
         $rotateMoviesInterval->setFilters(array('striptags', 'int'));
         $rotateMoviesInterval->setAttributes(array('class' => 'form-control'));
         $rotateMoviesInterval->setDefault($this->_config->dashboard->rotateMoviesInterval);
+        $rotateMoviesInterval->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $rotateEpisodesInterval = new Text('rotate-episodes-interval');
         $rotateEpisodesInterval->setLabel('Rotate episode inteval');
         $rotateEpisodesInterval->setFilters(array('striptags', 'int'));
         $rotateEpisodesInterval->setAttributes(array('class' => 'form-control'));
         $rotateEpisodesInterval->setDefault($this->_config->dashboard->rotateEpisodesInterval);
+        $rotateEpisodesInterval->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $rotateAlbumsInterval = new Text('rotate-albums-interval');
         $rotateAlbumsInterval->setLabel('Rotate albums inteval');
         $rotateAlbumsInterval->setFilters(array('striptags', 'int'));
         $rotateAlbumsInterval->setAttributes(array('class' => 'form-control'));
         $rotateAlbumsInterval->setDefault($this->_config->dashboard->rotateAlbumsInterval);
+        $rotateAlbumsInterval->addValidator(new Regex(array('pattern' => '/^[0-9]+$/')));
 
         $this->add($devicestateTimeouts);
         $this->add($alertTimeout);
@@ -101,7 +108,7 @@ class SettingsDashboardForm extends Form
     public function IsValid($data)
     {
         $valid = parent::IsValid($data);
-
+        
         if($valid)
         {
             $this->_config->dashboard->checkDeviceStatesTimeout = $data['check-devicestate-timeouts'];

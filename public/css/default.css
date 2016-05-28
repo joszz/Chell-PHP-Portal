@@ -117,6 +117,10 @@ div.content {
 .show_not_important {
   display: block; }
 
+input.has-error {
+  border-color: #a94442;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; }
+
 .table-responsive {
   border: 0; }
 
@@ -346,7 +350,6 @@ div.albums .panel-body {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 0 0 4px 4px;
-  cursor: pointer;
   color: #333; }
 
 .item div.overlay {

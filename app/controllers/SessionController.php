@@ -21,7 +21,7 @@ class SessionController extends BaseController
     public function indexAction()
     {
         $this->view->containerFullHeight = true;
-        $this->view->form = new LoginForm($this->config);
+        $this->view->form = new LoginForm($this->config, $this->loginFailed);
         
         if(!$this->loginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {

@@ -4,18 +4,30 @@ use Phalcon\Http\Response;
 
 class SettingsController extends BaseController
 {
+    public function initialize()
+    {
+        parent::initialize();
+
+        if(!isset($this->view->forms['General']))
+        {
+            $this->view->activeForm = 'General';
+
+            $this->view->forms = array(
+                'General'   => new SettingsGeneralForm($this->config),
+                'Dashboard' => new SettingsDashboardForm($this->config),
+            );
+            
+            //$this->view->formUsers = new SettingsUsersForm(Users::Find());
+            $this->view->formDevices = new SettingsDevicesForm(Devices::Find());
+            $this->view->formMenu = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
+            $this->view->formNewMenuItem = new SettingsMenuItemsNewForm();
+            $this->view->formNewDevice = new SettingsDevicesNewForm();
+        }
+    }
+
     public function indexAction()
     {
-        $this->view->forms = array(
-            'General'   => new SettingsGeneralForm($this->config),
-            'Dashboard' => new SettingsDashboardForm($this->config),
-        );
-
-        //$this->view->formUsers = new SettingsUsersForm(Users::Find());
-        $this->view->formDevices = new SettingsDevicesForm(Devices::Find());
-        $this->view->formMenu = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
-        $this->view->formNewMenuItem = new SettingsMenuItemsNewForm();
-        $this->view->formNewDevice = new SettingsDevicesNewForm();
+        
     }
 
     public function generalAction()
@@ -33,15 +45,22 @@ class SettingsController extends BaseController
 
     public function dashboardAction()
     {
-        $form = new SettingsDashboardForm($this->config);
         $data = $this->request->getPost();
         
-        if($form->isValid($data))
+        if($this->view->forms['Dashboard']->isValid($data))
         {
             $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
         }
+        else 
+        {
+            $this->view->activeForm = 'Dashboard';
+        }
 
-        return (new Response())->redirect('settings/index#dashboard');
+        return $this->dispatcher->forward(
+            array(
+                'action'     => 'index'
+            )
+        );
     }
 
     public function devicesAction()
@@ -113,7 +132,7 @@ class SettingsController extends BaseController
                     'conditions' => 'id = ?1',
                     'bind'       => array(1 => intval($menuItemId))
                 ));
-               
+                
                 //Todo check for $item ! null
                 $item->name = $menuItem['name'];
                 $item->url = $menuItem['url'];

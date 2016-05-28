@@ -8,7 +8,7 @@
             </div>
             <h4>Latest episodes</h4>
         </div>
-        <a class="panel-body hidden-xs">
+        <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($episodes as $episode) : ?>
             <a class="episode item fancybox <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
@@ -24,6 +24,6 @@
                 </div>
             </a>
             <?php $i++; endforeach ?> 
-        </a>
+        </div>
     </div>
 </div>
