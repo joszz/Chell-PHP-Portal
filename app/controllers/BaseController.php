@@ -24,10 +24,13 @@ class BaseController extends Controller
     { 
         $content = ""; 
 
-        if ($has_sections) { 
-            foreach ($assoc_arr as $key=>$elem) { 
+        if ($has_sections) 
+        { 
+            foreach ($assoc_arr as $key=>$elem) 
+            { 
                 $content .= "[".$key."]\n"; 
-                foreach ($elem as $key2=>$elem2) { 
+                foreach ($elem as $key2=>$elem2) 
+                { 
                     if(is_array($elem2)) 
                     { 
                         for($i=0;$i<count($elem2);$i++) 
@@ -40,8 +43,10 @@ class BaseController extends Controller
                 } 
             } 
         } 
-        else { 
-            foreach ($assoc_arr as $key=>$elem) { 
+        else 
+        { 
+            foreach ($assoc_arr as $key=>$elem) 
+            { 
                 if(is_array($elem)) 
                 { 
                     for($i=0;$i<count($elem);$i++) 
@@ -54,7 +59,8 @@ class BaseController extends Controller
             } 
         } 
 
-        if (!$handle = fopen($path, 'w')) { 
+        if (!$handle = fopen($path, 'w')) 
+        { 
             return false; 
         }
 

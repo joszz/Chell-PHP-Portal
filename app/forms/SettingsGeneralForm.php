@@ -25,17 +25,14 @@ class SettingsGeneralForm extends Form
         $title->setFilters(array('striptags', 'string'));
         $title->setAttributes(array('class' => 'form-control'));
         $title->setDefault($this->_config->application->title);
-        $title->addValidators(array(
-            new PresenceOf(array(
-                'Message' => 'Title is required'
-            ))
-        ));
+        $title->addValidators(array(new PresenceOf(array())));
 
         $cryptKey = new Text('cryptkey');
         $cryptKey->setLabel('Cryptkey');
         $cryptKey->setFilters(array('striptags', 'string'));
         $cryptKey->setAttributes(array('class' => 'form-control'));
         $cryptKey->setDefault($this->_config->application->phalconCryptKey);
+        $cryptKey->addValidators(array(new PresenceOf(array())));
 
         $bgcolor = new Select(
             'bgcolor',
@@ -58,7 +55,7 @@ class SettingsGeneralForm extends Form
     public function IsValid($data)
     {
         $valid = parent::IsValid($data);
-
+        
         if($valid)
         {
             $this->_config->application->title = $data['title'];

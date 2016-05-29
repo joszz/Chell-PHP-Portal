@@ -457,8 +457,14 @@ label {
   font-weight: normal;
   line-height: 29px; }
 
+.error {
+  color: #a94442;
+  font-weight: bold;
+  line-height: 29px; }
+
 @media only screen and (max-width: 767px) {
-  label {
+  label,
+  .error {
     line-height: initial;
     margin-bottom: 0; } }
 .table > tbody > tr > td {
@@ -468,6 +474,9 @@ label {
   line-height: 34px;
   font-weight: 300;
   font-size: 24px; }
+
+.table > tbody > tr > td .form-group {
+  margin: 0; }
 
 .table input,
 .bootstrap-select > .dropdown-toggle {

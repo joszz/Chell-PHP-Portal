@@ -10,9 +10,6 @@ class IndexController extends BaseController
 
     /**
      * Shows the dashboard view
-     * 
-     * @return  The dashboard view
-     * @todo break up function
      */
     public function indexAction()
     {

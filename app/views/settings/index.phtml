@@ -9,10 +9,10 @@
                 <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
             </li>
             <?php endforeach ?>
-            <li>
+            <li<?php echo $activeForm == 'Devices' ? ' class="active"' : null ?>>
                 <a data-toggle="tab" href="#devices">Devices</a>
             </li>
-            <li>
+            <li<?php echo $activeForm == 'Menu' ? ' class="active"' : null ?>>
                 <a data-toggle="tab" href="#menu">Menu</a>
             </li>
         </ul>
@@ -22,10 +22,15 @@
             <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeForm == $formId ? ' in active' : null ?> panel panel-square">
                 <form action="<?php echo $formContent->getAction() ?>" method="post">
                     <?php foreach($formContent AS $element) : ?>
-                    <div class="form-group row<?php echo $formContent->hasMessagesFor($element->getName()) ? ' has-error' : null ?>">
+                    <div class="form-group row<?php echo ($hasErrors = $formContent->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
                         <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
-                        <div class="col-lg-4 col-sm-6 col-xs-12">
+                        <div class="col-lg-4 col-sm-5 col-xs-12">
                             <?php echo $element ?>
+                        </div>
+                        <div class="col-lg-5 col-sm-3 col-xs-12 error">
+                            <?php if($hasErrors) : ?>
+                            <?php echo $formContent->getMessagesFor($element->getName())[0]->getMessage() ?>
+                            <?php endif ?>
                         </div>
                     </div>
                     <?php endforeach ?>

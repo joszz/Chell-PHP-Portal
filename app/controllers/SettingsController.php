@@ -8,7 +8,7 @@ class SettingsController extends BaseController
     {
         parent::initialize();
 
-        if(!isset($this->view->forms['General']))
+        if(!isset($this->view->forms))
         {
             $this->view->activeForm = 'General';
 
@@ -32,15 +32,14 @@ class SettingsController extends BaseController
 
     public function generalAction()
     {
-        $form = new SettingsGeneralForm($this->config);
         $data = $this->request->getPost();
         
-        if($form->isValid($data))
+        if($this->view->forms['General']->isValid($data))
         {
             $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
         }
 
-        return (new Response())->redirect('settings/index');
+        return $this->dispatcher->forward(array('action' => 'index'));
     }
 
     public function dashboardAction()
@@ -56,21 +55,16 @@ class SettingsController extends BaseController
             $this->view->activeForm = 'Dashboard';
         }
 
-        return $this->dispatcher->forward(
-            array(
-                'action'     => 'index'
-            )
-        );
+        return $this->dispatcher->forward(array('action' => 'index'));
     }
 
     public function devicesAction()
     {
-        $form = new SettingsDevicesForm(Devices::Find());
         $data = $this->request->getPost();
         
-        if($form->isValid($data))
+        if($this->view->formDevices->isValid($data))
         {
-            foreach($data['device'] as $deviceId => $device)
+            foreach($data['devices'] as $deviceId => $device)
             {
                 $item = Devices::findFirst(array(
                     'conditions' => 'id = ?1',
@@ -87,8 +81,13 @@ class SettingsController extends BaseController
                 $item->save();
             }
         }
+        else 
+        {
+            //die(var_dump($this->view->formDevices->getMessages()));
+            $this->view->activeForm = 'Devices';
+        }
 
-        return (new Response())->redirect('settings/index#devices');
+        return $this->dispatcher->forward(array('action' => 'index'));
     }
 
     public function devices_addAction()
@@ -121,10 +120,9 @@ class SettingsController extends BaseController
 
     public function menuAction()
     {
-        $form = new SettingsMenuItemsForm(MenuItems::Find(array('order' => 'name')));
         $data = $this->request->getPost();
         
-        if($form->isValid($data))
+        if($this->view->formMenu->isValid($data))
         {
             foreach($data['menuitem'] as $menuItemId => $menuItem)
             {
@@ -142,8 +140,12 @@ class SettingsController extends BaseController
                 $item->save();
             }
         }
-        
-        return (new Response())->redirect('settings/index#menu');
+        else 
+        {
+            $this->view->activeForm = 'Menu';
+        }
+
+        return $this->dispatcher->forward(array('action' => 'index'));
     }
 
     public function menuitem_addAction()

@@ -1,4 +1,4 @@
-<div id="devices" class="tab-pane fade panel panel-square">
+<div id="devices" class="tab-pane fade panel panel-square<?php echo $activeForm == 'Devices' ? ' in active' : null ?>">
     <form action="<?php echo $formDevices->getAction() ?>" method="post">
         <div class="table-responsive no-gutter col-lg-12 col-xs-12">
             <table class="table table-striped table-hover success">
@@ -21,11 +21,13 @@
                     <tr>
                         <?php endif ?>
                         <td>
+                            <div class="form-group <?php echo $formDevices->hasMessagesFor($element->getName()) ? ' has-error' : null ?>">
                             <?php if(get_class($element) == 'Phalcon\Forms\Element\Hidden') : ?>
                             <a href="devices_delete?id=<?php echo $element->getValue() ?>" class="btn btn-danger glyphicon glyphicon-remove pull-right"></a>
                             <?php else : ?>
                             <?php echo $element ?>
                             <?php endif ?>
+                            </div>
                         </td>
                         <?php $i++;
                               endforeach ?>
