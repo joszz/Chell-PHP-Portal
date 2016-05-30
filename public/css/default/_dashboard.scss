@@ -95,14 +95,16 @@ div.cpu .panel-body
 
 div.movies .panel-body,
 div.episodes .panel-body,
-div.albums .panel-body
+div.albums .panel-body,
+div.subsonic .panel-body
 {
     padding: 0;
 }
 
 .movie.item,
 .episode.item,
-.album.item
+.album.item,
+div.subsonic .item
 {
     height: 320px;
     position: relative;

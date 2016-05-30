@@ -43,7 +43,7 @@
     <Compile Include="app\views\devices\webtemp.phtml" />
     <Compile Include="app\views\index\index.phtml" />
     <Compile Include="app\views\index.phtml" />
-    <Compile Include="app\views\index\partials\indexAction\latest_episodes.phtml" />
+    <Compile Include="app\views\index\partials\indexAction\kodi_latest_episodes.phtml" />
     <Compile Include="app\views\layouts\empty.phtml" />
     <Compile Include="app\views\settings\index.phtml" />
     <Compile Include="app\views\settings\partials\menu.phtml" />
@@ -102,11 +102,12 @@
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_disks.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_processes.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_hardware.phtml" />
-    <Content Include="app\views\index\partials\indexAction\latest_movies.phtml" />
-    <Content Include="app\views\index\partials\indexAction\latest_albums.phtml" />
+    <Content Include="app\views\index\partials\indexAction\kodi_latest_movies.phtml" />
+    <Content Include="app\views\index\partials\indexAction\kodi_latest_albums.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\dialog-shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
+    <Content Include="app\views\index\partials\indexAction\subsonic.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
     <Content Include="app\views\index\partials\indexAction\dialog-confirm.phtml" />
     <Content Include="app\views\kodi\album.phtml" />
@@ -348,6 +349,7 @@
     <Content Include="public\js\dashboard-blocks\devices.js" />
     <Content Include="public\js\dashboard-blocks\gallery.js" />
     <Content Include="public\js\dashboard-blocks\phpsysinfo.js" />
+    <Content Include="public\js\dashboard-blocks\subsonic.js" />
     <Content Include="public\js\dashboard-blocks\transmission.js" />
     <Content Include="public\js\dashboard.js" />
     <Content Include="public\js\default.js" />

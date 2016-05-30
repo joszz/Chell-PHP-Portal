@@ -44,15 +44,12 @@ class SettingsController extends BaseController
 
     public function dashboardAction()
     {
+        $this->view->activeForm = 'Dashboard';
         $data = $this->request->getPost();
         
         if($this->view->forms['Dashboard']->isValid($data))
         {
             $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
-        }
-        else 
-        {
-            $this->view->activeForm = 'Dashboard';
         }
 
         return $this->dispatcher->forward(array('action' => 'index'));
@@ -60,32 +57,22 @@ class SettingsController extends BaseController
 
     public function devicesAction()
     {
+        $this->view->activeForm = 'Devices';
         $data = $this->request->getPost();
         
-        if($this->view->formDevices->isValid($data))
+        if($devices = $this->view->formDevices->isValid($data))
         {
-            foreach($data['devices'] as $deviceId => $device)
+            foreach($devices as $device)
             {
-                $item = Devices::findFirst(array(
-                    'conditions' => 'id = ?1',
-                    'bind'       => array(1 => intval($deviceId))
-                ));
-                
-                //Todo check for $item ! null
-                $item->name = $device['name'];
-                $item->ip = $device['ip'];
-                $item->mac = $device['mac'];
-                $item->webtemp = $device['webtemp'];
-                $item->shutdown_method= $device['shutdown_method'];
-                $item->show_on_dashboard = $device['show_on_dashboard'];
-                $item->save();
+                if(count($device->getMessages()) == 0)
+                {
+                    $device->save();
+                }
             }
         }
-        else 
-        {
-            //die(var_dump($this->view->formDevices->getMessages()));
-            $this->view->activeForm = 'Devices';
-        }
+        
+        $this->view->formDevices = new SettingsDevicesForm();
+        $this->view->formDevices->initialize($devices);
 
         return $this->dispatcher->forward(array('action' => 'index'));
     }

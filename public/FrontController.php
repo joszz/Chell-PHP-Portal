@@ -32,11 +32,13 @@ class FrontController
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',
                         'waves.js', 
+                        'md5.js', 
                         'default.js',
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/gallery.js',
                         'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/transmission.js',
+                        'dashboard-blocks/subsonic.js',
                         );
     private $css = array('bootstrap.css', 
                          'bootstrap-theme.css', 

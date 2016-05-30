@@ -4,8 +4,8 @@
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     $(".transmission").transmission();
     $(".devices").devices().checkstates();
-
     $(".movies, .episodes, .albums").gallery();
+    $(".subsonic").subsonic();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

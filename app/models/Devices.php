@@ -1,5 +1,7 @@
 <?php
 
+use Phalcon\Mvc\Model\Validator\PresenceOf;
+
 /**
  * The model responsible for all actions related to devices.
  * 
@@ -7,6 +9,16 @@
  */
 class Devices extends BaseModel
 {
+    public $id;
+
+    public $name;
+
+    public $ip;
+    public $mac;
+    public $webtemp;
+    public $shutdown_method;
+    public $show_on_dashboard;
+
     /**
      * Sets the database relations
      * 
@@ -19,6 +31,19 @@ class Devices extends BaseModel
             'MenuItems',
             'device_id'
         );
+    }
+
+    public function validation()
+    {
+        $this->validate(new PresenceOf(
+            array(
+               'field'  => 'name',
+               'message' => 'Name is required.',
+               'cancelOnFail' => true
+            )
+        ));
+
+        return $this->validationHasFailed() != true;
     }
 
     /**
