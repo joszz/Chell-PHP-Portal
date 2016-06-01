@@ -65,6 +65,15 @@ h4
     line-height: 36px;
 }
 
+@media only screen and (max-width : 480px)
+{
+    h4
+    {
+        cursor: pointer;
+    }
+}
+
+
 div.content
 {
     padding-top: 20px;
@@ -126,7 +135,6 @@ input.has-error
     margin-right: 0 !important;
 }
 
-
 div.alert
 {
     position: fixed;
@@ -149,8 +157,6 @@ div.alert
 {
     background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
 }
-
-
 
 div.vertical-center
 {

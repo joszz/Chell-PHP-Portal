@@ -111,7 +111,7 @@ class SettingsDashboardForm extends Form
         
         if($valid)
         {
-            $this->_config->dashboard->checkDeviceStatesTimeout = $data['check-devicestate-timeouts'];
+            $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
             $this->_config->dashboard->alertTimeout = $data['alert-timeout'];
             $this->_config->dashboard->phpSysInfoURL = $data['phpsysinfo-url'];
             $this->_config->dashboard->phpSysInfoVCore = $data['phpsysinfo-vcore'];

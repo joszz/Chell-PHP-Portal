@@ -5,6 +5,7 @@
             url: $(this).data("url"),
             password: $(this).data("password"),
             username: $(this).data("username"),
+            randomSongs: undefined
         }, options);
 
         settings.block.find(".glyphicon-refresh").off().on("click", function () {
@@ -12,19 +13,78 @@
             return false;
         });
 
+        settings.block.find(".item").click(function () {
+            return $.trim($(this).find(".title").html()) != "Nothing playing";
+        });
+
         var functions = {
-            nowPlaying: function () {
+            nowPlaying: function (onload) {
+                onload = typeof onload === 'undefined' ? false : onload;
+
+                if (!onload) {
+                    $(".subsonic").isLoading({
+                        text: "Loading",
+                        position: "overlay"
+                    });
+                }
+                
                 $.ajax({
                     url: functions.getURL("getNowPlaying"),
-                    type: "POST",
+                    //todo: foreach entry
                     success: function (nowPlayingData) {
-                        var nowPlayingXML = $(nowPlayingData);
-                        var entry = nowPlayingXML.find("entry");
-                        var url = functions.getURL("getCoverArt", { id: entry.attr("coverArt") });
+                        var entry = $(nowPlayingData).find("entry");
 
-                        settings.block.find(".item").css("background-image", "url(" + url + ")");
-                        settings.block.find(".title").html(entry.attr("artist"));
-                        settings.block.find(".subtitle").html(entry.attr("title"));
+                        if (entry.length != 0) {
+                            var url = functions.getURL("getCoverArt", { id: entry.attr("coverArt") });
+                            var fancybox = settings.block.find("#subsonic_detail");
+                            var duration = Math.floor(entry.attr("duration") / 60) + ":" + (entry.attr("duration") % 60);
+
+                            settings.block.find(".item").css("background-image", "url(" + url + ")").attr("title", entry.attr("title"));
+                            settings.block.find(".title").html(entry.attr("artist"));
+                            settings.block.find(".subtitle").html(entry.attr("title"));
+                            
+                            fancybox.find("h4").html(entry.attr("artist"));
+                            fancybox.find(".track").html(entry.attr("track"));
+                            fancybox.find(".album").html(entry.attr("album"));
+                            fancybox.find(".year").html(entry.attr("year"));
+                            fancybox.find(".genre").html(entry.attr("genre"));
+                            fancybox.find(".duration").html(duration);
+                            fancybox.find(".bitrate").html(entry.attr("bitRate") + " kb/s");
+                            fancybox.find(".playcount").html(entry.attr("playCount"));
+                            fancybox.find(".lastplayed").html(entry.attr("minutesAgo") + " minutes ago");
+                        }
+                        else {
+                            settings.block.find(".item").css("background-image", "url(img/icons/unknown.jpg)");
+                            settings.block.find(".title").html("Nothing playing");
+                        }
+                    }
+                });
+
+                if (!onload) {
+                    $(".subsonic").isLoading("hide");
+                }
+            },
+
+            playNextRandom: function () {
+                if (typeof settings.randomSongs == "undefined") {
+                    $.ajax({
+                        url: functions.getURL("getRandomSongs"),
+                        success: function (randomSongs) {
+                            settings.randomSongs = $(randomSongs);
+
+                            settings.randomSongs.find("song").each(function () {
+
+                            });
+                        }
+                    });
+                }
+            },
+
+            setRandomSongs: function () {
+                $.ajax({
+                    url: functions.getURL("getRandomSongs"),
+                    success: function (randomSongs) {
+                        settings.randomSongs = $(randomSongs);
                     }
                 });
             },
@@ -46,7 +106,7 @@
             }
         };
 
-        functions.nowPlaying();
+        functions.nowPlaying(true);
 
         return functions;
     }

@@ -13,11 +13,14 @@
 });
 
 function initializeDashboardEventHandlers() {
-    $("a.toggle").click(function () {
-        $(this).toggleClass("glyphicon-minus glyphicon-plus");
-        $(this).closest(".panel").find(".list-group, .panel-body").slideToggle("fast");
+    $("a.toggle, .panel-heading h4").click(function () {
+        var panel = $(this).closest(".panel");
 
-        $(this).blur();
+        if (panel.find("a.toggle:visible").length != 0) {
+            panel.find("a.toggle").toggleClass("glyphicon-minus glyphicon-plus");
+            panel.find(".list-group, .panel-body").slideToggle("fast");
+        }
+
         return false;
     });
 

@@ -93,6 +93,9 @@ h4 {
   margin: 0;
   line-height: 36px; }
 
+@media only screen and (max-width: 480px) {
+  h4 {
+    cursor: pointer; } }
 div.content {
   padding-top: 20px; }
 
