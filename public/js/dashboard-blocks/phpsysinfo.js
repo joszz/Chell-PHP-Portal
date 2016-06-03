@@ -14,9 +14,6 @@
                 else {
                     functions.getAll();
                 }
-
-                $(this).blur();
-                return false;
             });
 
             var functions = {
@@ -210,6 +207,6 @@
             }
 
             return functions;
-        })
+        });
     }
 })(jQuery);

@@ -38,7 +38,7 @@ class FrontController
                         'dashboard-blocks/gallery.js',
                         'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/transmission.js',
-                        'dashboard-blocks/subsonic.js',
+                        'dashboard-blocks/nowplaying.js',
                         );
     private $css = array('bootstrap.css', 
                          'bootstrap-theme.css', 

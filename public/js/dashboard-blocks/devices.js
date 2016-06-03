@@ -6,29 +6,27 @@
             updateIntervalId: -1
         }, options);
 
-        this.find("a.glyphicon-refresh").click(function () {
+        this.on("click", ".glyphicon-refresh", function () {
             clearInterval(settings.updateIntervalId);
             functions.checkstates(settings.block);
             settings.updateIntervalId = setInterval(function () {
                 self.checkstates(self);
             }, settings.updateInterval);
-
-            return false;
         });
 
-        this.on("click", "a.btn-danger", function () {
+        this.on("click", ".btn-danger", function () {
             var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
             openConfirmDialog(title, [{ mac: $(this).data("mac") }], function () {
                 functions.wol($(this));
             });
         });
 
-        this.on("click", "a.btn-success", function () {
+        this.on("click", ".btn-success", function () {
             functions.openShutdownDialog($(this));
         });
 
         $("div#shutdown-dialog button").click(function () {
-            return functions.doShutdown();
+            functions.doShutdown();
         });
 
         var functions = {
@@ -41,7 +39,7 @@
                     self.checkstates(self);
                 }, settings.updateInterval);
 
-                settings.block.find("a.devicestate").each(function () {
+                settings.block.find(".devicestate").each(function () {
                     var device = $(this);
                     var icon = $(this).find("span.glyphicon");
                     var ip = $(this).data("ip");
@@ -103,8 +101,6 @@
                 $("div#shutdown-dialog h2 span").html(name);
                 $("div#shutdown-dialog input[name='ip']").val(btn.data("ip"));
 
-
-
                 $.fancybox({
                     content: $("div#shutdown-dialog").show(),
                     afterShow: function () {
@@ -139,8 +135,6 @@
                     $("div.alert").fadeIn("fast");
                     fadeOutAlert();
                 });
-
-                return false;
             }
         }
 

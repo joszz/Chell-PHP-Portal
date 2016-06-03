@@ -2,8 +2,8 @@
     <div class="panel panel-success pull-left devices" data-device-state-interval="<?php echo $this->config->dashboard->checkDeviceStatesInterval ?>">
         <div class="panel-heading">
             <div class="btn-group pull-right">
-                <a href="#" class="btn btn-default glyphicon glyphicon-refresh"></a>
-                <a href="#" class="btn btn-default glyphicon glyphicon-plus visible-xs toggle"></a>
+                <button class="btn btn-default glyphicon glyphicon-refresh"></button>
+                <button class="btn btn-default glyphicon glyphicon-plus visible-xs toggle"></button>
             </div>
             <h4>Devices</h4>
         </div>
@@ -20,7 +20,10 @@
                             <span class="glyphicon glyphicon-dashboard"></span>
                         </a>
                         <?php endif ?>
-                        <a class="btn btn-default disabled devicestate" data-ip="<?php echo $device->ip ?>" data-mac="<?php echo $device->mac ?>" data-shutdown-method="<?php echo $device->shutdown_method ?>">
+                        <a class="btn btn-default disabled devicestate" 
+                            data-ip="<?php echo $device->ip ?>" 
+                            data-mac="<?php echo $device->mac ?>" 
+                            data-shutdown-method="<?php echo $device->shutdown_method ?>">
                             <span class="glyphicon glyphicon-refresh icon-refresh-animate"></span>
                         </a>
                     </div>

@@ -34,6 +34,11 @@ body.nopadding div.container
     overflow: auto;
 }
 
+body.nopadding .panel
+{
+    margin-bottom: 0;
+}
+
 *:active,
 *:focus
 {
@@ -114,6 +119,11 @@ div.content
     display: block;
 }
 
+.disabled
+{
+    cursor: not-allowed;
+}
+
 input.has-error 
 {
     border-color: #a94442;
@@ -123,6 +133,18 @@ input.has-error
 .table-responsive
 {
     border: 0;
+}
+
+.row
+{
+    display: table;
+    width: 100%;
+}
+
+.row > div
+{
+    display: table-cell;
+    height: 100%;
 }
 
 .fancybox-wrap .dropdown-menu

@@ -5,7 +5,7 @@
     $(".transmission").transmission();
     $(".devices").devices().checkstates();
     $(".movies, .episodes, .albums").gallery();
-    $(".subsonic").subsonic();
+    $(".nowplaying").nowplaying();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
@@ -13,15 +13,13 @@
 });
 
 function initializeDashboardEventHandlers() {
-    $("a.toggle, .panel-heading h4").click(function () {
+    $(".toggle, .panel-heading h4").click(function () {
         var panel = $(this).closest(".panel");
-
-        if (panel.find("a.toggle:visible").length != 0) {
-            panel.find("a.toggle").toggleClass("glyphicon-minus glyphicon-plus");
+        
+        if (panel.find(".toggle:visible").length != 0) {
+            panel.find(".toggle").toggleClass("glyphicon-minus glyphicon-plus");
             panel.find(".list-group, .panel-body").slideToggle("fast");
         }
-
-        return false;
     });
 
     $("footer a.toggle-all").click(function () {

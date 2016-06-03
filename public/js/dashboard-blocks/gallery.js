@@ -7,6 +7,19 @@
                 rotateIntervalId: -1
             }, options);
 
+            settings.rotateIntervalId = setInterval(function () {
+                functions.rotateGallery("right");
+            }, settings.rotateInterval);
+
+            $(this).find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
+                clearInterval(settings.rotateIntervalId);
+                functions.rotateGallery($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+
+                settings.rotateIntervalId = setInterval(function () {
+                    rotateGallery("right");
+                }, settings.rotateInterval);
+            });
+
             var functions = {
                 rotateGallery: function (direction) {
                     var currentIndex = settings.block.find(".item:visible").index();
@@ -21,22 +34,6 @@
                     }
                 },
             };
-
-            settings.rotateIntervalId = setInterval(function () {
-                functions.rotateGallery("right");
-            }, settings.rotateInterval);
-
-            $(this).find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
-                clearInterval(settings.rotateIntervalId);
-                functions.rotateGallery($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
-
-                settings.rotateIntervalId = setInterval(function () {
-                    rotateGallery("right");
-                }, settings.rotateInterval);
-
-                $(this).blur();
-                return false;
-            });
 
             return functions;
         });

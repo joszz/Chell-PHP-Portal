@@ -96,15 +96,13 @@ div.cpu .panel-body
 div.movies .panel-body,
 div.episodes .panel-body,
 div.albums .panel-body,
-div.subsonic .panel-body
+div.nowplaying .panel-body
 {
     padding: 0;
 }
 
-.movie.item,
-.episode.item,
-.album.item,
-div.subsonic .item
+.kodi .item,
+div.nowplaying .item
 {
     height: 320px;
     position: relative;
@@ -148,11 +146,13 @@ div.subsonic .item
     height: 45px;
 }
 
-.fancybox-next {
+.fancybox-next 
+{
     right: -70px;
 }
 
-.fancybox-prev {
+.fancybox-prev 
+{
     left: -70px;
 }
 

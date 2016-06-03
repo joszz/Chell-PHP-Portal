@@ -40,7 +40,6 @@
                     functions.getTorrents(false);
 
                     $(this).blur();
-                    return false;
                 });
 
                 var data = settings.defaultData;
@@ -87,7 +86,6 @@
 
                             torrent.find('.torrentactions .status').off().on('click', function () {
                                 self.startStopTorrents($(this).closest('li').data('id'), self);
-                                return false;
                             });
 
                             torrent.find('.torrentactions .glyphicon-remove').off().on('click', function () {
@@ -98,8 +96,6 @@
                                         functions.removeTorrents(torrent.data('id'));
                                     }
                                 });
-
-                                return false;
                             });
 
                             torrent.appendTo($('.transmission ul'));

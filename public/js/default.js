@@ -14,7 +14,7 @@ $(function () {
 });
 
 function initializeGlobalEventHandlers() {
-    $(".fancybox").fancybox({
+    $(".fancybox:not(.disabled)").fancybox({
         afterLoad: function () {
             $.extend(this, {
                 maxWidth: this.element.data("fancybox-maxwidth")

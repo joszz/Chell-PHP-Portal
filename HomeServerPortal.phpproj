@@ -107,7 +107,7 @@
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
     <Content Include="app\views\index\partials\indexAction\dialog-shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
-    <Content Include="app\views\index\partials\indexAction\subsonic.phtml" />
+    <Content Include="app\views\index\partials\indexAction\now_playing.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
     <Content Include="app\views\index\partials\indexAction\dialog-confirm.phtml" />
     <Content Include="app\views\kodi\album.phtml" />
@@ -349,7 +349,7 @@
     <Content Include="public\js\dashboard-blocks\devices.js" />
     <Content Include="public\js\dashboard-blocks\gallery.js" />
     <Content Include="public\js\dashboard-blocks\phpsysinfo.js" />
-    <Content Include="public\js\dashboard-blocks\subsonic.js" />
+    <Content Include="public\js\dashboard-blocks\nowplaying.js" />
     <Content Include="public\js\dashboard-blocks\transmission.js" />
     <Content Include="public\js\dashboard.js" />
     <Content Include="public\js\default.js" />

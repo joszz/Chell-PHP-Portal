@@ -72,6 +72,9 @@ body.nopadding div.container {
   padding: 0;
   overflow: auto; }
 
+body.nopadding .panel {
+  margin-bottom: 0; }
+
 *:active,
 *:focus {
   outline: 0 !important; }
@@ -120,12 +123,23 @@ div.content {
 .show_not_important {
   display: block; }
 
+.disabled {
+  cursor: not-allowed; }
+
 input.has-error {
   border-color: #a94442;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; }
 
 .table-responsive {
   border: 0; }
+
+.row {
+  display: table;
+  width: 100%; }
+
+.row > div {
+  display: table-cell;
+  height: 100%; }
 
 .fancybox-wrap .dropdown-menu {
   position: relative; }
@@ -233,7 +247,7 @@ div#navbar div.btn-group {
   -o-animation-timing-function: linear;
   animation-timing-function: linear; }
 
-@keyframes "rotateThis" {
+@keyframes rotateThis {
   from {
     -webkit-transform: scale(1) rotate(0deg);
     -moz-transform: scale(1) rotate(0deg);
@@ -253,21 +267,21 @@ div#navbar div.btn-group {
   to {
     -moz-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg); } }
-@-webkit-keyframes "rotateThis" {
+@-webkit-keyframes rotateThis {
   from {
     -webkit-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg); }
   to {
     -webkit-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg); } }
-@-ms-keyframes "rotateThis" {
+@-ms-keyframes rotateThis {
   from {
     -ms-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg); }
   to {
     -ms-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg); } }
-@-o-keyframes "rotateThis" {
+@-o-keyframes rotateThis {
   from {
     -o-transform: scale(1) rotate(0deg);
     transform: scale(1) rotate(0deg); }
@@ -342,13 +356,11 @@ div.cpu .panel-body {
 div.movies .panel-body,
 div.episodes .panel-body,
 div.albums .panel-body,
-div.subsonic .panel-body {
+div.nowplaying .panel-body {
   padding: 0; }
 
-.movie.item,
-.episode.item,
-.album.item,
-div.subsonic .item {
+.kodi .item,
+div.nowplaying .item {
   height: 320px;
   position: relative;
   background-size: cover;
