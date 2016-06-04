@@ -18,13 +18,26 @@ function initializeGlobalEventHandlers() {
         afterLoad: function () {
             $.extend(this, {
                 maxWidth: this.element.data("fancybox-maxwidth")
-            })
+            });
         },
         helpers: {
             overlay: {
                 locked: true
             }
         },
+    });
+
+    $(".fancybox-iframe:not(.disabled)").fancybox({
+        beforeShow: function () {
+            this.width = this.element.data("fancybox-maxwidth");
+            this.height = $('.fancybox-iframe').contents().find('body').height();
+        },
+        helpers: {
+            overlay: {
+                locked: true
+            }
+        },
+        type: "iframe"
     });
 
     $("a, button").vibrate();

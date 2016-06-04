@@ -10,9 +10,8 @@
         </div>
         <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($episodes as $episode) : ?>
-            <a class="episode item fancybox <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
+            <a class="episode item fancybox-iframe <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
-                data-fancybox-type="iframe"
                 data-fancybox-maxwidth="500px"
                 rel="episodes"
                 title="<?php echo utf8_encode($episode->c00) ?>"

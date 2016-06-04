@@ -169,9 +169,11 @@ div.alert
 
 .btn-dark,
 .btn-dark:active,
+.btn-dark:focus,
 .btn-dark:hover
 {
     color: #FFF;
+    background-color: transparent;
     border: 1px solid #333;
 }
 

@@ -9,6 +9,7 @@
             },
             kodi: {
                 url: $(this).data("kodi-url"),
+                urlJSON: $(this).data("kodi-url") + "/jsonrpc",
                 password: $(this).data("kodi-password"),
                 username: $(this).data("kodi-username"),
             },
@@ -75,6 +76,7 @@
                                     clone.appendTo(settings.block.find(".panel-body"));
                                 });
                             }
+                            /* todo: keep in mind Kodi items
                             else {
                                 var clone = settings.block.find(".player.hidden").clone();
 
@@ -88,6 +90,7 @@
                             if (entry.length == 1) {
                                 settings.block.find(".panel-heading button:not(.glyphicon-refresh)").addClass("disabled");
                             }
+                            */
                         }
                     });
 
@@ -135,12 +138,42 @@
 
             kodi: {
                 nowPlaying: function () {
+                    var data = {
+                        id: 1,
+                        jsonrpc: "2.0",
+                        method: "Player.GetItem",
+                        params: [0, ["title", "artist", "thumbnail"]]
+                    };
 
+                    $.ajax({
+                        url: settings.kodi.urlJSON,
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
+                        },
+                        success: function (response) {
+                            var clone = settings.block.find(".player.hidden").clone();
+                            var image = encodeURI(response.result.item.thumbnail);
+                            clone.removeClass("hidden");
+                            
+                            clone.find(".item").css("background-image", "url(" + settings.kodi.url + "/image/" + image + ")")
+                                     .attr({ title: $(this).attr("title") })
+                                     .removeClass("disabled");
+
+                            clone.find(".title").html(response.result.item.artist);
+                            clone.find(".subtitle").html(response.result.item.title);
+
+                            clone.appendTo(settings.block.find(".panel-body"));
+                        }
+                    });
                 },
             }
         };
 
         functions.subsonic.nowPlaying(true);
+        functions.kodi.nowPlaying();
 
         return functions;
     }

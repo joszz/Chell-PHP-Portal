@@ -22,10 +22,10 @@ function initializeDashboardEventHandlers() {
         }
     });
 
-    $("footer a.toggle-all").click(function () {
+    $("footer .toggle-all").click(function () {
         var icon = $(this).find("span");
 
-        $("a.glyphicon-" + (icon.hasClass("glyphicon-resize-full") ? "plus" : "minus")).trigger("click");
+        $(".glyphicon-" + (icon.hasClass("glyphicon-resize-full") ? "plus" : "minus")).trigger("click");
         icon.toggleClass("glyphicon-resize-full glyphicon-resize-small");
     });
 }

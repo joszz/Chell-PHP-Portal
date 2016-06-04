@@ -196,6 +196,7 @@
     <Content Include="public\css\default\default.scss" />
     <Content Include="public\css\default\_jquery.isloading.scss" />
     <Content Include="public\css\default\_login.scss" />
+    <Content Include="public\css\default\_modal.scss" />
     <Content Include="public\css\default\_pagination.scss" />
     <Content Include="public\css\default\_responsive-tabs.scss" />
     <Content Include="public\css\fancybox\jquery.fancybox-buttons.css" />
