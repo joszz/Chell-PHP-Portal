@@ -9,8 +9,6 @@ class MenuItems extends BaseModel
 {
     /**
      * Sets the database relations
-     * 
-     * @return  void
      */
     public function initialize()
     {

@@ -2,7 +2,7 @@
 /**
  * The controller showing about information of this project.
  * 
- * @package Chell\Controllers
+ * @package Controllers
  */
 class AboutController extends BaseController
 {

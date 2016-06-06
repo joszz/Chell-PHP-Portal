@@ -2,7 +2,7 @@
 use Phalcon\Mvc\Controller;
 
 /**
- * The baseController used by all controllers. Loads the config.ini to a variable
+ * The baseController used by all controllers. Loads the config.ini to a variable.
  * 
  * @package Controllers
  */
@@ -20,6 +20,14 @@ class BaseController extends Controller
         $this->config = $this->di->get('config');   
     }
 
+    /**
+     * Writes ini file based on associative array.
+     * 
+     * @param array $assoc_arr          The array to write to the ini file.
+     * @param string $path              The path to write the ini file to.
+     * @param bool $has_sections        If the ini file has sections (in the form of [section])
+     * @return bool                     If the write was succesful
+     */
     protected function writeIniFile($assoc_arr, $path, $has_sections = false) 
     { 
         $content = ""; 

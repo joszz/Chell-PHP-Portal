@@ -2,7 +2,7 @@
 /**
  * The controller responsible for all dashboard related actions.
  * 
- * @package Chell\Controllers
+ * @package Controllers
  */
 class IndexController extends BaseController
 {

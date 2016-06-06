@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * The model responsible for all actions related to PHPSysinfo.
+ * 
+ * @package Models
+ */
 class PHPSysInfo extends BaseModel
 {
     private $data;

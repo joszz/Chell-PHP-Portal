@@ -2,6 +2,8 @@
     $.fn.nowplaying = function (options) {
         var settings = $.extend({
             block: $(this),
+            updateInterval: this.data("nowplaying-intveral") * 1000,
+            updateIntervalId: -1,
             subsonic: {
                 loading: false,
                 url: $(this).data("subsonic-url"),
@@ -38,6 +40,11 @@
                     });
                 }
 
+                functions.setInterval();
+
+                settings.block.find(".player.nothing-playing").show();
+                settings.block.find(".player:not(.nothing-playing)").remove();
+
                 functions.subsonic.nowPlaying();
                 functions.kodi.nowPlaying();
 
@@ -48,17 +55,16 @@
 
             nowPlayingCallback: function () {
                 if (settings.kodi.loading == false && settings.subsonic.loading == false) {
-                    var playerCount = settings.block.find(".player:not(.hidden)").length;
-                    if (playerCount == 0) {
-                        var clone = settings.block.find(".player.hidden").clone();
+                    var playerCount = settings.block.find(".player:not(.nothing-playing)").length;
 
-                        clone.find(".item").css({ "background-image": "url(img/icons/unknown.jpg)" }).addClass("disabled");
-                        clone.find(".title").html("Nothing playing");
-                        clone.removeClass("hidden");
-
-                        clone.appendTo(settings.block.find(".panel-body"));
+                    if (playerCount > 0) {
+                        settings.block.find(".player.nothing-playing").hide();
                     }
-                    else if (playerCount == 1) {
+                    else {
+                        settings.block.find(".player.nothing-playing").show();
+                    }
+
+                    if (playerCount <= 1) {
                         settings.block.find(".panel-heading button:not(.glyphicon-refresh)").addClass("disabled");
                     }
                     else {
@@ -70,16 +76,24 @@
                 }
             },
 
+            setInterval: function () {
+                clearInterval(settings.updateIntervalId);
+                settings.updateIntervalId = setInterval(function () {
+                    functions.subsonic.nowPlaying();
+                    functions.kodi.nowPlaying();
+                }, settings.updateInterval);
+            },
+
             rotate: function (direction) {
                 var currentIndex = settings.block.find(".player:visible").index();
                 var offset = direction == "right" ? 1 : -1;
                 var nextIndex = 1;
                 var nextBlock = settings.block.find(".player:eq(" + (currentIndex + offset) + ")");
 
-                if (nextBlock.length == 1 && !nextBlock.hasClass("hidden")) {
+                if (nextBlock.length == 1 && !nextBlock.hasClass("nothing-playing")) {
                     nextIndex = currentIndex + offset;
                 }
-                else if (nextBlock.hasClass("hidden")) {
+                else if (nextBlock.hasClass("nothing-playing")) {
                     nextIndex = settings.block.find(".player").length - 1;
                 }
 
@@ -96,29 +110,24 @@
             subsonic: {
                 nowPlaying: function () {
                     settings.subsonic.loading = true;
-                        timeout: settings.subsonic.timeout,
+
                     $.ajax({
                         url: functions.subsonic.getURL("getNowPlaying"),
-
+                        timeout: settings.subsonic.timeout,
                         success: function (nowPlayingData) {
                             var entry = $(nowPlayingData).find("entry");
 
-                            settings.block.find(".player:not(.hidden)").remove();
+                            
 
                             if (entry.length != 0) {
                                 entry.each(function (index, value) {
-                                    var clone = settings.block.find(".player.hidden").clone();
+                                    var clone = settings.block.find(".player.nothing-playing").clone();
                                     var url = functions.subsonic.getURL("getCoverArt", { id: $(this).attr("coverArt") });
-
                                     var fancybox = clone.find("#nowplaying_detail").attr("id", "nowplaying_detail_" + index);
                                     var duration = Math.floor($(this).attr("duration") / 60) + ":" + ($(this).attr("duration") % 60);
 
-                                    clone.removeClass("hidden");
+                                    clone.removeClass("nothing-playing");
                                     clone.addClass("subsonic");
-
-                                    if (settings.block.find(".player:visible").length != 0) {
-                                        clone.addClass("hidden_not_important");
-                                    }
 
                                     clone.find(".item").css("background-image", "url(" + url + ")")
                                         .attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + index })
@@ -136,6 +145,13 @@
                                     fancybox.find(".bitrate").html($(this).attr("bitRate") + " kb/s");
                                     fancybox.find(".playcount").html($(this).attr("playCount"));
                                     fancybox.find(".lastplayed").html($(this).attr("minutesAgo") + " minutes ago");
+
+                                    if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
+                                        clone.hide();
+                                    }
+                                    else {
+                                        clone.show();
+                                    }
 
                                     clone.appendTo(settings.block.find(".panel-body"));
                                 });
@@ -187,16 +203,12 @@
                         },
                         success: function (response) {
                             if ($.trim(response.result.item.title) != "") {
-                                var clone = settings.block.find(".player.hidden").clone();
+                                var clone = settings.block.find(".player.nothing-playing").clone();
                                 var imageURL = encodeURI(response.result.item.thumbnail);
                                 imageURL = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + imageURL;
 
-                                clone.removeClass("hidden");
+                                clone.removeClass("nothing-playing");
                                 clone.addClass("kodi");
-
-                                if (settings.block.find(".player:visible").length != 0) {
-                                    clone.addClass("hidden_not_important");
-                                }
 
                                 clone.find(".item").css("background-image", "url(" + imageURL + ")")
                                          .attr({ title: $(this).attr("title") })
@@ -205,12 +217,15 @@
                                 clone.find(".title").html(response.result.item.artist);
                                 clone.find(".subtitle").html(response.result.item.title);
 
+                                if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
+                                    clone.hide();
+                                }
+                                else {
+                                    clone.show();
+                                }
+
                                 clone.appendTo(settings.block.find(".panel-body"));
                             }
-
-                            
-
-                            
                         },
                         complete: function () {
                             settings.kodi.loading = false;

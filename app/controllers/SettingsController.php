@@ -2,8 +2,16 @@
 
 use Phalcon\Http\Response;
 
+/**
+ * The controller responsible for all setting related actions.
+ * 
+ * @package Controllers
+ */
 class SettingsController extends BaseController
 {
+    /**
+     * Set all forms.
+     */
     public function initialize()
     {
         parent::initialize();
@@ -25,11 +33,18 @@ class SettingsController extends BaseController
         }
     }
 
+    /**
+     * Shows the settings view
+     */
     public function indexAction()
     {
         
     }
 
+    /**
+     * Handles SettingsGeneralForm post and writes back to config.ini if valid.
+     * Forwards to index.
+     */
     public function generalAction()
     {
         $data = $this->request->getPost();
@@ -42,6 +57,10 @@ class SettingsController extends BaseController
         return $this->dispatcher->forward(array('action' => 'index'));
     }
 
+    /**
+     * Handles SettingsDashboardForm post and writes back to config.ini if valid.
+     * Forwards to index.
+     */
     public function dashboardAction()
     {
         $this->view->activeForm = 'Dashboard';
@@ -55,6 +74,10 @@ class SettingsController extends BaseController
         return $this->dispatcher->forward(array('action' => 'index'));
     }
 
+    /**
+     * Handles SettingsDevicesForm post and writes to DB if valid.
+     * Forwards to index.
+     */
     public function devicesAction()
     {
         $this->view->activeForm = 'Devices';
@@ -77,6 +100,10 @@ class SettingsController extends BaseController
         return $this->dispatcher->forward(array('action' => 'index'));
     }
 
+    /**
+     * Handles SettingsDevicesNewForm post and writes new device to DB if valid.
+     * Redirects back to index.
+     */
     public function devices_addAction()
     {
         $data = $this->request->getPost();
@@ -92,6 +119,10 @@ class SettingsController extends BaseController
         return (new Response())->redirect('settings/index#devices');
     }
 
+    /**
+     * Deletes a device if $_GET['id'] is present.
+     * Redirects back to index.
+     */
     public function devices_deleteAction()
     {
         if(isset($_GET['id']))
@@ -105,6 +136,10 @@ class SettingsController extends BaseController
         return (new Response())->redirect('settings/index#devices');
     }
 
+    /**
+     * Handles SettingsMenuForm post and writes to DB if valid.
+     * Forwards to index.
+     */
     public function menuAction()
     {
         $data = $this->request->getPost();
@@ -135,6 +170,10 @@ class SettingsController extends BaseController
         return $this->dispatcher->forward(array('action' => 'index'));
     }
 
+    /**
+     * Handles SettingsMenuNewForm post and writes new device to DB if valid.
+     * Redirects back to index.
+     */
     public function menuitem_addAction()
     {
         $data = $this->request->getPost();
@@ -150,6 +189,10 @@ class SettingsController extends BaseController
         return (new Response())->redirect('settings/index#menu');
     }
 
+    /**
+     * Deletes a menuitem if $_GET['id'] is present.
+     * Redirects back to index.
+     */
     public function menuitem_deleteAction()
     {
         if(isset($_GET['id']))

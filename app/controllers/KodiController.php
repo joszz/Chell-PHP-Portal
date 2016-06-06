@@ -1,12 +1,24 @@
 <?php
-
+/**
+ * The controller responsible for all actions related to Kodi.
+ * 
+ * @package Controllers
+ */
 class KodiController extends BaseController
 {
+    /**
+     * Set the default layout to empty.
+     */
     public function initialize()
     {
         $this->view->setMainView('layouts/empty');
     }
 
+    /**
+     * Show movie details.
+     * 
+     * @param mixed $id     The ID of the movie.
+     */
     public function movieAction($id)
     {
         $movie = KodiMovies::findFirst(array(
@@ -23,6 +35,11 @@ class KodiController extends BaseController
         $this->view->movie = $movie;
     }
 
+    /**
+     * Show episode details.
+     * 
+     * @param mixed $id     The ID of the episode.
+     */
     public function episodeAction($id)
     {
         $episode = KodiTVShowEpisodes::findFirst(array(
@@ -34,6 +51,11 @@ class KodiController extends BaseController
         $this->view->episode = $episode;
     }
 
+    /**
+     * Show ablum details.
+     * 
+     * @param mixed $id     The ID of the album.
+     */
     public function albumAction($id)
     {
         $album = KodiMusic::findFirst(array(
@@ -45,6 +67,9 @@ class KodiController extends BaseController
         $this->view->album = $album;
     }
 
+    /**
+     * Gets an external image and caches it locally before it is outputted to the browser.
+     */
     public function getImageAction()
     {
         switch($_GET['which'])

@@ -3,10 +3,20 @@
 use Phalcon\Http\Response;
 use Phalcon\Http\Response\Cookies;
 
+/**
+ * The controller responsible for handling the session.
+ * 
+ * @package Controllers
+ */
 class SessionController extends BaseController
 {
     private $loginFailed = false;
 
+    /**
+     * Sets session cookie with user id and username.
+     * 
+     * @param mixed $user   The user object to populate the session with.
+     */
     private function _registerSession($user)
     {
         $this->session->set(
@@ -18,11 +28,12 @@ class SessionController extends BaseController
         );
     }
 
+    /**
+     * Shows the login form. Forwards to login action when rememberme cookies are present.
+     * @return mixed
+     */
     public function indexAction()
     {
-        $this->view->containerFullHeight = true;
-        $this->view->form = new LoginForm($this->config, $this->loginFailed);
-        
         if(!$this->loginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {
             return $this->dispatcher->forward(
@@ -32,8 +43,15 @@ class SessionController extends BaseController
                 )
             );
         }
-    }
 
+        $this->view->containerFullHeight = true;
+        $this->view->form = new LoginForm($this->config, $this->loginFailed);
+    }
+    
+    /**
+     * Handles login with either POST variables or remember me cookie values. 
+     * If success redirects to dashboard (IndexController), unsuccesfull forward to index/loginform
+     */
     public function loginAction()
     {
         $rememberMe = false;
@@ -78,7 +96,7 @@ class SessionController extends BaseController
         else 
         {
             $this->loginFailed = true;
-        }    
+        }
 
         return $this->dispatcher->forward(
             array(
@@ -88,6 +106,9 @@ class SessionController extends BaseController
         );
     }
 
+    /**
+     * Logout user, destroying session and invalidating remember me cookie. Forwards to login form.
+     */
     public function logoutAction(){
         $response = new Response();
 

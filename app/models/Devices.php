@@ -21,8 +21,6 @@ class Devices extends BaseModel
 
     /**
      * Sets the database relations
-     * 
-     * @return  void
      */
     public function initialize()
     {
@@ -109,7 +107,7 @@ class Devices extends BaseModel
      * @param mixed $mac            The device to wake.
      * @param mixed $socket_number  The port to send the magic packet to.
      * @param mixed $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
-     * @return bool
+     * @return bool                 Whether or not socket_sendto with magic packet succeeded.
      */
     public function wakeOnLan($mac, $socket_number = '7', $repetition = 16) 
     {
@@ -157,7 +155,7 @@ class Devices extends BaseModel
      * @param mixed $ip         The device to shutdown
      * @param mixed $user       A valid Windows account to authenticate with.
      * @param mixed $password   A valid Windows password to authenticate with.
-     * @return array
+     * @return array            The output of the RPC command on the shell.
      */
     public function shutdown($ip, $user, $password)
     {

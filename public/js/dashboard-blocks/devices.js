@@ -8,10 +8,11 @@
 
         this.on("click", ".glyphicon-refresh", function () {
             clearInterval(settings.updateIntervalId);
-            functions.checkstates(settings.block);
             settings.updateIntervalId = setInterval(function () {
                 self.checkstates(self);
             }, settings.updateInterval);
+
+            functions.checkstates(settings.block);
         });
 
         this.on("click", ".btn-danger", function () {

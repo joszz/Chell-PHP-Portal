@@ -1,5 +1,6 @@
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <div class="panel panel-success nowplaying pull-left"
+        data-nowplaying-intveral="<?php echo $this->config->dashboard->checkNowPlayingInterval ?>" 
         data-kodi-url="<?php echo $this->config->dashboard->kodiURL ?>"
         data-kodi-username="<?php echo $this->config->dashboard->kodiUsername ?>"
         data-kodi-password="<?php echo $this->config->dashboard->kodiPassword ?>"
@@ -17,10 +18,10 @@
             <h4>Now playing</h4>
         </div>
         <div class="panel-body hidden-xs">
-            <div class="player hidden">
-                <a class="item fancybox show_not_important" href="#nowplaying_detail">
+            <div class="player nothing-playing">
+                <a class="item fancybox show_not_important" href="#" style="background-image: url('/portal/img/icons/unknown.jpg')">
                     <div class="overlay"></div>
-                    <div class="title"></div>
+                    <div class="title">Nothing playing</div>
                     <div class="subtitle"></div>
                 </a>
 
