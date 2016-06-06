@@ -42,15 +42,17 @@
 
                 functions.setInterval();
 
-                settings.block.find(".player.nothing-playing").show();
                 settings.block.find(".player:not(.nothing-playing)").remove();
 
                 functions.subsonic.nowPlaying();
                 functions.kodi.nowPlaying();
 
-                if (!onload) {
-                    $(".nowplaying").isLoading("hide");
-                }
+                var checkloadingInterval = window.setInterval(function () {
+                    if (!onload && settings.kodi.loading == false && settings.subsonic.loading == false) {
+                        $(".nowplaying").isLoading("hide");
+                        clearInterval(checkloadingInterval);
+                    }
+                }, 100);
             },
 
             nowPlayingCallback: function () {
@@ -79,6 +81,8 @@
             setInterval: function () {
                 clearInterval(settings.updateIntervalId);
                 settings.updateIntervalId = setInterval(function () {
+                    settings.block.find(".player:not(.nothing-playing)").remove();
+
                     functions.subsonic.nowPlaying();
                     functions.kodi.nowPlaying();
                 }, settings.updateInterval);
@@ -116,8 +120,6 @@
                         timeout: settings.subsonic.timeout,
                         success: function (nowPlayingData) {
                             var entry = $(nowPlayingData).find("entry");
-
-                            
 
                             if (entry.length != 0) {
                                 entry.each(function (index, value) {

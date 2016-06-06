@@ -383,7 +383,8 @@ div.nowplaying .panel-body {
   padding: 0; }
 
 .kodi .item,
-div.nowplaying .item {
+div.nowplaying .item,
+div.nowplaying .panel-body {
   height: 320px;
   position: relative;
   background-size: cover;

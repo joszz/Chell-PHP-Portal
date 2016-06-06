@@ -18,7 +18,7 @@
 
             var functions = {
                 getAll: function () {
-                    $(".sysinfo, .hardware, .harddisks").isLoading({
+                    $(".sysinfo, #hardware .panel, .harddisks").isLoading({
                         text: "Loading",
                         position: "overlay"
                     });
@@ -34,7 +34,7 @@
                         functions.setDisks(data);
                         functions.setUpdateNotifier(data);
 
-                        $(".sysinfo, .hardware, .harddisks").isLoading("hide");
+                        $(".sysinfo, #hardware .panel, .harddisks").isLoading("hide");
                     });
                 },
 
