@@ -48,6 +48,10 @@
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
                     if (xhr.status == 409) {
+                        if (!onload) {
+                            settings.block.isLoading('hide');
+                        }
+
                         functions.getTorrents(onload);
                     }
                     else if (xhr.status == 200) {

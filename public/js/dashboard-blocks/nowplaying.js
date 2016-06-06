@@ -7,6 +7,7 @@
                 url: $(this).data("subsonic-url"),
                 password: $(this).data("subsonic-password"),
                 username: $(this).data("subsonic-username"),
+                timeout: 5000
             },
             kodi: {
                 loading: false,
@@ -14,6 +15,7 @@
                 urlJSON: $(this).data("kodi-url") + "/jsonrpc",
                 password: $(this).data("kodi-password"),
                 username: $(this).data("kodi-username"),
+                timeout: 5000
             },
         }, options);
 
@@ -47,7 +49,6 @@
             nowPlayingCallback: function () {
                 if (settings.kodi.loading == false && settings.subsonic.loading == false) {
                     var playerCount = settings.block.find(".player:not(.hidden)").length;
-
                     if (playerCount == 0) {
                         var clone = settings.block.find(".player.hidden").clone();
 
@@ -95,7 +96,7 @@
             subsonic: {
                 nowPlaying: function () {
                     settings.subsonic.loading = true;
-
+                        timeout: settings.subsonic.timeout,
                     $.ajax({
                         url: functions.subsonic.getURL("getNowPlaying"),
 
@@ -139,9 +140,9 @@
                                     clone.appendTo(settings.block.find(".panel-body"));
                                 });
                             }
-
+                        },
+                        complete: function () {
                             settings.subsonic.loading = false;
-
                             functions.nowPlayingCallback();
                         }
                     });
@@ -180,6 +181,7 @@
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify(data),
+                        timeout: settings.kodi.timeout,
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
                         },
@@ -205,8 +207,13 @@
 
                                 clone.appendTo(settings.block.find(".panel-body"));
                             }
-                            settings.kodi.loading = false;
 
+                            
+
+                            
+                        },
+                        complete: function () {
+                            settings.kodi.loading = false;
                             functions.nowPlayingCallback();
                         }
                     });
