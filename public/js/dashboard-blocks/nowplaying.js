@@ -67,10 +67,10 @@
                     }
 
                     if (playerCount <= 1) {
-                        settings.block.find(".panel-heading button:not(.glyphicon-refresh)").addClass("disabled");
+                        settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").addClass("disabled");
                     }
                     else {
-                        settings.block.find(".panel-heading button:not(.glyphicon-refresh)").removeClass("disabled");
+                        settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").removeClass("disabled");
                     }
 
                     var title = settings.block.find(".player:visible").hasClass("kodi") ? "Kodi" : "Subsonic";
@@ -111,6 +111,40 @@
                 }
             },
 
+            createPlayer: function (values) {
+                var clone = settings.block.find(".player.nothing-playing").clone();
+                var fancybox = clone.find("#nowplaying_detail").attr("id", "nowplaying_detail_" + values.index);
+
+                clone.removeClass("nothing-playing");
+                clone.addClass(values.type);
+
+                clone.find(".item").css("background-image", "url(" + values.bgImage + ")")
+                    .attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index })
+                    .removeClass("disabled");
+
+                clone.find(".title").html(values.title);
+                clone.find(".subtitle").html(values.subtitle);
+
+                fancybox.find("h4").html(values.title);
+                fancybox.find(".track").html(values.track);
+                fancybox.find(".album").html(values.album);
+                fancybox.find(".year").html(values.year);
+                fancybox.find(".genre").html(values.genre);
+                fancybox.find(".duration").html(values.duration);
+                fancybox.find(".bitrate").html(values.bitRate);
+                fancybox.find(".playcount").html(values.playCount);
+                fancybox.find(".lastplayed").html(values.lastplayed);
+
+                if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
+                    clone.hide();
+                }
+                else {
+                    clone.show();
+                }
+
+                clone.appendTo(settings.block.find(".panel-body"));
+            },
+
             subsonic: {
                 nowPlaying: function () {
                     settings.subsonic.loading = true;
@@ -123,39 +157,23 @@
 
                             if (entry.length != 0) {
                                 entry.each(function (index, value) {
-                                    var clone = settings.block.find(".player.nothing-playing").clone();
-                                    var url = functions.subsonic.getURL("getCoverArt", { id: $(this).attr("coverArt") });
-                                    var fancybox = clone.find("#nowplaying_detail").attr("id", "nowplaying_detail_" + index);
+                                    var bgImage = functions.subsonic.getURL("getCoverArt", { id: $(this).attr("coverArt") });
                                     var duration = Math.floor($(this).attr("duration") / 60) + ":" + ($(this).attr("duration") % 60);
 
-                                    clone.removeClass("nothing-playing");
-                                    clone.addClass("subsonic");
-
-                                    clone.find(".item").css("background-image", "url(" + url + ")")
-                                        .attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + index })
-                                        .removeClass("disabled");
-
-                                    clone.find(".title").html($(this).attr("artist"));
-                                    clone.find(".subtitle").html($(this).attr("title"));
-
-                                    fancybox.find("h4").html($(this).attr("artist"));
-                                    fancybox.find(".track").html($(this).attr("track"));
-                                    fancybox.find(".album").html($(this).attr("album"));
-                                    fancybox.find(".year").html($(this).attr("year"));
-                                    fancybox.find(".genre").html($(this).attr("genre"));
-                                    fancybox.find(".duration").html(duration);
-                                    fancybox.find(".bitrate").html($(this).attr("bitRate") + " kb/s");
-                                    fancybox.find(".playcount").html($(this).attr("playCount"));
-                                    fancybox.find(".lastplayed").html($(this).attr("minutesAgo") + " minutes ago");
-
-                                    if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
-                                        clone.hide();
-                                    }
-                                    else {
-                                        clone.show();
-                                    }
-
-                                    clone.appendTo(settings.block.find(".panel-body"));
+                                    functions.createPlayer({
+                                        type: "subsonic",
+                                        index: index,
+                                        bgImage: bgImage,
+                                        title: $(this).attr("artist"),
+                                        subtitle: $(this).attr("title"),
+                                        track: $(this).attr("track"),
+                                        album: $(this).attr("album"),
+                                        genre: $(this).attr("genre"),
+                                        duration: duration,
+                                        bitrate: $(this).attr("bitRate") + " kb/s",
+                                        playCount: $(this).attr("playCount"),
+                                        lastPlayed: $(this).attr("minutesAgo") + " minutes ago"
+                                    });
                                 });
                             }
                         },
@@ -205,28 +223,16 @@
                         },
                         success: function (response) {
                             if ($.trim(response.result.item.title) != "") {
-                                var clone = settings.block.find(".player.nothing-playing").clone();
-                                var imageURL = encodeURI(response.result.item.thumbnail);
-                                imageURL = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + imageURL;
+                                var bgImage = encodeURI(response.result.item.thumbnail);
+                                bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
 
-                                clone.removeClass("nothing-playing");
-                                clone.addClass("kodi");
-
-                                clone.find(".item").css("background-image", "url(" + imageURL + ")")
-                                         .attr({ title: $(this).attr("title") })
-                                         .removeClass("disabled");
-
-                                clone.find(".title").html(response.result.item.artist);
-                                clone.find(".subtitle").html(response.result.item.title);
-
-                                if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
-                                    clone.hide();
-                                }
-                                else {
-                                    clone.show();
-                                }
-
-                                clone.appendTo(settings.block.find(".panel-body"));
+                                functions.createPlayer({
+                                    type: "kodi",
+                                    index: 99,
+                                    bgImage: bgImage,
+                                    title: response.result.item.artist,
+                                    subtitle: response.result.item.title,
+                                });
                             }
                         },
                         complete: function () {

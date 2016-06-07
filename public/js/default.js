@@ -4,16 +4,20 @@ var altPressed = false;
 $(function () {
     alertTimeout = $(".alert").data("alert-timeout");
 
-    $.fancybox.defaults.margin = [70, 20, 60, 20];
+    initializeGlobalPlugins();
+    initializeGlobalEventHandlers();
+});
+
+function initializeGlobalPlugins() {
+    $("a, button, h4").vibrate();
+
     $("select").selectpicker({ width: "100%", container: "body" });
 
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    initializeGlobalEventHandlers();
-});
+    $.fancybox.defaults.margin = [70, 20, 60, 20];
 
-function initializeGlobalEventHandlers() {
     $(".fancybox:not(.disabled)").fancybox({
         afterLoad: function () {
             $.extend(this, {
@@ -39,9 +43,9 @@ function initializeGlobalEventHandlers() {
         },
         type: "iframe"
     });
+}
 
-    $("a, button").vibrate();
-
+function initializeGlobalEventHandlers() {
     $("body").keydown(function (e) {
         if (altPressed) {
             if (e.which == 77 && altPressed) {
