@@ -9,6 +9,11 @@ class PHPSysInfo extends BaseModel
 {
     private $data;
 
+    /**
+     * Main function retrieving PHPSysInfo JSON through cURL.
+     * 
+     * @return array    All PHPSysInfo data in an associative array
+     */
     public function getData()
     {
         $curl = curl_init($this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
@@ -30,6 +35,9 @@ class PHPSysInfo extends BaseModel
         return $this->data;
     }
 
+    /**
+     * Loops through all mounts in $this->data and adds Bootstrap classes to the objects based on used percentage.
+     */
     private function setMountClasses()
     {
         for($i = 0; $i < count($this->data->FileSystem->Mount); $i++)
@@ -44,6 +52,9 @@ class PHPSysInfo extends BaseModel
         }
     }
 
+    /**
+     * Loops through all CpuCores in $this->data. Formatting temps, vCore and CPU speeds.
+     */
     private function setCPUData()
     {
         for($i = 0; $i < count($this->data->Hardware->CPU->CpuCore); $i++)

@@ -94,6 +94,12 @@ div.content
     display: table;
 }
 
+
+.container-relative
+{
+    position: relative;
+}
+
 .no-gutter
 {
     padding: 0;
@@ -162,7 +168,7 @@ div.alert
     position: fixed;
     bottom: 15px;
     right: 15px;
-    z-index: 101;
+    z-index: 7501;
     margin-bottom: 0;
     display: none;
 }
@@ -186,4 +192,19 @@ div.vertical-center
 {
     display: table-cell;
     vertical-align: middle;
+}
+
+.glyphicon-half
+{
+    position:relative;
+}
+.glyphicon-half:after 
+{
+    content: '';
+    position: absolute;
+    z-index: 1;
+    background: white;
+    width: 50%;
+    height: 100%;
+    left: 47%;
 }

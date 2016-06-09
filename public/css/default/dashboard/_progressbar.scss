@@ -1,0 +1,23 @@
+﻿div.progress
+{
+    margin: 0;
+    position: relative;
+}
+
+div.progress div.percent
+{
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    line-height: 22px;
+    text-shadow: 1px 1px 0px #fff;
+}
+
+div.progress-bar
+{
+    border-radius: inherit;
+    height: inherit;
+    position: relative;
+    width: 0;
+}

@@ -42,6 +42,8 @@
 
                 functions.setInterval();
 
+                settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").addClass("disabled");
+                settings.block.find(".player.nothing-playing").hide();
                 settings.block.find(".player:not(.nothing-playing)").remove();
 
                 functions.subsonic.nowPlaying();
@@ -131,9 +133,9 @@
                 fancybox.find(".year").html(values.year);
                 fancybox.find(".genre").html(values.genre);
                 fancybox.find(".duration").html(values.duration);
-                fancybox.find(".bitrate").html(values.bitRate);
+                fancybox.find(".bitrate").html(values.bitRate) + " kb/s";
                 fancybox.find(".playcount").html(values.playCount);
-                fancybox.find(".lastplayed").html(values.lastplayed);
+                fancybox.find(".lastplayed").html(values.lastplayed + " minutes ago");
 
                 if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
                     clone.hide();
@@ -170,9 +172,9 @@
                                         album: $(this).attr("album"),
                                         genre: $(this).attr("genre"),
                                         duration: duration,
-                                        bitrate: $(this).attr("bitRate") + " kb/s",
+                                        bitrate: $(this).attr("bitRate"),
                                         playCount: $(this).attr("playCount"),
-                                        lastPlayed: $(this).attr("minutesAgo") + " minutes ago"
+                                        lastPlayed: $(this).attr("minutesAgo")
                                     });
                                 });
                             }

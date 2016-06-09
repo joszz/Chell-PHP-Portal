@@ -1,0 +1,12 @@
+﻿div.transmission li div.torrentname,
+div.transmission li div.torrentprogress
+{
+    margin-top: 7px;
+}
+
+div.transmission li div.torrentname
+{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

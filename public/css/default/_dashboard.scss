@@ -1,4 +1,10 @@
-﻿canvas,
+﻿@import "dashboard/image-block";
+@import "dashboard/progressbar";
+@import "dashboard/rcpu";
+@import "dashboard/sysinfo";
+@import "dashboard/transmission";
+
+canvas,
 div.harddisks,
 div.harddisks div.progress,
 div.devices,
@@ -17,47 +23,6 @@ div.panel
 div.panel ul div:not(.embed-responsive)
 {
     padding: 0;
-}
-
-div.progress
-{
-    margin: 0;
-    position: relative;
-}
-
-div.progress div.percent
-{
-    text-align: center;
-    z-index: 1;
-    position: absolute;
-    width: 100%;
-    line-height: 22px;
-    text-shadow: 1px 1px 0px #fff;
-}
-
-div.progress-bar
-{
-    border-radius: inherit;
-    height: inherit;
-    position: relative;
-    width: 0;
-}
-
-li.os,
-div.devices li.list-group-item div
-{
-    line-height: 32px;
-}
-
-li.os div.icon
-{
-    width: 32px;
-    height: 32px;
-}
-
-span.packages
-{
-    margin-right: 15px;
 }
 
 div#shutdown-dialog,
@@ -79,108 +44,6 @@ div#confirm-dialog button
 div#confirm-dialog button#confirm-yes
 {
     margin-right: 15px;
-}
-
-div.cpu iframe
-{
-    width: 100%;
-    height: 340px;
-    border: 0;
-}
-
-div.cpu .panel-body
-{
-    padding-bottom: 0;
-}
-
-div.movies .panel-body,
-div.episodes .panel-body,
-div.albums .panel-body,
-div.nowplaying .panel-body
-{
-    padding: 0;
-}
-
-.kodi .item,
-div.nowplaying .item,
-div.nowplaying .panel-body
-{
-    height: 320px;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0 0 4px 4px;
-    color: #333;
-}
-
-.item div.overlay
-{
-    position: absolute;
-    width: 100%;
-    height: 70px;
-    bottom: 0;
-    background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
-    opacity: 0.8;
-    z-index: 1;
-}
-
-.item .title,
-.item .subtitle
-{
-    width: 100%;
-    height: 20px;
-    bottom: 10px;
-    position: absolute;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 2;
-    padding:0 10px;
-    overflow: hidden;
-}
-
-.item div.title
-{
-    bottom: 22px;
-    font-size: 26px;
-    height: 45px;
-}
-
-.fancybox-next 
-{
-    right: -70px;
-}
-
-.fancybox-prev 
-{
-    left: -70px;
-}
-
-div.transmission li div.torrentname,
-div.transmission li div.torrentprogress
-{
-    margin-top: 7px;
-}
-
-.glyphicon-half
-{
-    position:relative;
-}
-.glyphicon-half:after 
-{
-    content: '';
-    position: absolute;
-    z-index: 1;
-    background: white;
-    width: 50%;
-    height: 100%;
-    left: 47%;
-}
-
-.container-relative
-{
-    position: relative;
 }
 
 div.panel.transparent,

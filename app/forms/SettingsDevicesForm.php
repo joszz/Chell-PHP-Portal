@@ -13,6 +13,7 @@ class SettingsDevicesForm extends Form
     public function initialize($devices)
     {
         $this->_action = 'devices';
+
         if(count($devices) > 1)
         {
             foreach($devices as $device)

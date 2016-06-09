@@ -71,6 +71,7 @@
                             torrent.attr('data-id', value.id);
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html(value.name);
+                            torrent.find('.torrentname').attr("title", value.name);
 
                             value.percentDone = Math.round(value.percentDone * 10000) / 100;
                             torrent.find('.torrentprogress .percent').html(value.percentDone + '%');

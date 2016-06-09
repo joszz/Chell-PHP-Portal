@@ -70,6 +70,7 @@
     <Folder Include="app\views\settings\partials\" />
     <Folder Include="public\css\bootstrap\" />
     <Folder Include="public\css\bootstrap\mixins\" />
+    <Folder Include="public\css\default\dashboard\" />
     <Folder Include="public\css\fancybox\" />
     <Folder Include="public\css\default\" />
     <Folder Include="public\fonts\" />
@@ -193,6 +194,11 @@
     <Content Include="public\css\bootstrap\_wells.scss" />
     <Content Include="public\css\default.css" />
     <Content Include="public\css\default.css.map" />
+    <Content Include="public\css\default\dashboard\_image-block.scss" />
+    <Content Include="public\css\default\dashboard\_progressbar.scss" />
+    <Content Include="public\css\default\dashboard\_rcpu.scss" />
+    <Content Include="public\css\default\dashboard\_sysinfo.scss" />
+    <Content Include="public\css\default\dashboard\_transmission.scss" />
     <Content Include="public\css\default\default.scss" />
     <Content Include="public\css\default\_jquery.isloading.scss" />
     <Content Include="public\css\default\_login.scss" />

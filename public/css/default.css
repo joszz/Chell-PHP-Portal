@@ -129,6 +129,9 @@ div.content {
 .container.full-height {
   display: table; }
 
+.container-relative {
+  position: relative; }
+
 .no-gutter {
   padding: 0; }
 
@@ -172,7 +175,7 @@ div.alert {
   position: fixed;
   bottom: 15px;
   right: 15px;
-  z-index: 101;
+  z-index: 7501;
   margin-bottom: 0;
   display: none; }
 
@@ -190,6 +193,18 @@ div.alert {
 div.vertical-center {
   display: table-cell;
   vertical-align: middle; }
+
+.glyphicon-half {
+  position: relative; }
+
+.glyphicon-half:after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  background: white;
+  width: 50%;
+  height: 100%;
+  left: 47%; }
 
 nav.navbar-fixed-top {
   top: 0;
@@ -311,71 +326,6 @@ div#navbar div.btn-group {
   to {
     -o-transform: scale(1) rotate(360deg);
     transform: scale(1) rotate(360deg); } }
-canvas,
-div.harddisks,
-div.harddisks div.progress,
-div.devices,
-div.processes,
-div.temperatures,
-div.cpu {
-  width: 100%; }
-
-div.panel {
-  width: 100%; }
-
-div.panel ul div:not(.embed-responsive) {
-  padding: 0; }
-
-div.progress {
-  margin: 0;
-  position: relative; }
-
-div.progress div.percent {
-  text-align: center;
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  line-height: 22px;
-  text-shadow: 1px 1px 0px #fff; }
-
-div.progress-bar {
-  border-radius: inherit;
-  height: inherit;
-  position: relative;
-  width: 0; }
-
-li.os,
-div.devices li.list-group-item div {
-  line-height: 32px; }
-
-li.os div.icon {
-  width: 32px;
-  height: 32px; }
-
-span.packages {
-  margin-right: 15px; }
-
-div#shutdown-dialog,
-div#confirm-dialog {
-  display: none; }
-
-div.shutdown h2 {
-  white-space: nowrap; }
-
-div#confirm-dialog button {
-  width: 100px; }
-
-div#confirm-dialog button#confirm-yes {
-  margin-right: 15px; }
-
-div.cpu iframe {
-  width: 100%;
-  height: 340px;
-  border: 0; }
-
-div.cpu .panel-body {
-  padding-bottom: 0; }
-
 div.movies .panel-body,
 div.episodes .panel-body,
 div.albums .panel-body,
@@ -420,30 +370,79 @@ div.nowplaying .panel-body {
   font-size: 26px;
   height: 45px; }
 
-.fancybox-next {
-  right: -70px; }
+div.progress {
+  margin: 0;
+  position: relative; }
 
-.fancybox-prev {
-  left: -70px; }
+div.progress div.percent {
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  line-height: 22px;
+  text-shadow: 1px 1px 0px #fff; }
+
+div.progress-bar {
+  border-radius: inherit;
+  height: inherit;
+  position: relative;
+  width: 0; }
+
+div.cpu iframe {
+  width: 100%;
+  height: 340px;
+  border: 0; }
+
+div.cpu .panel-body {
+  padding-bottom: 0; }
+
+li.os,
+div.devices li.list-group-item div {
+  line-height: 32px; }
+
+li.os div.icon {
+  width: 32px;
+  height: 32px; }
+
+span.packages {
+  margin-right: 15px; }
 
 div.transmission li div.torrentname,
 div.transmission li div.torrentprogress {
   margin-top: 7px; }
 
-.glyphicon-half {
-  position: relative; }
+div.transmission li div.torrentname {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden; }
 
-.glyphicon-half:after {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  background: white;
-  width: 50%;
-  height: 100%;
-  left: 47%; }
+canvas,
+div.harddisks,
+div.harddisks div.progress,
+div.devices,
+div.processes,
+div.temperatures,
+div.cpu {
+  width: 100%; }
 
-.container-relative {
-  position: relative; }
+div.panel {
+  width: 100%; }
+
+div.panel ul div:not(.embed-responsive) {
+  padding: 0; }
+
+div#shutdown-dialog,
+div#confirm-dialog {
+  display: none; }
+
+div.shutdown h2 {
+  white-space: nowrap; }
+
+div#confirm-dialog button {
+  width: 100px; }
+
+div#confirm-dialog button#confirm-yes {
+  margin-right: 15px; }
 
 div.panel.transparent,
 div.panel.transparent li.list-group-item:not(.list-group-item-success) {
@@ -474,7 +473,7 @@ footer.navbar {
   padding: 5px 0;
   border-radius: 0;
   opacity: 0.9;
-  z-index: 100; }
+  z-index: 7500; }
 
 footer .execution-time {
   line-height: 36px; }
