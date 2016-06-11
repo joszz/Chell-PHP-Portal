@@ -13,7 +13,6 @@
             <a class="album item fancybox-iframe <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important" 
                 href="<?php echo $this->config->application->baseUri .'kodi/album/' . $album->idAlbum ?>"
                 data-fancybox-maxwidth="400px"
-                rel="albums"
                 title="<?php echo utf8_encode($album->strAlbum) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($album->strImage) ? 'kodi/getImage?which=albums&id=' . $album->idAlbum : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>

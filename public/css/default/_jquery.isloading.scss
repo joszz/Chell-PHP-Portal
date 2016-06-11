@@ -1,18 +1,15 @@
-﻿.isloading-wrapper.isloading-right
-{
+﻿.isloading-wrapper.isloading-right {
     margin-left: 10px;
 }
 
-.isloading-overlay
-{
+.isloading-overlay {
     position: relative;
     text-align: center;
     border-radius: 3px;
     z-index: 7001 !important;
 }
 
-.isloading-overlay .isloading-wrapper
-{
+.isloading-overlay .isloading-wrapper {
     background: #FFF;
     -webkit-border-radius: 7px;
     -webkit-background-clip: padding-box;

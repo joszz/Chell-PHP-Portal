@@ -13,7 +13,6 @@
             <a class="movie item fancybox-iframe <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" 
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
                 data-fancybox-maxwidth="600px"
-                rel="movies" 
                 title="<?php echo utf8_encode($movie->c03) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($movie->c08) ? 'kodi/getImage?which=movies&id=' . $movie->idMovie : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>

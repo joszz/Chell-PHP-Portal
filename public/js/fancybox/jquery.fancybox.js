@@ -1829,7 +1829,6 @@
 			var scrollV, scrollH;
 
 			if (obj.locked) {
-			    /*
 			    if (this.margin !== false) {
                     
 					$('*').filter(function(){
@@ -1838,12 +1837,11 @@
 
 					this.el.addClass('fancybox-margin');
 				}
-                */
 
 				scrollV = W.scrollTop();
 				scrollH = W.scrollLeft();
 
-				//this.el.addClass('fancybox-lock');
+				this.el.addClass('fancybox-lock');
 
 				W.scrollTop( scrollV ).scrollLeft( scrollH );
 			}
