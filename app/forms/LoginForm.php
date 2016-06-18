@@ -6,10 +6,23 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Validation\Validator\PresenceOf;
 
+
+/**
+ * The from responsible for handling login to the application.
+ * 
+ * @package Forms
+ */
 class LoginForm extends Form
 {
     private $_loginFailed = false;
 
+    /**
+     * Set the config array (config.ini contents) to private variable. 
+     * Set bool if login already failed on last request.
+     * 
+     * @param array $config         The config array.
+     * @param bool $loginFailed     Whether login failed on last POST.
+     */
     public function __construct($config, $loginFailed)
     {
         $this->_config = $config;
@@ -18,6 +31,9 @@ class LoginForm extends Form
         parent::__construct();
     }
 
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     public function initialize()
     {
         $this->_action = $this->config->application->baseUri . 'session/login';

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * The bootstrapper for this application
+ */
+
 try 
 {
     require_once('FrontController.php');

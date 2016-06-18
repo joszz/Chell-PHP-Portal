@@ -6,16 +6,29 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
 
+/**
+ * The form responsible for the darshboard settings.
+ * 
+ * @package Forms
+ */
 class SettingsDashboardForm extends Form
 {
     private $_config;
 
+    /**
+     * Set the config array (config.ini contents) to private variable.
+     * 
+     * @param array $config     The config array.
+     */
     public function __construct($config)
     {
         $this->_config = $config;
         parent::__construct();
     }
 
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     public function initialize()
     {
         $this->_action = 'dashboard';
@@ -105,6 +118,12 @@ class SettingsDashboardForm extends Form
         $this->add($rotateAlbumsInterval);
     }
 
+    /**
+     * Check if form is valid. If so set the values to the config array.
+     * 
+     * @param array $data   The form data posted.
+     * @return bool         Whether or not form is valid.
+     */
     public function IsValid($data)
     {
         $valid = parent::IsValid($data);

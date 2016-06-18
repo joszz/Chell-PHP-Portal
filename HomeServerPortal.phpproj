@@ -364,11 +364,12 @@
     <Content Include="public\js\fancybox\jquery.fancybox-media.js" />
     <Content Include="public\js\fancybox\jquery.fancybox-thumbs.js" />
     <Content Include="public\js\fancybox\jquery.fancybox.js" />
-    <Content Include="public\js\jquery-2.2.4.js" />
+    <Content Include="public\js\jquery-3.0.0.js" />
     <Content Include="public\js\jquery.isloading.js" />
     <Content Include="public\js\jquery.shorten.js" />
     <Content Include="public\js\jquery.tinytimer.js" />
     <Content Include="public\js\jquery.vibrate.js" />
+    <Content Include="public\js\md5.js" />
     <Content Include="public\js\responsive-paginate.js" />
     <Content Include="public\js\settings.js" />
     <Content Include="public\js\waves.js" />

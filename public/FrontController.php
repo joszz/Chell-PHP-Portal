@@ -14,13 +14,16 @@ use Phalcon\Session\Adapter\Files as Session;
 use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Assets\Filters\Cssmin;
 
+/**
+ * Frontcontroller initializes Phalcon to run the application.
+ */
 class FrontController
 {
     private $title;
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-2.2.4.js', 
+    private $js = array('jquery-3.0.0.js', 
                         'fancybox/jquery.fancybox.js', 
                         //'fancybox/jquery.fancybox-buttons.js', 
                         'bootstrap.js', 
@@ -40,6 +43,7 @@ class FrontController
                         'dashboard-blocks/transmission.js',
                         'dashboard-blocks/nowplaying.js',
                         );
+
     private $css = array('bootstrap.css', 
                          'bootstrap-theme.css', 
                          'fancybox/jquery.fancybox.css', 
@@ -48,6 +52,9 @@ class FrontController
                          'bootstrap-select.css', 
                          'default.css');
 
+    /**
+     * Initialize Phalcon .
+     */
     public function __construct()
     {
         $executionTime = -microtime(true);
@@ -88,11 +95,17 @@ class FrontController
         $this->setTitle();
     }
 
+    /**
+     * Show errors in browser, decided by flag in config.
+     */
     private function setDisplayErrors()
     {
         ini_set('display_errors', $this->config->application->debug ? 'on' : 'off');
     }
     
+    /**
+     * Register all directories used by Phalcon.
+     */
     private function registerDirs()
     {
         $loader = new Loader();
@@ -108,7 +121,9 @@ class FrontController
         )->register();
     }
 
-    // Setup the database service
+    /**
+     * Setup the database services.
+     */
     private function setDB()
     {
         $this->di->set('db', function() {
@@ -139,6 +154,9 @@ class FrontController
         });
     }
 
+    /**
+     * Setup Phalcon view provider.
+     */
     private function setViewProvider()
     {
         $config = $this->config;
@@ -149,6 +167,9 @@ class FrontController
         });
     }
 
+    /**
+     * Setup Phalcon URL provider.
+     */
     private function setURLProvider()
     {
         $config = $this->config;
@@ -159,6 +180,9 @@ class FrontController
         });
     }
 
+    /**
+     * Instantiate session.
+     */
     private function setSession()
     {
         $this->di->set('session', function () {
@@ -169,6 +193,9 @@ class FrontController
         });
     }
 
+    /**
+     * Create and compress CSS collection using $this->css as base.
+     */
     private function setCSSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
@@ -192,6 +219,9 @@ class FrontController
         }
     }
 
+    /**
+     * Create and compress JS collections using $this->js as base.
+     */
     private function setJSCollection()
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
@@ -264,6 +294,12 @@ class FrontController
         }
     }
 
+    /**
+     * Cleanup absolete compressed files.
+     * 
+     * @param mixed $finalFile      The new compressed file
+     * @param mixed $pattern        The pattern to match against for files in directory.
+     */
     private function cleanupCompressedFiles($finalFile, $pattern)
     {
         $files = glob(getcwd() . $pattern);
@@ -279,6 +315,13 @@ class FrontController
         }
     }
 
+    /**
+     * Creates a filemtime string from all files in array and then create a hash out of it.
+     * 
+     * @param array $files      The array of files to create the hash for based on their modified time.
+     * @param mixed $basepath   The path where the files in the array can be found.
+     * @return string           The hash based on the string of filemtimes.
+     */
     private function createMTimeHash(array $files, $basepath)
     {
         $mtimes = 0;
@@ -291,11 +334,18 @@ class FrontController
         return md5($mtimes);
     }
 
+    /**
+     * Sets the title for the application.
+     */
     private function setTitle()
     {
         $this->application->tag->setTitle($this->application->view->title = $this->title);
     }
 
+    /**
+     * Echoes the HTML to the browser.
+     * @return mixed    The complete HTML of the request.
+     */
     public function tostring()
     {
         return $this->application->handle()->getContent();

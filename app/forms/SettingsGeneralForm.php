@@ -6,16 +6,29 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 
+/**
+ * The form responsible for the general settings.
+ * 
+ * @package Forms
+ */
 class SettingsGeneralForm extends Form
 {
     private $_config;
 
+    /**
+     * Set the config array (config.ini contents) to private variable.
+     * 
+     * @param array $config     The config array.
+     */
     public function __construct($config)
     {
         $this->_config = $config;
         parent::__construct();
     }
 
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     public function initialize()
     {
         $this->_action = 'general';
@@ -52,6 +65,12 @@ class SettingsGeneralForm extends Form
         $this->add($debug);
     }
 
+    /**
+     * Check if form is valid. If so set the values to the config array.
+     * 
+     * @param array $data   The form data posted.
+     * @return bool         Whether or not form is valid.
+     */
     public function IsValid($data)
     {
         $valid = parent::IsValid($data);
