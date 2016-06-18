@@ -23,11 +23,15 @@
         });
 
         this.on("click", ".btn-success", function () {
-            functions.openShutdownDialog($(this));
-        });
+            var title = "Shutdown <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
 
-        $("div#shutdown-dialog button").click(function () {
-            functions.doShutdown();
+            openConfirmDialog(title, [{
+                "shutdown-user": $(this).data("shutdown-user"),
+                "shutdown-password": $(this).data("shutdown-password"),
+                "ip": $(this).data("ip"),
+            }], function () {
+                functions.doShutdown($(this));
+            });
         });
 
         var functions = {
@@ -95,47 +99,30 @@
                 }
             },
 
-            openShutdownDialog: function (btn) {
-                btn.blur();
-                var name = btn.closest("li").find("div:first").html().trim();
+            doShutdown: function (btn) {
+                $.fancybox.close();
 
-                $("div#shutdown-dialog h2 span").html(name);
-                $("div#shutdown-dialog input[name='ip']").val(btn.data("ip"));
-
-                $.fancybox({
-                    content: $("div#shutdown-dialog").show(),
-                    afterShow: function () {
-                        $("div#shutdown-dialog input:first").focus();
-                    },
-                    helpers: {
-                        overlay: {
-                            locked: true
+                if (btn.attr("id") == "confirm-yes") {
+                    var parentDiv = btn.closest("div");
+                    var user = parentDiv.data("shutdown-user");
+                    var password = parentDiv.data("shutdown-password");
+                    var ip = parentDiv.data("ip");
+                    var name = parentDiv.closest("div").find("h2 span").html().trim();
+                    
+                    $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
+                        if (data == "true") {
+                            $("div.alert").addClass("alert-success");
+                            $("div.alert").html("Shutdown command send to: " + name);
                         }
-                    }
-                });
-            },
+                        else {
+                            $("div.alert").addClass("alert-danger");
+                            $("div.alert").html("Shutdown command failed for: " + name);
+                        }
 
-            doShutdown: function () {
-                var user = $("div#shutdown-dialog input[name='user']").val();
-                var password = $("div#shutdown-dialog input[name='password']").val();
-                var ip = $("div#shutdown-dialog input[name='ip']").val();
-                var name = $("div#shutdown-dialog h2 span").html();
-
-                $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
-                    $.fancybox.close();
-
-                    if (data == "true") {
-                        $("div.alert").addClass("alert-success");
-                        $("div.alert").html("Shutdown command send to: " + name);
-                    }
-                    else {
-                        $("div.alert").addClass("alert-danger");
-                        $("div.alert").html("Shutdown command failed for: " + name);
-                    }
-
-                    $("div.alert").fadeIn("fast");
-                    fadeOutAlert();
-                });
+                        $("div.alert").fadeIn("fast");
+                        fadeOutAlert();
+                    });
+                }
             }
         }
 

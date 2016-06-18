@@ -29,6 +29,8 @@ CREATE TABLE `devices` (
   `mac` varchar(18) DEFAULT NULL,
   `webtemp` varchar(255) DEFAULT NULL,
   `shutdown_method` enum('none','rpc') DEFAULT 'none',
+  `shutdown_user` varchar(255) DEFAULT NULL,
+  `shutdown_password` varchar(255) DEFAULT NULL,
   `show_on_dashboard` tinyint(3) unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
@@ -97,4 +99,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-20 15:06:54
+-- Dump completed on 2016-06-18  8:34:26

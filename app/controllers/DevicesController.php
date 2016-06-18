@@ -30,10 +30,14 @@ class DevicesController extends BaseController
     {
         if (isset($_GET['ip'], $_GET['user'], $_GET['password'])){
             $output = Devices::shutdown($_GET['ip'], $_GET['user'], $_GET['password']);
-            die(strpos($output[1], 'succeeded') !== false ? "true" : "false");
+            
+            if(isset($output[1]))
+            {
+                die(strpos($output[1], 'succeeded') !== false ? "true" : "false");
+            }
         }
 
-        die;
+        die("false");
     }
 
     /**
