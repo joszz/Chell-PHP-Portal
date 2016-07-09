@@ -24,7 +24,7 @@
 
         this.on("click", ".btn-success", function () {
             var title = "Shutdown <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
-
+            
             openConfirmDialog(title, [{
                 "shutdown-user": $(this).data("shutdown-user"),
                 "shutdown-password": $(this).data("shutdown-password"),

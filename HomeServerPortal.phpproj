@@ -106,7 +106,6 @@
     <Content Include="app\views\index\partials\indexAction\kodi_latest_movies.phtml" />
     <Content Include="app\views\index\partials\indexAction\kodi_latest_albums.phtml" />
     <Content Include="app\views\index\partials\indexAction\rcpu.phtml" />
-    <Content Include="app\views\index\partials\indexAction\dialog-shutdown.phtml" />
     <Content Include="app\views\index\partials\indexAction\phpsysinfo_sysinfo.phtml" />
     <Content Include="app\views\index\partials\indexAction\now_playing.phtml" />
     <Content Include="app\views\index\partials\indexAction\transmission.phtml" />
@@ -364,7 +363,7 @@
     <Content Include="public\js\fancybox\jquery.fancybox-media.js" />
     <Content Include="public\js\fancybox\jquery.fancybox-thumbs.js" />
     <Content Include="public\js\fancybox\jquery.fancybox.js" />
-    <Content Include="public\js\jquery-3.0.0.js" />
+    <Content Include="public\js\jquery-3.1.0.js" />
     <Content Include="public\js\jquery.isloading.js" />
     <Content Include="public\js\jquery.shorten.js" />
     <Content Include="public\js\jquery.tinytimer.js" />

@@ -35,7 +35,7 @@ function openConfirmDialog(title, data, buttonClick) {
 
     $.each(data, function (index, value) {
         $.each(value, function (index, value) {
-            $("div#confirm-dialog").attr("data-" + index, value);
+            $("div#confirm-dialog").data(index, value);
         });
     });
 
