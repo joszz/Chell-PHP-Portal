@@ -59,10 +59,11 @@ class FrontController
     {
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
+        $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
 
         $this->di = new FactoryDefault();
-        $this->di->set('config', $this->config = new ConfigIni(APP_PATH . 'app/config/config.ini'));
-
+        $this->di->set('config', $config);
+        
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
@@ -73,18 +74,18 @@ class FrontController
             return $dispatcher;
         });
 
-        $this->di->set('crypt', function() {
+        $this->di->set('crypt', function() use ($config) {
             $crypt = new Crypt();
-            $crypt->setKey($this->config->application->phalconCryptKey);
+            $crypt->setKey($config->application->phalconCryptKey);
             return $crypt;
         });
 
         $this->setDisplayErrors();
-        $this->title = $this->config->application->title;
+        $this->title = $config->application->title;
         $this->registerDirs();
-        $this->setDB();
-        $this->setViewProvider();
-        $this->setURLProvider();
+        $this->setDB($config);
+        $this->setViewProvider($config);
+        $this->setURLProvider($config);
         $this->setSession();
 
         $this->application = new Application($this->di);
@@ -124,32 +125,32 @@ class FrontController
     /**
      * Setup the database services.
      */
-    private function setDB()
+    private function setDB($config)
     {
-        $this->di->set('db', function() {
+        $this->di->set('db', function() use ($config) {
             return new DbAdapter(array(
-                'host'     => $this->config->database->host,
-                'username' => $this->config->database->username,
-                'password' => $this->config->database->password,
-                'dbname'   => $this->config->database->name
+                'host'     => $config->database->host,
+                'username' => $config->database->username,
+                'password' => $config->database->password,
+                'dbname'   => $config->database->name
             ));
         });
 
-        $this->di->set('dbKodiMusic', function() {
+        $this->di->set('dbKodiMusic', function() use ($config) {
             return new DbAdapter(array(
-                'host'     => $this->config->database->host,
-                'username' => $this->config->database->username,
-                'password' => $this->config->database->password,
-                'dbname'   => $this->config->database->kodiMusic
+                'host'     => $config->database->host,
+                'username' => $config->database->username,
+                'password' => $config->database->password,
+                'dbname'   => $config->database->kodiMusic
             ));
         });
 
-        $this->di->set('dbKodiVideo', function() {
+        $this->di->set('dbKodiVideo', function() use ($config) {
             return new DbAdapter(array(
-                'host'     => $this->config->database->host,
-                'username' => $this->config->database->username,
-                'password' => $this->config->database->password,
-                'dbname'   => $this->config->database->kodiVideo
+                'host'     => $config->database->host,
+                'username' => $config->database->username,
+                'password' => $config->database->password,
+                'dbname'   => $config->database->kodiVideo
             ));
         });
     }
@@ -157,12 +158,11 @@ class FrontController
     /**
      * Setup Phalcon view provider.
      */
-    private function setViewProvider()
+    private function setViewProvider($config)
     {
-        $config = $this->config;
         $this->di->set('view', function () use ($config) {
             $view = new View();
-            $view->setViewsDir(APP_PATH . $this->config->application->viewsDir);
+            $view->setViewsDir(APP_PATH . $config->application->viewsDir);
             return $view;
         });
     }
@@ -170,12 +170,11 @@ class FrontController
     /**
      * Setup Phalcon URL provider.
      */
-    private function setURLProvider()
+    private function setURLProvider($config)
     {
-        $config = $this->config;
         $this->di->set('url', function () use ($config) {
             $url = new UrlProvider();
-            $url->setBaseUri($this->config->application->baseUri);
+            $url->setBaseUri($config->application->baseUri);
             return $url;
         });
     }
