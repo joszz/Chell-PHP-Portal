@@ -14,62 +14,62 @@ class PHPSysInfo extends BaseModel
      * 
      * @return array    All PHPSysInfo data in an associative array
      */
-    public function getData()
+    public function getData($config)
     {
-        $curl = curl_init($this->config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
+        $curl = curl_init($config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        $this->data = json_decode(curl_exec($curl));
+        $data = json_decode(curl_exec($curl));
         curl_close($curl);
 
-        sort($this->data->Plugins->Plugin_PSStatus->Process);
-        usort($this->data->FileSystem->Mount, 
+        sort($data->Plugins->Plugin_PSStatus->Process);
+        usort($data->FileSystem->Mount, 
             function($a, $b)
             {
                 return strcmp(current($a)->MountPoint, current($b)->MountPoint);
             }
         );
 
-        self::setMountClasses();
+        self::setMountClasses($data);
         self::setCPUData();
 
-        return $this->data;
+        return $data;
     }
 
     /**
-     * Loops through all mounts in $this->data and adds Bootstrap classes to the objects based on used percentage.
+     * Loops through all mounts in $data and adds Bootstrap classes to the objects based on used percentage.
      */
-    private function setMountClasses()
+    private function setMountClasses(&$data)
     {
-        for($i = 0; $i < count($this->data->FileSystem->Mount); $i++)
+        for($i = 0; $i < count($data->FileSystem->Mount); $i++)
         {
-            $mount = current($this->data->FileSystem->Mount[$i]);
+            $mount = current($data->FileSystem->Mount[$i]);
             
             if($mount->Percent > 90) $mount->Class = 'danger';
             else if($mount->Percent > 70) $mount->Class = 'warning';
             else if($mount->Percent > 50) $mount->Class = 'info';
 
-            $this->data->FileSystem->Mount[$i] = $mount;
+            $data->FileSystem->Mount[$i] = $mount;
         }
     }
 
     /**
-     * Loops through all CpuCores in $this->data. Formatting temps, vCore and CPU speeds.
+     * Loops through all CpuCores in $data. Formatting temps, vCore and CPU speeds.
      */
-    private function setCPUData()
+    private function setCPUData(&$data)
     {
-        for($i = 0; $i < count($this->data->Hardware->CPU->CpuCore); $i++)
+        for($i = 0; $i < count($data->Hardware->CPU->CpuCore); $i++)
         {
-            $cpuCore = $this->data->Hardware->CPU->CpuCore[$i];
+            $cpuCore = $data->Hardware->CPU->CpuCore[$i];
 
-            foreach($this->data->MBInfo->Temperature->Item as $temp) 
+            foreach($data->MBInfo->Temperature->Item as $temp) 
             {
                 if($temp->{'@attributes'}->Label == 'Core ' . $i)
                 {
-                    $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $this->data->Options->{'@attributes'}->tempFormat;
+                    $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $data->Options->{'@attributes'}->tempFormat;
                 }
             }
 
-            foreach($this->data->MBInfo->Voltage->Item as $voltage)
+            foreach($data->MBInfo->Voltage->Item as $voltage)
             {
                 if($voltage->{'@attributes'}->Label == $this->config->dashboard->phpSysInfoVCore)
                 {
@@ -81,7 +81,7 @@ class PHPSysInfo extends BaseModel
             $cpuCore->{'@attributes'}->CpuSpeedMin = round($cpuCore->{'@attributes'}->CpuSpeedMin / 1000, 2);
             $cpuCore->{'@attributes'}->CpuSpeedMax = round($cpuCore->{'@attributes'}->CpuSpeedMax / 1000, 2);
 
-            $this->data->Hardware->CPU->CpuCore[$i] = $cpuCore;
+            $data->Hardware->CPU->CpuCore[$i] = $cpuCore;
         }
     }
 }
