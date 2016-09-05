@@ -30,7 +30,7 @@ class PHPSysInfo extends BaseModel
         );
 
         self::setMountClasses($data);
-        self::setCPUData();
+        self::setCPUData($data, $config);
 
         return $data;
     }
@@ -55,7 +55,7 @@ class PHPSysInfo extends BaseModel
     /**
      * Loops through all CpuCores in $data. Formatting temps, vCore and CPU speeds.
      */
-    private function setCPUData(&$data)
+    private function setCPUData(&$data, $config)
     {
         for($i = 0; $i < count($data->Hardware->CPU->CpuCore); $i++)
         {
@@ -71,7 +71,7 @@ class PHPSysInfo extends BaseModel
 
             foreach($data->MBInfo->Voltage->Item as $voltage)
             {
-                if($voltage->{'@attributes'}->Label == $this->config->dashboard->phpSysInfoVCore)
+                if($voltage->{'@attributes'}->Label == $config->dashboard->phpSysInfoVCore)
                 {
                     $cpuCore->Voltage = $voltage->{'@attributes'}->Value;
                 }
