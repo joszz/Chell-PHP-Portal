@@ -15,7 +15,7 @@ class DevicesController extends BaseController
     public function wolAction()
     {
         if (isset($_GET['mac'])){
-            Devices::wakeOnLan($_GET['mac']);
+            Devices::wakeOnLan($_GET['mac'], $this->config);
         }
 
         die;

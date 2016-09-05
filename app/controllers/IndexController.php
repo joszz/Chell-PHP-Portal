@@ -25,7 +25,7 @@ class IndexController extends BaseController
         $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
         
         $this->executionTime = -microtime(true);
-        $this->view->phpsysinfoData = PHPSysInfo::getData();
+        $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
         $this->view->PHPSysinfoExecutionTime = round(($this->executionTime + microtime(true)) * 1000, 2) . '&micro;s';
     }
 }

@@ -5704,16 +5704,16 @@ button.close {
 @-ms-viewport {
   width: device-width; }
 .visible-xs {
-  display: none !important; }
+  display: none; }
 
 .visible-sm {
-  display: none !important; }
+  display: none; }
 
 .visible-md {
-  display: none !important; }
+  display: none; }
 
 .visible-lg {
-  display: none !important; }
+  display: none; }
 
 .visible-xs-block,
 .visible-xs-inline,
@@ -5831,18 +5831,18 @@ button.close {
 
 @media (max-width: 767px) {
   .hidden-xs {
-    display: none !important; } }
+    display: none; } }
 @media (min-width: 768px) and (max-width: 991px) {
   .hidden-sm {
-    display: none !important; } }
+    display: none; } }
 @media (min-width: 992px) and (max-width: 1199px) {
   .hidden-md {
-    display: none !important; } }
+    display: none; } }
 @media (min-width: 1200px) {
   .hidden-lg {
-    display: none !important; } }
+    display: none; } }
 .visible-print {
-  display: none !important; }
+  display: none; }
 
 @media print {
   .visible-print {
@@ -5877,6 +5877,6 @@ button.close {
 
 @media print {
   .hidden-print {
-    display: none !important; } }
+    display: none; } }
 
 /*# sourceMappingURL=bootstrap.css.map */

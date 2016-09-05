@@ -112,7 +112,7 @@ class Devices extends BaseModel
      * @param mixed $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
      * @return bool                 Whether or not socket_sendto with magic packet succeeded.
      */
-    public function wakeOnLan($mac, $socket_number = '7', $repetition = 16) 
+    public function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16) 
     {
         $addr_byte = explode(':', $mac);
         $hw_addr = '';
@@ -138,7 +138,7 @@ class Devices extends BaseModel
                 echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
                 return false;
             }
-            if(socket_sendto($s, $msg, strlen($msg), 0, $this->config->network->broadcast, $socket_number)) 
+            if(socket_sendto($s, $msg, strlen($msg), 0, $config->network->broadcast, $socket_number)) 
             {
                 echo 'Magic Packet sent successfully!';
                 socket_close($s);
