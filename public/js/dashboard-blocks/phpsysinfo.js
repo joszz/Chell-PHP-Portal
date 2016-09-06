@@ -84,13 +84,13 @@
 
                 setNetwork: function (data) {
                     $.each(data.Network.NetDevice, function (index, value) {
-                        var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var info = value["@attributes"].Info.split(";");
+                        var rx = Math.round(value.RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var tx = Math.round(value.TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var info = value.Info.split(";");
 
                         network = $(".lan-stats div:eq(" + index + ")");
 
-                        network.find(".lan-name").html(value["@attributes"].Name);
+                        network.find(".lan-name").html(value.Name);
                         network.find(".lan-mac").html(info[0]);
                         network.find(".lan-ip").html(info[1]);
                         network.find(".lan-speed").html(info[2]);

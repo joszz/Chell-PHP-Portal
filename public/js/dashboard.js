@@ -18,7 +18,7 @@ function initializeDashboardEventHandlers() {
         
         if (panel.find(".toggle:visible").length != 0) {
             panel.find(".toggle").toggleClass("glyphicon-minus glyphicon-plus");
-            panel.find(".list-group, .panel-body").slideToggle("fast");
+            panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
         }
     });
 

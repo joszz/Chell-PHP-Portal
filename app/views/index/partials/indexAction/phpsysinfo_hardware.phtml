@@ -40,10 +40,10 @@
                 <div class="col-xs-3">Network</div>
                 <div class="lan-stats col-xs-9">
                     <?php $i = 0; foreach($phpsysinfoData->Network->NetDevice as $network) :
-                              $info = explode(';', $network->{'@attributes'}->Info) ?>
+                              $info = explode(';', $network->Info) ?>
                     <div>
                         <div class="col-xs-6">Name: </div>
-                        <div class="lan-name col-xs-6"><?php echo $network->{'@attributes'}->Name ?></div>
+                        <div class="lan-name col-xs-6"><?php echo $network->Name ?></div>
                         <div class="col-xs-6">IP: </div>
                         <div class="lan-ip col-xs-6"><?php echo count($info) > 1 ? $info[1] : $info[0] ?></div>
                         <?php if(count($info) > 1) : ?>
@@ -55,9 +55,9 @@
                         <?php endif ?>
                         <?php endif ?>
                         <div class="col-xs-6">Rx: </div>
-                        <div class="lan-rx col-xs-6"><?php echo round($network->{'@attributes'}->RxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
+                        <div class="lan-rx col-xs-6"><?php echo round($network->RxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
                         <div class="col-xs-6">Tx: </div>
-                        <div class="lan-tx col-xs-6"><?php echo round($network->{'@attributes'}->TxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
+                        <div class="lan-tx col-xs-6"><?php echo round($network->TxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB</div>
                         <?php if(++$i != count($phpsysinfoData->Network->NetDevice)) : ?>
                         <hr class="pull-left col-xs-12 no-gutter" />
                         <?php endif ?>
