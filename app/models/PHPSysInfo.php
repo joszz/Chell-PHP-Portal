@@ -20,7 +20,7 @@ class PHPSysInfo extends BaseModel
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = json_decode(curl_exec($curl));
         curl_close($curl);
-
+        
         sort($data->Plugins->Plugin_PSStatus->Process);
         usort($data->FileSystem->Mount, 
             function($a, $b)

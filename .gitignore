@@ -47,3 +47,7 @@ Temporary Items
 .apdisk
 
 SyncToy_*.dat
+*.phpproj
+*.phpproj.user
+*.sln
+*.v12.suo

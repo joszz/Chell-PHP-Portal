@@ -1,1 +1,0 @@
-sass --watch Z:\public\css\default\:Z:\public\css\ Z:\public\css\_bootstrap.scss:Z:\public\css\bootstrap.css
