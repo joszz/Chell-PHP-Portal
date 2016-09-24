@@ -1,3 +1,23 @@
+@keyframes fadein {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes fadeout {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+.fadein {
+  animation-name: fadein;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1; }
+
+.fadeout {
+  animation-name: fadeout;
+  animation-duration: 0.2s;
+  animation-iteration-count: 1; }
+
 .panel-group .panel-heading {
   padding: 0; }
 
@@ -430,10 +450,6 @@ div.panel {
 
 div.panel ul div:not(.embed-responsive) {
   padding: 0; }
-
-div#shutdown-dialog,
-div#confirm-dialog {
-  display: none; }
 
 div.shutdown h2 {
   white-space: nowrap; }

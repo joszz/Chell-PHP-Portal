@@ -15,6 +15,6 @@ class BaseModel extends Model
      */
     public function initialize()
     {
-        $this->config = $this->di->get('config');   
+        $this->config = $this->di->get('config');
     }
 }

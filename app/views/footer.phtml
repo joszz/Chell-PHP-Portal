@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="col-sm-7 col-md-6 text-right visible-sm visible-md visible-lg execution-time">
-            Execution time | Total: <?php echo round(($executionTime + microtime(true)) * 1000, 2) ?> &micro;s
+            Execution time | Total: <?php echo round(($executionTime + microtime(true)), 2) ?>s
             <?php if(isset($PHPSysinfoExecutionTime)) : ?>
             | PHPSinfo: <?php echo $PHPSysinfoExecutionTime ?>
             <?php endif ?>

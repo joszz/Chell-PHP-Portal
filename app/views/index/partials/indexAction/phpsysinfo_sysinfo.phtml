@@ -5,8 +5,8 @@
         <div class="panel-heading">
             <div class="btn-group pull-right">
                 <a href="#hardware" class="btn btn-default glyphicon glyphicon-wrench fancybox" data-fancybox-maxwidth="500px" title="Hardware"></a>
-                <button href="#" class="btn btn-default glyphicon glyphicon-refresh"></button>
-                <button href="#" class="btn btn-default glyphicon glyphicon-minus visible-xs toggle"></button>
+                <button class="btn btn-default glyphicon glyphicon-refresh"></button>
+                <button class="btn btn-default glyphicon glyphicon-minus visible-xs toggle"></button>
             </div>
             <h4>System info</h4>
         </div>
@@ -15,7 +15,6 @@
                 <div class="col-xs-3">Host</div>
                 <div class="col-xs-9 host value">
                     <?php echo $phpsysinfoData->Vitals->{'@attributes'}->Hostname ?>
-                    (<?php echo $phpsysinfoData->Vitals->{'@attributes'}->IPAddr ?>)
                 </div>
             </li>
 
