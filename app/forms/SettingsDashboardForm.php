@@ -124,9 +124,9 @@ class SettingsDashboardForm extends Form
      * @param array $data   The form data posted.
      * @return bool         Whether or not form is valid.
      */
-    public function IsValid($data)
+    public function IsValid($data = null, $entity = null)
     {
-        $valid = parent::IsValid($data);
+        $valid = parent::IsValid($data, $entity);
         
         if($valid)
         {

@@ -79,7 +79,7 @@ class SettingsDevicesForm extends Form
         $this->add($id);
     }
 
-    public function isValid($data)
+    public function IsValid($data = null, $entity = null)
     {
         $devices = array();
 
@@ -93,7 +93,7 @@ class SettingsDevicesForm extends Form
                 $newDevice->{$key} = $value;
             }
             
-            $newDevice->validation();
+            $newDevice->validate();
             $devices[] = $newDevice;
         }
 

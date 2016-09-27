@@ -34,7 +34,7 @@ class Devices extends BaseModel
     /**
      * @todo Removed if not used
      */
-    public function validation()
+    public function validate()
     {
         $this->validate(new PresenceOf(
             array(
