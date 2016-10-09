@@ -18,10 +18,7 @@
 
             var functions = {
                 getAll: function () {
-                    $(".sysinfo, #hardware .panel, .harddisks").isLoading({
-                        text: "Loading",
-                        position: "overlay"
-                    });
+                    $(".sysinfo, #hardware .panel, .harddisks").isLoading();
 
                     var d = new Date();
 
@@ -157,10 +154,7 @@
                 },
 
                 psstatus: function () {
-                    $(".processes").isLoading({
-                        text: "Loading",
-                        position: "overlay"
-                    });
+                    $(".processes").isLoading();
 
                     settings.block.find(".glyphicon-refresh").off().on("click", function () {
                         functions.psstatus();

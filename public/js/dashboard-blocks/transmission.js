@@ -25,10 +25,7 @@
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
-                    settings.block.isLoading({
-                        text: 'Loading',
-                        position: 'overlay'
-                    });
+                    settings.block.isLoading();
                 }
 
                 clearInterval(settings.updateIntervalId);

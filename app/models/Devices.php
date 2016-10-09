@@ -30,11 +30,12 @@ class Devices extends BaseModel
             'device_id'
         );
     }
-
+    
     /**
      * @todo Removed if not used
      */
-    public function validate()
+    /*
+    public function validate(Validation $validation, $attribute)
     {
         $this->validate(new PresenceOf(
             array(
@@ -46,7 +47,7 @@ class Devices extends BaseModel
 
         return $this->validationHasFailed() != true;
     }
-
+    */
     /**
      * Calls pingExec with IP and returns the state of the device.
      * 

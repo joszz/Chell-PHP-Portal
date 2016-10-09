@@ -34,10 +34,7 @@
                 onload = typeof onload === 'undefined' ? false : onload;
 
                 if (!onload) {
-                    $(".nowplaying").isLoading({
-                        text: "Loading",
-                        position: "overlay"
-                    });
+                    $(".nowplaying").isLoading();
                 }
 
                 functions.setInterval();
