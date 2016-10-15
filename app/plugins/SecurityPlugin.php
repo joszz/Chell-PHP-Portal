@@ -9,6 +9,11 @@ class SecurityPlugin extends Plugin
     {
         $controller = $dispatcher->getControllerName();
         
+        if($controller == 'rss')
+        {
+            return true;
+        }
+
         if (!$this->session->get('auth') && $controller != 'session')
         {
             $dispatcher->forward(
