@@ -1,0 +1,48 @@
+<div class="panel panel-success">
+    <ul class="list-group panel-success">
+        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) : ?>
+        <li class="list-group-item list-group-item-success">
+            <h4>Current stats</h4>
+        </li>
+        <li class="list-group-item text-center">
+            <img src="<?php echo $device->webtemp ?>/stats.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats.png') ?>" />
+        </li>
+        <?php endif ?>
+
+        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png')) : ?>
+        <li class="list-group-item list-group-item-success">
+            <h4>Stats daily</h4>
+        </li>
+        <li class="list-group-item text-center">
+            <img src="<?php echo $device->webtemp ?>/stats24.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats24.png') ?>" />
+        </li>
+        <?php endif ?>
+
+        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png')) : ?>
+        <li class="list-group-item list-group-item-success">
+            <h4>Stats week</h4>
+        </li>
+        <li class="list-group-item text-center">
+            <img src="<?php echo $device->webtemp ?>/stats7.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats7.png') ?>" />
+        </li>
+        <?php endif ?>
+
+        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png')) : ?>
+        <li class="list-group-item list-group-item-success">
+            <h4>Stats month</h4>
+        </li>
+        <li class="list-group-item text-center">
+            <img src="<?php echo $device->webtemp ?>/stats31.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats31.png') ?>" />
+        </li>
+        <?php endif ?>
+
+        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png')) : ?>
+        <li class="list-group-item list-group-item-success">
+            <h4>Stats year</h4>
+        </li>
+        <li class="list-group-item text-center">
+            <img src="<?php echo $device->webtemp ?>/stats365.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats365.png') ?>" />
+        </li>
+        <?php endif ?>
+    </ul>
+</div>

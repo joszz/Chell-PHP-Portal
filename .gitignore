@@ -51,3 +51,5 @@ SyncToy_*.dat
 *.phpproj.user
 *.sln
 *.v12.suo
+generate-doc.bat
+generate-phpdoc.sh

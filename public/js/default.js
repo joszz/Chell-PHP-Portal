@@ -34,7 +34,6 @@ function initializeGlobalPlugins() {
     $(".fancybox-iframe:not(.disabled)").fancybox({
         beforeShow: function () {
             this.width = this.element.data("fancybox-maxwidth");
-            this.height = $('.fancybox-iframe').contents().find('body').height();
         },
         helpers: {
             overlay: {

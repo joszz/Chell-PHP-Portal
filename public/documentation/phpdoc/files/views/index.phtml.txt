@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="<?php echo $this->config->application->background ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>/rss" />
+
+    <?php echo $this->tag->getTitle(); ?>
+    <?php $this->assets->outputCss('header') ?>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic,300,300italic" rel="stylesheet" type="text/css">
+
+    <?php $this->partial('favicons') ?>
+</head>
+
+<body id="bootstrap">
+    <?php $this->partial('navbar') ?>
+
+    <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">
+        <?php echo $this->getContent() ?>
+    </div>
+
+    <div class="alert" role="alert" data-alert-timeout="<?php echo $this->config->dashboard->alertTimeout ?>"></div>
+
+    <?php  
+    
+    $this->partial('footer');
+    $this->assets->outputJs('footer');
+
+    if($this->dispatcher->getControllerName() == 'index')
+    {
+        $this->assets->outputJs('dashboard');
+    }
+    else if($this->dispatcher->getControllerName() == 'settings')
+    {
+        $this->assets->outputJs('settings');
+    }
+   ?>
+</body>
+</html>
+

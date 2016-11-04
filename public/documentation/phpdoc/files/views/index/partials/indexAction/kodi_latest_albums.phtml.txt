@@ -1,0 +1,25 @@
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="panel panel-success kodi albums" data-rotate-interval="<?php echo $this->config->dashboard->rotateAlbumsInterval ?>">
+        <div class="panel-heading">
+            <div class="btn-group pull-right">
+                <button class="btn btn-default glyphicon glyphicon-chevron-left"></button>
+                <button class="btn btn-default glyphicon glyphicon-chevron-right"></button>
+                <button class="btn btn-default glyphicon glyphicon-plus visible-xs pull-right toggle"></button>
+            </div>
+            <h4>Latest albums</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <?php $i = 0; foreach($albums as $album) : ?>
+            <a class="album item fancybox-iframe <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important" 
+                href="<?php echo $this->config->application->baseUri .'kodi/album/' . $album->idAlbum ?>"
+                data-fancybox-maxwidth="400px"
+                title="<?php echo utf8_encode($album->strAlbum) ?>"
+                style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($album->strImage) ? 'kodi/getImage?which=albums&id=' . $album->idAlbum : 'img/icons/unknown.jpg')  ?>')">
+                <div class="overlay"></div>
+                <div class="title" title="<?php echo $title = utf8_encode($album->strArtists) ?>"><?php echo $title ?></div>
+                <div class="subtitle" title="<?php echo $title = utf8_encode($album->strAlbum) ?>"><?php echo $title ?></div>
+            </a>
+            <?php $i++; endforeach ?> 
+        </div>
+    </div>
+</div>

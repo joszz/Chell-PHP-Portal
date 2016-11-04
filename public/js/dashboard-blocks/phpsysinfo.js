@@ -36,7 +36,7 @@
                 },
 
                 setSysinfo: function (data) {
-                    $("div.host").html(data.Vitals["@attributes"].Hostname + " (" + data.Vitals["@attributes"].IPAddr + ")");
+                    $("div.host").html(data.Vitals["@attributes"].Hostname);
 
                     $("div.distro span").html(data.Vitals["@attributes"].Distro);
                     $("div.distro div.icon").css("background-image", "url('" + settings.url + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");

@@ -1,0 +1,15 @@
+<?php $this->partial('index/partials/indexAction/phpsysinfo_sysinfo') ?>
+<?php $this->partial('index/partials/indexAction/devices') ?>
+<div class="clearfix visible-sm"></div>
+<?php $this->partial('index/partials/indexAction/phpsysinfo_disks') ?>
+<div class="clearfix visible-lg visible-md"></div>
+<?php $this->partial('index/partials/indexAction/phpsysinfo_processes') ?>
+<?php $this->partial('index/partials/indexAction/rcpu') ?>
+<div class="clearfix"></div>
+<?php $this->partial('index/partials/indexAction/kodi_latest_movies') ?>
+<?php $this->partial('index/partials/indexAction/kodi_latest_episodes') ?>
+<?php $this->partial('index/partials/indexAction/kodi_latest_albums') ?>
+<?php $this->partial('index/partials/indexAction/now_playing') ?>
+<?php $this->partial('index/partials/indexAction/transmission') ?>
+
+<?php $this->partial('index/partials/indexAction/dialog-confirm') ?>

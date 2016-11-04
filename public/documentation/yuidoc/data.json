@@ -1,0 +1,724 @@
+{
+    "project": {
+        "name": "Chell PHP Portal",
+        "description": "",
+        "version": "1.0",
+        "url": "",
+        "logo": ""
+    },
+    "files": {
+        "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js": {
+            "name": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\jquery-3.1.1.js": {
+            "name": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\jquery.isloading.js": {
+            "name": "Z:\\portal\\public\\js\\jquery.isloading.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\jquery.shorten.js": {
+            "name": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\waves.js": {
+            "name": "Z:\\portal\\public\\js\\waves.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {},
+    "elements": {},
+    "classitems": [
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 223,
+            "description": "Remove all diatrics from the given text.",
+            "access": "private",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 538,
+            "params": [
+                {
+                    "name": "content",
+                    "description": ""
+                },
+                {
+                    "name": "index",
+                    "description": "",
+                    "optional": true
+                },
+                {
+                    "name": "classes",
+                    "description": "",
+                    "optional": true
+                },
+                {
+                    "name": "optgroup",
+                    "description": "",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 553,
+            "params": [
+                {
+                    "name": "text",
+                    "description": ""
+                },
+                {
+                    "name": "classes",
+                    "description": "",
+                    "optional": true
+                },
+                {
+                    "name": "inline",
+                    "description": "",
+                    "optional": true
+                },
+                {
+                    "name": "tokens",
+                    "description": "",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 720,
+            "params": [
+                {
+                    "name": "updateLi",
+                    "description": "defaults to true",
+                    "optional": true
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 799,
+            "params": [
+                {
+                    "name": "style",
+                    "description": "",
+                    "optional": true
+                },
+                {
+                    "name": "status",
+                    "description": "",
+                    "optional": true
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 1135,
+            "params": [
+                {
+                    "name": "index",
+                    "description": "- the index of the option that is being changed",
+                    "type": "Number"
+                },
+                {
+                    "name": "selected",
+                    "description": "- true if the option is being selected, false if being deselected",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "$lis",
+                    "description": "- the 'li' element that is being modified",
+                    "type": "JQuery"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 1149,
+            "params": [
+                {
+                    "name": "index",
+                    "description": "- the index of the option that is being disabled",
+                    "type": "Number"
+                },
+                {
+                    "name": "disabled",
+                    "description": "- true if the option is being disabled, false if being enabled",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "$lis",
+                    "description": "- the 'li' element that is being modified",
+                    "type": "JQuery"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "line": 1299,
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 893,
+            "description": "Create key-value caches of limited size",
+            "return": {
+                "description": "Returns the Object data after storing it on itself with\n\tproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\n\tdeleting the oldest entry",
+                "type": "Function(string, object)"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 913,
+            "description": "Mark a function for special use by Sizzle",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to mark",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 922,
+            "description": "Support testing using an element",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "Passed the created element and returns a boolean result",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 943,
+            "description": "Adds the same handler for all of the specified attrs",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "Pipe-separated list of attributes",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "The method that will be applied",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 957,
+            "description": "Checks document order of two siblings",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "b",
+                    "description": "",
+                    "type": "Element"
+                }
+            ],
+            "return": {
+                "description": "Returns less than 0 if a precedes b, greater than 0 if a follows b",
+                "type": "Number"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 985,
+            "description": "Returns a function to use in pseudos for input types",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 996,
+            "description": "Returns a function to use in pseudos for buttons",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1007,
+            "description": "Returns a function to use in pseudos for :enabled/:disabled",
+            "params": [
+                {
+                    "name": "disabled",
+                    "description": "true for :disabled; false for :enabled",
+                    "type": "Boolean"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1063,
+            "description": "Returns a function to use in pseudos for positionals",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1085,
+            "description": "Checks a node for validity as a Sizzle context",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Element|Object="
+                }
+            ],
+            "return": {
+                "description": "The input node if acceptable, otherwise a falsy value",
+                "type": "Element|Object|Boolean"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1097,
+            "description": "Detects XML nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "An element or a document",
+                    "type": "Element|Object"
+                }
+            ],
+            "return": {
+                "description": "True iff elem is a non-HTML XML node",
+                "type": "Boolean"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1109,
+            "description": "Sets document-related variables once based on the current document",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "An element or document object to use to set the document",
+                    "type": "Element|Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Returns the current document",
+                "type": "Object"
+            },
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1589,
+            "description": "Document sorting and removing duplicates",
+            "params": [
+                {
+                    "name": "results",
+                    "description": "",
+                    "type": "ArrayLike"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 1622,
+            "description": "Utility function for retrieving the text value of an array of DOM nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "",
+                    "type": "Array|Element"
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 2653,
+            "description": "A low-level selection function that works with Sizzle's compiled\n selector functions",
+            "params": [
+                {
+                    "name": "selector",
+                    "description": "A selector or a pre-compiled\n selector function built with Sizzle.compile",
+                    "type": "String|Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "results",
+                    "description": "",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "seed",
+                    "description": "A set of elements to match against",
+                    "type": "Array",
+                    "optional": true
+                }
+            ],
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 9787,
+            "description": "Load a url into a page",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "line": 9879,
+            "description": "Gets a window from an element",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery.isloading.js",
+            "line": 1,
+            "description": "Loading plugin for jQuery\nversion: v1.0.6\n\nSmall helper to give the user a visual feedback that something is happening\nwhen fetching/posting data\n\nUSAGE:\n- global overlay:                     $.isLoading();\n- use javascript:                     $( selector ).isLoading();\n- On non-form elements:               $(\"div\").isLoading({ text: \"Loading\", position:'inside'});\n- remove the loading element:         $( selector ).isLoading( \"hide\" );",
+            "author": "Laurent Blanes <laurent.blanes@gmail.com>\n---\nCopyright 2013, Laurent Blanes ( https://github.com/hekigan/is-loading )\n\nThe MIT License (MIT)\n\nCopyright (c) 2013 Laurent Blanes\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "line": 47,
+            "description": "HERE WE GO!",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "line": 102,
+            "description": "If browser implements text-overflow:ellipsis in CSS and tail is &hellip;/Unicode 8230/(…), use it!\nIn this case we're doing the measurement above to determine if we need the tooltip.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "line": 136,
+            "description": "Before we start removing characters one by one, let's try to be more intelligent about this:\nIf the original string is longer than targetWidth by at least 15% (for safety), then shorten it\nto targetWidth + 15% (and re-measure for safety). If the resulting text still is too long (as expected),\nuse that for further shortening. Else use the original text. This saves a lot of time for text that is\nmuch longer than the desired width.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 193,
+            "description": "Collection of wrapper for HTML element that only have single tag\nlike <input> and <img>",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 246,
+            "description": "Hide the effect and remove the ripple. Must be\na separate function to pass the JSLint...",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 312,
+            "description": "Disable mousedown event for 500ms during and after touch",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 353,
+            "description": "Delegated click handler for .waves-effect element.\nreturns null when .waves-effect element not in \"click tree\"",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 377,
+            "description": "Bubble the click and show effect if .waves-effect elem was found",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 472,
+            "description": "Attach Waves to dynamically loaded inputs, or add .waves-effect and other\nwaves classes to a set of elements. Set drag to true if the ripple mouseover\nor skimming effect should be applied to the elements.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 506,
+            "description": "Cause a ripple to appear in an element via code.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 558,
+            "description": "Remove all ripples from an element.",
+            "class": ""
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\waves.js",
+            "line": 573,
+            "description": "Deprecated API fallback",
+            "class": ""
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: access",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:538"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:553"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:893"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:957"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1085"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1097"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1109"
+        },
+        {
+            "message": "Missing item type\nRemove all diatrics from the given text.",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:538"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:553"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:720"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:799"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1135"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1149"
+        },
+        {
+            "message": "Missing item type",
+            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1299"
+        },
+        {
+            "message": "Missing item type\nCreate key-value caches of limited size",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:893"
+        },
+        {
+            "message": "Missing item type\nMark a function for special use by Sizzle",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:913"
+        },
+        {
+            "message": "Missing item type\nSupport testing using an element",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:922"
+        },
+        {
+            "message": "Missing item type\nAdds the same handler for all of the specified attrs",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:943"
+        },
+        {
+            "message": "Missing item type\nChecks document order of two siblings",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:957"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for input types",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:985"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for buttons",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:996"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for :enabled/:disabled",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1007"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for positionals",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1063"
+        },
+        {
+            "message": "Missing item type\nChecks a node for validity as a Sizzle context",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1085"
+        },
+        {
+            "message": "Missing item type\nDetects XML nodes",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1097"
+        },
+        {
+            "message": "Missing item type\nSets document-related variables once based on the current document",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1109"
+        },
+        {
+            "message": "Missing item type\nDocument sorting and removing duplicates",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1589"
+        },
+        {
+            "message": "Missing item type\nUtility function for retrieving the text value of an array of DOM nodes",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1622"
+        },
+        {
+            "message": "Missing item type\nA low-level selection function that works with Sizzle's compiled\n selector functions",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:2653"
+        },
+        {
+            "message": "Missing item type\nLoad a url into a page",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:9787"
+        },
+        {
+            "message": "Missing item type\nGets a window from an element",
+            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:9879"
+        },
+        {
+            "message": "Missing item type\nLoading plugin for jQuery\nversion: v1.0.6\n\nSmall helper to give the user a visual feedback that something is happening\nwhen fetching/posting data\n\nUSAGE:\n- global overlay:                     $.isLoading();\n- use javascript:                     $( selector ).isLoading();\n- On non-form elements:               $(\"div\").isLoading({ text: \"Loading\", position:'inside'});\n- remove the loading element:         $( selector ).isLoading( \"hide\" );",
+            "line": " Z:\\portal\\public\\js\\jquery.isloading.js:1"
+        },
+        {
+            "message": "Missing item type\nHERE WE GO!",
+            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:47"
+        },
+        {
+            "message": "Missing item type\nIf browser implements text-overflow:ellipsis in CSS and tail is &hellip;/Unicode 8230/(…), use it!\nIn this case we're doing the measurement above to determine if we need the tooltip.",
+            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:102"
+        },
+        {
+            "message": "Missing item type\nBefore we start removing characters one by one, let's try to be more intelligent about this:\nIf the original string is longer than targetWidth by at least 15% (for safety), then shorten it\nto targetWidth + 15% (and re-measure for safety). If the resulting text still is too long (as expected),\nuse that for further shortening. Else use the original text. This saves a lot of time for text that is\nmuch longer than the desired width.",
+            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:136"
+        },
+        {
+            "message": "Missing item type\nCollection of wrapper for HTML element that only have single tag\nlike <input> and <img>",
+            "line": " Z:\\portal\\public\\js\\waves.js:193"
+        },
+        {
+            "message": "Missing item type\nHide the effect and remove the ripple. Must be\na separate function to pass the JSLint...",
+            "line": " Z:\\portal\\public\\js\\waves.js:246"
+        },
+        {
+            "message": "Missing item type\nDisable mousedown event for 500ms during and after touch",
+            "line": " Z:\\portal\\public\\js\\waves.js:312"
+        },
+        {
+            "message": "Missing item type\nDelegated click handler for .waves-effect element.\nreturns null when .waves-effect element not in \"click tree\"",
+            "line": " Z:\\portal\\public\\js\\waves.js:353"
+        },
+        {
+            "message": "Missing item type\nBubble the click and show effect if .waves-effect elem was found",
+            "line": " Z:\\portal\\public\\js\\waves.js:377"
+        },
+        {
+            "message": "Missing item type\nAttach Waves to dynamically loaded inputs, or add .waves-effect and other\nwaves classes to a set of elements. Set drag to true if the ripple mouseover\nor skimming effect should be applied to the elements.",
+            "line": " Z:\\portal\\public\\js\\waves.js:472"
+        },
+        {
+            "message": "Missing item type\nCause a ripple to appear in an element via code.",
+            "line": " Z:\\portal\\public\\js\\waves.js:506"
+        },
+        {
+            "message": "Missing item type\nRemove all ripples from an element.",
+            "line": " Z:\\portal\\public\\js\\waves.js:558"
+        },
+        {
+            "message": "Missing item type\nDeprecated API fallback",
+            "line": " Z:\\portal\\public\\js\\waves.js:573"
+        }
+    ]
+}
