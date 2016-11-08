@@ -4,13 +4,78 @@
         "description": "",
         "version": "1.0",
         "url": "",
-        "logo": ""
+        "logo": "../../img/icons/favicons/android-chrome-48x48.png"
     },
     "files": {
         "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js": {
             "name": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
             "modules": {},
             "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "modules": {},
+            "classes": {
+                "Devices": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "modules": {},
+            "classes": {
+                "Gallery": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "modules": {},
+            "classes": {
+                "Nowplaying": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "modules": {},
+            "classes": {
+                "PHPSysInfo": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "modules": {},
+            "classes": {
+                "Transmission": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\dashboard.js": {
+            "name": "Z:\\portal\\public\\js\\dashboard.js",
+            "modules": {
+                "Dashboard": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "Z:\\portal\\public\\js\\default.js": {
+            "name": "Z:\\portal\\public\\js\\default.js",
+            "modules": {
+                "General": 1
+            },
+            "classes": {
+                "Window": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -35,6 +100,17 @@
             "fors": {},
             "namespaces": {}
         },
+        "Z:\\portal\\public\\js\\settings.js": {
+            "name": "Z:\\portal\\public\\js\\settings.js",
+            "modules": {
+                "Settings": 1
+            },
+            "classes": {
+                "Index": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "Z:\\portal\\public\\js\\waves.js": {
             "name": "Z:\\portal\\public\\js\\waves.js",
             "modules": {},
@@ -43,8 +119,183 @@
             "namespaces": {}
         }
     },
-    "modules": {},
-    "classes": {},
+    "modules": {
+        "Dashboard": {
+            "name": "Dashboard",
+            "submodules": {
+                "DashboardBlocks": 1
+            },
+            "elements": {},
+            "classes": {
+                "Devices": 1,
+                "Gallery": 1,
+                "Nowplaying": 1,
+                "PHPSysInfo": 1,
+                "Transmission": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "line": 1,
+            "description": "Main entry point for dashboard view."
+        },
+        "DashboardBlocks": {
+            "name": "DashboardBlocks",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Devices": 1,
+                "Gallery": 1,
+                "Nowplaying": 1,
+                "PHPSysInfo": 1,
+                "Transmission": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "Dashboard",
+            "namespace": "",
+            "description": "The devices block on the dashboard.",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "line": 1
+        },
+        "General": {
+            "name": "General",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Window": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 1,
+            "description": "Main entry point for all views."
+        },
+        "Settings": {
+            "name": "Settings",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Index": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "Z:\\portal\\public\\js\\settings.js",
+            "line": 1,
+            "description": "Main entry point for settings view."
+        }
+    },
+    "classes": {
+        "Devices": {
+            "name": "Devices",
+            "shortname": "Devices",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Dashboard",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 1,
+            "description": "The devices block on the dashboard.",
+            "submodule": "DashboardBlocks"
+        },
+        "Gallery": {
+            "name": "Gallery",
+            "shortname": "Gallery",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Dashboard",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "line": 1,
+            "description": "The gallery blocks on the dashboard.",
+            "submodule": "DashboardBlocks"
+        },
+        "Nowplaying": {
+            "name": "Nowplaying",
+            "shortname": "Nowplaying",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Dashboard",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 1,
+            "description": "The nowplaying block on the dashboard.",
+            "submodule": "DashboardBlocks"
+        },
+        "PHPSysInfo": {
+            "name": "PHPSysInfo",
+            "shortname": "PHPSysInfo",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Dashboard",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 1,
+            "description": "The various blocks on the dashboard that build upon PHPSysInfo data.",
+            "submodule": "DashboardBlocks",
+            "example": [
+                " http://phpsysinfo.github.io/phpsysinfo/"
+            ]
+        },
+        "Transmission": {
+            "name": "Transmission",
+            "shortname": "Transmission",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Dashboard",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "line": 1,
+            "description": "The transmission block on the dashboard.",
+            "submodule": "DashboardBlocks"
+        },
+        "Index": {
+            "name": "Index",
+            "shortname": "Index",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Settings",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\settings.js",
+            "line": 1,
+            "description": "Main entry point for settings view."
+        },
+        "Window": {
+            "name": "Window",
+            "shortname": "Window",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "General",
+            "namespace": "",
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 1,
+            "description": "Main entry point for all views."
+        }
+    },
     "elements": {},
     "classitems": [
         {
@@ -63,7 +314,7 @@
                 "description": "",
                 "type": "String"
             },
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -93,7 +344,7 @@
                 "description": "",
                 "type": "String"
             },
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -123,7 +374,7 @@
                 "description": "",
                 "type": "String"
             },
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -135,7 +386,7 @@
                     "optional": true
                 }
             ],
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -152,7 +403,7 @@
                     "optional": true
                 }
             ],
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -174,7 +425,7 @@
                     "type": "JQuery"
                 }
             ],
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
@@ -196,12 +447,603 @@
                     "type": "JQuery"
                 }
             ],
-            "class": ""
+            "class": "Devices"
         },
         {
             "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
             "line": 1299,
-            "class": ""
+            "class": "Devices"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 11,
+            "description": "All the settings for this block",
+            "itemtype": "property",
+            "name": "settings",
+            "type": "Object",
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 23,
+            "description": "All the functions for this block",
+            "itemtype": "property",
+            "name": "functions",
+            "type": "Object",
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 31,
+            "description": "Initializes the eventhandlers for the various button clicks.",
+            "itemtype": "method",
+            "name": "checkstates",
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 68,
+            "description": "Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.",
+            "itemtype": "method",
+            "name": "checkstates",
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 121,
+            "description": "Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.",
+            "itemtype": "method",
+            "name": "checkstates",
+            "params": [
+                {
+                    "name": "btn",
+                    "description": "Which button of the confirm dialog is pressed (yes/no).",
+                    "type": "Object"
+                }
+            ],
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "line": 143,
+            "description": "Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.",
+            "itemtype": "method",
+            "name": "checkstates",
+            "params": [
+                {
+                    "name": "btn",
+                    "description": "Which button of the confirm dialog is pressed (yes/no).",
+                    "type": "Object"
+                }
+            ],
+            "class": "Devices",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "line": 12,
+            "description": "All the settings for this block",
+            "itemtype": "property",
+            "name": "settings",
+            "type": "Object",
+            "class": "Gallery",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "line": 24,
+            "description": "All the functions for this block",
+            "itemtype": "property",
+            "name": "functions",
+            "type": "Object",
+            "class": "Gallery",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "line": 32,
+            "description": "Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Gallery",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "line": 52,
+            "description": "Called when navigating to a new item in the gallery. Either by button clicks or by the interval.",
+            "itemtype": "method",
+            "name": "rotateGallery",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "The direction to rotate to, valid values are \"left\" and \"right\".",
+                    "type": "String"
+                }
+            ],
+            "class": "Gallery",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 11,
+            "description": "All the settings for this block",
+            "itemtype": "property",
+            "name": "settings",
+            "type": "Object",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 38,
+            "description": "All the functions for this block",
+            "itemtype": "property",
+            "name": "functions",
+            "type": "Object",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 46,
+            "description": "Initializes the eventhandlers for button clicks to navigate between nowplaying  items and sets the refresh button click handler.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 63,
+            "description": "Wrapper function to retrieve all nowplaying details.",
+            "itemtype": "method",
+            "name": "nowPlaying",
+            "params": [
+                {
+                    "name": "onload",
+                    "description": "Whether this function is called as part of initialization",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 93,
+            "description": "Called on completing AJAX request to retrieve nowplaying details for either Kodi or Subsonic.<br />\nHides and shows certain DOM elements based on what's playing.",
+            "itemtype": "method",
+            "name": "nowPlayingCallback",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 122,
+            "description": "Sets the interval to retreive new nowplaying information automatically.",
+            "itemtype": "method",
+            "name": "setInterval",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 137,
+            "description": "Rotates the block to the next/prev player. Called by interval or pressing next/prev buttons.",
+            "itemtype": "method",
+            "name": "rotate",
+            "params": [
+                {
+                    "name": "direction",
+                    "description": "Which direction to rotate to. Valid values are \"left\" and \"right\".",
+                    "type": "String"
+                }
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 166,
+            "description": "Clones the .player.nothing-playing and uses it to set up a new player based on the supplied values.",
+            "itemtype": "method",
+            "name": "createPlayer",
+            "params": [
+                {
+                    "name": "values",
+                    "description": "The values to set for the new player.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 206,
+            "description": "The Subsonic object containing all the functions related to Subsonic nowplaying.",
+            "itemtype": "property",
+            "name": "subsonic",
+            "type": "Object",
+            "example": [
+                " http://www.subsonic.org/pages/api.jsp"
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 215,
+            "description": "Retrieves the nowplaying information from SubSonic. On complete calls functions.nowPlayingCallback().",
+            "itemtype": "method",
+            "name": "subsonic.nowPlaying",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 259,
+            "description": "Creates a salt, used to salt the login information with. Used by functions.subsonic.getURL.",
+            "itemtype": "method",
+            "name": "subsonic.getSalt",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 268,
+            "description": "Creates a SubSonic style REST URL with username, password and salt.<br />\nPass along an Array of arguments to append them to the URL.",
+            "itemtype": "method",
+            "name": "subsonic.getURL",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "Which SubSonic view to retrieve.",
+                    "type": "String"
+                },
+                {
+                    "name": "arguments",
+                    "description": "The extra arguments to append to the REST URL. The key will be used as the queryparameter, the value as queryvalue.",
+                    "type": "Array"
+                }
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 289,
+            "description": "The Kodi object containing all the functions related to Kodi nowplaying.",
+            "itemtype": "property",
+            "name": "kodi",
+            "type": "Object",
+            "example": [
+                " http://kodi.wiki/view/JSON-RPC_API/Examples",
+                " http://kodi.wiki/view/JSON-RPC_API/Examples",
+                " http://forum.kodi.tv/showthread.php?tid=157996"
+            ],
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "line": 299,
+            "description": "Retrieves the nowplaying information from Kodi. On complete calls functions.nowPlayingCallback().",
+            "itemtype": "method",
+            "name": "kodi.nowPlaying",
+            "class": "Nowplaying",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 13,
+            "description": "All the settings for this block",
+            "itemtype": "property",
+            "name": "settings",
+            "type": "Object",
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 25,
+            "description": "All the functions for this block",
+            "itemtype": "property",
+            "name": "functions",
+            "type": "Object",
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 33,
+            "description": "Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 49,
+            "description": "Wrapper function to retrieve all data except psstatus plugin.",
+            "itemtype": "method",
+            "name": "getAll",
+            "todo": [
+                "incorporate the psstatus update in this as well",
+                "since we retrieve the data anyways."
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 73,
+            "description": "Wrapper function to retrieve all data except psstatus plugin.",
+            "itemtype": "method",
+            "name": "getAll",
+            "todo": [
+                "incorporate the psstatus update in this as well",
+                "since we retrieve the data anyways."
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 98,
+            "description": "Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.",
+            "itemtype": "method",
+            "name": "setCPUCores",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 129,
+            "description": "Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.",
+            "itemtype": "method",
+            "name": "setNetwork",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 152,
+            "description": "Finds \".fans .fan-stats > div\" by index, than sets data for fans, retrieved from PHPSysInfo.",
+            "itemtype": "method",
+            "name": "setFans",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 166,
+            "description": "Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.",
+            "itemtype": "method",
+            "name": "setRAM",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 186,
+            "description": "Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.",
+            "itemtype": "method",
+            "name": "setDisks",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 220,
+            "description": "Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.",
+            "itemtype": "method",
+            "name": "setDisks",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data retrieved from PHPSysInfo.",
+                    "type": "Object"
+                }
+            ],
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "line": 233,
+            "description": "Retrieves psstatus data from PHPSysInfo using AJAX.<br />\nThen clears all processess and dynamically create new nodes and appends them to the block.",
+            "itemtype": "method",
+            "name": "psstatus",
+            "class": "PHPSysInfo",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "line": 8,
+            "description": "Document onload, call to initialize dashboardblocks, eventhandlers and plugins.",
+            "itemtype": "method",
+            "name": "document.onload",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "line": 27,
+            "description": "Initializes the eventhandlers",
+            "itemtype": "method",
+            "name": "initializeDashboardEventHandlers",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "line": 50,
+            "description": "Shows a confirm dialog with yes/no buttons",
+            "itemtype": "method",
+            "name": "openConfirmDialog",
+            "params": [
+                {
+                    "name": "title",
+                    "description": "The title to set for the confirm dialog.",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "The data attributes to set on the confirm dialog, for later us.",
+                    "type": "String"
+                },
+                {
+                    "name": "buttonClick",
+                    "description": "callback for clicking the confirm button.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 8,
+            "description": "The time to show notifications, defined in config.ini.",
+            "itemtype": "property",
+            "name": "alertTimeout",
+            "type": "Number",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 16,
+            "description": "Keeping track if the alt key has been pressed.",
+            "itemtype": "property",
+            "name": "altPressed",
+            "type": "Boolean",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 24,
+            "description": "Document onload, call to initialize plugins and eventhandlers.",
+            "itemtype": "method",
+            "name": "document.onload",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 36,
+            "description": "Initializes all globally used plugins.",
+            "itemtype": "method",
+            "name": "initializeGlobalPlugins",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 77,
+            "description": "Initialized all globally used eventhandlers.",
+            "itemtype": "method",
+            "name": "initializeGlobalEventHandlers",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 102,
+            "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
+            "itemtype": "method",
+            "name": "fadeOutAlert",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\default.js",
+            "line": 115,
+            "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
+            "itemtype": "method",
+            "name": "capitalize",
+            "class": "Window",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -211,7 +1053,8 @@
                 "description": "Returns the Object data after storing it on itself with\n\tproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\n\tdeleting the oldest entry",
                 "type": "Function(string, object)"
             },
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -224,7 +1067,8 @@
                     "type": "Function"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -237,7 +1081,8 @@
                     "type": "Function"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -255,7 +1100,8 @@
                     "type": "Function"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -277,7 +1123,8 @@
                 "description": "Returns less than 0 if a precedes b, greater than 0 if a follows b",
                 "type": "Number"
             },
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -290,7 +1137,8 @@
                     "type": "String"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -303,7 +1151,8 @@
                     "type": "String"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -316,7 +1165,8 @@
                     "type": "Boolean"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -329,7 +1179,8 @@
                     "type": "Function"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -346,7 +1197,8 @@
                 "description": "The input node if acceptable, otherwise a falsy value",
                 "type": "Element|Object|Boolean"
             },
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -363,7 +1215,8 @@
                 "description": "True iff elem is a non-HTML XML node",
                 "type": "Boolean"
             },
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -381,7 +1234,8 @@
                 "description": "Returns the current document",
                 "type": "Object"
             },
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -394,7 +1248,8 @@
                     "type": "ArrayLike"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -407,7 +1262,8 @@
                     "type": "Array|Element"
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
@@ -437,98 +1293,123 @@
                     "optional": true
                 }
             ],
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
             "line": 9787,
             "description": "Load a url into a page",
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
             "line": 9879,
             "description": "Gets a window from an element",
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery.isloading.js",
             "line": 1,
             "description": "Loading plugin for jQuery\nversion: v1.0.6\n\nSmall helper to give the user a visual feedback that something is happening\nwhen fetching/posting data\n\nUSAGE:\n- global overlay:                     $.isLoading();\n- use javascript:                     $( selector ).isLoading();\n- On non-form elements:               $(\"div\").isLoading({ text: \"Loading\", position:'inside'});\n- remove the loading element:         $( selector ).isLoading( \"hide\" );",
             "author": "Laurent Blanes <laurent.blanes@gmail.com>\n---\nCopyright 2013, Laurent Blanes ( https://github.com/hekigan/is-loading )\n\nThe MIT License (MIT)\n\nCopyright (c) 2013 Laurent Blanes\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
             "line": 47,
             "description": "HERE WE GO!",
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
             "line": 102,
             "description": "If browser implements text-overflow:ellipsis in CSS and tail is &hellip;/Unicode 8230/(…), use it!\nIn this case we're doing the measurement above to determine if we need the tooltip.",
-            "class": ""
+            "class": "Index",
+            "module": "General"
         },
         {
             "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
             "line": 136,
             "description": "Before we start removing characters one by one, let's try to be more intelligent about this:\nIf the original string is longer than targetWidth by at least 15% (for safety), then shorten it\nto targetWidth + 15% (and re-measure for safety). If the resulting text still is too long (as expected),\nuse that for further shortening. Else use the original text. This saves a lot of time for text that is\nmuch longer than the desired width.",
-            "class": ""
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "Z:\\portal\\public\\js\\settings.js",
+            "line": 8,
+            "description": "Document onload, sets up setting view specific eventhandlers.",
+            "itemtype": "method",
+            "name": "document.onload",
+            "class": "Index",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 193,
             "description": "Collection of wrapper for HTML element that only have single tag\nlike <input> and <img>",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 246,
             "description": "Hide the effect and remove the ripple. Must be\na separate function to pass the JSLint...",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 312,
             "description": "Disable mousedown event for 500ms during and after touch",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 353,
             "description": "Delegated click handler for .waves-effect element.\nreturns null when .waves-effect element not in \"click tree\"",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 377,
             "description": "Bubble the click and show effect if .waves-effect elem was found",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 472,
             "description": "Attach Waves to dynamically loaded inputs, or add .waves-effect and other\nwaves classes to a set of elements. Set drag to true if the ripple mouseover\nor skimming effect should be applied to the elements.",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 506,
             "description": "Cause a ripple to appear in an element via code.",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 558,
             "description": "Remove all ripples from an element.",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         },
         {
             "file": "Z:\\portal\\public\\js\\waves.js",
             "line": 573,
             "description": "Deprecated API fallback",
-            "class": ""
+            "class": "",
+            "module": "Settings"
         }
     ],
     "warnings": [

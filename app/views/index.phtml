@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>/rss" />
+    <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>rss" />
 
     <?php echo $this->tag->getTitle(); ?>
     <?php $this->assets->outputCss('header') ?>
@@ -23,7 +23,6 @@
     <div class="alert" role="alert" data-alert-timeout="<?php echo $this->config->dashboard->alertTimeout ?>"></div>
 
     <?php  
-    
     $this->partial('footer');
     $this->assets->outputJs('footer');
 

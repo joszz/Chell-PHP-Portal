@@ -252,6 +252,10 @@ a.navbar-brand img {
   float: left;
   margin: 0 15px 0 5px; }
 
+a.navbar-brand span {
+  float: left;
+  white-space: nowrap; }
+
 nav div.navbar-collapse ul a {
   color: #FFF;
   padding: 5px 10px;
@@ -427,6 +431,9 @@ li.os div.icon {
 span.packages {
   margin-right: 15px; }
 
+div.distro span {
+  white-space: nowrap; }
+
 div.transmission li div.torrentname,
 div.transmission li div.torrentprogress {
   margin-top: 7px; }
@@ -451,7 +458,10 @@ div.panel {
 div.panel ul div:not(.embed-responsive) {
   padding: 0; }
 
-div.shutdown h2 {
+div#confirm-dialog {
+  overflow: hidden; }
+
+div#confirm-dialog h2 {
   white-space: nowrap; }
 
 div#confirm-dialog button {

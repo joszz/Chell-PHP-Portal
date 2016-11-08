@@ -1,4 +1,11 @@
-﻿(function ($) {
+﻿/**
+* The transmission block on the dashboard.
+* 
+* @class Transmission
+* @module Dashboard
+* @submodule DashboardBlocks
+*/
+(function ($) {
     $.fn.transmission = function (options) {
         var settings = $.extend({
             defaultData: {

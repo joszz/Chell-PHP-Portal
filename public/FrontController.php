@@ -23,19 +23,19 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-3.1.1.js', 
-                        'fancybox/jquery.fancybox.js', 
-                        //'fancybox/jquery.fancybox-buttons.js', 
-                        'bootstrap.js', 
-                        'bootstrap-select/bootstrap-select.js', 
-                        'bootstrap-tabcollapse.js', 
-                        //'responsive-paginate.js', 
-                        //'jquery.shorten.js', 
-                        'jquery.vibrate.js', 
+    private $js = array('jquery-3.1.1.js',
+                        'fancybox/jquery.fancybox.js',
+                        //'fancybox/jquery.fancybox-buttons.js',
+                        'bootstrap.js',
+                        'bootstrap-select/bootstrap-select.js',
+                        'bootstrap-tabcollapse.js',
+                        //'responsive-paginate.js',
+                        //'jquery.shorten.js',
+                        'jquery.vibrate.js',
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',
-                        'waves.js', 
-                        'md5.js', 
+                        'waves.js',
+                        'md5.js',
                         'default.js',
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/gallery.js',
@@ -44,12 +44,13 @@ class FrontController
                         'dashboard-blocks/nowplaying.js',
                         );
 
-    private $css = array('bootstrap.css', 
-                         'bootstrap-theme.css', 
-                         'fancybox/jquery.fancybox.css', 
-                         //'fancybox/jquery.fancybox-buttons.css', 
-                         'waves.css', 
-                         'bootstrap-select.css', 
+    private $css = array('bootstrap.css',
+                         'bootstrap-theme.css',
+                         //'font-awesome.css',
+                         'fancybox/jquery.fancybox.css',
+                         //'fancybox/jquery.fancybox-buttons.css',
+                         'waves.css',
+                         'bootstrap-select.css',
                          'default.css');
 
     /**
@@ -63,7 +64,7 @@ class FrontController
 
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
-        
+
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
@@ -103,7 +104,7 @@ class FrontController
     {
         ini_set('display_errors', $this->config->application->debug ? 'on' : 'off');
     }
-    
+
     /**
      * Register all directories used by Phalcon.
      */
@@ -212,7 +213,7 @@ class FrontController
 
             foreach($this->css as $css) $this->application->assets->collection('header')->addCss('css/' . $css);
         }
-        else 
+        else
         {
             $this->application->assets->collection('header')->addCss($finalFile);
         }
@@ -225,7 +226,7 @@ class FrontController
     {
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
         $finalDefaultFile = 'js/compressed/default_' . $mtimeHash . '.min.js';
-        
+
         $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
 
         $this->application->assets
@@ -251,7 +252,7 @@ class FrontController
         $finalDashboardFile = 'js/compressed/dashboard_' . $mtimeHash . '.min.js';
 
         $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
-        
+
         $this->application->assets
              ->collection('dashboard')
              ->setTargetPath($finalDashboardFile)
@@ -264,7 +265,7 @@ class FrontController
                  ->join(true)
                  ->addFilter(new Jsmin());
         }
-        else 
+        else
         {
             $this->application->assets->collection('dashboard')->addJs($finalDashboardFile);
         }
@@ -274,7 +275,7 @@ class FrontController
         $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
 
         $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
-        
+
         $this->application->assets
              ->collection('settings')
              ->setTargetPath($finalSettingsFile)
@@ -287,7 +288,7 @@ class FrontController
                  ->join(true)
                  ->addFilter(new Jsmin());
         }
-        else 
+        else
         {
             $this->application->assets->collection('settings')->addJs($finalSettingsFile);
         }
@@ -295,20 +296,20 @@ class FrontController
 
     /**
      * Cleanup absolete compressed files.
-     * 
+     *
      * @param mixed $finalFile      The new compressed file
      * @param mixed $pattern        The pattern to match against for files in directory.
      */
     private function cleanupCompressedFiles($finalFile, $pattern)
     {
         $files = glob(getcwd() . $pattern);
-        
+
         if(($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
         {
             unset($files[$key]);
         }
 
-        if(count($files)) 
+        if(count($files))
         {
             array_map('unlink', $files);
         }
@@ -316,7 +317,7 @@ class FrontController
 
     /**
      * Creates a filemtime string from all files in array and then create a hash out of it.
-     * 
+     *
      * @param array $files      The array of files to create the hash for based on their modified time.
      * @param mixed $basepath   The path where the files in the array can be found.
      * @return string           The hash based on the string of filemtimes.
@@ -324,7 +325,7 @@ class FrontController
     private function createMTimeHash(array $files, $basepath)
     {
         $mtimes = 0;
-        
+
         foreach($files as $file)
         {
             $mtimes += filemtime($basepath . $file);

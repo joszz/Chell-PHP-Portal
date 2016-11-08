@@ -25,7 +25,12 @@ div.panel ul div:not(.embed-responsive)
     padding: 0;
 }
 
-div.shutdown h2
+div#confirm-dialog
+{
+    overflow: hidden;
+}
+
+div#confirm-dialog h2
 {
     white-space: nowrap;
 }
@@ -71,4 +76,3 @@ div.panel.transparent
         display: block !important;
     }
 }
-

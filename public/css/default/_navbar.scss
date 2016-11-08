@@ -36,6 +36,12 @@ a.navbar-brand img
     margin: 0 15px 0 5px;
 }
 
+a.navbar-brand span
+{
+    float: left;
+    white-space: nowrap;
+}
+
 nav div.navbar-collapse ul a
 {
     color: #FFF;

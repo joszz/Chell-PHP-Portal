@@ -1,114 +1,129 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Chell PHP Portal</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="./assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="./assets/css/main.css" id="site_styles">
     <link rel="stylesheet" href="./assets/css/custom.css">
-    <link rel="stylesheet" href="./assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="shortcut icon" type="image/png" href="./assets/favicon.png">
 </head>
 <body class="yui3-skin-sam">
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <h1 class="brand" style="padding: 10px 16px 10px; height: 20px; line-height: 20px; margin-left: 0;">
-	    <img alt="Chell PHP Portal" src="./assets/css/logo.png" style="max-height: 65%;" title="Chell PHP Portal">
-            Chell PHP Portal
-        </h1>
-	<div class="nav">
-            <li class="divider-vertical"></li>
-            <li>
-                <p class="navbar-text">
-                    API Docs for Version: <b>1.0</b>
-                </p>
-            </li>
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="./">
+                        <img alt="Chell PHP Portal" src="..\..\img\icons\favicons\android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
         </div>
-        <form class="navbar-form pull-right" style="line-height: 40px; height: 40px;">
-            <input style="margin-top: 0;" type="text" class="search-query" placeholder="Search for classes/modules..." data-obj='[]'>
-        </form>
     </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="span3">
-	    <div>
-	        <h3>APIs</h3>
-	        <div id="sidebar">
-	            <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
-	                <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
-	                <li><a href="#modules" data-toggle="tab">Modules</a></li>
-	            </ul>
-	    
-	            <div id="api-tabview-filter">
-	                <input type="search" placeholder="Type to filter APIs">
-	            </div>
-	    
-	            <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
-	                <div class="tab-pane active" id="classes">
-	                    <ul id="api-classes" class="nav nav-list">
-	                    </ul>
-	                </div>
-	    
-	                <div class="tab-pane" id="modules">
-	                    <ul id="api-modules" class="nav nav-list">
-	                    </ul>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-        </div>
-        <div class="span9">
-                <form id="options-form" class="form-inline pull-right">
-                    Show:
-                    <label for="api-show-inherited" class="checkbox">
-                        <input type="checkbox" id="api-show-inherited" checked>
-                        Inherited
-                    </label>
-            
-                    <label for="api-show-protected" class="checkbox">
-                        <input type="checkbox" id="api-show-protected">
-                        Protected
-                    </label>
-            
-                    <label for="api-show-private" class="checkbox">
-                        <input type="checkbox" id="api-show-private">
-                        Private
-                    </label>
-                    <label for="api-show-deprecated" class="checkbox">
-                        <input type="checkbox" id="api-show-deprecated">
-                        Deprecated
-                    </label>
-            
-                </form>
-            
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-<p>Browse to a module or class using the sidebar to view its API documentation.</p>
-
-<h2>Keyboard Shortcuts</h2>
-
-<ul>
-    <li><p>Press <kbd>s</kbd> to focus the API search box.</p></li>
-
-    <li><p>Use <kbd>Up</kbd> and <kbd>Down</kbd> to select classes, modules, and search results.</p></li>
-
-    <li class="mac-only"><p>With the API search box or sidebar focused, use <kbd><span class="cmd">&#x2318;</span>-Left</kbd> or <kbd><span class="cmd">&#x2318;</span>-Right</kbd> to switch sidebar tabs.</p></li>
-
-    <li class="pc-only"><p>With the API search box or sidebar focused, use <kbd>Ctrl+Left</kbd> and <kbd>Ctrl+Right</kbd> to switch sidebar tabs.</p></li>
-</ul>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="./classes/Devices.html">Devices</a></li>
+                                        <li><a href="./classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="./classes/Index.html">Index</a></li>
+                                        <li><a href="./classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="./classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="./classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="./classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="./modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="./modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="./modules/General.html">General</a></li>
+                                        <li><a href="./modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <p>Browse to a module or class using the sidebar to view its API documentation.</p>
+                            
+                            <h2>Keyboard Shortcuts</h2>
+                            
+                            <ul>
+                                <li><p>Press <kbd>s</kbd> to focus the API search box.</p></li>
+                            
+                                <li><p>Use <kbd>Up</kbd> and <kbd>Down</kbd> to select classes, modules, and search results.</p></li>
+                            
+                                <li class="mac-only"><p>With the API search box or sidebar focused, use <kbd><span class="cmd">&#x2318;</span>-Left</kbd> or <kbd><span class="cmd">&#x2318;</span>-Right</kbd> to switch sidebar tabs.</p></li>
+                            
+                                <li class="pc-only"><p>With the API search box or sidebar focused, use <kbd>Ctrl+Left</kbd> and <kbd>Ctrl+Right</kbd> to switch sidebar tabs.</p></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="./assets/vendor/jquery/jquery-1.8.2.min.js"></script>
-<script src="./assets/vendor/bootstrap/js/bootstrap.js"></script>
-<script src="./assets/vendor/prettify/prettify-min.js"></script>
-<script src="./assets/js/yuidoc-bootstrap.js"></script>
-<script>prettyPrint();</script>
+    <script src="./assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="./assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="./assets/vendor/prettify/prettify-min.js"></script>
+    <script src="./assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
 </body>
 </html>

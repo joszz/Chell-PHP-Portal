@@ -1,22 +1,57 @@
-﻿(function ($) {
+﻿/**
+* The various blocks on the dashboard that build upon PHPSysInfo data.
+* 
+* @class PHPSysInfo
+* @module Dashboard
+* @submodule DashboardBlocks
+* @example http://phpsysinfo.github.io/phpsysinfo/
+*/
+(function ($) {
     $.fn.phpsysinfo = function (options) {
         this.each(function () {
+
+            /**
+            * All the settings for this block
+            * 
+            * @property settings
+            * @type Object
+            */
             var settings = $.extend({
                 url: $(this).data("phpsysinfo-url"),
                 vCore: $(this).data("phpsysinfo-vcore"),
                 block: $(this),
             }, options);
 
-            settings.block.find(".glyphicon-refresh").off().on("click", function () {
-                if (settings.block.hasClass("processes")) {
-                    functions.psstatus();
-                }
-                else {
-                    functions.getAll();
-                }
-            });
-
+            /**
+            * All the functions for this block
+            * 
+            * @property functions
+            * @type Object
+            */
             var functions = {
+
+                /**
+                * Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.
+                * 
+                * @method initialize
+                */
+                initialize: function(){
+                    settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                        if (settings.block.hasClass("processes")) {
+                            functions.psstatus();
+                        }
+                        else {
+                            functions.getAll();
+                        }
+                    });
+                },
+
+                /**
+                * Wrapper function to retrieve all data except psstatus plugin.
+                * 
+                * @method getAll
+                * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
+                */
                 getAll: function () {
                     $(".sysinfo, #hardware .panel, .harddisks").isLoading();
 
@@ -35,6 +70,12 @@
                     });
                 },
 
+                /**
+                * Wrapper function to retrieve all data except psstatus plugin.
+                * 
+                * @method getAll
+                * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
+                */
                 setSysinfo: function (data) {
                     $("div.host").html(data.Vitals["@attributes"].Hostname);
 
@@ -53,7 +94,13 @@
                     }
                     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                 },
-
+                
+                /**
+                * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
+                * 
+                * @method setCPUCores
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setCPUCores: function (data) {
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
                         var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
@@ -79,6 +126,12 @@
                     });
                 },
 
+                /**
+                * Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.
+                * 
+                * @method setNetwork
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setNetwork: function (data) {
                     $.each(data.Network.NetDevice, function (index, value) {
                         var rx = Math.round(value.RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
@@ -96,6 +149,12 @@
                     });
                 },
 
+                /**
+                * Finds ".fans .fan-stats > div" by index, than sets data for fans, retrieved from PHPSysInfo.
+                * 
+                * @method setFans
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setFans: function (data) {
                     $.each(data.MBInfo.Fans.Item, function (index, value) {
                         var fan = $("li.fans .fan-stats > div:eq(" + index + ")");
@@ -104,6 +163,12 @@
                     });
                 },
 
+                /**
+                * Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.
+                * 
+                * @method setRAM
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setRAM: function (data) {
                     $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
                     $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
@@ -118,6 +183,12 @@
                     }
                 },
 
+                /**
+                * Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.
+                * 
+                * @method setDisks
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setDisks: function (data) {
                     data.FileSystem.Mount.sort(function (a, b) {
                         return a["@attributes"].MountPoint < b["@attributes"].MountPoint ? -1 : 1;
@@ -146,6 +217,12 @@
                     });
                 },
 
+                /**
+                * Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.
+                * 
+                * @method setDisks
+                * @param data {Object} The data retrieved from PHPSysInfo.
+                */
                 setUpdateNotifier: function (data) {
                     if (data.Plugins.Plugin_UpdateNotifier != undefined) {
                         settings.block.find("span.packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
@@ -153,6 +230,12 @@
                     }
                 },
 
+                /**
+                * Retrieves psstatus data from PHPSysInfo using AJAX.<br />
+                * Then clears all processess and dynamically create new nodes and appends them to the block.
+                * 
+                * @method psstatus
+                */
                 psstatus: function () {
                     $(".processes").isLoading();
 
@@ -199,6 +282,8 @@
                     });
                 }
             }
+
+            functions.initialize();
 
             return functions;
         });

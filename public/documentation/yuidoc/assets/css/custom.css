@@ -7,20 +7,27 @@
 /* -- Navigation Bar -------------------------------------------------------- */
 
 .navbar .navbar-inner .brand {
-    height: 40px;
+    height: 20px;
     margin: 0;
-    padding: 0 5px 0 10px;
-    cursor: default;
+    padding: 10px 16px 10px;
+    line-height: 30px;
 }
+
+    .navbar .navbar-inner img
+    {
+        float: left;
+    }
 
 .navbar-text {
     font-size: 12px;
     padding-left: 5px;
     cursor: default;
+    line-height: 50px;
 }
 
 .navbar-form {
     margin-right: 3px;
+    line-height: 50px;
 }
 
 #options-form {

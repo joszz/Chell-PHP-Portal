@@ -1,0 +1,718 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PHPSysInfo - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="..\..\..\img\icons\favicons\android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>PHPSysInfo <small>Class</small></h1>
+                            </div>
+                            
+                            <div class="well well-small">
+                            
+                            
+                                    <div class="foundat">
+                                        Defined in: <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l1"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:1</code></a>
+                                    </div>
+                            
+                                        Module: <a href="../modules/DashboardBlocks.html">DashboardBlocks</a><br>
+                                        Parent Module: <a href="../modules/Dashboard.html">Dashboard</a>
+                            
+                            </div>
+                            
+                            
+                            <div class="well well-small">
+                                <p>The various blocks on the dashboard that build upon PHPSysInfo data.</p>
+                            
+                            </div>
+                            
+                            
+                            <div>
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#index">Index</a></li>
+                            
+                                        <li><a data-toggle="tab" href="#methods">Methods</a></li>
+                                        <li><a data-toggle="tab" href="#properties">Properties</a></li>
+                                </ul>
+                            
+                                <div class="tab-content">
+                                    <div id="index" class="tab-pane active">
+                                        <h2 class="off-left">Item Index</h2>
+                            
+                                            <div class="index-section methods">
+                                                <h3>Methods</h3>
+                            
+                                                <ul class="index-list methods">
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_getAll" data-tablink="getAll">getAll</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_getAll" data-tablink="getAll">getAll</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_initialize" data-tablink="initialize">initialize</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_psstatus" data-tablink="psstatus">psstatus</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setCPUCores" data-tablink="setCPUCores">setCPUCores</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setDisks" data-tablink="setDisks">setDisks</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setDisks" data-tablink="setDisks">setDisks</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setFans" data-tablink="setFans">setFans</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setNetwork" data-tablink="setNetwork">setNetwork</a>
+                            
+                                                        </li>
+                                                        <li class="index-item method">
+                                                            <a href="#" data-tabid="#methods" data-anchor="#method_setRAM" data-tablink="setRAM">setRAM</a>
+                            
+                                                        </li>
+                                                </ul>
+                                            </div>
+                            
+                                            <div class="index-section properties">
+                                                <h3>Properties</h3>
+                            
+                                                <ul class="index-list properties">
+                                                        <li class="index-item property">
+                                                            <a href="#" data-tabid="#properties" data-anchor="#property_functions" data-tablink="functions">functions</a>
+                            
+                                                        </li>
+                                                        <li class="index-item property">
+                                                            <a href="#" data-tabid="#properties" data-anchor="#property_settings" data-tablink="settings">settings</a>
+                            
+                                                        </li>
+                                                </ul>
+                                            </div>
+                            
+                            
+                                    </div>
+                            
+                                        <div id="methods" class="tab-pane">
+                                            <h2 class="off-left">Methods</h2>
+                            
+                                                <div id="method_getAll" class="method item">
+                                                    <h3 class="name"><code>getAll</code></h3>
+                                                
+                                                        <span class="paren">()</span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l49"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:49</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Wrapper function to retrieve all data except psstatus plugin.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                                <div id="method_getAll" class="method item">
+                                                    <h3 class="name"><code>getAll</code></h3>
+                                                
+                                                        <span class="paren">()</span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l73"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:73</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Wrapper function to retrieve all data except psstatus plugin.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                                <div id="method_initialize" class="method item">
+                                                    <h3 class="name"><code>initialize</code></h3>
+                                                
+                                                        <span class="paren">()</span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l33"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:33</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                                <div id="method_psstatus" class="method item">
+                                                    <h3 class="name"><code>psstatus</code></h3>
+                                                
+                                                        <span class="paren">()</span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l233"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:233</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Retrieves psstatus data from PHPSysInfo using AJAX.<br />
+                                                Then clears all processess and dynamically create new nodes and appends them to the block.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setCPUCores" class="method item">
+                                                    <h3 class="name"><code>setCPUCores</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l98"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:98</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setDisks" class="method item">
+                                                    <h3 class="name"><code>setDisks</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l186"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:186</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setDisks" class="method item">
+                                                    <h3 class="name"><code>setDisks</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l220"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:220</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setFans" class="method item">
+                                                    <h3 class="name"><code>setFans</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l152"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:152</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds ".fans .fan-stats &gt; div" by index, than sets data for fans, retrieved from PHPSysInfo.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setNetwork" class="method item">
+                                                    <h3 class="name"><code>setNetwork</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l129"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:129</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                                <div id="method_setRAM" class="method item">
+                                                    <h3 class="name"><code>setRAM</code></h3>
+                                                
+                                                        <div class="args">
+                                                            <span class="paren">(</span><ul class="args-list inline commas">
+                                                                <li class="arg">
+                                                                        <code>data</code>
+                                                                </li>
+                                                            </ul><span class="paren">)</span>
+                                                        </div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l166"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:166</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <div class="params">
+                                                            <h4>Parameters:</h4>
+                                                
+                                                            <ul class="params-list">
+                                                                <li class="param">
+                                                                        <code class="param-name">data</code>
+                                                                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                                    <div class="param-description">
+                                                                        <p>The data retrieved from PHPSysInfo.</p>
+                                                
+                                                                    </div>
+                                                
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                
+                                                
+                                                </div>
+                                        </div>
+                            
+                                        <div id="properties" class="tab-pane">
+                                            <h2 class="off-left">Properties</h2>
+                            
+                                                <div id="property_functions" class="property item">
+                                                    <h3 class="name"><code>functions</code></h3>
+                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l25"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:25</code></a>
+                                                        </p>
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>All the functions for this block</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                                <div id="property_settings" class="property item">
+                                                    <h3 class="name"><code>settings</code></h3>
+                                                    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/Z:_portal_public_js_dashboard-blocks_phpsysinfo.js.html#l13"><code>Z:\portal\public\js\dashboard-blocks\phpsysinfo.js:13</code></a>
+                                                        </p>
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>All the settings for this block</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
+                                        </div>
+                            
+                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

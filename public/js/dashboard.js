@@ -1,9 +1,21 @@
-﻿$(function () {
+﻿/**
+* Main entry point for dashboard view.
+* 
+* @class Index
+* @module Dashboard
+*/
+
+/**
+* Document onload, call to initialize dashboardblocks, eventhandlers and plugins.
+* 
+* @method document.onload
+*/
+$(function () {
     initializeDashboardEventHandlers();
 
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     $(".transmission").transmission();
-    $(".devices").devices().checkstates();
+    $(".devices").devices();
     $(".movies, .episodes, .albums").gallery();
     $(".nowplaying").nowplaying();
 
@@ -12,6 +24,11 @@
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
 });
 
+/**
+* Initializes the eventhandlers
+* 
+* @method initializeDashboardEventHandlers
+*/
 function initializeDashboardEventHandlers() {
     $(".toggle, .panel-heading h4").click(function () {
         var panel = $(this).closest(".panel");
@@ -30,6 +47,14 @@ function initializeDashboardEventHandlers() {
     });
 }
 
+/**
+* Shows a confirm dialog with yes/no buttons
+* 
+* @method openConfirmDialog
+* @param title {String} The title to set for the confirm dialog.
+* @param data {String} The data attributes to set on the confirm dialog, for later us.
+* @param buttonClick {Object} callback for clicking the confirm button.
+*/
 function openConfirmDialog(title, data, buttonClick) {
     $("div#confirm-dialog h2").html(title);
 

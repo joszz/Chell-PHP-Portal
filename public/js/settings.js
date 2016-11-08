@@ -1,4 +1,16 @@
-﻿$(function () {
+﻿/**
+* Main entry point for settings view.
+* 
+* @class Index
+* @module Settings
+*/
+
+/**
+* Document onload, sets up setting view specific eventhandlers.
+* 
+* @method document.onload
+*/
+$(function () {
     $('.nav-tabs').tabCollapse();
 
     //Set focus to correct tab when URL navigated to with location.hash

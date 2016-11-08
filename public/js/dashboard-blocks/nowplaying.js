@@ -1,5 +1,19 @@
-﻿(function ($) {
+﻿/**
+* The nowplaying block on the dashboard.
+* 
+* @class Nowplaying
+* @module Dashboard
+* @submodule DashboardBlocks
+*/
+(function ($) {
     $.fn.nowplaying = function (options) {
+
+        /**
+        * All the settings for this block
+        * 
+        * @property settings
+        * @type Object
+        */
         var settings = $.extend({
             block: $(this),
             updateInterval: this.data("nowplaying-intveral") * 1000,
@@ -21,15 +35,37 @@
             },
         }, options);
 
-        settings.block.find(".glyphicon-refresh").click(function () {
-            functions.nowPlaying();
-        });
-
-        settings.block.find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
-            functions.rotate($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
-        });
-
+        /**
+        * All the functions for this block
+        * 
+        * @property functions
+        * @type Object
+        */
         var functions = {
+
+            /**
+            * Initializes the eventhandlers for button clicks to navigate between nowplaying  items and sets the refresh button click handler.
+            * 
+            * @method initialize
+            */
+            initialize: function () {
+                settings.block.find(".glyphicon-refresh").click(function () {
+                    functions.nowPlaying();
+                });
+
+                settings.block.find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
+                    functions.rotate($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+                });
+
+                functions.nowPlaying(true);
+            },
+
+            /**
+            * Wrapper function to retrieve all nowplaying details. 
+            * 
+            * @method nowPlaying
+            * @param onload {Boolean} Whether this function is called as part of initialization
+            */
             nowPlaying: function (onload) {
                 onload = typeof onload === 'undefined' ? false : onload;
 
@@ -54,6 +90,12 @@
                 }, 100);
             },
 
+            /**
+            * Called on completing AJAX request to retrieve nowplaying details for either Kodi or Subsonic.<br />
+            * Hides and shows certain DOM elements based on what's playing.
+            * 
+            * @method nowPlayingCallback
+            */
             nowPlayingCallback: function () {
                 if (settings.kodi.loading == false && settings.subsonic.loading == false) {
                     var playerCount = settings.block.find(".player:not(.nothing-playing)").length;
@@ -77,6 +119,11 @@
                 }
             },
 
+            /**
+            * Sets the interval to retreive new nowplaying information automatically.
+            * 
+            * @method setInterval
+            */
             setInterval: function () {
                 clearInterval(settings.updateIntervalId);
                 settings.updateIntervalId = setInterval(function () {
@@ -87,6 +134,12 @@
                 }, settings.updateInterval);
             },
 
+            /**
+            * Rotates the block to the next/prev player. Called by interval or pressing next/prev buttons.
+            * 
+            * @method rotate
+            * @param direction {String} Which direction to rotate to. Valid values are "left" and "right".
+            */
             rotate: function (direction) {
                 var currentIndex = settings.block.find(".player:visible").index();
                 var offset = direction == "right" ? 1 : -1;
@@ -110,6 +163,12 @@
                 }
             },
 
+            /**
+            * Clones the .player.nothing-playing and uses it to set up a new player based on the supplied values.
+            * 
+            * @method createPlayer
+            * @param values {Object} The values to set for the new player.
+            */
             createPlayer: function (values) {
                 var clone = settings.block.find(".player.nothing-playing").clone();
                 var fancybox = clone.find("#nowplaying_detail").attr("id", "nowplaying_detail_" + values.index);
@@ -144,7 +203,20 @@
                 clone.appendTo(settings.block.find(".panel-body"));
             },
 
+            /**
+            * The Subsonic object containing all the functions related to Subsonic nowplaying.
+            * 
+            * @property subsonic
+            * @type Object
+            * @example http://www.subsonic.org/pages/api.jsp
+            */
             subsonic: {
+
+                /**
+                * Retrieves the nowplaying information from SubSonic. On complete calls functions.nowPlayingCallback().
+                * 
+                * @method subsonic.nowPlaying
+                */
                 nowPlaying: function () {
                     settings.subsonic.loading = true;
 
@@ -183,10 +255,24 @@
                     });
                 },
 
+
+                /**
+                * Creates a salt, used to salt the login information with. Used by functions.subsonic.getURL.
+                * 
+                * @method subsonic.getSalt
+                */
                 getSalt: function () {
                     return Math.random().toString(36).substring(7);
                 },
 
+                /**
+                * Creates a SubSonic style REST URL with username, password and salt.<br />
+                * Pass along an Array of arguments to append them to the URL.
+                * 
+                * @method subsonic.getURL
+                * @param view {String} Which SubSonic view to retrieve.
+                * @param arguments {Array} The extra arguments to append to the REST URL. The key will be used as the queryparameter, the value as queryvalue.
+                */
                 getURL: function (view, arguments) {
                     var salt = functions.subsonic.getSalt();
                     var password = md5(settings.subsonic.password + salt);
@@ -200,7 +286,21 @@
                 },
             },
 
+            /**
+            * The Kodi object containing all the functions related to Kodi nowplaying.
+            * 
+            * @property kodi
+            * @type Object
+            * @example http://kodi.wiki/view/JSON-RPC_API
+            * @example http://kodi.wiki/view/JSON-RPC_API/Examples
+            * @example http://forum.kodi.tv/showthread.php?tid=157996
+            */
             kodi: {
+                /**
+                * Retrieves the nowplaying information from Kodi. On complete calls functions.nowPlayingCallback().
+                * 
+                * @method kodi.nowPlaying
+                */
                 nowPlaying: function () {
                     settings.kodi.loading = true;
 
@@ -243,7 +343,7 @@
             }
         };
 
-        functions.nowPlaying(true);
+        functions.initialize();
 
         return functions;
     }

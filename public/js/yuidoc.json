@@ -3,7 +3,7 @@
   "description": "",
   "version": "1.0",
   "url": "",
-  "logo": "",
+  "logo": "../../img/icons/favicons/android-chrome-48x48.png",
   "options": {
     "outdir": "../documentation/yuidoc",
     "linkNatives": "true",
