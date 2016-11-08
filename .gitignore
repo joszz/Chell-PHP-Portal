@@ -46,6 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Own defined excludes
 SyncToy_*.dat
 *.phpproj
 *.phpproj.user
@@ -53,3 +54,4 @@ SyncToy_*.dat
 *.v12.suo
 generate-doc.bat
 generate-phpdoc.sh
+.vs/s
