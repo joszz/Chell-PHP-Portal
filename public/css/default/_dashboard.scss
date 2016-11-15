@@ -10,49 +10,54 @@ div.harddisks div.progress,
 div.devices,
 div.processes,
 div.temperatures,
-div.cpu
-{
+div.cpu {
     width: 100%;
 }
 
-div.panel
-{
+
+div.panel,
+div.panel-heading,
+div.panel-body {
     width: 100%;
+    float: left;
 }
 
-div.panel ul div:not(.embed-responsive)
-{
-    padding: 0;
+div.panel-heading .btn {
+    min-width: 41px;
 }
 
-div#confirm-dialog
-{
-    overflow: hidden;
-}
-
-div#confirm-dialog h2
-{
+div.panel-heading h4,
+div.panel-heading a,
+div.panel-heading button {
     white-space: nowrap;
 }
 
-div#confirm-dialog button
-{
+div.panel ul div:not(.embed-responsive) {
+    padding: 0;
+}
+
+div#confirm-dialog {
+    overflow: hidden;
+}
+
+div#confirm-dialog h2 {
+    white-space: nowrap;
+}
+
+div#confirm-dialog button {
     width: 100px;
 }
 
-div#confirm-dialog button#confirm-yes
-{
+div#confirm-dialog button#confirm-yes {
     margin-right: 15px;
 }
 
 div.panel.transparent,
-div.panel.transparent li.list-group-item:not(.list-group-item-success)
-{
+div.panel.transparent li.list-group-item:not(.list-group-item-success) {
     background-color: transparent;
 }
 
-div.panel-underlay
-{
+div.panel-underlay {
     position: absolute;
     background-color: #FFF;
     opacity: 0.8;
@@ -61,18 +66,15 @@ div.panel-underlay
     left: 0;
 }
 
-div.panel.transparent
-{
+div.panel.transparent {
     position: relative;
     z-index: 1;
     left: 0;
 }
 
-@media only screen and (min-width : 481px)
-{
-    div.panel .list-group, 
-    div.panel .panel-body
-    {
+@media only screen and (min-width : 481px) {
+    div.panel .list-group,
+    div.panel .panel-body {
         display: block !important;
     }
 }

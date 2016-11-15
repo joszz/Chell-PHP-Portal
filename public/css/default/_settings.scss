@@ -1,5 +1,4 @@
-.panel-square
-{
+.panel-square {
     border-color: #ddd;
     border-radius: 0 0 4px 4px;
     border-width: 0 1px 1px;
@@ -8,63 +7,52 @@
     width: 100%;
 }
 
-label
-{
+label {
     font-weight: normal;
     line-height: 29px;
 }
 
-.error
-{
+.error {
     color: #a94442;
     font-weight: bold;
     line-height: 29px;
 }
 
-@media only screen and (max-width : 767px)
-{
+@media only screen and (max-width : 767px) {
     label,
-    .error
-    {
+    .error {
         line-height: initial;
         margin-bottom: 0;
     }
 }
 
-.table > tbody > tr > td
-{
+.table > tbody > tr > td {
     border: 0;
 }
 
-.table > thead > tr > th
-{
+.table > thead > tr > th {
     line-height: 34px;
     font-weight: 300;
     font-size: 24px;
 }
 
-.table > tbody > tr > td .form-group
-{
+.table > tbody > tr > td .form-group {
     margin: 0;
 }
 
 .table input,
-.bootstrap-select > .dropdown-toggle
-{
+.bootstrap-select > .dropdown-toggle {
     min-width: 100px;
 }
 
-span.input-group-addon label
-{
+span.input-group-addon label {
     margin: 0;
 }
 
-.actions
-{
+.actions {
     margin-left: 7px;
 }
 
-.actions a.add
-{
+.actions a.add {
     margin-left: 10px;
 }

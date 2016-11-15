@@ -7,15 +7,15 @@
         "logo": "../../img/icons/favicons/android-chrome-48x48.png"
     },
     "files": {
-        "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js": {
-            "name": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+        "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js": {
+            "name": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+        "/var/www/portal/public/js/dashboard-blocks/devices.js": {
+            "name": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "modules": {},
             "classes": {
                 "Devices": 1
@@ -23,8 +23,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+        "/var/www/portal/public/js/dashboard-blocks/gallery.js": {
+            "name": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "modules": {},
             "classes": {
                 "Gallery": 1
@@ -32,8 +32,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+        "/var/www/portal/public/js/dashboard-blocks/nowplaying.js": {
+            "name": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "modules": {},
             "classes": {
                 "Nowplaying": 1
@@ -41,8 +41,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+        "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js": {
+            "name": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "modules": {},
             "classes": {
                 "PHPSysInfo": 1
@@ -50,8 +50,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+        "/var/www/portal/public/js/dashboard-blocks/transmission.js": {
+            "name": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
             "modules": {},
             "classes": {
                 "Transmission": 1
@@ -59,8 +59,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\dashboard.js": {
-            "name": "Z:\\portal\\public\\js\\dashboard.js",
+        "/var/www/portal/public/js/dashboard.js": {
+            "name": "/var/www/portal/public/js/dashboard.js",
             "modules": {
                 "Dashboard": 1
             },
@@ -68,8 +68,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\default.js": {
-            "name": "Z:\\portal\\public\\js\\default.js",
+        "/var/www/portal/public/js/default.js": {
+            "name": "/var/www/portal/public/js/default.js",
             "modules": {
                 "General": 1
             },
@@ -79,29 +79,29 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\jquery-3.1.1.js": {
-            "name": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+        "/var/www/portal/public/js/jquery-3.1.1.js": {
+            "name": "/var/www/portal/public/js/jquery-3.1.1.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\jquery.isloading.js": {
-            "name": "Z:\\portal\\public\\js\\jquery.isloading.js",
+        "/var/www/portal/public/js/jquery.isloading.js": {
+            "name": "/var/www/portal/public/js/jquery.isloading.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\jquery.shorten.js": {
-            "name": "Z:\\portal\\public\\js\\jquery.shorten.js",
+        "/var/www/portal/public/js/jquery.shorten.js": {
+            "name": "/var/www/portal/public/js/jquery.shorten.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\settings.js": {
-            "name": "Z:\\portal\\public\\js\\settings.js",
+        "/var/www/portal/public/js/settings.js": {
+            "name": "/var/www/portal/public/js/settings.js",
             "modules": {
                 "Settings": 1
             },
@@ -111,8 +111,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "Z:\\portal\\public\\js\\waves.js": {
-            "name": "Z:\\portal\\public\\js\\waves.js",
+        "/var/www/portal/public/js/waves.js": {
+            "name": "/var/www/portal/public/js/waves.js",
             "modules": {},
             "classes": {},
             "fors": {},
@@ -136,7 +136,7 @@
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
             "line": 1,
             "description": "Main entry point for dashboard view."
         },
@@ -157,7 +157,7 @@
             "module": "Dashboard",
             "namespace": "",
             "description": "The devices block on the dashboard.",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
             "line": 1
         },
         "General": {
@@ -170,7 +170,7 @@
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 1,
             "description": "Main entry point for all views."
         },
@@ -184,7 +184,7 @@
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "Z:\\portal\\public\\js\\settings.js",
+            "file": "/var/www/portal/public/js/settings.js",
             "line": 1,
             "description": "Main entry point for settings view."
         }
@@ -199,7 +199,7 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "Dashboard",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 1,
             "description": "The devices block on the dashboard.",
             "submodule": "DashboardBlocks"
@@ -214,7 +214,7 @@
             "extension_for": [],
             "module": "Dashboard",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "line": 1,
             "description": "The gallery blocks on the dashboard.",
             "submodule": "DashboardBlocks"
@@ -229,7 +229,7 @@
             "extension_for": [],
             "module": "Dashboard",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 1,
             "description": "The nowplaying block on the dashboard.",
             "submodule": "DashboardBlocks"
@@ -244,7 +244,7 @@
             "extension_for": [],
             "module": "Dashboard",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 1,
             "description": "The various blocks on the dashboard that build upon PHPSysInfo data.",
             "submodule": "DashboardBlocks",
@@ -262,7 +262,7 @@
             "extension_for": [],
             "module": "Dashboard",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\transmission.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
             "line": 1,
             "description": "The transmission block on the dashboard.",
             "submodule": "DashboardBlocks"
@@ -277,7 +277,7 @@
             "extension_for": [],
             "module": "Settings",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\settings.js",
+            "file": "/var/www/portal/public/js/settings.js",
             "line": 1,
             "description": "Main entry point for settings view."
         },
@@ -291,7 +291,7 @@
             "extension_for": [],
             "module": "General",
             "namespace": "",
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 1,
             "description": "Main entry point for all views."
         }
@@ -299,7 +299,7 @@
     "elements": {},
     "classitems": [
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 223,
             "description": "Remove all diatrics from the given text.",
             "access": "private",
@@ -317,7 +317,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 538,
             "params": [
                 {
@@ -347,7 +347,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 553,
             "params": [
                 {
@@ -377,7 +377,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 720,
             "params": [
                 {
@@ -389,7 +389,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 799,
             "params": [
                 {
@@ -406,7 +406,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 1135,
             "params": [
                 {
@@ -428,7 +428,7 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 1149,
             "params": [
                 {
@@ -450,14 +450,14 @@
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js",
+            "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
             "line": 1299,
             "class": "Devices"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 11,
-            "description": "All the settings for this block",
+            "description": "All the settings for this block.",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",
@@ -466,9 +466,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 23,
-            "description": "All the functions for this block",
+            "description": "All the functions for this block.",
             "itemtype": "property",
             "name": "functions",
             "type": "Object",
@@ -477,7 +477,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 31,
             "description": "Initializes the eventhandlers for the various button clicks.",
             "itemtype": "method",
@@ -487,7 +487,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 68,
             "description": "Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.",
             "itemtype": "method",
@@ -497,7 +497,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 121,
             "description": "Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.",
             "itemtype": "method",
@@ -514,7 +514,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\devices.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/devices.js",
             "line": 143,
             "description": "Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.",
             "itemtype": "method",
@@ -531,9 +531,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "line": 12,
-            "description": "All the settings for this block",
+            "description": "All the settings for this block.",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",
@@ -542,9 +542,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "line": 24,
-            "description": "All the functions for this block",
+            "description": "All the functions for this block.",
             "itemtype": "property",
             "name": "functions",
             "type": "Object",
@@ -553,7 +553,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "line": 32,
             "description": "Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.",
             "itemtype": "method",
@@ -563,7 +563,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\gallery.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/gallery.js",
             "line": 52,
             "description": "Called when navigating to a new item in the gallery. Either by button clicks or by the interval.",
             "itemtype": "method",
@@ -580,9 +580,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 11,
-            "description": "All the settings for this block",
+            "description": "All the settings for this block.",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",
@@ -591,9 +591,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 38,
-            "description": "All the functions for this block",
+            "description": "All the functions for this block.",
             "itemtype": "property",
             "name": "functions",
             "type": "Object",
@@ -602,7 +602,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 46,
             "description": "Initializes the eventhandlers for button clicks to navigate between nowplaying  items and sets the refresh button click handler.",
             "itemtype": "method",
@@ -612,7 +612,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 63,
             "description": "Wrapper function to retrieve all nowplaying details.",
             "itemtype": "method",
@@ -629,7 +629,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 93,
             "description": "Called on completing AJAX request to retrieve nowplaying details for either Kodi or Subsonic.<br />\nHides and shows certain DOM elements based on what's playing.",
             "itemtype": "method",
@@ -639,7 +639,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 122,
             "description": "Sets the interval to retreive new nowplaying information automatically.",
             "itemtype": "method",
@@ -649,7 +649,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 137,
             "description": "Rotates the block to the next/prev player. Called by interval or pressing next/prev buttons.",
             "itemtype": "method",
@@ -666,7 +666,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 166,
             "description": "Clones the .player.nothing-playing and uses it to set up a new player based on the supplied values.",
             "itemtype": "method",
@@ -683,7 +683,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 206,
             "description": "The Subsonic object containing all the functions related to Subsonic nowplaying.",
             "itemtype": "property",
@@ -697,7 +697,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 215,
             "description": "Retrieves the nowplaying information from SubSonic. On complete calls functions.nowPlayingCallback().",
             "itemtype": "method",
@@ -707,7 +707,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 259,
             "description": "Creates a salt, used to salt the login information with. Used by functions.subsonic.getURL.",
             "itemtype": "method",
@@ -717,7 +717,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 268,
             "description": "Creates a SubSonic style REST URL with username, password and salt.<br />\nPass along an Array of arguments to append them to the URL.",
             "itemtype": "method",
@@ -739,7 +739,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 289,
             "description": "The Kodi object containing all the functions related to Kodi nowplaying.",
             "itemtype": "property",
@@ -755,7 +755,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\nowplaying.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/nowplaying.js",
             "line": 299,
             "description": "Retrieves the nowplaying information from Kodi. On complete calls functions.nowPlayingCallback().",
             "itemtype": "method",
@@ -765,9 +765,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 13,
-            "description": "All the settings for this block",
+            "description": "All the settings for this block.",
             "itemtype": "property",
             "name": "settings",
             "type": "Object",
@@ -776,9 +776,9 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 25,
-            "description": "All the functions for this block",
+            "description": "All the functions for this block.",
             "itemtype": "property",
             "name": "functions",
             "type": "Object",
@@ -787,7 +787,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 33,
             "description": "Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.",
             "itemtype": "method",
@@ -797,7 +797,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 49,
             "description": "Wrapper function to retrieve all data except psstatus plugin.",
             "itemtype": "method",
@@ -811,7 +811,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 73,
             "description": "Wrapper function to retrieve all data except psstatus plugin.",
             "itemtype": "method",
@@ -825,7 +825,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 98,
             "description": "Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.",
             "itemtype": "method",
@@ -842,7 +842,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 129,
             "description": "Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.",
             "itemtype": "method",
@@ -859,7 +859,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 152,
             "description": "Finds \".fans .fan-stats > div\" by index, than sets data for fans, retrieved from PHPSysInfo.",
             "itemtype": "method",
@@ -876,7 +876,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 166,
             "description": "Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.",
             "itemtype": "method",
@@ -893,7 +893,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 186,
             "description": "Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.",
             "itemtype": "method",
@@ -910,7 +910,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 220,
             "description": "Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.",
             "itemtype": "method",
@@ -927,7 +927,7 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard-blocks\\phpsysinfo.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
             "line": 233,
             "description": "Retrieves psstatus data from PHPSysInfo using AJAX.<br />\nThen clears all processess and dynamically create new nodes and appends them to the block.",
             "itemtype": "method",
@@ -937,7 +937,86 @@
             "submodule": "DashboardBlocks"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
+            "line": 11,
+            "description": "All the settings for this block.",
+            "itemtype": "property",
+            "name": "settings",
+            "type": "Object",
+            "class": "Transmission",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
+            "line": 37,
+            "description": "All the functions for this block.",
+            "itemtype": "property",
+            "name": "functions",
+            "type": "Object",
+            "class": "Transmission",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
+            "line": 45,
+            "description": "Retrieves the torrent list from Transmission.",
+            "itemtype": "method",
+            "name": "getTorrents",
+            "params": [
+                {
+                    "name": "onload",
+                    "description": "Whether this function is called during onload or not. Optional, defaults to false.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Transmission",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
+            "line": 144,
+            "description": "Given a torrentId, will toggle the state of the torrent to paused / started. Depending on the current state of the torrent.",
+            "itemtype": "method",
+            "name": "startStopTorrents",
+            "params": [
+                {
+                    "name": "torrentIds",
+                    "description": "The torrent ID to stop/start.",
+                    "type": "Number"
+                }
+            ],
+            "todo": [
+                "Rewrite so an array of torrents can be passed along."
+            ],
+            "class": "Transmission",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
+            "line": 172,
+            "description": "Given a torrentId, will remove a torrent and local data.",
+            "itemtype": "method",
+            "name": "removeTorrents",
+            "params": [
+                {
+                    "name": "torrentIds",
+                    "description": "The torrent ID to remove.",
+                    "type": "Number"
+                }
+            ],
+            "todo": [
+                "Rewrite so an array of torrents can be passed along."
+            ],
+            "class": "Transmission",
+            "module": "Dashboard",
+            "submodule": "DashboardBlocks"
+        },
+        {
+            "file": "/var/www/portal/public/js/dashboard.js",
             "line": 8,
             "description": "Document onload, call to initialize dashboardblocks, eventhandlers and plugins.",
             "itemtype": "method",
@@ -946,7 +1025,7 @@
             "module": "Dashboard"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "file": "/var/www/portal/public/js/dashboard.js",
             "line": 27,
             "description": "Initializes the eventhandlers",
             "itemtype": "method",
@@ -955,7 +1034,7 @@
             "module": "Dashboard"
         },
         {
-            "file": "Z:\\portal\\public\\js\\dashboard.js",
+            "file": "/var/www/portal/public/js/dashboard.js",
             "line": 50,
             "description": "Shows a confirm dialog with yes/no buttons",
             "itemtype": "method",
@@ -981,7 +1060,7 @@
             "module": "Dashboard"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 8,
             "description": "The time to show notifications, defined in config.ini.",
             "itemtype": "property",
@@ -991,7 +1070,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 16,
             "description": "Keeping track if the alt key has been pressed.",
             "itemtype": "property",
@@ -1001,7 +1080,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 24,
             "description": "Document onload, call to initialize plugins and eventhandlers.",
             "itemtype": "method",
@@ -1010,7 +1089,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 36,
             "description": "Initializes all globally used plugins.",
             "itemtype": "method",
@@ -1019,7 +1098,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 77,
             "description": "Initialized all globally used eventhandlers.",
             "itemtype": "method",
@@ -1028,7 +1107,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 102,
             "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
             "itemtype": "method",
@@ -1037,7 +1116,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\default.js",
+            "file": "/var/www/portal/public/js/default.js",
             "line": 115,
             "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
             "itemtype": "method",
@@ -1046,7 +1125,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 893,
             "description": "Create key-value caches of limited size",
             "return": {
@@ -1057,7 +1136,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 913,
             "description": "Mark a function for special use by Sizzle",
             "params": [
@@ -1071,7 +1150,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 922,
             "description": "Support testing using an element",
             "params": [
@@ -1085,7 +1164,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 943,
             "description": "Adds the same handler for all of the specified attrs",
             "params": [
@@ -1104,7 +1183,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 957,
             "description": "Checks document order of two siblings",
             "params": [
@@ -1127,7 +1206,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 985,
             "description": "Returns a function to use in pseudos for input types",
             "params": [
@@ -1141,7 +1220,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 996,
             "description": "Returns a function to use in pseudos for buttons",
             "params": [
@@ -1155,7 +1234,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1007,
             "description": "Returns a function to use in pseudos for :enabled/:disabled",
             "params": [
@@ -1169,7 +1248,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1063,
             "description": "Returns a function to use in pseudos for positionals",
             "params": [
@@ -1183,7 +1262,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1085,
             "description": "Checks a node for validity as a Sizzle context",
             "params": [
@@ -1201,7 +1280,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1097,
             "description": "Detects XML nodes",
             "params": [
@@ -1219,7 +1298,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1109,
             "description": "Sets document-related variables once based on the current document",
             "params": [
@@ -1238,7 +1317,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1589,
             "description": "Document sorting and removing duplicates",
             "params": [
@@ -1252,7 +1331,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 1622,
             "description": "Utility function for retrieving the text value of an array of DOM nodes",
             "params": [
@@ -1266,7 +1345,7 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 2653,
             "description": "A low-level selection function that works with Sizzle's compiled\n selector functions",
             "params": [
@@ -1297,21 +1376,21 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 9787,
             "description": "Load a url into a page",
             "class": "Index",
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery-3.1.1.js",
+            "file": "/var/www/portal/public/js/jquery-3.1.1.js",
             "line": 9879,
             "description": "Gets a window from an element",
             "class": "Index",
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery.isloading.js",
+            "file": "/var/www/portal/public/js/jquery.isloading.js",
             "line": 1,
             "description": "Loading plugin for jQuery\nversion: v1.0.6\n\nSmall helper to give the user a visual feedback that something is happening\nwhen fetching/posting data\n\nUSAGE:\n- global overlay:                     $.isLoading();\n- use javascript:                     $( selector ).isLoading();\n- On non-form elements:               $(\"div\").isLoading({ text: \"Loading\", position:'inside'});\n- remove the loading element:         $( selector ).isLoading( \"hide\" );",
             "author": "Laurent Blanes <laurent.blanes@gmail.com>\n---\nCopyright 2013, Laurent Blanes ( https://github.com/hekigan/is-loading )\n\nThe MIT License (MIT)\n\nCopyright (c) 2013 Laurent Blanes\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
@@ -1319,28 +1398,28 @@
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "file": "/var/www/portal/public/js/jquery.shorten.js",
             "line": 47,
             "description": "HERE WE GO!",
             "class": "Index",
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "file": "/var/www/portal/public/js/jquery.shorten.js",
             "line": 102,
             "description": "If browser implements text-overflow:ellipsis in CSS and tail is &hellip;/Unicode 8230/(…), use it!\nIn this case we're doing the measurement above to determine if we need the tooltip.",
             "class": "Index",
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\jquery.shorten.js",
+            "file": "/var/www/portal/public/js/jquery.shorten.js",
             "line": 136,
             "description": "Before we start removing characters one by one, let's try to be more intelligent about this:\nIf the original string is longer than targetWidth by at least 15% (for safety), then shorten it\nto targetWidth + 15% (and re-measure for safety). If the resulting text still is too long (as expected),\nuse that for further shortening. Else use the original text. This saves a lot of time for text that is\nmuch longer than the desired width.",
             "class": "Index",
             "module": "General"
         },
         {
-            "file": "Z:\\portal\\public\\js\\settings.js",
+            "file": "/var/www/portal/public/js/settings.js",
             "line": 8,
             "description": "Document onload, sets up setting view specific eventhandlers.",
             "itemtype": "method",
@@ -1349,63 +1428,63 @@
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 193,
             "description": "Collection of wrapper for HTML element that only have single tag\nlike <input> and <img>",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 246,
             "description": "Hide the effect and remove the ripple. Must be\na separate function to pass the JSLint...",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 312,
             "description": "Disable mousedown event for 500ms during and after touch",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 353,
             "description": "Delegated click handler for .waves-effect element.\nreturns null when .waves-effect element not in \"click tree\"",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 377,
             "description": "Bubble the click and show effect if .waves-effect elem was found",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 472,
             "description": "Attach Waves to dynamically loaded inputs, or add .waves-effect and other\nwaves classes to a set of elements. Set drag to true if the ripple mouseover\nor skimming effect should be applied to the elements.",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 506,
             "description": "Cause a ripple to appear in an element via code.",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 558,
             "description": "Remove all ripples from an element.",
             "class": "",
             "module": "Settings"
         },
         {
-            "file": "Z:\\portal\\public\\js\\waves.js",
+            "file": "/var/www/portal/public/js/waves.js",
             "line": 573,
             "description": "Deprecated API fallback",
             "class": "",
@@ -1415,191 +1494,191 @@
     "warnings": [
         {
             "message": "unknown tag: access",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:223"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:223"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:538"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:538"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:553"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:553"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:893"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:893"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:957"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:957"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1085"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1085"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1097"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1097"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1109"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1109"
         },
         {
             "message": "Missing item type\nRemove all diatrics from the given text.",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:223"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:223"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:538"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:538"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:553"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:553"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:720"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:720"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:799"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:799"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1135"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1135"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1149"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1149"
         },
         {
             "message": "Missing item type",
-            "line": " Z:\\portal\\public\\js\\bootstrap-select\\bootstrap-select.js:1299"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1299"
         },
         {
             "message": "Missing item type\nCreate key-value caches of limited size",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:893"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:893"
         },
         {
             "message": "Missing item type\nMark a function for special use by Sizzle",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:913"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:913"
         },
         {
             "message": "Missing item type\nSupport testing using an element",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:922"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:922"
         },
         {
             "message": "Missing item type\nAdds the same handler for all of the specified attrs",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:943"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:943"
         },
         {
             "message": "Missing item type\nChecks document order of two siblings",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:957"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:957"
         },
         {
             "message": "Missing item type\nReturns a function to use in pseudos for input types",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:985"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:985"
         },
         {
             "message": "Missing item type\nReturns a function to use in pseudos for buttons",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:996"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:996"
         },
         {
             "message": "Missing item type\nReturns a function to use in pseudos for :enabled/:disabled",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1007"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1007"
         },
         {
             "message": "Missing item type\nReturns a function to use in pseudos for positionals",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1063"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1063"
         },
         {
             "message": "Missing item type\nChecks a node for validity as a Sizzle context",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1085"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1085"
         },
         {
             "message": "Missing item type\nDetects XML nodes",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1097"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1097"
         },
         {
             "message": "Missing item type\nSets document-related variables once based on the current document",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1109"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1109"
         },
         {
             "message": "Missing item type\nDocument sorting and removing duplicates",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1589"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1589"
         },
         {
             "message": "Missing item type\nUtility function for retrieving the text value of an array of DOM nodes",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:1622"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:1622"
         },
         {
             "message": "Missing item type\nA low-level selection function that works with Sizzle's compiled\n selector functions",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:2653"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:2653"
         },
         {
             "message": "Missing item type\nLoad a url into a page",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:9787"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:9787"
         },
         {
             "message": "Missing item type\nGets a window from an element",
-            "line": " Z:\\portal\\public\\js\\jquery-3.1.1.js:9879"
+            "line": " /var/www/portal/public/js/jquery-3.1.1.js:9879"
         },
         {
             "message": "Missing item type\nLoading plugin for jQuery\nversion: v1.0.6\n\nSmall helper to give the user a visual feedback that something is happening\nwhen fetching/posting data\n\nUSAGE:\n- global overlay:                     $.isLoading();\n- use javascript:                     $( selector ).isLoading();\n- On non-form elements:               $(\"div\").isLoading({ text: \"Loading\", position:'inside'});\n- remove the loading element:         $( selector ).isLoading( \"hide\" );",
-            "line": " Z:\\portal\\public\\js\\jquery.isloading.js:1"
+            "line": " /var/www/portal/public/js/jquery.isloading.js:1"
         },
         {
             "message": "Missing item type\nHERE WE GO!",
-            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:47"
+            "line": " /var/www/portal/public/js/jquery.shorten.js:47"
         },
         {
             "message": "Missing item type\nIf browser implements text-overflow:ellipsis in CSS and tail is &hellip;/Unicode 8230/(…), use it!\nIn this case we're doing the measurement above to determine if we need the tooltip.",
-            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:102"
+            "line": " /var/www/portal/public/js/jquery.shorten.js:102"
         },
         {
             "message": "Missing item type\nBefore we start removing characters one by one, let's try to be more intelligent about this:\nIf the original string is longer than targetWidth by at least 15% (for safety), then shorten it\nto targetWidth + 15% (and re-measure for safety). If the resulting text still is too long (as expected),\nuse that for further shortening. Else use the original text. This saves a lot of time for text that is\nmuch longer than the desired width.",
-            "line": " Z:\\portal\\public\\js\\jquery.shorten.js:136"
+            "line": " /var/www/portal/public/js/jquery.shorten.js:136"
         },
         {
             "message": "Missing item type\nCollection of wrapper for HTML element that only have single tag\nlike <input> and <img>",
-            "line": " Z:\\portal\\public\\js\\waves.js:193"
+            "line": " /var/www/portal/public/js/waves.js:193"
         },
         {
             "message": "Missing item type\nHide the effect and remove the ripple. Must be\na separate function to pass the JSLint...",
-            "line": " Z:\\portal\\public\\js\\waves.js:246"
+            "line": " /var/www/portal/public/js/waves.js:246"
         },
         {
             "message": "Missing item type\nDisable mousedown event for 500ms during and after touch",
-            "line": " Z:\\portal\\public\\js\\waves.js:312"
+            "line": " /var/www/portal/public/js/waves.js:312"
         },
         {
             "message": "Missing item type\nDelegated click handler for .waves-effect element.\nreturns null when .waves-effect element not in \"click tree\"",
-            "line": " Z:\\portal\\public\\js\\waves.js:353"
+            "line": " /var/www/portal/public/js/waves.js:353"
         },
         {
             "message": "Missing item type\nBubble the click and show effect if .waves-effect elem was found",
-            "line": " Z:\\portal\\public\\js\\waves.js:377"
+            "line": " /var/www/portal/public/js/waves.js:377"
         },
         {
             "message": "Missing item type\nAttach Waves to dynamically loaded inputs, or add .waves-effect and other\nwaves classes to a set of elements. Set drag to true if the ripple mouseover\nor skimming effect should be applied to the elements.",
-            "line": " Z:\\portal\\public\\js\\waves.js:472"
+            "line": " /var/www/portal/public/js/waves.js:472"
         },
         {
             "message": "Missing item type\nCause a ripple to appear in an element via code.",
-            "line": " Z:\\portal\\public\\js\\waves.js:506"
+            "line": " /var/www/portal/public/js/waves.js:506"
         },
         {
             "message": "Missing item type\nRemove all ripples from an element.",
-            "line": " Z:\\portal\\public\\js\\waves.js:558"
+            "line": " /var/www/portal/public/js/waves.js:558"
         },
         {
             "message": "Missing item type\nDeprecated API fallback",
-            "line": " Z:\\portal\\public\\js\\waves.js:573"
+            "line": " /var/www/portal/public/js/waves.js:573"
         }
     ]
 }

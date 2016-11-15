@@ -7,6 +7,13 @@
 */
 (function ($) {
     $.fn.transmission = function (options) {
+
+        /**
+        * All the settings for this block.
+        * 
+        * @property settings
+        * @type Object
+        */
         var settings = $.extend({
             defaultData: {
                 type: 'POST',
@@ -27,7 +34,20 @@
             updateIntervalId: -1
         }, options);
 
+        /**
+        * All the functions for this block.
+        * 
+        * @property functions
+        * @type Object
+        */
         var functions = {
+
+            /**
+            * Retrieves the torrent list from Transmission.
+            * 
+            * @method getTorrents
+            * @param onload {Boolean} Whether this function is called during onload or not. Optional, defaults to false.
+            */
             getTorrents: function (onload) {
                 onload = typeof onload === 'undefined' ? false : onload;
 
@@ -121,6 +141,13 @@
                 return self;
             },
 
+            /**
+            * Given a torrentId, will toggle the state of the torrent to paused / started. Depending on the current state of the torrent.
+            * 
+            * @method startStopTorrents
+            * @param torrentIds {Number} The torrent ID to stop/start.
+            * @todo Rewrite so an array of torrents can be passed along.
+            */
             startStopTorrents: function (torrentIds) {
                 var data = settings.defaultData;
                 data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('glyphicon-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
@@ -142,6 +169,13 @@
                 $.ajax(data);
             },
 
+            /**
+            * Given a torrentId, will remove a torrent and local data.
+            * 
+            * @method removeTorrents
+            * @param torrentIds {Number} The torrent ID to remove.
+            * @todo Rewrite so an array of torrents can be passed along.
+            */
             removeTorrents: function (torrentIds) {
                 var data = settings.defaultData;
                 data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data": true}';

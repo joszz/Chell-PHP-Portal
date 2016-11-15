@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            ﻿/**
+                            * The various blocks on the dashboard that build upon PHPSysInfo data.
+                            * 
+                            * @class PHPSysInfo
+                            * @module Dashboard
+                            * @submodule DashboardBlocks
+                            * @example http://phpsysinfo.github.io/phpsysinfo/
+                            */
+                            (function ($) {
+                                $.fn.phpsysinfo = function (options) {
+                                    this.each(function () {
+                            
+                                        /**
+                                        * All the settings for this block.
+                                        * 
+                                        * @property settings
+                                        * @type Object
+                                        */
+                                        var settings = $.extend({
+                                            url: $(this).data(&quot;phpsysinfo-url&quot;),
+                                            vCore: $(this).data(&quot;phpsysinfo-vcore&quot;),
+                                            block: $(this),
+                                        }, options);
+                            
+                                        /**
+                                        * All the functions for this block.
+                                        * 
+                                        * @property functions
+                                        * @type Object
+                                        */
+                                        var functions = {
+                            
+                                            /**
+                                            * Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.
+                                            * 
+                                            * @method initialize
+                                            */
+                                            initialize: function(){
+                                                settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                                    if (settings.block.hasClass(&quot;processes&quot;)) {
+                                                        functions.psstatus();
+                                                    }
+                                                    else {
+                                                        functions.getAll();
+                                                    }
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Wrapper function to retrieve all data except psstatus plugin.
+                                            * 
+                                            * @method getAll
+                                            * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
+                                            */
+                                            getAll: function () {
+                                                $(&quot;.sysinfo, #hardware .panel, .harddisks&quot;).isLoading();
+                            
+                                                var d = new Date();
+                            
+                                                $.getJSON(settings.url + &quot;xml.php?json&amp;&quot; + d.getTime(), function (data) {
+                                                    functions.setSysinfo(data);
+                                                    functions.setCPUCores(data);
+                                                    functions.setNetwork(data);
+                                                    functions.setFans(data);
+                                                    functions.setRAM(data);
+                                                    functions.setDisks(data);
+                                                    functions.setUpdateNotifier(data);
+                            
+                                                    $(&quot;.sysinfo, #hardware .panel, .harddisks&quot;).isLoading(&quot;hide&quot;);
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Wrapper function to retrieve all data except psstatus plugin.
+                                            * 
+                                            * @method getAll
+                                            * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
+                                            */
+                                            setSysinfo: function (data) {
+                                                $(&quot;div.host&quot;).html(data.Vitals[&quot;@attributes&quot;].Hostname);
+                            
+                                                $(&quot;div.distro span&quot;).html(data.Vitals[&quot;@attributes&quot;].Distro);
+                                                $(&quot;div.distro div.icon&quot;).css(&quot;background-image&quot;, &quot;url(&#x27;&quot; + settings.url + &quot;gfx/images/&quot; + data.Vitals[&quot;@attributes&quot;].Distroicon + &quot;&#x27;)&quot;);
+                            
+                                                $(&quot;div.kernel&quot;).html(data.Vitals[&quot;@attributes&quot;].Kernel);
+                                                $(&quot;.cpu-model-label&quot;).html(data.Hardware.CPU.CpuCore[0][&quot;@attributes&quot;].Model);
+                                                $(&quot;div.motherboard&quot;).html(data.Hardware[&quot;@attributes&quot;].Name);
+                            
+                                                var date = new Date();
+                                                date.setSeconds(date.getSeconds() - Math.floor(data.Vitals[&quot;@attributes&quot;].Uptime));
+                            
+                                                if ($(&quot;div.uptime&quot;).data(&quot;tinyTimer&quot;) != undefined) {
+                                                    clearInterval($(&quot;div.uptime&quot;).data(&quot;tinyTimer&quot;).interval);
+                                                }
+                                                $(&quot;div.uptime&quot;).tinyTimer({ from: date, format: &quot;%d days %0h:%0m:%0s&quot; });
+                                            },
+                                            
+                                            /**
+                                            * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
+                                            * 
+                                            * @method setCPUCores
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setCPUCores: function (data) {
+                                                $.each(data.Hardware.CPU.CpuCore, function (index, value) {
+                                                    var coreLabel = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Label;
+                                                    var coreTemp = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Value + &quot; &amp;deg;&quot; + data.Options[&quot;@attributes&quot;].tempFormat.toUpperCase()
+                                                    var coreVCore = 0;
+                                                    var coreSpeedCurrent = (Math.round(value[&quot;@attributes&quot;].CpuSpeed / 10) / 100) + &quot; GHz&quot;;
+                                                    var coreSpeedMin = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMin / 10) / 100) + &quot; GHz&quot;;
+                                                    var coreSpeedMax = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMax / 10) / 100) + &quot; GHz&quot;;
+                            
+                                                    $.each(data.MBInfo.Voltage.Item, function (index, value) {
+                                                        if (value[&quot;@attributes&quot;].Label == settings.vCore) {
+                                                            coreVCore = value[&quot;@attributes&quot;].Value;
+                                                        }
+                                                    });
+                            
+                                                    var core = $(&quot;li.cpu-cores:eq(&quot; + index + &quot;)&quot;);
+                                                    core.find(&quot;.cpu-core&quot;).html(coreLabel);
+                                                    core.find(&quot;.core-temp&quot;).html(coreTemp);
+                                                    core.find(&quot;.core-vcore&quot;).html(coreVCore + &quot; V&quot;);
+                                                    core.find(&quot;.core-current&quot;).html(coreSpeedCurrent);
+                                                    core.find(&quot;.core-min&quot;).html(coreSpeedMin);
+                                                    core.find(&quot;.core-max&quot;).html(coreSpeedMax);
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.
+                                            * 
+                                            * @method setNetwork
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setNetwork: function (data) {
+                                                $.each(data.Network.NetDevice, function (index, value) {
+                                                    var rx = Math.round(value.RxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
+                                                    var tx = Math.round(value.TxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
+                                                    var info = value.Info.split(&quot;;&quot;);
+                            
+                                                    network = $(&quot;.lan-stats div:eq(&quot; + index + &quot;)&quot;);
+                            
+                                                    network.find(&quot;.lan-name&quot;).html(value.Name);
+                                                    network.find(&quot;.lan-mac&quot;).html(info[0]);
+                                                    network.find(&quot;.lan-ip&quot;).html(info[1]);
+                                                    network.find(&quot;.lan-speed&quot;).html(info[2]);
+                                                    network.find(&quot;.lan-rx&quot;).html(rx);
+                                                    network.find(&quot;.lan-tx&quot;).html(tx);
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Finds &quot;.fans .fan-stats &gt; div&quot; by index, than sets data for fans, retrieved from PHPSysInfo.
+                                            * 
+                                            * @method setFans
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setFans: function (data) {
+                                                $.each(data.MBInfo.Fans.Item, function (index, value) {
+                                                    var fan = $(&quot;li.fans .fan-stats &gt; div:eq(&quot; + index + &quot;)&quot;);
+                                                    fan.find(&quot;.name&quot;).html(value[&quot;@attributes&quot;].Label);
+                                                    fan.find(&quot;.value&quot;).html(value[&quot;@attributes&quot;].Value + &quot; RPM&quot;);
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.
+                                            * 
+                                            * @method setRAM
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setRAM: function (data) {
+                                                $(&quot;div.ram&quot;).find(&quot;.progress-bar&quot;).css(&quot;width&quot;, data.Memory[&quot;@attributes&quot;].Percent + &quot;%&quot;);
+                                                $(&quot;div.ram&quot;).find(&quot;.percent span&quot;).html(data.Memory[&quot;@attributes&quot;].Percent);
+                            
+                                                //SWAP
+                                                if (data.Memory.Swap != undefined) {
+                                                    $(&quot;div.swap&quot;).find(&quot;.progress-bar&quot;).css(&quot;width&quot;, data.Memory.Swap[&quot;@attributes&quot;].Percent + &quot;%&quot;);
+                                                    $(&quot;div.swap&quot;).find(&quot;.percent span&quot;).html(data.Memory.Swap[&quot;@attributes&quot;].Percent);
+                                                }
+                                                else {
+                                                    $(&quot;div.swap&quot;).closest(&quot;li&quot;).hide();
+                                                }
+                                            },
+                            
+                                            /**
+                                            * Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.
+                                            * 
+                                            * @method setDisks
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setDisks: function (data) {
+                                                data.FileSystem.Mount.sort(function (a, b) {
+                                                    return a[&quot;@attributes&quot;].MountPoint &lt; b[&quot;@attributes&quot;].MountPoint ? -1 : 1;
+                                                });
+                            
+                                                $.each(data.FileSystem.Mount, function (index, value) {
+                                                    var disk = $(&quot;.harddisks li:eq(&quot; + index + &quot;)&quot;);
+                                                    var percent = value[&quot;@attributes&quot;].Percent + &quot;%&quot;;
+                            
+                                                    disk.find(&quot;.name&quot;).html(value[&quot;@attributes&quot;].MountPoint);
+                                                    disk.find(&quot;.progress-bar&quot;).css(&quot;width&quot;, percent);
+                                                    disk.find(&quot;.percent&quot;).html(percent);
+                            
+                                                    if (value[&quot;@attributes&quot;].Percent &gt; 90) {
+                                                        disk.find(&quot;.progress-bar&quot;).addClass(&quot;progress-bar-danger&quot;);
+                                                    }
+                                                    else if (value[&quot;@attributes&quot;].Percent &gt; 70) {
+                                                        disk.find(&quot;.progress-bar&quot;).addClass(&quot;progress-bar-warning&quot;);
+                                                    }
+                                                    else if (value[&quot;@attributes&quot;].Percent &gt; 50) {
+                                                        disk.find(&quot;.progress-bar&quot;).addClass(&quot;progress-bar-info&quot;);
+                                                    }
+                                                    else {
+                                                        disk.find(&quot;.progress-bar&quot;).addClass(&quot;progress-bar-success&quot;);
+                                                    }
+                                                });
+                                            },
+                            
+                                            /**
+                                            * Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.
+                                            * 
+                                            * @method setDisks
+                                            * @param data {Object} The data retrieved from PHPSysInfo.
+                                            */
+                                            setUpdateNotifier: function (data) {
+                                                if (data.Plugins.Plugin_UpdateNotifier != undefined) {
+                                                    settings.block.find(&quot;span.packages&quot;).html(&quot;Packages:&quot; + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+                                                    settings.block.find(&quot;span.security&quot;).html(&quot;Security:&quot; + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+                                                }
+                                            },
+                            
+                                            /**
+                                            * Retrieves psstatus data from PHPSysInfo using AJAX.&lt;br /&gt;
+                                            * Then clears all processess and dynamically create new nodes and appends them to the block.
+                                            * 
+                                            * @method psstatus
+                                            */
+                                            psstatus: function () {
+                                                $(&quot;.processes&quot;).isLoading();
+                            
+                                                settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                                    functions.psstatus();
+                            
+                                                    $(this).blur();
+                                                    return false;
+                                                });
+                            
+                                                var d = new Date();
+                            
+                                                $.getJSON(settings.url + &quot;xml.php?plugin=psstatus&amp;json&amp;&quot; + d.getTime(), function (data) {
+                                                    data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
+                                                        return a[&quot;@attributes&quot;].Name &lt; b[&quot;@attributes&quot;].Name ? -1 : 1;
+                                                    });
+                            
+                                                    $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+                                                        var listItem = $(&quot;&lt;li /&gt;&quot;, { class: &quot;list-group-item col-xs-12 col-md-12&quot; });
+                                                        var name = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-10&quot; });
+                                                        var status = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-2 text-right&quot; });
+                                                        var label = $(&quot;&lt;span /&gt;&quot;, { class: &quot;label&quot; });
+                            
+                                                        name.html(value[&quot;@attributes&quot;].Name);
+                                                        name.appendTo(listItem);
+                            
+                                                        if (value[&quot;@attributes&quot;].Status == 1) {
+                                                            label.html(&quot;On&quot;);
+                                                            label.addClass(&quot;label-success&quot;);
+                                                        }
+                                                        else {
+                                                            label.html(&quot;Off&quot;);
+                                                            label.addClass(&quot;label-danger&quot;);
+                                                        }
+                            
+                                                        label.appendTo(status);
+                                                        status.appendTo(listItem);
+                            
+                                                        $(&quot;div.processes li div:contains(&#x27;&quot; + value[&quot;@attributes&quot;].Name + &quot;&#x27;)&quot;).parent().remove();
+                                                        listItem.appendTo($(&quot;div.processes ul&quot;));
+                                                    });
+                            
+                                                    $(&quot;.processes&quot;).isLoading(&quot;hide&quot;);
+                                                });
+                                            }
+                                        }
+                            
+                                        functions.initialize();
+                            
+                                        return functions;
+                                    });
+                                }
+                            })(jQuery);
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

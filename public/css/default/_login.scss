@@ -1,32 +1,33 @@
 ﻿div.login .panel,
-div.about .panel
-{
+div.about .panel {
     width: 300px;
     margin: 0 auto;
+    float: none;
 }
 
-div.login input
-{
+div.login .panel-heading,
+div.about .panel-heading,
+div.login .panel-body,
+div.about .panel-body {
+    float: none;
+}
+
+div.login input {
     position: relative;
 }
 
-div.login input:focus
-{
+div.login input:focus {
     z-index: 2;
 }
 
-div.login input[type="text"]
-{
+div.login input[type="text"] {
     border-radius: 4px 4px 0 0;
     margin-bottom: -1px;
 }
 
-div.login input[type="password"]
-{
+div.login input[type="password"] {
     border-radius: 0 0 4px 4px;
 }
 
-input[type="checkbox"]
-{
-
+input[type="checkbox"] {
 }

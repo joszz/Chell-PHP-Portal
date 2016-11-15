@@ -1,15 +1,13 @@
 ﻿div.movies .panel-body,
 div.episodes .panel-body,
 div.albums .panel-body,
-div.nowplaying .panel-body
-{
+div.nowplaying .panel-body {
     padding: 0;
 }
 
 .kodi .item,
 div.nowplaying .item,
-div.nowplaying .panel-body
-{
+div.nowplaying .panel-body {
     height: 320px;
     position: relative;
     background-size: cover;
@@ -17,10 +15,12 @@ div.nowplaying .panel-body
     background-repeat: no-repeat;
     border-radius: 0 0 4px 4px;
     color: #333;
+    float: left;
+    clear: left;
+    width: 100%;
 }
 
-.item div.overlay
-{
+.item div.overlay {
     position: absolute;
     width: 100%;
     height: 70px;
@@ -31,8 +31,7 @@ div.nowplaying .panel-body
 }
 
 .item .title,
-.item .subtitle
-{
+.item .subtitle {
     width: 100%;
     height: 20px;
     bottom: 10px;
@@ -41,12 +40,11 @@ div.nowplaying .panel-body
     text-overflow: ellipsis;
     white-space: nowrap;
     z-index: 2;
-    padding:0 10px;
+    padding: 0 10px;
     overflow: hidden;
 }
 
-.item div.title
-{
+.item div.title {
     bottom: 22px;
     font-size: 26px;
     height: 45px;

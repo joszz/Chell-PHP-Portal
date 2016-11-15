@@ -3,311 +3,361 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>API Documentation</title>
+    <title>     &raquo; \
+</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
     
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">Chell PHP Portal</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">109</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-86643332"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-86643332" class="accordion-body collapse in">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/AboutController.html">AboutController</a></li>
-                                                    <li class="class"><a href="../classes/BaseController.html">BaseController</a></li>
-                                                    <li class="class"><a href="../classes/BaseModel.html">BaseModel</a></li>
-                                                    <li class="class"><a href="../classes/Devices.html">Devices</a></li>
-                                                    <li class="class"><a href="../classes/DevicesController.html">DevicesController</a></li>
-                                                    <li class="class"><a href="../classes/IndexController.html">IndexController</a></li>
-                                                    <li class="class"><a href="../classes/KodiController.html">KodiController</a></li>
-                                                    <li class="class"><a href="../classes/KodiMovies.html">KodiMovies</a></li>
-                                                    <li class="class"><a href="../classes/KodiMusic.html">KodiMusic</a></li>
-                                                    <li class="class"><a href="../classes/KodiTVShowEpisodes.html">KodiTVShowEpisodes</a></li>
-                                                    <li class="class"><a href="../classes/LoginForm.html">LoginForm</a></li>
-                                                    <li class="class"><a href="../classes/MenuItems.html">MenuItems</a></li>
-                                                    <li class="class"><a href="../classes/Menus.html">Menus</a></li>
-                                                    <li class="class"><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
-                                                    <li class="class"><a href="../classes/RssController.html">RssController</a></li>
-                                                    <li class="class"><a href="../classes/SecurityPlugin.html">SecurityPlugin</a></li>
-                                                    <li class="class"><a href="../classes/SessionController.html">SessionController</a></li>
-                                                    <li class="class"><a href="../classes/SettingsController.html">SettingsController</a></li>
-                                                    <li class="class"><a href="../classes/SettingsDashboardForm.html">SettingsDashboardForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsDevicesForm.html">SettingsDevicesForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsDevicesNewForm.html">SettingsDevicesNewForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsGeneralForm.html">SettingsGeneralForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsMenuItemsForm.html">SettingsMenuItemsForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsMenuItemsNewForm.html">SettingsMenuItemsNewForm</a></li>
-                                                    <li class="class"><a href="../classes/SettingsUsersForm.html">SettingsUsersForm</a></li>
-                                                    <li class="class"><a href="../classes/Users.html">Users</a></li>
-                                            </ul>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                                            </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            
+    <div class="row">
+
+        <div class="span4">
+            <div class="btn-group view pull-right" data-toggle="buttons-radio">
+                <button class="btn details" title="Show descriptions and method names">
+                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
+                    <i class="icon-align-justify"></i>
+                </button>
+            </div>
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">
+                    <i class="icon-map-marker"></i> Namespaces
+                </li>
+                <a href="../namespaces/default.html" title="\">
+                    <i class="icon-th"></i> \
+                </a>
+                <ul class="nav nav-list nav-namespaces">
+                        
+    
+                </ul>
+            </ul>
+        </div>
+
+        <div class="span8 namespace-contents">
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/default.html">\</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                
+                                        <div id="class_AboutController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AboutController .collapse">
+        <h1>AboutController<a href="../classes/AboutController.html">¶</a></h1>
+        <p class="short_description">The controller showing about information of this project.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/AboutController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_BaseController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_BaseController .collapse">
+        <h1>BaseController<a href="../classes/BaseController.html">¶</a></h1>
+        <p class="short_description">The baseController used by all controllers. Loads the config.ini to a variable.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/BaseController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_BaseModel" class="element ajax clickable class" data-toggle="collapse" data-target="#class_BaseModel .collapse">
+        <h1>BaseModel<a href="../classes/BaseModel.html">¶</a></h1>
+        <p class="short_description">The Base Model used by all models. Sets the config object to a variable.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/BaseModel.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Devices" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Devices .collapse">
+        <h1>Devices<a href="../classes/Devices.html">¶</a></h1>
+        <p class="short_description">The model responsible for all actions related to devices.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Devices.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DevicesController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DevicesController .collapse">
+        <h1>DevicesController<a href="../classes/DevicesController.html">¶</a></h1>
+        <p class="short_description">This controller is responsible for handling all actions that have to do with the devices in your network.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/DevicesController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_IndexController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_IndexController .collapse">
+        <h1>IndexController<a href="../classes/IndexController.html">¶</a></h1>
+        <p class="short_description">The controller responsible for all dashboard related actions.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/IndexController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_KodiController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_KodiController .collapse">
+        <h1>KodiController<a href="../classes/KodiController.html">¶</a></h1>
+        <p class="short_description">The controller responsible for all actions related to Kodi.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/KodiController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_KodiMovies" class="element ajax clickable class" data-toggle="collapse" data-target="#class_KodiMovies .collapse">
+        <h1>KodiMovies<a href="../classes/KodiMovies.html">¶</a></h1>
+        <p class="short_description">The model responsible for all Kodi movies.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/KodiMovies.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_KodiMusic" class="element ajax clickable class" data-toggle="collapse" data-target="#class_KodiMusic .collapse">
+        <h1>KodiMusic<a href="../classes/KodiMusic.html">¶</a></h1>
+        <p class="short_description">The model responsible for all Kodi albums.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/KodiMusic.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_KodiTVShowEpisodes" class="element ajax clickable class" data-toggle="collapse" data-target="#class_KodiTVShowEpisodes .collapse">
+        <h1>KodiTVShowEpisodes<a href="../classes/KodiTVShowEpisodes.html">¶</a></h1>
+        <p class="short_description">The model responsible for all Kodi episodes.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/KodiTVShowEpisodes.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_LoginForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_LoginForm .collapse">
+        <h1>LoginForm<a href="../classes/LoginForm.html">¶</a></h1>
+        <p class="short_description">The from responsible for handling login to the application.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/LoginForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_MenuItems" class="element ajax clickable class" data-toggle="collapse" data-target="#class_MenuItems .collapse">
+        <h1>MenuItems<a href="../classes/MenuItems.html">¶</a></h1>
+        <p class="short_description">The model responsible for all actions related to menu items.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/MenuItems.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Menus" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Menus .collapse">
+        <h1>Menus<a href="../classes/Menus.html">¶</a></h1>
+        <p class="short_description">The model responsible for all actions related to menus.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Menus.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_PHPSysInfo" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PHPSysInfo .collapse">
+        <h1>PHPSysInfo<a href="../classes/PHPSysInfo.html">¶</a></h1>
+        <p class="short_description">The model responsible for all actions related to PHPSysinfo.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/PHPSysInfo.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_RssController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_RssController .collapse">
+        <h1>RssController<a href="../classes/RssController.html">¶</a></h1>
+        <p class="short_description">The baseController used by all controllers. Loads the config.ini to a variable.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/RssController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SecurityPlugin" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SecurityPlugin .collapse">
+        <h1>SecurityPlugin<a href="../classes/SecurityPlugin.html">¶</a></h1>
+        <p class="short_description">Handles security related tasks as a plugin within Phalcon.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SecurityPlugin.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SessionController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SessionController .collapse">
+        <h1>SessionController<a href="../classes/SessionController.html">¶</a></h1>
+        <p class="short_description">The controller responsible for handling the session.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SessionController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsController" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsController .collapse">
+        <h1>SettingsController<a href="../classes/SettingsController.html">¶</a></h1>
+        <p class="short_description">The controller responsible for all setting related actions.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsController.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsDashboardForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsDashboardForm .collapse">
+        <h1>SettingsDashboardForm<a href="../classes/SettingsDashboardForm.html">¶</a></h1>
+        <p class="short_description">The form responsible for the darshboard settings.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsDashboardForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsDevicesForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsDevicesForm .collapse">
+        <h1>SettingsDevicesForm<a href="../classes/SettingsDevicesForm.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsDevicesForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsDevicesNewForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsDevicesNewForm .collapse">
+        <h1>SettingsDevicesNewForm<a href="../classes/SettingsDevicesNewForm.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsDevicesNewForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsGeneralForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsGeneralForm .collapse">
+        <h1>SettingsGeneralForm<a href="../classes/SettingsGeneralForm.html">¶</a></h1>
+        <p class="short_description">The form responsible for the general settings.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsGeneralForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsMenuItemsForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsMenuItemsForm .collapse">
+        <h1>SettingsMenuItemsForm<a href="../classes/SettingsMenuItemsForm.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsMenuItemsForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsMenuItemsNewForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsMenuItemsNewForm .collapse">
+        <h1>SettingsMenuItemsNewForm<a href="../classes/SettingsMenuItemsNewForm.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsMenuItemsNewForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SettingsUsersForm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SettingsUsersForm .collapse">
+        <h1>SettingsUsersForm<a href="../classes/SettingsUsersForm.html">¶</a></h1>
+        <p class="short_description"></p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/SettingsUsersForm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Users" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Users .collapse">
+        <h1>Users<a href="../classes/Users.html">¶</a></h1>
+        <p class="short_description">The model responsible for all actions related to menus.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Users.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+    
+        </div>
+    </div>
     </div>
 
-        </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content namespace">
-                    <nav>
-                                                
-                                            </nav>
-                    <h1><small></small>\</h1>
-
-                    
-                    
-                    
-                                        <h2>Classes</h2>
-                    <table class="table table-hover">
-                                            <tr>
-                            <td><a href="../classes/AboutController.html">AboutController</a></td>
-                            <td><em>The controller showing about information of this project.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/BaseController.html">BaseController</a></td>
-                            <td><em>The baseController used by all controllers. Loads the config.ini to a variable.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/BaseModel.html">BaseModel</a></td>
-                            <td><em>The Base Model used by all models. Sets the config object to a variable.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Devices.html">Devices</a></td>
-                            <td><em>The model responsible for all actions related to devices.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/DevicesController.html">DevicesController</a></td>
-                            <td><em>This controller is responsible for handling all actions that have to do with the devices in your network.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/IndexController.html">IndexController</a></td>
-                            <td><em>The controller responsible for all dashboard related actions.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/KodiController.html">KodiController</a></td>
-                            <td><em>The controller responsible for all actions related to Kodi.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/KodiMovies.html">KodiMovies</a></td>
-                            <td><em>The model responsible for all Kodi movies.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/KodiMusic.html">KodiMusic</a></td>
-                            <td><em>The model responsible for all Kodi albums.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/KodiTVShowEpisodes.html">KodiTVShowEpisodes</a></td>
-                            <td><em>The model responsible for all Kodi episodes.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/LoginForm.html">LoginForm</a></td>
-                            <td><em>The from responsible for handling login to the application.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/MenuItems.html">MenuItems</a></td>
-                            <td><em>The model responsible for all actions related to menu items.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Menus.html">Menus</a></td>
-                            <td><em>The model responsible for all actions related to menus.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></td>
-                            <td><em>The model responsible for all actions related to PHPSysinfo.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/RssController.html">RssController</a></td>
-                            <td><em>The baseController used by all controllers. Loads the config.ini to a variable.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SecurityPlugin.html">SecurityPlugin</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SessionController.html">SessionController</a></td>
-                            <td><em>The controller responsible for handling the session.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsController.html">SettingsController</a></td>
-                            <td><em>The controller responsible for all setting related actions.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsDashboardForm.html">SettingsDashboardForm</a></td>
-                            <td><em>The form responsible for the darshboard settings.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsDevicesForm.html">SettingsDevicesForm</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsDevicesNewForm.html">SettingsDevicesNewForm</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsGeneralForm.html">SettingsGeneralForm</a></td>
-                            <td><em>The form responsible for the general settings.</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsMenuItemsForm.html">SettingsMenuItemsForm</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsMenuItemsNewForm.html">SettingsMenuItemsNewForm</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/SettingsUsersForm.html">SettingsUsersForm</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/Users.html">Users</a></td>
-                            <td><em>The model responsible for all actions related to menus.</em></td>
-                        </tr>
-                                        </table>
-                                    </div>
-
-                <aside class="span4 detailsbar">
-                    <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                <div class="namespace-wrapper">\</div>
-                        </dd>
-                    </dl>
-                </aside>
-            </div>
-
-            
-            
-        </div>
-    </section>
-
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on November 8th, 2016 at 15:41.
-                </section>
-            </section>
-        </section>
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Tue, 15 Nov 2016 21:26:46 +0000.<br/>
     </footer>
-</div>
-
-</body>
+    </body>
 </html>

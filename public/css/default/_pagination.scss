@@ -1,25 +1,21 @@
-﻿.pagination
-{
+﻿.pagination {
     margin: 0;
 }
 
-.pagination > .active > a, 
-.pagination > .active > a:hover, 
-.pagination > .active > a:focus
-{
+.pagination > .active > a,
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
     background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
     border-color: #d6e9c6;
     color: #3c763d;
 }
 
-.pagination > li > a
-{
+.pagination > li > a {
     color: #333;
 }
 
 .pagination > li > a:hover,
 .pagination > li > a:active,
-.pagination > li > a:focus
-{
+.pagination > li > a:focus {
     color: #3c763d;
 }

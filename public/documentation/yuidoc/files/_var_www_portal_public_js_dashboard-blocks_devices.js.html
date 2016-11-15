@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/dashboard-blocks/devices.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/dashboard-blocks/devices.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            ﻿/**
+                            * The devices block on the dashboard.
+                            * 
+                            * @class Devices
+                            * @module Dashboard
+                            * @submodule DashboardBlocks
+                            */
+                            (function ($) {
+                                $.fn.devices = function (options) {
+                            
+                                    /**
+                                    * All the settings for this block.
+                                    * 
+                                    * @property settings
+                                    * @type Object
+                                    */
+                                    var settings = $.extend({
+                                        block: this,
+                                        updateInterval: this.data(&#x27;device-state-interval&#x27;) * 1000,
+                                        updateIntervalId: -1
+                                    }, options);
+                            
+                                    /**
+                                    * All the functions for this block.
+                                    * 
+                                    * @property functions
+                                    * @type Object
+                                    */
+                                    var functions = {
+                            
+                                        /**
+                                        * Initializes the eventhandlers for the various button clicks.
+                                        * 
+                                        * @method checkstates
+                                        */
+                                        initialize: function () {
+                                            settings.block.on(&quot;click&quot;, &quot;.glyphicon-refresh&quot;, function () {
+                                                clearInterval(settings.updateIntervalId);
+                                                settings.updateIntervalId = setInterval(function () {
+                                                    self.checkstates(self);
+                                                }, settings.updateInterval);
+                            
+                                                functions.checkstates(settings.block);
+                                            });
+                            
+                                            settings.block.on(&quot;click&quot;, &quot;.btn-danger&quot;, function () {
+                                                var title = &quot;Wake &lt;span&gt;&quot; + $(this).closest(&quot;li&quot;).find(&quot;div:first&quot;).html().trim() + &quot;&lt;/span&gt;?&quot;;
+                                                openConfirmDialog(title, [{ mac: $(this).data(&quot;mac&quot;) }], function () {
+                                                    functions.wol($(this));
+                                                });
+                                            });
+                            
+                                            settings.block.on(&quot;click&quot;, &quot;.btn-success&quot;, function () {
+                                                var title = &quot;Shutdown &lt;span&gt;&quot; + $(this).closest(&quot;li&quot;).find(&quot;div:first&quot;).html().trim() + &quot;&lt;/span&gt;?&quot;;
+                            
+                                                openConfirmDialog(title, [{
+                                                    &quot;shutdown-user&quot;: $(this).data(&quot;shutdown-user&quot;),
+                                                    &quot;shutdown-password&quot;: $(this).data(&quot;shutdown-password&quot;),
+                                                    &quot;ip&quot;: $(this).data(&quot;ip&quot;),
+                                                }], function () {
+                                                    functions.doShutdown($(this));
+                                                });
+                                            });
+                            
+                                            functions.checkstates();
+                                        },
+                            
+                                        /**
+                                        * Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.
+                                        * 
+                                        * @method checkstates
+                                        */
+                                        checkstates: function (self) {
+                                            self = typeof self === &#x27;undefined&#x27; ? this : self;
+                                            var d = new Date();
+                            
+                                            clearInterval(settings.updateIntervalId);
+                                            settings.updateIntervalId = setInterval(function () {
+                                                self.checkstates(self);
+                                            }, settings.updateInterval);
+                            
+                                            settings.block.find(&quot;.devicestate&quot;).each(function () {
+                                                var device = $(this);
+                                                var icon = $(this).find(&quot;span.glyphicon&quot;);
+                                                var ip = $(this).data(&quot;ip&quot;);
+                                                var dependentMenuItems = $(&quot;ul.nav li[data-ip=&#x27;&quot; + ip + &quot;&#x27;&quot;);
+                            
+                                                dependentMenuItems.find(&quot;a&quot;).bind(&quot;click&quot;, false);
+                            
+                                                $(this).removeClass(&quot;btn-danger btn-success&quot;);
+                                                $(this).addClass(&quot;disabled&quot;);
+                            
+                                                icon.removeClass(&quot;glyphicon-off&quot;);
+                                                icon.addClass(&quot;glyphicon-refresh icon-refresh-animate&quot;);
+                            
+                                                (function (device, dependentMenuItems, icon, ip) {
+                                                    $.getJSON(&quot;devices/state?ip=&quot; + ip + &quot;&amp;&quot; + d.getTime(), &quot;&quot;, function (data) {
+                                                        icon.removeClass(&quot;glyphicon-refresh icon-refresh-animate&quot;);
+                                                        icon.addClass(&quot;glyphicon-off&quot;);
+                            
+                                                        device.removeClass(&quot;disabled&quot;);
+                            
+                                                        if (device.data(&quot;shutdown-method&quot;) == &quot;none&quot;) {
+                                                            device.addClass(&quot;disabled&quot;);
+                                                        }
+                            
+                                                        if (!data[&quot;state&quot;]) {
+                                                            dependentMenuItems.addClass(&quot;disabled&quot;);
+                                                        }
+                                                        else {
+                                                            dependentMenuItems.removeClass(&quot;disabled&quot;);
+                                                            dependentMenuItems.find(&quot;a&quot;).unbind(&quot;click&quot;, false);
+                                                        }
+                            
+                                                        device.addClass(&quot;btn-&quot; + (data[&quot;state&quot;] ? &quot;success&quot; : &quot;danger&quot;));
+                                                    });
+                                                }(device, dependentMenuItems, icon, ip));
+                                            });
+                                        },
+                            
+                                        /**
+                                        * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.
+                                        * 
+                                        * @method checkstates
+                                        * @param btn {Object} Which button of the confirm dialog is pressed (yes/no).
+                                        */
+                                        wol: function (btn) {
+                                            $.fancybox.close();
+                            
+                                            if (btn.attr(&quot;id&quot;) == &quot;confirm-yes&quot;) {
+                                                var name = btn.closest(&quot;div&quot;).find(&quot;h2 span&quot;).html().trim();
+                            
+                                                $.get(&quot;devices/wol?mac=&quot; + btn.closest(&quot;div&quot;).data(&quot;mac&quot;), function (name) {
+                                                    $(&quot;div.alert&quot;).addClass(&quot;alert-success&quot;);
+                                                    $(&quot;div.alert&quot;).html(&quot;Magic packet send to: &quot; + name);
+                                                    $(&quot;div.alert&quot;).fadeIn(&quot;fast&quot;);
+                            
+                                                    fadeOutAlert();
+                                                }(name));
+                                            }
+                                        },
+                            
+                                        /**
+                                        * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.
+                                        * 
+                                        * @method checkstates
+                                        * @param btn {Object} Which button of the confirm dialog is pressed (yes/no).
+                                        */
+                                        doShutdown: function (btn) {
+                                            $.fancybox.close();
+                            
+                                            if (btn.attr(&quot;id&quot;) == &quot;confirm-yes&quot;) {
+                                                var parentDiv = btn.closest(&quot;div&quot;);
+                                                var user = parentDiv.data(&quot;shutdown-user&quot;);
+                                                var password = parentDiv.data(&quot;shutdown-password&quot;);
+                                                var ip = parentDiv.data(&quot;ip&quot;);
+                                                var name = parentDiv.closest(&quot;div&quot;).find(&quot;h2 span&quot;).html().trim();
+                            
+                                                $.get(&quot;devices/shutdown?ip=&quot; + ip + &quot;&amp;user=&quot; + user + &quot; &amp;password=&quot; + password, function (data) {
+                                                    if (data == &quot;true&quot;) {
+                                                        $(&quot;div.alert&quot;).addClass(&quot;alert-success&quot;);
+                                                        $(&quot;div.alert&quot;).html(&quot;Shutdown command send to: &quot; + name);
+                                                    }
+                                                    else {
+                                                        $(&quot;div.alert&quot;).addClass(&quot;alert-danger&quot;);
+                                                        $(&quot;div.alert&quot;).html(&quot;Shutdown command failed for: &quot; + name);
+                                                    }
+                            
+                                                    $(&quot;div.alert&quot;).fadeIn(&quot;fast&quot;);
+                                                    fadeOutAlert();
+                                                });
+                                            }
+                                        }
+                                    }
+                            
+                                    functions.initialize();
+                            
+                                    return functions;
+                                }
+                            })(jQuery);
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

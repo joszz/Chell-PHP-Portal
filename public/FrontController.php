@@ -54,7 +54,7 @@ class FrontController
                          'default.css');
 
     /**
-     * Initialize Phalcon .
+     * Initialize Phalcon.
      */
     public function __construct()
     {

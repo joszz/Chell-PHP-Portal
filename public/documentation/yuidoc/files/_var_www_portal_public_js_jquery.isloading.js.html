@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/jquery.isloading.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/jquery.isloading.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            /**
+                            * Loading plugin for jQuery
+                            * version: v1.0.6
+                            *
+                            * Small helper to give the user a visual feedback that something is happening
+                            * when fetching/posting data
+                            *
+                            * USAGE:
+                            * - global overlay:                     $.isLoading();
+                            * - use javascript:                     $( selector ).isLoading();
+                            * - On non-form elements:               $(&quot;div&quot;).isLoading({ text: &quot;Loading&quot;, position:&#x27;inside&#x27;});
+                            * - remove the loading element:         $( selector ).isLoading( &quot;hide&quot; );
+                            *
+                            * @author Laurent Blanes &lt;laurent.blanes@gmail.com&gt;
+                            * ---
+                            * Copyright 2013, Laurent Blanes ( https://github.com/hekigan/is-loading )
+                            *
+                            * The MIT License (MIT)
+                            *
+                            * Copyright (c) 2013 Laurent Blanes
+                            *
+                            * Permission is hereby granted, free of charge, to any person obtaining a copy
+                            * of this software and associated documentation files (the &quot;Software&quot;), to deal
+                            * in the Software without restriction, including without limitation the rights
+                            * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                            * copies of the Software, and to permit persons to whom the Software is
+                            * furnished to do so, subject to the following conditions:
+                            *
+                            * The above copyright notice and this permission notice shall be included in
+                            * all copies or substantial portions of the Software.
+                            *
+                            * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                            * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                            * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                            * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                            * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                            * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+                            * THE SOFTWARE.
+                            */
+                            ;(function ( $, window, document, undefined ) {
+                            
+                                // Create the defaults once
+                                var pluginName = &quot;isLoading&quot;,
+                                    defaults = {
+                                        &#x27;position&#x27;: &quot;overlay&quot;,        // right | inside | overlay
+                                        &#x27;text&#x27;: &quot;Loading&quot;,                 // Text to display next to the loader
+                                        &#x27;class&#x27;: &quot;glyphicon glyphicon-refresh&quot;,    // loader CSS class
+                                        &#x27;transparency&#x27;: 0.5,        // background transparency for using with overlay
+                                        &#x27;tpl&#x27;: &#x27;&lt;span class=&quot;isloading-wrapper %wrapper%&quot;&gt;%text%&lt;i class=&quot;%class% glyphicon-spin&quot;&gt;&lt;/i&gt;&lt;/span&gt;&#x27;,    // loader base Tag. Change to support bootstrap &gt; 3.x
+                                        &#x27;disableSource&#x27;: true,      // true | false
+                                        &#x27;disableOthers&#x27;: []
+                                    };
+                            
+                                // The actual plugin constructor
+                                function Plugin( element, options ) {
+                                    this.element = element;
+                            
+                                    // Merge user options with default ones
+                                    this.options = $.extend( {}, defaults, options );
+                            
+                                    this._defaults     = defaults;
+                                    this._name         = pluginName;
+                                    this._loader       = null;                // Contain the loading tag element
+                            
+                                    this.init();
+                                }
+                            
+                                // Contructor function for the plugin (only once on page load)
+                                function contruct() {
+                            
+                                    if ( !$[pluginName] ) {
+                                        $.isLoading = function( opts ) {
+                                            $( &quot;body&quot; ).isLoading( opts );
+                                        };
+                                    }
+                                }
+                            
+                                Plugin.prototype = {
+                            
+                                    init: function() {
+                            
+                                        if( $( this.element ).is( &quot;body&quot;) ) {
+                                            this.options.position = &quot;overlay&quot;;
+                                        }
+                                        this.show();
+                                    },
+                            
+                                    show: function() {
+                            
+                                        var self = this,
+                                            tpl = self.options.tpl.replace( &#x27;%wrapper%&#x27;, &#x27; isloading-show &#x27; + &#x27; isloading-&#x27; + self.options.position );
+                                        tpl = tpl.replace( &#x27;%class%&#x27;, self.options[&#x27;class&#x27;] );
+                                        tpl = tpl.replace( &#x27;%text%&#x27;, ( self.options.text !== &quot;&quot; ) ? self.options.text + &#x27; &#x27; : &#x27;&#x27; );
+                                        self._loader = $( tpl );
+                            
+                                        // Disable the element
+                                        if( $( self.element ).is( &quot;input, textarea&quot; ) &amp;&amp; true === self.options.disableSource ) {
+                            
+                                            $( self.element ).attr( &quot;disabled&quot;, &quot;disabled&quot; );
+                            
+                                        }
+                                        else if( true === self.options.disableSource ) {
+                            
+                                            $( self.element ).addClass( &quot;disabled&quot; );
+                            
+                                        }
+                            
+                                        // Set position
+                                        switch( self.options.position ) {
+                            
+                                            case &quot;inside&quot;:
+                                                $( self.element ).html( self._loader );
+                                                break;
+                            
+                                            case &quot;overlay&quot;:
+                                                var $wrapperTpl = null;
+                            
+                                                if( $( self.element ).is( &quot;body&quot;) ) {
+                                                    $wrapperTpl = $(&#x27;&lt;div class=&quot;isloading-overlay&quot; style=&quot;position:fixed; left:0; top:0; z-index: 10000; background: rgba(0,0,0,&#x27; + self.options.transparency + &#x27;); width: 100%; height: &#x27; + $(window).height() + &#x27;px;&quot; /&gt;&#x27;);
+                                                    $( &quot;body&quot; ).prepend( $wrapperTpl );
+                            
+                                                    $( window ).on(&#x27;resize&#x27;, function() {
+                                                        $wrapperTpl.height( $(window).height() + &#x27;px&#x27; );
+                                                        self._loader.css({top: ($(window).height()/2 - self._loader.outerHeight()/2) + &#x27;px&#x27; });
+                                                    });
+                                                } else {
+                                                    var cssPosition = $( self.element ).css(&#x27;position&#x27;),
+                                                        pos = {},
+                                                        height = $( self.element ).outerHeight() + &#x27;px&#x27;,
+                                                        width = $(self.element).css(&quot;width&quot;); // $( self.element ).outerWidth() + &#x27;px;
+                            
+                                                    if( &#x27;relative&#x27; === cssPosition || &#x27;absolute&#x27; === cssPosition) {
+                                                        pos = { &#x27;top&#x27;: 0,  &#x27;left&#x27;: 0 };
+                                                    } else {
+                                                        pos = $( self.element ).position();
+                                                    }
+                                                    $wrapperTpl = $(&#x27;&lt;div class=&quot;isloading-overlay&quot; style=&quot;position:absolute; top: &#x27; + pos.top + &#x27;px; left: &#x27; + pos.left + &#x27;px; z-index: 10000; background: rgba(0,0,0,&#x27; + self.options.transparency + &#x27;); width: &#x27; + width + &#x27;; height: &#x27; + height + &#x27;;&quot; /&gt;&#x27;);
+                                                    $( self.element ).prepend( $wrapperTpl );
+                            
+                                                    $( window ).on(&#x27;resize&#x27;, function() {
+                                                        $wrapperTpl.height( $( self.element ).outerHeight() + &#x27;px&#x27; );
+                                                        self._loader.css({top: ($wrapperTpl.outerHeight()/2 - self._loader.outerHeight()/2) + &#x27;px&#x27; });
+                                                    });
+                                                }
+                            
+                                                $wrapperTpl.html( self._loader );
+                                                self._loader.css({top: ($wrapperTpl.outerHeight()/2 - self._loader.outerHeight()/2) + &#x27;px&#x27; });
+                                                break;
+                            
+                                            default:
+                                                $( self.element ).after( self._loader );
+                                                break;
+                                        }
+                            
+                                        self.disableOthers();
+                                    },
+                            
+                                    hide: function() {
+                            
+                                        if( &quot;overlay&quot; === this.options.position ) {
+                            
+                                            $(this.element).find(&quot;.isloading-overlay&quot;).first().fadeOut(&quot;fast&quot;, function () {
+                                                $(this).remove();
+                                            });
+                            
+                                        } else {
+                            
+                                            $( this._loader ).remove();
+                                            $( this.element ).text( $( this.element ).attr( &quot;data-isloading-label&quot; ) );
+                            
+                                        }
+                            
+                                        $( this.element ).removeAttr(&quot;disabled&quot;).removeClass(&quot;disabled&quot;);
+                            
+                                        this.enableOthers();
+                                    },
+                            
+                                    disableOthers: function() {
+                                        $.each(this.options.disableOthers, function( i, e ) {
+                                            var elt = $( e );
+                                            if( elt.is( &quot;button, input, textarea&quot; ) ) {
+                                                elt.attr( &quot;disabled&quot;, &quot;disabled&quot; );
+                                            }
+                                            else {
+                                                elt.addClass( &quot;disabled&quot; );
+                                            }
+                                        });
+                                    },
+                            
+                                    enableOthers: function() {
+                                        $.each(this.options.disableOthers, function( i, e ) {
+                                            var elt = $( e );
+                                            if( elt.is( &quot;button, input, textarea&quot; ) ) {
+                                                elt.removeAttr( &quot;disabled&quot; );
+                                            }
+                                            else {
+                                                elt.removeClass( &quot;disabled&quot; );
+                                            }
+                                        });
+                                    }
+                                };
+                            
+                                // Constructor
+                                $.fn[pluginName] = function ( options ) {
+                                    return this.each(function () {
+                                        if ( options &amp;&amp; &quot;hide&quot; !== options || !$.data( this, &quot;plugin_&quot; + pluginName ) ) {
+                                            $.data( this, &quot;plugin_&quot; + pluginName, new Plugin( this, options ) );
+                                        } else {
+                                            var elt = $.data( this, &quot;plugin_&quot; + pluginName );
+                            
+                                            if( &quot;hide&quot; === options )    { elt.hide(); }
+                                            else                        { elt.show(); }
+                                        }
+                                    });
+                                };
+                            
+                                contruct();
+                            
+                            })( jQuery, window, document );
+                            
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

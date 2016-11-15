@@ -11,7 +11,7 @@
         this.each(function () {
 
             /**
-            * All the settings for this block
+            * All the settings for this block.
             * 
             * @property settings
             * @type Object
@@ -23,7 +23,7 @@
             }, options);
 
             /**
-            * All the functions for this block
+            * All the functions for this block.
             * 
             * @property functions
             * @type Object

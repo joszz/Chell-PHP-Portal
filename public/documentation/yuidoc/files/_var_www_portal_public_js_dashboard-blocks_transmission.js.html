@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/dashboard-blocks/transmission.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/dashboard-blocks/transmission.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            ﻿/**
+                            * The transmission block on the dashboard.
+                            * 
+                            * @class Transmission
+                            * @module Dashboard
+                            * @submodule DashboardBlocks
+                            */
+                            (function ($) {
+                                $.fn.transmission = function (options) {
+                            
+                                    /**
+                                    * All the settings for this block.
+                                    * 
+                                    * @property settings
+                                    * @type Object
+                                    */
+                                    var settings = $.extend({
+                                        defaultData: {
+                                            type: &#x27;POST&#x27;,
+                                            beforeSend: function (xhr) {
+                                                xhr.setRequestHeader(&#x27;Authorization&#x27;, &#x27;Basic &#x27; + btoa(settings.block.data(&#x27;transmission-username&#x27;) + &#x27;:&#x27; + settings.block.data(&#x27;transmission-password&#x27;)));
+                                                xhr.setRequestHeader(&#x27;X-Transmission-Session-Id&#x27;, settings.transmissionSessionId);
+                                            },
+                                            statusCode: {
+                                                409: function (request, status, error) {
+                                                    settings.transmissionSessionId = request.getResponseHeader(&#x27;X-Transmission-Session-Id&#x27;)
+                                                }
+                                            },
+                                            url: this.data(&#x27;transmission-url&#x27;)
+                                        },
+                                        block: this,
+                                        transmissionSessionId: -1,
+                                        updateInterval: this.data(&#x27;transmission-update-interval&#x27;) * 1000,
+                                        updateIntervalId: -1
+                                    }, options);
+                            
+                                    /**
+                                    * All the functions for this block.
+                                    * 
+                                    * @property functions
+                                    * @type Object
+                                    */
+                                    var functions = {
+                            
+                                        /**
+                                        * Retrieves the torrent list from Transmission.
+                                        * 
+                                        * @method getTorrents
+                                        * @param onload {Boolean} Whether this function is called during onload or not. Optional, defaults to false.
+                                        */
+                                        getTorrents: function (onload) {
+                                            onload = typeof onload === &#x27;undefined&#x27; ? false : onload;
+                            
+                                            if (!onload) {
+                                                settings.block.isLoading();
+                                            }
+                            
+                                            clearInterval(settings.updateIntervalId);
+                                            settings.updateIntervalId = setInterval(function () {
+                                                functions.getTorrents(false);
+                                            }, settings.updateInterval);
+                            
+                                            settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                                functions.getTorrents(false);
+                            
+                                                $(this).blur();
+                                            });
+                            
+                                            var data = settings.defaultData;
+                            
+                                            data.data = &#x27;{&quot;method&quot;:&quot;torrent-get&quot;, &quot;arguments&quot;:{&quot;fields&quot;:[&quot;id&quot;, &quot;name&quot;, &quot;percentDone&quot;, &quot;status&quot;]}}&#x27;;
+                                            data.complete = function (xhr, status) {
+                                                //No sessionID set, do function again
+                                                if (xhr.status == 409) {
+                                                    if (!onload) {
+                                                        settings.block.isLoading(&#x27;hide&#x27;);
+                                                    }
+                            
+                                                    functions.getTorrents(onload);
+                                                }
+                                                else if (xhr.status == 200) {
+                                                    var responseData = $.parseJSON(xhr.responseText);
+                                                    settings.block.find(&#x27;li&#x27;).not(&#x27;.hidden&#x27;).remove();
+                            
+                                                    if (responseData.arguments.torrents.length == 0) {
+                                                        var torrent = settings.block.find(&#x27;li.hidden&#x27;).clone();
+                                                        torrent.removeClass(&#x27;hidden&#x27;);
+                                                        torrent.find(&#x27;.torrentname&#x27;).html(&#x27;No torrents found&#x27;);
+                                                        torrent.find(&#x27;.torrentprogress, .torrentactions&#x27;).remove();
+                                                        torrent.appendTo($(&#x27;.transmission ul&#x27;));
+                                                    }
+                            
+                                                    $.each(responseData.arguments.torrents, function (index, value) {
+                                                        var torrent = settings.block.find(&#x27;li.hidden&#x27;).clone();
+                                                        torrent.attr(&#x27;data-id&#x27;, value.id);
+                                                        torrent.removeClass(&#x27;hidden&#x27;);
+                                                        torrent.find(&#x27;.torrentname&#x27;).html(value.name);
+                                                        torrent.find(&#x27;.torrentname&#x27;).attr(&quot;title&quot;, value.name);
+                            
+                                                        value.percentDone = Math.round(value.percentDone * 10000) / 100;
+                                                        torrent.find(&#x27;.torrentprogress .percent&#x27;).html(value.percentDone + &#x27;%&#x27;);
+                                                        torrent.find(&#x27;.torrentprogress .progress-bar&#x27;).width(value.percentDone + &#x27;%&#x27;);
+                            
+                                                        //Downloading
+                                                        if (value.status == 4) {
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;glyphicon-play&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;glyphicon-pause&#x27;);
+                                                        }
+                                                        //Paused
+                                                        else if (value.status == 0) {
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;glyphicon-pause&#x27;);
+                                                            torrent.find(&#x27;.progress-bar&#x27;).removeClass(&#x27;progress-bar-success&#x27;).addClass(&#x27;progress-bar-primary&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;glyphicon-play&#x27;);
+                                                        }
+                            
+                                                        torrent.find(&#x27;.torrentactions .status&#x27;).off().on(&#x27;click&#x27;, function () {
+                                                            self.startStopTorrents($(this).closest(&#x27;li&#x27;).data(&#x27;id&#x27;), self);
+                                                        });
+                            
+                                                        torrent.find(&#x27;.torrentactions .glyphicon-remove&#x27;).off().on(&#x27;click&#x27;, function () {
+                                                            openConfirmDialog(&#x27;Delete torrent?&#x27;, [], function () {
+                                                                $.fancybox.close();
+                            
+                                                                if ($(this).attr(&#x27;id&#x27;) == &#x27;confirm-yes&#x27;) {
+                                                                    functions.removeTorrents(torrent.data(&#x27;id&#x27;));
+                                                                }
+                                                            });
+                                                        });
+                            
+                                                        torrent.appendTo($(&#x27;.transmission ul&#x27;));
+                                                    });
+                            
+                                                    if (!onload) {
+                                                        settings.block.isLoading(&#x27;hide&#x27;);
+                                                    }
+                                                }
+                                            };
+                            
+                                            $.ajax(data);
+                            
+                                            return self;
+                                        },
+                            
+                                        /**
+                                        * Given a torrentId, will toggle the state of the torrent to paused / started. Depending on the current state of the torrent.
+                                        * 
+                                        * @method startStopTorrents
+                                        * @param torrentIds {Number} The torrent ID to stop/start.
+                                        * @todo Rewrite so an array of torrents can be passed along.
+                                        */
+                                        startStopTorrents: function (torrentIds) {
+                                            var data = settings.defaultData;
+                                            data.data = &#x27;{&quot;method&quot;:&quot;torrent-&#x27; + ($(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status:first-child&#x27;).hasClass(&#x27;glyphicon-pause&#x27;) ? &#x27;stop&#x27; : &#x27;start-now&#x27;) + &#x27;&quot;, &quot;arguments&quot;:{&quot;ids&quot;:[&#x27; + torrentIds + &#x27;]}}&#x27;;
+                            
+                                            data.complete = function (xhr, status) {
+                                                //No sessionID set, do function again
+                                                if (xhr.status == 409) {
+                                                    functions.startTorrents(torrentIds);
+                                                }
+                                                else if (xhr.status == 200) {
+                                                    var responseData = $.parseJSON(xhr.responseText);
+                                                    if (responseData.result == &#x27;success&#x27;) {
+                                                        $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status&#x27;).toggleClass(&#x27;glyphicon-pause glyphicon-play&#x27;);
+                                                        $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] .progress-bar&#x27;).toggleClass(&#x27;progress-bar-success progress-bar-primary&#x27;);
+                                                    }
+                                                }
+                                            };
+                            
+                                            $.ajax(data);
+                                        },
+                            
+                                        /**
+                                        * Given a torrentId, will remove a torrent and local data.
+                                        * 
+                                        * @method removeTorrents
+                                        * @param torrentIds {Number} The torrent ID to remove.
+                                        * @todo Rewrite so an array of torrents can be passed along.
+                                        */
+                                        removeTorrents: function (torrentIds) {
+                                            var data = settings.defaultData;
+                                            data.data = &#x27;{&quot;method&quot;:&quot;torrent-remove&quot;, &quot;arguments&quot;:{&quot;ids&quot;:[&#x27; + torrentIds + &#x27;]}, &quot;delete-local-data&quot;: true}&#x27;;
+                            
+                                            data.complete = function (xhr, status) {
+                                                //No sessionID set, do function again
+                                                if (xhr.status == 409) {
+                                                    functions.removeTorrents(torrentIds);
+                                                }
+                                                else if (xhr.status == 200) {
+                                                    var responseData = $.parseJSON(xhr.responseText);
+                                                    if (responseData.result == &#x27;success&#x27;) {
+                                                        $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;]&#x27;).remove();
+                                                        functions.getTorrents(false);
+                                                    }
+                                                }
+                                            };
+                            
+                                            $.ajax(data);
+                                        },
+                                    };
+                            
+                                    functions.getTorrents(true);
+                            
+                                    return functions;
+                                };
+                            })(jQuery);
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

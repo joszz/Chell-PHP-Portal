@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Chell PHP Portal</title>
+  <parser>
+    <encoding>utf8</encoding>
+    <target>/var/www/portal/public/documentation/phpdoc/</target>
+  </parser>
+  <transformer>
+    <target>/var/www/portal/public/documentation/phpdoc/</target>
+  </transformer>
+  <transformations>
+    <template name="responsive-twig" />
+  </transformations>
+  <files>
+    <directory>.</directory>
+  </files>
+</phpdoc>

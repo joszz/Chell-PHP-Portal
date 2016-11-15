@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/default.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/default.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            ﻿/**
+                            * Main entry point for all views.
+                            * 
+                            * @class Window
+                            * @module General
+                            */
+                            
+                            /**
+                            * The time to show notifications, defined in config.ini.
+                            * 
+                            * @property alertTimeout
+                            * @type Number
+                            */
+                            var alertTimeout;
+                            
+                            /**
+                            * Keeping track if the alt key has been pressed.
+                            * 
+                            * @property altPressed
+                            * @type Boolean
+                            */
+                            var altPressed = false;
+                            
+                            /**
+                            * Document onload, call to initialize plugins and eventhandlers.
+                            * 
+                            * @method document.onload
+                            */
+                            $(function () {
+                                alertTimeout = $(&quot;.alert&quot;).data(&quot;alert-timeout&quot;);
+                            
+                                initializeGlobalPlugins();
+                                initializeGlobalEventHandlers();
+                            });
+                            
+                            /**
+                            * Initializes all globally used plugins.
+                            * 
+                            * @method initializeGlobalPlugins
+                            */
+                            function initializeGlobalPlugins() {
+                                $(&quot;a, button, h4&quot;).vibrate();
+                            
+                                $(&quot;select&quot;).selectpicker({ width: &quot;100%&quot;, container: &quot;body&quot; });
+                            
+                                Waves.attach(&quot;.btn, button, div#navbar a&quot;);
+                                Waves.init();
+                            
+                                $.fancybox.defaults.margin = [70, 20, 60, 20];
+                            
+                                $(&quot;.fancybox:not(.disabled)&quot;).fancybox({
+                                    afterLoad: function () {
+                                        $.extend(this, {
+                                            maxWidth: this.element.data(&quot;fancybox-maxwidth&quot;)
+                                        });
+                                    },
+                                    helpers: {
+                                        overlay: {
+                                            locked: true
+                                        }
+                                    },
+                                });
+                            
+                                $(&quot;.fancybox-iframe:not(.disabled)&quot;).fancybox({
+                                    beforeShow: function () {
+                                        this.width = this.element.data(&quot;fancybox-maxwidth&quot;);
+                                    },
+                                    helpers: {
+                                        overlay: {
+                                            locked: true
+                                        }
+                                    },
+                                    type: &quot;iframe&quot;
+                                });
+                            }
+                            
+                            /**
+                            * Initialized all globally used eventhandlers.
+                            * 
+                            * @method initializeGlobalEventHandlers
+                            */
+                            function initializeGlobalEventHandlers() {
+                                $(&quot;body&quot;).keydown(function (e) {
+                                    if (altPressed) {
+                                        if (e.which == 77 &amp;&amp; altPressed) {
+                                            altPressed = false;
+                                            $(&quot;.navbar-toggle&quot;).trigger(&quot;click&quot;);
+                                        }
+                                        //number pressed
+                                        if (e.which &gt; 48 &amp;&amp; e.which &lt; 58) {
+                                            $(&quot;ul.nav li&quot;).eq(e.which - 49).find(&quot;a&quot;)[0].click();
+                                        }
+                                    }
+                                    else if (e.which == 18) altPressed = true;
+                                });
+                            
+                                $(&quot;body&quot;).keyup(function (e) {
+                                    if (e.which == 18) altPressed = false;
+                                });
+                            }
+                            
+                            /**
+                            * Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout
+                            * 
+                            * @method fadeOutAlert
+                            */
+                            function fadeOutAlert() {
+                                window.setTimeout(function () {
+                                    $(&quot;div.alert&quot;).fadeOut(&quot;fast&quot;, function () {
+                                        $(&quot;div.alert&quot;).removeClass(&quot;alert-success alert-danger&quot;);
+                                    });
+                                }, alertTimeout * 1000);
+                            }
+                            
+                            /**
+                            * Capitalizes the first character of a string, as prototype so it can be used on strings.
+                            * 
+                            * @method capitalize
+                            */
+                            String.prototype.capitalize = function () {
+                                return this.charAt(0).toUpperCase() + this.slice(1);
+                            }
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

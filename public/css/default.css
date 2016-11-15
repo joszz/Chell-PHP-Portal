@@ -365,7 +365,10 @@ div.nowplaying .panel-body {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 0 0 4px 4px;
-  color: #333; }
+  color: #333;
+  float: left;
+  clear: left;
+  width: 100%; }
 
 .item div.overlay {
   position: absolute;
@@ -452,8 +455,19 @@ div.temperatures,
 div.cpu {
   width: 100%; }
 
-div.panel {
-  width: 100%; }
+div.panel,
+div.panel-heading,
+div.panel-body {
+  width: 100%;
+  float: left; }
+
+div.panel-heading .btn {
+  min-width: 41px; }
+
+div.panel-heading h4,
+div.panel-heading a,
+div.panel-heading button {
+  white-space: nowrap; }
 
 div.panel ul div:not(.embed-responsive) {
   padding: 0; }
@@ -560,7 +574,14 @@ span.input-group-addon label {
 div.login .panel,
 div.about .panel {
   width: 300px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  float: none; }
+
+div.login .panel-heading,
+div.about .panel-heading,
+div.login .panel-body,
+div.about .panel-body {
+  float: none; }
 
 div.login input {
   position: relative; }
