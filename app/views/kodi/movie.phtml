@@ -1,3 +1,11 @@
+<?php
+/*
+* The Kodi movie view, listing details about the movie. Called from the dashboard as an iFrame, uses the empty layout.
+*
+* @package 		Views
+* @subpackage	Kodi
+*/
+?>
 <div class="panel panel-success pull-left transparent">
     <ul class="list-group panel-success">
         <li class="list-group-item list-group-item-success">
@@ -15,14 +23,6 @@
                 <?php endif ?>
             </div>
         </li>
-        <?php /*
-        <li class="list-group-item col-xs-12 col-lg-12">
-        <div class="col-xs-4 col-lg-2">Play</div>
-        <div class="col-xs-9">
-        <a href="file:///<?php echo $movie->filePath ?>">Play</a>
-        </div>
-        </li>
-         */ ?>
 
         <?php if(!empty($movie->rating)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">

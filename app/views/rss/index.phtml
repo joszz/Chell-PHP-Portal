@@ -1,8 +1,16 @@
+<?php
+/*
+* The RSS view to show summary about the Server, such as Uptime/Updates/RAM usage etc.
+*
+* @package 		Views
+* @subpackage	RSS
+*/
+?>
 <item>
     <title>
 Uptime: 
 <?php echo (gmdate('d', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) - 1) . 'd ' . gmdate('H:i:s', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) ?>
-</title>
+	</title>
     <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
     <category>Stats</category>
 </item>

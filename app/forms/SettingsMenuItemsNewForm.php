@@ -5,8 +5,16 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
+/**
+ * The form responsible for adding new MenuItems.
+ * 
+ * @package Forms
+ */
 class SettingsMenuItemsNewForm extends Form
 {
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     public function initialize()
     {
         $this->_action = 'menuitem_add';

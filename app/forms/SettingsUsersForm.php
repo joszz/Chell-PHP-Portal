@@ -5,8 +5,18 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\PresenceOf;
 
+/**
+ * The form responsible for updating existing Users.
+ * 
+ * @package Forms
+ */
 class SettingsUsersForm
 {
+    /**
+     * Loops over all users and sets fields for each user
+	 * 
+	 * @param array $users	All users currently stored in the database.
+     */
     public function initialize($users)
     {
         foreach($users as $user)

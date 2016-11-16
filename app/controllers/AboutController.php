@@ -7,7 +7,7 @@
 class AboutController extends BaseController
 {
     /**
-     * Show version information, using CURL to retrieve commit count.
+     * Shows version information and has link to code documentation.
      */
     public function indexAction()
     {
@@ -23,6 +23,11 @@ class AboutController extends BaseController
         $this->view->lastUpdatedYUIDoc = date('d-m-Y H:i:s', filemtime(getcwd() . '/documentation/yuidoc/'));
     }
 
+	/**
+	* Retrieves the contributors from github for this project, using total commit count for versioning.
+	* 
+	* @return The content of the JSON decoded CURL call.
+	*/
     private function getGithubStats(){
         $curl = curl_init("https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors");
         curl_setopt_array ($curl, array(

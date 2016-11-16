@@ -5,8 +5,18 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
+/**
+ * The form responsible for updating existing MenuItems.
+ * 
+ * @package Forms
+ */
 class SettingsMenuItemsForm extends Form
 {
+    /**
+     * Loops over all menuitems and sets fields for each menuitem
+	 * 
+	 * @param array $menuitems	All menuitems currently stored in the database.
+     */
     public function initialize($menuitems)
     {
         $this->_action = 'menu';

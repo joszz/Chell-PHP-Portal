@@ -1,3 +1,11 @@
+<?php
+/*
+* The view used to display webtemp images. Called from the dashboard as an iFrame, uses the empty layout.
+*
+* @package 		Views
+* @subpackage	Devices
+*/
+?>
 <div class="panel panel-success">
     <ul class="list-group panel-success">
         <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) : ?>

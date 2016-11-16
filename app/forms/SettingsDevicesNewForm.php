@@ -7,8 +7,16 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 
+/**
+ * The form responsible for adding new devices.
+ * 
+ * @package Forms
+ */
 class SettingsDevicesNewForm extends Form
 {
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     public function initialize()
     {
         $this->_action = 'devices_add';

@@ -8,8 +8,18 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
 
+/**
+ * The form responsible for updating existing devices.
+ * 
+ * @package Forms
+ */
 class SettingsDevicesForm extends Form
 {
+    /**
+     * Initializes the form, calls addFields for each device in the database.
+	 * 
+	 * @param Array $devices	All the currently available devices.
+     */
     public function initialize($devices)
     {
         $this->_action = 'devices';
@@ -23,6 +33,9 @@ class SettingsDevicesForm extends Form
         }
     }
 
+    /**
+     * Add all fields to the form and set form specific attributes.
+     */
     private function addFIelds($device)
     {
         $name = new Text('devices[' . $device->id . '][name]');
@@ -79,6 +92,12 @@ class SettingsDevicesForm extends Form
         $this->add($id);
     }
 
+    /**
+     * Loop through all posted devices and check if they're valid. 
+     * 
+     * @param array $data   The form data posted.
+     * @return Array        An array of devices that are valid.
+     */
     public function IsValid($data = null, $entity = null)
     {
         $devices = array();

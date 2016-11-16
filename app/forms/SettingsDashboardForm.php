@@ -7,7 +7,7 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
 
 /**
- * The form responsible for the darshboard settings.
+ * The form responsible for the dashboard settings.
  * 
  * @package Forms
  */

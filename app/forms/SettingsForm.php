@@ -3,6 +3,9 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 
+/**
+ * @todo not in use?
+ */
 class SettingsForm extends Form
 {
     public function initialize($config)
