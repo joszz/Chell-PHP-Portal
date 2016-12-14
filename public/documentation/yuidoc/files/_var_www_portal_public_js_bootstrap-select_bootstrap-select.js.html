@@ -108,7 +108,7 @@
                             <div class="file">
                                 <pre class="prettyprint linenums">
                             /*!
-                             * Bootstrap-select v1.11.2 (http://silviomoreto.github.io/bootstrap-select)
+                             * Bootstrap-select v1.12.1 (http://silviomoreto.github.io/bootstrap-select)
                              *
                              * Copyright 2013-2016 bootstrap-select
                              * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
@@ -120,13 +120,13 @@
                                 define([&quot;jquery&quot;], function (a0) {
                                   return (factory(a0));
                                 });
-                              } else if (typeof exports === &#x27;object&#x27;) {
+                              } else if (typeof module === &#x27;object&#x27; &amp;&amp; module.exports) {
                                 // Node. Does not work with strict CommonJS, but
                                 // only CommonJS-like environments that support module.exports,
                                 // like Node.
                                 module.exports = factory(require(&quot;jquery&quot;));
                               } else {
-                                factory(jQuery);
+                                factory(root[&quot;jQuery&quot;]);
                               }
                             }(this, function (jQuery) {
                             
@@ -352,40 +352,54 @@
                                   {re: /[\xF1]/g, ch: &quot;n&quot;}
                                 ];
                                 $.each(rExps, function () {
-                                  text = text.replace(this.re, this.ch);
+                                  text = text ? text.replace(this.re, this.ch) : &#x27;&#x27;;
                                 });
                                 return text;
                               }
                             
                             
-                              function htmlEscape(html) {
-                                var escapeMap = {
-                                  &#x27;&amp;&#x27;: &#x27;&amp;amp;&#x27;,
-                                  &#x27;&lt;&#x27;: &#x27;&amp;lt;&#x27;,
-                                  &#x27;&gt;&#x27;: &#x27;&amp;gt;&#x27;,
-                                  &#x27;&quot;&#x27;: &#x27;&amp;quot;&#x27;,
-                                  &quot;&#x27;&quot;: &#x27;&amp;#x27;&#x27;,
-                                  &#x27;&#x60;&#x27;: &#x27;&amp;#x60;&#x27;
-                                };
-                                var source = &#x27;(?:&#x27; + Object.keys(escapeMap).join(&#x27;|&#x27;) + &#x27;)&#x27;,
-                                    testRegexp = new RegExp(source),
-                                    replaceRegexp = new RegExp(source, &#x27;g&#x27;),
-                                    string = html == null ? &#x27;&#x27; : &#x27;&#x27; + html;
-                                return testRegexp.test(string) ? string.replace(replaceRegexp, function (match) {
-                                  return escapeMap[match];
-                                }) : string;
-                              }
+                              // List of HTML entities for escaping.
+                              var escapeMap = {
+                                &#x27;&amp;&#x27;: &#x27;&amp;amp;&#x27;,
+                                &#x27;&lt;&#x27;: &#x27;&amp;lt;&#x27;,
+                                &#x27;&gt;&#x27;: &#x27;&amp;gt;&#x27;,
+                                &#x27;&quot;&#x27;: &#x27;&amp;quot;&#x27;,
+                                &quot;&#x27;&quot;: &#x27;&amp;#x27;&#x27;,
+                                &#x27;&#x60;&#x27;: &#x27;&amp;#x60;&#x27;
+                              };
+                              
+                              var unescapeMap = {
+                                &#x27;&amp;amp;&#x27;: &#x27;&amp;&#x27;,
+                                &#x27;&amp;lt;&#x27;: &#x27;&lt;&#x27;,
+                                &#x27;&amp;gt;&#x27;: &#x27;&gt;&#x27;,
+                                &#x27;&amp;quot;&#x27;: &#x27;&quot;&#x27;,
+                                &#x27;&amp;#x27;&#x27;: &quot;&#x27;&quot;,
+                                &#x27;&amp;#x60;&#x27;: &#x27;&#x60;&#x27;
+                              };
                             
-                              var Selectpicker = function (element, options, e) {
+                              // Functions for escaping and unescaping strings to/from HTML interpolation.
+                              var createEscaper = function(map) {
+                                var escaper = function(match) {
+                                  return map[match];
+                                };
+                                // Regexes for identifying a key that needs to be escaped.
+                                var source = &#x27;(?:&#x27; + Object.keys(map).join(&#x27;|&#x27;) + &#x27;)&#x27;;
+                                var testRegexp = RegExp(source);
+                                var replaceRegexp = RegExp(source, &#x27;g&#x27;);
+                                return function(string) {
+                                  string = string == null ? &#x27;&#x27; : &#x27;&#x27; + string;
+                                  return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+                                };
+                              };
+                            
+                              var htmlEscape = createEscaper(escapeMap);
+                              var htmlUnescape = createEscaper(unescapeMap);
+                            
+                              var Selectpicker = function (element, options) {
                                 // bootstrap-select has been initialized - revert valHooks.select.set back to its original function
                                 if (!valHooks.useDefault) {
                                   $.valHooks.select.set = valHooks._set;
                                   valHooks.useDefault = true;
-                                }
-                            
-                                if (e) {
-                                  e.stopPropagation();
-                                  e.preventDefault();
                                 }
                             
                                 this.$element = $(element);
@@ -399,6 +413,12 @@
                                 // data-attribute)
                                 if (this.options.title === null) {
                                   this.options.title = this.$element.attr(&#x27;title&#x27;);
+                                }
+                            
+                                // Format window padding
+                                var winPad = this.options.windowPadding;
+                                if (typeof winPad === &#x27;number&#x27;) {
+                                  this.options.windowPadding = [winPad, winPad, winPad, winPad];
                                 }
                             
                                 //Expose public methods
@@ -416,7 +436,7 @@
                                 this.init();
                               };
                             
-                              Selectpicker.VERSION = &#x27;1.11.2&#x27;;
+                              Selectpicker.VERSION = &#x27;1.12.1&#x27;;
                             
                               // part of this is duplicated in i18n/defaults-en_US.js. Make sure to update both.
                               Selectpicker.DEFAULTS = {
@@ -463,7 +483,8 @@
                                 maxOptions: false,
                                 mobile: false,
                                 selectOnTab: false,
-                                dropdownAlignRight: false
+                                dropdownAlignRight: false,
+                                windowPadding: 0
                               };
                             
                               Selectpicker.prototype = {
@@ -625,15 +646,9 @@
                                 },
                             
                                 reloadLi: function () {
-                                  //Remove all children.
-                                  this.destroyLi();
-                                  //Re build
+                                  // rebuild
                                   var li = this.createLi();
                                   this.$menuInner[0].innerHTML = li;
-                                },
-                            
-                                destroyLi: function () {
-                                  this.$menu.find(&#x27;li&#x27;).remove();
                                 },
                             
                                 createLi: function () {
@@ -669,8 +684,8 @@
                                   var generateA = function (text, classes, inline, tokens) {
                                     return &#x27;&lt;a tabindex=&quot;0&quot;&#x27; +
                                         (typeof classes !== &#x27;undefined&#x27; ? &#x27; class=&quot;&#x27; + classes + &#x27;&quot;&#x27; : &#x27;&#x27;) +
-                                        (typeof inline !== &#x27;undefined&#x27; ? &#x27; style=&quot;&#x27; + inline + &#x27;&quot;&#x27; : &#x27;&#x27;) +
-                                        (that.options.liveSearchNormalize ? &#x27; data-normalized-text=&quot;&#x27; + normalizeToBase(htmlEscape(text)) + &#x27;&quot;&#x27; : &#x27;&#x27;) +
+                                        (inline ? &#x27; style=&quot;&#x27; + inline + &#x27;&quot;&#x27; : &#x27;&#x27;) +
+                                        (that.options.liveSearchNormalize ? &#x27; data-normalized-text=&quot;&#x27; + normalizeToBase(htmlEscape($(text).html())) + &#x27;&quot;&#x27; : &#x27;&#x27;) +
                                         (typeof tokens !== &#x27;undefined&#x27; || tokens !== null ? &#x27; data-tokens=&quot;&#x27; + tokens + &#x27;&quot;&#x27; : &#x27;&#x27;) +
                                         &#x27; role=&quot;option&quot;&gt;&#x27; + text +
                                         &#x27;&lt;span class=&quot;&#x27; + that.options.iconBase + &#x27; &#x27; + that.options.tickIcon + &#x27; check-mark&quot;&gt;&lt;/span&gt;&#x27; +
@@ -686,7 +701,7 @@
                                       // Use native JS to prepend option (faster)
                                       var element = this.$element[0];
                                       titleOption.className = &#x27;bs-title-option&#x27;;
-                                      titleOption.appendChild(document.createTextNode(this.options.title));
+                                      titleOption.innerHTML = this.options.title;
                                       titleOption.value = &#x27;&#x27;;
                                       element.insertBefore(titleOption, element.firstChild);
                                       // Check if selected or data-selected attribute is already set on an option. If not, select the titleOption option.
@@ -755,7 +770,7 @@
                                             labelSubtext = typeof $parent.data(&#x27;subtext&#x27;) !== &#x27;undefined&#x27; ? &#x27;&lt;small class=&quot;text-muted&quot;&gt;&#x27; + $parent.data(&#x27;subtext&#x27;) + &#x27;&lt;/small&gt;&#x27; : &#x27;&#x27;,
                                             labelIcon = $parent.data(&#x27;icon&#x27;) ? &#x27;&lt;span class=&quot;&#x27; + that.options.iconBase + &#x27; &#x27; + $parent.data(&#x27;icon&#x27;) + &#x27;&quot;&gt;&lt;/span&gt; &#x27; : &#x27;&#x27;;
                             
-                                        label = labelIcon + &#x27;&lt;span class=&quot;text&quot;&gt;&#x27; + label + labelSubtext + &#x27;&lt;/span&gt;&#x27;;
+                                        label = labelIcon + &#x27;&lt;span class=&quot;text&quot;&gt;&#x27; + htmlEscape(label) + labelSubtext + &#x27;&lt;/span&gt;&#x27;;
                             
                                         if (index !== 0 &amp;&amp; _li.length &gt; 0) { // Is it NOT the first option of the select &amp;&amp; are there elements in the dropdown?
                                           liIndex++;
@@ -863,7 +878,7 @@
                                       if (typeof $this.attr(&#x27;title&#x27;) !== &#x27;undefined&#x27;) {
                                         return $this.attr(&#x27;title&#x27;);
                                       } else if ($this.data(&#x27;content&#x27;) &amp;&amp; that.options.showContent) {
-                                        return $this.data(&#x27;content&#x27;);
+                                        return $this.data(&#x27;content&#x27;).toString();
                                       } else {
                                         return icon + $this.html() + subtext;
                                       }
@@ -898,8 +913,8 @@
                                     title = typeof this.options.title !== &#x27;undefined&#x27; ? this.options.title : this.options.noneSelectedText;
                                   }
                             
-                                  //strip all html-tags and trim the result
-                                  this.$button.attr(&#x27;title&#x27;, $.trim(title.replace(/&lt;[^&gt;]*&gt;?/g, &#x27;&#x27;)));
+                                  //strip all HTML tags and trim the result, then unescape any escaped tags
+                                  this.$button.attr(&#x27;title&#x27;, htmlUnescape($.trim(title.replace(/&lt;[^&gt;]*&gt;?/g, &#x27;&#x27;))));
                                   this.$button.children(&#x27;.filter-option&#x27;).html(title);
                             
                                   this.$element.trigger(&#x27;rendered.bs.select&#x27;);
@@ -1053,10 +1068,13 @@
                                           containerPos = { top: 0, left: 0 };
                                         }
                             
+                                        var winPad = that.options.windowPadding;
                                         selectOffsetTop = pos.top - containerPos.top - $window.scrollTop();
-                                        selectOffsetBot = $window.height() - selectOffsetTop - selectHeight - containerPos.top;
+                                        selectOffsetBot = $window.height() - selectOffsetTop - selectHeight - containerPos.top - winPad[2];
                                         selectOffsetLeft = pos.left - containerPos.left - $window.scrollLeft();
-                                        selectOffsetRight = $window.width() - selectOffsetLeft - selectWidth - containerPos.left;
+                                        selectOffsetRight = $window.width() - selectOffsetLeft - selectWidth - containerPos.left - winPad[1];
+                                        selectOffsetTop -= winPad[0];
+                                        selectOffsetLeft -= winPad[3];
                                       };
                             
                                   getPos();
@@ -1281,11 +1299,11 @@
                             
                                   if (this.isDisabled()) {
                                     this.$newElement.addClass(&#x27;disabled&#x27;);
-                                    this.$button.addClass(&#x27;disabled&#x27;).attr(&#x27;tabindex&#x27;, -1);
+                                    this.$button.addClass(&#x27;disabled&#x27;).attr(&#x27;tabindex&#x27;, -1).attr(&#x27;aria-disabled&#x27;, true);
                                   } else {
                                     if (this.$button.hasClass(&#x27;disabled&#x27;)) {
                                       this.$newElement.removeClass(&#x27;disabled&#x27;);
-                                      this.$button.removeClass(&#x27;disabled&#x27;);
+                                      this.$button.removeClass(&#x27;disabled&#x27;).attr(&#x27;aria-disabled&#x27;, false);
                                     }
                             
                                     if (this.$button.attr(&#x27;tabindex&#x27;) == -1 &amp;&amp; !this.$element.data(&#x27;tabindex&#x27;)) {
@@ -1300,7 +1318,7 @@
                             
                                 togglePlaceholder: function () {
                                   var value = this.$element.val();
-                                  this.$button.toggleClass(&#x27;bs-placeholder&#x27;, value === null || value === &#x27;&#x27;);
+                                  this.$button.toggleClass(&#x27;bs-placeholder&#x27;, value === null || value === &#x27;&#x27; || (value.constructor === Array &amp;&amp; value.length === 0));
                                 },
                             
                                 tabIndex: function () {
@@ -1316,10 +1334,6 @@
                                 clickListener: function () {
                                   var that = this,
                                       $document = $(document);
-                            
-                                  this.$newElement.on(&#x27;touchstart.dropdown&#x27;, &#x27;.dropdown-menu&#x27;, function (e) {
-                                    e.stopPropagation();
-                                  });
                             
                                   $document.data(&#x27;spaceSelect&#x27;, false);
                             
@@ -1515,7 +1529,7 @@
                                   var that = this,
                                       $no_results = $(&#x27;&lt;li class=&quot;no-results&quot;&gt;&lt;/li&gt;&#x27;);
                             
-                                  this.$button.on(&#x27;click.dropdown.data-api touchstart.dropdown.data-api&#x27;, function () {
+                                  this.$button.on(&#x27;click.dropdown.data-api&#x27;, function () {
                                     that.$menuInner.find(&#x27;.active&#x27;).removeClass(&#x27;active&#x27;);
                                     if (!!that.$searchbox.val()) {
                                       that.$searchbox.val(&#x27;&#x27;);
@@ -1533,58 +1547,51 @@
                                   });
                             
                                   this.$searchbox.on(&#x27;input propertychange&#x27;, function () {
+                                    that.$lis.not(&#x27;.is-hidden&#x27;).removeClass(&#x27;hidden&#x27;);
+                                    that.$lis.filter(&#x27;.active&#x27;).removeClass(&#x27;active&#x27;);
+                                    $no_results.remove();
+                            
                                     if (that.$searchbox.val()) {
-                                      var $searchBase = that.$lis.not(&#x27;.is-hidden&#x27;).removeClass(&#x27;hidden&#x27;).children(&#x27;a&#x27;);
+                                      var $searchBase = that.$lis.not(&#x27;.is-hidden, .divider, .dropdown-header&#x27;),
+                                          $hideItems;
                                       if (that.options.liveSearchNormalize) {
-                                        $searchBase = $searchBase.not(&#x27;:a&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + normalizeToBase(that.$searchbox.val()) + &#x27;&quot;)&#x27;);
+                                        $hideItems = $searchBase.not(&#x27;:a&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + normalizeToBase(that.$searchbox.val()) + &#x27;&quot;)&#x27;);
                                       } else {
-                                        $searchBase = $searchBase.not(&#x27;:&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + that.$searchbox.val() + &#x27;&quot;)&#x27;);
+                                        $hideItems = $searchBase.not(&#x27;:&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + that.$searchbox.val() + &#x27;&quot;)&#x27;);
                                       }
-                                      $searchBase.parent().addClass(&#x27;hidden&#x27;);
                             
-                                      that.$lis.filter(&#x27;.dropdown-header&#x27;).each(function () {
-                                        var $this = $(this),
-                                            optgroup = $this.data(&#x27;optgroup&#x27;);
-                            
-                                        if (that.$lis.filter(&#x27;[data-optgroup=&#x27; + optgroup + &#x27;]&#x27;).not($this).not(&#x27;.hidden&#x27;).length === 0) {
-                                          $this.addClass(&#x27;hidden&#x27;);
-                                          that.$lis.filter(&#x27;[data-optgroup=&#x27; + optgroup + &#x27;div]&#x27;).addClass(&#x27;hidden&#x27;);
-                                        }
-                                      });
-                            
-                                      var $lisVisible = that.$lis.not(&#x27;.hidden&#x27;);
-                            
-                                      // hide divider if first or last visible, or if followed by another divider
-                                      $lisVisible.each(function (index) {
-                                        var $this = $(this);
-                            
-                                        if ($this.hasClass(&#x27;divider&#x27;) &amp;&amp; (
-                                          $this.index() === $lisVisible.first().index() ||
-                                          $this.index() === $lisVisible.last().index() ||
-                                          $lisVisible.eq(index + 1).hasClass(&#x27;divider&#x27;))) {
-                                          $this.addClass(&#x27;hidden&#x27;);
-                                        }
-                                      });
-                            
-                                      if (!that.$lis.not(&#x27;.hidden, .no-results&#x27;).length) {
-                                        if (!!$no_results.parent().length) {
-                                          $no_results.remove();
-                                        }
-                                        $no_results.html(that.options.noneResultsText.replace(&#x27;{0}&#x27;, &#x27;&quot;&#x27; + htmlEscape(that.$searchbox.val()) + &#x27;&quot;&#x27;)).show();
+                                      if ($hideItems.length === $searchBase.length) {
+                                        $no_results.html(that.options.noneResultsText.replace(&#x27;{0}&#x27;, &#x27;&quot;&#x27; + htmlEscape(that.$searchbox.val()) + &#x27;&quot;&#x27;));
                                         that.$menuInner.append($no_results);
-                                      } else if (!!$no_results.parent().length) {
-                                        $no_results.remove();
-                                      }
-                                    } else {
-                                      that.$lis.not(&#x27;.is-hidden&#x27;).removeClass(&#x27;hidden&#x27;);
-                                      if (!!$no_results.parent().length) {
-                                        $no_results.remove();
+                                        that.$lis.addClass(&#x27;hidden&#x27;);
+                                      } else {
+                                        $hideItems.addClass(&#x27;hidden&#x27;);
+                            
+                                        var $lisVisible = that.$lis.not(&#x27;.hidden&#x27;),
+                                            $foundDiv;
+                            
+                                        // hide divider if first or last visible, or if followed by another divider
+                                        $lisVisible.each(function (index) {
+                                          var $this = $(this);
+                            
+                                          if ($this.hasClass(&#x27;divider&#x27;)) {
+                                            if ($foundDiv === undefined) {
+                                              $this.addClass(&#x27;hidden&#x27;);
+                                            } else {
+                                              if ($foundDiv) $foundDiv.addClass(&#x27;hidden&#x27;);
+                                              $foundDiv = $this;
+                                            }
+                                          } else if ($this.hasClass(&#x27;dropdown-header&#x27;) &amp;&amp; $lisVisible.eq(index + 1).data(&#x27;optgroup&#x27;) !== $this.data(&#x27;optgroup&#x27;)) {
+                                            $this.addClass(&#x27;hidden&#x27;);
+                                          } else {
+                                            $foundDiv = null;
+                                          }
+                                        });
+                                        if ($foundDiv) $foundDiv.addClass(&#x27;hidden&#x27;);
+                            
+                                        $searchBase.not(&#x27;.hidden&#x27;).first().addClass(&#x27;active&#x27;);
                                       }
                                     }
-                            
-                                    that.$lis.filter(&#x27;.active&#x27;).removeClass(&#x27;active&#x27;);
-                                    if (that.$searchbox.val()) that.$lis.not(&#x27;.hidden, .divider, .dropdown-header&#x27;).eq(0).addClass(&#x27;active&#x27;).children(&#x27;a&#x27;).focus();
-                                    $(this).focus();
                                   });
                                 },
                             
@@ -1747,7 +1754,8 @@
                                     if (/(^9$|27)/.test(e.keyCode.toString(10)) &amp;&amp; isActive) {
                                       e.preventDefault();
                                       e.stopPropagation();
-                                      that.$button.click().focus();
+                                      that.$menuInner.click();
+                                      that.$button.focus();
                                     }
                                     // $items contains li elements when liveSearch is enabled
                                     $items = $(&#x27;[role=&quot;listbox&quot;] li&#x27; + selector, $parent);
@@ -1919,13 +1927,13 @@
                             
                               // SELECTPICKER PLUGIN DEFINITION
                               // ==============================
-                              function Plugin(option, event) {
+                              function Plugin(option) {
                                 // get the args of the outer function..
                                 var args = arguments;
                                 // The arguments of the function are explicitly re-defined from the argument list, because the shift causes them
                                 // to get lost/corrupted in android 2.3 and IE9 #715 #775
-                                var _option = option,
-                                    _event = event;
+                                var _option = option;
+                            
                                 [].shift.apply(args);
                             
                                 var value;
@@ -1938,7 +1946,7 @@
                                     if (!data) {
                                       var config = $.extend({}, Selectpicker.DEFAULTS, $.fn.selectpicker.defaults || {}, $this.data(), options);
                                       config.template = $.extend({}, Selectpicker.DEFAULTS.template, ($.fn.selectpicker.defaults ? $.fn.selectpicker.defaults.template : {}), $this.data().template, options.template);
-                                      $this.data(&#x27;selectpicker&#x27;, (data = new Selectpicker(this, config, _event)));
+                                      $this.data(&#x27;selectpicker&#x27;, (data = new Selectpicker(this, config)));
                                     } else if (options) {
                                       for (var i in options) {
                                         if (options.hasOwnProperty(i)) {

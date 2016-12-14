@@ -13,6 +13,10 @@ use Phalcon\Validation\Validator\PresenceOf;
  */
 class SettingsGeneralForm extends Form
 {
+    /**
+     * The configuration object containing all the info from config.ini.
+     * @var array
+     */
     private $_config;
 
     /**
@@ -68,8 +72,9 @@ class SettingsGeneralForm extends Form
     /**
      * Check if form is valid. If so set the values to the config array.
      * 
-     * @param array $data   The form data posted.
-     * @return bool         Whether or not form is valid.
+     * @param   array     $data     The form data posted.
+     * @param   object    $entity   The entity to validate.
+     * @return  bool                Whether or not form is valid.
      */
     public function IsValid($data = null, $entity = null)
     {

@@ -2,7 +2,7 @@
 
 /**
  * The model responsible for all actions related to PHPSysinfo.
- * 
+ *
  * @package Models
  */
 class PHPSysInfo extends BaseModel
@@ -11,7 +11,7 @@ class PHPSysInfo extends BaseModel
 
     /**
      * Main function retrieving PHPSysInfo JSON through cURL.
-     * 
+     *
      * @return array    All PHPSysInfo data in an associative array
      */
     public function getData($config)
@@ -20,9 +20,9 @@ class PHPSysInfo extends BaseModel
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $data = json_decode(curl_exec($curl));
         curl_close($curl);
-        
+
         sort($data->Plugins->Plugin_PSStatus->Process);
-        usort($data->FileSystem->Mount, 
+        usort($data->FileSystem->Mount,
             function($a, $b)
             {
                 return strcmp(current($a)->MountPoint, current($b)->MountPoint);
@@ -43,7 +43,9 @@ class PHPSysInfo extends BaseModel
         for($i = 0; $i < count($data->FileSystem->Mount); $i++)
         {
             $mount = current($data->FileSystem->Mount[$i]);
-            
+
+            $mount->Class = 'default';
+
             if($mount->Percent > 90) $mount->Class = 'danger';
             else if($mount->Percent > 70) $mount->Class = 'warning';
             else if($mount->Percent > 50) $mount->Class = 'info';
@@ -61,19 +63,11 @@ class PHPSysInfo extends BaseModel
         {
             $cpuCore = $data->Hardware->CPU->CpuCore[$i];
 
-            foreach($data->MBInfo->Temperature->Item as $temp) 
+            foreach($data->MBInfo->Temperature->Item as $temp)
             {
                 if($temp->{'@attributes'}->Label == 'Core ' . $i)
                 {
                     $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $data->Options->{'@attributes'}->tempFormat;
-                }
-            }
-
-            foreach($data->MBInfo->Voltage->Item as $voltage)
-            {
-                if($voltage->{'@attributes'}->Label == $config->dashboard->phpSysInfoVCore)
-                {
-                    $cpuCore->Voltage = $voltage->{'@attributes'}->Value;
                 }
             }
 

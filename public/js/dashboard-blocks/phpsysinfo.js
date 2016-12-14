@@ -37,7 +37,7 @@
                 */
                 initialize: function(){
                     settings.block.find(".glyphicon-refresh").off().on("click", function () {
-                        if (settings.block.hasClass("processes")) {
+                        if (settings.block.hasClass("processes")) { 
                             functions.psstatus();
                         }
                         else {
@@ -61,7 +61,6 @@
                         functions.setSysinfo(data);
                         functions.setCPUCores(data);
                         functions.setNetwork(data);
-                        functions.setFans(data);
                         functions.setRAM(data);
                         functions.setDisks(data);
                         functions.setUpdateNotifier(data);
@@ -105,21 +104,14 @@
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
                         var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
                         var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
-                        var coreVCore = 0;
                         var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + " GHz";
                         var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + " GHz";
                         var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + " GHz";
 
-                        $.each(data.MBInfo.Voltage.Item, function (index, value) {
-                            if (value["@attributes"].Label == settings.vCore) {
-                                coreVCore = value["@attributes"].Value;
-                            }
-                        });
 
                         var core = $("li.cpu-cores:eq(" + index + ")");
                         core.find(".cpu-core").html(coreLabel);
                         core.find(".core-temp").html(coreTemp);
-                        core.find(".core-vcore").html(coreVCore + " V");
                         core.find(".core-current").html(coreSpeedCurrent);
                         core.find(".core-min").html(coreSpeedMin);
                         core.find(".core-max").html(coreSpeedMax);
@@ -146,20 +138,6 @@
                         network.find(".lan-speed").html(info[2]);
                         network.find(".lan-rx").html(rx);
                         network.find(".lan-tx").html(tx);
-                    });
-                },
-
-                /**
-                * Finds ".fans .fan-stats > div" by index, than sets data for fans, retrieved from PHPSysInfo.
-                * 
-                * @method setFans
-                * @param data {Object} The data retrieved from PHPSysInfo.
-                */
-                setFans: function (data) {
-                    $.each(data.MBInfo.Fans.Item, function (index, value) {
-                        var fan = $("li.fans .fan-stats > div:eq(" + index + ")");
-                        fan.find(".name").html(value["@attributes"].Label);
-                        fan.find(".value").html(value["@attributes"].Value + " RPM");
                     });
                 },
 

@@ -9,19 +9,23 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 /**
  * The from responsible for handling login to the application.
- * 
+ *
  * @package Forms
  */
 class LoginForm extends Form
 {
+    /**
+     * Whether login failed on last POST.
+     * @var bool
+     */
     private $_loginFailed = false;
 
     /**
-     * Set the config array (config.ini contents) to private variable. 
+     * Set the config array (config.ini contents) to private variable.
      * Set bool if login already failed on last request.
-     * 
+     *
      * @param array $config         The config array.
-     * @param bool $loginFailed     Whether login failed on last POST.
+     * @param bool  $loginFailed    Whether login failed on last POST.
      */
     public function __construct($config, $loginFailed)
     {

@@ -8,16 +8,20 @@ use Phalcon\Validation\Validator\Regex;
 
 /**
  * The form responsible for the dashboard settings.
- * 
+ *
  * @package Forms
  */
 class SettingsDashboardForm extends Form
 {
+    /**
+     * The configuration object containing all the info from config.ini.
+     * @var array
+     */
     private $_config;
 
     /**
      * Set the config array (config.ini contents) to private variable.
-     * 
+     *
      * @param array $config     The config array.
      */
     public function __construct($config)
@@ -120,14 +124,15 @@ class SettingsDashboardForm extends Form
 
     /**
      * Check if form is valid. If so set the values to the config array.
-     * 
-     * @param array $data   The form data posted.
-     * @return bool         Whether or not form is valid.
+     *
+     * @param   array     $data     The form data posted.
+     * @param   object    $entity   The entity to validate.
+     * @return  bool                Whether or not form is valid.
      */
     public function IsValid($data = null, $entity = null)
     {
         $valid = parent::IsValid($data, $entity);
-        
+
         if($valid)
         {
             $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];

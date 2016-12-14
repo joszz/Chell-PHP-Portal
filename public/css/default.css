@@ -542,6 +542,9 @@ label {
   font-weight: bold;
   line-height: 29px; }
 
+.bs-container {
+  z-index: 9999; }
+
 @media only screen and (max-width: 767px) {
   label,
   .error {

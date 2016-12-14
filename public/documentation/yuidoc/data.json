@@ -79,6 +79,13 @@
             "fors": {},
             "namespaces": {}
         },
+        "/var/www/portal/public/js/jquery-3.1.0.js": {
+            "name": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "/var/www/portal/public/js/jquery-3.1.1.js": {
             "name": "/var/www/portal/public/js/jquery-3.1.1.js",
             "modules": {},
@@ -318,7 +325,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 538,
+            "line": 553,
             "params": [
                 {
                     "name": "content",
@@ -348,7 +355,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 553,
+            "line": 568,
             "params": [
                 {
                     "name": "text",
@@ -378,7 +385,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 720,
+            "line": 735,
             "params": [
                 {
                     "name": "updateLi",
@@ -390,7 +397,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 799,
+            "line": 814,
             "params": [
                 {
                     "name": "style",
@@ -407,7 +414,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1135,
+            "line": 1153,
             "params": [
                 {
                     "name": "index",
@@ -429,7 +436,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1149,
+            "line": 1167,
             "params": [
                 {
                     "name": "index",
@@ -451,7 +458,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1299,
+            "line": 1313,
             "class": "Devices"
         },
         {
@@ -812,7 +819,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 73,
+            "line": 72,
             "description": "Wrapper function to retrieve all data except psstatus plugin.",
             "itemtype": "method",
             "name": "getAll",
@@ -826,7 +833,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 98,
+            "line": 97,
             "description": "Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setCPUCores",
@@ -843,7 +850,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 129,
+            "line": 121,
             "description": "Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setNetwork",
@@ -860,24 +867,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 152,
-            "description": "Finds \".fans .fan-stats > div\" by index, than sets data for fans, retrieved from PHPSysInfo.",
-            "itemtype": "method",
-            "name": "setFans",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The data retrieved from PHPSysInfo.",
-                    "type": "Object"
-                }
-            ],
-            "class": "PHPSysInfo",
-            "module": "Dashboard",
-            "submodule": "DashboardBlocks"
-        },
-        {
-            "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 166,
+            "line": 144,
             "description": "Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.",
             "itemtype": "method",
             "name": "setRAM",
@@ -894,7 +884,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 186,
+            "line": 164,
             "description": "Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setDisks",
@@ -911,7 +901,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 220,
+            "line": 198,
             "description": "Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.",
             "itemtype": "method",
             "name": "setDisks",
@@ -928,7 +918,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 233,
+            "line": 211,
             "description": "Retrieves psstatus data from PHPSysInfo using AJAX.<br />\nThen clears all processess and dynamically create new nodes and appends them to the block.",
             "itemtype": "method",
             "name": "psstatus",
@@ -1122,6 +1112,271 @@
             "itemtype": "method",
             "name": "capitalize",
             "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 893,
+            "description": "Create key-value caches of limited size",
+            "return": {
+                "description": "Returns the Object data after storing it on itself with\n\tproperty name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)\n\tdeleting the oldest entry",
+                "type": "Function(string, object)"
+            },
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 913,
+            "description": "Mark a function for special use by Sizzle",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "The function to mark",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 922,
+            "description": "Support testing using an element",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "Passed the created element and returns a boolean result",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 943,
+            "description": "Adds the same handler for all of the specified attrs",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "Pipe-separated list of attributes",
+                    "type": "String"
+                },
+                {
+                    "name": "handler",
+                    "description": "The method that will be applied",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 957,
+            "description": "Checks document order of two siblings",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "b",
+                    "description": "",
+                    "type": "Element"
+                }
+            ],
+            "return": {
+                "description": "Returns less than 0 if a precedes b, greater than 0 if a follows b",
+                "type": "Number"
+            },
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 985,
+            "description": "Returns a function to use in pseudos for input types",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 996,
+            "description": "Returns a function to use in pseudos for buttons",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1007,
+            "description": "Returns a function to use in pseudos for :enabled/:disabled",
+            "params": [
+                {
+                    "name": "disabled",
+                    "description": "true for :disabled; false for :enabled",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1035,
+            "description": "Returns a function to use in pseudos for positionals",
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1057,
+            "description": "Checks a node for validity as a Sizzle context",
+            "params": [
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Element|Object="
+                }
+            ],
+            "return": {
+                "description": "The input node if acceptable, otherwise a falsy value",
+                "type": "Element|Object|Boolean"
+            },
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1069,
+            "description": "Detects XML nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "An element or a document",
+                    "type": "Element|Object"
+                }
+            ],
+            "return": {
+                "description": "True iff elem is a non-HTML XML node",
+                "type": "Boolean"
+            },
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1081,
+            "description": "Sets document-related variables once based on the current document",
+            "params": [
+                {
+                    "name": "doc",
+                    "description": "An element or document object to use to set the document",
+                    "type": "Element|Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Returns the current document",
+                "type": "Object"
+            },
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1535,
+            "description": "Document sorting and removing duplicates",
+            "params": [
+                {
+                    "name": "results",
+                    "description": "",
+                    "type": "ArrayLike"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 1568,
+            "description": "Utility function for retrieving the text value of an array of DOM nodes",
+            "params": [
+                {
+                    "name": "elem",
+                    "description": "",
+                    "type": "Array|Element"
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 2597,
+            "description": "A low-level selection function that works with Sizzle's compiled\n selector functions",
+            "params": [
+                {
+                    "name": "selector",
+                    "description": "A selector or a pre-compiled\n selector function built with Sizzle.compile",
+                    "type": "String|Function"
+                },
+                {
+                    "name": "context",
+                    "description": "",
+                    "type": "Element"
+                },
+                {
+                    "name": "results",
+                    "description": "",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "seed",
+                    "description": "A set of elements to match against",
+                    "type": "Array",
+                    "optional": true
+                }
+            ],
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 9643,
+            "description": "Load a url into a page",
+            "class": "Index",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/jquery-3.1.0.js",
+            "line": 9735,
+            "description": "Gets a window from an element",
+            "class": "Index",
             "module": "General"
         },
         {
@@ -1502,11 +1757,31 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:538"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:553"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:553"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:568"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:893"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:957"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1057"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1069"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1081"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -1534,31 +1809,99 @@
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:538"
-        },
-        {
-            "message": "Missing item type",
             "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:553"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:720"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:568"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:799"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:735"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1135"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:814"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1149"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1153"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1299"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1167"
+        },
+        {
+            "message": "Missing item type",
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1313"
+        },
+        {
+            "message": "Missing item type\nCreate key-value caches of limited size",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:893"
+        },
+        {
+            "message": "Missing item type\nMark a function for special use by Sizzle",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:913"
+        },
+        {
+            "message": "Missing item type\nSupport testing using an element",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:922"
+        },
+        {
+            "message": "Missing item type\nAdds the same handler for all of the specified attrs",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:943"
+        },
+        {
+            "message": "Missing item type\nChecks document order of two siblings",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:957"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for input types",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:985"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for buttons",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:996"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for :enabled/:disabled",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1007"
+        },
+        {
+            "message": "Missing item type\nReturns a function to use in pseudos for positionals",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1035"
+        },
+        {
+            "message": "Missing item type\nChecks a node for validity as a Sizzle context",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1057"
+        },
+        {
+            "message": "Missing item type\nDetects XML nodes",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1069"
+        },
+        {
+            "message": "Missing item type\nSets document-related variables once based on the current document",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1081"
+        },
+        {
+            "message": "Missing item type\nDocument sorting and removing duplicates",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1535"
+        },
+        {
+            "message": "Missing item type\nUtility function for retrieving the text value of an array of DOM nodes",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:1568"
+        },
+        {
+            "message": "Missing item type\nA low-level selection function that works with Sizzle's compiled\n selector functions",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:2597"
+        },
+        {
+            "message": "Missing item type\nLoad a url into a page",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:9643"
+        },
+        {
+            "message": "Missing item type\nGets a window from an element",
+            "line": " /var/www/portal/public/js/jquery-3.1.0.js:9735"
         },
         {
             "message": "Missing item type\nCreate key-value caches of limited size",

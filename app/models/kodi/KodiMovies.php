@@ -2,7 +2,7 @@
 
 /**
  * The model responsible for all Kodi movies.
- * 
+ *
  * @package Models\Kodi
  */
 class KodiMovies extends BaseModel
@@ -18,7 +18,7 @@ class KodiMovies extends BaseModel
 
     /**
      * Gets the latest movies added to the Kodi DB.
-     * 
+     *
      * @param int $limit    Amount of movies to retrieve, defaults to 10
      * @return array        The array of Kodi movies
      */
@@ -29,7 +29,7 @@ class KodiMovies extends BaseModel
 
     /**
      * Extracts thumbs and fanart from the XML stored in the DB.
-     * 
+     *
      * @param array $movies     The array of Kodi movies.
      * @return array            The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
@@ -39,17 +39,37 @@ class KodiMovies extends BaseModel
 
         foreach($movies as $movie)
         {
-            $movie->c08 = substr($movie->c08, $start = strpos($movie->c08, 'preview=') + 9, strpos($movie->c08, '"', $start) - $start);
-            
+            $start = strpos($movie->c08, 'preview=') + 9;
+
+            if($start !== false)
+            {
+                $end = strpos($movie->c08, '"', $start) - $start;
+
+                if($end !== false)
+                {
+                    $movie->c08 = substr($movie->c08, $start, $end);
+                }
+            }
+
             if(!empty($movie->c20))
             {
-                $movie->c20 = substr($movie->c20, $start = strpos($movie->c20, '>http://') + 1, strpos($movie->c20, '</', $start) - $start);
-                $movie->c20 = current(explode('?', $movie->c20));
+                $start = strpos($movie->c20, '>http://') + 1;
+
+                if($start !== false)
+                {
+                    $end = strpos($movie->c20, '</', $start) - $start;
+
+                    if($end !== false)
+                    {
+                        $movie->c20 = substr($movie->c20, $start, $end);
+                        $movie->c20 = current(explode('?', $movie->c20));
+                    }
+                }
             }
 
             $return[] = $movie;
         }
-        
+
         return $return;
     }
 }

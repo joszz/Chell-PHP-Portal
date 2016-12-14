@@ -146,7 +146,7 @@
                                             */
                                             initialize: function(){
                                                 settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
-                                                    if (settings.block.hasClass(&quot;processes&quot;)) {
+                                                    if (settings.block.hasClass(&quot;processes&quot;)) { 
                                                         functions.psstatus();
                                                     }
                                                     else {
@@ -170,7 +170,6 @@
                                                     functions.setSysinfo(data);
                                                     functions.setCPUCores(data);
                                                     functions.setNetwork(data);
-                                                    functions.setFans(data);
                                                     functions.setRAM(data);
                                                     functions.setDisks(data);
                                                     functions.setUpdateNotifier(data);
@@ -214,21 +213,14 @@
                                                 $.each(data.Hardware.CPU.CpuCore, function (index, value) {
                                                     var coreLabel = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Label;
                                                     var coreTemp = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Value + &quot; &amp;deg;&quot; + data.Options[&quot;@attributes&quot;].tempFormat.toUpperCase()
-                                                    var coreVCore = 0;
                                                     var coreSpeedCurrent = (Math.round(value[&quot;@attributes&quot;].CpuSpeed / 10) / 100) + &quot; GHz&quot;;
                                                     var coreSpeedMin = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMin / 10) / 100) + &quot; GHz&quot;;
                                                     var coreSpeedMax = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMax / 10) / 100) + &quot; GHz&quot;;
                             
-                                                    $.each(data.MBInfo.Voltage.Item, function (index, value) {
-                                                        if (value[&quot;@attributes&quot;].Label == settings.vCore) {
-                                                            coreVCore = value[&quot;@attributes&quot;].Value;
-                                                        }
-                                                    });
                             
                                                     var core = $(&quot;li.cpu-cores:eq(&quot; + index + &quot;)&quot;);
                                                     core.find(&quot;.cpu-core&quot;).html(coreLabel);
                                                     core.find(&quot;.core-temp&quot;).html(coreTemp);
-                                                    core.find(&quot;.core-vcore&quot;).html(coreVCore + &quot; V&quot;);
                                                     core.find(&quot;.core-current&quot;).html(coreSpeedCurrent);
                                                     core.find(&quot;.core-min&quot;).html(coreSpeedMin);
                                                     core.find(&quot;.core-max&quot;).html(coreSpeedMax);
@@ -255,20 +247,6 @@
                                                     network.find(&quot;.lan-speed&quot;).html(info[2]);
                                                     network.find(&quot;.lan-rx&quot;).html(rx);
                                                     network.find(&quot;.lan-tx&quot;).html(tx);
-                                                });
-                                            },
-                            
-                                            /**
-                                            * Finds &quot;.fans .fan-stats &gt; div&quot; by index, than sets data for fans, retrieved from PHPSysInfo.
-                                            * 
-                                            * @method setFans
-                                            * @param data {Object} The data retrieved from PHPSysInfo.
-                                            */
-                                            setFans: function (data) {
-                                                $.each(data.MBInfo.Fans.Item, function (index, value) {
-                                                    var fan = $(&quot;li.fans .fan-stats &gt; div:eq(&quot; + index + &quot;)&quot;);
-                                                    fan.find(&quot;.name&quot;).html(value[&quot;@attributes&quot;].Label);
-                                                    fan.find(&quot;.value&quot;).html(value[&quot;@attributes&quot;].Value + &quot; RPM&quot;);
                                                 });
                                             },
                             

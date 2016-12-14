@@ -1,11 +1,3 @@
-<?php
-/*
-* The about view showing the current version and links to documentation etc.
-*
-* @package 		Views
-* @subpackage	About
-*/
-?>
 <div class="vertical-center about">
     <div class="panel panel-success">
         <div class="panel-heading">
@@ -15,10 +7,10 @@
             Version <?php echo $versionMajor . '.' . $versionMinor . '.' . $versionCommit . ' ' . $versionStability ?>
             <hr />
 
-            <a href="<?php echo $this->config->application->baseUri ?>documentation/phpdoc/" target="_blank">PHP documentation</a>
+            <a href="<?php echo $this->config->application->baseUri ?>documentation/apigen/" target="_blank">PHP documentation</a>
             <br />
             <small>
-                Generated on: <?php echo $lastUpdatedPHPDoc ?>
+                Generated on: <?php echo $lastUpdatedApiGen ?>
             </small>
             <br />
             <br />
