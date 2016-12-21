@@ -54,4 +54,4 @@ SyncToy_*.dat
 *.v12.suo
 generate-doc.bat
 generate-doc.sh
-.vs/s
+.vs/

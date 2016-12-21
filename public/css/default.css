@@ -461,9 +461,6 @@ div.panel-body {
   width: 100%;
   float: left; }
 
-div.panel-heading .btn {
-  min-width: 41px; }
-
 div.panel-heading h4,
 div.panel-heading a,
 div.panel-heading button {
