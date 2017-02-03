@@ -13,12 +13,6 @@ class IndexController extends BaseController
      */
     public function indexAction()
     {
-        $this->view->menu = Menus::findFirst(array(
-            'conditions' => 'id = ?1',
-            'order'      => 'name',
-            'bind'       => array(1 => 1),
-        ));
-
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
         $this->view->movies = KodiMovies::getLatestMovies();
         $this->view->albums = KodiMusic::getLatestAlbums();

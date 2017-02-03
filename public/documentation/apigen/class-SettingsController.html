@@ -167,7 +167,7 @@ Phalcon\Mvc\Controller
 		
 		<b>Package:</b> <a href="package-Controllers.html">Controllers</a><br>
 
-			<b>Located at</b> <a href="source-class-SettingsController.html#5-208" title="Go to source code">controllers/SettingsController.php</a>
+			<b>Located at</b> <a href="source-class-SettingsController.html#5-168" title="Go to source code">controllers/SettingsController.php</a>
 		<br>
 	</div>
 
@@ -176,37 +176,6 @@ Phalcon\Mvc\Controller
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
-		<tr data-order="initialize" id="_initialize">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-SettingsController.html#12-34" title="Go to source code">initialize</a>( )</code>
-
-			<div class="description short">
-				<p>Set all forms.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Set all forms.</p>
-
-
-
-
-
-
-					<h4>Overrides</h4>
-					<div class="list"><code><a href="class-BaseController.html#_initialize">BaseController::initialize</a></code></div>
-
-			</div>
-			</div></td>
-		</tr>
 		<tr data-order="indexAction" id="_indexAction">
 
 			<td class="attributes"><code>
@@ -218,7 +187,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_indexAction">#</a>
-			<code><a href="source-class-SettingsController.html#36-42" title="Go to source code">indexAction</a>( )</code>
+			<code><a href="source-class-SettingsController.html#13-27" title="Go to source code">indexAction</a>( )</code>
 
 			<div class="description short">
 				<p>Shows the settings view</p>
@@ -247,7 +216,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_generalAction">#</a>
-			<code><a href="source-class-SettingsController.html#44-58" title="Go to source code">generalAction</a>( )</code>
+			<code><a href="source-class-SettingsController.html#29-45" title="Go to source code">generalAction</a>( )</code>
 
 			<div class="description short">
 				<p>Handles SettingsGeneralForm post and writes back to config.ini if valid.
@@ -278,7 +247,7 @@ Forwards to index.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_dashboardAction">#</a>
-			<code><a href="source-class-SettingsController.html#60-75" title="Go to source code">dashboardAction</a>( )</code>
+			<code><a href="source-class-SettingsController.html#47-63" title="Go to source code">dashboardAction</a>( )</code>
 
 			<div class="description short">
 				<p>Handles SettingsDashboardForm post and writes back to config.ini if valid.
@@ -298,7 +267,7 @@ Forwards to index.</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="devicesAction" id="_devicesAction">
+		<tr data-order="deviceAction" id="_deviceAction">
 
 			<td class="attributes"><code>
 				 public 
@@ -308,17 +277,15 @@ Forwards to index.</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_devicesAction">#</a>
-			<code><a href="source-class-SettingsController.html#77-101" title="Go to source code">devicesAction</a>( )</code>
+			<a class="anchor" href="#_deviceAction">#</a>
+			<code><a href="source-class-SettingsController.html#65-98" title="Go to source code">deviceAction</a>( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>Handles SettingsDevicesForm post and writes to DB if valid.
-Forwards to index.</p>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Handles SettingsDevicesForm post and writes to DB if valid.
-Forwards to index.</p>
+				
 
 
 
@@ -329,7 +296,7 @@ Forwards to index.</p>
 			</div>
 			</div></td>
 		</tr>
-		<tr data-order="devices_addAction" id="_devices_addAction">
+		<tr data-order="device_deleteAction" id="_device_deleteAction">
 
 			<td class="attributes"><code>
 				 public 
@@ -339,48 +306,17 @@ Forwards to index.</p>
 			</td>
 
 			<td class="name"><div>
-			<a class="anchor" href="#_devices_addAction">#</a>
-			<code><a href="source-class-SettingsController.html#103-120" title="Go to source code">devices_addAction</a>( )</code>
+			<a class="anchor" href="#_device_deleteAction">#</a>
+			<code><a href="source-class-SettingsController.html#100-115" title="Go to source code">device_deleteAction</a>( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>Handles SettingsDevicesNewForm post and writes new device to DB if valid.
-Redirects back to index.</p>
+				<p>Deletes a device if $id is set.
+Redirects back to index#devices.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Handles SettingsDevicesNewForm post and writes new device to DB if valid.
-Redirects back to index.</p>
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="devices_deleteAction" id="_devices_deleteAction">
-
-			<td class="attributes"><code>
-				 public 
-				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_devices_deleteAction">#</a>
-			<code><a href="source-class-SettingsController.html#122-137" title="Go to source code">devices_deleteAction</a>( )</code>
-
-			<div class="description short">
-				<p>Deletes a device if $_GET['id'] is present.
-Redirects back to index.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Deletes a device if $_GET['id'] is present.
-Redirects back to index.</p>
+				<p>Deletes a device if $id is set.
+Redirects back to index#devices.</p>
 
 
 
@@ -402,47 +338,14 @@ Redirects back to index.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_menuAction">#</a>
-			<code><a href="source-class-SettingsController.html#139-171" title="Go to source code">menuAction</a>( )</code>
+			<code><a href="source-class-SettingsController.html#117-150" title="Go to source code">menuAction</a>( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>Handles SettingsMenuForm post and writes to DB if valid.
-Forwards to index.</p>
+				
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Handles SettingsMenuForm post and writes to DB if valid.
-Forwards to index.</p>
-
-
-
-
-
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="menuitem_addAction" id="_menuitem_addAction">
-
-			<td class="attributes"><code>
-				 public 
 				
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_menuitem_addAction">#</a>
-			<code><a href="source-class-SettingsController.html#173-190" title="Go to source code">menuitem_addAction</a>( )</code>
-
-			<div class="description short">
-				<p>Handles SettingsMenuNewForm post and writes new device to DB if valid.
-Redirects back to index.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Handles SettingsMenuNewForm post and writes new device to DB if valid.
-Redirects back to index.</p>
 
 
 
@@ -464,16 +367,16 @@ Redirects back to index.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_menuitem_deleteAction">#</a>
-			<code><a href="source-class-SettingsController.html#192-207" title="Go to source code">menuitem_deleteAction</a>( )</code>
+			<code><a href="source-class-SettingsController.html#152-167" title="Go to source code">menuitem_deleteAction</a>( <span> <var>$id</var></span> )</code>
 
 			<div class="description short">
-				<p>Deletes a menuitem if $_GET['id'] is present.
-Redirects back to index.</p>
+				<p>Deletes a menuitem if $id is present.
+Redirects back to index#menu.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Deletes a menuitem if $_GET['id'] is present.
-Redirects back to index.</p>
+				<p>Deletes a menuitem if $id is present.
+Redirects back to index#menu.</p>
 
 
 
@@ -490,6 +393,7 @@ Redirects back to index.</p>
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-BaseController.html#methods">BaseController</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-BaseController.html#_initialize">initialize()</a></code>, 
 				<code><a href="class-BaseController.html#_writeIniFile">writeIniFile()</a></code>
 			</p>
 		</div>

@@ -18,6 +18,12 @@ class BaseController extends Controller
     public function initialize()
     {
         $this->config = $this->di->get('config');
+
+        $this->view->menu = Menus::findFirst(array(
+            'conditions' => 'id = ?1',
+            'order'      => 'name',
+            'bind'       => array(1 => 1),
+        ));
     }
 
     /**

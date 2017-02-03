@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class SettingsDevicesForm | Chell PHP Portal documentation</title>
+	<title>Class SettingsMenuItemForm | Chell PHP Portal documentation</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -93,11 +93,9 @@
 			<ul>
 				<li><a href="class-LoginForm.html">LoginForm</a></li>
 				<li><a href="class-SettingsDashboardForm.html">SettingsDashboardForm</a></li>
-				<li class="active"><a href="class-SettingsDevicesForm.html">SettingsDevicesForm</a></li>
-				<li><a href="class-SettingsDevicesNewForm.html">SettingsDevicesNewForm</a></li>
+				<li><a href="class-SettingsDeviceForm.html">SettingsDeviceForm</a></li>
 				<li><a href="class-SettingsGeneralForm.html">SettingsGeneralForm</a></li>
-				<li><a href="class-SettingsMenuItemsForm.html">SettingsMenuItemsForm</a></li>
-				<li><a href="class-SettingsMenuItemsNewForm.html">SettingsMenuItemsNewForm</a></li>
+				<li class="active"><a href="class-SettingsMenuItemForm.html">SettingsMenuItemForm</a></li>
 				<li><a href="class-SettingsUsersForm.html">SettingsUsersForm</a></li>
 			</ul>
 
@@ -114,11 +112,11 @@
 <div id="right">
 	<div id="rightInner">
 <div id="content" class="class">
-	<h1>Class SettingsDevicesForm</h1>
+	<h1>Class SettingsMenuItemForm</h1>
 
 
 	<div class="description">
-	<p>The form responsible for updating existing devices.</p>
+	<p>The form responsible for adding new MenuItems.</p>
 	</div>
 
 	<dl class="tree well">
@@ -145,7 +143,7 @@ Phalcon\Forms\Form
 		</dd>
 		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
-<b><span>SettingsDevicesForm</span></b>			
+<b><span>SettingsMenuItemForm</span></b>			
 			
 			
 		</dd>
@@ -164,7 +162,7 @@ Phalcon\Forms\Form
 		
 		<b>Package:</b> <a href="package-Forms.html">Forms</a><br>
 
-			<b>Located at</b> <a href="source-class-SettingsDevicesForm.html#12-125" title="Go to source code">forms/SettingsDevicesForm.php</a>
+			<b>Located at</b> <a href="source-class-SettingsMenuItemForm.html#9-63" title="Go to source code">forms/SettingsMenuItemForm.php</a>
 		<br>
 	</div>
 
@@ -184,62 +182,17 @@ Phalcon\Forms\Form
 
 			<td class="name"><div>
 			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-SettingsDevicesForm.html#19-35" title="Go to source code">initialize</a>( <span>Array <var>$devices</var></span> )</code>
+			<code><a href="source-class-SettingsMenuItemForm.html#16-62" title="Go to source code">initialize</a>( )</code>
 
 			<div class="description short">
-				<p>Initializes the form, calls addFields for each device in the database.</p>
+				<p>Add all fields to the form and set form specific attributes.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				<p>Initializes the form, calls addFields for each device in the database.</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$devices</var></dt>
-						<dd>All the currently available devices.</dd>
-					</dl></div>
+				<p>Add all fields to the form and set form specific attributes.</p>
 
 
 
-
-
-			</div>
-			</div></td>
-		</tr>
-		<tr data-order="IsValid" id="_IsValid">
-
-			<td class="attributes"><code>
-				 public 
-				boolean
-				
-				</code>
-			</td>
-
-			<td class="name"><div>
-			<a class="anchor" href="#_IsValid">#</a>
-			<code><a href="source-class-SettingsDevicesForm.html#98-124" title="Go to source code">IsValid</a>( <span>array <var>$data</var> = <span class="php-keyword1">null</span></span>, <span>object <var>$entity</var> = <span class="php-keyword1">null</span></span> )</code>
-
-			<div class="description short">
-				<p>Loop through all posted devices and check if they're valid.</p>
-			</div>
-
-			<div class="description detailed hidden">
-				<p>Loop through all posted devices and check if they're valid.</p>
-
-
-					<h4>Parameters</h4>
-					<div class="list"><dl>
-						<dt><var>$data</var></dt>
-						<dd>The form data posted.</dd>
-						<dt><var>$entity</var></dt>
-						<dd>The entity to validate.</dd>
-					</dl></div>
-
-					<h4>Returns</h4>
-					<div class="list">
-						boolean<br>Whether or not form is valid.
-					</div>
 
 
 

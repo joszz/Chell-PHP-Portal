@@ -967,7 +967,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
-            "line": 144,
+            "line": 145,
             "description": "Given a torrentId, will toggle the state of the torrent to paused / started. Depending on the current state of the torrent.",
             "itemtype": "method",
             "name": "startStopTorrents",
@@ -987,7 +987,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/transmission.js",
-            "line": 172,
+            "line": 173,
             "description": "Given a torrentId, will remove a torrent and local data.",
             "itemtype": "method",
             "name": "removeTorrents",

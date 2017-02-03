@@ -33,21 +33,13 @@ label {
 
 .table > tbody > tr > td {
     border: 0;
+    line-height: 33px;
 }
 
 .table > thead > tr > th {
     line-height: 34px;
     font-weight: 300;
     font-size: 24px;
-}
-
-.table > tbody > tr > td .form-group {
-    margin: 0;
-}
-
-.table input,
-.bootstrap-select > .dropdown-toggle {
-    min-width: 100px;
 }
 
 span.input-group-addon label {

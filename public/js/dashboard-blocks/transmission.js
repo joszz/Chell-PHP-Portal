@@ -86,6 +86,7 @@
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html('No torrents found');
+                            torrent.find('.torrentname').removeClass("col-xs-4");
                             torrent.find('.torrentprogress, .torrentactions').remove();
                             torrent.appendTo($('.transmission ul'));
                         }

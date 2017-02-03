@@ -4,35 +4,36 @@ use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Validation\Validator\PresenceOf;
 
 /**
  * The form responsible for adding new MenuItems.
- * 
+ *
  * @package Forms
  */
-class SettingsMenuItemsNewForm extends Form
+class SettingsMenuItemForm extends Form
 {
     /**
      * Add all fields to the form and set form specific attributes.
      */
     public function initialize()
     {
-        $this->_action = 'menuitem_add';
-
         $name = new Text('name');
-        $name->setFilters(array('striptags', 'string'));
-        $name->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'));
-        $name->setLabel('Name');
+        $name->setFilters(array('striptags', 'string'))
+             ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'))
+             ->setLabel('Name')
+             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $url = new Text('url');
-        $url->setFilters(array('striptags', 'string'));
-        $url->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
-        $url->setLabel('URL');
+        $url->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+            ->setLabel('URL')
+            ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $icon = new Text('icon');
-        $icon->setFilters(array('striptags', 'string'));
-        $icon->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
-        $icon->setLabel('Icon');
+        $icon->setFilters(array('striptags', 'string'))
+             ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+             ->setLabel('Icon');
 
         $device = new Select(
             'device_id' ,
@@ -49,10 +50,14 @@ class SettingsMenuItemsNewForm extends Form
         $menuId = new Hidden('menu_id');
         $menuId->setDefault(1);
 
+        $parentId = new Hidden('parent_id');
+        $parentId->setDefault(0);
+
         $this->add($name);
         $this->add($url);
         $this->add($icon);
         $this->add($device);
         $this->add($menuId);
+        $this->add($parentId);
     }
 }

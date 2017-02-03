@@ -195,6 +195,7 @@
                                                         var torrent = settings.block.find(&#x27;li.hidden&#x27;).clone();
                                                         torrent.removeClass(&#x27;hidden&#x27;);
                                                         torrent.find(&#x27;.torrentname&#x27;).html(&#x27;No torrents found&#x27;);
+                                                        torrent.find(&#x27;.torrentname&#x27;).removeClass(&quot;col-xs-4&quot;);
                                                         torrent.find(&#x27;.torrentprogress, .torrentactions&#x27;).remove();
                                                         torrent.appendTo($(&#x27;.transmission ul&#x27;));
                                                     }

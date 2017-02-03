@@ -234,7 +234,8 @@ nav.navbar-fixed-top {
 
 div#navbar {
   overflow: hidden;
-  padding: 0; }
+  padding: 0;
+  max-height: 420px; }
 
 .navbar-nav {
   margin: 0; }
@@ -548,19 +549,13 @@ label {
     line-height: initial;
     margin-bottom: 0; } }
 .table > tbody > tr > td {
-  border: 0; }
+  border: 0;
+  line-height: 33px; }
 
 .table > thead > tr > th {
   line-height: 34px;
   font-weight: 300;
   font-size: 24px; }
-
-.table > tbody > tr > td .form-group {
-  margin: 0; }
-
-.table input,
-.bootstrap-select > .dropdown-toggle {
-  min-width: 100px; }
 
 span.input-group-addon label {
   margin: 0; }
