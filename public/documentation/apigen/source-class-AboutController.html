@@ -158,7 +158,7 @@
 </span><span id="26" class="l"><a href="#26">26 </a>    <span class="php-comment">/**
 </span></span><span id="27" class="l"><a href="#27">27 </a><span class="php-comment">    * Retrieves the contributors from github for this project, using total commit count for versioning.
 </span></span><span id="28" class="l"><a href="#28">28 </a><span class="php-comment">    * 
-</span></span><span id="29" class="l"><a href="#29">29 </a><span class="php-comment">    * @return The content of the JSON decoded CURL call.
+</span></span><span id="29" class="l"><a href="#29">29 </a><span class="php-comment">    * @return mixed     The content of the JSON decoded CURL call.
 </span></span><span id="30" class="l"><a href="#30">30 </a><span class="php-comment">    */</span>
 </span><span id="31" class="l"><a href="#31">31 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> getGithubStats(){
 </span><span id="32" class="l"><a href="#32">32 </a>        <span class="php-var">$curl</span> = <span class="php-keyword2">curl_init</span>(<span class="php-quote">&quot;https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors&quot;</span>);

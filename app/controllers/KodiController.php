@@ -17,7 +17,7 @@ class KodiController extends BaseController
     /**
      * Show movie details.
      * 
-     * @param mixed $id     The ID of the movie.
+     * @param int $id     The ID of the movie.
      */
     public function movieAction($id)
     {
@@ -38,7 +38,7 @@ class KodiController extends BaseController
     /**
      * Show episode details.
      * 
-     * @param mixed $id     The ID of the episode.
+     * @param int $id     The ID of the episode.
      */
     public function episodeAction($id)
     {
@@ -54,7 +54,7 @@ class KodiController extends BaseController
     /**
      * Show ablum details.
      * 
-     * @param mixed $id     The ID of the album.
+     * @param int $id     The ID of the album.
      */
     public function albumAction($id)
     {

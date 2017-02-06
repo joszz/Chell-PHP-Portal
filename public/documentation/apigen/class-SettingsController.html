@@ -167,7 +167,7 @@ Phalcon\Mvc\Controller
 		
 		<b>Package:</b> <a href="package-Controllers.html">Controllers</a><br>
 
-			<b>Located at</b> <a href="source-class-SettingsController.html#5-168" title="Go to source code">controllers/SettingsController.php</a>
+			<b>Located at</b> <a href="source-class-SettingsController.html#5-183" title="Go to source code">controllers/SettingsController.php</a>
 		<br>
 	</div>
 
@@ -271,24 +271,33 @@ Forwards to index.</p>
 
 			<td class="attributes"><code>
 				 public 
-				
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_deviceAction">#</a>
-			<code><a href="source-class-SettingsController.html#65-98" title="Go to source code">deviceAction</a>( <span> <var>$id</var></span> )</code>
+			<code><a href="source-class-SettingsController.html#65-104" title="Go to source code">deviceAction</a>( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd>Optional, the device to edit.</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						mixed<br>Will forward to settings/index#devices when succesfull, or will show the form again when failed.
+					</div>
 
 
 
@@ -307,7 +316,7 @@ Forwards to index.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_device_deleteAction">#</a>
-			<code><a href="source-class-SettingsController.html#100-115" title="Go to source code">device_deleteAction</a>( <span> <var>$id</var></span> )</code>
+			<code><a href="source-class-SettingsController.html#106-123" title="Go to source code">device_deleteAction</a>( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
 				<p>Deletes a device if $id is set.
@@ -319,6 +328,11 @@ Redirects back to index#devices.</p>
 Redirects back to index#devices.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd>The ID of the device you want to delete</dd>
+					</dl></div>
 
 
 
@@ -331,24 +345,33 @@ Redirects back to index#devices.</p>
 
 			<td class="attributes"><code>
 				 public 
-				
+				mixed
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_menuAction">#</a>
-			<code><a href="source-class-SettingsController.html#117-150" title="Go to source code">menuAction</a>( <span> <var>$id</var></span> )</code>
+			<code><a href="source-class-SettingsController.html#125-163" title="Go to source code">menuAction</a>( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd>Optional, the menuitem to edit.</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						mixed<br>Will forward to settings/index#menu when succesfull, or will show the form again when failed.
+					</div>
 
 
 
@@ -367,7 +390,7 @@ Redirects back to index#devices.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_menuitem_deleteAction">#</a>
-			<code><a href="source-class-SettingsController.html#152-167" title="Go to source code">menuitem_deleteAction</a>( <span> <var>$id</var></span> )</code>
+			<code><a href="source-class-SettingsController.html#165-182" title="Go to source code">menuitem_deleteAction</a>( <span>integer <var>$id</var></span> )</code>
 
 			<div class="description short">
 				<p>Deletes a menuitem if $id is present.
@@ -379,6 +402,11 @@ Redirects back to index#menu.</p>
 Redirects back to index#menu.</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$id</var></dt>
+						<dd>The ID od the menuitem to delete</dd>
+					</dl></div>
 
 
 

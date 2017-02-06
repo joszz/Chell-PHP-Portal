@@ -6,7 +6,6 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Validation\Validator\PresenceOf;
 
-
 /**
  * The from responsible for handling login to the application.
  *

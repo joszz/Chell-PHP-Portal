@@ -43,7 +43,7 @@ class DevicesController extends BaseController
     /**
      * This action will return the power state of each device specified in the database.
      * 
-     * @return  A JSON encoded object with the state of each device
+     * @return string A JSON encoded object with the state of each device
      */
     public function stateAction()
     {
@@ -61,7 +61,7 @@ class DevicesController extends BaseController
     /**
      * Shows the webtemp image exports for all devices configured.
      * 
-     * @return  The webtemp view
+     * @return View The webtemp view
      */
     public function webtempAction()
     {

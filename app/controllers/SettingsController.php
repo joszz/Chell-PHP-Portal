@@ -62,6 +62,12 @@ class SettingsController extends BaseController
         return $this->dispatcher->forward(array('action' => 'index'));
     }
 
+    /**
+     * Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.
+     *
+     * @param int $id   Optional, the device to edit.
+     * @return mixed    Will forward to settings/index#devices when succesfull, or will show the form again when failed.
+     */
     public function deviceAction($id)
     {
         $device = new Devices();
@@ -100,6 +106,8 @@ class SettingsController extends BaseController
     /**
      * Deletes a device if $id is set.
      * Redirects back to index#devices.
+     *
+     * @param int $id   The ID of the device you want to delete
      */
     public function device_deleteAction($id)
     {
@@ -114,6 +122,11 @@ class SettingsController extends BaseController
         return (new Response())->redirect('settings/index#devices');
     }
 
+    /**
+     * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
+     * @param int $id   Optional, the menuitem to edit.
+     * @return mixed    Will forward to settings/index#menu when succesfull, or will show the form again when failed.
+     */
     public function menuAction($id)
     {
         $item = new MenuItems();
@@ -152,6 +165,8 @@ class SettingsController extends BaseController
     /**
      * Deletes a menuitem if $id is present.
      * Redirects back to index#menu.
+     *
+     * @param int $id   The ID od the menuitem to delete
      */
     public function menuitem_deleteAction($id)
     {

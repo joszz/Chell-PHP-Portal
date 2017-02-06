@@ -414,7 +414,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1153,
+            "line": 1152,
             "params": [
                 {
                     "name": "index",
@@ -436,7 +436,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1167,
+            "line": 1166,
             "params": [
                 {
                     "name": "index",
@@ -458,7 +458,7 @@
         },
         {
             "file": "/var/www/portal/public/js/bootstrap-select/bootstrap-select.js",
-            "line": 1313,
+            "line": 1312,
             "class": "Devices"
         },
         {
@@ -1825,15 +1825,15 @@
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1153"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1152"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1167"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1166"
         },
         {
             "message": "Missing item type",
-            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1313"
+            "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1312"
         },
         {
             "message": "Missing item type\nCreate key-value caches of limited size",

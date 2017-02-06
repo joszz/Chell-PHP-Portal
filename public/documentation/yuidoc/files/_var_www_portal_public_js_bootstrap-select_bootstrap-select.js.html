@@ -108,9 +108,9 @@
                             <div class="file">
                                 <pre class="prettyprint linenums">
                             /*!
-                             * Bootstrap-select v1.12.1 (http://silviomoreto.github.io/bootstrap-select)
+                             * Bootstrap-select v1.12.2 (http://silviomoreto.github.io/bootstrap-select)
                              *
-                             * Copyright 2013-2016 bootstrap-select
+                             * Copyright 2013-2017 bootstrap-select
                              * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
                              */
                             
@@ -436,7 +436,7 @@
                                 this.init();
                               };
                             
-                              Selectpicker.VERSION = &#x27;1.12.1&#x27;;
+                              Selectpicker.VERSION = &#x27;1.12.2&#x27;;
                             
                               // part of this is duplicated in i18n/defaults-en_US.js. Make sure to update both.
                               Selectpicker.DEFAULTS = {
@@ -969,8 +969,7 @@
                                   menuInner.appendChild(divider);
                                   if (header) menu.appendChild(header);
                                   if (search) {
-                                    // create a span instead of input as creating an input element is slower
-                                    var input = document.createElement(&#x27;span&#x27;);
+                                    var input = document.createElement(&#x27;input&#x27;);
                                     search.className = &#x27;bs-searchbox&#x27;;
                                     input.className = &#x27;form-control&#x27;;
                                     search.appendChild(input);
@@ -1555,9 +1554,9 @@
                                       var $searchBase = that.$lis.not(&#x27;.is-hidden, .divider, .dropdown-header&#x27;),
                                           $hideItems;
                                       if (that.options.liveSearchNormalize) {
-                                        $hideItems = $searchBase.not(&#x27;:a&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + normalizeToBase(that.$searchbox.val()) + &#x27;&quot;)&#x27;);
+                                        $hideItems = $searchBase.find(&#x27;a&#x27;).not(&#x27;:a&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + normalizeToBase(that.$searchbox.val()) + &#x27;&quot;)&#x27;);
                                       } else {
-                                        $hideItems = $searchBase.not(&#x27;:&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + that.$searchbox.val() + &#x27;&quot;)&#x27;);
+                                        $hideItems = $searchBase.find(&#x27;a&#x27;).not(&#x27;:&#x27; + that._searchStyle() + &#x27;(&quot;&#x27; + that.$searchbox.val() + &#x27;&quot;)&#x27;);
                                       }
                             
                                       if ($hideItems.length === $searchBase.length) {
@@ -1565,7 +1564,7 @@
                                         that.$menuInner.append($no_results);
                                         that.$lis.addClass(&#x27;hidden&#x27;);
                                       } else {
-                                        $hideItems.addClass(&#x27;hidden&#x27;);
+                                        $hideItems.parent().addClass(&#x27;hidden&#x27;);
                             
                                         var $lisVisible = that.$lis.not(&#x27;.hidden&#x27;),
                                             $foundDiv;
