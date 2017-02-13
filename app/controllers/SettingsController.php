@@ -34,14 +34,14 @@ class SettingsController extends BaseController
     {
         $this->view->activeTab = 'General';
         $data = $this->request->getPost();
-        $form = new SettingsGeneralForm();
+        $form = new SettingsGeneralForm($this->config);
 
         if($form->isValid($data))
         {
             $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
         }
 
-        return $this->dispatcher->forward(array('action' => 'index'));
+        return (new Response())->redirect('settings/index#general');
     }
 
     /**
@@ -59,7 +59,7 @@ class SettingsController extends BaseController
             $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
         }
 
-        return $this->dispatcher->forward(array('action' => 'index'));
+        return (new Response())->redirect('settings/index#dashboard');
     }
 
     /**

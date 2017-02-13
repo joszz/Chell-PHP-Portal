@@ -8,7 +8,7 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 /**
  * The form responsible for the general settings.
- * 
+ *
  * @package Forms
  */
 class SettingsGeneralForm extends Form
@@ -21,7 +21,7 @@ class SettingsGeneralForm extends Form
 
     /**
      * Set the config array (config.ini contents) to private variable.
-     * 
+     *
      * @param array $config     The config array.
      */
     public function __construct($config)
@@ -71,7 +71,7 @@ class SettingsGeneralForm extends Form
 
     /**
      * Check if form is valid. If so set the values to the config array.
-     * 
+     *
      * @param   array     $data     The form data posted.
      * @param   object    $entity   The entity to validate.
      * @return  bool                Whether or not form is valid.
@@ -79,13 +79,13 @@ class SettingsGeneralForm extends Form
     public function IsValid($data = null, $entity = null)
     {
         $valid = parent::IsValid($data, $entity);
-        
+
         if($valid)
         {
             $this->_config->application->title = $data['title'];
             $this->_config->application->phalconCryptKey = $data['cryptkey'];
             $this->_config->application->background = $data['bgcolor'];
-            $this->_config->application->debug = $data['debug'] ? '1' : '0';
+            $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
         }
 
         return $valid;
