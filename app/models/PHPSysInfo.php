@@ -1,11 +1,13 @@
 <?php
 
+use Phalcon\Mvc\Model;
+
 /**
  * The model responsible for all actions related to PHPSysinfo.
  *
  * @package Models
  */
-class PHPSysInfo extends BaseModel
+class PHPSysInfo extends Model
 {
     private $data;
 

@@ -1,11 +1,13 @@
 <?php
 
+use Phalcon\Mvc\Model;
+
 /**
  * The model responsible for all Kodi movies.
  *
  * @package Models\Kodi
  */
-class KodiMovies extends BaseModel
+class KodiMovies extends Model
 {
     /**
      * Sets the right DB connection and sets the table/view to movie_view

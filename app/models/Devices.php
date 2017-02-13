@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Validator\PresenceOf;
 
 /**
@@ -7,7 +8,7 @@ use Phalcon\Mvc\Model\Validator\PresenceOf;
  *
  * @package Models
  */
-class Devices extends BaseModel
+class Devices extends Model
 {
     public $id;
     public $name;

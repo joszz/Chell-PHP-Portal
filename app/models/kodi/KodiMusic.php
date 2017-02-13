@@ -1,11 +1,13 @@
 <?php
 
+use Phalcon\Mvc\Model;
+
 /**
  * The model responsible for all Kodi albums.
- * 
+ *
  * @package Models\Kodi
  */
-class KodiMusic extends BaseModel
+class KodiMusic extends Model
 {
     /**
      * Sets the right DB connection and sets the table/view to album
@@ -18,7 +20,7 @@ class KodiMusic extends BaseModel
 
     /**
      * Gets the latest albums added to the Kodi DB.
-     * 
+     *
      * @param int $limit    Amount of albums to retrieve, defaults to 10
      * @return array        The array of Kodi albums
      */
@@ -29,7 +31,7 @@ class KodiMusic extends BaseModel
 
     /**
      * Extracts thumbs from the XML stored in the DB.
-     * 
+     *
      * @param array $movies     The array of Kodi albums.
      * @return array            The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
@@ -47,7 +49,7 @@ class KodiMusic extends BaseModel
 
             $return[] = $album;
         }
-        
+
         return $return;
     }
 }

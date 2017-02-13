@@ -1,11 +1,13 @@
 <?php
 
+use Phalcon\Mvc\Model;
+
 /**
  * The model responsible for all Kodi episodes.
- * 
+ *
  * @package Models\Kodi
  */
-class KodiTVShowEpisodes extends BaseModel
+class KodiTVShowEpisodes extends Model
 {
     /**
      * Sets the right DB connection and sets the table/view to album
@@ -18,7 +20,7 @@ class KodiTVShowEpisodes extends BaseModel
 
     /**
      * Gets the latest episodes added to the Kodi DB.
-     * 
+     *
      * @param int $limit    Amount of episodes to retrieve, defaults to 10
      * @return array        The array of Kodi episode
      */
@@ -29,7 +31,7 @@ class KodiTVShowEpisodes extends BaseModel
 
     /**
      * Extracts thumbs from the XML stored in the DB.
-     * 
+     *
      * @param array $movies     The array of Kodi episodes.
      * @return array            The array of Kodi episodes with the XML field transformed to string holding only image URL.
      */
@@ -44,7 +46,7 @@ class KodiTVShowEpisodes extends BaseModel
 
             $return[] = $episode;
         }
-        
+
         return $return;
     }
 }

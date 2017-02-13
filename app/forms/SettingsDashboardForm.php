@@ -57,12 +57,6 @@ class SettingsDashboardForm extends Form
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->phpSysInfoURL);
 
-        $phpSysInfoVCore = new Text('phpsysinfo-vcore');
-        $phpSysInfoVCore->setLabel('PHPSysInfo vcore label')
-            ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
-            ->setDefault($this->_config->dashboard->phpSysInfoVCore);
-
         $transmissionURL = new Text('transmission-url');
         $transmissionURL->setLabel('Transmission URL')
             ->setFilters(array('striptags', 'string'))
@@ -125,7 +119,7 @@ class SettingsDashboardForm extends Form
             ->setDefault($this->_config->dashboard->kodiPassword);
 
         $rotateMoviesInterval = new Text('rotate-movies-interval');
-        $rotateMoviesInterval->setLabel('Rotate movies intreval')
+        $rotateMoviesInterval->setLabel('Rotate movies interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->rotateMoviesInterval)
@@ -148,7 +142,6 @@ class SettingsDashboardForm extends Form
         $this->add($devicestateTimeouts);
         $this->add($alertTimeout);
         $this->add($phpSysInfoURL);
-        $this->add($phpSysInfoVCore);
 
         $this->add($transmissionURL);
         $this->add($transmissionUsername);
@@ -184,7 +177,6 @@ class SettingsDashboardForm extends Form
             $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
             $this->_config->dashboard->alertTimeout = $data['alert-timeout'];
             $this->_config->dashboard->phpSysInfoURL = $data['phpsysinfo-url'];
-            $this->_config->dashboard->phpSysInfoVCore = $data['phpsysinfo-vcore'];
 
             $this->_config->dashboard->transmissionURL = $data['transmission-url'];
             $this->_config->dashboard->transmissionUsername = $data['transmission-username'];

@@ -1,11 +1,13 @@
 <?php
 
+use Phalcon\Mvc\Model;
+
 /**
  * The model responsible for all actions related to menu items.
- * 
+ *
  * @package Models
  */
-class MenuItems extends BaseModel
+class MenuItems extends Model
 {
     /**
      * Sets the database relations
