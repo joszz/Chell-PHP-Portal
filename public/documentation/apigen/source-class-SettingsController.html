@@ -94,7 +94,6 @@
 			<ul>
 				<li><a href="class-AboutController.html">AboutController</a></li>
 				<li><a href="class-BaseController.html">BaseController</a></li>
-				<li><a href="class-BaseModel.html">BaseModel</a></li>
 				<li><a href="class-Devices.html">Devices</a></li>
 				<li><a href="class-DevicesController.html">DevicesController</a></li>
 				<li><a href="class-IndexController.html">IndexController</a></li>
@@ -166,14 +165,14 @@
 </span><span id="34" class="l"><a href="#34"> 34 </a>    {
 </span><span id="35" class="l"><a href="#35"> 35 </a>        <span class="php-var">$this</span>-&gt;view-&gt;activeTab = <span class="php-quote">'General'</span>;
 </span><span id="36" class="l"><a href="#36"> 36 </a>        <span class="php-var">$data</span> = <span class="php-var">$this</span>-&gt;request-&gt;getPost();
-</span><span id="37" class="l"><a href="#37"> 37 </a>        <span class="php-var">$form</span> = <span class="php-keyword1">new</span> SettingsGeneralForm();
+</span><span id="37" class="l"><a href="#37"> 37 </a>        <span class="php-var">$form</span> = <span class="php-keyword1">new</span> SettingsGeneralForm(<span class="php-var">$this</span>-&gt;config);
 </span><span id="38" class="l"><a href="#38"> 38 </a>
 </span><span id="39" class="l"><a href="#39"> 39 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$form</span>-&gt;isValid(<span class="php-var">$data</span>))
 </span><span id="40" class="l"><a href="#40"> 40 </a>        {
 </span><span id="41" class="l"><a href="#41"> 41 </a>            <span class="php-var">$this</span>-&gt;writeIniFile(<span class="php-var">$this</span>-&gt;config, APP_PATH . <span class="php-quote">'app/config/config.ini'</span>, <span class="php-keyword1">true</span>);
 </span><span id="42" class="l"><a href="#42"> 42 </a>        }
 </span><span id="43" class="l"><a href="#43"> 43 </a>
-</span><span id="44" class="l"><a href="#44"> 44 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;dispatcher-&gt;forward(<span class="php-keyword1">array</span>(<span class="php-quote">'action'</span> =&gt; <span class="php-quote">'index'</span>));
+</span><span id="44" class="l"><a href="#44"> 44 </a>        <span class="php-keyword1">return</span> (<span class="php-keyword1">new</span> Response())-&gt;redirect(<span class="php-quote">'settings/index#general'</span>);
 </span><span id="45" class="l"><a href="#45"> 45 </a>    }
 </span><span id="46" class="l"><a href="#46"> 46 </a>
 </span><span id="47" class="l"><a href="#47"> 47 </a>    <span class="php-comment">/**
@@ -191,7 +190,7 @@
 </span><span id="59" class="l"><a href="#59"> 59 </a>            <span class="php-var">$this</span>-&gt;writeIniFile(<span class="php-var">$this</span>-&gt;config, APP_PATH . <span class="php-quote">'app/config/config.ini'</span>, <span class="php-keyword1">true</span>);
 </span><span id="60" class="l"><a href="#60"> 60 </a>        }
 </span><span id="61" class="l"><a href="#61"> 61 </a>
-</span><span id="62" class="l"><a href="#62"> 62 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;dispatcher-&gt;forward(<span class="php-keyword1">array</span>(<span class="php-quote">'action'</span> =&gt; <span class="php-quote">'index'</span>));
+</span><span id="62" class="l"><a href="#62"> 62 </a>        <span class="php-keyword1">return</span> (<span class="php-keyword1">new</span> Response())-&gt;redirect(<span class="php-quote">'settings/index#dashboard'</span>);
 </span><span id="63" class="l"><a href="#63"> 63 </a>    }
 </span><span id="64" class="l"><a href="#64"> 64 </a>
 </span><span id="65" class="l"><a href="#65"> 65 </a>    <span class="php-comment">/**
@@ -320,6 +319,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?533e23ef2f02bd4b20548834a028566b6eb403e0"></script>
-<script src="elementlist.js?dcfde46a48f527f68cd10231145149ed35468aad"></script>
+<script src="elementlist.js?cd22be6fa74429225e721603839d9d362e282527"></script>
 </body>
 </html>
