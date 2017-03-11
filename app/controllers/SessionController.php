@@ -5,7 +5,7 @@ use Phalcon\Http\Response\Cookies;
 
 /**
  * The controller responsible for handling the session.
- * 
+ *
  * @package Controllers
  */
 class SessionController extends BaseController
@@ -14,7 +14,7 @@ class SessionController extends BaseController
 
     /**
      * Sets session cookie with user id and username.
-     * 
+     *
      * @param mixed $user   The user object to populate the session with.
      */
     private function _registerSession($user)
@@ -29,8 +29,16 @@ class SessionController extends BaseController
     }
 
     /**
+     * Override BaseController's initialize function so menu will not be retrieved/displayed.
+     */
+    public function initialize()
+    {
+        $this->config = $this->di->get('config');
+    }
+
+    /**
      * Shows the login form. Forwards to login action when rememberme cookies are present.
-	 * 
+	 *
      * @return mixed
      */
     public function indexAction()
@@ -48,9 +56,9 @@ class SessionController extends BaseController
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->config, $this->loginFailed);
     }
-    
+
     /**
-     * Handles login with either POST variables or remember me cookie values. 
+     * Handles login with either POST variables or remember me cookie values.
      * If success redirects to dashboard (IndexController), unsuccesfull forward to index/loginform
      */
     public function loginAction()
@@ -77,7 +85,7 @@ class SessionController extends BaseController
                 )
             )
         );
-        
+
         if ($user && $this->security->checkHash($password, $user->password))
         {
             $this->_registerSession($user);
@@ -88,13 +96,13 @@ class SessionController extends BaseController
                 $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year')));
                 $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year')));
             }
-            
+
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
 
             return $response->redirect('');
         }
-        else 
+        else
         {
             $this->loginFailed = true;
         }
