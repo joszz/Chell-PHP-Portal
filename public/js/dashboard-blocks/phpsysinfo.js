@@ -102,12 +102,17 @@
                 */
                 setCPUCores: function (data) {
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
-                        var coreLabel = data.MBInfo.Temperature.Item[index]["@attributes"].Label;
-                        var coreTemp = data.MBInfo.Temperature.Item[index]["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
                         var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + " GHz";
                         var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + " GHz";
                         var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + " GHz";
+                        var coreLabel, coreTemp;
 
+                        $.each(data.MBInfo.Temperature.Item, function (indexTemps, valueTemps) {
+                            if ($.trim(valueTemps["@attributes"].Label.toLowerCase()) == "core " + index) {
+                                coreLabel = valueTemps["@attributes"].Label;
+                                coreTemp = valueTemps["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
+                            }
+                        });
 
                         var core = $("li.cpu-cores:eq(" + index + ")");
                         core.find(".cpu-core").html(coreLabel);
