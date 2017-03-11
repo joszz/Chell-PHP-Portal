@@ -31,11 +31,6 @@ $(function () {
 
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
-
-    $(".navbar-toggle").click(function (event) {
-        event.stopImmediatePropagation();
-        $(".navbar-collapse").slideToggle("fast");
-    })
 });
 
 /**
@@ -85,6 +80,11 @@ function initializeGlobalPlugins() {
 * @method initializeGlobalEventHandlers
 */
 function initializeGlobalEventHandlers() {
+    $(".navbar-toggle").click(function (event) {
+        event.stopImmediatePropagation();
+        $(".navbar-collapse").slideToggle("fast");
+    });
+
     $("body").keydown(function (e) {
         if (altPressed) {
             if (e.which == 77 && altPressed) {

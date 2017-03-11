@@ -34,7 +34,7 @@ function initializeDashboardEventHandlers() {
         var panel = $(this).closest(".panel");
         
         if (panel.find(".toggle:visible").length != 0) {
-            panel.find(".toggle").toggleClass("glyphicon-minus glyphicon-plus");
+            panel.find(".toggle").toggleClass("fa-minus fa-plus");
             panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
         }
     });
@@ -42,8 +42,8 @@ function initializeDashboardEventHandlers() {
     $("footer .toggle-all").click(function () {
         var icon = $(this).find("span");
 
-        $(".glyphicon-" + (icon.hasClass("glyphicon-resize-full") ? "plus" : "minus")).trigger("click");
-        icon.toggleClass("glyphicon-resize-full glyphicon-resize-small");
+        $(".fa-" + (icon.hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
+        icon.toggleClass("fa-expand fa-compress");
     });
 }
 
