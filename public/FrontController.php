@@ -46,7 +46,7 @@ class FrontController
 
     private $css = array('bootstrap.css',
                          'bootstrap-theme.css',
-                         //'font-awesome.css',
+                         'font-awesome/font-awesome.css',
                          'fancybox/jquery.fancybox.css',
                          //'fancybox/jquery.fancybox-buttons.css',
                          'waves.css',
@@ -201,17 +201,26 @@ class FrontController
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
         $finalFile = 'css/compressed/final_' . $mtimeHash . '.css';
 
-        $this->application->assets
-                          ->collection('header')
-                          ->setTargetPath($finalFile)
-                          ->setTargetUri($finalFile);
-
-        if(!file_exists(getcwd() . '/' . $finalFile))
+        if(!$this->config->application->debug)
         {
-            $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
-            $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+            $this->application->assets
+                              ->collection('header')
+                              ->setTargetPath($finalFile)
+                              ->setTargetUri($finalFile);
+        }
 
-            foreach($this->css as $css) $this->application->assets->collection('header')->addCss('css/' . $css);
+        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalFile))
+        {
+            if(!$this->config->application->debug)
+            {
+                $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
+                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+            }
+
+            foreach($this->css as $css)
+            {
+                $this->application->assets->collection('header')->addCss('css/' . $css);
+            }
         }
         else
         {
@@ -227,16 +236,22 @@ class FrontController
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
         $finalDefaultFile = 'js/compressed/default_' . $mtimeHash . '.min.js';
 
-        $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
-
-        $this->application->assets
-             ->collection('footer')
-             ->setTargetPath($finalDefaultFile)
-             ->setTargetUri($finalDefaultFile);
-
-        if(!file_exists(getcwd() . '/' . $finalDefaultFile))
+        if(!$this->config->application->debug)
         {
-            $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
+            $this->application->assets
+                 ->collection('footer')
+                 ->setTargetPath($finalDefaultFile)
+                 ->setTargetUri($finalDefaultFile);
+        }
+
+        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDefaultFile))
+        {
+            if(!$this->config->application->debug)
+            {
+                $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
+                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
+            }
+
             foreach($this->js as $js)
             {
                 $this->application->assets->collection('footer')->addJs('js/' . $js);
@@ -251,19 +266,23 @@ class FrontController
         $mtimeHash = $this->createMTimeHash(array('dashboard.js'), getcwd() . '/js/');
         $finalDashboardFile = 'js/compressed/dashboard_' . $mtimeHash . '.min.js';
 
-        $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
-
-        $this->application->assets
-             ->collection('dashboard')
-             ->setTargetPath($finalDashboardFile)
-             ->setTargetUri($finalDashboardFile);
-
-        if(!file_exists(getcwd() . '/' . $finalDashboardFile))
+        if(!$this->config->application->debug)
         {
-            $this->application->assets->collection('dashboard')
-                 ->addJs('js/dashboard.js')
-                 ->join(true)
-                 ->addFilter(new Jsmin());
+            $this->application->assets
+                 ->collection('dashboard')
+                 ->setTargetPath($finalDashboardFile)
+                 ->setTargetUri($finalDashboardFile);
+        }
+
+        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDashboardFile))
+        {
+            $dashJS = $this->application->assets->collection('dashboard')->addJs('js/dashboard.js');
+
+            if(!$this->config->application->debug)
+            {
+                $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
+                $dashJS->join(true)->addFilter(new Jsmin());
+            }
         }
         else
         {

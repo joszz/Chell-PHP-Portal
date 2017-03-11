@@ -143,7 +143,7 @@
                                         * @method checkstates
                                         */
                                         initialize: function () {
-                                            settings.block.on(&quot;click&quot;, &quot;.glyphicon-refresh&quot;, function () {
+                                            settings.block.on(&quot;click&quot;, &quot;.fa-refresh&quot;, function () {
                                                 clearInterval(settings.updateIntervalId);
                                                 settings.updateIntervalId = setInterval(function () {
                                                     self.checkstates(self);
@@ -190,7 +190,7 @@
                             
                                             settings.block.find(&quot;.devicestate&quot;).each(function () {
                                                 var device = $(this);
-                                                var icon = $(this).find(&quot;span.glyphicon&quot;);
+                                                var icon = $(this).find(&quot;span.fa&quot;);
                                                 var ip = $(this).data(&quot;ip&quot;);
                                                 var dependentMenuItems = $(&quot;ul.nav li[data-ip=&#x27;&quot; + ip + &quot;&#x27;&quot;);
                             
@@ -199,13 +199,13 @@
                                                 $(this).removeClass(&quot;btn-danger btn-success&quot;);
                                                 $(this).addClass(&quot;disabled&quot;);
                             
-                                                icon.removeClass(&quot;glyphicon-off&quot;);
-                                                icon.addClass(&quot;glyphicon-refresh icon-refresh-animate&quot;);
+                                                icon.removeClass(&quot;fa-power-off&quot;);
+                                                icon.addClass(&quot;fa-refresh icon-refresh-animate&quot;);
                             
                                                 (function (device, dependentMenuItems, icon, ip) {
                                                     $.getJSON(&quot;devices/state?ip=&quot; + ip + &quot;&amp;&quot; + d.getTime(), &quot;&quot;, function (data) {
-                                                        icon.removeClass(&quot;glyphicon-refresh icon-refresh-animate&quot;);
-                                                        icon.addClass(&quot;glyphicon-off&quot;);
+                                                        icon.removeClass(&quot;fa-refresh icon-refresh-animate&quot;);
+                                                        icon.addClass(&quot;fa-power-off&quot;);
                             
                                                         device.removeClass(&quot;disabled&quot;);
                             

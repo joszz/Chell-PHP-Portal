@@ -169,7 +169,7 @@
                                                 functions.getTorrents(false);
                                             }, settings.updateInterval);
                             
-                                            settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                            settings.block.find(&quot;.fa-refresh&quot;).off().on(&quot;click&quot;, function () {
                                                 functions.getTorrents(false);
                             
                                                 $(this).blur();
@@ -213,21 +213,21 @@
                             
                                                         //Downloading
                                                         if (value.status == 4) {
-                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;glyphicon-play&#x27;);
-                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;glyphicon-pause&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;fa-play&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;fa-pause&#x27;);
                                                         }
                                                         //Paused
                                                         else if (value.status == 0) {
-                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;glyphicon-pause&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).removeClass(&#x27;fa-pause&#x27;);
                                                             torrent.find(&#x27;.progress-bar&#x27;).removeClass(&#x27;progress-bar-success&#x27;).addClass(&#x27;progress-bar-primary&#x27;);
-                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;glyphicon-play&#x27;);
+                                                            torrent.find(&#x27;.torrentactions .status&#x27;).addClass(&#x27;fa-play&#x27;);
                                                         }
                             
                                                         torrent.find(&#x27;.torrentactions .status&#x27;).off().on(&#x27;click&#x27;, function () {
                                                             self.startStopTorrents($(this).closest(&#x27;li&#x27;).data(&#x27;id&#x27;), self);
                                                         });
                             
-                                                        torrent.find(&#x27;.torrentactions .glyphicon-remove&#x27;).off().on(&#x27;click&#x27;, function () {
+                                                        torrent.find(&#x27;.torrentactions .fa-remove&#x27;).off().on(&#x27;click&#x27;, function () {
                                                             openConfirmDialog(&#x27;Delete torrent?&#x27;, [], function () {
                                                                 $.fancybox.close();
                             
@@ -260,7 +260,7 @@
                                         */
                                         startStopTorrents: function (torrentIds) {
                                             var data = settings.defaultData;
-                                            data.data = &#x27;{&quot;method&quot;:&quot;torrent-&#x27; + ($(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status:first-child&#x27;).hasClass(&#x27;glyphicon-pause&#x27;) ? &#x27;stop&#x27; : &#x27;start-now&#x27;) + &#x27;&quot;, &quot;arguments&quot;:{&quot;ids&quot;:[&#x27; + torrentIds + &#x27;]}}&#x27;;
+                                            data.data = &#x27;{&quot;method&quot;:&quot;torrent-&#x27; + ($(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status:first-child&#x27;).hasClass(&#x27;fa-pause&#x27;) ? &#x27;stop&#x27; : &#x27;start-now&#x27;) + &#x27;&quot;, &quot;arguments&quot;:{&quot;ids&quot;:[&#x27; + torrentIds + &#x27;]}}&#x27;;
                             
                                             data.complete = function (xhr, status) {
                                                 //No sessionID set, do function again
@@ -270,7 +270,7 @@
                                                 else if (xhr.status == 200) {
                                                     var responseData = $.parseJSON(xhr.responseText);
                                                     if (responseData.result == &#x27;success&#x27;) {
-                                                        $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status&#x27;).toggleClass(&#x27;glyphicon-pause glyphicon-play&#x27;);
+                                                        $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] button.status&#x27;).toggleClass(&#x27;fa-pause fa-play&#x27;);
                                                         $(&#x27;li[data-id=&#x27; + torrentIds + &#x27;] .progress-bar&#x27;).toggleClass(&#x27;progress-bar-success progress-bar-primary&#x27;);
                                                     }
                                                 }

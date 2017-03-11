@@ -49,12 +49,12 @@
             * @method initialize
             */
             initialize: function () {
-                settings.block.find(".glyphicon-refresh").click(function () {
+                settings.block.find(".fa-refresh").click(function () {
                     functions.nowPlaying();
                 });
 
-                settings.block.find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
-                    functions.rotate($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+                settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
+                    functions.rotate($(this).hasClass("fa-chevron-left") ? "left" : "right");
                 });
 
                 functions.nowPlaying(true);
@@ -75,7 +75,7 @@
 
                 functions.setInterval();
 
-                settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").addClass("disabled");
+                settings.block.find(".panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right").addClass("disabled");
                 settings.block.find(".player.nothing-playing").hide();
                 settings.block.find(".player:not(.nothing-playing)").remove();
 
@@ -108,10 +108,10 @@
                     }
 
                     if (playerCount <= 1) {
-                        settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").addClass("disabled");
+                        settings.block.find(".panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right").addClass("disabled");
                     }
                     else {
-                        settings.block.find(".panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right").removeClass("disabled");
+                        settings.block.find(".panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right").removeClass("disabled");
                     }
 
                     var title = settings.block.find(".player:visible").hasClass("kodi") ? "Kodi" : "Subsonic";

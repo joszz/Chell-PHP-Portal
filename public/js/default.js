@@ -31,6 +31,11 @@ $(function () {
 
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
+
+    $(".navbar-toggle").click(function (event) {
+        event.stopImmediatePropagation();
+        $(".navbar-collapse").slideToggle("fast");
+    })
 });
 
 /**

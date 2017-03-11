@@ -60,7 +60,7 @@
                     functions.getTorrents(false);
                 }, settings.updateInterval);
 
-                settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                settings.block.find(".fa-refresh").off().on("click", function () {
                     functions.getTorrents(false);
 
                     $(this).blur();
@@ -104,21 +104,21 @@
 
                             //Downloading
                             if (value.status == 4) {
-                                torrent.find('.torrentactions .status').removeClass('glyphicon-play');
-                                torrent.find('.torrentactions .status').addClass('glyphicon-pause');
+                                torrent.find('.torrentactions .status').removeClass('fa-play');
+                                torrent.find('.torrentactions .status').addClass('fa-pause');
                             }
                             //Paused
                             else if (value.status == 0) {
-                                torrent.find('.torrentactions .status').removeClass('glyphicon-pause');
+                                torrent.find('.torrentactions .status').removeClass('fa-pause');
                                 torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
-                                torrent.find('.torrentactions .status').addClass('glyphicon-play');
+                                torrent.find('.torrentactions .status').addClass('fa-play');
                             }
 
                             torrent.find('.torrentactions .status').off().on('click', function () {
                                 self.startStopTorrents($(this).closest('li').data('id'), self);
                             });
 
-                            torrent.find('.torrentactions .glyphicon-remove').off().on('click', function () {
+                            torrent.find('.torrentactions .fa-remove').off().on('click', function () {
                                 openConfirmDialog('Delete torrent?', [], function () {
                                     $.fancybox.close();
 
@@ -151,7 +151,7 @@
             */
             startStopTorrents: function (torrentIds) {
                 var data = settings.defaultData;
-                data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('glyphicon-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
+                data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('fa-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
@@ -161,7 +161,7 @@
                     else if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
                         if (responseData.result == 'success') {
-                            $('li[data-id=' + torrentIds + '] button.status').toggleClass('glyphicon-pause glyphicon-play');
+                            $('li[data-id=' + torrentIds + '] button.status').toggleClass('fa-pause fa-play');
                             $('li[data-id=' + torrentIds + '] .progress-bar').toggleClass('progress-bar-success progress-bar-primary');
                         }
                     }

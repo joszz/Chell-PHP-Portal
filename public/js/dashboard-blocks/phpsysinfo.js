@@ -36,7 +36,7 @@
                 * @method initialize
                 */
                 initialize: function(){
-                    settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                    settings.block.find(".fa-refresh").off().on("click", function () {
                         if (settings.block.hasClass("processes")) { 
                             functions.psstatus();
                         }
@@ -126,10 +126,10 @@
                 */
                 setNetwork: function (data) {
                     $.each(data.Network.NetDevice, function (index, value) {
-                        var rx = Math.round(value.RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var tx = Math.round(value.TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var info = value.Info.split(";");
-
+                        var rx = Math.round(value['@attributes'].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var tx = Math.round(value['@attributes'].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                        var info = value['@attributes'].Info.split(";");
+                        
                         network = $(".lan-stats div:eq(" + index + ")");
 
                         network.find(".lan-name").html(value.Name);
@@ -217,7 +217,7 @@
                 psstatus: function () {
                     $(".processes").isLoading();
 
-                    settings.block.find(".glyphicon-refresh").off().on("click", function () {
+                    settings.block.find(".fa-refresh").off().on("click", function () {
                         functions.psstatus();
 
                         $(this).blur();

@@ -148,9 +148,9 @@
                                                     functions.rotateGallery(&quot;right&quot;);
                                                 }, settings.rotateInterval);
                             
-                                                settings.block.find(&quot;.glyphicon-chevron-left, .glyphicon-chevron-right&quot;).click(function () {
+                                                settings.block.find(&quot;.fa-chevron-left, .fa-chevron-right&quot;).click(function () {
                                                     clearInterval(settings.rotateIntervalId);
-                                                    functions.rotateGallery($(this).hasClass(&quot;glyphicon-chevron-left&quot;) ? &quot;left&quot; : &quot;right&quot;);
+                                                    functions.rotateGallery($(this).hasClass(&quot;fa-chevron-left&quot;) ? &quot;left&quot; : &quot;right&quot;);
                             
                                                     settings.rotateIntervalId = setInterval(function () {
                                                         rotateGallery(&quot;right&quot;);

@@ -158,12 +158,12 @@
                                         * @method initialize
                                         */
                                         initialize: function () {
-                                            settings.block.find(&quot;.glyphicon-refresh&quot;).click(function () {
+                                            settings.block.find(&quot;.fa-refresh&quot;).click(function () {
                                                 functions.nowPlaying();
                                             });
                             
-                                            settings.block.find(&quot;.glyphicon-chevron-left, .glyphicon-chevron-right&quot;).click(function () {
-                                                functions.rotate($(this).hasClass(&quot;glyphicon-chevron-left&quot;) ? &quot;left&quot; : &quot;right&quot;);
+                                            settings.block.find(&quot;.fa-chevron-left, .fa-chevron-right&quot;).click(function () {
+                                                functions.rotate($(this).hasClass(&quot;fa-chevron-left&quot;) ? &quot;left&quot; : &quot;right&quot;);
                                             });
                             
                                             functions.nowPlaying(true);
@@ -184,7 +184,7 @@
                             
                                             functions.setInterval();
                             
-                                            settings.block.find(&quot;.panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right&quot;).addClass(&quot;disabled&quot;);
+                                            settings.block.find(&quot;.panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right&quot;).addClass(&quot;disabled&quot;);
                                             settings.block.find(&quot;.player.nothing-playing&quot;).hide();
                                             settings.block.find(&quot;.player:not(.nothing-playing)&quot;).remove();
                             
@@ -217,10 +217,10 @@
                                                 }
                             
                                                 if (playerCount &lt;= 1) {
-                                                    settings.block.find(&quot;.panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right&quot;).addClass(&quot;disabled&quot;);
+                                                    settings.block.find(&quot;.panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right&quot;).addClass(&quot;disabled&quot;);
                                                 }
                                                 else {
-                                                    settings.block.find(&quot;.panel-heading button.glyphicon-chevron-left, .panel-heading button.glyphicon-chevron-right&quot;).removeClass(&quot;disabled&quot;);
+                                                    settings.block.find(&quot;.panel-heading button.fa-chevron-left, .panel-heading button.fa-chevron-right&quot;).removeClass(&quot;disabled&quot;);
                                                 }
                             
                                                 var title = settings.block.find(&quot;.player:visible&quot;).hasClass(&quot;kodi&quot;) ? &quot;Kodi&quot; : &quot;Subsonic&quot;;

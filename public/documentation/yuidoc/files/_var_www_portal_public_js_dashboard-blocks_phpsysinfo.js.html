@@ -145,7 +145,7 @@
                                             * @method initialize
                                             */
                                             initialize: function(){
-                                                settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                                settings.block.find(&quot;.fa-refresh&quot;).off().on(&quot;click&quot;, function () {
                                                     if (settings.block.hasClass(&quot;processes&quot;)) { 
                                                         functions.psstatus();
                                                     }
@@ -235,10 +235,10 @@
                                             */
                                             setNetwork: function (data) {
                                                 $.each(data.Network.NetDevice, function (index, value) {
-                                                    var rx = Math.round(value.RxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
-                                                    var tx = Math.round(value.TxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
-                                                    var info = value.Info.split(&quot;;&quot;);
-                            
+                                                    var rx = Math.round(value[&#x27;@attributes&#x27;].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
+                                                    var tx = Math.round(value[&#x27;@attributes&#x27;].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
+                                                    var info = value[&#x27;@attributes&#x27;].Info.split(&quot;;&quot;);
+                                                    
                                                     network = $(&quot;.lan-stats div:eq(&quot; + index + &quot;)&quot;);
                             
                                                     network.find(&quot;.lan-name&quot;).html(value.Name);
@@ -326,7 +326,7 @@
                                             psstatus: function () {
                                                 $(&quot;.processes&quot;).isLoading();
                             
-                                                settings.block.find(&quot;.glyphicon-refresh&quot;).off().on(&quot;click&quot;, function () {
+                                                settings.block.find(&quot;.fa-refresh&quot;).off().on(&quot;click&quot;, function () {
                                                     functions.psstatus();
                             
                                                     $(this).blur();

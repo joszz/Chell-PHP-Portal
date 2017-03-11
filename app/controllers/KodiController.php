@@ -26,10 +26,7 @@ class KodiController extends BaseController
             'bind'       => array(1 => $id),
         ));
         $movie = current(KodiMovies::extractMovieImagesFromXML(array($movie)));
-        
         $movie->trailer = substr($movie->c19, $start = strpos($movie->c19, 'videoid=') + 8);
-        $movie->rating = floor($movie->c05 * 2) / 2;
-        //$movie->filePath = str_replace('/', '\\', str_replace('smb://', '', $movie->c22)) . $movie->getFile()->strFilename;
         
         $this->view->bgImage = $movie->c20;
         $this->view->movie = $movie;
@@ -46,7 +43,6 @@ class KodiController extends BaseController
             'conditions' => 'idEpisode = ?1',
             'bind'       => array(1 => $id),
         ));
-        $episode->rating = floor($episode->c03 * 2) / 2;
         
         $this->view->episode = $episode;
     }

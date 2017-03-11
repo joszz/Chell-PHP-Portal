@@ -14,7 +14,7 @@
                 <tr>
                     <td colspan="7" class="text-right">
                         <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/device/" title="Add device">
-                            <i class="glyphicon glyphicon-plus"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
                     </td>
                 </tr>
@@ -38,12 +38,12 @@
                         <?php echo $device->shutdown_method ?>
                     </td>
                     <td class="text-center">
-                        <span class="glyphicon glyphicon-star<?php echo !$device->show_on_dashboard ? "-empty" : null ?>"></span>
+                        <span class="fa fa-star<?php echo !$device->show_on_dashboard ? "-o" : null ?>"></span>
                     </td>
                     <td>
                         <div class="btn-group pull-right">
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/device/' . $device->id  ?>" class="btn btn-warning glyphicon glyphicon-edit"></a>
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/device_delete/' . $device->id  ?>" class="btn btn-danger glyphicon glyphicon-remove"></a>
+                            <a href="<?php echo $this->config->application->baseUri . 'settings/device/' . $device->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                            <a href="<?php echo $this->config->application->baseUri . 'settings/device_delete/' . $device->id  ?>" class="btn btn-danger fa fa-remove"></a>
                         </div>
                     </td>
                 </tr>
@@ -53,7 +53,7 @@
                 <tr>
                     <td colspan="7" class="text-right">
                         <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/device/" title="Add device">
-                            <i class="glyphicon glyphicon-plus"></i>
+                            <i class="fa fa-plus"></i>
                         </a>
                     </td>
                 </tr>

@@ -34,7 +34,7 @@
             * @method checkstates
             */
             initialize: function () {
-                settings.block.on("click", ".glyphicon-refresh", function () {
+                settings.block.on("click", ".fa-refresh", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
                         self.checkstates(self);
@@ -81,7 +81,7 @@
 
                 settings.block.find(".devicestate").each(function () {
                     var device = $(this);
-                    var icon = $(this).find("span.glyphicon");
+                    var icon = $(this).find("span.fa");
                     var ip = $(this).data("ip");
                     var dependentMenuItems = $("ul.nav li[data-ip='" + ip + "'");
 
@@ -90,13 +90,13 @@
                     $(this).removeClass("btn-danger btn-success");
                     $(this).addClass("disabled");
 
-                    icon.removeClass("glyphicon-off");
-                    icon.addClass("glyphicon-refresh icon-refresh-animate");
+                    icon.removeClass("fa-power-off");
+                    icon.addClass("fa-refresh icon-refresh-animate");
 
                     (function (device, dependentMenuItems, icon, ip) {
                         $.getJSON("devices/state?ip=" + ip + "&" + d.getTime(), "", function (data) {
-                            icon.removeClass("glyphicon-refresh icon-refresh-animate");
-                            icon.addClass("glyphicon-off");
+                            icon.removeClass("fa-refresh icon-refresh-animate");
+                            icon.addClass("fa-power-off");
 
                             device.removeClass("disabled");
 

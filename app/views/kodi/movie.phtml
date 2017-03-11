@@ -21,11 +21,11 @@
             <div class="col-xs-4 col-lg-2">Rating</div>
             <div class="col-xs-8 col-lg-10   ">
                 <?php for($i = 1; $i <= $movie->rating; $i++) : ?>
-                <span class="glyphicon glyphicon-star text-success"></span>
+                <span class="fa fa-star text-success"></span>
                 <?php endfor ?>
 
                 <?php if($i -1 < $movie->rating) : ?>
-                <span class="glyphicon glyphicon-half glyphicon-star text-success"></span>
+                <span class="fa fa-star-half text-success"></span>
                 <?php endif ?>
             </div>
         </li>

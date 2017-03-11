@@ -77,7 +77,6 @@ div.content {
     display: table;
 }
 
-
 .container-relative {
     position: relative;
 }
@@ -158,18 +157,4 @@ div.alert {
 div.vertical-center {
     display: table-cell;
     vertical-align: middle;
-}
-
-.glyphicon-half {
-    position: relative;
-}
-
-.glyphicon-half:after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    background: white;
-    width: 50%;
-    height: 100%;
-    left: 47%;
 }

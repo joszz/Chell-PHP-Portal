@@ -39,9 +39,9 @@
                         functions.rotateGallery("right");
                     }, settings.rotateInterval);
 
-                    settings.block.find(".glyphicon-chevron-left, .glyphicon-chevron-right").click(function () {
+                    settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
                         clearInterval(settings.rotateIntervalId);
-                        functions.rotateGallery($(this).hasClass("glyphicon-chevron-left") ? "left" : "right");
+                        functions.rotateGallery($(this).hasClass("fa-chevron-left") ? "left" : "right");
 
                         settings.rotateIntervalId = setInterval(function () {
                             rotateGallery("right");
