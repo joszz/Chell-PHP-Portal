@@ -30,11 +30,11 @@ $(function () {
 * @method initializeDashboardEventHandlers
 */
 function initializeDashboardEventHandlers() {
-    $(".toggle, .panel-heading h4").click(function () {
+    $(".toggle-collapse, .panel-heading h4").click(function () {
         var panel = $(this).closest(".panel");
         
-        if (panel.find(".toggle:visible").length != 0) {
-            panel.find(".toggle").toggleClass("fa-minus fa-plus");
+        if (panel.find(".toggle-collapse:visible").length != 0) {
+            panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
             panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
         }
     });
