@@ -29,6 +29,7 @@ class FrontController
                         'bootstrap.js',
                         'bootstrap-select/bootstrap-select.js',
                         'bootstrap-tabcollapse.js',
+                        'bootstrap-toggle.js',
                         //'responsive-paginate.js',
                         //'jquery.shorten.js',
                         'jquery.vibrate.js',
@@ -51,6 +52,7 @@ class FrontController
                          //'fancybox/jquery.fancybox-buttons.css',
                          'waves.css',
                          'bootstrap-select.css',
+                         'bootstrap-toggle.css',
                          'default.css');
 
     /**

@@ -29,5 +29,12 @@ div.login input[type="password"] {
     border-radius: 0 0 4px 4px;
 }
 
-input[type="checkbox"] {
+div.login .toggle {
+    float: right;
+}
+
+#rememberme-wrapper {
+    width: 100%;
+    min-height: 30px;
+    margin: 15px 0;
 }

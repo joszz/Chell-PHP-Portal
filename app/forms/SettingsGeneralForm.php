@@ -61,7 +61,13 @@ class SettingsGeneralForm extends Form
 
         $debug = new Check('debug');
         $debug->setLabel('debug');
-        $debug->setAttributes(array('checked' => $this->_config->application->debug == '1' ? 'checked' : null));
+        $debug->setAttributes(array(
+            'checked' => $this->_config->application->debug == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small'
+        ));
 
         $this->add($title);
         $this->add($bgcolor);

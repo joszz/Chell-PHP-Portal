@@ -1,3 +1,4 @@
+
 <div class="vertical-center login">
     <div class="panel panel-success">
         <div class="panel-heading">
@@ -7,10 +8,14 @@
             <form action="<?php echo $form->getAction() ?>" method="post">
 
                 <?php foreach($form AS $element) : ?>
+
+                <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>
+                <div id="rememberme-wrapper">
                     <?php echo $element ?>
-                    <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>    
-                    <?php echo $element->label() ?>
-                    <?php endif ?>
+                </div>
+                <?php else : ?>
+                <?php echo $element ?>
+                <?php endif ?>
                 <?php endforeach ?>
 
                 <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>

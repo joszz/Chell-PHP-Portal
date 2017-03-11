@@ -53,6 +53,14 @@ class LoginForm extends Form
 
         $rememberme = new Check('rememberme');
         $rememberme->setLabel('Remember me');
+        $rememberme->setAttributes(array(
+            'data-toggle' => 'toggle',
+            'data-on' => 'Remember me',
+            'data-onstyle' => 'success',
+            'data-off' => 'Don\'t remember',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small'
+        ));
 
         $this->add($username);
         $this->add($password);

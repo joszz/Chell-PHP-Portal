@@ -53,7 +53,12 @@ class SettingsDeviceForm extends Form
         $showDasboard = new Check('show_on_dashboard', ['value' => '1']);
         $showDasboard->setLabel('Show on dashboard')
                      ->setDefault('1')
-                     ->setAttributes(array('class' => 'form-control'));
+                     ->setAttributes(array(
+                        'data-toggle' => 'toggle',
+                        'data-onstyle' => 'success',
+                        'data-offstyle' => 'danger',
+                        'data-size' => 'small'
+        ));
 
         $this->add($name);
         $this->add($ip);
