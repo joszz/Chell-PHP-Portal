@@ -184,12 +184,22 @@
 </span><span id="53" class="l"><a href="#53">53 </a>
 </span><span id="54" class="l"><a href="#54">54 </a>        <span class="php-var">$rememberme</span> = <span class="php-keyword1">new</span> Check(<span class="php-quote">'rememberme'</span>);
 </span><span id="55" class="l"><a href="#55">55 </a>        <span class="php-var">$rememberme</span>-&gt;setLabel(<span class="php-quote">'Remember me'</span>);
-</span><span id="56" class="l"><a href="#56">56 </a>
-</span><span id="57" class="l"><a href="#57">57 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$username</span>);
-</span><span id="58" class="l"><a href="#58">58 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$password</span>);
-</span><span id="59" class="l"><a href="#59">59 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$rememberme</span>);
-</span><span id="60" class="l"><a href="#60">60 </a>    }
-</span><span id="61" class="l"><a href="#61">61 </a>}</span></code></pre>
+</span><span id="56" class="l"><a href="#56">56 </a>        <span class="php-var">$rememberme</span>-&gt;setAttributes(<span class="php-keyword1">array</span>(
+</span><span id="57" class="l"><a href="#57">57 </a>            <span class="php-quote">'checked'</span> =&gt; <span class="php-keyword1">true</span>,
+</span><span id="58" class="l"><a href="#58">58 </a>            <span class="php-quote">'data-toggle'</span> =&gt; <span class="php-quote">'toggle'</span>,
+</span><span id="59" class="l"><a href="#59">59 </a>            <span class="php-quote">'data-on'</span> =&gt; <span class="php-quote">'Remember me'</span>,
+</span><span id="60" class="l"><a href="#60">60 </a>            <span class="php-quote">'data-onstyle'</span> =&gt; <span class="php-quote">'success'</span>,
+</span><span id="61" class="l"><a href="#61">61 </a>            <span class="php-quote">'data-off'</span> =&gt; <span class="php-quote">'Don\'t remember'</span>,
+</span><span id="62" class="l"><a href="#62">62 </a>            <span class="php-quote">'data-offstyle'</span> =&gt; <span class="php-quote">'danger'</span>,
+</span><span id="63" class="l"><a href="#63">63 </a>            <span class="php-quote">'data-size'</span> =&gt; <span class="php-quote">'small'</span>,
+</span><span id="64" class="l"><a href="#64">64 </a>            <span class="php-quote">'data-width'</span> =&gt; <span class="php-quote">'115px'</span>
+</span><span id="65" class="l"><a href="#65">65 </a>        ));
+</span><span id="66" class="l"><a href="#66">66 </a>
+</span><span id="67" class="l"><a href="#67">67 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$username</span>);
+</span><span id="68" class="l"><a href="#68">68 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$password</span>);
+</span><span id="69" class="l"><a href="#69">69 </a>        <span class="php-var">$this</span>-&gt;add(<span class="php-var">$rememberme</span>);
+</span><span id="70" class="l"><a href="#70">70 </a>    }
+</span><span id="71" class="l"><a href="#71">71 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">

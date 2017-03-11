@@ -843,7 +843,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 121,
+            "line": 126,
             "description": "Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setNetwork",
@@ -860,7 +860,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 144,
+            "line": 149,
             "description": "Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.",
             "itemtype": "method",
             "name": "setRAM",
@@ -877,7 +877,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 164,
+            "line": 169,
             "description": "Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setDisks",
@@ -894,7 +894,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 198,
+            "line": 203,
             "description": "Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.",
             "itemtype": "method",
             "name": "setDisks",
@@ -911,7 +911,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 211,
+            "line": 216,
             "description": "Retrieves psstatus data from PHPSysInfo using AJAX.<br />\nThen clears all processess and dynamically create new nodes and appends them to the block.",
             "itemtype": "method",
             "name": "psstatus",
@@ -1091,7 +1091,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 102,
+            "line": 107,
             "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
             "itemtype": "method",
             "name": "fadeOutAlert",
@@ -1100,7 +1100,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 115,
+            "line": 120,
             "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
             "itemtype": "method",
             "name": "capitalize",

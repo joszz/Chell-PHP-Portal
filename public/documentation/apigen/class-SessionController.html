@@ -167,7 +167,7 @@ Phalcon\Mvc\Controller
 		
 		<b>Package:</b> <a href="package-Controllers.html">Controllers</a><br>
 
-			<b>Located at</b> <a href="source-class-SessionController.html#6-122" title="Go to source code">controllers/SessionController.php</a>
+			<b>Located at</b> <a href="source-class-SessionController.html#6-130" title="Go to source code">controllers/SessionController.php</a>
 		<br>
 	</div>
 
@@ -176,6 +176,37 @@ Phalcon\Mvc\Controller
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="initialize" id="_initialize">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_initialize">#</a>
+			<code><a href="source-class-SessionController.html#31-37" title="Go to source code">initialize</a>( )</code>
+
+			<div class="description short">
+				<p>Override BaseController's initialize function so menu will not be retrieved/displayed.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Override BaseController's initialize function so menu will not be retrieved/displayed.</p>
+
+
+
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-BaseController.html#_initialize">BaseController::initialize</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="indexAction" id="_indexAction">
 
 			<td class="attributes"><code>
@@ -187,7 +218,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_indexAction">#</a>
-			<code><a href="source-class-SessionController.html#31-50" title="Go to source code">indexAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#39-58" title="Go to source code">indexAction</a>( )</code>
 
 			<div class="description short">
 				<p>Shows the login form. Forwards to login action when rememberme cookies are present.</p>
@@ -220,7 +251,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loginAction">#</a>
-			<code><a href="source-class-SessionController.html#52-108" title="Go to source code">loginAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#60-116" title="Go to source code">loginAction</a>( )</code>
 
 			<div class="description short">
 				<p>Handles login with either POST variables or remember me cookie values.
@@ -251,7 +282,7 @@ If success redirects to dashboard (IndexController), unsuccesfull forward to ind
 
 			<td class="name"><div>
 			<a class="anchor" href="#_logoutAction">#</a>
-			<code><a href="source-class-SessionController.html#110-121" title="Go to source code">logoutAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#118-129" title="Go to source code">logoutAction</a>( )</code>
 
 			<div class="description short">
 				<p>Logout user, destroying session and invalidating remember me cookie. Forwards to login form.</p>
@@ -275,7 +306,6 @@ If success redirects to dashboard (IndexController), unsuccesfull forward to ind
 		<div class="panel panel-default">
 	        <div class="panel-heading"><h3>Methods inherited from <a href="class-BaseController.html#methods">BaseController</a></h3></div>
 			<p class="elementList">
-				<code><a href="class-BaseController.html#_initialize">initialize()</a></code>, 
 				<code><a href="class-BaseController.html#_writeIniFile">writeIniFile()</a></code>
 			</p>
 		</div>

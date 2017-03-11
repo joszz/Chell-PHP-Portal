@@ -49,28 +49,14 @@ function initializeGlobalPlugins() {
     $.fancybox.defaults.margin = [70, 20, 60, 20];
 
     $(".fancybox:not(.disabled)").fancybox({
-        afterLoad: function () {
-            $.extend(this, {
-                maxWidth: this.element.data("fancybox-maxwidth")
-            });
-        },
-        helpers: {
-            overlay: {
-                locked: true
+        iframe: {
+            css: {
+                width: "800px"
             }
         },
-    });
-
-    $(".fancybox-iframe:not(.disabled)").fancybox({
-        beforeShow: function () {
-            this.width = this.element.data("fancybox-maxwidth");
-        },
-        helpers: {
-            overlay: {
-                locked: true
-            }
-        },
-        type: "iframe"
+        smallBtn: false,
+        fullScreen: false,
+        slideShow: false
     });
 }
 

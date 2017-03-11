@@ -211,12 +211,17 @@
                                             */
                                             setCPUCores: function (data) {
                                                 $.each(data.Hardware.CPU.CpuCore, function (index, value) {
-                                                    var coreLabel = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Label;
-                                                    var coreTemp = data.MBInfo.Temperature.Item[index][&quot;@attributes&quot;].Value + &quot; &amp;deg;&quot; + data.Options[&quot;@attributes&quot;].tempFormat.toUpperCase()
                                                     var coreSpeedCurrent = (Math.round(value[&quot;@attributes&quot;].CpuSpeed / 10) / 100) + &quot; GHz&quot;;
                                                     var coreSpeedMin = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMin / 10) / 100) + &quot; GHz&quot;;
                                                     var coreSpeedMax = (Math.round(value[&quot;@attributes&quot;].CpuSpeedMax / 10) / 100) + &quot; GHz&quot;;
+                                                    var coreLabel, coreTemp;
                             
+                                                    $.each(data.MBInfo.Temperature.Item, function (indexTemps, valueTemps) {
+                                                        if ($.trim(valueTemps[&quot;@attributes&quot;].Label.toLowerCase()) == &quot;core &quot; + index) {
+                                                            coreLabel = valueTemps[&quot;@attributes&quot;].Label;
+                                                            coreTemp = valueTemps[&quot;@attributes&quot;].Value + &quot; &amp;deg;&quot; + data.Options[&quot;@attributes&quot;].tempFormat.toUpperCase()
+                                                        }
+                                                    });
                             
                                                     var core = $(&quot;li.cpu-cores:eq(&quot; + index + &quot;)&quot;);
                                                     core.find(&quot;.cpu-core&quot;).html(coreLabel);

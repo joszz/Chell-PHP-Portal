@@ -22,13 +22,11 @@ body#bootstrap {
     padding: 50px 0 52px;
 }
 
-body.nopadding,
-body.nopadding div.container {
-    padding: 0;
-    overflow: auto;
+body#iframe {
+    padding: 30px;
 }
 
-body.nopadding .panel {
+body#iframe .panel{
     margin-bottom: 0;
 }
 

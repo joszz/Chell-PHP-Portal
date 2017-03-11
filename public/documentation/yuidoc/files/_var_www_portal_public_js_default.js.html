@@ -189,6 +189,11 @@
                             * @method initializeGlobalEventHandlers
                             */
                             function initializeGlobalEventHandlers() {
+                                $(&quot;.navbar-toggle&quot;).click(function (event) {
+                                    event.stopImmediatePropagation();
+                                    $(&quot;.navbar-collapse&quot;).slideToggle(&quot;fast&quot;);
+                                });
+                            
                                 $(&quot;body&quot;).keydown(function (e) {
                                     if (altPressed) {
                                         if (e.which == 77 &amp;&amp; altPressed) {

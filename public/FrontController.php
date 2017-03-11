@@ -24,7 +24,7 @@ class FrontController
     private $di;
     private $application;
     private $js = array('jquery-3.1.1.js',
-                        'fancybox/jquery.fancybox.js',
+                        'jquery.fancybox.js',
                         //'fancybox/jquery.fancybox-buttons.js',
                         'bootstrap.js',
                         'bootstrap-select/bootstrap-select.js',
@@ -48,7 +48,7 @@ class FrontController
     private $css = array('bootstrap.css',
                          'bootstrap-theme.css',
                          'font-awesome/font-awesome.css',
-                         'fancybox/jquery.fancybox.css',
+                         'jquery.fancybox.css',
                          //'fancybox/jquery.fancybox-buttons.css',
                          'waves.css',
                          'bootstrap-select.css',
