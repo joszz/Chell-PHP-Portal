@@ -1,6 +1,5 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteBase /portal/
     RewriteRule  ^$ public/    [L]
     RewriteRule  ((?s).*) public/$1 [L]
 </IfModule>
