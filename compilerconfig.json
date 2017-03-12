@@ -1,0 +1,14 @@
+﻿[
+  {
+    "includeInProject": true,
+    "options": { "sourceMap": true },
+    "outputFile": "public/css/default.css",
+    "inputFile": "public/css/default/default.scss"
+  },
+  {
+    "includeInProject": true,
+    "options": { "sourceMap": true },
+    "outputFile": "public/css/bootstrap.css",
+    "inputFile": "public/css/_bootstrap.scss"
+  }
+] 

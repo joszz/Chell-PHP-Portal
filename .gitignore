@@ -55,4 +55,3 @@ SyncToy_*.dat
 generate-doc.bat
 generate-doc.sh
 .vs/
-compilerconfig.*

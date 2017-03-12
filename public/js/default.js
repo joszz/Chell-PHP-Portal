@@ -46,18 +46,11 @@ function initializeGlobalPlugins() {
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    $.fancybox.defaults.margin = [70, 20, 60, 20];
-
-    $(".fancybox:not(.disabled)").fancybox({
-        iframe: {
-            css: {
-                width: "800px"
-            }
-        },
-        smallBtn: false,
-        fullScreen: false,
-        slideShow: false
-    });
+    $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
+    $.fancybox.defaults.iframe.css = {
+        "max-width": "800px",
+        "width": "90%"
+    };
 }
 
 /**

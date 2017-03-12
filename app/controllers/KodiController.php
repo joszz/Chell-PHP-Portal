@@ -1,7 +1,7 @@
 <?php
 /**
  * The controller responsible for all actions related to Kodi.
- * 
+ *
  * @package Controllers
  */
 class KodiController extends BaseController
@@ -16,7 +16,7 @@ class KodiController extends BaseController
 
     /**
      * Show movie details.
-     * 
+     *
      * @param int $id     The ID of the movie.
      */
     public function movieAction($id)
@@ -26,15 +26,15 @@ class KodiController extends BaseController
             'bind'       => array(1 => $id),
         ));
         $movie = current(KodiMovies::extractMovieImagesFromXML(array($movie)));
-        $movie->trailer = substr($movie->c19, $start = strpos($movie->c19, 'videoid=') + 8);
-        
-        $this->view->bgImage = $movie->c20;
+        $movie->trailer = substr($movie->c19, strpos($movie->c19, 'videoid=') + 8);
+
+        $this->view->bgImage = '../getImage/movies/fanart/' . $movie->idMovie;
         $this->view->movie = $movie;
     }
 
     /**
      * Show episode details.
-     * 
+     *
      * @param int $id     The ID of the episode.
      */
     public function episodeAction($id)
@@ -43,13 +43,13 @@ class KodiController extends BaseController
             'conditions' => 'idEpisode = ?1',
             'bind'       => array(1 => $id),
         ));
-        
+
         $this->view->episode = $episode;
     }
 
     /**
      * Show ablum details.
-     * 
+     *
      * @param int $id     The ID of the album.
      */
     public function albumAction($id)
@@ -59,39 +59,41 @@ class KodiController extends BaseController
             'bind'       => array(1 => $id),
         ));
 
-        $this->view->bgImage = $movie->c20;
         $this->view->album = $album;
     }
 
     /**
      * Gets an external image and caches it locally before it is outputted to the browser.
      */
-    public function getImageAction()
+    public function getImageAction($which, $type, $id)
     {
-        switch($_GET['which'])
+        switch($which)
         {
             case 'movies':
                 $item = KodiMovies::findFirst(array(
                     'conditions' => 'idMovie = ?1',
-                    'bind'       => array(1 => $_GET['id']),
+                    'bind'       => array(1 => $id),
                 ));
-                $url = current(KodiMovies::extractMovieImagesFromXML(array($item)))->c08;
+                $movie = current(KodiMovies::extractMovieImagesFromXML(array($item)));
+                $url = $type == 'thumb' ? $movie->c08 : $movie->c20;
                 break;
 
             case 'albums':
                 $item = KodiMusic::findFirst(array(
                     'conditions' => 'idAlbum = ?1',
-                    'bind'       => array(1 => $_GET['id']),
+                    'bind'       => array(1 => $id),
                 ));
-                $url = current(KodiMusic::extractAlbumImagesFromXML(array($item)))->strImage;
+                $album = current(KodiMusic::extractAlbumImagesFromXML(array($item)));
+                $url = $type == 'thumb' ? $album->strImage : $album->strImage;
                 break;
 
             case 'episodes':
                 $item = KodiTVShowEpisodes::findFirst(array(
                     'conditions' => 'idEpisode = ?1',
-                    'bind'       => array(1 => $_GET['id']),
+                    'bind'       => array(1 => $id),
                 ));
-                $url = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)))->c06;
+                $episode = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)));
+                $url = $type == 'thumb' ? $episode->c06 : $episode->c06;
                 break;
         }
 
@@ -121,7 +123,7 @@ class KodiController extends BaseController
             header('Content-type: ' . $ntct[exif_imagetype($filename)]);
             header("Pragma: cache");
 
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) 
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
             {
                 header('HTTP/1.1 304 Not Modified');
             }

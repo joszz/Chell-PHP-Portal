@@ -22,11 +22,7 @@ body#bootstrap {
     padding: 50px 0 52px;
 }
 
-body#iframe {
-    padding: 30px;
-}
-
-body#iframe .panel{
+body#iframe .panel {
     margin-bottom: 0;
 }
 
@@ -61,7 +57,6 @@ h4 {
         cursor: pointer;
     }
 }
-
 
 div.content {
     padding-top: 20px;
@@ -122,14 +117,6 @@ input.has-error {
     height: 100%;
 }
 
-.fancybox-wrap .dropdown-menu {
-    position: relative;
-}
-
-.fancybox-margin {
-    margin-right: 0 !important;
-}
-
 div.alert {
     position: fixed;
     bottom: 15px;
@@ -155,4 +142,8 @@ div.alert {
 div.vertical-center {
     display: table-cell;
     vertical-align: middle;
+}
+
+.text-bold {
+    font-weight: bold;
 }

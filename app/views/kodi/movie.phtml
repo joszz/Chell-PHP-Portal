@@ -4,8 +4,7 @@
             <h4><?php echo utf8_encode($movie->c00)?></h4>
         </li>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Trailer</div>
-            <div class="col-xs-8 col-lg-10 text-center">
+            <div class="col-xs-12 text-center">
                 <?php if(!empty($movie->trailer)) : ?>
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="//www.youtube.com/embed/<?php echo $movie->trailer ?>" frameborder="0" allowfullscreen></iframe>
@@ -18,8 +17,8 @@
 
         <?php if(!empty($movie->rating)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Rating</div>
-            <div class="col-xs-8 col-lg-10   ">
+            <div class="col-xs-12 col-sm-2 text-bold">Rating</div>
+            <div class="col-xs-12 col-sm-10">
                 <?php for($i = 1; $i <= $movie->rating; $i++) : ?>
                 <span class="fa fa-star text-success"></span>
                 <?php endfor ?>
@@ -27,44 +26,58 @@
                 <?php if($i -1 < $movie->rating) : ?>
                 <span class="fa fa-star-half text-success"></span>
                 <?php endif ?>
+
+                <span class="badge badge-success pull-right"><?php echo $movie->rating ?></span>
             </div>
         </li>
         <?php endif ?>
 
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Plot</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c01) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Plot</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c01) ?></div>
         </li>
 
+        <?php if(!empty($movie->c14)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Genre</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c14) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Genre</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c14) ?></div>
         </li>
+        <?php endif ?>
 
+        <?php if(!empty($movie->c07)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Year</div>
-            <div class="col-xs-8 col-lg-10"><?php echo $movie->c07 ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Year</div>
+            <div class="col-xs-12 col-sm-10"><?php echo $movie->c07 ?></div>
         </li>
+        <?php endif ?>
 
+        <?php if(!empty($movie->c15)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Director</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c15) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Director</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c15) ?></div>
         </li>
+        <?php endif ?>
 
+        <?php if(!empty($movie->c06)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Writers</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c06) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Writers</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c06) ?></div>
         </li>
+        <?php endif ?>
 
+        <?php if(!empty($movie->c18)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Studio</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c18) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Studio</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c18) ?></div>
         </li>
+        <?php endif ?>
 
+        <?php if(!empty($movie->c21)) : ?>
         <li class="list-group-item col-xs-12 col-lg-12">
-            <div class="col-xs-4 col-lg-2">Country</div>
-            <div class="col-xs-8 col-lg-10"><?php echo utf8_encode($movie->c21) ?></div>
+            <div class="col-xs-12 col-sm-2 text-bold">Country</div>
+            <div class="col-xs-12 col-sm-10"><?php echo utf8_encode($movie->c21) ?></div>
         </li>
+        <?php endif ?>
     </ul>
 </div>
 

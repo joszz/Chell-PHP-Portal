@@ -11,11 +11,11 @@
         </div>
         <div class="panel-body hidden-xs">
             <?php $i = 0; foreach($episodes as $episode) : ?>
-            <a class="episode item fancybox <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
+            <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="episodes"
                 href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
                 title="<?php echo utf8_encode($episode->c00) ?>"
-                style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($episode->c06) ? 'kodi/getImage?which=episodes&id=' . $episode->idEpisode : 'img/icons/unknown.jpg')  ?>')">
+                style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($episode->c06) ? 'kodi/getImage/episodes/thumb/' . $episode->idEpisode : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $title = utf8_encode($episode->strTitle) ?>">
                     <?php echo $title ?>
