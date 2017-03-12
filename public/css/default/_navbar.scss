@@ -2,7 +2,7 @@
     top: 0;
     opacity: 0.9;
     z-index: 7500;
-	top: 0;
+    top: 0;
 }
 
 div#navbar {
@@ -16,13 +16,17 @@ div#navbar {
     margin: 0;
 }
 
+.navbar-toggle {
+    margin-right: 0;
+}
+
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse {
     max-height: 400px;
 }
 
 a.navbar-brand {
-    padding-top: 10px;
+    padding: 15px 15px 15px 0;
     line-height: 34px;
     text-shadow: 1px 1px 1px rgb(80, 80, 80) !important;
 }
@@ -51,7 +55,7 @@ nav div.navbar-collapse ul a {
 
 nav div.navbar-collapse ul a img {
     float: left;
-    margin: 2px 15px 0 10px;
+    margin: 2px 15px 0 0;
 }
 
 nav div.navbar-collapse a:active,

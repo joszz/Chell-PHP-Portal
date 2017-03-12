@@ -1,54 +1,56 @@
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h4>Settings</h4>
-    </div>
-    <div class="panel-body">
-        <ul class="nav nav-tabs">
-            <?php foreach ($forms AS $formId => $formContent) : ?>
-            <li<?php echo $activeTab == $formId ? ' class="active"' : null ?>>
-                <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
-            </li>
-            <?php endforeach ?>
-            <li<?php echo $activeTab == 'Devices' ? ' class="active"' : null ?>>
-                <a data-toggle="tab" href="#devices">Devices</a>
-            </li>
-            <li<?php echo $activeTab == 'Menu' ? ' class="active"' : null ?>>
-                <a data-toggle="tab" href="#menu" class="pull-left">Menu</a>
-            </li>
-        </ul>
-
-        <div class="tab-content">
-            <?php foreach ($forms AS $formId => $formContent) : ?>
-            <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeTab == $formId ? ' in active' : null ?> panel panel-square">
-                <form action="<?php echo $formContent->getAction() ?>" method="post">
-                    <?php foreach($formContent AS $element) : ?>
-                    <div class="form-group row<?php echo ($hasErrors = $formContent->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
-                        <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
-                        <div class="col-lg-4 col-sm-5 col-xs-12">
-                            <?php echo $element ?>
-                        </div>
-                        <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                            <?php if($hasErrors) : ?>
-                            <?php echo $formContent->getMessagesFor($element->getName())[0]->getMessage() ?>
-                            <?php endif ?>
-                        </div>
-                    </div>
+<div class="col-xs-12">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4>Settings</h4>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs">
+                <?php foreach ($forms AS $formId => $formContent) : ?>
+                <li<?php echo $activeTab == $formId ? ' class="active"' : null ?>>
+                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
+                    </li>
                     <?php endforeach ?>
+                    <li<?php echo $activeTab == 'Devices' ? ' class="active"' : null ?>>
+                        <a data-toggle="tab" href="#devices">Devices</a>
+                        </li>
+                        <li<?php echo $activeTab == 'Menu' ? ' class="active"' : null ?>>
+                            <a data-toggle="tab" href="#menu" class="pull-left">Menu</a>
+                            </li>
+            </ul>
 
-                    <div class="row">
-                        <div class="col-lg-4 col-lg-offset-3 col-xs-12">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-floppy-o"></i>
-                            </button>
+            <div class="tab-content">
+                <?php foreach ($forms AS $formId => $formContent) : ?>
+                <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeTab == $formId ? ' in active' : null ?> panel panel-square">
+                    <form action="<?php echo $formContent->getAction() ?>" method="post">
+                        <?php foreach($formContent AS $element) : ?>
+                        <div class="form-group row<?php echo ($hasErrors = $formContent->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
+                            <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label() ?></div>
+                            <div class="col-lg-4 col-sm-5 col-xs-12">
+                                <?php echo $element ?>
+                            </div>
+                            <div class="col-lg-5 col-sm-3 col-xs-12 error">
+                                <?php if($hasErrors) : ?>
+                                <?php echo $formContent->getMessagesFor($element->getName())[0]->getMessage() ?>
+                                <?php endif ?>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                        <?php endforeach ?>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-lg-offset-3 col-xs-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-floppy-o"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <?php endforeach ?>
+
+
+                <?php $this->partial('settings/partials/devices') ?>
+                <?php $this->partial('settings/partials/menuitems') ?>
             </div>
-            <?php endforeach ?>
-
-
-            <?php $this->partial('settings/partials/devices') ?>
-            <?php $this->partial('settings/partials/menuitems') ?>
         </div>
     </div>
 </div>

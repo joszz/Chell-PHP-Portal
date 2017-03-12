@@ -1,49 +1,55 @@
+
 <nav class="navbar navbar-inverse navbar-fixed-top compensate-for-scrollbar">
     <div class="container">
-        <div class="navbar-header">
-            <?php if(isset($menu)) : ?>
-            <button type="button" id="menu_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <?php endif ?>
-            <a class="navbar-brand" href="/portal/">
-                <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" alt="Logo" />
-                <span><?php echo $title ?></span>
-            </a>
-        </div>
-
-        <div id="navbar" class="collapse navbar-collapse">
-            <?php if(isset($menu)) : ?>
-            <ul class="nav navbar-nav">
-                <?php foreach($menu->getItems(array('order' => 'name ASC')) as $menuItem) : ?>
-                <?php if(strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
-
-                <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip . '"' : '"' ?>>
-                    <a href="<?php echo $menuItem->url ?>" target="_blank">
-                        <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16"
-                            alt="<?php echo $menuItem->name ?>" />
-                        <?php echo $menuItem->name ?>
-                    </a>
-                </li>
-                <?php endforeach ?>
-            </ul>
-            <div class="col-xs-12">
-                <div class="btn-group pull-right">
-                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>settings/">
-                        <span class="fa fa-cog"></span>
-                    </a>
-                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>about/">
-                        <span class="fa fa-info-circle"></span>
-                    </a>
-                    <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>session/logout/">
-                        <span class="fa fa-sign-out" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
-                    </a>
-                </div>
+        <div class="col-xs-12">
+            <div class="navbar-header">
+                <?php if(isset($menu)) : ?>
+                <button type="button" id="menu_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <?php endif ?>
+                <a class="navbar-brand" href="/portal/">
+                    <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" alt="Logo" />
+                    <span>
+                        <?php echo $title ?>
+                    </span>
+                </a>
             </div>
-            <?php endif ?>
+
+            <div id="navbar" class="collapse navbar-collapse">
+
+                <?php if(isset($menu)) : ?>
+                <ul class="nav navbar-nav">
+                    <?php foreach($menu->getItems(array('order' => 'name ASC')) as $menuItem) : ?>
+                    <?php if(strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
+
+                    <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip : '' ?>">
+                        <a href="<?php echo $menuItem->url ?>" target="_blank">
+                            <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16"
+                                alt="<?php echo $menuItem->name ?>" />
+                            <?php echo $menuItem->name ?>
+                        </a>
+                    </li>
+                    <?php endforeach ?>
+                </ul>
+                <div class="col-xs-12">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>settings/">
+                            <span class="fa fa-cog"></span>
+                        </a>
+                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>about/">
+                            <span class="fa fa-info-circle"></span>
+                        </a>
+                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>session/logout/">
+                            <span class="fa fa-sign-out" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
+                        </a>
+                    </div>
+                </div>
+                <?php endif ?>
+            </div>
         </div>
     </div>
 </nav>
