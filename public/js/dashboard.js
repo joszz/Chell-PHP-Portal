@@ -66,8 +66,8 @@ function openConfirmDialog(title, data, buttonClick) {
 
     $("div#confirm-dialog button").off().on("click", buttonClick);
 
-    $.fancybox({
-        content: $("div#confirm-dialog").show(),
-        modal: true
+    $.fancybox.open({
+        src: "#confirm-dialog",
+        opts: { closeBtn: false }
     });
 }
