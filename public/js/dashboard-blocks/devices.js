@@ -94,7 +94,7 @@
                     icon.addClass("fa-refresh icon-refresh-animate");
 
                     (function (device, dependentMenuItems, icon, ip) {
-                        $.getJSON("devices/state?ip=" + ip + "&" + d.getTime(), "", function (data) {
+                        $.getJSON("devices/state/" + ip + "&" + d.getTime(), "", function (data) {
                             icon.removeClass("fa-refresh icon-refresh-animate");
                             icon.addClass("fa-power-off");
 
@@ -130,7 +130,7 @@
                 if (btn.attr("id") == "confirm-yes") {
                     var name = btn.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/wol?mac=" + btn.closest("div").data("mac"), function (name) {
+                    $.get("devices/wol/" + btn.closest("div").data("mac"), function (name) {
                         $("div.alert").addClass("alert-success");
                         $("div.alert").html("Magic packet send to: " + name);
                         $("div.alert").fadeIn("fast");
@@ -156,7 +156,7 @@
                     var ip = parentDiv.data("ip");
                     var name = parentDiv.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/shutdown?ip=" + ip + "&user=" + user + " &password=" + password, function (data) {
+                    $.get("devices/shutdown/" + ip + "/" + user + "/" + password, function (data) {
                         if (data == "true") {
                             $("div.alert").addClass("alert-success");
                             $("div.alert").html("Shutdown command send to: " + name);

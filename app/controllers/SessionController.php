@@ -38,8 +38,6 @@ class SessionController extends BaseController
 
     /**
      * Shows the login form. Forwards to login action when rememberme cookies are present.
-	 *
-     * @return mixed
      */
     public function indexAction()
     {

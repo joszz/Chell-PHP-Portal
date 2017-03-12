@@ -2,20 +2,20 @@
 
 /**
  * This controller is responsible for handling all actions that have to do with the devices in your network.
- * 
+ *
  * @package Controllers
  */
 class DevicesController extends BaseController
 {
     /**
      * This action will try to send a WOL package to the device that is specified by $_GET['mac'].
-     * 
+     *
      * @return  void
      */
-    public function wolAction()
+    public function wolAction($mac)
     {
-        if (isset($_GET['mac'])){
-            Devices::wakeOnLan($_GET['mac'], $this->config);
+        if (isset($mac)){
+            Devices::wakeOnLan($mac, $this->config);
         }
 
         die;
@@ -23,14 +23,14 @@ class DevicesController extends BaseController
 
     /**
      * This action will try to send a shutdown message to the device specified by $_GET['ip'].
-     * 
+     *
      * @return  void
      */
-    public function shutdownAction()
+    public function shutdownAction($ip, $user, $password)
     {
-        if (isset($_GET['ip'], $_GET['user'], $_GET['password'])){
-            $output = Devices::shutdown($_GET['ip'], $_GET['user'], $_GET['password']);
-            
+        if (isset($ip, $user, $password)){
+            $output = Devices::shutdown($ip, $user, $password);
+
             if(isset($output[1]))
             {
                 die(strpos($output[1], 'succeeded') !== false ? "true" : "false");
@@ -42,14 +42,14 @@ class DevicesController extends BaseController
 
     /**
      * This action will return the power state of each device specified in the database.
-     * 
+     *
      * @return string A JSON encoded object with the state of each device
      */
-    public function stateAction()
+    public function stateAction($ip)
     {
         $device = Devices::findFirst(array(
            'conditions' => 'ip = ?1',
-           'bind'       => array(1 => $_GET['ip']),
+           'bind'       => array(1 => $ip),
        ));
 
         $state['state'] = Devices::isDeviceOn($device->ip);
@@ -60,7 +60,7 @@ class DevicesController extends BaseController
 
     /**
      * Shows the webtemp image exports for all devices configured.
-     * 
+     *
      * @return View The webtemp view
      */
     public function webtempAction()
