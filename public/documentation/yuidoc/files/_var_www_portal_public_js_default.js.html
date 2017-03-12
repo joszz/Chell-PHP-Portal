@@ -155,32 +155,11 @@
                                 Waves.attach(&quot;.btn, button, div#navbar a&quot;);
                                 Waves.init();
                             
-                                $.fancybox.defaults.margin = [70, 20, 60, 20];
-                            
-                                $(&quot;.fancybox:not(.disabled)&quot;).fancybox({
-                                    afterLoad: function () {
-                                        $.extend(this, {
-                                            maxWidth: this.element.data(&quot;fancybox-maxwidth&quot;)
-                                        });
-                                    },
-                                    helpers: {
-                                        overlay: {
-                                            locked: true
-                                        }
-                                    },
-                                });
-                            
-                                $(&quot;.fancybox-iframe:not(.disabled)&quot;).fancybox({
-                                    beforeShow: function () {
-                                        this.width = this.element.data(&quot;fancybox-maxwidth&quot;);
-                                    },
-                                    helpers: {
-                                        overlay: {
-                                            locked: true
-                                        }
-                                    },
-                                    type: &quot;iframe&quot;
-                                });
+                                $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
+                                $.fancybox.defaults.iframe.css = {
+                                    &quot;max-width&quot;: &quot;800px&quot;,
+                                    &quot;width&quot;: &quot;90%&quot;
+                                };
                             }
                             
                             /**

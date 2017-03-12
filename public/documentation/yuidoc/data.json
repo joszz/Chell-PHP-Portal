@@ -1082,7 +1082,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 77,
+            "line": 56,
             "description": "Initialized all globally used eventhandlers.",
             "itemtype": "method",
             "name": "initializeGlobalEventHandlers",
@@ -1091,7 +1091,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 107,
+            "line": 86,
             "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
             "itemtype": "method",
             "name": "fadeOutAlert",
@@ -1100,7 +1100,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 120,
+            "line": 99,
             "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
             "itemtype": "method",
             "name": "capitalize",
