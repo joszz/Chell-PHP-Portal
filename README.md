@@ -21,12 +21,12 @@ Screenshots
 
 Prerequisites
 -------------
-- PHP 5.x
+- PHP 7.x
 - MySQL 5.x
-- [Phalcon PHP framework 2.x](https://phalconphp.com/)
+- [Phalcon PHP framework 3.x](https://phalconphp.com/)
 - Apache 2.x
+- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
 - [rCPU](https://github.com/davidsblog/rCPU) (optional)
-- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/) (optional)
 - [Transmission](https://www.transmissionbt.com/) (optional)
 
 Installation and configuration
