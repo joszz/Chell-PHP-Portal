@@ -22,7 +22,7 @@ $(function () {
         location.hash = $(this).attr("href");
     });
 
-    $(".glyphicon-remove").click(function () {
+    $(".fa-remove").click(function () {
         return (confirm("Are you sure you want to delete this item?"));
     });
 });
