@@ -1,14 +1,17 @@
-﻿nav.navbar-fixed-top {
+﻿.navbar{
+    background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+}
+
+nav.navbar-fixed-top {
     top: 0;
     opacity: 0.9;
     z-index: 7500;
-    top: 0;
 }
 
 div#navbar {
     overflow: hidden;
     padding: 0;
-    max-height: 420px;
+    max-height: 440px;
     display: none;
 }
 
@@ -26,7 +29,7 @@ div#navbar {
 }
 
 a.navbar-brand {
-    padding: 15px 15px 15px 0;
+    padding: 10px 15px 15px 0;
     line-height: 34px;
     text-shadow: 1px 1px 1px rgb(80, 80, 80) !important;
 }
@@ -45,6 +48,8 @@ nav div.navbar-collapse ul a {
     color: #FFF;
     padding: 5px 10px;
     text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 @media only screen and (max-width : 767px) {

@@ -175,9 +175,9 @@
                             
                                 $(&quot;div#confirm-dialog button&quot;).off().on(&quot;click&quot;, buttonClick);
                             
-                                $.fancybox({
-                                    content: $(&quot;div#confirm-dialog&quot;).show(),
-                                    modal: true
+                                $.fancybox.open({
+                                    src: &quot;#confirm-dialog&quot;,
+                                    opts: { closeBtn: false }
                                 });
                             }
                                 </pre>

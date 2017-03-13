@@ -6,7 +6,7 @@
 
 try 
 {
-    require_once('FrontController.php');
+    require_once('../app/FrontController.php');
     echo (new FrontController())->tostring();
 }
 catch (\Exception $e) 

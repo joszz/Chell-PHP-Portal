@@ -9,6 +9,6 @@
     "includeInProject": true,
     "options": { "sourceMap": true },
     "outputFile": "public/css/bootstrap.css",
-    "inputFile": "public/css/_bootstrap.scss"
+    "inputFile": "public/css/bootstrap.scss"
   }
 ] 

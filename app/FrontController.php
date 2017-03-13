@@ -46,7 +46,6 @@ class FrontController
                         );
 
     private $css = array('bootstrap.css',
-                         'bootstrap-theme.css',
                          'font-awesome/font-awesome.css',
                          'jquery.fancybox.css',
                          //'fancybox/jquery.fancybox-buttons.css',

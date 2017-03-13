@@ -203,7 +203,7 @@
                                                 icon.addClass(&quot;fa-refresh icon-refresh-animate&quot;);
                             
                                                 (function (device, dependentMenuItems, icon, ip) {
-                                                    $.getJSON(&quot;devices/state?ip=&quot; + ip + &quot;&amp;&quot; + d.getTime(), &quot;&quot;, function (data) {
+                                                    $.getJSON(&quot;devices/state/&quot; + ip + &quot;&amp;&quot; + d.getTime(), &quot;&quot;, function (data) {
                                                         icon.removeClass(&quot;fa-refresh icon-refresh-animate&quot;);
                                                         icon.addClass(&quot;fa-power-off&quot;);
                             
@@ -239,7 +239,7 @@
                                             if (btn.attr(&quot;id&quot;) == &quot;confirm-yes&quot;) {
                                                 var name = btn.closest(&quot;div&quot;).find(&quot;h2 span&quot;).html().trim();
                             
-                                                $.get(&quot;devices/wol?mac=&quot; + btn.closest(&quot;div&quot;).data(&quot;mac&quot;), function (name) {
+                                                $.get(&quot;devices/wol/&quot; + btn.closest(&quot;div&quot;).data(&quot;mac&quot;), function (name) {
                                                     $(&quot;div.alert&quot;).addClass(&quot;alert-success&quot;);
                                                     $(&quot;div.alert&quot;).html(&quot;Magic packet send to: &quot; + name);
                                                     $(&quot;div.alert&quot;).fadeIn(&quot;fast&quot;);
@@ -265,7 +265,7 @@
                                                 var ip = parentDiv.data(&quot;ip&quot;);
                                                 var name = parentDiv.closest(&quot;div&quot;).find(&quot;h2 span&quot;).html().trim();
                             
-                                                $.get(&quot;devices/shutdown?ip=&quot; + ip + &quot;&amp;user=&quot; + user + &quot; &amp;password=&quot; + password, function (data) {
+                                                $.get(&quot;devices/shutdown/&quot; + ip + &quot;/&quot; + user + &quot;/&quot; + password, function (data) {
                                                     if (data == &quot;true&quot;) {
                                                         $(&quot;div.alert&quot;).addClass(&quot;alert-success&quot;);
                                                         $(&quot;div.alert&quot;).html(&quot;Shutdown command send to: &quot; + name);
