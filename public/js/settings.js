@@ -25,4 +25,10 @@ $(function () {
     $(".fa-remove").click(function () {
         return (confirm("Are you sure you want to delete this item?"));
     });
+
+    $("input[type='number']").TouchSpin({
+        verticalbuttons: true,
+        verticalupclass: 'fa fa-chevron-up',
+        verticaldownclass: 'fa fa-chevron-down'
+    });
 });

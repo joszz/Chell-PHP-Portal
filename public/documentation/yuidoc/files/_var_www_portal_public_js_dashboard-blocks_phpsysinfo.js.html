@@ -144,9 +144,9 @@
                                             * 
                                             * @method initialize
                                             */
-                                            initialize: function(){
+                                            initialize: function () {
                                                 settings.block.find(&quot;.fa-refresh&quot;).off().on(&quot;click&quot;, function () {
-                                                    if (settings.block.hasClass(&quot;processes&quot;)) { 
+                                                    if (settings.block.hasClass(&quot;processes&quot;)) {
                                                         functions.psstatus();
                                                     }
                                                     else {
@@ -166,15 +166,22 @@
                             
                                                 var d = new Date();
                             
-                                                $.getJSON(settings.url + &quot;xml.php?json&amp;&quot; + d.getTime(), function (data) {
-                                                    functions.setSysinfo(data);
-                                                    functions.setCPUCores(data);
-                                                    functions.setNetwork(data);
-                                                    functions.setRAM(data);
-                                                    functions.setDisks(data);
-                                                    functions.setUpdateNotifier(data);
+                                                $.ajax({
+                                                    url: settings.url + &quot;xml.php?json&amp;&quot; + d.getTime(),
+                                                    dataType: &quot;json&quot;,
+                                                    beforeSend: function (xhr) {
+                                                        xhr.setRequestHeader(&#x27;Authorization&#x27;, &#x27;Basic &#x27; + btoa(settings.block.data(&#x27;phpsysinfo-username&#x27;) + &#x27;:&#x27; + settings.block.data(&#x27;phpsysinfo-password&#x27;)));
+                                                    },
+                                                    success: function (data) {
+                                                        functions.setSysinfo(data);
+                                                        functions.setCPUCores(data);
+                                                        functions.setNetwork(data);
+                                                        functions.setRAM(data);
+                                                        functions.setDisks(data);
+                                                        functions.setUpdateNotifier(data);
                             
-                                                    $(&quot;.sysinfo, #hardware .panel, .harddisks&quot;).isLoading(&quot;hide&quot;);
+                                                        $(&quot;.sysinfo, #hardware .panel, .harddisks&quot;).isLoading(&quot;hide&quot;);
+                                                    }
                                                 });
                                             },
                             
@@ -202,7 +209,7 @@
                                                 }
                                                 $(&quot;div.uptime&quot;).tinyTimer({ from: date, format: &quot;%d days %0h:%0m:%0s&quot; });
                                             },
-                                            
+                            
                                             /**
                                             * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
                                             * 
@@ -243,7 +250,7 @@
                                                     var rx = Math.round(value[&#x27;@attributes&#x27;].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
                                                     var tx = Math.round(value[&#x27;@attributes&#x27;].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + &quot; GB&quot;;
                                                     var info = value[&#x27;@attributes&#x27;].Info.split(&quot;;&quot;);
-                                                    
+                            
                                                     network = $(&quot;.lan-stats div:eq(&quot; + index + &quot;)&quot;);
                             
                                                     network.find(&quot;.lan-name&quot;).html(value.Name);
@@ -340,37 +347,44 @@
                             
                                                 var d = new Date();
                             
-                                                $.getJSON(settings.url + &quot;xml.php?plugin=psstatus&amp;json&amp;&quot; + d.getTime(), function (data) {
-                                                    data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
-                                                        return a[&quot;@attributes&quot;].Name &lt; b[&quot;@attributes&quot;].Name ? -1 : 1;
-                                                    });
+                                                $.ajax({
+                                                    url: settings.url + &quot;xml.php?plugin=psstatus&amp;json&amp;&quot; + d.getTime(),
+                                                    dataType: &quot;json&quot;,
+                                                    beforeSend: function (xhr) {
+                                                        xhr.setRequestHeader(&#x27;Authorization&#x27;, &#x27;Basic &#x27; + btoa(settings.block.data(&#x27;phpsysinfo-username&#x27;) + &#x27;:&#x27; + settings.block.data(&#x27;phpsysinfo-password&#x27;)));
+                                                    },
+                                                    success: function (data) {
+                                                        data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
+                                                            return a[&quot;@attributes&quot;].Name &lt; b[&quot;@attributes&quot;].Name ? -1 : 1;
+                                                        });
                             
-                                                    $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
-                                                        var listItem = $(&quot;&lt;li /&gt;&quot;, { class: &quot;list-group-item col-xs-12 col-md-12&quot; });
-                                                        var name = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-10&quot; });
-                                                        var status = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-2 text-right&quot; });
-                                                        var label = $(&quot;&lt;span /&gt;&quot;, { class: &quot;label&quot; });
+                                                        $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+                                                            var listItem = $(&quot;&lt;li /&gt;&quot;, { class: &quot;list-group-item col-xs-12 col-md-12&quot; });
+                                                            var name = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-10&quot; });
+                                                            var status = $(&quot;&lt;div /&gt;&quot;, { class: &quot;col-xs-2 text-right&quot; });
+                                                            var label = $(&quot;&lt;span /&gt;&quot;, { class: &quot;label&quot; });
                             
-                                                        name.html(value[&quot;@attributes&quot;].Name);
-                                                        name.appendTo(listItem);
+                                                            name.html(value[&quot;@attributes&quot;].Name);
+                                                            name.appendTo(listItem);
                             
-                                                        if (value[&quot;@attributes&quot;].Status == 1) {
-                                                            label.html(&quot;On&quot;);
-                                                            label.addClass(&quot;label-success&quot;);
-                                                        }
-                                                        else {
-                                                            label.html(&quot;Off&quot;);
-                                                            label.addClass(&quot;label-danger&quot;);
-                                                        }
+                                                            if (value[&quot;@attributes&quot;].Status == 1) {
+                                                                label.html(&quot;On&quot;);
+                                                                label.addClass(&quot;label-success&quot;);
+                                                            }
+                                                            else {
+                                                                label.html(&quot;Off&quot;);
+                                                                label.addClass(&quot;label-danger&quot;);
+                                                            }
                             
-                                                        label.appendTo(status);
-                                                        status.appendTo(listItem);
+                                                            label.appendTo(status);
+                                                            status.appendTo(listItem);
                             
-                                                        $(&quot;div.processes li div:contains(&#x27;&quot; + value[&quot;@attributes&quot;].Name + &quot;&#x27;)&quot;).parent().remove();
-                                                        listItem.appendTo($(&quot;div.processes ul&quot;));
-                                                    });
+                                                            $(&quot;div.processes li div:contains(&#x27;&quot; + value[&quot;@attributes&quot;].Name + &quot;&#x27;)&quot;).parent().remove();
+                                                            listItem.appendTo($(&quot;div.processes ul&quot;));
+                                                        });
                             
-                                                    $(&quot;.processes&quot;).isLoading(&quot;hide&quot;);
+                                                        $(&quot;.processes&quot;).isLoading(&quot;hide&quot;);
+                                                    }
                                                 });
                                             }
                                         }

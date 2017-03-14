@@ -2,6 +2,7 @@
 
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
@@ -37,14 +38,14 @@ class SettingsDashboardForm extends Form
     {
         $this->_action = 'dashboard';
 
-        $devicestateTimeouts = new Text('check-devicestate-interval');
+        $devicestateTimeouts = new Numeric('check-devicestate-interval');
         $devicestateTimeouts->setLabel('Check device state interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->checkDeviceStatesInterval)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-        $alertTimeout = new Text('alert-timeout');
+        $alertTimeout = new Numeric('alert-timeout');
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
@@ -56,6 +57,18 @@ class SettingsDashboardForm extends Form
             ->setFilters(array('striptags', 'string'))
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->phpSysInfoURL);
+
+        $phpSysInfoUsername = new Text('phpsysinfo-username');
+        $phpSysInfoUsername->setLabel('PHPSysInfo username')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->dashboard->phpSysInfoUsername);
+
+        $phpSysInfoPassword = new Password('phpsysinfo-password');
+        $phpSysInfoPassword->setLabel('PHPSysInfo password')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->dashboard->phpSysInfoPassword);
 
         $transmissionURL = new Text('transmission-url');
         $transmissionURL->setLabel('Transmission URL')
@@ -75,7 +88,7 @@ class SettingsDashboardForm extends Form
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->transmissionPassword);
 
-        $transmissionInterval = new Text('transmission-update-interval');
+        $transmissionInterval = new Numeric('transmission-update-interval');
         $transmissionInterval->setLabel('Transmission update interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
@@ -118,21 +131,21 @@ class SettingsDashboardForm extends Form
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->kodiPassword);
 
-        $rotateMoviesInterval = new Text('rotate-movies-interval');
+        $rotateMoviesInterval = new Numeric('rotate-movies-interval');
         $rotateMoviesInterval->setLabel('Rotate movies interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->rotateMoviesInterval)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-        $rotateEpisodesInterval = new Text('rotate-episodes-interval');
+        $rotateEpisodesInterval = new Numeric('rotate-episodes-interval');
         $rotateEpisodesInterval->setLabel('Rotate episode interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->rotateEpisodesInterval)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-        $rotateAlbumsInterval = new Text('rotate-albums-interval');
+        $rotateAlbumsInterval = new Numeric('rotate-albums-interval');
         $rotateAlbumsInterval->setLabel('Rotate albums interval')
             ->setFilters(array('striptags', 'int'))
             ->setAttributes(array('class' => 'form-control'))
@@ -141,7 +154,10 @@ class SettingsDashboardForm extends Form
 
         $this->add($devicestateTimeouts);
         $this->add($alertTimeout);
+
         $this->add($phpSysInfoURL);
+        $this->add($phpSysInfoUsername);
+        $this->add($phpSysInfoPassword);
 
         $this->add($transmissionURL);
         $this->add($transmissionUsername);
@@ -176,7 +192,10 @@ class SettingsDashboardForm extends Form
         {
             $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
             $this->_config->dashboard->alertTimeout = $data['alert-timeout'];
+
             $this->_config->dashboard->phpSysInfoURL = $data['phpsysinfo-url'];
+            $this->_config->dashboard->phpSysInfoUsername = $data['phpsysinfo-username'];
+            $this->_config->dashboard->phpSysInfoPassword = $data['phpsysinfo-password'];
 
             $this->_config->dashboard->transmissionURL = $data['transmission-url'];
             $this->_config->dashboard->transmissionUsername = $data['transmission-username'];

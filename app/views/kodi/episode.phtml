@@ -6,52 +6,31 @@
                 <?php echo utf8_encode($episode->strTitle) ?>
             </h4>
         </li>
-        <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Season</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->c12 ?>
-            </div>
-        </li>
-        <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Episode</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->c13 ?>
-            </div>
-        </li>
+
         <li class="list-group-item col-xs-12">
             <div class="col-xs-12 col-sm-2 text-bold">Plot</div>
             <div class="col-xs-12 col-sm-10">
                 <?php echo utf8_encode($episode->c01) ?>
             </div>
         </li>
+
         <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Genre</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->genre ?>
+            <div class="col-xs-3 text-bold">Season</div>
+            <div class="col-xs-9">
+                <?php echo $episode->c12 ?>
             </div>
         </li>
         <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Date</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->c05 ?>
+            <div class="col-xs-3 text-bold">Episode</div>
+            <div class="col-xs-9">
+                <?php echo $episode->c13 ?>
             </div>
         </li>
-        <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Studio</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->studio ?>
-            </div>
-        </li>
-        <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">MPAA</div>
-            <div class="col-xs-12 col-sm-10">
-                <?php echo $episode->mpaa ?>
-            </div>
-        </li>
+
         <?php if(!empty($episode->rating)) : ?>
         <li class="list-group-item col-xs-12">
-            <div class="col-xs-12 col-sm-2 text-bold">Rating</div>
-            <div class="col-xs-12 col-sm-10 rating">
+            <div class="col-xs-3 text-bold">Rating</div>
+            <div class="col-xs-9 rating">
                 <?php for($i = 1; $i <= $episode->rating; $i++) : ?>
                 <span class="fa fa-star text-success"></span>
                 <?php endfor ?>
@@ -60,12 +39,37 @@
                 <span class="fa fa-star-half text-success"></span>
                 <?php endif ?>
 
-                <span class="badge badge-success pull-right">
+                <span class="label label-success pull-right">
                     <?php echo $episode->rating ?>
                 </span>
             </div>
         </li>
         <?php endif ?>
+
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-3 text-bold">Genre</div>
+            <div class="col-xs-9">
+                <?php echo $episode->genre ?>
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-3 text-bold">Date</div>
+            <div class="col-xs-9">
+                <?php echo $episode->c05 ?>
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-3 text-bold">Studio</div>
+            <div class="col-xs-9">
+                <?php echo $episode->studio ?>
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-3 text-bold">MPAA</div>
+            <div class="col-xs-9">
+                <?php echo $episode->mpaa ?>
+            </div>
+        </li>
     </ul>
 </div>
 

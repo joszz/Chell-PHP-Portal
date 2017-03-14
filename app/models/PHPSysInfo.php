@@ -20,6 +20,7 @@ class PHPSysInfo extends Model
     {
         $curl = curl_init($config->dashboard->phpSysInfoURL . "xml.php?json&plugin=complete&t=" . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_USERPWD, $config->dashboard->phpSysInfoUsername . ":" . $config->dashboard->phpSysInfoPassword);
         $data = json_decode(curl_exec($curl));
         curl_close($curl);
 

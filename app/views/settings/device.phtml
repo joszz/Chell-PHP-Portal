@@ -10,7 +10,7 @@
             <?php foreach($form AS $element) : ?>
             <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
                 <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
-                    <?php echo $element->label() ?>
+                    <?php echo $element->label(array('class' => 'text-bold')) ?>
                 </div>
                 <div class="col-lg-4 col-sm-5 col-xs-12">
                     <?php echo $element ?>

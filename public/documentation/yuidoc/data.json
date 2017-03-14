@@ -812,7 +812,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 72,
+            "line": 79,
             "description": "Wrapper function to retrieve all data except psstatus plugin.",
             "itemtype": "method",
             "name": "getAll",
@@ -826,7 +826,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 97,
+            "line": 104,
             "description": "Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setCPUCores",
@@ -843,7 +843,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 126,
+            "line": 133,
             "description": "Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setNetwork",
@@ -860,7 +860,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 149,
+            "line": 156,
             "description": "Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.",
             "itemtype": "method",
             "name": "setRAM",
@@ -877,7 +877,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 169,
+            "line": 176,
             "description": "Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.",
             "itemtype": "method",
             "name": "setDisks",
@@ -894,7 +894,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 203,
+            "line": 210,
             "description": "Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.",
             "itemtype": "method",
             "name": "setDisks",
@@ -911,7 +911,7 @@
         },
         {
             "file": "/var/www/portal/public/js/dashboard-blocks/phpsysinfo.js",
-            "line": 216,
+            "line": 223,
             "description": "Retrieves psstatus data from PHPSysInfo using AJAX.<br />\nThen clears all processess and dynamically create new nodes and appends them to the block.",
             "itemtype": "method",
             "name": "psstatus",

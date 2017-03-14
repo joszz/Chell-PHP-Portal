@@ -35,9 +35,9 @@
                 * 
                 * @method initialize
                 */
-                initialize: function(){
+                initialize: function () {
                     settings.block.find(".fa-refresh").off().on("click", function () {
-                        if (settings.block.hasClass("processes")) { 
+                        if (settings.block.hasClass("processes")) {
                             functions.psstatus();
                         }
                         else {
@@ -57,15 +57,22 @@
 
                     var d = new Date();
 
-                    $.getJSON(settings.url + "xml.php?json&" + d.getTime(), function (data) {
-                        functions.setSysinfo(data);
-                        functions.setCPUCores(data);
-                        functions.setNetwork(data);
-                        functions.setRAM(data);
-                        functions.setDisks(data);
-                        functions.setUpdateNotifier(data);
+                    $.ajax({
+                        url: settings.url + "xml.php?json&" + d.getTime(),
+                        dataType: "json",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('phpsysinfo-username') + ':' + settings.block.data('phpsysinfo-password')));
+                        },
+                        success: function (data) {
+                            functions.setSysinfo(data);
+                            functions.setCPUCores(data);
+                            functions.setNetwork(data);
+                            functions.setRAM(data);
+                            functions.setDisks(data);
+                            functions.setUpdateNotifier(data);
 
-                        $(".sysinfo, #hardware .panel, .harddisks").isLoading("hide");
+                            $(".sysinfo, #hardware .panel, .harddisks").isLoading("hide");
+                        }
                     });
                 },
 
@@ -93,7 +100,7 @@
                     }
                     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                 },
-                
+
                 /**
                 * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
                 * 
@@ -134,7 +141,7 @@
                         var rx = Math.round(value['@attributes'].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                         var tx = Math.round(value['@attributes'].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                         var info = value['@attributes'].Info.split(";");
-                        
+
                         network = $(".lan-stats div:eq(" + index + ")");
 
                         network.find(".lan-name").html(value.Name);
@@ -231,37 +238,44 @@
 
                     var d = new Date();
 
-                    $.getJSON(settings.url + "xml.php?plugin=psstatus&json&" + d.getTime(), function (data) {
-                        data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
-                            return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
-                        });
+                    $.ajax({
+                        url: settings.url + "xml.php?plugin=psstatus&json&" + d.getTime(),
+                        dataType: "json",
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('phpsysinfo-username') + ':' + settings.block.data('phpsysinfo-password')));
+                        },
+                        success: function (data) {
+                            data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
+                                return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
+                            });
 
-                        $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
-                            var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
-                            var name = $("<div />", { class: "col-xs-10" });
-                            var status = $("<div />", { class: "col-xs-2 text-right" });
-                            var label = $("<span />", { class: "label" });
+                            $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+                                var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
+                                var name = $("<div />", { class: "col-xs-10" });
+                                var status = $("<div />", { class: "col-xs-2 text-right" });
+                                var label = $("<span />", { class: "label" });
 
-                            name.html(value["@attributes"].Name);
-                            name.appendTo(listItem);
+                                name.html(value["@attributes"].Name);
+                                name.appendTo(listItem);
 
-                            if (value["@attributes"].Status == 1) {
-                                label.html("On");
-                                label.addClass("label-success");
-                            }
-                            else {
-                                label.html("Off");
-                                label.addClass("label-danger");
-                            }
+                                if (value["@attributes"].Status == 1) {
+                                    label.html("On");
+                                    label.addClass("label-success");
+                                }
+                                else {
+                                    label.html("Off");
+                                    label.addClass("label-danger");
+                                }
 
-                            label.appendTo(status);
-                            status.appendTo(listItem);
+                                label.appendTo(status);
+                                status.appendTo(listItem);
 
-                            $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
-                            listItem.appendTo($("div.processes ul"));
-                        });
+                                $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
+                                listItem.appendTo($("div.processes ul"));
+                            });
 
-                        $(".processes").isLoading("hide");
+                            $(".processes").isLoading("hide");
+                        }
                     });
                 }
             }

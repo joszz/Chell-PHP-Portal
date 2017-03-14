@@ -30,6 +30,7 @@ class FrontController
                         'bootstrap-select/bootstrap-select.js',
                         'bootstrap-tabcollapse.js',
                         'bootstrap-toggle.js',
+                        'jquery.bootstrap-touchspin.js',
                         //'responsive-paginate.js',
                         //'jquery.shorten.js',
                         'jquery.vibrate.js',
@@ -52,6 +53,7 @@ class FrontController
                          'waves.css',
                          'bootstrap-select.css',
                          'bootstrap-toggle.css',
+                         'jquery.bootstrap-touchspin.css',
                          'default.css');
 
     /**
