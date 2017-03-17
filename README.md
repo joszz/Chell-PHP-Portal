@@ -28,6 +28,7 @@ Prerequisites
 - [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
 - [rCPU](https://github.com/davidsblog/rCPU) (optional)
 - [Transmission](https://www.transmissionbt.com/) (optional)
+- [WebTemp](https://www.webtemp.org/) (optional)
 
 Installation and configuration
 ------------------------------

@@ -23,7 +23,7 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-3.1.1.js',
+    private $js = array('jquery-3.2.0.js',
                         'jquery.fancybox.js',
                         //'fancybox/jquery.fancybox-buttons.js',
                         'bootstrap.js',

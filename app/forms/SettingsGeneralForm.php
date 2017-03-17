@@ -60,7 +60,7 @@ class SettingsGeneralForm extends Form
         $bgcolor->setDefault($this->_config->application->background);
 
         $debug = new Check('debug');
-        $debug->setLabel('debug');
+        $debug->setLabel('Debug');
         $debug->setAttributes(array(
             'checked' => $this->_config->application->debug == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',

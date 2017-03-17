@@ -17,7 +17,7 @@
                     <div class="btn-group pull-right">
                         <?php if(!empty($device->webtemp)) : ?>
                         <a href="devices/webtemp/?id=<?php echo $device->id ?>" class="btn btn-default" data-fancybox="" title="Webtemp: <?php echo $device->name ?>">
-                            <span class="fa fa-dashboard"></span>
+                            <span class="fa fa-thermometer"></span>
                         </a>
                         <?php endif ?>
                         <a class="btn btn-default disabled devicestate" 
@@ -27,7 +27,7 @@
                             data-shutdown-user="<?php echo $device->shutdown_user ?>"
                             data-shutdown-password="<?php echo $device->shutdown_password ?>"
                             >
-                            <span class="fa fa-refresh icon-refresh-animate"></span>
+                            <span class="fa fa-refresh fa-spin"></span>
                         </a>
                     </div>
                 </div>

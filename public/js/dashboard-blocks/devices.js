@@ -91,11 +91,11 @@
                     $(this).addClass("disabled");
 
                     icon.removeClass("fa-power-off");
-                    icon.addClass("fa-refresh icon-refresh-animate");
+                    icon.addClass("fa-refresh fa-spin");
 
                     (function (device, dependentMenuItems, icon, ip) {
                         $.getJSON("devices/state/" + ip + "&" + d.getTime(), "", function (data) {
-                            icon.removeClass("fa-refresh icon-refresh-animate");
+                            icon.removeClass("fa-refresh fa-spin");
                             icon.addClass("fa-power-off");
 
                             device.removeClass("disabled");
