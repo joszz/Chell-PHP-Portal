@@ -28,7 +28,7 @@ class KodiController extends BaseController
         $movie = current(KodiMovies::extractMovieImagesFromXML(array($movie)));
         $movie->trailer = substr($movie->c19, strpos($movie->c19, 'videoid=') + 8);
 
-        $this->view->bgImage = '../getImage/movies/fanart/' . $movie->idMovie;
+        $this->view->bgImage = '../getImage/movies/fanart/' . $movie->idMovie . '/800';
         $this->view->movie = $movie;
     }
 
@@ -65,7 +65,7 @@ class KodiController extends BaseController
     /**
      * Gets an external image and caches it locally before it is outputted to the browser.
      */
-    public function getImageAction($which, $type, $id)
+    public function getImageAction($which, $type, $id, $maxWidth)
     {
         switch($which)
         {
@@ -116,6 +116,25 @@ class KodiController extends BaseController
                 file_put_contents($filename, $output);
             }
 
+            if(isset($maxWidth))
+            {
+                $resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
+
+                if(!file_exists($resizedPath))
+                {
+                    mkdir($resizedPath);
+                }
+
+                $resizedPath .= basename($url);
+
+                if(!file_exists($resizedPath))
+                {
+                    $this->resizeImage($filename, $resizedPath);
+                }
+
+                $filename = $resizedPath;
+            }
+            
             session_cache_limiter('none');
             header('Cache-control: max-age='.(60 * 60 * 24 * 365));
             header('Expires: '.gmdate(DATE_RFC1123,time()+ 60 * 60 * 24 * 365));
@@ -127,8 +146,60 @@ class KodiController extends BaseController
             {
                 header('HTTP/1.1 304 Not Modified');
             }
-
+            
             die(readfile($filename));
         }
+    }
+
+    private function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70)
+    {
+        list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);
+
+        switch ($source_image_type)
+        {
+            case IMAGETYPE_GIF:
+                $source_gd_image = imagecreatefromgif($sourcePath);
+                break;
+
+            case IMAGETYPE_JPEG:
+                $source_gd_image = imagecreatefromjpeg($sourcePath);
+                break;
+
+            case IMAGETYPE_PNG:
+                $source_gd_image = imagecreatefrompng($sourcePath);
+                break;
+        }
+
+        if ($source_gd_image === false)
+        {
+            return false;
+        }
+
+        $source_aspect_ratio = $source_image_width / $source_image_height;
+        $thumbnail_aspect_ratio = $maxWidth / $maxHeight;
+
+        if ($source_image_width <= $maxWidth && $source_image_height <= $maxHeight)
+        {
+            $thumbnail_image_width = $source_image_width;
+            $thumbnail_image_height = $source_image_height;
+        }
+        elseif ($thumbnail_aspect_ratio > $source_aspect_ratio)
+        {
+            $thumbnail_image_width = (int) ($maxHeight * $source_aspect_ratio);
+            $thumbnail_image_height = $maxHeight;
+        }
+        else
+        {
+            $thumbnail_image_width = $maxWidth;
+            $thumbnail_image_height = (int) ($maxWidth / $source_aspect_ratio);
+        }
+
+        $thumbnail_gd_image = imagecreatetruecolor($thumbnail_image_width, $thumbnail_image_height);
+        imagecopyresampled($thumbnail_gd_image, $source_gd_image, 0, 0, 0, 0, $thumbnail_image_width, $thumbnail_image_height, $source_image_width, $source_image_height);
+        imagejpeg($thumbnail_gd_image, $resizedPath, $imageQuality);
+        imagedestroy($source_gd_image);
+        imagedestroy($thumbnail_gd_image);
+
+        return true;
     }
 }

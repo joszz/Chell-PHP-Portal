@@ -49,3 +49,9 @@ div.nowplaying .panel-body {
     font-size: 26px;
     height: 45px;
 }
+
+.kodi-movies h4 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

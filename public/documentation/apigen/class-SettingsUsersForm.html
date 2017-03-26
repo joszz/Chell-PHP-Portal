@@ -123,6 +123,35 @@
 	<p>The form responsible for updating existing Users.</p>
 	</div>
 
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+Phalcon\Di\Injectable
+			 implements 
+<span>Phalcon\Di\InjectionAwareInterface</span>, 
+			
+<span>Phalcon\Events\EventsAwareInterface</span>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+Phalcon\Forms\Form
+			 implements 
+<span>Countable</span>, 
+			
+<span>Iterator</span>, 
+			
+<span>Traversable</span>
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>SettingsUsersForm</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -137,7 +166,7 @@
 		
 		<b>Package:</b> <a href="package-Forms.html">Forms</a><br>
 
-			<b>Located at</b> <a href="source-class-SettingsUsersForm.html#8-33" title="Go to source code">forms/SettingsUsersForm.php</a>
+			<b>Located at</b> <a href="source-class-SettingsUsersForm.html#8-50" title="Go to source code">forms/SettingsUsersForm.php</a>
 		<br>
 	</div>
 
@@ -146,6 +175,42 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Methods summary</h2></div>
 			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-SettingsUsersForm.html#21-30" title="Go to source code">__construct</a>( <span>array <var>$config</var></span> )</code>
+
+			<div class="description short">
+				<p>Set the config array (config.ini contents) to private variable.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Set the config array (config.ini contents) to private variable.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$config</var></dt>
+						<dd>The config array.</dd>
+					</dl></div>
+
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code>Phalcon\Forms\Form::__construct</code></div>
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="initialize" id="_initialize">
 
 			<td class="attributes"><code>
@@ -157,7 +222,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-SettingsUsersForm.html#15-32" title="Go to source code">initialize</a>( <span>array <var>$users</var></span> )</code>
+			<code><a href="source-class-SettingsUsersForm.html#32-49" title="Go to source code">initialize</a>( <span>array <var>$users</var></span> )</code>
 
 			<div class="description short">
 				<p>Loops over all users and sets fields for each user</p>
@@ -183,11 +248,87 @@
 			</table>
 		</div>
 
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from Phalcon\Forms\Form</h3></div>
+			<p class="elementList">
+				<code>add()</code>, 
+				<code>bind()</code>, 
+				<code>clear()</code>, 
+				<code>count()</code>, 
+				<code>current()</code>, 
+				<code>get()</code>, 
+				<code>getAction()</code>, 
+				<code>getElements()</code>, 
+				<code>getEntity()</code>, 
+				<code>getLabel()</code>, 
+				<code>getMessages()</code>, 
+				<code>getMessagesFor()</code>, 
+				<code>getUserOption()</code>, 
+				<code>getUserOptions()</code>, 
+				<code>getValidation()</code>, 
+				<code>getValue()</code>, 
+				<code>has()</code>, 
+				<code>hasMessagesFor()</code>, 
+				<code>isValid()</code>, 
+				<code>key()</code>, 
+				<code>label()</code>, 
+				<code>next()</code>, 
+				<code>remove()</code>, 
+				<code>render()</code>, 
+				<code>rewind()</code>, 
+				<code>setAction()</code>, 
+				<code>setEntity()</code>, 
+				<code>setUserOption()</code>, 
+				<code>setUserOptions()</code>, 
+				<code>setValidation()</code>, 
+				<code>valid()</code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from Phalcon\Di\Injectable</h3></div>
+			<p class="elementList">
+				<code>__get()</code>, 
+				<code>getDI()</code>, 
+				<code>getEventsManager()</code>, 
+				<code>setDI()</code>, 
+				<code>setEventsManager()</code>
+			</p>
+		</div>
 
 
 
 
 
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+		</div>
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from Phalcon\Forms\Form</h3></div>
+			<p class="elementList">
+				<code><var>$_action</var></code>, 
+				<code><var>$_data</var></code>, 
+				<code><var>$_elements</var></code>, 
+				<code><var>$_elementsIndexed</var></code>, 
+				<code><var>$_entity</var></code>, 
+				<code><var>$_messages</var></code>, 
+				<code><var>$_options</var></code>, 
+				<code><var>$_position</var></code>, 
+				<code><var>$_validation</var></code>
+			</p>
+		</div>
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from Phalcon\Di\Injectable</h3></div>
+			<p class="elementList">
+				<code><var>$_dependencyInjector</var></code>, 
+				<code><var>$_eventsManager</var></code>
+			</p>
+		</div>
 
 
 
