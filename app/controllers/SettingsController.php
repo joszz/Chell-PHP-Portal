@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Http\Response;
+use Phalcon\Validation\Message;
 
 /**
  * The controller responsible for all setting related actions.
@@ -21,7 +22,7 @@ class SettingsController extends BaseController
             'Dashboard' => new SettingsDashboardForm($this->config),
         );
 
-        //$this->view->formUsers = new SettingsUsersForm(Users::Find());
+        $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
     }
@@ -63,6 +64,28 @@ class SettingsController extends BaseController
     }
 
     /**
+     * Deletes a $entity with $id if found.
+     * Redirects back to index#devices.
+     *
+     * @param string $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
+     * @param int $id           The ID of the entity you want to delete.
+     */
+    public function deleteAction($which, $id)
+    {
+        if(isset($id, $which))
+        {
+            $entity = call_user_func(array($which, 'findFirst'), array(
+                'conditions' => 'id = ?1',
+                'bind'       => array(1 => intval($id))
+            ));
+
+            $entity->delete();
+        }
+
+        return (new Response())->redirect('settings/index#' . strtolower($which));
+    }
+
+    /**
      * Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.
      *
      * @param int $id   Optional, the device to edit.
@@ -79,7 +102,6 @@ class SettingsController extends BaseController
                 'bind'       => array(1 => $id),
             ));
         }
-
 
         $form = $this->view->form = new SettingsDeviceForm($device);
 
@@ -101,25 +123,6 @@ class SettingsController extends BaseController
         }
 
         $this->view->device = $device;
-    }
-
-    /**
-     * Deletes a device if $id is set.
-     * Redirects back to index#devices.
-     *
-     * @param int $id   The ID of the device you want to delete
-     */
-    public function device_deleteAction($id)
-    {
-        if(isset($id))
-        {
-            Devices::findFirst(array(
-                'conditions' => 'id = ?1',
-                'bind'       => array(1 => intval($id))
-            ))->delete();
-        }
-
-        return (new Response())->redirect('settings/index#devices');
     }
 
     /**
@@ -155,29 +158,54 @@ class SettingsController extends BaseController
 
                 $item->save();
 
-                return (new Response())->redirect('settings/index#menu');
+                return (new Response())->redirect('settings/index#menuitems');
             }
         }
 
         $this->view->item = $item;
     }
 
-    /**
-     * Deletes a menuitem if $id is present.
-     * Redirects back to index#menu.
-     *
-     * @param int $id   The ID od the menuitem to delete
-     */
-    public function menuitem_deleteAction($id)
+    public function userAction($id)
     {
+        $user = new Users();
+
         if(isset($id))
         {
-            MenuItems::findFirst(array(
+            $user  = Users::findFirst(array(
                 'conditions' => 'id = ?1',
-                'bind'       => array(1 => intval($id))
-            ))->delete();
+                'bind'       => array(1 => $id),
+            ));
+
+            $user->password ='';
         }
 
-        return (new Response())->redirect('settings/index#menu');
+        $form = $this->view->form = new SettingsUserForm($user);
+
+        if ($this->request->isPost())
+        {
+            $form->bind($data = $this->request->getPost(), $user);
+
+            if($form->isValid($data, $user))
+            {
+                if(!isset($id))
+                {
+                    $user = new Users($data);
+                }
+
+                if($user->password == $data['password_again'])
+                {
+                    $user->save();
+                    return (new Response())->redirect('settings/index#users');
+                }
+                else
+                {
+                    $messages = $form->getMessagesFor('password');
+
+                    $messages->appendMessage(new Message('Password fields should match!') );
+                }
+            }
+        }
+
+        $this->view->user = $user;
     }
 }

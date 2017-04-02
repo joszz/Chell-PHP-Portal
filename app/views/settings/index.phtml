@@ -1,3 +1,4 @@
+
 <div class="col-xs-12">
     <div class="panel panel-success">
         <div class="panel-heading">
@@ -6,16 +7,21 @@
         <div class="panel-body">
             <ul class="nav nav-tabs">
                 <?php foreach ($forms AS $formId => $formContent) : ?>
-                <li<?php echo $activeTab == $formId ? ' class="active"' : null ?>>
-                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
-                    </li>
-                    <?php endforeach ?>
-                    <li<?php echo $activeTab == 'Devices' ? ' class="active"' : null ?>>
-                        <a data-toggle="tab" href="#devices">Devices</a>
-                        </li>
-                        <li<?php echo $activeTab == 'Menu' ? ' class="active"' : null ?>>
-                            <a data-toggle="tab" href="#menu" class="pull-left">Menu</a>
-                            </li>
+                <li <?php echo $activeTab == $formId ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>">
+                        <?php echo $formId ?>
+                    </a>
+                </li>
+                <?php endforeach ?>
+                <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#devices">Devices</a>
+                </li>
+                <li <?php echo $activeTab == 'Menu' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#menuitems" class="pull-left">Menu</a>
+                </li>
+                <li <?php echo $activeTab == 'Users' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#users" class="pull-left">Users</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -24,7 +30,9 @@
                     <form action="<?php echo $formContent->getAction() ?>" method="post">
                         <?php foreach($formContent AS $element) : ?>
                         <div class="form-group row<?php echo ($hasErrors = $formContent->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
-                            <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs"><?php echo $element->label(array('class' => 'text-bold')) ?></div>
+                            <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
+                                <?php echo $element->label(array('class' => 'text-bold')) ?>
+                            </div>
                             <div class="col-lg-4 col-sm-5 col-xs-12">
                                 <?php echo $element ?>
                             </div>
@@ -50,6 +58,7 @@
 
                 <?php $this->partial('settings/partials/devices') ?>
                 <?php $this->partial('settings/partials/menuitems') ?>
+                <?php $this->partial('settings/partials/users') ?>
             </div>
         </div>
     </div>

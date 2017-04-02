@@ -65,7 +65,7 @@ class KodiController extends BaseController
     /**
      * Gets an external image and caches it locally before it is outputted to the browser.
      */
-    public function getImageAction($which, $type, $id, $maxWidth)
+    public function getImageAction($which, $type, $id, $maxWidth = 'disabled')
     {
         switch($which)
         {
@@ -116,7 +116,7 @@ class KodiController extends BaseController
                 file_put_contents($filename, $output);
             }
 
-            if(isset($maxWidth))
+            if($maxWidth != 'disabled')
             {
                 $resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
 
