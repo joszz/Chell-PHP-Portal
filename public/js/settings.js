@@ -23,7 +23,15 @@ $(function () {
     });
 
     $(".fa-remove").click(function () {
-        return (confirm("Are you sure you want to delete this item?"));
+        openConfirmDialog("Delete this item?", [{ url: $(this).attr("href") }], function () {
+            if ($(this).attr("id") == "confirm-yes") {
+                window.location.href = $(this).closest("div").data("url");
+            }
+
+            $.fancybox.close();
+        });
+
+        return false;
     });
 
     $("input[type='number']").TouchSpin({

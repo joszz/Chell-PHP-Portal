@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>/var/www/portal/public/js/jquery-3.2.0.js - Chell PHP Portal</title>
+    <title>/var/www/portal/public/js/jquery-3.2.1.js - Chell PHP Portal</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
@@ -102,13 +102,13 @@
                     <div id="docs-main">
                         <div class="content">
                             <div class="page-header">
-                                <h1>/var/www/portal/public/js/jquery-3.2.0.js <small>File</small></h1>
+                                <h1>/var/www/portal/public/js/jquery-3.2.1.js <small>File</small></h1>
                             </div>
                             
                             <div class="file">
                                 <pre class="prettyprint linenums">
                             /*!
-                             * jQuery JavaScript Library v3.2.0
+                             * jQuery JavaScript Library v3.2.1
                              * https://jquery.com/
                              *
                              * Includes Sizzle.js
@@ -118,7 +118,7 @@
                              * Released under the MIT license
                              * https://jquery.org/license
                              *
-                             * Date: 2017-03-16T21:26Z
+                             * Date: 2017-03-20T18:59Z
                              */
                             ( function( global, factory ) {
                             
@@ -197,7 +197,7 @@
                             
                             
                             var
-                            	version = &quot;3.2.0&quot;,
+                            	version = &quot;3.2.1&quot;,
                             
                             	// Define a local copy of jQuery
                             	jQuery = function( selector, context ) {
@@ -5452,11 +5452,9 @@
                             		},
                             		click: {
                             
-                            			// For checkable types, fire native event so checked state will be right
+                            			// For checkbox, fire native event so checked state will be right
                             			trigger: function() {
-                            				if ( rcheckableType.test( this.type ) &amp;&amp;
-                            					this.click &amp;&amp; nodeName( this, &quot;input&quot; ) ) {
-                            
+                            				if ( this.type === &quot;checkbox&quot; &amp;&amp; this.click &amp;&amp; nodeName( this, &quot;input&quot; ) ) {
                             					this.click();
                             					return false;
                             				}
@@ -6276,6 +6274,11 @@
                             
                             function curCSS( elem, name, computed ) {
                             	var width, minWidth, maxWidth, ret,
+                            
+                            		// Support: Firefox 51+
+                            		// Retrieving style before computed somehow
+                            		// fixes an issue with getting wrong values
+                            		// on detached elements
                             		style = elem.style;
                             
                             	computed = computed || getStyles( elem );
@@ -6463,6 +6466,12 @@
                             	// for getComputedStyle silently falls back to the reliable elem.style
                             	valueIsBorderBox = isBorderBox &amp;&amp;
                             		( support.boxSizingReliable() || val === elem.style[ name ] );
+                            
+                            	// Fall back to offsetWidth/Height when value is &quot;auto&quot;
+                            	// This happens for inline elements with no explicit setting (gh-3571)
+                            	if ( val === &quot;auto&quot; ) {
+                            		val = elem[ &quot;offset&quot; + name[ 0 ].toUpperCase() + name.slice( 1 ) ];
+                            	}
                             
                             	// Normalize &quot;&quot;, auto, and prepare for extra
                             	val = parseFloat( val ) || 0;
@@ -10280,16 +10289,16 @@
                             		return arguments.length === 1 ?
                             			this.off( selector, &quot;**&quot; ) :
                             			this.off( types, selector || &quot;**&quot;, fn );
-                            	},
-                            	holdReady: function( hold ) {
-                            		if ( hold ) {
-                            			jQuery.readyWait++;
-                            		} else {
-                            			jQuery.ready( true );
-                            		}
                             	}
                             } );
                             
+                            jQuery.holdReady = function( hold ) {
+                            	if ( hold ) {
+                            		jQuery.readyWait++;
+                            	} else {
+                            		jQuery.ready( true );
+                            	}
+                            };
                             jQuery.isArray = Array.isArray;
                             jQuery.parseJSON = JSON.parse;
                             jQuery.nodeName = nodeName;

@@ -192,8 +192,9 @@ class SettingsController extends BaseController
                     $user = new Users($data);
                 }
 
-                if($user->password == $data['password_again'])
+                if(!empty($user->password) && !empty($data['password_again']) && $user->password == $data['password_again'])
                 {
+                    $user->password = $this->security->hash($user->password);
                     $user->save();
                     return (new Response())->redirect('settings/index#users');
                 }

@@ -31,6 +31,7 @@ $(function () {
 
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
+    
 });
 
 /**
@@ -103,4 +104,29 @@ function fadeOutAlert() {
 */
 String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+/**
+* Shows a confirm dialog with yes/no buttons
+* 
+* @method openConfirmDialog
+* @param title {String} The title to set for the confirm dialog.
+* @param data {String} The data attributes to set on the confirm dialog, for later us.
+* @param buttonClick {Object} callback for clicking the confirm button.
+*/
+function openConfirmDialog(title, data, buttonClick) {
+    $("div#confirm-dialog h2").html(title);
+
+    $.each(data, function (index, value) {
+        $.each(value, function (index, value) {
+            $("div#confirm-dialog").data(index, value);
+        });
+    });
+
+    $("div#confirm-dialog button").off().on("click", buttonClick);
+
+    $.fancybox.open({
+        src: "#confirm-dialog",
+        opts: { closeBtn: false, closeClickOutside: false }
+    });
 }

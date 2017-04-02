@@ -1,0 +1,35 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h4 class="pull-left"><?php echo !empty($user->username) ? 'Edit' : 'New' ?> user</h4>
+        <div class="btn-group pull-right">
+            <a href="<?php echo $this->config->application->baseUri ?>settings/index#users" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form action="<?php echo $form->getAction() ?>" method="post" autocomplete="off">
+            <?php foreach($form AS $element) : ?>
+            <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
+                <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
+                    <?php echo $element->label(array('class' => 'text-bold')) ?>
+                </div>
+                <div class="col-lg-4 col-sm-5 col-xs-12">
+                    <?php echo $element ?>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-12 error">
+                    <?php if($hasErrors) : ?>
+                    <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php endforeach ?>
+
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-3 col-xs-12">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-floppy-o"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
