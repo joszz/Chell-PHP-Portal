@@ -69,10 +69,49 @@ class SettingsGeneralForm extends Form
             'data-size' => 'small'
         ));
 
+        $duoEnabled = new Check('duo-enabled');
+        $duoEnabled->setLabel('Duo enabled');
+        $duoEnabled->setAttributes(array(
+            'checked' => $this->_config->duo->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small'
+        ));
+
+        $duoAPIHostname = new Text('duo-apiHostname');
+        $duoAPIHostname->setLabel('Duo API hostname');
+        $duoAPIHostname->setFilters(array('striptags', 'string'));
+        $duoAPIHostname->setAttributes(array('class' => 'form-control'));
+        $duoAPIHostname->setDefault($this->_config->duo->apiHostname);
+
+        $duoIKey = new Text('duo-ikey');
+        $duoIKey->setLabel('Duo integration key');
+        $duoIKey->setFilters(array('striptags', 'string'));
+        $duoIKey->setAttributes(array('class' => 'form-control'));
+        $duoIKey->setDefault($this->_config->duo->ikey);
+
+        $duoSKey = new Text('duo-skey');
+        $duoSKey->setLabel('Duo secret key');
+        $duoSKey->setFilters(array('striptags', 'string'));
+        $duoSKey->setAttributes(array('class' => 'form-control'));
+        $duoSKey->setDefault($this->_config->duo->skey);
+
+        $duoAKey = new Text('duo-akey');
+        $duoAKey->setLabel('Duo akey');
+        $duoAKey->setFilters(array('striptags', 'string'));
+        $duoAKey->setAttributes(array('class' => 'form-control'));
+        $duoAKey->setDefault($this->_config->duo->akey);
+
         $this->add($title);
         $this->add($bgcolor);
         $this->add($cryptKey);
         $this->add($debug);
+        $this->add($duoEnabled);
+        $this->add($duoAPIHostname);
+        $this->add($duoIKey);
+        $this->add($duoSKey);
+        $this->add($duoAKey);
     }
 
     /**
@@ -92,6 +131,13 @@ class SettingsGeneralForm extends Form
             $this->_config->application->phalconCryptKey = $data['cryptkey'];
             $this->_config->application->background = $data['bgcolor'];
             $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
+
+
+            $this->_config->duo->enabled = $data['duo-enabled'] == 'on' ? '1' : '0';
+            $this->_config->duo->apiHostname = $data['duo-apiHostname'];
+            $this->_config->duo->ikey = $data['duo-ikey'];
+            $this->_config->duo->skey = $data['duo-skey'];
+            $this->_config->duo->akey = $data['duo-akey'];
         }
 
         return $valid;

@@ -1,0 +1,9 @@
+
+<script src="<?php echo $this->config->application->baseUri ?>js/Duo-Web-v2.js"></script>
+
+<div class="vertical-center text-center">
+    <iframe id="duo_iframe"
+        data-host="<?php echo $this->config->duo->apiHostname ?>"
+        data-sig-request="<?php echo $signRequest ?>"
+        data-post-action="<?php echo $this->config->application->baseUri ?>session/duoVerify"></iframe>
+</div>

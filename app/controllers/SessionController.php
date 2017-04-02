@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Http\Response;
-use Phalcon\Http\Response\Cookies;
 
 /**
  * The controller responsible for handling the session.
@@ -63,7 +62,8 @@ class SessionController extends BaseController
     {
         $rememberMe = false;
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        //todo: security token not working?!
+        if ($this->request->isPost() /*&& $this->security->checkToken()*/)
         {
             $username = trim($this->request->getPost('username'));
             $password = trim($this->request->getPost('password'));
@@ -86,19 +86,40 @@ class SessionController extends BaseController
 
         if ($user && $this->security->checkHash($password, $user->password))
         {
-            $this->_registerSession($user);
-            $response = new Response();
-
-            if($rememberMe)
+            //Duo 2 factor login
+            if($this->config->duo->enabled)
             {
-                $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year')));
-                $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year')));
+                if($rememberMe)
+                {
+                    $this->cookies->set("username", $username, strtotime('+1 year'));
+                    $this->cookies->set("password", $password, strtotime('+1 year'));
+                }
+
+                return $this->dispatcher->forward(
+                    array(
+                        'controller' => 'session',
+                        'action'     => 'duo',
+                        'params' => [$user]
+                    )
+                );
             }
+            //Normal login
+            else
+            {
+                $response = new Response();
 
-            $user->last_login = date('Y-m-d H:i:s');
-            $user->save();
+                if($rememberMe)
+                {
+                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year')));
+                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year')));
+                }
 
-            return $response->redirect('');
+                $this->_registerSession($user);
+                $user->last_login = date('Y-m-d H:i:s');
+                $user->save();
+
+                return $response->redirect('');
+            }
         }
         else
         {
@@ -114,9 +135,47 @@ class SessionController extends BaseController
     }
 
     /**
+     * Show the Dou iframe when 2 factor authentication has been enabled in config.
+     * @param Users $user The user that tries to login.
+     */
+    public function duoAction($user)
+    {
+        $this->view->containerFullHeight = true;
+        $this->view->signRequest = \Duo\Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
+    }
+
+    /**
+     * Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.
+     */
+    public function duoVerifyAction()
+    {
+        $username = \Duo\Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
+
+        $user = Users::findFirst(
+            array(
+                "username = :username:",
+                'bind' => array(
+                    'username' => $username,
+                )
+            )
+        );
+
+        if($user)
+        {
+            $this->_registerSession($user);
+            $user->last_login = date('Y-m-d H:i:s');
+            $user->save();
+
+            $response = new Response();
+            return $response->redirect('');
+        }
+    }
+
+    /**
      * Logout user, destroying session and invalidating remember me cookie. Forwards to login form.
      */
-    public function logoutAction(){
+    public function logoutAction()
+    {
         $response = new Response();
 
         $response->setCookies($this->cookies->set('username', '', strtotime('-1 year')));

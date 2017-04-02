@@ -38,13 +38,13 @@ class FrontController
                         'jquery.isloading.js',
                         'waves.js',
                         'md5.js',
+                        'Duo-Web-v2.js',
                         'default.js',
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/gallery.js',
                         'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/transmission.js',
-                        'dashboard-blocks/nowplaying.js',
-                        );
+                        'dashboard-blocks/nowplaying.js');
 
     private $css = array('bootstrap.css',
                          'font-awesome/font-awesome.css',
@@ -123,6 +123,12 @@ class FrontController
                 APP_PATH . $this->config->application->modelsDir . 'kodi/',
                 APP_PATH . $this->config->application->formsDir,
             )
+        )->register();
+
+        $loader->registerClasses(
+            [
+                'Duo\Web' => APP_PATH . 'app/duo/Web.php'
+            ]
         )->register();
     }
 

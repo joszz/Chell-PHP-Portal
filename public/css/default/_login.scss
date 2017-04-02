@@ -36,5 +36,17 @@ div.login .toggle {
 #rememberme-wrapper {
     width: 100%;
     min-height: 30px;
-    margin: 15px 0;
+    margin-top: 15px;
+}
+
+.login button[type="submit"] {
+    margin-top: 15px;
+}
+
+#duo_iframe {
+    width: 100%;
+    min-width: 304px;
+    max-width: 620px;
+    height: 330px;
+    border: none;
 }
