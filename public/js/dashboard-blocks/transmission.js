@@ -70,15 +70,7 @@
 
                 data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
                 data.complete = function (xhr, status) {
-                    //No sessionID set, do function again
-                    if (xhr.status == 409) {
-                        if (!onload) {
-                            settings.block.isLoading('hide');
-                        }
-
-                        functions.getTorrents(onload);
-                    }
-                    else if (xhr.status == 200) {
+                    if (xhr.status == 200) {
                         var responseData = $.parseJSON(xhr.responseText);
                         settings.block.find('li').not('.hidden').remove();
 
@@ -130,10 +122,19 @@
 
                             torrent.appendTo($('.transmission ul'));
                         });
-
+                    }
+                    //No sessionID set, do function again
+                    else if (xhr.status == 409) {
                         if (!onload) {
                             settings.block.isLoading('hide');
                         }
+
+                        functions.getTorrents(onload);
+                        return;
+                    }
+
+                    if (!onload) {
+                        settings.block.isLoading('hide');
                     }
                 };
 
