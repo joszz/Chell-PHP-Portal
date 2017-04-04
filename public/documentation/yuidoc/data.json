@@ -59,6 +59,13 @@
             "fors": {},
             "namespaces": {}
         },
+        "/var/www/portal/public/js/Duo-Web-v2.js": {
+            "name": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "/var/www/portal/public/js/dashboard.js": {
             "name": "/var/www/portal/public/js/dashboard.js",
             "modules": {
@@ -999,6 +1006,126 @@
             "submodule": "DashboardBlocks"
         },
         {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 1,
+            "description": "Duo Web SDK v2\nCopyright 2015, Duo Security",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 72,
+            "description": "Parse the sig_request parameter, throwing errors if the token contains\na server error or if the token is invalid.",
+            "params": [
+                {
+                    "name": "sig",
+                    "description": "Request token",
+                    "type": "String"
+                }
+            ],
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 112,
+            "description": "This function is set up to run when the DOM is ready, if the iframe was\nnot available during `init`.",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 136,
+            "description": "Validate that a MessageEvent came from the Duo service, and that it\nis a properly formatted payload.\n\nThe Google Chrome sign-in page injects some JS into pages that also\nmake use of postMessage, so we need to do additional validation above\nand beyond the origin.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Message received via postMessage",
+                    "type": "MessageEvent"
+                }
+            ],
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 157,
+            "description": "Validate the request token and prepare for the iframe to become ready.\n\nAll options below can be passed into an options hash to `Duo.init`, or\nspecified on the iframe using `data-` attributes.\n\nOptions specified using the options hash will take precedence over\n`data-` attributes.\n\nExample using options hash:\n```javascript\nDuo.init({\n    iframe: \"some_other_id\",\n    host: \"api-main.duo.test\",\n    sig_request: \"...\",\n    post_action: \"/auth\",\n    post_argument: \"resp\"\n});\n```\n\nExample using `data-` attributes:\n```\n<iframe id=\"duo_iframe\"\n        data-host=\"api-main.duo.test\"\n        data-sig-request=\"...\"\n        data-post-action=\"/auth\"\n        data-post-argument=\"resp\"\n        >\n</iframe>\n```",
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "iframe",
+                            "description": "The iframe, or id of an iframe to set up",
+                            "type": "String"
+                        },
+                        {
+                            "name": "host",
+                            "description": "Hostname",
+                            "type": "String"
+                        },
+                        {
+                            "name": "sig_request",
+                            "description": "Request token",
+                            "type": "String"
+                        },
+                        {
+                            "name": "post_action",
+                            "description": "URL to POST back to after successful auth",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "''"
+                        },
+                        {
+                            "name": "post_argument",
+                            "description": "Parameter name to use for response token",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "'sig_response'"
+                        },
+                        {
+                            "name": "submit_callback",
+                            "description": "If provided, duo will not submit the form instead execute\n                                                       the callback function with reference to the \"duo_form\" form object\n                                                       submit_callback can be used to prevent the webpage from reloading.",
+                            "type": "Function",
+                            "optional": true
+                        }
+                    ]
+                }
+            ],
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 249,
+            "description": "This function is called when a message was received from another domain\nusing the `postMessage` API.  Check that the event came from the Duo\nservice domain, and that the message is a properly formatted payload,\nthen perform the post back to the primary service.",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "Event object (contains origin and data)"
+                }
+            ],
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 267,
+            "description": "Point the iframe at Duo, then wait for it to postMessage back to us.",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
+            "file": "/var/www/portal/public/js/Duo-Web-v2.js",
+            "line": 318,
+            "description": "We received a postMessage from Duo.  POST back to the primary service\nwith the response token, and any additional user-supplied parameters\ngiven in form#duo_form.",
+            "class": "Index",
+            "module": "Dashboard"
+        },
+        {
             "file": "/var/www/portal/public/js/dashboard.js",
             "line": 8,
             "description": "Document onload, call to initialize dashboardblocks, eventhandlers and plugins.",
@@ -1013,32 +1140,6 @@
             "description": "Initializes the eventhandlers",
             "itemtype": "method",
             "name": "initializeDashboardEventHandlers",
-            "class": "Index",
-            "module": "Dashboard"
-        },
-        {
-            "file": "/var/www/portal/public/js/dashboard.js",
-            "line": 50,
-            "description": "Shows a confirm dialog with yes/no buttons",
-            "itemtype": "method",
-            "name": "openConfirmDialog",
-            "params": [
-                {
-                    "name": "title",
-                    "description": "The title to set for the confirm dialog.",
-                    "type": "String"
-                },
-                {
-                    "name": "data",
-                    "description": "The data attributes to set on the confirm dialog, for later us.",
-                    "type": "String"
-                },
-                {
-                    "name": "buttonClick",
-                    "description": "callback for clicking the confirm button.",
-                    "type": "Object"
-                }
-            ],
             "class": "Index",
             "module": "Dashboard"
         },
@@ -1073,7 +1174,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 36,
+            "line": 37,
             "description": "Initializes all globally used plugins.",
             "itemtype": "method",
             "name": "initializeGlobalPlugins",
@@ -1082,7 +1183,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 56,
+            "line": 57,
             "description": "Initialized all globally used eventhandlers.",
             "itemtype": "method",
             "name": "initializeGlobalEventHandlers",
@@ -1091,7 +1192,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 86,
+            "line": 87,
             "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
             "itemtype": "method",
             "name": "fadeOutAlert",
@@ -1100,10 +1201,36 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 99,
+            "line": 100,
             "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
             "itemtype": "method",
             "name": "capitalize",
+            "class": "Window",
+            "module": "General"
+        },
+        {
+            "file": "/var/www/portal/public/js/default.js",
+            "line": 109,
+            "description": "Shows a confirm dialog with yes/no buttons",
+            "itemtype": "method",
+            "name": "openConfirmDialog",
+            "params": [
+                {
+                    "name": "title",
+                    "description": "The title to set for the confirm dialog.",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "The data attributes to set on the confirm dialog, for later us.",
+                    "type": "String"
+                },
+                {
+                    "name": "buttonClick",
+                    "description": "callback for clicking the confirm button.",
+                    "type": "Object"
+                }
+            ],
             "class": "Window",
             "module": "General"
         },
@@ -1535,6 +1662,38 @@
         {
             "message": "Missing item type",
             "line": " /var/www/portal/public/js/bootstrap-select/bootstrap-select.js:1312"
+        },
+        {
+            "message": "Missing item type\nDuo Web SDK v2\nCopyright 2015, Duo Security",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:1"
+        },
+        {
+            "message": "Missing item type\nParse the sig_request parameter, throwing errors if the token contains\na server error or if the token is invalid.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:72"
+        },
+        {
+            "message": "Missing item type\nThis function is set up to run when the DOM is ready, if the iframe was\nnot available during `init`.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:112"
+        },
+        {
+            "message": "Missing item type\nValidate that a MessageEvent came from the Duo service, and that it\nis a properly formatted payload.\n\nThe Google Chrome sign-in page injects some JS into pages that also\nmake use of postMessage, so we need to do additional validation above\nand beyond the origin.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:136"
+        },
+        {
+            "message": "Missing item type\nValidate the request token and prepare for the iframe to become ready.\n\nAll options below can be passed into an options hash to `Duo.init`, or\nspecified on the iframe using `data-` attributes.\n\nOptions specified using the options hash will take precedence over\n`data-` attributes.\n\nExample using options hash:\n```javascript\nDuo.init({\n    iframe: \"some_other_id\",\n    host: \"api-main.duo.test\",\n    sig_request: \"...\",\n    post_action: \"/auth\",\n    post_argument: \"resp\"\n});\n```\n\nExample using `data-` attributes:\n```\n<iframe id=\"duo_iframe\"\n        data-host=\"api-main.duo.test\"\n        data-sig-request=\"...\"\n        data-post-action=\"/auth\"\n        data-post-argument=\"resp\"\n        >\n</iframe>\n```",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:157"
+        },
+        {
+            "message": "Missing item type\nThis function is called when a message was received from another domain\nusing the `postMessage` API.  Check that the event came from the Duo\nservice domain, and that the message is a properly formatted payload,\nthen perform the post back to the primary service.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:249"
+        },
+        {
+            "message": "Missing item type\nPoint the iframe at Duo, then wait for it to postMessage back to us.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:267"
+        },
+        {
+            "message": "Missing item type\nWe received a postMessage from Duo.  POST back to the primary service\nwith the response token, and any additional user-supplied parameters\ngiven in form#duo_form.",
+            "line": " /var/www/portal/public/js/Duo-Web-v2.js:318"
         },
         {
             "message": "Missing item type\nCreate key-value caches of limited size",

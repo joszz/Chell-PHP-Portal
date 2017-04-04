@@ -132,7 +132,15 @@
                                 });
                             
                                 $(&quot;.fa-remove&quot;).click(function () {
-                                    return (confirm(&quot;Are you sure you want to delete this item?&quot;));
+                                    openConfirmDialog(&quot;Delete this item?&quot;, [{ url: $(this).attr(&quot;href&quot;) }], function () {
+                                        if ($(this).attr(&quot;id&quot;) == &quot;confirm-yes&quot;) {
+                                            window.location.href = $(this).closest(&quot;div&quot;).data(&quot;url&quot;);
+                                        }
+                            
+                                        $.fancybox.close();
+                                    });
+                            
+                                    return false;
                                 });
                             
                                 $(&quot;input[type=&#x27;number&#x27;]&quot;).TouchSpin({

@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>/var/www/portal/public/js/Duo-Web-v2.js - Chell PHP Portal</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="../assets/css/custom.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+</head>
+<body class="yui3-skin-sam">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="row">
+                    <a href="../">
+                        <img alt="Chell PHP Portal" src="../../../img/icons/favicons/android-chrome-48x48.png" title="Chell PHP Portal">
+                        <h1 class="brand">Chell PHP Portal</h1>
+                    </a>
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <p class="navbar-text">
+                                API Docs for Version: <b>1.0</b>
+                            </p>
+                        </li>
+                    </ul>
+                    <form class="navbar-form pull-right">
+                        <input style="margin-top: 0;" type="text" class="form-control" placeholder="Search for classes/modules..." data-obj='["classes/Devices", "classes/Gallery", "classes/Index", "classes/Nowplaying", "classes/PHPSysInfo", "classes/Transmission", "classes/Window", "modules/Dashboard", "modules/DashboardBlocks", "modules/General", "modules/Settings"]'>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div>
+                    <h3>APIs</h3>
+                    <div id="sidebar">
+                        <ul id="main-nav" class="nav nav-tabs" style="margin-bottom:0;">
+                            <li class="active"><a href="#classes" data-toggle="tab">Classes</a></li>
+                            <li><a href="#modules" data-toggle="tab">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div class="tab-content" style="border: 1px solid #DDD; border-top:0;">
+                            <div class="tab-pane active" id="classes">
+                                <ul id="api-classes" class="nav nav-list">
+                                        <li><a href="../classes/Devices.html">Devices</a></li>
+                                        <li><a href="../classes/Gallery.html">Gallery</a></li>
+                                        <li><a href="../classes/Index.html">Index</a></li>
+                                        <li><a href="../classes/Nowplaying.html">Nowplaying</a></li>
+                                        <li><a href="../classes/PHPSysInfo.html">PHPSysInfo</a></li>
+                                        <li><a href="../classes/Transmission.html">Transmission</a></li>
+                                        <li><a href="../classes/Window.html">Window</a></li>
+                                </ul>
+                            </div>
+                
+                            <div class="tab-pane" id="modules">
+                                <ul id="api-modules" class="nav nav-list">
+                                        <li><a href="../modules/Dashboard.html">Dashboard</a></li>
+                                        <li><a href="../modules/DashboardBlocks.html">DashboardBlocks</a></li>
+                                        <li><a href="../modules/General.html">General</a></li>
+                                        <li><a href="../modules/Settings.html">Settings</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                    <form id="options-form" class="form-inline pull-right">
+                        Show:
+                        <label for="api-show-inherited" class="checkbox">
+                            <input type="checkbox" id="api-show-inherited" checked>
+                            Inherited
+                        </label>
+                
+                        <label for="api-show-protected" class="checkbox">
+                            <input type="checkbox" id="api-show-protected">
+                            Protected
+                        </label>
+                
+                        <label for="api-show-private" class="checkbox">
+                            <input type="checkbox" id="api-show-private">
+                            Private
+                        </label>
+                        <label for="api-show-deprecated" class="checkbox">
+                            <input type="checkbox" id="api-show-deprecated">
+                            Deprecated
+                        </label>
+                
+                    </form>
+                
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+                                <h1>/var/www/portal/public/js/Duo-Web-v2.js <small>File</small></h1>
+                            </div>
+                            
+                            <div class="file">
+                                <pre class="prettyprint linenums">
+                            /**
+                             * Duo Web SDK v2
+                             * Copyright 2015, Duo Security
+                             */
+                            window.Duo = (function(document, window) {
+                                var DUO_MESSAGE_FORMAT = /^(?:AUTH|ENROLL)+\|[A-Za-z0-9\+\/=]+\|[A-Za-z0-9\+\/=]+$/;
+                                var DUO_ERROR_FORMAT = /^ERR\|[\w\s\.\(\)]+$/;
+                            
+                                var iframeId = &#x27;duo_iframe&#x27;,
+                                    postAction = &#x27;&#x27;,
+                                    postArgument = &#x27;sig_response&#x27;,
+                                    host,
+                                    sigRequest,
+                                    duoSig,
+                                    appSig,
+                                    iframe,
+                                    submitCallback;
+                            
+                                function throwError(message, url) {
+                                    throw new Error(
+                                        &#x27;Duo Web SDK error: &#x27; + message +
+                                        (url ? (&#x27;\n&#x27; + &#x27;See &#x27; + url + &#x27; for more information&#x27;) : &#x27;&#x27;)
+                                    );
+                                }
+                            
+                                function hyphenize(str) {
+                                    return str.replace(/([a-z])([A-Z])/, &#x27;$1-$2&#x27;).toLowerCase();
+                                }
+                            
+                                // cross-browser data attributes
+                                function getDataAttribute(element, name) {
+                                    if (&#x27;dataset&#x27; in element) {
+                                        return element.dataset[name];
+                                    } else {
+                                        return element.getAttribute(&#x27;data-&#x27; + hyphenize(name));
+                                    }
+                                }
+                            
+                                // cross-browser event binding/unbinding
+                                function on(context, event, fallbackEvent, callback) {
+                                    if (&#x27;addEventListener&#x27; in window) {
+                                        context.addEventListener(event, callback, false);
+                                    } else {
+                                        context.attachEvent(fallbackEvent, callback);
+                                    }
+                                }
+                            
+                                function off(context, event, fallbackEvent, callback) {
+                                    if (&#x27;removeEventListener&#x27; in window) {
+                                        context.removeEventListener(event, callback, false);
+                                    } else {
+                                        context.detachEvent(fallbackEvent, callback);
+                                    }
+                                }
+                            
+                                function onReady(callback) {
+                                    on(document, &#x27;DOMContentLoaded&#x27;, &#x27;onreadystatechange&#x27;, callback);
+                                }
+                            
+                                function offReady(callback) {
+                                    off(document, &#x27;DOMContentLoaded&#x27;, &#x27;onreadystatechange&#x27;, callback);
+                                }
+                            
+                                function onMessage(callback) {
+                                    on(window, &#x27;message&#x27;, &#x27;onmessage&#x27;, callback);
+                                }
+                            
+                                function offMessage(callback) {
+                                    off(window, &#x27;message&#x27;, &#x27;onmessage&#x27;, callback);
+                                }
+                            
+                                /**
+                                 * Parse the sig_request parameter, throwing errors if the token contains
+                                 * a server error or if the token is invalid.
+                                 *
+                                 * @param {String} sig Request token
+                                 */
+                                function parseSigRequest(sig) {
+                                    if (!sig) {
+                                        // nothing to do
+                                        return;
+                                    }
+                            
+                                    // see if the token contains an error, throwing it if it does
+                                    if (sig.indexOf(&#x27;ERR|&#x27;) === 0) {
+                                        throwError(sig.split(&#x27;|&#x27;)[1]);
+                                    }
+                            
+                                    // validate the token
+                                    if (sig.indexOf(&#x27;:&#x27;) === -1 || sig.split(&#x27;:&#x27;).length !== 2) {
+                                        throwError(
+                                            &#x27;Duo was given a bad token.  This might indicate a configuration &#x27; +
+                                            &#x27;problem with one of Duo\&#x27;s client libraries.&#x27;,
+                                            &#x27;https://www.duosecurity.com/docs/duoweb#first-steps&#x27;
+                                        );
+                                    }
+                            
+                                    var sigParts = sig.split(&#x27;:&#x27;);
+                            
+                                    // hang on to the token, and the parsed duo and app sigs
+                                    sigRequest = sig;
+                                    duoSig = sigParts[0];
+                                    appSig = sigParts[1];
+                            
+                                    return {
+                                        sigRequest: sig,
+                                        duoSig: sigParts[0],
+                                        appSig: sigParts[1]
+                                    };
+                                }
+                            
+                                /**
+                                 * This function is set up to run when the DOM is ready, if the iframe was
+                                 * not available during &#x60;init&#x60;.
+                                 */
+                                function onDOMReady() {
+                                    iframe = document.getElementById(iframeId);
+                            
+                                    if (!iframe) {
+                                        throw new Error(
+                                            &#x27;This page does not contain an iframe for Duo to use.&#x27; +
+                                            &#x27;Add an element like &lt;iframe id=&quot;duo_iframe&quot;&gt;&lt;/iframe&gt; &#x27; +
+                                            &#x27;to this page.  &#x27; +
+                                            &#x27;See https://www.duosecurity.com/docs/duoweb#3.-show-the-iframe &#x27; +
+                                            &#x27;for more information.&#x27;
+                                        );
+                                    }
+                            
+                                    // we&#x27;ve got an iframe, away we go!
+                                    ready();
+                            
+                                    // always clean up after yourself
+                                    offReady(onDOMReady);
+                                }
+                            
+                                /**
+                                 * Validate that a MessageEvent came from the Duo service, and that it
+                                 * is a properly formatted payload.
+                                 *
+                                 * The Google Chrome sign-in page injects some JS into pages that also
+                                 * make use of postMessage, so we need to do additional validation above
+                                 * and beyond the origin.
+                                 *
+                                 * @param {MessageEvent} event Message received via postMessage
+                                 */
+                                function isDuoMessage(event) {
+                                    return Boolean(
+                                        event.origin === (&#x27;https://&#x27; + host) &amp;&amp;
+                                        typeof event.data === &#x27;string&#x27; &amp;&amp;
+                                        (
+                                            event.data.match(DUO_MESSAGE_FORMAT) ||
+                                            event.data.match(DUO_ERROR_FORMAT)
+                                        )
+                                    );
+                                }
+                            
+                                /**
+                                 * Validate the request token and prepare for the iframe to become ready.
+                                 *
+                                 * All options below can be passed into an options hash to &#x60;Duo.init&#x60;, or
+                                 * specified on the iframe using &#x60;data-&#x60; attributes.
+                                 *
+                                 * Options specified using the options hash will take precedence over
+                                 * &#x60;data-&#x60; attributes.
+                                 *
+                                 * Example using options hash:
+                                 * &#x60;&#x60;&#x60;javascript
+                                 * Duo.init({
+                                 *     iframe: &quot;some_other_id&quot;,
+                                 *     host: &quot;api-main.duo.test&quot;,
+                                 *     sig_request: &quot;...&quot;,
+                                 *     post_action: &quot;/auth&quot;,
+                                 *     post_argument: &quot;resp&quot;
+                                 * });
+                                 * &#x60;&#x60;&#x60;
+                                 *
+                                 * Example using &#x60;data-&#x60; attributes:
+                                 * &#x60;&#x60;&#x60;
+                                 * &lt;iframe id=&quot;duo_iframe&quot;
+                                 *         data-host=&quot;api-main.duo.test&quot;
+                                 *         data-sig-request=&quot;...&quot;
+                                 *         data-post-action=&quot;/auth&quot;
+                                 *         data-post-argument=&quot;resp&quot;
+                                 *         &gt;
+                                 * &lt;/iframe&gt;
+                                 * &#x60;&#x60;&#x60;
+                                 *
+                                 * @param {Object} options
+                                 * @param {String} options.iframe                         The iframe, or id of an iframe to set up
+                                 * @param {String} options.host                           Hostname
+                                 * @param {String} options.sig_request                    Request token
+                                 * @param {String} [options.post_action=&#x27;&#x27;]               URL to POST back to after successful auth
+                                 * @param {String} [options.post_argument=&#x27;sig_response&#x27;] Parameter name to use for response token
+                                 * @param {Function} [options.submit_callback]            If provided, duo will not submit the form instead execute
+                                 *                                                        the callback function with reference to the &quot;duo_form&quot; form object
+                                 *                                                        submit_callback can be used to prevent the webpage from reloading.
+                                 */
+                                function init(options) {
+                                    if (options) {
+                                        if (options.host) {
+                                            host = options.host;
+                                        }
+                            
+                                        if (options.sig_request) {
+                                            parseSigRequest(options.sig_request);
+                                        }
+                            
+                                        if (options.post_action) {
+                                            postAction = options.post_action;
+                                        }
+                            
+                                        if (options.post_argument) {
+                                            postArgument = options.post_argument;
+                                        }
+                            
+                                        if (options.iframe) {
+                                            if (&#x27;tagName&#x27; in options.iframe) {
+                                                iframe = options.iframe;
+                                            } else if (typeof options.iframe === &#x27;string&#x27;) {
+                                                iframeId = options.iframe;
+                                            }
+                                        }
+                            
+                                        if (typeof options.submit_callback === &#x27;function&#x27;) {
+                                            submitCallback = options.submit_callback;
+                                        }
+                                    }
+                            
+                                    // if we were given an iframe, no need to wait for the rest of the DOM
+                                    if (iframe) {
+                                        ready();
+                                    } else {
+                                        // try to find the iframe in the DOM
+                                        iframe = document.getElementById(iframeId);
+                            
+                                        // iframe is in the DOM, away we go!
+                                        if (iframe) {
+                                            ready();
+                                        } else {
+                                            // wait until the DOM is ready, then try again
+                                            onReady(onDOMReady);
+                                        }
+                                    }
+                            
+                                    // always clean up after yourself!
+                                    offReady(init);
+                                }
+                            
+                                /**
+                                 * This function is called when a message was received from another domain
+                                 * using the &#x60;postMessage&#x60; API.  Check that the event came from the Duo
+                                 * service domain, and that the message is a properly formatted payload,
+                                 * then perform the post back to the primary service.
+                                 *
+                                 * @param event Event object (contains origin and data)
+                                 */
+                                function onReceivedMessage(event) {
+                                    if (isDuoMessage(event)) {
+                                        // the event came from duo, do the post back
+                                        doPostBack(event.data);
+                            
+                                        // always clean up after yourself!
+                                        offMessage(onReceivedMessage);
+                                    }
+                                }
+                            
+                                /**
+                                 * Point the iframe at Duo, then wait for it to postMessage back to us.
+                                 */
+                                function ready() {
+                                    if (!host) {
+                                        host = getDataAttribute(iframe, &#x27;host&#x27;);
+                            
+                                        if (!host) {
+                                            throwError(
+                                                &#x27;No API hostname is given for Duo to use.  Be sure to pass &#x27; +
+                                                &#x27;a &#x60;host&#x60; parameter to Duo.init, or through the &#x60;data-host&#x60; &#x27; +
+                                                &#x27;attribute on the iframe element.&#x27;,
+                                                &#x27;https://www.duosecurity.com/docs/duoweb#3.-show-the-iframe&#x27;
+                                            );
+                                        }
+                                    }
+                            
+                                    if (!duoSig || !appSig) {
+                                        parseSigRequest(getDataAttribute(iframe, &#x27;sigRequest&#x27;));
+                            
+                                        if (!duoSig || !appSig) {
+                                            throwError(
+                                                &#x27;No valid signed request is given.  Be sure to give the &#x27; +
+                                                &#x27;&#x60;sig_request&#x60; parameter to Duo.init, or use the &#x27; +
+                                                &#x27;&#x60;data-sig-request&#x60; attribute on the iframe element.&#x27;,
+                                                &#x27;https://www.duosecurity.com/docs/duoweb#3.-show-the-iframe&#x27;
+                                            );
+                                        }
+                                    }
+                            
+                                    // if postAction/Argument are defaults, see if they are specified
+                                    // as data attributes on the iframe
+                                    if (postAction === &#x27;&#x27;) {
+                                        postAction = getDataAttribute(iframe, &#x27;postAction&#x27;) || postAction;
+                                    }
+                            
+                                    if (postArgument === &#x27;sig_response&#x27;) {
+                                        postArgument = getDataAttribute(iframe, &#x27;postArgument&#x27;) || postArgument;
+                                    }
+                            
+                                    // point the iframe at Duo
+                                    iframe.src = [
+                                        &#x27;https://&#x27;, host, &#x27;/frame/web/v1/auth?tx=&#x27;, duoSig,
+                                        &#x27;&amp;parent=&#x27;, encodeURIComponent(document.location.href),
+                                        &#x27;&amp;v=2.3&#x27;
+                                    ].join(&#x27;&#x27;);
+                            
+                                    // listen for the &#x27;message&#x27; event
+                                    onMessage(onReceivedMessage);
+                                }
+                            
+                                /**
+                                 * We received a postMessage from Duo.  POST back to the primary service
+                                 * with the response token, and any additional user-supplied parameters
+                                 * given in form#duo_form.
+                                 */
+                                function doPostBack(response) {
+                                    // create a hidden input to contain the response token
+                                    var input = document.createElement(&#x27;input&#x27;);
+                                    input.type = &#x27;hidden&#x27;;
+                                    input.name = postArgument;
+                                    input.value = response + &#x27;:&#x27; + appSig;
+                            
+                                    // user may supply their own form with additional inputs
+                                    var form = document.getElementById(&#x27;duo_form&#x27;);
+                            
+                                    // if the form doesn&#x27;t exist, create one
+                                    if (!form) {
+                                        form = document.createElement(&#x27;form&#x27;);
+                            
+                                        // insert the new form after the iframe
+                                        iframe.parentElement.insertBefore(form, iframe.nextSibling);
+                                    }
+                            
+                                    // make sure we are actually posting to the right place
+                                    form.method = &#x27;POST&#x27;;
+                                    form.action = postAction;
+                            
+                                    // add the response token input to the form
+                                    form.appendChild(input);
+                            
+                                    // away we go!
+                                    if (typeof submitCallback === &quot;function&quot;) {
+                                        submitCallback.call(null, form);
+                                    } else {
+                                        form.submit();
+                                    }
+                                }
+                            
+                                // when the DOM is ready, initialize
+                                // note that this will get cleaned up if the user calls init directly!
+                                onReady(init);
+                            
+                                return {
+                                    init: init,
+                                    _parseSigRequest: parseSigRequest,
+                                    _isDuoMessage: isDuoMessage,
+                                    _doPostBack: doPostBack
+                                };
+                            }(document, window));
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script src="../assets/js/yuidoc-bootstrap.js"></script>
+    <script>prettyPrint();</script>
+</body>
+</html>

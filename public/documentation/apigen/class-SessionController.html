@@ -28,7 +28,8 @@
 
 				<ul class="nav navbar-nav">
 					<li>
-<span>Package</span>					</li>
+						<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+					</li>
 					<li class="active">
 <span>Class</span>					</li>
 
@@ -60,33 +61,15 @@
 	<div id="menu">
 
 		<div id="groups">
-				<h3>Packages</h3>
+				<h3>Namespaces</h3>
 			<ul>
 					<li>
-						<a href="package-Controllers.html">
-							Controllers						</a>
+						<a href="namespace-Duo.html">
+							Duo						</a>
 							</li>
-					<li>
-						<a href="package-Forms.html">
-							Forms						</a>
-							</li>
-					<li>
-						<a href="package-Models.html">
-							Models<span></span>
-						</a>
-							<ul>
-					<li>
-						<a href="package-Models.Kodi.html">
-							Kodi						</a>
-							</li>
-								</ul></li>
-					<li>
-						<a href="package-None.html">
+					<li class="active">
+						<a href="namespace-None.html">
 							None						</a>
-							</li>
-					<li>
-						<a href="package-Plugins.html">
-							Plugins						</a>
 							</li>
 			</ul>
 		</div>
@@ -97,12 +80,28 @@
 			<ul>
 				<li><a href="class-AboutController.html">AboutController</a></li>
 				<li><a href="class-BaseController.html">BaseController</a></li>
+				<li><a href="class-Devices.html">Devices</a></li>
 				<li><a href="class-DevicesController.html">DevicesController</a></li>
+				<li><a href="class-FrontController.html">FrontController</a></li>
 				<li><a href="class-IndexController.html">IndexController</a></li>
 				<li><a href="class-KodiController.html">KodiController</a></li>
+				<li><a href="class-KodiMovies.html">KodiMovies</a></li>
+				<li><a href="class-KodiMusic.html">KodiMusic</a></li>
+				<li><a href="class-KodiTVShowEpisodes.html">KodiTVShowEpisodes</a></li>
+				<li><a href="class-LoginForm.html">LoginForm</a></li>
+				<li><a href="class-MenuItems.html">MenuItems</a></li>
+				<li><a href="class-Menus.html">Menus</a></li>
+				<li><a href="class-PHPSysInfo.html">PHPSysInfo</a></li>
 				<li><a href="class-RssController.html">RssController</a></li>
+				<li><a href="class-SecurityPlugin.html">SecurityPlugin</a></li>
 				<li class="active"><a href="class-SessionController.html">SessionController</a></li>
 				<li><a href="class-SettingsController.html">SettingsController</a></li>
+				<li><a href="class-SettingsDashboardForm.html">SettingsDashboardForm</a></li>
+				<li><a href="class-SettingsDeviceForm.html">SettingsDeviceForm</a></li>
+				<li><a href="class-SettingsGeneralForm.html">SettingsGeneralForm</a></li>
+				<li><a href="class-SettingsMenuItemForm.html">SettingsMenuItemForm</a></li>
+				<li><a href="class-SettingsUserForm.html">SettingsUserForm</a></li>
+				<li><a href="class-Users.html">Users</a></li>
 			</ul>
 
 
@@ -169,9 +168,9 @@ Phalcon\Mvc\Controller
 		
 		
 		
-		<b>Package:</b> <a href="package-Controllers.html">Controllers</a><br>
+		<b>Package:</b> Controllers<br>
 
-			<b>Located at</b> <a href="source-class-SessionController.html#6-128" title="Go to source code">controllers/SessionController.php</a>
+			<b>Located at</b> <a href="source-class-SessionController.html#5-187" title="Go to source code">controllers/SessionController.php</a>
 		<br>
 	</div>
 
@@ -191,7 +190,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_initialize">#</a>
-			<code><a href="source-class-SessionController.html#31-37" title="Go to source code">initialize</a>( )</code>
+			<code><a href="source-class-SessionController.html#30-36" title="Go to source code">initialize</a>( )</code>
 
 			<div class="description short">
 				<p>Override BaseController's initialize function so menu will not be retrieved/displayed.</p>
@@ -222,7 +221,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_indexAction">#</a>
-			<code><a href="source-class-SessionController.html#39-56" title="Go to source code">indexAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#38-55" title="Go to source code">indexAction</a>( )</code>
 
 			<div class="description short">
 				<p>Shows the login form. Forwards to login action when rememberme cookies are present.</p>
@@ -251,7 +250,7 @@ Phalcon\Mvc\Controller
 
 			<td class="name"><div>
 			<a class="anchor" href="#_loginAction">#</a>
-			<code><a href="source-class-SessionController.html#58-114" title="Go to source code">loginAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#57-135" title="Go to source code">loginAction</a>( )</code>
 
 			<div class="description short">
 				<p>Handles login with either POST variables or remember me cookie values.
@@ -261,6 +260,69 @@ If success redirects to dashboard (IndexController), unsuccesfull forward to ind
 			<div class="description detailed hidden">
 				<p>Handles login with either POST variables or remember me cookie values.
 If success redirects to dashboard (IndexController), unsuccesfull forward to index/loginform</p>
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="duoAction" id="_duoAction">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_duoAction">#</a>
+			<code><a href="source-class-SessionController.html#137-145" title="Go to source code">duoAction</a>( <span><code><a href="class-Users.html">Users</a></code> <var>$user</var></span> )</code>
+
+			<div class="description short">
+				<p>Show the Dou iframe when 2 factor authentication has been enabled in config.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Show the Dou iframe when 2 factor authentication has been enabled in config.</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$user</var></dt>
+						<dd>The user that tries to login.</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="duoVerifyAction" id="_duoVerifyAction">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_duoVerifyAction">#</a>
+			<code><a href="source-class-SessionController.html#147-172" title="Go to source code">duoVerifyAction</a>( )</code>
+
+			<div class="description short">
+				<p>Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.</p>
 
 
 
@@ -282,7 +344,7 @@ If success redirects to dashboard (IndexController), unsuccesfull forward to ind
 
 			<td class="name"><div>
 			<a class="anchor" href="#_logoutAction">#</a>
-			<code><a href="source-class-SessionController.html#116-127" title="Go to source code">logoutAction</a>( )</code>
+			<code><a href="source-class-SessionController.html#174-186" title="Go to source code">logoutAction</a>( )</code>
 
 			<div class="description short">
 				<p>Logout user, destroying session and invalidating remember me cookie. Forwards to login form.</p>

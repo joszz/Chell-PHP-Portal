@@ -302,19 +302,23 @@ class FrontController
         $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
         $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
 
-        $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
-
-        $this->application->assets
-             ->collection('settings')
-             ->setTargetPath($finalSettingsFile)
-             ->setTargetUri($finalSettingsFile);
-
-        if(!file_exists(getcwd() . '/' . $finalSettingsFile))
+        if(!$this->config->application->debug)
         {
-            $this->application->assets->collection('settings')
-                 ->addJs('js/settings.js')
-                 ->join(true)
-                 ->addFilter(new Jsmin());
+            $this->application->assets
+                 ->collection('settings')
+                 ->setTargetPath($finalSettingsFile)
+                 ->setTargetUri($finalSettingsFile);
+        }
+
+        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalSettingsFile))
+        {
+            $settingsJS = $this->application->assets->collection('settings')->addJs('js/settings.js');
+
+            if(!$this->config->application->debug)
+            {
+                $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
+                $settingsJS->join(true)->addFilter(new Jsmin());
+            }
         }
         else
         {
