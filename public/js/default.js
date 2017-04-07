@@ -31,7 +31,10 @@ $(function () {
 
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
-    
+
+    $("#duo_iframe").on('load', function () {
+        $(this).fadeIn();
+    });
 });
 
 /**

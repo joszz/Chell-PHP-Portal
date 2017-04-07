@@ -179,15 +179,7 @@
                             
                                             data.data = &#x27;{&quot;method&quot;:&quot;torrent-get&quot;, &quot;arguments&quot;:{&quot;fields&quot;:[&quot;id&quot;, &quot;name&quot;, &quot;percentDone&quot;, &quot;status&quot;]}}&#x27;;
                                             data.complete = function (xhr, status) {
-                                                //No sessionID set, do function again
-                                                if (xhr.status == 409) {
-                                                    if (!onload) {
-                                                        settings.block.isLoading(&#x27;hide&#x27;);
-                                                    }
-                            
-                                                    functions.getTorrents(onload);
-                                                }
-                                                else if (xhr.status == 200) {
+                                                if (xhr.status == 200) {
                                                     var responseData = $.parseJSON(xhr.responseText);
                                                     settings.block.find(&#x27;li&#x27;).not(&#x27;.hidden&#x27;).remove();
                             
@@ -239,10 +231,19 @@
                             
                                                         torrent.appendTo($(&#x27;.transmission ul&#x27;));
                                                     });
-                            
+                                                }
+                                                //No sessionID set, do function again
+                                                else if (xhr.status == 409) {
                                                     if (!onload) {
                                                         settings.block.isLoading(&#x27;hide&#x27;);
                                                     }
+                            
+                                                    functions.getTorrents(onload);
+                                                    return;
+                                                }
+                            
+                                                if (!onload) {
+                                                    settings.block.isLoading(&#x27;hide&#x27;);
                                                 }
                                             };
                             

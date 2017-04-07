@@ -421,83 +421,87 @@
 </span><span id="302" class="l"><a href="#302">302 </a>        <span class="php-var">$mtimeHash</span> = <span class="php-var">$this</span>-&gt;createMTimeHash(<span class="php-keyword1">array</span>(<span class="php-quote">'settings.js'</span>), <span class="php-keyword2">getcwd</span>() . <span class="php-quote">'/js/'</span>);
 </span><span id="303" class="l"><a href="#303">303 </a>        <span class="php-var">$finalSettingsFile</span> = <span class="php-quote">'js/compressed/settings_'</span> . <span class="php-var">$mtimeHash</span> . <span class="php-quote">'.min.js'</span>;
 </span><span id="304" class="l"><a href="#304">304 </a>
-</span><span id="305" class="l"><a href="#305">305 </a>        <span class="php-var">$this</span>-&gt;cleanupCompressedFiles(<span class="php-var">$finalSettingsFile</span>, <span class="php-quote">'/js/compressed/settings_*.min.js'</span>);
-</span><span id="306" class="l"><a href="#306">306 </a>
-</span><span id="307" class="l"><a href="#307">307 </a>        <span class="php-var">$this</span>-&gt;application-&gt;assets
-</span><span id="308" class="l"><a href="#308">308 </a>             -&gt;collection(<span class="php-quote">'settings'</span>)
-</span><span id="309" class="l"><a href="#309">309 </a>             -&gt;setTargetPath(<span class="php-var">$finalSettingsFile</span>)
-</span><span id="310" class="l"><a href="#310">310 </a>             -&gt;setTargetUri(<span class="php-var">$finalSettingsFile</span>);
-</span><span id="311" class="l"><a href="#311">311 </a>
-</span><span id="312" class="l"><a href="#312">312 </a>        <span class="php-keyword1">if</span>(!<span class="php-keyword2">file_exists</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-quote">'/'</span> . <span class="php-var">$finalSettingsFile</span>))
-</span><span id="313" class="l"><a href="#313">313 </a>        {
-</span><span id="314" class="l"><a href="#314">314 </a>            <span class="php-var">$this</span>-&gt;application-&gt;assets-&gt;collection(<span class="php-quote">'settings'</span>)
-</span><span id="315" class="l"><a href="#315">315 </a>                 -&gt;addJs(<span class="php-quote">'js/settings.js'</span>)
-</span><span id="316" class="l"><a href="#316">316 </a>                 -&gt;<span class="php-keyword2">join</span>(<span class="php-keyword1">true</span>)
-</span><span id="317" class="l"><a href="#317">317 </a>                 -&gt;addFilter(<span class="php-keyword1">new</span> Jsmin());
-</span><span id="318" class="l"><a href="#318">318 </a>        }
-</span><span id="319" class="l"><a href="#319">319 </a>        <span class="php-keyword1">else</span>
-</span><span id="320" class="l"><a href="#320">320 </a>        {
-</span><span id="321" class="l"><a href="#321">321 </a>            <span class="php-var">$this</span>-&gt;application-&gt;assets-&gt;collection(<span class="php-quote">'settings'</span>)-&gt;addJs(<span class="php-var">$finalSettingsFile</span>);
+</span><span id="305" class="l"><a href="#305">305 </a>        <span class="php-keyword1">if</span>(!<span class="php-var">$this</span>-&gt;config-&gt;application-&gt;debug)
+</span><span id="306" class="l"><a href="#306">306 </a>        {
+</span><span id="307" class="l"><a href="#307">307 </a>            <span class="php-var">$this</span>-&gt;application-&gt;assets
+</span><span id="308" class="l"><a href="#308">308 </a>                 -&gt;collection(<span class="php-quote">'settings'</span>)
+</span><span id="309" class="l"><a href="#309">309 </a>                 -&gt;setTargetPath(<span class="php-var">$finalSettingsFile</span>)
+</span><span id="310" class="l"><a href="#310">310 </a>                 -&gt;setTargetUri(<span class="php-var">$finalSettingsFile</span>);
+</span><span id="311" class="l"><a href="#311">311 </a>        }
+</span><span id="312" class="l"><a href="#312">312 </a>
+</span><span id="313" class="l"><a href="#313">313 </a>        <span class="php-keyword1">if</span>(<span class="php-var">$this</span>-&gt;config-&gt;application-&gt;debug || !<span class="php-keyword2">file_exists</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-quote">'/'</span> . <span class="php-var">$finalSettingsFile</span>))
+</span><span id="314" class="l"><a href="#314">314 </a>        {
+</span><span id="315" class="l"><a href="#315">315 </a>            <span class="php-var">$settingsJS</span> = <span class="php-var">$this</span>-&gt;application-&gt;assets-&gt;collection(<span class="php-quote">'settings'</span>)-&gt;addJs(<span class="php-quote">'js/settings.js'</span>);
+</span><span id="316" class="l"><a href="#316">316 </a>
+</span><span id="317" class="l"><a href="#317">317 </a>            <span class="php-keyword1">if</span>(!<span class="php-var">$this</span>-&gt;config-&gt;application-&gt;debug)
+</span><span id="318" class="l"><a href="#318">318 </a>            {
+</span><span id="319" class="l"><a href="#319">319 </a>                <span class="php-var">$this</span>-&gt;cleanupCompressedFiles(<span class="php-var">$finalSettingsFile</span>, <span class="php-quote">'/js/compressed/settings_*.min.js'</span>);
+</span><span id="320" class="l"><a href="#320">320 </a>                <span class="php-var">$settingsJS</span>-&gt;<span class="php-keyword2">join</span>(<span class="php-keyword1">true</span>)-&gt;addFilter(<span class="php-keyword1">new</span> Jsmin());
+</span><span id="321" class="l"><a href="#321">321 </a>            }
 </span><span id="322" class="l"><a href="#322">322 </a>        }
-</span><span id="323" class="l"><a href="#323">323 </a>    }
-</span><span id="324" class="l"><a href="#324">324 </a>
-</span><span id="325" class="l"><a href="#325">325 </a>    <span class="php-comment">/**
-</span></span><span id="326" class="l"><a href="#326">326 </a><span class="php-comment">     * Cleanup absolete compressed files.
-</span></span><span id="327" class="l"><a href="#327">327 </a><span class="php-comment">     *
-</span></span><span id="328" class="l"><a href="#328">328 </a><span class="php-comment">     * @param mixed $finalFile      The new compressed file
-</span></span><span id="329" class="l"><a href="#329">329 </a><span class="php-comment">     * @param mixed $pattern        The pattern to match against for files in directory.
-</span></span><span id="330" class="l"><a href="#330">330 </a><span class="php-comment">     */</span>
-</span><span id="331" class="l"><a href="#331">331 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> cleanupCompressedFiles(<span class="php-var">$finalFile</span>, <span class="php-var">$pattern</span>)
-</span><span id="332" class="l"><a href="#332">332 </a>    {
-</span><span id="333" class="l"><a href="#333">333 </a>        <span class="php-var">$files</span> = <span class="php-keyword2">glob</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-var">$pattern</span>);
-</span><span id="334" class="l"><a href="#334">334 </a>
-</span><span id="335" class="l"><a href="#335">335 </a>        <span class="php-keyword1">if</span>((<span class="php-var">$key</span> = <span class="php-keyword2">array_search</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-quote">'/'</span> . <span class="php-var">$finalFile</span>, <span class="php-var">$files</span>)) !== <span class="php-keyword1">false</span>)
-</span><span id="336" class="l"><a href="#336">336 </a>        {
-</span><span id="337" class="l"><a href="#337">337 </a>            <span class="php-keyword1">unset</span>(<span class="php-var">$files</span>[<span class="php-var">$key</span>]);
-</span><span id="338" class="l"><a href="#338">338 </a>        }
-</span><span id="339" class="l"><a href="#339">339 </a>
-</span><span id="340" class="l"><a href="#340">340 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">count</span>(<span class="php-var">$files</span>))
-</span><span id="341" class="l"><a href="#341">341 </a>        {
-</span><span id="342" class="l"><a href="#342">342 </a>            <span class="php-keyword2">array_map</span>(<span class="php-quote">'unlink'</span>, <span class="php-var">$files</span>);
-</span><span id="343" class="l"><a href="#343">343 </a>        }
-</span><span id="344" class="l"><a href="#344">344 </a>    }
-</span><span id="345" class="l"><a href="#345">345 </a>
-</span><span id="346" class="l"><a href="#346">346 </a>    <span class="php-comment">/**
-</span></span><span id="347" class="l"><a href="#347">347 </a><span class="php-comment">     * Creates a filemtime string from all files in array and then create a hash out of it.
-</span></span><span id="348" class="l"><a href="#348">348 </a><span class="php-comment">     *
-</span></span><span id="349" class="l"><a href="#349">349 </a><span class="php-comment">     * @param array $files      The array of files to create the hash for based on their modified time.
-</span></span><span id="350" class="l"><a href="#350">350 </a><span class="php-comment">     * @param mixed $basepath   The path where the files in the array can be found.
-</span></span><span id="351" class="l"><a href="#351">351 </a><span class="php-comment">     * @return string           The hash based on the string of filemtimes.
-</span></span><span id="352" class="l"><a href="#352">352 </a><span class="php-comment">     */</span>
-</span><span id="353" class="l"><a href="#353">353 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createMTimeHash(<span class="php-keyword1">array</span> <span class="php-var">$files</span>, <span class="php-var">$basepath</span>)
-</span><span id="354" class="l"><a href="#354">354 </a>    {
-</span><span id="355" class="l"><a href="#355">355 </a>        <span class="php-var">$mtimes</span> = <span class="php-num">0</span>;
-</span><span id="356" class="l"><a href="#356">356 </a>
-</span><span id="357" class="l"><a href="#357">357 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$files</span> <span class="php-keyword1">as</span> <span class="php-var">$file</span>)
-</span><span id="358" class="l"><a href="#358">358 </a>        {
-</span><span id="359" class="l"><a href="#359">359 </a>            <span class="php-var">$mtimes</span> += <span class="php-keyword2">filemtime</span>(<span class="php-var">$basepath</span> . <span class="php-var">$file</span>);
-</span><span id="360" class="l"><a href="#360">360 </a>        }
-</span><span id="361" class="l"><a href="#361">361 </a>
-</span><span id="362" class="l"><a href="#362">362 </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">md5</span>(<span class="php-var">$mtimes</span>);
-</span><span id="363" class="l"><a href="#363">363 </a>    }
-</span><span id="364" class="l"><a href="#364">364 </a>
-</span><span id="365" class="l"><a href="#365">365 </a>    <span class="php-comment">/**
-</span></span><span id="366" class="l"><a href="#366">366 </a><span class="php-comment">     * Sets the title for the application.
-</span></span><span id="367" class="l"><a href="#367">367 </a><span class="php-comment">     */</span>
-</span><span id="368" class="l"><a href="#368">368 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> setTitle()
-</span><span id="369" class="l"><a href="#369">369 </a>    {
-</span><span id="370" class="l"><a href="#370">370 </a>        <span class="php-var">$this</span>-&gt;application-&gt;tag-&gt;setTitle(<span class="php-var">$this</span>-&gt;application-&gt;view-&gt;title = <span class="php-var">$this</span>-&gt;title);
-</span><span id="371" class="l"><a href="#371">371 </a>    }
-</span><span id="372" class="l"><a href="#372">372 </a>
-</span><span id="373" class="l"><a href="#373">373 </a>    <span class="php-comment">/**
-</span></span><span id="374" class="l"><a href="#374">374 </a><span class="php-comment">     * Echoes the HTML to the browser.
-</span></span><span id="375" class="l"><a href="#375">375 </a><span class="php-comment">     * @return mixed    The complete HTML of the request.
-</span></span><span id="376" class="l"><a href="#376">376 </a><span class="php-comment">     */</span>
-</span><span id="377" class="l"><a href="#377">377 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> tostring()
-</span><span id="378" class="l"><a href="#378">378 </a>    {
-</span><span id="379" class="l"><a href="#379">379 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;application-&gt;handle()-&gt;getContent();
-</span><span id="380" class="l"><a href="#380">380 </a>    }
-</span><span id="381" class="l"><a href="#381">381 </a>}</span></code></pre>
+</span><span id="323" class="l"><a href="#323">323 </a>        <span class="php-keyword1">else</span>
+</span><span id="324" class="l"><a href="#324">324 </a>        {
+</span><span id="325" class="l"><a href="#325">325 </a>            <span class="php-var">$this</span>-&gt;application-&gt;assets-&gt;collection(<span class="php-quote">'settings'</span>)-&gt;addJs(<span class="php-var">$finalSettingsFile</span>);
+</span><span id="326" class="l"><a href="#326">326 </a>        }
+</span><span id="327" class="l"><a href="#327">327 </a>    }
+</span><span id="328" class="l"><a href="#328">328 </a>
+</span><span id="329" class="l"><a href="#329">329 </a>    <span class="php-comment">/**
+</span></span><span id="330" class="l"><a href="#330">330 </a><span class="php-comment">     * Cleanup absolete compressed files.
+</span></span><span id="331" class="l"><a href="#331">331 </a><span class="php-comment">     *
+</span></span><span id="332" class="l"><a href="#332">332 </a><span class="php-comment">     * @param mixed $finalFile      The new compressed file
+</span></span><span id="333" class="l"><a href="#333">333 </a><span class="php-comment">     * @param mixed $pattern        The pattern to match against for files in directory.
+</span></span><span id="334" class="l"><a href="#334">334 </a><span class="php-comment">     */</span>
+</span><span id="335" class="l"><a href="#335">335 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> cleanupCompressedFiles(<span class="php-var">$finalFile</span>, <span class="php-var">$pattern</span>)
+</span><span id="336" class="l"><a href="#336">336 </a>    {
+</span><span id="337" class="l"><a href="#337">337 </a>        <span class="php-var">$files</span> = <span class="php-keyword2">glob</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-var">$pattern</span>);
+</span><span id="338" class="l"><a href="#338">338 </a>
+</span><span id="339" class="l"><a href="#339">339 </a>        <span class="php-keyword1">if</span>((<span class="php-var">$key</span> = <span class="php-keyword2">array_search</span>(<span class="php-keyword2">getcwd</span>() . <span class="php-quote">'/'</span> . <span class="php-var">$finalFile</span>, <span class="php-var">$files</span>)) !== <span class="php-keyword1">false</span>)
+</span><span id="340" class="l"><a href="#340">340 </a>        {
+</span><span id="341" class="l"><a href="#341">341 </a>            <span class="php-keyword1">unset</span>(<span class="php-var">$files</span>[<span class="php-var">$key</span>]);
+</span><span id="342" class="l"><a href="#342">342 </a>        }
+</span><span id="343" class="l"><a href="#343">343 </a>
+</span><span id="344" class="l"><a href="#344">344 </a>        <span class="php-keyword1">if</span>(<span class="php-keyword2">count</span>(<span class="php-var">$files</span>))
+</span><span id="345" class="l"><a href="#345">345 </a>        {
+</span><span id="346" class="l"><a href="#346">346 </a>            <span class="php-keyword2">array_map</span>(<span class="php-quote">'unlink'</span>, <span class="php-var">$files</span>);
+</span><span id="347" class="l"><a href="#347">347 </a>        }
+</span><span id="348" class="l"><a href="#348">348 </a>    }
+</span><span id="349" class="l"><a href="#349">349 </a>
+</span><span id="350" class="l"><a href="#350">350 </a>    <span class="php-comment">/**
+</span></span><span id="351" class="l"><a href="#351">351 </a><span class="php-comment">     * Creates a filemtime string from all files in array and then create a hash out of it.
+</span></span><span id="352" class="l"><a href="#352">352 </a><span class="php-comment">     *
+</span></span><span id="353" class="l"><a href="#353">353 </a><span class="php-comment">     * @param array $files      The array of files to create the hash for based on their modified time.
+</span></span><span id="354" class="l"><a href="#354">354 </a><span class="php-comment">     * @param mixed $basepath   The path where the files in the array can be found.
+</span></span><span id="355" class="l"><a href="#355">355 </a><span class="php-comment">     * @return string           The hash based on the string of filemtimes.
+</span></span><span id="356" class="l"><a href="#356">356 </a><span class="php-comment">     */</span>
+</span><span id="357" class="l"><a href="#357">357 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> createMTimeHash(<span class="php-keyword1">array</span> <span class="php-var">$files</span>, <span class="php-var">$basepath</span>)
+</span><span id="358" class="l"><a href="#358">358 </a>    {
+</span><span id="359" class="l"><a href="#359">359 </a>        <span class="php-var">$mtimes</span> = <span class="php-num">0</span>;
+</span><span id="360" class="l"><a href="#360">360 </a>
+</span><span id="361" class="l"><a href="#361">361 </a>        <span class="php-keyword1">foreach</span>(<span class="php-var">$files</span> <span class="php-keyword1">as</span> <span class="php-var">$file</span>)
+</span><span id="362" class="l"><a href="#362">362 </a>        {
+</span><span id="363" class="l"><a href="#363">363 </a>            <span class="php-var">$mtimes</span> += <span class="php-keyword2">filemtime</span>(<span class="php-var">$basepath</span> . <span class="php-var">$file</span>);
+</span><span id="364" class="l"><a href="#364">364 </a>        }
+</span><span id="365" class="l"><a href="#365">365 </a>
+</span><span id="366" class="l"><a href="#366">366 </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">md5</span>(<span class="php-var">$mtimes</span>);
+</span><span id="367" class="l"><a href="#367">367 </a>    }
+</span><span id="368" class="l"><a href="#368">368 </a>
+</span><span id="369" class="l"><a href="#369">369 </a>    <span class="php-comment">/**
+</span></span><span id="370" class="l"><a href="#370">370 </a><span class="php-comment">     * Sets the title for the application.
+</span></span><span id="371" class="l"><a href="#371">371 </a><span class="php-comment">     */</span>
+</span><span id="372" class="l"><a href="#372">372 </a>    <span class="php-keyword1">private</span> <span class="php-keyword1">function</span> setTitle()
+</span><span id="373" class="l"><a href="#373">373 </a>    {
+</span><span id="374" class="l"><a href="#374">374 </a>        <span class="php-var">$this</span>-&gt;application-&gt;tag-&gt;setTitle(<span class="php-var">$this</span>-&gt;application-&gt;view-&gt;title = <span class="php-var">$this</span>-&gt;title);
+</span><span id="375" class="l"><a href="#375">375 </a>    }
+</span><span id="376" class="l"><a href="#376">376 </a>
+</span><span id="377" class="l"><a href="#377">377 </a>    <span class="php-comment">/**
+</span></span><span id="378" class="l"><a href="#378">378 </a><span class="php-comment">     * Echoes the HTML to the browser.
+</span></span><span id="379" class="l"><a href="#379">379 </a><span class="php-comment">     * @return mixed    The complete HTML of the request.
+</span></span><span id="380" class="l"><a href="#380">380 </a><span class="php-comment">     */</span>
+</span><span id="381" class="l"><a href="#381">381 </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> tostring()
+</span><span id="382" class="l"><a href="#382">382 </a>    {
+</span><span id="383" class="l"><a href="#383">383 </a>        <span class="php-keyword1">return</span> <span class="php-var">$this</span>-&gt;application-&gt;handle()-&gt;getContent();
+</span><span id="384" class="l"><a href="#384">384 </a>    }
+</span><span id="385" class="l"><a href="#385">385 </a>}</span></code></pre>
 	</div>
 
 	<div id="footer">
