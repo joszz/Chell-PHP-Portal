@@ -140,7 +140,10 @@
                             
                                 initializeGlobalPlugins();
                                 initializeGlobalEventHandlers();
-                                
+                            
+                                $(&quot;#duo_iframe&quot;).on(&#x27;load&#x27;, function () {
+                                    $(this).fadeIn();
+                                });
                             });
                             
                             /**

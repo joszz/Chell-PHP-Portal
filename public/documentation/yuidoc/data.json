@@ -1174,7 +1174,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 37,
+            "line": 40,
             "description": "Initializes all globally used plugins.",
             "itemtype": "method",
             "name": "initializeGlobalPlugins",
@@ -1183,7 +1183,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 57,
+            "line": 60,
             "description": "Initialized all globally used eventhandlers.",
             "itemtype": "method",
             "name": "initializeGlobalEventHandlers",
@@ -1192,7 +1192,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 87,
+            "line": 90,
             "description": "Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout",
             "itemtype": "method",
             "name": "fadeOutAlert",
@@ -1201,7 +1201,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 100,
+            "line": 103,
             "description": "Capitalizes the first character of a string, as prototype so it can be used on strings.",
             "itemtype": "method",
             "name": "capitalize",
@@ -1210,7 +1210,7 @@
         },
         {
             "file": "/var/www/portal/public/js/default.js",
-            "line": 109,
+            "line": 112,
             "description": "Shows a confirm dialog with yes/no buttons",
             "itemtype": "method",
             "name": "openConfirmDialog",

@@ -67,13 +67,26 @@ div.panel.transparent {
     left: 0;
 }
 
+
+.rating .label {
+    font-size: 12px;
+}
+
+@media only screen and (max-width : 767px) {
+    body > div.container > div {
+        padding: 0;
+    }
+}
+
+
 @media only screen and (min-width : 481px) {
     div.panel .list-group,
     div.panel .panel-body {
         display: block !important;
     }
-}
 
-.rating .label {
-    font-size: 12px;
+    div.panel .btn-group .btn.rounded-not-mobile {
+        border-bottom-right-radius: 4px !important;
+        border-top-right-radius: 4px !important;
+    }
 }
