@@ -43,7 +43,7 @@ Finally you can edit the config.ini file. You can find this file in "app/config/
 Documentation
 ------------------------------
 * [ApiGen generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/apigen/)
-* [YuiDic generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/yuidoc/)
+* [YuiDoc generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/yuidoc/)
 
 #### Database
 
