@@ -55,3 +55,5 @@ SyncToy_*.dat
 generate-doc.bat
 generate-doc.sh
 .vs/
+documentation/
+app/config/config.ini

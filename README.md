@@ -40,15 +40,20 @@ Next, copy over the source files to a directory on your server, preferrably (for
 
 Finally you can edit the config.ini file. You can find this file in "app/config/config.ini", the values to be specified speak for themselves.
 
-Database documentation
-----------------------
+Documentation
+------------------------------
+* [ApiGen generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/apigen/)
+* [YuiDic generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/yuidoc/)
+
+#### Database
+
 In this chapter you will find information about the database tables and associated columns.
 
-#### devices
+##### devices
 A table used to store the various devices in your network. Used for WOL and menu items which should only be active when a device is awake (pingable).
 
-#### menu_items
+##### menu_items
 The different items/links in the collapsable menu. It is associated with a menu by the column parent_id (so multiple menus can be created). A menu_item can be dependent on a device to be disabled in the GUI when that device is not pingable.
 
-#### menus
+##### menus
 The available menus. For now only one menu will be displayed (ID 1, hardcoded for now).
