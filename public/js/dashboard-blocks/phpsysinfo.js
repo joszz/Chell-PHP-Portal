@@ -53,7 +53,7 @@
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 getAll: function () {
-                    $(".sysinfo, #hardware .panel, .harddisks").isLoading();
+                    $(".sysinfo, #hardware, .harddisks").isLoading();
 
                     var d = new Date();
 
@@ -71,7 +71,7 @@
                             functions.setDisks(data);
                             functions.setUpdateNotifier(data);
 
-                            $(".sysinfo, #hardware .panel, .harddisks").isLoading("hide");
+                            $(".sysinfo, #hardware, .harddisks").isLoading("hide");
                         }
                     });
                 },

@@ -44,6 +44,7 @@ class KodiController extends BaseController
             'bind'       => array(1 => $id),
         ));
 
+        $this->view->bgImage = '../getImage/episodes/thumb/' . $episode->idEpisode;
         $this->view->episode = $episode;
     }
 
@@ -134,7 +135,7 @@ class KodiController extends BaseController
 
                 $filename = $resizedPath;
             }
-            
+
             session_cache_limiter('none');
             header('Cache-control: max-age='.(60 * 60 * 24 * 365));
             header('Expires: '.gmdate(DATE_RFC1123,time()+ 60 * 60 * 24 * 365));
@@ -146,7 +147,7 @@ class KodiController extends BaseController
             {
                 header('HTTP/1.1 304 Not Modified');
             }
-            
+
             die(readfile($filename));
         }
     }
