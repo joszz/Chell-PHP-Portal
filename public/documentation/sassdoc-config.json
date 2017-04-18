@@ -1,7 +1,0 @@
-{
-  "dest": "./sassdoc/",
-  "package": "../css/package.json",
-  "exclude": [
-
-  ]
-}
