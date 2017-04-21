@@ -86,3 +86,10 @@ nav.navbar ul.nav > li {
 div#navbar div.btn-group {
     margin: 8px 0;
 }
+
+
+@media only screen and (min-width : 481px) {
+    #navbar > div{
+        padding: 0;
+    }
+}
