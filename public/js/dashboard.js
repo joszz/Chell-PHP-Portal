@@ -32,7 +32,7 @@ $(function () {
 function initializeDashboardEventHandlers() {
     $(".toggle-collapse, .panel-heading h4").click(function () {
         var panel = $(this).closest(".panel");
-        
+
         if (panel.find(".toggle-collapse:visible").length != 0) {
             panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
             panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
@@ -40,9 +40,18 @@ function initializeDashboardEventHandlers() {
     });
 
     $("footer .toggle-all").click(function () {
-        var icon = $(this).find("span");
+        $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
+        $(this).toggleClass("fa-expand fa-compress");
+    });
 
-        $(".fa-" + (icon.hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
-        icon.toggleClass("fa-expand fa-compress");
+    $("footer .fa-arrows-alt").click(function () {
+        var fullscreen = !$(this).data("fullscreen");
+
+        $(this).data("fullscreen", fullscreen);
+        $(document).fullScreen(fullscreen);
+    });
+
+    $(document).on("fullScreenChangeHandler", function () {
+        alert();
     });
 }

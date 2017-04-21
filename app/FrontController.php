@@ -36,6 +36,7 @@ class FrontController
                         'jquery.vibrate.js',
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',
+                        'jquery.fullscreen.js',
                         'waves.js',
                         'md5.js',
                         'Duo-Web-v2.js',

@@ -62,8 +62,7 @@ class SessionController extends BaseController
     {
         $rememberMe = false;
 
-        //todo: security token not working?!
-        if ($this->request->isPost() /*&& $this->security->checkToken()*/)
+        if ($this->request->isPost() && ($this->config->application->debug || (!$this->config->application->debug && $this->security->checkToken())))
         {
             $username = trim($this->request->getPost('username'));
             $password = trim($this->request->getPost('password'));
@@ -77,7 +76,7 @@ class SessionController extends BaseController
 
         $user = Users::findFirst(
             array(
-                "username = :username:",
+                'username = :username:',
                 'bind' => array(
                     'username' => $username,
                 )
@@ -91,8 +90,8 @@ class SessionController extends BaseController
             {
                 if($rememberMe)
                 {
-                    $this->cookies->set("username", $username, strtotime('+1 year'));
-                    $this->cookies->set("password", $password, strtotime('+1 year'));
+                    $this->cookies->set('username', $username, strtotime('+1 year'));
+                    $this->cookies->set('password', $password, strtotime('+1 year'));
                 }
 
                 return $this->dispatcher->forward(
@@ -153,7 +152,7 @@ class SessionController extends BaseController
 
         $user = Users::findFirst(
             array(
-                "username = :username:",
+                'username = :username:',
                 'bind' => array(
                     'username' => $username,
                 )
