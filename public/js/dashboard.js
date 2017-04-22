@@ -43,15 +43,4 @@ function initializeDashboardEventHandlers() {
         $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
         $(this).toggleClass("fa-expand fa-compress");
     });
-
-    $("footer .fa-arrows-alt").click(function () {
-        var fullscreen = !$(this).data("fullscreen");
-
-        $(this).data("fullscreen", fullscreen);
-        $(document).fullScreen(fullscreen);
-    });
-
-    $(document).on("fullScreenChangeHandler", function () {
-        alert();
-    });
 }

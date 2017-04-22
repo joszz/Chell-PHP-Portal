@@ -85,6 +85,10 @@ function initializeGlobalEventHandlers() {
     $("body").keyup(function (e) {
         if (e.which == 18) altPressed = false;
     });
+
+    $("footer .fa-arrows-alt").click(function () {
+        $(document).fullScreen(!$(document).fullScreen());
+    });
 }
 
 /**
