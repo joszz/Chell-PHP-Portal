@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * The gallery blocks on the dashboard.
 * 
 * @class Gallery
@@ -34,7 +36,7 @@
                 * 
                 * @method initialize
                 */
-                initialize: function(){
+                initialize: function () {
                     settings.rotateIntervalId = setInterval(function () {
                         functions.rotateGallery("right");
                     }, settings.rotateInterval);
@@ -53,23 +55,23 @@
                 * Called when navigating to a new item in the gallery. Either by button clicks or by the interval.
                 * 
                 * @method rotateGallery
-                * @param direction {String} The direction to rotate to, valid values are "left" and "right".
+                * @param {String} direction The direction to rotate to, valid values are "left" and "right".
                 */
                 rotateGallery: function (direction) {
                     var currentIndex = settings.block.find(".item:visible").index();
-                    var offset = direction == "right" ? 1 : -1;
+                    var offset = direction === "right" ? 1 : -1;
 
-                    nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length == 1 ? currentIndex + offset : 0;
+                    nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
 
-                    if (currentIndex != nextIndex) {
+                    if (currentIndex !== nextIndex) {
                         settings.block.find(".item:eq(" + currentIndex + ")").fadeOut("fast", function () {
                             settings.block.find(".item:eq(" + nextIndex + ")").fadeIn("fast").css("display", "block");
                         });
                     }
-                },
+                }
             };
 
             functions.initialize();
         });
-    }
+    };
 })(jQuery);

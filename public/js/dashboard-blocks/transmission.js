@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * The transmission block on the dashboard.
 * 
 * @class Transmission
@@ -23,7 +25,7 @@
                 },
                 statusCode: {
                     409: function (request, status, error) {
-                        settings.transmissionSessionId = request.getResponseHeader('X-Transmission-Session-Id')
+                        settings.transmissionSessionId = request.getResponseHeader('X-Transmission-Session-Id');
                     }
                 },
                 url: this.data('transmission-url')
@@ -46,7 +48,8 @@
             * Retrieves the torrent list from Transmission.
             * 
             * @method getTorrents
-            * @param onload {Boolean} Whether this function is called during onload or not. Optional, defaults to false.
+            * @param {Boolean} onload Whether this function is called during onload or not. Optional, defaults to false.
+            * @returns {Object}     Reference to self.
             */
             getTorrents: function (onload) {
                 onload = typeof onload === 'undefined' ? false : onload;
@@ -70,11 +73,11 @@
 
                 data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
                 data.complete = function (xhr, status) {
-                    if (xhr.status == 200) {
+                    if (xhr.status === 200) {
                         var responseData = $.parseJSON(xhr.responseText);
                         settings.block.find('li').not('.hidden').remove();
 
-                        if (responseData.arguments.torrents.length == 0) {
+                        if (responseData.arguments.torrents.length === 0) {
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html('No torrents found');
@@ -95,12 +98,12 @@
                             torrent.find('.torrentprogress .progress-bar').width(value.percentDone + '%');
 
                             //Downloading
-                            if (value.status == 4) {
+                            if (value.status === 4) {
                                 torrent.find('.torrentactions .status').removeClass('fa-play');
                                 torrent.find('.torrentactions .status').addClass('fa-pause');
                             }
                             //Paused
-                            else if (value.status == 0) {
+                            else if (value.status === 0) {
                                 torrent.find('.torrentactions .status').removeClass('fa-pause');
                                 torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
                                 torrent.find('.torrentactions .status').addClass('fa-play');
@@ -114,7 +117,7 @@
                                 openConfirmDialog('Delete torrent?', [], function () {
                                     $.fancybox.close();
 
-                                    if ($(this).attr('id') == 'confirm-yes') {
+                                    if ($(this).attr('id') === 'confirm-yes') {
                                         functions.removeTorrents(torrent.data('id'));
                                     }
                                 });
@@ -124,7 +127,7 @@
                         });
                     }
                     //No sessionID set, do function again
-                    else if (xhr.status == 409) {
+                    else if (xhr.status === 409) {
                         if (!onload) {
                             settings.block.isLoading('hide');
                         }
@@ -147,7 +150,7 @@
             * Given a torrentId, will toggle the state of the torrent to paused / started. Depending on the current state of the torrent.
             * 
             * @method startStopTorrents
-            * @param torrentIds {Number} The torrent ID to stop/start.
+            * @param {Number} torrentIds The torrent ID to stop/start.
             * @todo Rewrite so an array of torrents can be passed along.
             */
             startStopTorrents: function (torrentIds) {
@@ -156,12 +159,12 @@
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
-                    if (xhr.status == 409) {
+                    if (xhr.status === 409) {
                         functions.startTorrents(torrentIds);
                     }
-                    else if (xhr.status == 200) {
+                    else if (xhr.status === 200) {
                         var responseData = $.parseJSON(xhr.responseText);
-                        if (responseData.result == 'success') {
+                        if (responseData.result === 'success') {
                             $('li[data-id=' + torrentIds + '] button.status').toggleClass('fa-pause fa-play');
                             $('li[data-id=' + torrentIds + '] .progress-bar').toggleClass('progress-bar-success progress-bar-primary');
                         }
@@ -175,7 +178,7 @@
             * Given a torrentId, will remove a torrent and local data.
             * 
             * @method removeTorrents
-            * @param torrentIds {Number} The torrent ID to remove.
+            * @param {Number} torrentIds The torrent ID to remove.
             * @todo Rewrite so an array of torrents can be passed along.
             */
             removeTorrents: function (torrentIds) {
@@ -184,12 +187,12 @@
 
                 data.complete = function (xhr, status) {
                     //No sessionID set, do function again
-                    if (xhr.status == 409) {
+                    if (xhr.status === 409) {
                         functions.removeTorrents(torrentIds);
                     }
-                    else if (xhr.status == 200) {
+                    else if (xhr.status === 200) {
                         var responseData = $.parseJSON(xhr.responseText);
-                        if (responseData.result == 'success') {
+                        if (responseData.result === 'success') {
                             $('li[data-id=' + torrentIds + ']').remove();
                             functions.getTorrents(false);
                         }
@@ -197,7 +200,7 @@
                 };
 
                 $.ajax(data);
-            },
+            }
         };
 
         functions.getTorrents(true);

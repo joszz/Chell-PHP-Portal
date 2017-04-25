@@ -1,4 +1,5 @@
 ﻿[
+  //Chell PHP Portal
   {
     "includeInProject": true,
     "options": { "sourceMap": true },
@@ -10,5 +11,19 @@
     "options": { "sourceMap": true },
     "outputFile": "public/css/bootstrap.css",
     "inputFile": "public/css/bootstrap.scss"
+  },
+
+  //Installer
+  {
+    "includeInProject": true,
+    "options": { "sourceMap": true },
+    "outputFile": "installer/css/default.css",
+    "inputFile": "installer/css/default.scss"
+  },
+  {
+    "includeInProject": true,
+    "options": { "sourceMap": true },
+    "outputFile": "installer/css/bootstrap.css",
+    "inputFile": "installer/css/bootstrap.scss"
   }
 ]

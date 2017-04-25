@@ -11,7 +11,7 @@ nav.navbar-fixed-top {
 div#navbar {
     overflow: hidden;
     padding: 0;
-    max-height: 440px;
+    max-height: 460px;
     display: none;
 }
 
@@ -23,10 +23,6 @@ div#navbar {
     margin-right: 0;
 }
 
-.navbar-fixed-top .navbar-collapse,
-.navbar-fixed-bottom .navbar-collapse {
-    max-height: 400px;
-}
 
 a.navbar-brand {
     padding: 10px 15px 15px 0;

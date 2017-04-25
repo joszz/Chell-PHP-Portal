@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * Main entry point for dashboard view.
 * 
 * @class Index
@@ -19,6 +21,8 @@ $(function () {
     $(".movies, .episodes, .albums").gallery();
     $(".nowplaying").nowplaying();
 
+    //$.fn.sickrage();
+
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
@@ -33,7 +37,7 @@ function initializeDashboardEventHandlers() {
     $(".toggle-collapse, .panel-heading h4").click(function () {
         var panel = $(this).closest(".panel");
 
-        if (panel.find(".toggle-collapse:visible").length != 0) {
+        if (panel.find(".toggle-collapse:visible").length !== 0) {
             panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
             panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
         }

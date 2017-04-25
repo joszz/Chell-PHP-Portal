@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * The nowplaying block on the dashboard.
 * 
 * @class Nowplaying
@@ -32,7 +34,7 @@
                 password: $(this).data("kodi-password"),
                 username: $(this).data("kodi-username"),
                 timeout: 5000
-            },
+            }
         }, options);
 
         /**
@@ -64,7 +66,7 @@
             * Wrapper function to retrieve all nowplaying details. 
             * 
             * @method nowPlaying
-            * @param onload {Boolean} Whether this function is called as part of initialization
+            * @param {Boolean} onload Whether this function is called as part of initialization
             */
             nowPlaying: function (onload) {
                 onload = typeof onload === 'undefined' ? false : onload;
@@ -83,7 +85,7 @@
                 functions.kodi.nowPlaying();
 
                 var checkloadingInterval = window.setInterval(function () {
-                    if (!onload && settings.kodi.loading == false && settings.subsonic.loading == false) {
+                    if (!onload && settings.kodi.loading === false && settings.subsonic.loading === false) {
                         $(".nowplaying").isLoading("hide");
                         clearInterval(checkloadingInterval);
                     }
@@ -97,7 +99,7 @@
             * @method nowPlayingCallback
             */
             nowPlayingCallback: function () {
-                if (settings.kodi.loading == false && settings.subsonic.loading == false) {
+                if (settings.kodi.loading === false && settings.subsonic.loading === false) {
                     var playerCount = settings.block.find(".player:not(.nothing-playing)").length;
 
                     if (playerCount > 0) {
@@ -138,22 +140,22 @@
             * Rotates the block to the next/prev player. Called by interval or pressing next/prev buttons.
             * 
             * @method rotate
-            * @param direction {String} Which direction to rotate to. Valid values are "left" and "right".
+            * @param {String} direction Which direction to rotate to. Valid values are "left" and "right".
             */
             rotate: function (direction) {
                 var currentIndex = settings.block.find(".player:visible").index();
-                var offset = direction == "right" ? 1 : -1;
+                var offset = direction === "right" ? 1 : -1;
                 var nextIndex = 1;
                 var nextBlock = settings.block.find(".player:eq(" + (currentIndex + offset) + ")");
 
-                if (nextBlock.length == 1 && !nextBlock.hasClass("nothing-playing")) {
+                if (nextBlock.length === 1 && !nextBlock.hasClass("nothing-playing")) {
                     nextIndex = currentIndex + offset;
                 }
                 else if (nextBlock.hasClass("nothing-playing")) {
                     nextIndex = settings.block.find(".player").length - 1;
                 }
 
-                if (currentIndex != nextIndex) {
+                if (currentIndex !== nextIndex) {
                     settings.block.find(".player:eq(" + currentIndex + ")").fadeOut("fast", function () {
                         settings.block.find(".player:eq(" + nextIndex + ")").fadeIn("fast", function () {
                             var title = settings.block.find(".player:visible").hasClass("kodi") ? "Kodi" : "Subsonic";
@@ -167,7 +169,7 @@
             * Clones the .player.nothing-playing and uses it to set up a new player based on the supplied values.
             * 
             * @method createPlayer
-            * @param values {Object} The values to set for the new player.
+            * @param {Object} values The values to set for the new player.
             */
             createPlayer: function (values) {
                 var clone = settings.block.find(".player.nothing-playing").clone();
@@ -193,7 +195,7 @@
                 fancybox.find(".playcount").html(values.playCount);
                 fancybox.find(".lastplayed").html(values.lastplayed + " minutes ago");
 
-                if (settings.block.find(".player:not(.nothing-playing):visible").length != 0) {
+                if (settings.block.find(".player:not(.nothing-playing):visible").length !== 0) {
                     clone.hide();
                 }
                 else {
@@ -226,10 +228,10 @@
                         success: function (nowPlayingData) {
                             var entry = $(nowPlayingData).find("entry");
 
-                            if (entry.length != 0) {
+                            if (entry.length !== 0) {
                                 entry.each(function (index, value) {
                                     var bgImage = functions.subsonic.getURL("getCoverArt", { id: $(this).attr("coverArt") });
-                                    var duration = Math.floor($(this).attr("duration") / 60) + ":" + ($(this).attr("duration") % 60);
+                                    var duration = Math.floor($(this).attr("duration") / 60) + ":" + $(this).attr("duration") % 60;
 
                                     functions.createPlayer({
                                         type: "subsonic",
@@ -260,6 +262,7 @@
                 * Creates a salt, used to salt the login information with. Used by functions.subsonic.getURL.
                 * 
                 * @method subsonic.getSalt
+                * @returns {String} A random string used as salt.
                 */
                 getSalt: function () {
                     return Math.random().toString(36).substring(7);
@@ -270,20 +273,21 @@
                 * Pass along an Array of arguments to append them to the URL.
                 * 
                 * @method subsonic.getURL
-                * @param view {String} Which SubSonic view to retrieve.
-                * @param arguments {Array} The extra arguments to append to the REST URL. The key will be used as the queryparameter, the value as queryvalue.
+                * @param {String}       view Which SubSonic view to retrieve.
+                * @param {Array} args   The extra arguments to append to the REST URL. The key will be used as the queryparameter, the value as queryvalue.
+                * @returns {String}     The URL to call Subsonic by.
                 */
-                getURL: function (view, arguments) {
+                getURL: function (view, args) {
                     var salt = functions.subsonic.getSalt();
                     var password = md5(settings.subsonic.password + salt);
                     var url = settings.subsonic.url + "rest/" + view + ".view?u=" + settings.subsonic.username + "&t=" + password + "&s=" + salt + "&v=1.14.0&c=chell";
 
-                    $.each(arguments, function (key, value) {
+                    $.each(args, function (key, value) {
                         url += "&" + key + "=" + value;
                     });
 
                     return url;
-                },
+                }
             },
 
             /**
@@ -321,7 +325,7 @@
                             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
                         },
                         success: function (response) {
-                            if ($.trim(response.result.item.title) != "") {
+                            if ($.trim(response.result.item.title) !== "") {
                                 var bgImage = encodeURI(response.result.item.thumbnail);
                                 bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
 
@@ -330,7 +334,7 @@
                                     index: 99,
                                     bgImage: bgImage,
                                     title: response.result.item.artist,
-                                    subtitle: response.result.item.title,
+                                    subtitle: response.result.item.title
                                 });
                             }
                         },
@@ -339,12 +343,12 @@
                             functions.nowPlayingCallback();
                         }
                     });
-                },
+                }
             }
         };
 
         functions.initialize();
 
         return functions;
-    }
+    };
 })(jQuery);

@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * The various blocks on the dashboard that build upon PHPSysInfo data.
 * 
 * @class PHPSysInfo
@@ -19,7 +21,7 @@
             var settings = $.extend({
                 url: $(this).data("phpsysinfo-url"),
                 vCore: $(this).data("phpsysinfo-vcore"),
-                block: $(this),
+                block: $(this)
             }, options);
 
             /**
@@ -80,6 +82,7 @@
                 * Wrapper function to retrieve all data except psstatus plugin.
                 * 
                 * @method getAll
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 setSysinfo: function (data) {
@@ -95,7 +98,7 @@
                     var date = new Date();
                     date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
 
-                    if ($("div.uptime").data("tinyTimer") != undefined) {
+                    if ($("div.uptime").data("tinyTimer") !== undefined) {
                         clearInterval($("div.uptime").data("tinyTimer").interval);
                     }
                     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
@@ -105,19 +108,19 @@
                 * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
                 * 
                 * @method setCPUCores
-                * @param data {Object} The data retrieved from PHPSysInfo.
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setCPUCores: function (data) {
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
-                        var coreSpeedCurrent = (Math.round(value["@attributes"].CpuSpeed / 10) / 100) + " GHz";
-                        var coreSpeedMin = (Math.round(value["@attributes"].CpuSpeedMin / 10) / 100) + " GHz";
-                        var coreSpeedMax = (Math.round(value["@attributes"].CpuSpeedMax / 10) / 100) + " GHz";
+                        var coreSpeedCurrent = Math.round(value["@attributes"].CpuSpeed / 10) / 100 + " GHz";
+                        var coreSpeedMin = Math.round(value["@attributes"].CpuSpeedMin / 10) / 100 + " GHz";
+                        var coreSpeedMax = Math.round(value["@attributes"].CpuSpeedMax / 10) / 100 + " GHz";
                         var coreLabel, coreTemp;
 
                         $.each(data.MBInfo.Temperature.Item, function (indexTemps, valueTemps) {
-                            if ($.trim(valueTemps["@attributes"].Label.toLowerCase()) == "core " + index) {
+                            if ($.trim(valueTemps["@attributes"].Label.toLowerCase()) === "core " + index) {
                                 coreLabel = valueTemps["@attributes"].Label;
-                                coreTemp = valueTemps["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase()
+                                coreTemp = valueTemps["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase();
                             }
                         });
 
@@ -134,7 +137,7 @@
                 * Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.
                 * 
                 * @method setNetwork
-                * @param data {Object} The data retrieved from PHPSysInfo.
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setNetwork: function (data) {
                     $.each(data.Network.NetDevice, function (index, value) {
@@ -157,14 +160,14 @@
                 * Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.
                 * 
                 * @method setRAM
-                * @param data {Object} The data retrieved from PHPSysInfo.
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setRAM: function (data) {
                     $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
                     $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
                     //SWAP
-                    if (data.Memory.Swap != undefined) {
+                    if (data.Memory.Swap !== undefined) {
                         $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
                         $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
                     }
@@ -177,7 +180,7 @@
                 * Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.
                 * 
                 * @method setDisks
-                * @param data {Object} The data retrieved from PHPSysInfo.
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setDisks: function (data) {
                     data.FileSystem.Mount.sort(function (a, b) {
@@ -211,10 +214,10 @@
                 * Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.
                 * 
                 * @method setDisks
-                * @param data {Object} The data retrieved from PHPSysInfo.
+                * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setUpdateNotifier: function (data) {
-                    if (data.Plugins.Plugin_UpdateNotifier != undefined) {
+                    if (data.Plugins.Plugin_UpdateNotifier !== undefined) {
                         settings.block.find("span.packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
                         settings.block.find("span.security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
                     }
@@ -258,7 +261,7 @@
                                 name.html(value["@attributes"].Name);
                                 name.appendTo(listItem);
 
-                                if (value["@attributes"].Status == 1) {
+                                if (value["@attributes"].Status === "1") {
                                     label.html("On");
                                     label.addClass("label-success");
                                 }
@@ -278,11 +281,11 @@
                         }
                     });
                 }
-            }
+            };
 
             functions.initialize();
 
             return functions;
         });
-    }
+    };
 })(jQuery);

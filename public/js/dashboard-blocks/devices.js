@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * The devices block on the dashboard.
 * 
 * @class Devices
@@ -56,7 +58,7 @@
                     openConfirmDialog(title, [{
                         "shutdown-user": $(this).data("shutdown-user"),
                         "shutdown-password": $(this).data("shutdown-password"),
-                        "ip": $(this).data("ip"),
+                        "ip": $(this).data("ip")
                     }], function () {
                         functions.doShutdown($(this));
                     });
@@ -69,6 +71,7 @@
             * Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.
             * 
             * @method checkstates
+            * @param {Object} self  Reference to jquery selector, used to initialize the plugin with.
             */
             checkstates: function (self) {
                 self = typeof self === 'undefined' ? this : self;
@@ -100,7 +103,7 @@
 
                             device.removeClass("disabled");
 
-                            if (device.data("shutdown-method") == "none") {
+                            if (device.data("shutdown-method") === "none") {
                                 device.addClass("disabled");
                             }
 
@@ -122,12 +125,12 @@
             * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.
             * 
             * @method checkstates
-            * @param btn {Object} Which button of the confirm dialog is pressed (yes/no).
+            * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
             */
             wol: function (btn) {
                 $.fancybox.close();
 
-                if (btn.attr("id") == "confirm-yes") {
+                if (btn.attr("id") === "confirm-yes") {
                     var name = btn.closest("div").find("h2 span").html().trim();
 
                     $.get("devices/wol/" + btn.closest("div").data("mac"), function (name) {
@@ -144,12 +147,12 @@
             * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.
             * 
             * @method checkstates
-            * @param btn {Object} Which button of the confirm dialog is pressed (yes/no).
+            * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
             */
             doShutdown: function (btn) {
                 $.fancybox.close();
 
-                if (btn.attr("id") == "confirm-yes") {
+                if (btn.attr("id") === "confirm-yes") {
                     var parentDiv = btn.closest("div");
                     var user = parentDiv.data("shutdown-user");
                     var password = parentDiv.data("shutdown-password");
@@ -157,7 +160,7 @@
                     var name = parentDiv.closest("div").find("h2 span").html().trim();
 
                     $.get("devices/shutdown/" + ip + "/" + user + "/" + password, function (data) {
-                        if (data == "true") {
+                        if (data === "true") {
                             $("div.alert").addClass("alert-success");
                             $("div.alert").html("Shutdown command send to: " + name);
                         }
@@ -171,10 +174,10 @@
                     });
                 }
             }
-        }
+        };
 
         functions.initialize();
 
         return functions;
-    }
+    };
 })(jQuery);

@@ -1,4 +1,6 @@
-﻿/**
+﻿"use strict";
+
+/**
 * Main entry point for settings view.
 * 
 * @class Index
@@ -24,7 +26,7 @@ $(function () {
 
     $(".fa-remove").click(function () {
         openConfirmDialog("Delete this item?", [{ url: $(this).attr("href") }], function () {
-            if ($(this).attr("id") == "confirm-yes") {
+            if ($(this).attr("id") === "confirm-yes") {
                 window.location.href = $(this).closest("div").data("url");
             }
 
