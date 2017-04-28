@@ -1,5 +1,9 @@
 <?php
 
+namespace Chell;
+
+use Chell\Plugins\SecurityPlugin;
+
 use Phalcon\Crypt;
 use Phalcon\Loader;
 use Phalcon\Mvc\View;
@@ -70,12 +74,17 @@ class FrontController
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
 
+        $this->registerNamespaces();
+
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
 
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
+            $dispatcher->setDefaultNamespace(
+                'Chell\Controllers'
+            );
 
             return $dispatcher;
         });
@@ -88,7 +97,7 @@ class FrontController
 
         $this->setDisplayErrors();
         $this->title = $config->application->title;
-        $this->registerDirs();
+
         $this->setDB($config);
         $this->setViewProvider($config);
         $this->setURLProvider($config);
@@ -113,25 +122,18 @@ class FrontController
     /**
      * Register all directories used by Phalcon.
      */
-    private function registerDirs()
+    private function registerNamespaces()
     {
         $loader = new Loader();
-        $loader->registerDirs(
-            array(
-                APP_PATH . $this->config->application->controllersDir,
-                APP_PATH . $this->config->application->pluginsDir,
-                APP_PATH . $this->config->application->libraryDir,
-                APP_PATH . $this->config->application->modelsDir,
-                APP_PATH . $this->config->application->modelsDir . 'kodi/',
-                APP_PATH . $this->config->application->formsDir,
-            )
-        )->register();
 
-        $loader->registerClasses(
-            [
-                'Duo\Web' => APP_PATH . 'app/duo/Web.php'
-            ]
-        )->register();
+        $loader->registerNamespaces([
+            'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
+            'Chell\Models' => APP_PATH . $this->config->application->modelsDir,
+            'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
+            'Chell\Forms' => APP_PATH . $this->config->application->formsDir,
+            'Chell\Plugins' => APP_PATH . $this->config->application->pluginsDir,
+            'Duo' => APP_PATH . 'app/duo/'
+        ])->register();
     }
 
     /**

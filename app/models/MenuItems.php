@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell\Models;
+
 use Phalcon\Mvc\Model;
 
 /**
@@ -16,13 +18,13 @@ class MenuItems extends Model
     {
         $this->belongsTo(
             'menu_id',
-            'Menus',
+            'Chell\Models\Menus',
             'id'
         );
 
         $this->belongsTo(
             'device_id',
-            'Devices',
+            'Chell\Models\Devices',
             'id',
             array('alias' => 'device')
         );

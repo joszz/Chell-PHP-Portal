@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell\Models;
+
 use Phalcon\Mvc\Model;
 
 /**

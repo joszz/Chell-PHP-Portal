@@ -145,14 +145,14 @@
                         var tx = Math.round(value['@attributes'].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                         var info = value['@attributes'].Info.split(";");
 
-                        network = $(".lan-stats div:eq(" + index + ")");
+                        var network = $(".lan-stats div:eq(" + index + ")");
 
-                        network.find(".lan-name").html(value.Name);
-                        network.find(".lan-mac").html(info[0]);
-                        network.find(".lan-ip").html(info[1]);
-                        network.find(".lan-speed").html(info[2]);
-                        network.find(".lan-rx").html(rx);
-                        network.find(".lan-tx").html(tx);
+                            network.find(".lan-name").html(value.Name);
+                            network.find(".lan-mac").html(info[0]);
+                            network.find(".lan-ip").html(info[1]);
+                            network.find(".lan-speed").html(info[2]);
+                            network.find(".lan-rx").html(rx);
+                            network.find(".lan-tx").html(tx);
                     });
                 },
 

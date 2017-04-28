@@ -1,5 +1,11 @@
 <?php
 
+namespace Chell\Controllers;
+
+use Chell\Models\Users;
+use Chell\Forms\LoginForm;
+use Duo\Web;
+
 use Phalcon\Http\Response;
 
 /**
@@ -140,7 +146,7 @@ class SessionController extends BaseController
     public function duoAction($user)
     {
         $this->view->containerFullHeight = true;
-        $this->view->signRequest = \Duo\Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
+        $this->view->signRequest = Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
     }
 
     /**
@@ -148,7 +154,7 @@ class SessionController extends BaseController
      */
     public function duoVerifyAction()
     {
-        $username = \Duo\Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
+        $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
 
         $user = Users::findFirst(
             array(

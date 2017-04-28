@@ -1,4 +1,7 @@
 <?php
+
+namespace Chell\Controllers;
+
 /**
  * The controller responsible for RSS functionality.
  *

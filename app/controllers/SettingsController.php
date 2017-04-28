@@ -1,5 +1,17 @@
 <?php
 
+namespace Chell\Controllers;
+
+use Chell\Forms\SettingsGeneralForm;
+use Chell\Forms\SettingsDashboardForm;
+use Chell\Forms\SettingsDeviceForm;
+use Chell\Forms\SettingsMenuItemForm;
+use Chell\Forms\SettingsUserForm;
+
+use Chell\Models\Users;
+use Chell\Models\Devices;
+use Chell\Models\MenuItems;
+
 use Phalcon\Http\Response;
 use Phalcon\Validation\Message;
 

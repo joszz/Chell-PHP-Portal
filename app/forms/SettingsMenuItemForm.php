@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell\Forms;
+
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;

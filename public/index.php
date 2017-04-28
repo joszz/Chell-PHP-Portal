@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell;
+
 /**
  * The bootstrapper for this application
  */

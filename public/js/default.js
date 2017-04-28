@@ -50,7 +50,7 @@ $(function () {
 * @method initializeGlobalPlugins
 */
 function initializeGlobalPlugins() {
-    $("a, button, h4").vibrate();
+    $("a, button, h4").vibrate("short");
 
     $("select").selectpicker({ width: "100%", container: "body" });
 

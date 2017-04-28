@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell\Models;
+
 use Phalcon\Mvc\Model;
 
 /**
@@ -16,7 +18,7 @@ class Menus extends Model
     {
         $this->hasMany(
             'id',
-            'MenuItems',
+            'Chell\Models\MenuItems',
             'menu_id',
             array('alias' => 'items')
         );

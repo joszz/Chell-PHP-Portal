@@ -1,5 +1,9 @@
 <?php
 
+namespace Chell\Controllers;
+
+use Chell\Models\Devices;
+
 /**
  * This controller is responsible for handling all actions that have to do with the devices in your network.
  *

@@ -1,5 +1,7 @@
 <?php
 
+namespace Chell\Models\Kodi;
+
 use Phalcon\Mvc\Model;
 
 /**

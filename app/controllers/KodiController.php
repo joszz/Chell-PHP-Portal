@@ -1,4 +1,11 @@
 <?php
+
+namespace Chell\Controllers;
+
+use Chell\Models\Kodi\KodiMovies;
+use Chell\Models\Kodi\KodiMusic;
+use Chell\Models\Kodi\KodiTVShowEpisodes;
+
 /**
  * The controller responsible for all actions related to Kodi.
  *
