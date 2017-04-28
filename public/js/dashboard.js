@@ -20,7 +20,6 @@ $(function () {
     $(".devices").devices();
     $(".movies, .episodes, .albums").gallery();
     $(".nowplaying").nowplaying();
-
     $(".sickrage").sickrage();
 
     var date = new Date();
@@ -39,7 +38,11 @@ function initializeDashboardEventHandlers() {
 
         if (panel.find(".toggle-collapse:visible").length !== 0) {
             panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
-            panel.find(".list-group, .panel-body").toggleClass("hidden-xs");
+            panel.find(".panel-body:eq(0)").toggleClass("hidden-xs");
+
+            if (!panel.find(".tab-content").length) {
+                panel.find(".list-group").toggleClass("hidden-xs");
+            }
         }
     });
 

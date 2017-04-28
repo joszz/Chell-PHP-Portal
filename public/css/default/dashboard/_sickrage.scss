@@ -1,5 +1,14 @@
-﻿.sickrage .tab-pane {
+﻿.sickrage .tab-pane,
+.sickrage .panel-body {
     padding: 0;
+}
+
+.sickrage .nav-tabs li:first-child a {
+    border-top-left-radius: 0;
+}
+
+.sickrage .nav.nav-tabs li a {
+    padding: 10px;
 }
 
 .sickrage-detail {
