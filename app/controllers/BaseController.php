@@ -1,5 +1,9 @@
 <?php
+
+namespace Chell\Controllers;
+
 use Phalcon\Mvc\Controller;
+use Chell\Models\Menus;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
