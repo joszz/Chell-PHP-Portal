@@ -147,3 +147,8 @@ function openConfirmDialog(title, data, buttonClick) {
         opts: { closeBtn: false, closeClickOutside: false }
     });
 }
+
+function zeropad(str, max) {
+    str = str.toString();
+    return str.length < max ? zeropad("0" + str, max) : str;
+}

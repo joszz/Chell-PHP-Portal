@@ -3,6 +3,7 @@
 @import "dashboard/rcpu";
 @import "dashboard/sysinfo";
 @import "dashboard/transmission";
+@import "dashboard/sickrage";
 
 canvas,
 div.harddisks,
@@ -25,6 +26,12 @@ div.panel-heading h4,
 div.panel-heading a,
 div.panel-heading button {
     white-space: nowrap;
+}
+
+div.panel.with-nav-tabs .nav li a {
+    padding: 0 5px;
+    font-size: 18px;
+    line-height: 36px;
 }
 
 div.panel ul div:not(.embed-responsive) {

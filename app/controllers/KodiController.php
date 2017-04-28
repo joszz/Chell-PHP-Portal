@@ -159,6 +159,16 @@ class KodiController extends BaseController
         }
     }
 
+    /**
+     * Resize an image based on $sourcePath and writes it back to $resizedPath.
+     * 
+     * @param mixed $sourcePath     The source image path to resize
+     * @param mixed $resizedPath    The destination path to save the resized image in.
+     * @param mixed $maxWidth       The maximum width of the resized image, defaults to 800.
+     * @param mixed $maxHeight      The maximum height of the resized image, defaults to 2000.
+     * @param mixed $imageQuality   The image quality used for the JPEG compression of the resized image, defaults to 70.
+     * @return boolean              Whether or not resized succeeded.
+     */
     private function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70)
     {
         list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);

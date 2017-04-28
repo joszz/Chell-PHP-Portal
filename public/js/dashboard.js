@@ -21,7 +21,7 @@ $(function () {
     $(".movies, .episodes, .albums").gallery();
     $(".nowplaying").nowplaying();
 
-    //$.fn.sickrage();
+    $(".sickrage").sickrage();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

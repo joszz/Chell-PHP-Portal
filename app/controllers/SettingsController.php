@@ -177,6 +177,11 @@ class SettingsController extends BaseController
         $this->view->item = $item;
     }
 
+    /**
+     * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
+     * @param mixed $id     Optional, the user ID to edit.
+     * @return mixed        Will forward to settings/index#users when succesfull, or will show the form again when failed.
+     */
     public function userAction($id)
     {
         $user = new Users();

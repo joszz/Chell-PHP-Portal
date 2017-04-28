@@ -46,7 +46,7 @@
                         functions.rotateGallery($(this).hasClass("fa-chevron-left") ? "left" : "right");
 
                         settings.rotateIntervalId = setInterval(function () {
-                            rotateGallery("right");
+                            functions.rotateGallery("right");
                         }, settings.rotateInterval);
                     });
                 },
@@ -61,7 +61,7 @@
                     var currentIndex = settings.block.find(".item:visible").index();
                     var offset = direction === "right" ? 1 : -1;
 
-                    nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
+                    var nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
 
                     if (currentIndex !== nextIndex) {
                         settings.block.find(".item:eq(" + currentIndex + ")").fadeOut("fast", function () {
