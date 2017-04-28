@@ -29,6 +29,7 @@ Prerequisites
 - [rCPU](https://github.com/davidsblog/rCPU) (optional)
 - [Transmission](https://www.transmissionbt.com/) (optional)
 - [WebTemp](https://www.webtemp.org/) (optional)
+- [Sickrage](https://sickrage.github.io/) (optional)
 
 Installation and configuration
 ------------------------------
