@@ -54,11 +54,11 @@
                     success: function (data) {
                         data = data.data;
 
-                        var ulToday = settings.block.find("#today ul");
-                        var ulSoon = settings.block.find("#soon ul");
+                        var ulToday = settings.block.find("#today .list-group");
+                        var ulSoon = settings.block.find("#soon .list-group");
 
-                        ulToday.find("li:not(.hidden)").remove();
-                        ulSoon.find("li:not(.hidden)").remove();
+                        ulToday.find("a:not(.hidden)").remove();
+                        ulSoon.find("a:not(.hidden)").remove();
 
                         $.each(data.today, function (index, value) {
                             functions.createItems(ulToday, value);
@@ -78,11 +78,32 @@
             },
 
             createItems: function (ul, value) {
-                var li = ul.find("li.hidden").clone();
+                var item = ul.find("a.hidden").clone();
+                var episode = item.find(".episode");
+                var detail = item.find(".sickrage-detail");
+                var episodeText = "S" + zeropad(value.season, 2) + "E" + zeropad(value.episode, 2);
+                var id = "t" + value.tvdbid + "-" + episodeText;
 
-                li.find("div").html("S" + zeropad(value.season, 2) + "E" + zeropad(value.episode, 2) + " | " + value.show_name);
-                li.removeClass("hidden");
-                li.prependTo(ul);
+                episode.html(episodeText + " | " + value.show_name);
+
+                detail.attr("id", id);
+                detail.find("h4").html(value.show_name)
+
+                var detailEpisode = $("<div class='col-xs-12'></div>");
+                detailEpisode.html(episodeText);
+                detailEpisode.appendTo(detail.find(".panel-body"));
+
+                item.on("click", function () {
+                    $.fancybox.open({
+                        src: "#" + id,
+                        margin: [0]
+                    });
+
+                    return false;
+                })
+
+                item.removeClass("hidden");
+                item.prependTo(ul);
             },
 
             url: function (cmd, type) {
