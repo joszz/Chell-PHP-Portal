@@ -45,6 +45,7 @@
             refresh: function (onload) {
                 if (!onload) {
                     settings.block.isLoading();
+                    settings.block.find(".item").remove();
                 }
 
                 $.ajax({
