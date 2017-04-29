@@ -139,6 +139,7 @@ class SettingsController extends BaseController
 
     /**
      * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
+     * 
      * @param int $id   Optional, the menuitem to edit.
      * @return mixed    Will forward to settings/index#menu when succesfull, or will show the form again when failed.
      */
@@ -179,6 +180,7 @@ class SettingsController extends BaseController
 
     /**
      * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
+     * 
      * @param mixed $id     Optional, the user ID to edit.
      * @return mixed        Will forward to settings/index#users when succesfull, or will show the form again when failed.
      */

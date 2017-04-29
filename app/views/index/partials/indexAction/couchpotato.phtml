@@ -1,0 +1,24 @@
+
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="panel panel-success pull-left couchpotato"
+        data-rotate-interval="<?php echo $this->config->dashboard->rotateCouchpotatoInterval ?>"
+        data-couchpotato-apikey="<?php echo $this->config->dashboard->couchpotatoAPIKey ?>"
+        data-couchpotato-url="<?php echo $this->config->dashboard->couchpotatoURL ?>">
+        <div class="panel-heading">
+            <div class="btn-group pull-right">
+                <button class="btn btn-default fa fa-chevron-left"></button>
+                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile"></button>
+                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse"></button>
+            </div>
+            <h4>Couchpotato</h4>
+        </div>
+
+        <div class="panel-body hidden-xs">
+            <a class="clone hidden_not_important" data-fancybox="couchpotato">
+                <div class="overlay"></div>
+                <div class="title"></div>
+                <div class="subtitle"></div>
+            </a>
+        </div>
+    </div>
+</div>

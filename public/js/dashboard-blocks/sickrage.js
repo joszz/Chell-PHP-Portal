@@ -1,9 +1,8 @@
 ﻿"use strict";
 
 /**
-* The gallery blocks on the dashboard.
-* 
-* @class Gallery
+* @todo comments
+* @class Sickrage
 * @module Dashboard
 * @submodule DashboardBlocks
 */

@@ -1,13 +1,16 @@
 ﻿div.movies .panel-body,
 div.episodes .panel-body,
 div.albums .panel-body,
-div.nowplaying .panel-body {
+div.nowplaying .panel-body,
+div.couchpotato .panel-body {
     padding: 0;
 }
 
 .kodi .item,
-div.nowplaying .item,
-div.nowplaying .panel-body {
+.couchpotato .item,
+.couchpotato .panel-body,
+.nowplaying .item,
+.nowplaying .panel-body {
     height: 320px;
     position: relative;
     background-size: cover;

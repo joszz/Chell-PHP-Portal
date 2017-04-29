@@ -18,9 +18,10 @@ $(function () {
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     $(".transmission").transmission();
     $(".devices").devices();
-    $(".movies, .episodes, .albums").gallery();
+    $(".movies, .episodes, .albums, .couchpotato").gallery();
     $(".nowplaying").nowplaying();
     $(".sickrage").sickrage();
+    $(".couchpotato").couchpotato();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

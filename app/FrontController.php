@@ -47,6 +47,7 @@ class FrontController
                         'dashboard-blocks/phpsysinfo.js',
                         'dashboard-blocks/transmission.js',
                         'dashboard-blocks/sickrage.js',
+                        'dashboard-blocks/couchpotato.js',
                         'dashboard-blocks/nowplaying.js');
 
     private $css = array('bootstrap.css',
@@ -128,7 +129,7 @@ class FrontController
             'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
             'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
             'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'               => APP_PATH . 'app/duo/'
+            'Duo'               => APP_PATH . 'app/duo/',
         ])->register();
     }
 

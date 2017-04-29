@@ -32,6 +32,9 @@ class IndexController extends BaseController
         $this->view->PHPSysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
     }
 
+    /**
+     * Renders the manifest.json file, used for favicons and the like.
+     */
     public function manifestAction()
     {
         header('Content-Type: application/manifest+json; charset=UTF-8');

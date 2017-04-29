@@ -13,10 +13,10 @@
             <a class="movie item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
                 data-fancybox="movies"
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
-                title="<?php echo utf8_encode($movie->c03) ?>"
+                title="<?php echo $title = utf8_encode($movie->c00) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($movie->c08) ? 'kodi/getImage/movies/thumb/' . $movie->idMovie : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
-                <div class="title" title="<?php echo $title = utf8_encode($movie->c00) ?>">
+                <div class="title" title="<?php echo $title ?>">
                     <?php echo $title ?>
                 </div>
                 <div class="subtitle" title="<?php echo $title = utf8_encode($movie->c03) ?>">

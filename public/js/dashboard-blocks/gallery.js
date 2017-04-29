@@ -60,7 +60,6 @@
                 rotateGallery: function (direction) {
                     var currentIndex = settings.block.find(".item:visible").index();
                     var offset = direction === "right" ? 1 : -1;
-
                     var nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
 
                     if (currentIndex !== nextIndex) {
