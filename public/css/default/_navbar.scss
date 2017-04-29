@@ -1,4 +1,4 @@
-﻿.navbar{
+﻿.navbar {
     background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
 }
 
@@ -11,7 +11,7 @@ nav.navbar-fixed-top {
 div#navbar {
     overflow: hidden;
     padding: 0;
-    max-height: 460px;
+    max-height: 340px;
     display: none;
 }
 
@@ -38,6 +38,13 @@ a.navbar-brand img {
 a.navbar-brand span {
     float: left;
     white-space: nowrap;
+}
+
+
+nav div.navbar-collapse ul {
+    max-height: 290px;
+    overflow-y: auto;
+    padding-bottom: 1px;
 }
 
 nav div.navbar-collapse ul a {
@@ -85,7 +92,7 @@ div#navbar div.btn-group {
 
 
 @media only screen and (min-width : 481px) {
-    #navbar > div{
+    #navbar > div {
         padding: 0;
     }
 }

@@ -6,6 +6,7 @@ html.full-height {
     height: 100%;
 }
 
+html.blackbg,
 html.blackbg body {
     background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #3c3c3c 0%, #222 100%) repeat scroll 0 0;
 }
@@ -15,7 +16,7 @@ body {
     font-weight: 300;
     overflow-y: scroll;
     height: 100%;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 body#bootstrap {

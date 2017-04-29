@@ -311,8 +311,7 @@
                     var data = {
                         id: 1,
                         jsonrpc: "2.0",
-                        method: "Player.GetItem",
-                        params: [0, ["title", "artist", "thumbnail"]]
+                        method: "Player.GetActivePlayers",
                     };
 
                     $.ajax({
@@ -325,16 +324,46 @@
                             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
                         },
                         success: function (response) {
-                            if ($.trim(response.result.item.title) !== "") {
-                                var bgImage = encodeURI(response.result.item.thumbnail);
-                                bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
+                            if (response.result[0]) {
+                                var playerID = response.result[0].playerid;
 
-                                functions.createPlayer({
-                                    type: "kodi",
-                                    index: 99,
-                                    bgImage: bgImage,
-                                    title: response.result.item.artist,
-                                    subtitle: response.result.item.title
+                                var data = {
+                                    id: 1,
+                                    jsonrpc: "2.0",
+                                    method: "Player.GetItem",
+                                    params: {
+                                        properties: ["title", "artist", "thumbnail"],
+                                        playerid: playerID
+                                    }
+                                };
+
+                                $.ajax({
+                                    url: settings.kodi.urlJSON,
+                                    type: "POST",
+                                    contentType: "application/json",
+                                    data: JSON.stringify(data),
+                                    timeout: settings.kodi.timeout,
+                                    beforeSend: function (xhr) {
+                                        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
+                                    },
+                                    success: function (response) {
+                                        if ($.trim(response.result.item.title) !== "") {
+                                            var bgImage = encodeURI(response.result.item.thumbnail);
+                                            bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
+
+                                            functions.createPlayer({
+                                                type: "kodi",
+                                                index: 99,
+                                                bgImage: bgImage,
+                                                title: response.result.item.artist,
+                                                subtitle: response.result.item.title
+                                            });
+                                        }
+                                    },
+                                    complete: function () {
+                                        settings.kodi.loading = false;
+                                        functions.nowPlayingCallback();
+                                    }
                                 });
                             }
                         },
@@ -343,6 +372,9 @@
                             functions.nowPlayingCallback();
                         }
                     });
+                    /*
+
+                    */
                 }
             }
         };

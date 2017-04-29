@@ -138,6 +138,18 @@ class SettingsDashboardForm extends Form
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->dashboard->kodiPassword);
 
+        $sickrageURL = new Text('sickrage-url');
+        $sickrageURL->setLabel('Sickrage URL')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->dashboard->sickrageURL);
+
+        $sickrageAPIKey = new Text('sickrage-apikey');
+        $sickrageAPIKey->setLabel('Sickrage API key')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->dashboard->sickrageAPIKey);
+
         $rotateMoviesInterval = new Numeric('rotate-movies-interval');
         $rotateMoviesInterval->setLabel('Rotate movies interval')
             ->setFilters(array('striptags', 'int'))
@@ -180,6 +192,9 @@ class SettingsDashboardForm extends Form
         $this->add($kodiUsername);
         $this->add($kodiPassword);
 
+        $this->add($sickrageURL);
+        $this->add($sickrageAPIKey);
+
         $this->add($rotateMoviesInterval);
         $this->add($rotateEpisodesInterval);
         $this->add($rotateAlbumsInterval);
@@ -218,6 +233,9 @@ class SettingsDashboardForm extends Form
             $this->_config->dashboard->kodiURL = $data['kodi-url'];
             $this->_config->dashboard->kodiUsername = $data['kodi-username'];
             $this->_config->dashboard->kodiPassword = $data['kodi-password'];
+
+            $this->_config->dashboard->sickrageURL = $data['sickrage-url'];
+            $this->_config->dashboard->sickrageAPIKey = $data['sickrage-apikey'];
 
             $this->_config->dashboard->rotateMoviesInterval = $data['rotate-movies-interval'];
             $this->_config->dashboard->rotateEpisodesInterval = $data['rotate-episodes-interval'];

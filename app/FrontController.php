@@ -6,20 +6,20 @@ use Chell\Plugins\SecurityPlugin;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
+use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
-use Phalcon\Mvc\Dispatcher;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Session\Adapter\Files as Session;
 use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Assets\Filters\Cssmin;
 
 /**
- * Frontcontroller initializes Phalcon to run the application.
+ * Frontcontroller sets up Phalcon to run the application.
  */
 class FrontController
 {
@@ -65,8 +65,8 @@ class FrontController
     {
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
-        $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
 
+        $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
 
@@ -116,7 +116,7 @@ class FrontController
     }
 
     /**
-     * Register all directories used by Phalcon.
+     * Register all namespaces and directories used by Phalcon.
      */
     private function registerNamespaces()
     {
@@ -124,11 +124,11 @@ class FrontController
 
         $loader->registerNamespaces([
             'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
-            'Chell\Models' => APP_PATH . $this->config->application->modelsDir,
+            'Chell\Models'      => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
-            'Chell\Forms' => APP_PATH . $this->config->application->formsDir,
-            'Chell\Plugins' => APP_PATH . $this->config->application->pluginsDir,
-            'Duo' => APP_PATH . 'app/duo/'
+            'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
+            'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
+            'Duo'               => APP_PATH . 'app/duo/'
         ])->register();
     }
 

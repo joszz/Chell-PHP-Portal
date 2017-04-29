@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $this->config->application->background ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>rss" />
 
     <?php echo $this->tag->getTitle(); ?>
@@ -23,7 +23,7 @@
 
     <?php $this->partial('dialog-confirm') ?>
 
-    <?php  
+    <?php
     $this->partial('footer');
     $this->assets->outputJs('footer');
 
@@ -35,6 +35,6 @@
     {
         $this->assets->outputJs('settings');
     }
-   ?>
+    ?>
 </body>
 </html>

@@ -31,4 +31,10 @@ class IndexController extends BaseController
         $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
         $this->view->PHPSysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
     }
+
+    public function manifestAction()
+    {
+        header('Content-Type: application/manifest+json; charset=UTF-8');
+        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+    }
 }
