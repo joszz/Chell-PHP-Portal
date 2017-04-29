@@ -30,6 +30,7 @@ Prerequisites
 - [Transmission](https://www.transmissionbt.com/) (optional)
 - [WebTemp](https://www.webtemp.org/) (optional)
 - [Sickrage](https://sickrage.github.io/) (optional)
+- [Couchpotato](https://couchpota.to//) (optional)
 
 Installation and configuration
 ------------------------------
