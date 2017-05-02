@@ -1,7 +1,8 @@
 ﻿"use strict";
 
 /**
-* @todo comments
+* The Couchpotato block on the dashboard.
+* 
 * @class Couchpotato
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -30,18 +31,26 @@
         var functions = {
 
             /**
-            * Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.
+            * Initializes the eventhandler for refreshing the content and calls refresh the retrieve content immediately.
             * 
             * @method initialize
             */
             initialize: function () {
                 settings.block.find(".fa-refresh").on("click", function () {
-                    functions.refresh();
+                    functions.refresh(false);
                 });
+
+                settings.block.find(".fa-search").on("click", functions.searchWantedMovies);
 
                 functions.refresh(true);
             },
 
+            /**
+             * Refreshes the contents of the Couchpotato block.
+             * 
+             * @method refresh
+             * @param {Boolean} onload  whether this call is made onload of the webpage or not.
+             */
             refresh: function (onload) {
                 if (!onload) {
                     settings.block.isLoading();
@@ -67,7 +76,6 @@
                             clone.attr("title", value.title);
                             
                             clone.prependTo(settings.block.find(".panel-body"));
-
                         });
                     },
 
@@ -79,6 +87,30 @@
                 });
             },
 
+
+            /**
+             * Calls the Couchpotato API to search the wanted movies.
+             * 
+             * @todo: comments
+             * @todo: API call movie.searcher.progress? to show the progress?
+             * @method searchWantedMovies
+             */
+            searchWantedMovies: function () {
+                showAlert("success", "Initiating Couchpotato movie search");
+
+                $.ajax({
+                    url: functions.url("movie.searcher.full_search"),
+                    dataType: "json"
+                });
+            },
+
+            /**
+             * Returns the Couchpotato API URL given a cmd.
+             * 
+             * @method url
+             * @param {String}      cmd      The command to sent to the Couchpotato API.
+             * @returns {String}    The Couchpotato API URL string to use for the AJAX calls.
+             */
             url: function (cmd) {
                 return settings.baseUrl + "api/" + settings.apiKey + "/" + cmd + "/";
             }

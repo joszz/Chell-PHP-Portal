@@ -4,9 +4,11 @@ namespace Chell\Forms;
 
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Regex;
 
 /**
  * The form responsible for the general settings.
@@ -105,8 +107,16 @@ class SettingsGeneralForm extends Form
         $duoAKey->setAttributes(array('class' => 'form-control'));
         $duoAKey->setDefault($this->_config->duo->akey);
 
+        $alertTimeout = new Numeric('alert-timeout');
+        $alertTimeout->setLabel('Alert timeout')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->application->alertTimeout)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
         $this->add($title);
         $this->add($bgcolor);
+        $this->add($alertTimeout);
         $this->add($cryptKey);
         $this->add($debug);
         $this->add($duoEnabled);
@@ -132,6 +142,7 @@ class SettingsGeneralForm extends Form
             $this->_config->application->title = $data['title'];
             $this->_config->application->phalconCryptKey = $data['cryptkey'];
             $this->_config->application->background = $data['bgcolor'];
+            $this->_config->application->alertTimeout = $data['alert-timeout'];
             $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
 
 

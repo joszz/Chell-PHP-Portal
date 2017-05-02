@@ -46,12 +46,7 @@ class SettingsDashboardForm extends Form
             ->setDefault($this->_config->dashboard->checkDeviceStatesInterval)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-        $alertTimeout = new Numeric('alert-timeout');
-        $alertTimeout->setLabel('Alert timeout')
-            ->setFilters(array('striptags', 'int'))
-            ->setAttributes(array('class' => 'form-control'))
-            ->setDefault($this->_config->dashboard->alertTimeout)
-            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
 
         $rCpuURL = new Text('rcpu-url');
         $rCpuURL->setLabel('rCPU URL')
@@ -172,7 +167,6 @@ class SettingsDashboardForm extends Form
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
         $this->add($devicestateTimeouts);
-        $this->add($alertTimeout);
         $this->add($rCpuURL);
 
         $this->add($phpSysInfoURL);
@@ -214,7 +208,6 @@ class SettingsDashboardForm extends Form
         if($valid)
         {
             $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
-            $this->_config->dashboard->alertTimeout = $data['alert-timeout'];
             $this->_config->dashboard->rCpuURL = $data['rcpu-url'];
 
             $this->_config->dashboard->phpSysInfoURL = $data['phpsysinfo-url'];

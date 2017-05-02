@@ -33,26 +33,9 @@ class Devices extends Model
     }
 
     /**
-     * @todo Removed if not used
-     */
-    /*
-    public function validate(Validation $validation, $attribute)
-    {
-        $this->validate(new PresenceOf(
-            array(
-               'field'  => 'name',
-               'message' => 'Name is required.',
-               'cancelOnFail' => true
-            )
-        ));
-
-        return $this->validationHasFailed() != true;
-    }
-    */
-    /**
      * Calls pingExec with IP and returns the state of the device.
      *
-     * @param mixed $ip Which device to ping
+     * @param string $ip Which device to ping
      * @return bool Whether the device is on (true) or off (false)
      */
     public function isDeviceOn($ip)
@@ -63,8 +46,8 @@ class Devices extends Model
     /**
      * Pings a device and returns the response time.
      *
-     * @param mixed $host   Which host to ping
-     * @param mixed $ttl    The TimeToLive for the ping request. Defaults to 1 second
+     * @param string $host   Which host to ping
+     * @param int $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double  The time it took for the device to respond or false if failed.
      */
     private function pingExec($host, $ttl = 10)
@@ -109,9 +92,9 @@ class Devices extends Model
     /**
      * Wakes up a device by MAC address.
      *
-     * @param mixed $mac            The device to wake.
-     * @param mixed $socket_number  The port to send the magic packet to.
-     * @param mixed $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
+     * @param string $mac            The device to wake.
+     * @param int $socket_number  The port to send the magic packet to.
+     * @param int $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
      * @return bool                 Whether or not socket_sendto with magic packet succeeded.
      */
     public function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)
@@ -157,9 +140,9 @@ class Devices extends Model
     /**
      * Executes a RPC command to shutdown Windows based devices.
      *
-     * @param mixed $ip         The device to shutdown
-     * @param mixed $user       A valid Windows account to authenticate with.
-     * @param mixed $password   A valid Windows password to authenticate with.
+     * @param string $ip         The device to shutdown
+     * @param string $user       A valid Windows account to authenticate with.
+     * @param string $password   A valid Windows password to authenticate with.
      * @return array            The output of the RPC command on the shell.
      */
     public function shutdown($ip, $user, $password)

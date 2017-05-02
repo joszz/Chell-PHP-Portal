@@ -20,7 +20,7 @@ class SessionController extends BaseController
     /**
      * Sets session cookie with user id and username.
      *
-     * @param mixed $user   The user object to populate the session with.
+     * @param Users $user   The user object to populate the session with.
      */
     private function _registerSession($user)
     {
@@ -141,6 +141,7 @@ class SessionController extends BaseController
 
     /**
      * Show the Dou iframe when 2 factor authentication has been enabled in config.
+     * 
      * @param Users $user The user that tries to login.
      */
     public function duoAction($user)

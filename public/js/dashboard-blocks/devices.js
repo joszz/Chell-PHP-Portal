@@ -134,11 +134,7 @@
                     var name = btn.closest("div").find("h2 span").html().trim();
 
                     $.get("devices/wol/" + btn.closest("div").data("mac"), function (name) {
-                        $("div.alert").addClass("alert-success");
-                        $("div.alert").html("Magic packet send to: " + name);
-                        $("div.alert").fadeIn("fast");
-
-                        fadeOutAlert();
+                        showAlert("success", "Magic packet send to: " + name);
                     }(name));
                 }
             },
@@ -160,17 +156,15 @@
                     var name = parentDiv.closest("div").find("h2 span").html().trim();
 
                     $.get("devices/shutdown/" + ip + "/" + user + "/" + password, function (data) {
+                        var alertType = "danger";
+                        var alertMessage = "Shutdown command failed for: " + name;
+
                         if (data === "true") {
-                            $("div.alert").addClass("alert-success");
-                            $("div.alert").html("Shutdown command send to: " + name);
-                        }
-                        else {
-                            $("div.alert").addClass("alert-danger");
-                            $("div.alert").html("Shutdown command failed for: " + name);
+                            alertType = "success";
+                            alertMessage = "Shutdown command send to: " + name;
                         }
 
-                        $("div.alert").fadeIn("fast");
-                        fadeOutAlert();
+                        showAlert(alertType, alertMessage);
                     });
                 }
             }

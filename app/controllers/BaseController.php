@@ -16,8 +16,6 @@ class BaseController extends Controller
 
     /**
      * Sets the config object to $this->config.
-     *
-     * @return  void
      */
     public function initialize()
     {

@@ -41,7 +41,13 @@ class PHPSysInfo extends Model
     }
 
     /**
+
+     */
+
+    /**
      * Loops through all mounts in $data and adds Bootstrap classes to the objects based on used percentage.
+     *
+     * @param object $data       The PHPSysInfo retrieved data, as JSON object. Passed by reference to adjust the data for display.
      */
     private function setMountClasses(&$data)
     {
@@ -60,7 +66,10 @@ class PHPSysInfo extends Model
     }
 
     /**
-     * Loops through all CpuCores in $data. Formatting temps, vCore and CPU speeds.
+     * Loops through all CpuCores in $data. Formatting temps and CPU speeds.
+     *
+     * @param object $data       The PHPSysInfo retrieved data, as JSON object. Passed by reference to adjust the data for display.
+     * @param object $config     The application's config object.
      */
     private function setCPUData(&$data, $config)
     {

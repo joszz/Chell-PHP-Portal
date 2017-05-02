@@ -1,7 +1,8 @@
 ﻿"use strict";
 
 /**
-* @todo comments
+* The Sickrage block on the dashboard.
+* 
 * @class Sickrage
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -18,7 +19,7 @@
         var settings = $.extend({
             block: this,
             apiKey: this.data("sickrage-apikey"),
-            baseUrl: this.data("sickrage-url"),
+            baseUrl: this.data("sickrage-url")
         }, options);
 
         /**
@@ -30,7 +31,7 @@
         var functions = {
 
             /**
-            * Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.
+            * Initializes the eventhandler for refreshing the content and calls refresh the retrieve content immediately.
             * 
             * @method initialize
             */
@@ -42,6 +43,12 @@
                 functions.refresh(true);
             },
 
+            /**
+             * Refreshes the contents of the Sickrage block.
+             * 
+             * @method refresh
+             * @param {Boolean} onload  whether this call is made onload of the webpage or not.
+             */
             refresh: function (onload) {
                 if (!onload) {
                     settings.block.isLoading();
@@ -76,6 +83,13 @@
                 });
             },
 
+            /**
+             * Called by functions.refresh to create items for the content retrieved from Sickrage through AJAX.
+             * 
+             * @method createItems
+             * @param {Object} ul       The list to add the item to.   
+             * @param {Object} value    The value retrieved by AJAX used to fill the newly created listitem.
+             */
             createItems: function (ul, value) {
                 var item = ul.find("a.hidden").clone();
                 var episode = item.find(".episode");
@@ -86,7 +100,7 @@
                 episode.html(episodeText + " | " + value.show_name);
 
                 detail.attr("id", id);
-                detail.find("h4").html(value.show_name)
+                detail.find("h4").html(value.show_name);
 
                 var detailEpisode = $("<div class='col-xs-12'></div>");
                 detailEpisode.html(episodeText);
@@ -99,12 +113,20 @@
                     });
 
                     return false;
-                })
+                });
 
                 item.removeClass("hidden");
                 item.prependTo(ul);
             },
 
+            /**
+             * Returns the Sickrage API URL given a cmd and type.
+             * 
+             * @method url
+             * @param {String}      cmd      The command to sent to the Sickrage API.
+             * @param {String}      type     The type to sent to the Sickrage API.
+             * @returns {String}    The Sickrage API URL string to use for the AJAX calls.
+             */
             url: function (cmd, type) {
                 return settings.baseUrl + "api/" + settings.apiKey + "/?cmd=" + cmd + "&type=" + type;
             }
