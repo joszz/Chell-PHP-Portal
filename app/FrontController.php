@@ -40,7 +40,6 @@ class FrontController
                         'jquery.fullscreen.js',
                         'waves.js',
                         'md5.js',
-                        'Duo-Web-v2.js',
                         'default.js',
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/gallery.js',

@@ -2,6 +2,8 @@
 
 namespace Chell\Controllers;
 
+use Chell\Models\PHPSysInfo;
+
 /**
  * The controller responsible for RSS functionality.
  *

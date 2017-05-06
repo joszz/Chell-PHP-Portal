@@ -1,29 +1,34 @@
 ﻿[
-  //Chell PHP Portal
   {
-    "includeInProject": true,
-    "options": { "sourceMap": true },
     "outputFile": "public/css/default.css",
-    "inputFile": "public/css/default/default.scss"
+    "inputFile": "public/css/default/default.scss",
+    "options": {
+      "sourceMap": true
+    }
   },
   {
-    "includeInProject": true,
-    "options": { "sourceMap": true },
     "outputFile": "public/css/bootstrap.css",
-    "inputFile": "public/css/bootstrap.scss"
+    "inputFile": "public/css/bootstrap.scss",
+    "options": {
+      "sourceMap": true
+    }
   },
-
-  //Installer
   {
-    "includeInProject": true,
-    "options": { "sourceMap": true },
     "outputFile": "installer/css/default.css",
-    "inputFile": "installer/css/default.scss"
+    "inputFile": "installer/css/default.scss",
+    "options": {
+      "sourceMap": true
+    }
   },
   {
-    "includeInProject": true,
-    "options": { "sourceMap": true },
     "outputFile": "installer/css/bootstrap.css",
-    "inputFile": "installer/css/bootstrap.scss"
+    "inputFile": "installer/css/bootstrap.scss",
+    "options": {
+      "sourceMap": true
+    }
+  },
+  {
+    "outputFile": "public/js/dashboard-blocks/couchpotato.es5.js",
+    "inputFile": "public/js/dashboard-blocks/couchpotato.js"
   }
 ]

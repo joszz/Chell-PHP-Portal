@@ -86,7 +86,7 @@ class SettingsController extends BaseController
     {
         if(isset($id, $which))
         {
-            $entity = call_user_func(array($which, 'findFirst'), array(
+            $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
                 'conditions' => 'id = ?1',
                 'bind'       => array(1 => intval($id))
             ));
