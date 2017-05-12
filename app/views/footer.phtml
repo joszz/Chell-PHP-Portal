@@ -1,4 +1,3 @@
-
 <footer class="navbar navbar-inverse">
     <div class="container text-muted">
         <div class="col-xs-9 col-md-6 col-sm-5">
@@ -9,7 +8,9 @@
         </div>
         <div class="col-xs-3 col-md-6 col-sm-7 text-right">
             <div class="btn-group pull-right actions">
+                <?php if($this->dispatcher->getControllerName() == 'index') : ?>
                 <button class="btn btn-dark toggle-all fa fa-expand visible-xs"></button>
+                <?php endif ?>
                 <button class="btn btn-dark fa fa-arrows-alt rounded-not-mobile"></button>
             </div>
             <div class="visible-sm visible-md visible-lg execution-time pull-right">

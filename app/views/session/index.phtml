@@ -11,6 +11,7 @@
                 <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>
                 <div id="rememberme-wrapper">
                     <?php echo $element ?>
+                    <?php echo $element->label() ?>
                 </div>
                 <?php else : ?>
                 <?php echo $element ?>

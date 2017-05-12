@@ -57,12 +57,9 @@ class LoginForm extends Form
         $rememberme->setAttributes(array(
             'checked' => true,
             'data-toggle' => 'toggle',
-            'data-on' => 'Remember me',
             'data-onstyle' => 'success',
-            'data-off' => 'Don\'t remember',
             'data-offstyle' => 'danger',
-            'data-size' => 'small',
-            'data-width' => '115px'
+            'data-size' => 'small'
         ));
 
         $this->add($username);
