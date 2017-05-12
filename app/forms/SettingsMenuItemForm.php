@@ -2,6 +2,8 @@
 
 namespace Chell\Forms;
 
+use Chell\Models\Devices;
+
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;

@@ -33,7 +33,6 @@ class SettingsDashboardForm extends SettingsBaseForm
 
         $this->setPHPSysInfoFields();
         $this->setrCPUFields();
-
         $this->setTransmissionFields();
         $this->setSubsonicFields();
         $this->setKodiFields();
@@ -73,21 +72,21 @@ class SettingsDashboardForm extends SettingsBaseForm
     private function setPHPSysInfoFields()
     {
         $phpSysInfoURL = new Text('phpsysinfo-url');
-        $phpSysInfoURL->setLabel('URL')
+        $phpSysInfoURL->setLabel('PHPSysInfo URL')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'PHPSysInfo'))
+            ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->phpsysinfo->URL);
 
         $phpSysInfoUsername = new Text('phpsysinfo-username');
-        $phpSysInfoUsername->setLabel('Username')
+        $phpSysInfoUsername->setLabel('PHPSysInfo username')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->phpsysinfo->username);
 
         $phpSysInfoPassword = new Password('phpsysinfo-password');
-        $phpSysInfoPassword->setLabel('Password')
+        $phpSysInfoPassword->setLabel('PHPSysInfo password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+            ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->phpsysinfo->password);
 
         $this->add($phpSysInfoURL);

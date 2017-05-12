@@ -37,9 +37,8 @@ $(function () {
     });
 
     $("input[type='number']").TouchSpin({
-        verticalbuttons: true,
-        verticalupclass: 'fa fa-chevron-up',
-        verticaldownclass: 'fa fa-chevron-down'
+        verticalupclass: 'fa fa-chevron-left',
+        verticaldownclass: 'fa fa-chevron-right'
     });
 
     $("input[type='checkbox']").each(function () {

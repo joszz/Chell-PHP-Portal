@@ -311,7 +311,7 @@
                     var data = {
                         id: 1,
                         jsonrpc: "2.0",
-                        method: "Player.GetActivePlayers",
+                        method: "Player.GetActivePlayers"
                     };
 
                     $.ajax({
