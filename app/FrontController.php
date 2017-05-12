@@ -42,12 +42,7 @@ class FrontController
                         'md5.js',
                         'default.js',
                         'dashboard-blocks/devices.js',
-                        'dashboard-blocks/gallery.js',
-                        'dashboard-blocks/phpsysinfo.js',
-                        'dashboard-blocks/transmission.js',
-                        'dashboard-blocks/sickrage.js',
-                        'dashboard-blocks/couchpotato.js',
-                        'dashboard-blocks/nowplaying.js');
+                        'dashboard-blocks/phpsysinfo.js');
 
     private $css = array('bootstrap.css',
                          'font-awesome/font-awesome.css',
@@ -70,6 +65,7 @@ class FrontController
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
 
+        $this->setJSBasedOnEnabledBlocks();
         $this->registerNamespaces();
 
         $this->di->set('dispatcher', function () {
@@ -105,6 +101,29 @@ class FrontController
         $this->setCSSCollection();
         $this->setJSCollection();
         $this->setTitle();
+    }
+
+    /**
+     * Adds necessary JS to JS array based upon what's enabled in config.
+     */
+    private function setJSBasedOnEnabledBlocks(){
+        if($this->config->transmission->enabled) {
+            $this->js[] = 'dashboard-blocks/transmission.js';
+        }
+        if($this->config->sickrage->enabled) {
+            $this->js[] = 'dashboard-blocks/sickrage.js';
+        }
+        if($this->config->couchpotato->enabled) {
+            $this->js[] = 'dashboard-blocks/couchpotato.js';
+        }
+
+        if($this->config->kodi->enabled || $this->config->subsonic->enabled) {
+            $this->js[] = 'dashboard-blocks/nowplaying.js';
+        }
+
+        if($this->config->kodi->enabled || $this->config->couchpotato->enabled){
+            $this->js[] = 'dashboard-blocks/gallery.js';
+        }
     }
 
     /**

@@ -75,8 +75,7 @@ class KodiController extends BaseController
      */
     public function getImageAction($which, $type, $id, $maxWidth = 'disabled')
     {
-        switch($which)
-        {
+        switch($which) {
             case 'movies':
                 $item = KodiMovies::findFirst(array(
                     'conditions' => 'idMovie = ?1',
@@ -105,16 +104,14 @@ class KodiController extends BaseController
                 break;
         }
 
-        if(isset($url))
-        {
+        if(isset($url)) {
             $ntct = Array('1' => 'image/gif',
                           '2' => 'image/jpeg',
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
 
-            if(!file_exists($filename))
-            {
+            if(!file_exists($filename)) {
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -124,8 +121,7 @@ class KodiController extends BaseController
                 file_put_contents($filename, $output);
             }
 
-            if($maxWidth != 'disabled')
-            {
+            if($maxWidth != 'disabled') {
                 $resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
 
                 if(!file_exists($resizedPath))
@@ -150,8 +146,7 @@ class KodiController extends BaseController
             header('Content-type: ' . $ntct[exif_imagetype($filename)]);
             header("Pragma: cache");
 
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
-            {
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
                 header('HTTP/1.1 304 Not Modified');
             }
 
@@ -173,8 +168,7 @@ class KodiController extends BaseController
     {
         list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);
 
-        switch ($source_image_type)
-        {
+        switch ($source_image_type) {
             case IMAGETYPE_GIF:
                 $source_gd_image = imagecreatefromgif($sourcePath);
                 break;

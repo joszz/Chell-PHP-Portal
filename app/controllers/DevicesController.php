@@ -18,7 +18,7 @@ class DevicesController extends BaseController
      */
     public function wolAction($mac)
     {
-        if (isset($mac)){
+        if (isset($mac)) {
             Devices::wakeOnLan($mac, $this->config);
         }
 

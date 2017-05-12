@@ -41,4 +41,23 @@ $(function () {
         verticalupclass: 'fa fa-chevron-up',
         verticaldownclass: 'fa fa-chevron-down'
     });
+
+    $("input[type='checkbox']").each(function () {
+        toggleFieldsInFieldSet($(this));
+
+        $(this).change(function () {
+            toggleFieldsInFieldSet($(this));
+        });
+    });
 });
+
+function toggleFieldsInFieldSet($this) {
+    var elements = $this.closest("fieldset").find(".form-group:not(:first)");
+
+    if ($this.prop("checked")) {
+        elements.removeClass('hidden');
+    }
+    else {
+        elements.addClass('hidden');
+    }
+}

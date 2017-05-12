@@ -2,7 +2,6 @@
 
 namespace Chell\Forms;
 
-use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
@@ -15,25 +14,8 @@ use Phalcon\Validation\Validator\Regex;
  *
  * @package Forms
  */
-class SettingsGeneralForm extends Form
+class SettingsGeneralForm extends SettingsBaseForm
 {
-    /**
-     * The configuration object containing all the info from config.ini.
-     * @var array
-     */
-    private $_config;
-
-    /**
-     * Set the config array (config.ini contents) to private variable.
-     *
-     * @param array $config     The config array.
-     */
-    public function __construct($config)
-    {
-        $this->_config = $config;
-        parent::__construct();
-    }
-
     /**
      * Add all fields to the form and set form specific attributes.
      */
@@ -63,6 +45,13 @@ class SettingsGeneralForm extends Form
         $bgcolor->setLabel('Background color');
         $bgcolor->setDefault($this->_config->application->background);
 
+        $alertTimeout = new Numeric('alert-timeout');
+        $alertTimeout->setLabel('Alert timeout')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->application->alertTimeout)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
         $debug = new Check('debug');
         $debug->setLabel('Debug');
         $debug->setAttributes(array(
@@ -74,45 +63,41 @@ class SettingsGeneralForm extends Form
         ));
 
         $duoEnabled = new Check('duo-enabled');
-        $duoEnabled->setLabel('Duo enabled');
+        $duoEnabled->setLabel('Enabled');
         $duoEnabled->setAttributes(array(
             'checked' => $this->_config->duo->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
-            'data-size' => 'small'
+            'data-size' => 'small',
+            'fieldset' => 'Duo'
         ));
 
         $duoAPIHostname = new Text('duo-apiHostname');
-        $duoAPIHostname->setLabel('Duo API hostname');
+        $duoAPIHostname->setLabel('API hostname');
         $duoAPIHostname->setFilters(array('striptags', 'string'));
-        $duoAPIHostname->setAttributes(array('class' => 'form-control'));
+        $duoAPIHostname->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoAPIHostname->setDefault($this->_config->duo->apiHostname);
 
         $duoIKey = new Text('duo-ikey');
-        $duoIKey->setLabel('Duo integration key');
+        $duoIKey->setLabel('Integration key');
         $duoIKey->setFilters(array('striptags', 'string'));
-        $duoIKey->setAttributes(array('class' => 'form-control'));
+        $duoIKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoIKey->setDefault($this->_config->duo->ikey);
 
         $duoSKey = new Text('duo-skey');
-        $duoSKey->setLabel('Duo secret key');
+        $duoSKey->setLabel('Secret key');
         $duoSKey->setFilters(array('striptags', 'string'));
-        $duoSKey->setAttributes(array('class' => 'form-control'));
+        $duoSKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoSKey->setDefault($this->_config->duo->skey);
 
         $duoAKey = new Text('duo-akey');
-        $duoAKey->setLabel('Duo akey');
+        $duoAKey->setLabel('Akey');
         $duoAKey->setFilters(array('striptags', 'string'));
-        $duoAKey->setAttributes(array('class' => 'form-control'));
+        $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
         $duoAKey->setDefault($this->_config->duo->akey);
 
-        $alertTimeout = new Numeric('alert-timeout');
-        $alertTimeout->setLabel('Alert timeout')
-            ->setFilters(array('striptags', 'int'))
-            ->setAttributes(array('class' => 'form-control'))
-            ->setDefault($this->_config->application->alertTimeout)
-            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
 
         $this->add($title);
         $this->add($bgcolor);

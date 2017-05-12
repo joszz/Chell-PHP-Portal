@@ -3,7 +3,7 @@
 namespace Chell\Controllers;
 
 /**
- * The controller showing about information of this project.
+ * The controller responsible for showing about information of this project.
  *
  * @package Controllers
  */
@@ -27,11 +27,12 @@ class AboutController extends BaseController
 	}
 
 	/**
-	* Retrieves the contributors from github for this project, using total commit count for versioning.
-	*
-	* @return mixed     The content of the JSON decoded CURL call.
-	*/
-	private function getGithubStats(){
+	 * Retrieves the contributors from github for this project, using total commit count for versioning.
+	 *
+	 * @return mixed     The content of the JSON decoded CURL call.
+	 */
+	private function getGithubStats()
+	{
 		$curl = curl_init("https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors");
 		curl_setopt_array ($curl, array(
 			CURLOPT_RETURNTRANSFER => true,

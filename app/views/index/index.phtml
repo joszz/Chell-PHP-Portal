@@ -8,16 +8,31 @@
 <div class="clearfix visible-lg visible-md"></div>
 
 <?php $this->partial('index/partials/indexAction/phpsysinfo_processes') ?>
+
+<?php if($this->config->rcpu->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/rcpu') ?>
+<?php endif ?>
 
 <div class="clearfix"></div>
 
+<?php if($this->config->kodi->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/kodi_latest_movies') ?>
 <?php $this->partial('index/partials/indexAction/kodi_latest_episodes') ?>
 <?php $this->partial('index/partials/indexAction/kodi_latest_albums') ?>
+<?php endif ?>
+
+<?php if($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/now_playing') ?>
+<?php endif ?>
+
+<?php if($this->config->couchpotato->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/couchpotato') ?>
+<?php endif ?>
+
+<?php if($this->config->sickrage->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/sickrage') ?>
+<?php endif ?>
 
-
+<?php if($this->config->transmission->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/transmission') ?>
+<?php endif ?>

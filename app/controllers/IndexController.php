@@ -2,6 +2,8 @@
 
 namespace Chell\Controllers;
 
+use Phalcon\Mvc\View;
+
 use Chell\Models\Devices;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiMusic;
@@ -38,6 +40,6 @@ class IndexController extends BaseController
     public function manifestAction()
     {
         header('Content-Type: application/manifest+json; charset=UTF-8');
-        $this->view->setRenderLevel(\Phalcon\Mvc\View::LEVEL_ACTION_VIEW);
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 }

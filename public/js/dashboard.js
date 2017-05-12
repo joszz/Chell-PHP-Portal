@@ -8,25 +8,44 @@
 */
 
 /**
-* Document onload, call to initialize dashboardblocks, eventhandlers and plugins.
+* Document onload, call to initialize eventhandlers and plugins.
 * 
 * @method document.onload
 */
 $(function () {
     initializeDashboardEventHandlers();
+    initializePlugins();
+});
 
+/**
+ * Initializes all plugins for the dashboard.
+ * 
+ * @method initializePlugins
+ */
+function initializePlugins() {
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
-    $(".transmission").transmission();
     $(".devices").devices();
-    $(".movies, .episodes, .albums, .couchpotato").gallery();
-    $(".nowplaying").nowplaying();
-    $(".sickrage").sickrage();
-    $(".couchpotato").couchpotato();
+
+    if (typeof $.fn.transmission !== "undefined") {
+        $(".transmission").transmission();
+    }
+    if (typeof $.fn.gallery !== "undefined") {
+        $(".movies, .episodes, .albums, .couchpotato").gallery();
+    }
+    if (typeof $.fn.nowplaying !== "undefined") {
+        $(".nowplaying").nowplaying();
+    }
+    if (typeof $.fn.sickrage !== "undefined") {
+        $(".sickrage").sickrage();
+    }
+    if (typeof $.fn.couchpotato !== "undefined") {
+        $(".couchpotato").couchpotato();
+    }
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
-});
+}
 
 /**
 * Initializes the eventhandlers
