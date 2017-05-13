@@ -35,7 +35,7 @@ $(function () {
 
         return false;
     });
-
+        
     $("input[type='number']").TouchSpin({
         verticalupclass: 'fa fa-chevron-left',
         verticaldownclass: 'fa fa-chevron-right'
@@ -51,7 +51,7 @@ $(function () {
 });
 
 function toggleFieldsInFieldSet($this) {
-    var elements = $this.closest("fieldset").find(".form-group:not(:first)");
+    var elements = $this.closest("fieldset").find(".form-group");
 
     if ($this.prop("checked")) {
         elements.removeClass('hidden');

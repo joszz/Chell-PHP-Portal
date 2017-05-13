@@ -57,7 +57,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         ));
 
         $rCpuURL = new Text('rcpu-url');
-        $rCpuURL->setLabel('rCPU URL')
+        $rCpuURL->setLabel('URL')
             ->setFilters(array('striptags', 'string'))
             ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
             ->setDefault($this->_config->rcpu->URL);

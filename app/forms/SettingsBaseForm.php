@@ -30,9 +30,9 @@ class SettingsBaseForm extends Form
     }
 
     /**
-     * Will render a formelement and it's associated label. 
+     * Will render a formelement and it's associated label.
      * If the element has an attribute fieldset defined, call renderFieldset, otherwise call renderGeneric.
-     * 
+     *
      * @param Element $element The element to render.
      * @return string          The generated HTML string.
      */
@@ -54,7 +54,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Generic formelement renderer. If called with $hidden: true, will hide the entire row (used for fieldsets).
-     * 
+     *
      * @param Element $element  The Element to render.
      * @param Bool $hidden      Whether the entire form-group should be hidden on load.
      * @return string           The generated HTML string.
@@ -101,7 +101,7 @@ class SettingsBaseForm extends Form
             $html = $this->renderGeneric($element, true) . '</fieldset>';
         }
         else {
-            $html = '<fieldset><legend>' . $fieldset . '</legend>' . $this->renderGeneric($element);
+            $html = '<fieldset><legend>' . $element . $fieldset . '</legend>';
         }
 
         return $html;
