@@ -55,9 +55,9 @@ class SettingsBaseForm extends Form
     /**
      * Generic formelement renderer. If called with $hidden: true, will hide the entire row (used for fieldsets).
      *
-     * @param Element $element  The Element to render.
-     * @param Bool $hidden      Whether the entire form-group should be hidden on load.
-     * @return string           The generated HTML string.
+     * @param Element   $element    The Element to render.
+     * @param bool      $hidden     Whether the entire form-group should be hidden on load.
+     * @return string               The generated HTML string.
      */
     protected function renderGeneric($element, $hidden = false)
     {

@@ -31,9 +31,9 @@ class BaseController extends Controller
     /**
      * Writes ini file based on associative array.
      *
-     * @param array $assoc_arr          The array to write to the ini file.
-     * @param string $path              The path to write the ini file to.
-     * @param bool $has_sections        If the ini file has sections (in the form of [section])
+     * @param array     $assoc_arr      The array to write to the ini file.
+     * @param string    $path           The path to write the ini file to.
+     * @param bool      $has_sections   If the ini file has sections (in the form of [section])
      * @return bool                     If the write was succesful
      */
     protected function writeIniFile($assoc_arr, $path, $has_sections = false)

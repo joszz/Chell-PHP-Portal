@@ -35,10 +35,10 @@ $(function () {
 
         return false;
     });
-        
+
     $("input[type='number']").TouchSpin({
-        verticalupclass: 'fa fa-chevron-left',
-        verticaldownclass: 'fa fa-chevron-right'
+        verticalupclass: "fa fa-chevron-left",
+        verticaldownclass: "fa fa-chevron-right"
     });
 
     $("input[type='checkbox']").each(function () {
@@ -48,15 +48,23 @@ $(function () {
             toggleFieldsInFieldSet($(this));
         });
     });
+
+    $("legend").click(function (event) {
+        if (event.target.nodeName.toLowerCase() == "legend") {
+            var state = $(this).find("input").prop("checked");
+
+            $(this).find("input").prop("checked", !state).change();
+        }
+    });
 });
 
 function toggleFieldsInFieldSet($this) {
     var elements = $this.closest("fieldset").find(".form-group");
 
     if ($this.prop("checked")) {
-        elements.removeClass('hidden');
+        elements.removeClass("hidden");
     }
     else {
-        elements.addClass('hidden');
+        elements.addClass("hidden");
     }
 }

@@ -79,8 +79,8 @@ class SettingsController extends BaseController
      * Deletes a $entity with $id if found.
      * Redirects back to index#devices.
      *
-     * @param string $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
-     * @param int $id           The ID of the entity you want to delete.
+     * @param string    $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
+     * @param int       $id        The ID of the entity you want to delete.
      */
     public function deleteAction($which, $id)
     {
@@ -181,8 +181,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
      * 
-     * @param int $id     Optional, the user ID to edit.
-     * @return mixed        Will forward to settings/index#users when succesfull, or will show the form again when failed.
+     * @param int       $id     Optional, the user ID to edit.
+     * @return mixed            Will forward to settings/index#users when succesfull, or will show the form again when failed.
      */
     public function userAction($id)
     {

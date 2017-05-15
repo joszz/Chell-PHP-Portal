@@ -35,8 +35,8 @@ class Devices extends Model
     /**
      * Calls pingExec with IP and returns the state of the device.
      *
-     * @param string $ip Which device to ping
-     * @return bool Whether the device is on (true) or off (false)
+     * @param string $ip    Which device to ping
+     * @return bool         Whether the device is on (true) or off (false)
      */
     public function isDeviceOn($ip)
     {
@@ -46,9 +46,9 @@ class Devices extends Model
     /**
      * Pings a device and returns the response time.
      *
-     * @param string $host   Which host to ping
-     * @param int $ttl    The TimeToLive for the ping request. Defaults to 1 second
-     * @return bool|double  The time it took for the device to respond or false if failed.
+     * @param string        $host   Which host to ping
+     * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
+     * @return bool|double          The time it took for the device to respond or false if failed.
      */
     private function pingExec($host, $ttl = 10)
     {
@@ -71,8 +71,7 @@ class Devices extends Model
 
         exec($exec_string, $output, $return);
 
-        // Strip empty lines and reorder the indexes from 0 (to make results more
-        // uniform across OS versions).
+        // Strip empty lines and reorder the indexes from 0 (to make results more uniform across OS versions).
         $output = array_values(array_filter($output));
         // If the result line in the output is not empty, parse it.
         if (!empty($output[1]))
@@ -92,10 +91,10 @@ class Devices extends Model
     /**
      * Wakes up a device by MAC address.
      *
-     * @param string $mac            The device to wake.
-     * @param int $socket_number  The port to send the magic packet to.
-     * @param int $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
-     * @return bool                 Whether or not socket_sendto with magic packet succeeded.
+     * @param string    $mac            The device to wake.
+     * @param int       $socket_number  The port to send the magic packet to.
+     * @param int       $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
+     * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
     public function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)
     {
