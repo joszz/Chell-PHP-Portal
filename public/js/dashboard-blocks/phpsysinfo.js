@@ -232,12 +232,7 @@
                 psstatus: function () {
                     $(".processes").isLoading();
 
-                    settings.block.find(".fa-refresh").off().on("click", function () {
-                        functions.psstatus();
-
-                        $(this).blur();
-                        return false;
-                    });
+                    settings.block.find(".fa-refresh").off().on("click", functions.psstatus);
 
                     var d = new Date();
 
@@ -277,6 +272,9 @@
                                 listItem.appendTo($("div.processes ul"));
                             });
 
+                            
+                        },
+                        complete: function () {
                             $(".processes").isLoading("hide");
                         }
                     });

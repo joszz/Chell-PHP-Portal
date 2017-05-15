@@ -50,7 +50,7 @@ $(function () {
     });
 
     $("legend").click(function (event) {
-        if (event.target.nodeName.toLowerCase() == "legend") {
+        if (event.target.nodeName.toLowerCase() === "legend") {
             var state = $(this).find("input").prop("checked");
 
             $(this).find("input").prop("checked", !state).change();
@@ -58,6 +58,12 @@ $(function () {
     });
 });
 
+/**
+ * Collapses/expands all fields that are hidden by default/rendertime in fieldsets.
+ * 
+ * @method toggleFieldsInFieldSet
+ * @param {Object}  $this   The reference to the checkbox being toggled.
+ */
 function toggleFieldsInFieldSet($this) {
     var elements = $this.closest("fieldset").find(".form-group");
 
