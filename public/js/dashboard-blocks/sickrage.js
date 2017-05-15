@@ -54,30 +54,34 @@
                     settings.block.isLoading();
                 }
 
+                var today = settings.block.find("#today .list-group");
+                var soon = settings.block.find("#soon .list-group");
+
                 $.ajax({
                     url: functions.url("future", "today|soon"),
                     dataType: "json",
                     success: function (data) {
                         data = data.data;
 
-                        var ulToday = settings.block.find("#today .list-group");
-                        var ulSoon = settings.block.find("#soon .list-group");
-
-                        ulToday.find("a:not(.hidden)").remove();
-                        ulSoon.find("a:not(.hidden)").remove();
+                        today.find("a:not(.hidden)").remove();
+                        soon.find("a:not(.hidden)").remove();
 
                         $.each(data.today, function (index, value) {
-                            functions.createItems(ulToday, value);
+                            functions.createItems(today, value);
                         });
 
                         $.each(data.soon, function (index, value) {
-                            functions.createItems(ulSoon, value);
+                            functions.createItems(soon, value);
                         });
                     },
 
                     complete: function () {
                         if (!onload) {
                             settings.block.isLoading("hide");
+                        }
+
+                        if (!today.find(".list-group-item:not(.hidden)").length) {
+                            settings.block.find("a[href='#soon']").tab("show");
                         }
                     }
                 });
