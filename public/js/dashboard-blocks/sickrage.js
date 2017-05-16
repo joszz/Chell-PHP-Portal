@@ -82,6 +82,11 @@
 
                         if (!today.find(".list-group-item:not(.hidden)").length) {
                             settings.block.find("a[href='#soon']").tab("show");
+                            settings.block.find("a[href='#today']").parent().addClass("disabled");
+                            settings.block.find("a[href='#today']").attr("data-toggle", "");
+                        }
+                        else {
+                            settings.block.find("a:eq(0)").attr("data-toggle", "tab");
                         }
                     }
                 });
