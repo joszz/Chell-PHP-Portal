@@ -139,9 +139,10 @@ class Devices extends Model
     /**
      * Executes a RPC command to shutdown Windows based devices.
      *
-     * @param string $ip         The device to shutdown
-     * @param string $user       A valid Windows account to authenticate with.
-     * @param string $password   A valid Windows password to authenticate with.
+     * @see                     https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
+     * @param string $ip        The device to shutdown
+     * @param string $user      A valid Windows account to authenticate with.
+     * @param string $password  A valid Windows password to authenticate with.
      * @return array            The output of the RPC command on the shell.
      */
     public function shutdown($ip, $user, $password)

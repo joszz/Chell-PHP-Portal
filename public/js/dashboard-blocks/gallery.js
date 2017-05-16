@@ -58,14 +58,16 @@
                 * @param {String} direction The direction to rotate to, valid values are "left" and "right".
                 */
                 rotateGallery: function (direction) {
-                    var currentIndex = settings.block.find(".item:visible").index();
-                    var offset = direction === "right" ? 1 : -1;
-                    var nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
+                    if (settings.block.find(".panel-body:visible").length) {
+                        var currentIndex = settings.block.find(".item:visible").index();
+                        var offset = direction === "right" ? 1 : -1;
+                        var nextIndex = settings.block.find(".item:eq(" + (currentIndex + offset) + ")").length === 1 ? currentIndex + offset : 0;
 
-                    if (currentIndex !== nextIndex) {
-                        settings.block.find(".item:eq(" + currentIndex + ")").fadeOut("fast", function () {
-                            settings.block.find(".item:eq(" + nextIndex + ")").fadeIn("fast").css("display", "block");
-                        });
+                        if (currentIndex !== nextIndex) {
+                            settings.block.find(".item:eq(" + currentIndex + ")").fadeOut("fast", function () {
+                                settings.block.find(".item:eq(" + nextIndex + ")").fadeIn("fast").css("display", "block");
+                            });
+                        }
                     }
                 }
             };
