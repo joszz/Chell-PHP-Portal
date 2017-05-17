@@ -19,6 +19,7 @@ class KodiController extends BaseController
     public function initialize()
     {
         $this->view->setMainView('layouts/empty');
+        parent::initialize();
     }
 
     /**

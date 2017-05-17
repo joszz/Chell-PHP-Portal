@@ -63,9 +63,16 @@
                     success: function success(data) {
                         $.each(data.movies, function (index, value) {
                             var clone = settings.block.find("a.clone").clone();
-                            clone.removeClass("clone").addClass("item");
 
-                            if (index === 0) {
+                            clone.removeClass("clone").addClass("item");
+                            clone.attr({
+                                "href": "/portal/couchpotato/movie/" + value._id,
+                                "data-fancybox": "couchpotato",
+                                "data-fancybox-type": "iframe",
+                                "title": value.info.tagline
+                            });
+
+                            if (index === data.movies.length - 1) {
                                 clone.removeClass("hidden_not_important");
                             }
 
@@ -78,7 +85,6 @@
                             clone.prependTo(settings.block.find(".panel-body"));
                         });
                     },
-
                     complete: function complete() {
                         if (!onload) {
                             settings.block.isLoading("hide");

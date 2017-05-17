@@ -3,7 +3,6 @@
 namespace Chell\Models;
 
 use Phalcon\Mvc\Model;
-use Phalcon\Mvc\Model\Validator\PresenceOf;
 
 /**
  * The model responsible for all actions related to devices.

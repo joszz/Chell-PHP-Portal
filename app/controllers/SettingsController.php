@@ -22,7 +22,6 @@ use Phalcon\Validation\Message;
  */
 class SettingsController extends BaseController
 {
-
     /**
      * Shows the settings view
      */

@@ -34,14 +34,6 @@ class SessionController extends BaseController
     }
 
     /**
-     * Override BaseController's initialize function so menu will not be retrieved/displayed.
-     */
-    public function initialize()
-    {
-        $this->config = $this->di->get('config');
-    }
-
-    /**
      * Shows the login form. Forwards to login action when rememberme cookies are present.
      */
     public function indexAction()

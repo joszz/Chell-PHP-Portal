@@ -14,18 +14,22 @@ class BaseController extends Controller
 {
     protected $config;
 
+    private $controllersToLoadMenu = array('index', 'about', 'settings');
+
     /**
-     * Sets the config object to $this->config.
+     * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.
      */
     public function initialize()
     {
         $this->config = $this->di->get('config');
 
-        $this->view->menu = Menus::findFirst(array(
-            'conditions' => 'id = ?1',
-            'order'      => 'name',
-            'bind'       => array(1 => 1),
-        ));
+        if(in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu)) {
+            $this->view->menu = Menus::findFirst(array(
+                'conditions' => 'id = ?1',
+                'order'      => 'name',
+                'bind'       => array(1 => 1),
+            ));
+        }
     }
 
     /**

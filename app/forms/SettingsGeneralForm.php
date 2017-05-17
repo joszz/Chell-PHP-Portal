@@ -97,12 +97,19 @@ class SettingsGeneralForm extends SettingsBaseForm
         $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
         $duoAKey->setDefault($this->_config->duo->akey);
 
+        $tmdbAPIKey = new Text('tmdb-apikey');
+        $tmdbAPIKey->setLabel('TMDB API key');
+        $tmdbAPIKey->setFilters(array('striptags', 'string'));
+        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
+        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
+
 
 
         $this->add($title);
         $this->add($bgcolor);
         $this->add($alertTimeout);
         $this->add($cryptKey);
+        $this->add($tmdbAPIKey);
         $this->add($debug);
         $this->add($duoEnabled);
         $this->add($duoAPIHostname);
@@ -126,6 +133,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         {
             $this->_config->application->title = $data['title'];
             $this->_config->application->phalconCryptKey = $data['cryptkey'];
+            $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
             $this->_config->application->background = $data['bgcolor'];
             $this->_config->application->alertTimeout = $data['alert-timeout'];
             $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
