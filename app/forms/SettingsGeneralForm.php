@@ -37,6 +37,12 @@ class SettingsGeneralForm extends SettingsBaseForm
         $cryptKey->setDefault($this->_config->application->phalconCryptKey);
         $cryptKey->addValidators(array(new PresenceOf(array())));
 
+        $tmdbAPIKey = new Text('tmdb-apikey');
+        $tmdbAPIKey->setLabel('TMDB API key');
+        $tmdbAPIKey->setFilters(array('striptags', 'string'));
+        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
+        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
+
         $bgcolor = new Select(
             'bgcolor',
             array('blackbg' => 'Black', 'whitebg' => 'White'),
@@ -96,14 +102,6 @@ class SettingsGeneralForm extends SettingsBaseForm
         $duoAKey->setFilters(array('striptags', 'string'));
         $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
         $duoAKey->setDefault($this->_config->duo->akey);
-
-        $tmdbAPIKey = new Text('tmdb-apikey');
-        $tmdbAPIKey->setLabel('TMDB API key');
-        $tmdbAPIKey->setFilters(array('striptags', 'string'));
-        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
-        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
-
-
 
         $this->add($title);
         $this->add($bgcolor);

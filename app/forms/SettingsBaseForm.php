@@ -38,18 +38,7 @@ class SettingsBaseForm extends Form
      */
     public function renderDecorated($element)
     {
-        $html = '';
-
-        if(!empty($element->getAttribute('fieldset')))
-        {
-            $html .= $this->renderFieldset($element);
-        }
-        else
-        {
-            $html .= $this->renderGeneric($element);
-        }
-
-        return $html;
+        return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderGeneric($element);;
     }
 
     /**

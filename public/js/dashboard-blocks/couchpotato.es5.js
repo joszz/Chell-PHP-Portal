@@ -41,21 +41,16 @@
                 });
 
                 settings.block.find(".fa-search").on("click", functions.searchWantedMovies);
-
-                functions.refresh(true);
             },
 
             /**
              * Refreshes the contents of the Couchpotato block.
              * 
              * @method refresh
-             * @param {Boolean} onload  whether this call is made onload of the webpage or not.
              */
-            refresh: function refresh(onload) {
-                if (!onload) {
-                    settings.block.isLoading();
-                    settings.block.find(".item").remove();
-                }
+            refresh: function refresh() {
+                settings.block.isLoading();
+                settings.block.find(".item").remove();
 
                 $.ajax({
                     url: functions.url("media.list"),
@@ -72,7 +67,7 @@
                                 "title": value.info.tagline
                             });
 
-                            if (index === data.movies.length - 1) {
+                            if (index === 0) {
                                 clone.removeClass("hidden_not_important");
                             }
 
@@ -82,13 +77,11 @@
                             clone.css("background-image", "url('" + value.info.images.poster + "')");
                             clone.attr("title", value.title);
 
-                            clone.prependTo(settings.block.find(".panel-body"));
+                            clone.appendTo(settings.block.find(".panel-body"));
                         });
                     },
                     complete: function complete() {
-                        if (!onload) {
-                            settings.block.isLoading("hide");
-                        }
+                        settings.block.isLoading("hide");
                     }
                 });
             },
