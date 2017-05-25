@@ -92,7 +92,7 @@ div.panel.transparent {
 
 @media only screen and (min-width : 481px) {
     div.panel .list-group,
-    div.panel .panel-body {
+    div.panel .panel-body:not(#main-settings) {
         display: block !important;
     }
 

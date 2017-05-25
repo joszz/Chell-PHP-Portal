@@ -56,6 +56,8 @@ $(function () {
             $(this).find("input").prop("checked", !state).change();
         }
     });
+
+    $("#main-settings").fadeIn("fast");
 });
 
 /**
