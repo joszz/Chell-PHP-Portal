@@ -1,9 +1,37 @@
-﻿div.movies .panel-body,
-div.episodes .panel-body,
-div.albums .panel-body,
-div.nowplaying .panel-body,
-div.couchpotato .panel-body {
+﻿div.gallery {
+    position: relative;
+    height: 379px;
+}
+
+div.backdrop {
+    opacity: 0.8;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+div.gallery .panel-body {
     padding: 0;
+}
+
+div.gallery .panel-heading {
+    background: none;
+    position: relative;
+}
+
+div.gallery .panel-heading .btn-group {
+    position: relative;
+    z-index: 3;
+}
+
+div.gallery .panel-heading h4 {
+    position: relative;
+    z-index: 2;
 }
 
 .kodi .item,
@@ -11,8 +39,8 @@ div.couchpotato .panel-body {
 .couchpotato .panel-body,
 .nowplaying .item,
 .nowplaying .panel-body {
-    height: 320px;
-    position: relative;
+    height: 378px;
+    position: absolute;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,6 +49,7 @@ div.couchpotato .panel-body {
     float: left;
     clear: left;
     width: 100%;
+    top: 0;
 }
 
 .item div.overlay {
@@ -57,4 +86,10 @@ div.couchpotato .panel-body {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+@media only screen and (max-width : 480px) {
+    div.gallery {
+        height: auto ;
+    }
 }
