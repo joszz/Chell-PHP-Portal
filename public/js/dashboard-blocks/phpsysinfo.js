@@ -20,7 +20,6 @@
             */
             var settings = $.extend({
                 url: $(this).data("phpsysinfo-url"),
-                vCore: $(this).data("phpsysinfo-vcore"),
                 block: $(this)
             }, options);
 
@@ -140,19 +139,24 @@
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
                 setNetwork: function (data) {
+                    if (!$.isArray(data.Network.NetDevice)) {
+                        data.Network.NetDevice = new Array(data.Network.NetDevice);
+                    }
+
                     $.each(data.Network.NetDevice, function (index, value) {
-                        var rx = Math.round(value['@attributes'].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var tx = Math.round(value['@attributes'].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                        var info = value['@attributes'].Info.split(";");
-
-                        var network = $(".lan-stats div:eq(" + index + ")");
-
+                        if (typeof value['@attributes'] != "undefined") {
+                            var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                            var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                            var info = value["@attributes"].Info.split(";");
+                            var network = $(".lan-stats div:eq(" + index + ")");
+                            
                             network.find(".lan-name").html(value.Name);
                             network.find(".lan-mac").html(info[0]);
                             network.find(".lan-ip").html(info[1]);
                             network.find(".lan-speed").html(info[2]);
                             network.find(".lan-rx").html(rx);
                             network.find(".lan-tx").html(tx);
+                        }
                     });
                 },
 
@@ -272,7 +276,7 @@
                                 listItem.appendTo($("div.processes ul"));
                             });
 
-                            
+
                         },
                         complete: function () {
                             $(".processes").isLoading("hide");

@@ -68,6 +68,20 @@ class SettingsGeneralForm extends SettingsBaseForm
             'data-size' => 'small'
         ));
 
+        $this->add($title);
+        $this->add($bgcolor);
+        $this->add($alertTimeout);
+        $this->add($cryptKey);
+        $this->add($tmdbAPIKey);
+        $this->add($debug);
+        $this->setDuoFields();
+    }
+
+    /**
+     * Adds Duo fields to the form.
+     */
+    private function setDuoFields()
+    {
         $duoEnabled = new Check('duo-enabled');
         $duoEnabled->setLabel('Enabled');
         $duoEnabled->setAttributes(array(
@@ -78,7 +92,6 @@ class SettingsGeneralForm extends SettingsBaseForm
             'data-size' => 'small',
             'fieldset' => 'Duo'
         ));
-
         $duoAPIHostname = new Text('duo-apiHostname');
         $duoAPIHostname->setLabel('API hostname');
         $duoAPIHostname->setFilters(array('striptags', 'string'));
@@ -103,12 +116,6 @@ class SettingsGeneralForm extends SettingsBaseForm
         $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
         $duoAKey->setDefault($this->_config->duo->akey);
 
-        $this->add($title);
-        $this->add($bgcolor);
-        $this->add($alertTimeout);
-        $this->add($cryptKey);
-        $this->add($tmdbAPIKey);
-        $this->add($debug);
         $this->add($duoEnabled);
         $this->add($duoAPIHostname);
         $this->add($duoIKey);

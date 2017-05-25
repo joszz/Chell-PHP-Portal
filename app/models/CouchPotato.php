@@ -9,7 +9,7 @@ use Phalcon\Mvc\Model;
  *
  * @package Models
  */
-class CouchPotato extends Model
+class Couchpotato extends Model
 {
 
 	public function getAllMovies($config)
@@ -19,20 +19,20 @@ class CouchPotato extends Model
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-        if($content->success){
-            return $content->movies;
-        }
+		if($content->success){
+			return $content->movies;
+		}
 
-        return false;
+		return false;
 	}
 
 	/**
-     * Retrieves movie details from CouchPotato API.
-     *
-     * @param string $id        The CouchPotate ID to use to call the API with.
-     * @param array $config     The config.ini as array.
-     * @return mixed            The movie object or false when API call is unsuccessful.
-     */
+	 * Retrieves movie details from CouchPotato API.
+	 *
+	 * @param string $id        The CouchPotate ID to use to call the API with.
+	 * @param array $config     The config.ini as array.
+	 * @return mixed            The movie object or false when API call is unsuccessful.
+	 */
 	public function getMovie($id, $config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.get/?id=' . $id);
@@ -51,12 +51,12 @@ class CouchPotato extends Model
 	}
 
 	/**
-     * Gets a random trailer from TMDB provided a TMDB ID.
-     *
-     * @param int $id           The TMDB ID to call the API by.
-     * @param array $config     The config.ini as array.
-     * @return string           The YouTube ID to be used for iFrame src.
-     */
+	 * Gets a random trailer from TMDB provided a TMDB ID.
+	 *
+	 * @param int $id           The TMDB ID to call the API by.
+	 * @param array $config     The config.ini as array.
+	 * @return string           The YouTube ID to be used for iFrame src.
+	 */
 	private function getRandomTrailerFormTMDB($id, $config)
 	{
 		$curl = curl_init($config->application->tmdbAPIURL . 'movie/' . $id . '/videos?api_key=' . $config->application->tmdbAPIKey);

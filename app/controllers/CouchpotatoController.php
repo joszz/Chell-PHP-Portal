@@ -2,7 +2,7 @@
 
 namespace Chell\Controllers;
 
-use Chell\Models\CouchPotato;
+use Chell\Models\Couchpotato;
 
 /**
  * The controller responsible for all CouchPotato related actions.
@@ -27,7 +27,7 @@ class CouchpotatoController extends BaseController
 	 */
 	public function movieAction($id)
 	{
-		$this->view->movie = $movie = CouchPotato::getMovie($id, $this->config);
+		$this->view->movie = $movie = Couchpotato::getMovie($id, $this->config);
 		$this->view->bgImage = current($movie->info->images->backdrop_original);
 	}
 }

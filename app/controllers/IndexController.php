@@ -4,7 +4,7 @@ namespace Chell\Controllers;
 
 use Phalcon\Mvc\View;
 
-use Chell\Models\CouchPotato;
+use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\PHPSysInfo;
 use Chell\Models\Kodi\KodiMovies;
@@ -29,7 +29,7 @@ class IndexController extends BaseController
         $this->view->movies = KodiMovies::getLatestMovies();
         $this->view->albums = KodiMusic::getLatestAlbums();
         $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
-        $this->view->couchpotato = CouchPotato::getAllMovies($this->config);
+        $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
 
         $this->executionTime = -microtime(true);
         $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);

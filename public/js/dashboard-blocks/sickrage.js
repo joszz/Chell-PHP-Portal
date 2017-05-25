@@ -102,19 +102,21 @@
             createItems: function (ul, value) {
                 var item = ul.find("a.hidden").clone();
                 var episode = item.find(".episode");
-                var detail = item.find(".sickrage-detail");
+                var detail = settings.block.find(".sickrage-detail").clone();
                 var episodeText = "S" + zeropad(value.season, 2) + "E" + zeropad(value.episode, 2);
                 var id = "t" + value.tvdbid + "-" + episodeText;
 
                 episode.html(episodeText + " | " + value.show_name);
 
+                detail.attr("data-fancybox", ul.attr("id"));
                 detail.attr("id", id);
                 detail.find("h4").html(value.show_name);
-
-                var detailEpisode = $("<div class='col-xs-12'></div>");
-                detailEpisode.html(episodeText);
-                detailEpisode.appendTo(detail.find(".panel-body"));
-
+                detail.find(".plot").html(value.ep_plot);
+                detail.find(".season").html(zeropad(value.season, 2));
+                detail.find(".episode").html(zeropad(value.episode, 2));
+                detail.find(".episodename").html(value.ep_name);
+                detail.find(".airdate").html(value.airdate);
+                
                 item.on("click", function () {
                     $.fancybox.open({
                         src: "#" + id,
@@ -123,6 +125,8 @@
 
                     return false;
                 });
+
+                detail.appendTo(item);
 
                 item.removeClass("hidden");
                 item.prependTo(ul);

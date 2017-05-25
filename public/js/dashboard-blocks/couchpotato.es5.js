@@ -36,10 +36,7 @@
             * @method initialize
             */
             initialize: function initialize() {
-                settings.block.find(".fa-refresh").on("click", function () {
-                    functions.refresh(false);
-                });
-
+                settings.block.find(".fa-refresh").on("click", functions.refresh);
                 settings.block.find(".fa-search").on("click", functions.searchWantedMovies);
             },
 
