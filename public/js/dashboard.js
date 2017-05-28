@@ -59,7 +59,10 @@ function initializeDashboardEventHandlers() {
         if (panel.find(".toggle-collapse:visible").length !== 0) {
             panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
             panel.find(".panel-body:eq(0)").toggleClass("hidden-xs");
-            panel.css("height", (panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px"));
+
+            if (panel.hasClass("gallery")){
+                panel.css("height", panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px");
+            }
 
             if (!panel.find(".tab-content").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");

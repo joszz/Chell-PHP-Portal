@@ -107,7 +107,7 @@
                 var id = "t" + value.tvdbid + "-" + episodeText;
 
                 episode.html(episodeText + " | " + value.show_name);
-
+                
                 detail.attr("data-fancybox", ul.attr("id"));
                 detail.attr("id", id);
                 detail.find("h4").html(value.show_name);

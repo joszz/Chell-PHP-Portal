@@ -38,6 +38,7 @@ class FrontController
                         'jquery.tinytimer.js',
                         'jquery.isloading.js',
                         'jquery.fullscreen.js',
+                        'jquery.mobile-events.js',
                         'waves.js',
                         'md5.js',
                         'default.js',

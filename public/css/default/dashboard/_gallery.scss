@@ -34,11 +34,8 @@ div.gallery .panel-heading h4 {
     z-index: 2;
 }
 
-.kodi .item,
-.couchpotato .item,
-.couchpotato .panel-body,
-.nowplaying .item,
-.nowplaying .panel-body {
+.gallery .item,
+.gallery .panel-body {
     height: 378px;
     position: absolute;
     background-size: cover;
@@ -50,6 +47,12 @@ div.gallery .panel-heading h4 {
     clear: left;
     width: 100%;
     top: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .item div.overlay {
@@ -90,6 +93,6 @@ div.gallery .panel-heading h4 {
 
 @media only screen and (max-width : 480px) {
     div.gallery {
-        height: auto ;
+        height: auto;
     }
 }

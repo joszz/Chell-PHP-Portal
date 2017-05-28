@@ -12,6 +12,12 @@ use Phalcon\Mvc\Model;
 class Couchpotato extends Model
 {
 
+	/**
+	 * Retrieves all wanted movies from CouchPotat API.
+	 *
+	 * @param object $config    The config.ini as an object.
+	 * @return array            The movies objects as an array.
+	 */
 	public function getAllMovies($config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.list');
@@ -30,7 +36,7 @@ class Couchpotato extends Model
 	 * Retrieves movie details from CouchPotato API.
 	 *
 	 * @param string $id        The CouchPotate ID to use to call the API with.
-	 * @param array $config     The config.ini as array.
+	 * @param object $config    The config.ini as an object.
 	 * @return mixed            The movie object or false when API call is unsuccessful.
 	 */
 	public function getMovie($id, $config)
@@ -54,7 +60,7 @@ class Couchpotato extends Model
 	 * Gets a random trailer from TMDB provided a TMDB ID.
 	 *
 	 * @param int $id           The TMDB ID to call the API by.
-	 * @param array $config     The config.ini as array.
+	 * @param object $config    The config.ini as an object.
 	 * @return string           The YouTube ID to be used for iFrame src.
 	 */
 	private function getRandomTrailerFormTMDB($id, $config)
