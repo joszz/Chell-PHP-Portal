@@ -6,6 +6,8 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
+
+use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
 
 /**
@@ -21,7 +23,7 @@ class SettingsDashboardForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->_action = 'dashboard';
+        $this->_action = $this->_config->application->baseUri . 'settings/dashboard#dashboard';
 
         $devicestateTimeouts = new Numeric('check-devicestate-interval');
         $devicestateTimeouts->setLabel('Check device state interval')
@@ -75,7 +77,8 @@ class SettingsDashboardForm extends SettingsBaseForm
         $phpSysInfoURL->setLabel('PHPSysInfo URL')
             ->setFilters(array('striptags', 'string'))
             ->setAttributes(array('class' => 'form-control'))
-            ->setDefault($this->_config->phpsysinfo->URL);
+            ->setDefault($this->_config->phpsysinfo->URL)
+            ->addValidators(array(new PresenceOf(array())));
 
         $phpSysInfoUsername = new Text('phpsysinfo-username');
         $phpSysInfoUsername->setLabel('PHPSysInfo username')

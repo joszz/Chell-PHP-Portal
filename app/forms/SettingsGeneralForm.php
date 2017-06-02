@@ -6,6 +6,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
 
@@ -21,7 +22,7 @@ class SettingsGeneralForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->_action = 'general';
+        $this->_action = $this->_config->application->baseUri . 'settings/general';
 
         $title = new Text('title');
         $title->setLabel('Title');
