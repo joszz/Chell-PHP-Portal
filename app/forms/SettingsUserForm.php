@@ -7,6 +7,8 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Email;
 
+use Phalcon\Validation\Validator\PresenceOf;
+
 /**
  * The form responsible for updating existing Users.
  *
@@ -19,13 +21,17 @@ class SettingsUserForm extends Form
      *
      * @param array $users	All users currently stored in the database.
      */
-    public function initialize()
+    public function initialize($user)
     {
         $username = new Text('username');
         $username->setLabel('Username');
         $username->setFilters(array('striptags', 'string'));
         $username->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
-        $username->setDefault($user->username);
+        $username->addValidators(array(new PresenceOf(array())));
+
+        if(isset($user->username)){
+            $username->setDefault($user->username);
+        }
 
         $email = new Email('email');
         $email->setLabel('Email');

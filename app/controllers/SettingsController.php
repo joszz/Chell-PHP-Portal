@@ -130,11 +130,11 @@ class SettingsController extends BaseController
      * @param int $id   Optional, the device to edit.
      * @return mixed    Will forward to settings/index#devices when succesfull, or will show the form again when failed.
      */
-    public function deviceAction($id)
+    public function deviceAction($id = 0)
     {
         $device = new Devices();
 
-        if(isset($id))
+        if($id != 0)
         {
             $device  = Devices::findFirst(array(
                 'conditions' => 'id = ?1',
@@ -150,7 +150,7 @@ class SettingsController extends BaseController
 
             if($form->isValid($data, $device))
             {
-                if(!isset($id))
+                if($id == 0)
                 {
                     $device = new Devices($data);
                 }
@@ -170,11 +170,11 @@ class SettingsController extends BaseController
      * @param int $id   Optional, the menuitem to edit.
      * @return mixed    Will forward to settings/index#menu when succesfull, or will show the form again when failed.
      */
-    public function menuAction($id)
+    public function menuAction($id = 0)
     {
         $item = new MenuItems();
-
-        if(isset($id))
+        
+        if($id != 0)
         {
             $item  = MenuItems::findFirst(array(
                 'conditions' => 'id = ?1',
@@ -191,7 +191,7 @@ class SettingsController extends BaseController
             if($form->isValid($data, $item))
             {
 
-                if(!isset($id))
+                if($id == 0)
                 {
                     $item = new MenuItems($data);
                 }
@@ -211,11 +211,11 @@ class SettingsController extends BaseController
      * @param int       $id     Optional, the user ID to edit.
      * @return mixed            Will forward to settings/index#users when succesfull, or will show the form again when failed.
      */
-    public function userAction($id)
+    public function userAction($id = 0)
     {
         $user = new Users();
 
-        if(isset($id))
+        if($id != 0)
         {
             $user  = Users::findFirst(array(
                 'conditions' => 'id = ?1',
@@ -233,7 +233,7 @@ class SettingsController extends BaseController
 
             if($form->isValid($data, $user))
             {
-                if(!isset($id))
+                if($id == 0)
                 {
                     $user = new Users($data);
                 }
