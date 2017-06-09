@@ -92,7 +92,7 @@ class Devices extends Model
      *
      * @param string    $mac            The device to wake.
      * @param int       $socket_number  The port to send the magic packet to.
-     * @param int       $repetition     The amount of repition of the MAC in the magic packet. Defaults to 16.
+     * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
     public function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)

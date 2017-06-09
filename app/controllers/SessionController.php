@@ -34,7 +34,7 @@ class SessionController extends BaseController
     }
 
     /**
-     * Shows the login form. Forwards to login action when rememberme cookies are present.
+     * Shows the login form. Forwards to login action when remember me cookies are present.
      */
     public function indexAction()
     {
@@ -54,7 +54,7 @@ class SessionController extends BaseController
 
     /**
      * Handles login with either POST variables or remember me cookie values.
-     * If success redirects to dashboard (IndexController), unsuccesfull forward to index/loginform
+     * If success redirects to dashboard (IndexController), unsuccessful forward to index/login form
      */
     public function loginAction()
     {

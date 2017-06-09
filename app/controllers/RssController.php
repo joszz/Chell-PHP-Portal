@@ -12,7 +12,7 @@ use Chell\Models\PHPSysInfo;
 class RssController extends BaseController
 {
 	/**
-	* Shows the RSS feed for the dasbboard, containing brief information about the server.
+	* Shows the RSS feed for the dashboard, containing brief information about the server.
 	* Can be used with Pin More to create a live tile in Windows.
 	*
 	* @see https://www.microsoft.com/nl-nl/store/p/pin-more/9wzdncrdrf2k

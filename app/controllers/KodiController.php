@@ -57,7 +57,7 @@ class KodiController extends BaseController
     }
 
     /**
-     * Show ablum details.
+     * Show album details.
      *
      * @param int $id     The ID of the album.
      */

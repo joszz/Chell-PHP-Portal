@@ -13,6 +13,7 @@
             <?php $i = 0; foreach($movies as $movie) : ?>
             <a class="movie item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
                 data-fancybox="movies"
+                data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
                 title="<?php echo $title = utf8_encode($movie->c00) ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($movie->c08) ? 'kodi/getImage/movies/thumb/' . $movie->idMovie : 'img/icons/unknown.jpg')  ?>')">
