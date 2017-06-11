@@ -68,7 +68,7 @@ class SettingsController extends BaseController
             }
         }
 
-        $this->view->pick('settings/index');
+        return (new Response())->redirect('settings/index#general');
     }
 
     /**
@@ -99,7 +99,7 @@ class SettingsController extends BaseController
             }
         }
 
-        $this->view->pick('settings/index');
+        return (new Response())->redirect('settings/index#dashboard');
     }
 
     /**
@@ -173,7 +173,7 @@ class SettingsController extends BaseController
     public function menuAction($id = 0)
     {
         $item = new MenuItems();
-        
+
         if($id != 0)
         {
             $item  = MenuItems::findFirst(array(

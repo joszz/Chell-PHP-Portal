@@ -3,6 +3,7 @@
 namespace Chell;
 
 use Chell\Plugins\SecurityPlugin;
+use Chell\Plugins\LicenseStamper;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
@@ -233,9 +234,9 @@ class FrontController
         if(!$this->config->application->debug)
         {
             $this->application->assets
-                              ->collection('header')
-                              ->setTargetPath($finalFile)
-                              ->setTargetUri($finalFile);
+                 ->collection('header')
+                 ->setTargetPath($finalFile)
+                 ->setTargetUri($finalFile);
         }
 
         if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalFile))
@@ -243,7 +244,7 @@ class FrontController
             if(!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
-                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin())->addFilter(new LicenseStamper());
             }
 
             foreach($this->css as $css)
@@ -278,7 +279,7 @@ class FrontController
             if(!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
-                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
+                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
             }
 
             foreach($this->js as $js)
@@ -310,7 +311,7 @@ class FrontController
             if(!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
-                $dashJS->join(true)->addFilter(new Jsmin());
+                $dashJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
             }
         }
         else
@@ -337,7 +338,7 @@ class FrontController
             if(!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
-                $settingsJS->join(true)->addFilter(new Jsmin());
+                $settingsJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
             }
         }
         else
