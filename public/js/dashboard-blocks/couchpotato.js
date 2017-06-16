@@ -60,7 +60,7 @@
                             clone.attr({
                                 "href": "/portal/couchpotato/movie/" + value._id,
                                 "data-fancybox": "couchpotato",
-                                "data-fancybox-type": "iframe",
+                                "data-type": "iframe",
                                 "title": value.info.tagline
                             });
 

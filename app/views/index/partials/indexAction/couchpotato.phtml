@@ -20,6 +20,7 @@
             <?php $i= 0; foreach($couchpotato as $movie) : ?>
             <a class="item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
                 href="<?php echo $this->config->application->baseUri .'couchpotato/movie/' . $movie->_id ?>"
+                data-type="iframe"
                 data-fancybox="couchpotato"
                 style="background-image: url('<?php echo current($movie->info->images->poster) ?>')">
                 <div class="overlay"></div>
