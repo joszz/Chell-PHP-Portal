@@ -52,8 +52,8 @@ SyncToy_*.dat
 *.phpproj.user
 *.sln
 *.v12.suo
-generate-doc.bat
-generate-doc.sh
+generate-doc.*
 .vs/
 documentation/
 app/config/config.ini
+apigen.neon

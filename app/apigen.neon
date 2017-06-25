@@ -1,8 +1,0 @@
-source:
-    - /var/www/portal/app/
-destination: /var/www/portal/public/documentation/apigen/
-download: true
-deprecated: true
-todo: true
-templateTheme: bootstrap
-title: Chell PHP Portal documentation
