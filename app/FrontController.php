@@ -63,6 +63,9 @@ class FrontController
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
+        set_error_handler(array(&$this, 'errorHandler'), -1 & ~E_NOTICE & ~E_USER_NOTICE);
+        set_exception_handler(array(&$this, 'exceptionHandler'));
+
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
@@ -103,6 +106,25 @@ class FrontController
         $this->setCSSCollection();
         $this->setJSCollection();
         $this->setTitle();
+    }
+
+    //todo: finish this
+    public function errorHandler($errno, $errstr, $errfile, $errline){
+        if(isset($exception)){
+            if(is_object($exception)){
+                die(var_dump($exception->getMessage()));
+            }
+            die(var_dump($exception));
+        }
+
+        die($errstr);
+
+        die('an error has occured');
+    }
+
+    //todo: finish this
+    public function exceptionHandler($exception){
+        die('an error has occured');
     }
 
     /**

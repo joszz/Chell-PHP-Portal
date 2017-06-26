@@ -37,7 +37,7 @@ class Devices extends Model
      * @param string $ip    Which device to ping
      * @return bool         Whether the device is on (true) or off (false)
      */
-    public function isDeviceOn($ip)
+    public static function isDeviceOn($ip)
     {
         return self::pingExec($ip) !== false;
     }
@@ -49,7 +49,7 @@ class Devices extends Model
      * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double          The time it took for the device to respond or false if failed.
      */
-    private function pingExec($host, $ttl = 10)
+    private static function pingExec($host, $ttl = 10)
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);
@@ -95,7 +95,7 @@ class Devices extends Model
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)
+    public static function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)
     {
         $addr_byte = explode(':', $mac);
         $hw_addr = '';
@@ -144,7 +144,7 @@ class Devices extends Model
      * @param string $password  A valid Windows password to authenticate with.
      * @return array            The output of the RPC command on the shell.
      */
-    public function shutdown($ip, $user, $password)
+    public static function shutdown($ip, $user, $password)
     {
         $ip = escapeshellcmd($ip);
         $user = trim(escapeshellcmd($user));

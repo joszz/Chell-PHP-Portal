@@ -18,7 +18,7 @@ class Couchpotato extends Model
 	 * @param object $config    The config.ini as an object.
 	 * @return array            The movies objects as an array.
 	 */
-	public function getAllMovies($config)
+	public static function getAllMovies($config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.list');
 		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
@@ -39,7 +39,7 @@ class Couchpotato extends Model
 	 * @param object $config    The config.ini as an object.
 	 * @return mixed            The movie object or false when API call is unsuccessful.
 	 */
-	public function getMovie($id, $config)
+	public static function getMovie($id, $config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.get/?id=' . $id);
 		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
@@ -63,7 +63,7 @@ class Couchpotato extends Model
 	 * @param object $config    The config.ini as an object.
 	 * @return string           The YouTube ID to be used for iFrame src.
 	 */
-	private function getRandomTrailerFormTMDB($id, $config)
+	private static function getRandomTrailerFormTMDB($id, $config)
 	{
 		$curl = curl_init($config->application->tmdbAPIURL . 'movie/' . $id . '/videos?api_key=' . $config->application->tmdbAPIKey);
 		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));

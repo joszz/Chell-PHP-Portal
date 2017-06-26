@@ -18,7 +18,7 @@ class PHPSysInfo extends Model
      *
      * @return array    All PHPSysInfo data in an associative array
      */
-    public function getData($config)
+    public static function getData($config)
     {
         $curl = curl_init($config->phpsysinfo->URL . "xml.php?json&plugin=complete&t=" . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -49,7 +49,7 @@ class PHPSysInfo extends Model
      *
      * @param object $data       The PHPSysInfo retrieved data, as JSON object. Passed by reference to adjust the data for display.
      */
-    private function setMountClasses(&$data)
+    private static function setMountClasses(&$data)
     {
         for($i = 0; $i < count($data->FileSystem->Mount); $i++)
         {
@@ -71,7 +71,7 @@ class PHPSysInfo extends Model
      * @param object $data       The PHPSysInfo retrieved data, as JSON object. Passed by reference to adjust the data for display.
      * @param object $config     The application's config object.
      */
-    private function setCPUData(&$data, $config)
+    private static function setCPUData(&$data, $config)
     {
         for($i = 0; $i < count($data->Hardware->CPU->CpuCore); $i++)
         {
