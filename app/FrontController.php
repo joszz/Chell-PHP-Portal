@@ -4,6 +4,7 @@ namespace Chell;
 
 use Chell\Plugins\SecurityPlugin;
 use Chell\Plugins\LicenseStamper;
+use Chell\Controllers\ErrorController;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
@@ -108,23 +109,27 @@ class FrontController
         $this->setTitle();
     }
 
-    //todo: finish this
-    public function errorHandler($errno, $errstr, $errfile, $errline){
-        if(isset($exception)){
-            if(is_object($exception)){
-                die(var_dump($exception->getMessage()));
-            }
-            die(var_dump($exception));
-        }
-
-        die($errstr);
-
-        die('an error has occured');
+    /**
+     * @todo finish this
+     * @param mixed $errno
+     * @param mixed $errstr
+     * @param mixed $errfile
+     * @param mixed $errline
+     */
+    public function errorHandler($errno, $errstr, $errfile, $errline)
+    {
+        require_once(getcwd() . '/../app/controllers/ErrorController.php');
+        new ErrorController(new PHPError($errno, $errstr, $errfile, $errline));
     }
 
-    //todo: finish this
-    public function exceptionHandler($exception){
-        die('an error has occured');
+    /**
+     * @todo finish this
+     * @param mixed $exception
+     */
+    public function exceptionHandler($exception)
+    {
+        require_once(getcwd() . '/../app/controllers/ErrorController.php');
+        new ErrorController($exception);
     }
 
     /**
@@ -424,5 +429,17 @@ class FrontController
     public function tostring()
     {
         return $this->application->handle()->getContent();
+    }
+}
+
+class PHPError
+{
+    private $errno, $errstr, $errfile, $errline;
+
+    public function __construct($errno, $errstr, $errfile, $errline){
+        $this->errno = $errno;
+        $this->errstr = $errstr;
+        $this->errfile = $errfile;
+        $this->errline = $errline;
     }
 }
