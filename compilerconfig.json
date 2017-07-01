@@ -2,33 +2,17 @@
   {
     "outputFile": "public/css/default.css",
     "inputFile": "public/css/default/default.scss",
-    "options": {
-      "sourceMap": true
-    }
+    "options": { "sourceMap": true }
   },
   {
     "outputFile": "public/css/bootstrap.css",
     "inputFile": "public/css/bootstrap.scss",
-    "options": {
-      "sourceMap": true
-    }
+    "options": { "sourceMap": true }
   },
   {
-    "outputFile": "installer/css/default.css",
-    "inputFile": "installer/css/default.scss",
-    "options": {
-      "sourceMap": true
-    }
-  },
-  {
-    "outputFile": "installer/css/bootstrap.css",
-    "inputFile": "installer/css/bootstrap.scss",
-    "options": {
-      "sourceMap": true
-    }
-  },
-  {
-    "outputFile": "public/js/dashboard-blocks/couchpotato.es5.js",
-    "inputFile": "public/js/dashboard-blocks/couchpotato.js"
+    "outputFile": "public/css/bootstrap.min.css",
+    "inputFile": "public/css/bootstrap.scss",
+    "options": { "sourceMap": true },
+    "minify": { "enabled": true }
   }
 ]

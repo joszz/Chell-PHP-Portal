@@ -2,9 +2,10 @@
 
 namespace Chell;
 
+use Chell\Controllers\ErrorController;
+use Chell\Exceptions\ChellException;
 use Chell\Plugins\SecurityPlugin;
 use Chell\Plugins\LicenseStamper;
-use Chell\Controllers\ErrorController;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
@@ -80,9 +81,7 @@ class FrontController
 
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
-            $dispatcher->setDefaultNamespace(
-                'Chell\Controllers'
-            );
+            $dispatcher->setDefaultNamespace('Chell\Controllers');
 
             return $dispatcher;
         });
@@ -110,25 +109,29 @@ class FrontController
     }
 
     /**
+     * function defined for PHP's set_error_handler.
+     *
      * @todo finish this
-     * @param mixed $errno
-     * @param mixed $errstr
-     * @param mixed $errfile
-     * @param mixed $errline
+     * @param int       $errno      The level of the error raised
+     * @param string    $errstr     The error message.
+     * @param string    $errfile    The filename that the error was raised in
+     * @param int       $errline    The line number the error was raised at
      */
     public function errorHandler($errno, $errstr, $errfile, $errline)
     {
-        require_once(getcwd() . '/../app/controllers/ErrorController.php');
-        new ErrorController(new PHPError($errno, $errstr, $errfile, $errline));
+        require_once(APP_PATH . 'app/controllers/ErrorController.php');
+        new ErrorController(new ChellException($errstr, $errno, $errline, $errfile));
     }
 
     /**
+     * function defined for PHP's set_exception_handler.
+     *
      * @todo finish this
-     * @param mixed $exception
+     * @param Exception $exception  The exception being thrown.
      */
     public function exceptionHandler($exception)
     {
-        require_once(getcwd() . '/../app/controllers/ErrorController.php');
+        require_once(APP_PATH . 'app/controllers/ErrorController.php');
         new ErrorController($exception);
     }
 
@@ -172,9 +175,10 @@ class FrontController
 
         $loader->registerNamespaces([
             'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
+            'Chell\Exceptions'  => APP_PATH . 'app/exceptions/',
+            'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
             'Chell\Models'      => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
-            'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
             'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
             'Duo'               => APP_PATH . 'app/duo/',
         ])->register();
@@ -429,17 +433,5 @@ class FrontController
     public function tostring()
     {
         return $this->application->handle()->getContent();
-    }
-}
-
-class PHPError
-{
-    private $errno, $errstr, $errfile, $errline;
-
-    public function __construct($errno, $errstr, $errfile, $errline){
-        $this->errno = $errno;
-        $this->errstr = $errstr;
-        $this->errfile = $errfile;
-        $this->errline = $errline;
     }
 }
