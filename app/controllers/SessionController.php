@@ -60,7 +60,7 @@ class SessionController extends BaseController
     {
         $rememberMe = false;
 
-        if ($this->request->isPost() && ($this->config->application->debug || (!$this->config->application->debug && $this->security->checkToken())))
+        if ($this->request->isPost() && $this->config->application->debug)
         {
             $username = trim($this->request->getPost('username'));
             $password = trim($this->request->getPost('password'));
