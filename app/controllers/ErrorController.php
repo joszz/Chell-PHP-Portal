@@ -25,6 +25,7 @@ class ErrorController
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
      * The constructor handles rendering and logging of the error page.
      *
+     * @todo    fix the log writer to write exception log on !debug
      * @param ChellException $exception     The exception being thrown.
      */
     public function __construct(ChellException $exception)
@@ -83,11 +84,10 @@ class ErrorController
      */
     private function setLogFile()
     {
-        $filename = date('Y-m-d[H-i-s]') . '.htm';
-        $i = 0;
+        $filename = date('Y-m-d[H-i-s]') . '-' . ($i = 0) . '.htm';
 
-        while (is_file($this->logPath . $filename)) {
-            $filename = date('Y-m-d[H-i-s]')  .'-' . ++$i . '.htm';
+        while (is_file($this->logPath . $filename . '-' . $i)) {
+            $filename = date('Y-m-d[H-i-s]') . '-' . ++$i . '.htm';
         }
 
         $this->logFile = $filename;
