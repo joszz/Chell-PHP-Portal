@@ -57,3 +57,4 @@ generate-doc.*
 documentation/
 app/config/config.ini
 apigen.neon
+logs/

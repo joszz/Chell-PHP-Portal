@@ -1,11 +1,10 @@
-
 <h2 class="text-danger">
     <?php echo $this->exception->getMessage() ?>
 </h2>
 
 <div class="row">
     <div class="col-xs-2">
-        <span class="label label-default">Type:</span>
+        <span class="label label-danger">Type:</span>
     </div>
     <div class="col-xs-10">
         <?php echo $this->exception->type ?>
@@ -14,7 +13,7 @@
 
 <div class="row">
     <div class="col-xs-2">
-        <span class="label label-default">Code:</span>
+        <span class="label label-danger">Code:</span>
     </div>
     <div class="col-xs-10">
         <?php echo $this->exception->getCode() ?>
@@ -23,7 +22,7 @@
 
 <div class="row">
     <div class="col-xs-2">
-        <span class="label label-default">Line:</span>
+        <span class="label label-danger">Line:</span>
     </div>
     <div class="col-xs-10">
         <?php echo $this->exception->getLine() ?>
@@ -32,10 +31,27 @@
 
 <div class="row">
     <div class="col-xs-2">
-        <span class="label label-default">File:</span>
+        <span class="label label-danger">File:</span>
     </div>
     <div class="col-xs-10">
         <?php echo $this->exception->getFile() ?>
     </div>
 </div>
-<?php echo $this->exception->getFileHighlight() ?>
+
+<div class="row">
+    <div class="col-xs-2">
+        <span class="label label-danger">Time:</span>
+    </div>
+    <div class="col-xs-10"><?php echo $this->exception->getDate() ?>
+    </div>
+</div>
+
+<fieldset>
+    <legend class="text-danger text-bold">Code</legend>
+    <?php echo $this->exception->getFileHighlight() ?>
+</fieldset>
+
+<fieldset>
+    <legend class="text-danger text-bold">Stacktrace</legend>
+    <?php echo $this->dump($this->exception->getStacktrace()) ?>
+</fieldset>

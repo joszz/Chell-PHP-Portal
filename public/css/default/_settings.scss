@@ -71,7 +71,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-width: 0 1px 1px 1px;
 }
 
-legend {
+#main-settings legend {
     color: #3c763d;
     border-bottom-color: #dff0d8;
     line-height: 50px;
@@ -80,6 +80,6 @@ legend {
     cursor: pointer;
 }
 
-legend .toggle {
+#main-settings legend .toggle {
     margin-right: 15px;
 }
