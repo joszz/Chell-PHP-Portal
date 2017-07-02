@@ -3,6 +3,8 @@
 namespace Chell\Controllers;
 
 use Phalcon\Mvc\Controller;
+use Phalcon\Debug\Dump;
+
 use Chell\Models\Menus;
 
 /**
@@ -30,6 +32,17 @@ class BaseController extends Controller
                 'bind'       => array(1 => 1),
             ));
         }
+    }
+
+    /**
+     * Wrapper for Phalcon Debug.
+     *
+     * @param mixed $dump   The variable to dump.
+     * @return string       The dumped variable as string.
+     */
+    public function dump($dump)
+    {
+        return (new Dump())->variable($dump);
     }
 
     /**

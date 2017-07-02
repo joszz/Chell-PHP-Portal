@@ -33,7 +33,7 @@ class IndexController extends BaseController
 
         $this->executionTime = -microtime(true);
         $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
-        $this->view->PHPSysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+        $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
     }
 
     /**

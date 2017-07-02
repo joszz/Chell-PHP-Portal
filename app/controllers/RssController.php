@@ -24,7 +24,7 @@ class RssController extends BaseController
 		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off" ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'];
 		$url .= $this->config->application->baseUri;
 
-		$this->view->setMainView('layouts/rss_layout');
+		$this->view->setMainView('layouts/rss');
 		$this->view->baseURL = $url;
 		$this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
 	}
