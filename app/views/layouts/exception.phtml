@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" class="<?php echo $this->config->application->background ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <link rel="stylesheet" href="css/compressed/<?php echo $this->css ?>" />
+    <?php foreach($this->css as $css) : ?>
+    <link rel="stylesheet" href="css/<?php echo $css ?>" />
+    <?php endforeach ?>
+
+    <title>ChellException: "<?php echo $this->exception->getMessage() ?>"</title>
 </head>
 
 <body>
     <div id="error" class="container"><?php echo $this->content ?></div>
+
+    <?php foreach($this->js as $js) : ?>
+    <script type="text/javascript" src="js/<?php echo $js ?>"></script>
+    <?php endforeach ?>
 </body>
 </html>

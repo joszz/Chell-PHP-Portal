@@ -7,18 +7,37 @@ namespace Chell\Exceptions;
  *
  * @package Exceptions
  */
-class ChellException extends Exception
+class ChellException extends \Exception
 {
-    public function __construct($message, $code = 0, $line, $file, Exception $previous = null) 
-    {
-        parent::__construct($message, $code, $previous);
+    public $type;
+    private $surroundingLines = 10;
 
-        $this->line = $line;
-        $this->file = $file;
+    public function __construct(\Throwable $exception)
+    {
+        parent::__construct(ucfirst($exception->getMessage()), $exception->getCode(), $exception);
+
+        $this->type = get_class($exception);
+        $this->line = $exception->getLine() - ($this->type == 'ParseError' ? 2 : 0);
+        $this->file = $exception->getFile();
     }
 
-    public function __toString() 
+    private function getFileContents()
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        if (is_file($file = $this->getFile())) {
+            $fileContents = file($file);
+
+            $exceptionContentsStart = $this->line - $this->surroundingLines >= 0 ? $this->line - $this->surroundingLines : 0;
+            $exceptionFileContents = array_slice($fileContents, $exceptionContentsStart, $this->surroundingLines * 2);
+            $exceptionFileContents = trim(implode('', $exceptionFileContents));
+
+            return $exceptionFileContents;
+        }
+
+        return '';
+    }
+
+    public function getFileHighlight()
+    {
+        return '<pre data-line="' . $this->surroundingLines . '"><code class="language-php">'. $this->getFileContents() . '</code></pre>';
     }
 }

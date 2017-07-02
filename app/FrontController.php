@@ -65,7 +65,6 @@ class FrontController
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
-        set_error_handler(array(&$this, 'errorHandler'), -1 & ~E_NOTICE & ~E_USER_NOTICE);
         set_exception_handler(array(&$this, 'exceptionHandler'));
 
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
@@ -109,30 +108,16 @@ class FrontController
     }
 
     /**
-     * function defined for PHP's set_error_handler.
-     *
-     * @todo finish this
-     * @param int       $errno      The level of the error raised
-     * @param string    $errstr     The error message.
-     * @param string    $errfile    The filename that the error was raised in
-     * @param int       $errline    The line number the error was raised at
-     */
-    public function errorHandler($errno, $errstr, $errfile, $errline)
-    {
-        require_once(APP_PATH . 'app/controllers/ErrorController.php');
-        new ErrorController(new ChellException($errstr, $errno, $errline, $errfile));
-    }
-
-    /**
      * function defined for PHP's set_exception_handler.
      *
      * @todo finish this
-     * @param Exception $exception  The exception being thrown.
+     * @param Throwable $exception  The exception being thrown.
      */
-    public function exceptionHandler($exception)
+    public function exceptionHandler(\Throwable $exception)
     {
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
-        new ErrorController($exception);
+
+        new ErrorController(new ChellException($exception));
     }
 
     /**
