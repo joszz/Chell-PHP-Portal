@@ -25,7 +25,6 @@ class ErrorController
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
      * The constructor handles rendering and logging of the error page.
      *
-     * @todo    fix the log writer to write exception log on !debug
      * @param ChellException $exception     The exception being thrown.
      */
     public function __construct(ChellException $exception)
@@ -34,20 +33,19 @@ class ErrorController
         $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
 
-        ob_start();
+        $exceptionContent = $this->exception();
+
         if ($this->debug) {
-            $this->exception();
+            $this->content = $exceptionContent;
+            $this->content = $exceptionContent = $this->layout();
         }
         else {
-            $this->error();
+            $this->content = $this->error();
+            $this->content = $this->layout();
         }
-        $this->content = ob_get_clean();
 
-        ob_start();
-        require_once(APP_PATH . 'app/views/layouts/exception.phtml');
-        $this->content = ob_get_clean();
+        $this->writeLogAsHTML($exceptionContent);
 
-        $this->writeLogAsHTML();
 
         die($this->content);
     }
@@ -65,19 +63,39 @@ class ErrorController
 
 	/**
 	 * This will render the exceptions view when display_errors flag is on in php.ini.
+     *
+     * @return string   The rendered HTML as a string
 	 */
 	private function exception()
 	{
+        ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');
+        return ob_get_clean();
 	}
 
 	/**
 	 * This will show a user friendly error, not revealing details.
+     *
+     * @return string   The rendered HTML as a string
 	 */
 	private function error()
 	{
+        ob_start();
         require_once(APP_PATH . 'app/views/error/error.phtml');
+        return ob_get_clean();
 	}
+
+    /**
+     * This will render the layout for exception and error views.
+     *
+     * @return string   The rendered HTML as a string
+     */
+    private function layout()
+    {
+        ob_start();
+        require_once(APP_PATH . 'app/views/layouts/exception.phtml');
+        return ob_get_clean();
+    }
 
     /**
      * Sets the log filename based on datetime.
@@ -96,8 +114,8 @@ class ErrorController
     /**
      * This will write the rendered HTML in $this->content to the logs folder.
      */
-    private function writeLogAsHTML()
+    private function writeLogAsHTML($content)
     {
-        file_put_contents($this->logPath . $this->logFile, $this->content);
+        file_put_contents($this->logPath . $this->logFile, $content);
     }
 }

@@ -30,10 +30,10 @@ class IndexController extends BaseController
         $this->view->albums = KodiMusic::getLatestAlbums();
         $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
         $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
-
-        $this->executionTime = -microtime(true);
         $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
         $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+
+        $this->executionTime = -microtime(true);
     }
 
     /**
