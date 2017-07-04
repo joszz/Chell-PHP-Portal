@@ -117,7 +117,7 @@ class FrontController
     {
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
-        new ErrorController(new ChellException($exception));
+        new ErrorController(new ChellException($exception), $this->config);
     }
 
     /**

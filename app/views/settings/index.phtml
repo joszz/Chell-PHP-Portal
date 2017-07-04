@@ -21,6 +21,9 @@
                 <li <?php echo $activeTab == 'Users' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#users" class="pull-left">Users</a>
                 </li>
+                <li <?php echo $activeTab == 'Logs' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#logs" class="pull-left">Logs</a>
+                </li>
             </ul>
 
             <div class="tab-content">
@@ -46,6 +49,7 @@
                 <?php $this->partial('settings/partials/devices') ?>
                 <?php $this->partial('settings/partials/menuitems') ?>
                 <?php $this->partial('settings/partials/users') ?>
+                <?php $this->partial('settings/partials/logs') ?>
             </div>
         </div>
     </div>

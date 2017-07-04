@@ -14,8 +14,9 @@ class ErrorController
 {
     private $exception;
     private $content;
-    private $css = array('css/prism.css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-    private $js = array('js/prism.js', 'https://code.jquery.com/jquery-3.2.1.min.js');
+    private $config;
+    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+    private $js = array('https://code.jquery.com/jquery-3.2.1.min.js');
     private $logPath = APP_PATH . 'app/logs/';
 
     public $logFile;
@@ -27,11 +28,18 @@ class ErrorController
      *
      * @param ChellException $exception     The exception being thrown.
      */
-    public function __construct(ChellException $exception)
+    public function __construct(ChellException $exception, $config)
     {
+        ob_clean();
+
+        $this->config = $config;
         $this->exception = $exception;
         $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
+
+
+        $this->css[] = $this->config->application->baseUri . 'css/prism.css';
+        $this->js[] = $this->config->application->baseUri . 'js/prism.js';
 
         $exceptionContent = $this->exception();
 

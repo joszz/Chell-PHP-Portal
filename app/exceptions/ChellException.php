@@ -53,7 +53,7 @@ class ChellException extends \Exception
             $exceptionContentsStart = $this->line - $this->surroundingLines >= 0 ? $this->line - $this->surroundingLines : 0;
             $exceptionFileContents = implode('', array_slice($fileContents, $exceptionContentsStart, $this->surroundingLines * 2));
 
-            return $exceptionFileContents;
+            return htmlentities($exceptionFileContents);
         }
 
         return '';

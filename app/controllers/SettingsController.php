@@ -38,6 +38,7 @@ class SettingsController extends BaseController
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
+        $this->view->logs = scandir(APP_PATH . 'app/logs/', SCANDIR_SORT_DESCENDING);
     }
 
     /**
@@ -103,7 +104,7 @@ class SettingsController extends BaseController
     }
 
     /**
-     * Deletes a $entity with $id if found.
+     * Deletes a $entity with $id if found. Or deletes a log if $which == 'Log'
      * Redirects back to index#devices.
      *
      * @param string    $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
@@ -113,12 +114,23 @@ class SettingsController extends BaseController
     {
         if(isset($id, $which))
         {
-            $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
-                'conditions' => 'id = ?1',
-                'bind'       => array(1 => intval($id))
-            ));
+            if($which == 'Logs')
+            {
+                if(is_file(APP_PATH .'app/logs/' . $id)){
+                    unlink(APP_PATH . 'app/logs/' . $id);
+                }
+                else if($id == 'all'){
+                    array_map('unlink', glob(APP_PATH . 'app/logs/*'));
+                }
+            }
+            else {
+                $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
+                    'conditions' => 'id = ?1',
+                    'bind'       => array(1 => intval($id))
+                ));
 
-            $entity->delete();
+                $entity->delete();
+            }
         }
 
         return (new Response())->redirect('settings/index#' . strtolower($which));
@@ -254,5 +266,19 @@ class SettingsController extends BaseController
         }
 
         $this->view->user = $user;
+    }
+
+    /**
+     * Displays the requested log file.
+     * 
+     * @param string $file      The log filename to display.
+     */
+    public function logAction($file)
+    {
+        if(is_file($path = APP_PATH . 'app/logs/' . $file))
+        {
+            die(file_get_contents($path));
+
+        }
     }
 }
