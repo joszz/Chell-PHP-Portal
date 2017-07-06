@@ -1,3 +1,4 @@
+
 <div id="logs" class="tab-pane fade panel panel-square">
     <?php if(count($logs) <= 2) : ?>
     <h3 class="text-success">No error logs found!</h3>
@@ -9,6 +10,7 @@
                     <th class="visible-xs">Actions</th>
                     <th>Filename</th>
                     <th>Time</th>
+                    <th>Filesize</th>
                     <th class="text-right hidden-xs">Actions</th>
                 </tr>
                 <tr>
@@ -40,6 +42,9 @@
                     <td>
                         <?php echo date('d-m-Y H:i:s', filemtime(APP_PATH . 'app/logs/' . $log)) ?>
                     </td>
+                    <td>
+                        <?php echo number_format(filesize($filePath = APP_PATH . 'app/logs/' . $log) / 1024, 2) ?> KB
+                    </td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
                             <a href="<?php echo $this->config->application->baseUri . 'settings/log/' . $log ?>" class="btn btn-default fa fa-eye" target="_blank"></a>
@@ -50,7 +55,7 @@
                 <?php endforeach ?>
             </tbody>
             <tfoot>
-                <tr class="visible-xs">trrash
+                <tr class="visible-xs">
                     <td colspan="8">
                         <a class="btn btn-danger" href="<?php echo $this->config->application->baseUri ?>settings/delete/Logs/all" title="Remove all">
                             <i class="fa fa-trash"></i>

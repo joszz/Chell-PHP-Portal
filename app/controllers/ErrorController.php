@@ -41,13 +41,14 @@ class ErrorController
         $this->css[] = $this->config->application->baseUri . 'css/prism.css';
         $this->js[] = $this->config->application->baseUri . 'js/prism.js';
 
-        $exceptionContent = $this->exception();
+        $this->content = $this->exception();
+        $exceptionContent = $this->layout();
 
         if ($this->debug) {
             $this->content = $exceptionContent;
-            $this->content = $exceptionContent = $this->layout();
         }
         else {
+
             $this->content = $this->error();
             $this->content = $this->layout();
         }
@@ -104,7 +105,7 @@ class ErrorController
     private function layout()
     {
         ob_start();
-        require_once(APP_PATH . 'app/views/layouts/exception.phtml');
+        require(APP_PATH . 'app/views/layouts/exception.phtml');
         return ob_get_clean();
     }
 
@@ -127,6 +128,8 @@ class ErrorController
      */
     private function writeLogAsHTML($content)
     {
-        file_put_contents($this->logPath . $this->logFile, $content);
+        $gzip = gzopen($filePath = $this->logPath . $this->logFile, 'w9');
+        gzwrite($gzip, $content);
+        gzclose($gzip);
     }
 }

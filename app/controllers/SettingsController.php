@@ -270,15 +270,17 @@ class SettingsController extends BaseController
 
     /**
      * Displays the requested log file.
-     * 
+     *
      * @param string $file      The log filename to display.
      */
     public function logAction($file)
     {
-        if(is_file($path = APP_PATH . 'app/logs/' . $file))
+        if(is_file($path = APP_PATH . 'app/logs/' . basename($file)))
         {
+            header('Content-Encoding: gzip');
             die(file_get_contents($path));
-
         }
+
+        die('Log file not found!');
     }
 }
