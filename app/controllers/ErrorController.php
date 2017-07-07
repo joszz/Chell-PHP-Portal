@@ -124,7 +124,7 @@ class ErrorController
     }
 
     /**
-     * This will write the rendered HTML in $this->content to the logs folder.
+     * This will write the rendered HTML in $this->content to the logs folder GZipped.
      */
     private function writeLogAsHTML($content)
     {

@@ -23,19 +23,19 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Válasszon!',
-    noneResultsText: 'Nincs találat {0}',
+    noneSelectedText: 'Chưa chọn',
+    noneResultsText: 'Không có kết quả cho {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return '{0} elem kiválasztva';
+      return "{0} mục đã chọn";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        'Legfeljebb {n} elem választható',
-        'A csoportban legfeljebb {n} elem választható'
+        'Không thể chọn (giới hạn {n} mục)',
+        'Không thể chọn (giới hạn {n} mục)'
       ];
     },
-    selectAllText: 'Mind',
-    deselectAllText: 'Egyik sem',
+    selectAllText: 'Chọn tất cả',
+    deselectAllText: 'Bỏ chọn',
     multipleSeparator: ', '
   };
 })(jQuery);

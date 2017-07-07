@@ -23,19 +23,19 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Válasszon!',
-    noneResultsText: 'Nincs találat {0}',
+    noneSelectedText: 'មិនមានអ្វីបានជ្រើសរើស',
+    noneResultsText: 'មិនមានលទ្ធផល {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return '{0} elem kiválasztva';
+      return (numSelected == 1) ? "{0} ធាតុដែលបានជ្រើស" : "{0} ធាតុដែលបានជ្រើស";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        'Legfeljebb {n} elem választható',
-        'A csoportban legfeljebb {n} elem választható'
+        (numAll == 1) ? 'ឈានដល់ដែនកំណត់ ( {n} ធាតុអតិបរមា)' : 'អតិបរមាឈានដល់ដែនកំណត់ ( {n} ធាតុ)',
+        (numGroup == 1) ? 'ដែនកំណត់ក្រុមឈានដល់ ( {n} អតិបរមាធាតុ)' : 'អតិបរមាក្រុមឈានដល់ដែនកំណត់ ( {n} ធាតុ)'
       ];
     },
-    selectAllText: 'Mind',
-    deselectAllText: 'Egyik sem',
+    selectAllText: 'ជ្រើស​យក​ទាំងអស់',
+    deselectAllText: 'មិនជ្រើស​យក​ទាំងអស',
     multipleSeparator: ', '
   };
 })(jQuery);

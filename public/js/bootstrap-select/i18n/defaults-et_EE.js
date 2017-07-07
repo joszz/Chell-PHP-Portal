@@ -23,19 +23,19 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Válasszon!',
-    noneResultsText: 'Nincs találat {0}',
+    noneSelectedText: 'Valikut pole tehtud',
+    noneResultsText: 'Otsingule {0} ei ole vasteid',
     countSelectedText: function (numSelected, numTotal) {
-      return '{0} elem kiválasztva';
+      return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        'Legfeljebb {n} elem választható',
-        'A csoportban legfeljebb {n} elem választható'
+        'Limiit on {n} max',
+        'Globaalne limiit on {n} max'
       ];
     },
-    selectAllText: 'Mind',
-    deselectAllText: 'Egyik sem',
+    selectAllText: 'Vali kõik',
+    deselectAllText: 'Tühista kõik',
     multipleSeparator: ', '
   };
 })(jQuery);
