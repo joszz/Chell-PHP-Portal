@@ -114,13 +114,17 @@ class ErrorController
      */
     private function setLogFile()
     {
-        $filename = date('Y-m-d[H-i-s]') . '-' . ($i = 0) . '.htm';
+        $filename = $this->getGUID() . '.htm';
 
-        while (is_file($this->logPath . $filename . '-' . $i)) {
-            $filename = date('Y-m-d[H-i-s]') . '-' . ++$i . '.htm';
+        while (is_file($this->logPath . $filename)) {
+            $filename = $this->getGUID() . '.htm';
         }
 
         $this->logFile = $filename;
+    }
+
+    private function getGUID(){
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 
     /**

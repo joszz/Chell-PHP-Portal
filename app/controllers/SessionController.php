@@ -59,8 +59,10 @@ class SessionController extends BaseController
     public function loginAction()
     {
         $rememberMe = false;
+        $username = '';
+        $password = '';
 
-        if ($this->request->isPost() && $this->config->application->debug)
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             $username = trim($this->request->getPost('username'));
             $password = trim($this->request->getPost('password'));
@@ -133,7 +135,7 @@ class SessionController extends BaseController
 
     /**
      * Show the Dou iframe when 2 factor authentication has been enabled in config.
-     * 
+     *
      * @param Users $user The user that tries to login.
      */
     public function duoAction($user)
