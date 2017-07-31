@@ -16,7 +16,7 @@
 .with-nav-tabs.panel-default .nav-tabs > li > a,
 .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-    color: #777;
+    color: $gray-light;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > .open > a,
@@ -24,46 +24,46 @@
 .with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-default .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-    color: #777;
-    background-color: #ddd;
+    color: $gray-light;
+    background-color: $nav-tabs-border-color;
     border-color: transparent;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > li.active > a,
 .with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
-    color: #555;
-    background-color: #fff;
-    border-color: #ddd;
+    color: $gray;
+    background-color: $btn-default-bg;
+    border-color: $nav-tabs-border-color;
     border-bottom-color: transparent;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #f5f5f5;
-    border-color: #ddd;
+    background-color: $panel-default-heading-bg;
+    border-color: $nav-tabs-border-color;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #777;
+    color: $gray-light;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: #ddd;
+    background-color: $nav-tabs-border-color;
 }
 
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff;
-    background-color: #555;
+    color: $btn-default-bg;
+    background-color: $gray;
 }
 /********************************************************************/
 /*** PANEL PRIMARY ***/
 .with-nav-tabs.panel-primary .nav-tabs > li > a,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
-    color: #fff;
+    color: $btn-default-bg;
 }
 
 .with-nav-tabs.panel-primary .nav-tabs > .open > a,
@@ -71,7 +71,7 @@
 .with-nav-tabs.panel-primary .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li > a:focus {
-    color: #fff;
+    color: $btn-default-bg;
     background-color: #3071a9;
     border-color: transparent;
 }
@@ -80,7 +80,7 @@
 .with-nav-tabs.panel-primary .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-primary .nav-tabs > li.active > a:focus {
     color: #428bca;
-    background-color: #fff;
+    background-color: $btn-default-bg;
     border-color: #428bca;
     border-bottom-color: transparent;
 }
@@ -91,7 +91,7 @@
 }
 
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #fff;
+    color: $btn-default-bg;
 }
 
 .with-nav-tabs.panel-primary .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
@@ -109,7 +109,7 @@
 .with-nav-tabs.panel-success .nav-tabs > li > a,
 .with-nav-tabs.panel-success .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-success .nav-tabs > li > a:focus {
-    color: #3c763d;
+    color: $state-success-text;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > .open > a,
@@ -117,39 +117,39 @@
 .with-nav-tabs.panel-success .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-success .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-success .nav-tabs > li > a:focus {
-    color: #3c763d;
-    background-color: #d6e9c6;
+    color: $state-success-text;
+    background-color: $state-success-bg;
     border-color: transparent;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.active > a,
 .with-nav-tabs.panel-success .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-success .nav-tabs > li.active > a:focus {
-    color: #3c763d;
-    background-color: #fff;
-    border-color: #d6e9c6;
+    color: $state-success-text;
+    background-color: $btn-default-bg;
+    border-color: $state-success-bg;
     border-bottom-color: transparent;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu {
     background-color: #dff0d8;
-    border-color: #d6e9c6;
+    border-color: $state-success-bg;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #3c763d;
+    color: $state-success-text;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: #d6e9c6;
+    background-color: $state-success-bg;
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a,
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff;
-    background-color: #3c763d;
+    color: $btn-default-bg;
+    background-color: $state-success-text;
 }
 /********************************************************************/
 /*** PANEL INFO ***/
@@ -173,7 +173,7 @@
 .with-nav-tabs.panel-info .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li.active > a:focus {
     color: #31708f;
-    background-color: #fff;
+    background-color: $btn-default-bg;
     border-color: #bce8f1;
     border-bottom-color: transparent;
 }
@@ -195,7 +195,7 @@
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a,
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff;
+    color: $btn-default-bg;
     background-color: #31708f;
 }
 /********************************************************************/
@@ -203,7 +203,7 @@
 .with-nav-tabs.panel-warning .nav-tabs > li > a,
 .with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
-    color: #8a6d3b;
+    color: $state-warning-text;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > .open > a,
@@ -211,46 +211,46 @@
 .with-nav-tabs.panel-warning .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-warning .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-warning .nav-tabs > li > a:focus {
-    color: #8a6d3b;
-    background-color: #faebcc;
+    color: $state-warning-text;
+    background-color: $state-warning-bg;
     border-color: transparent;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.active > a,
 .with-nav-tabs.panel-warning .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-warning .nav-tabs > li.active > a:focus {
-    color: #8a6d3b;
-    background-color: #fff;
-    border-color: #faebcc;
+    color: $state-warning-text;
+    background-color: $btn-default-bg;
+    border-color: $state-warning-bg;
     border-bottom-color: transparent;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu {
     background-color: #fcf8e3;
-    border-color: #faebcc;
+    border-color: $state-warning-bg;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #8a6d3b;
+    color: $state-warning-text;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: #faebcc;
+    background-color: $state-warning-bg;
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a,
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff;
-    background-color: #8a6d3b;
+    color: $btn-default-bg;
+    background-color: $state-warning-text;
 }
 /********************************************************************/
 /*** PANEL DANGER ***/
 .with-nav-tabs.panel-danger .nav-tabs > li > a,
 .with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
-    color: #a94442;
+    color: $state-danger-text;
 }
 
 .with-nav-tabs.panel-danger .nav-tabs > .open > a,
@@ -258,7 +258,7 @@
 .with-nav-tabs.panel-danger .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-danger .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-danger .nav-tabs > li > a:focus {
-    color: #a94442;
+    color: $state-danger-text;
     background-color: #ebccd1;
     border-color: transparent;
 }
@@ -266,8 +266,8 @@
 .with-nav-tabs.panel-danger .nav-tabs > li.active > a,
 .with-nav-tabs.panel-danger .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-danger .nav-tabs > li.active > a:focus {
-    color: #a94442;
-    background-color: #fff;
+    color: $state-danger-text;
+    background-color: $btn-default-bg;
     border-color: #ebccd1;
     border-bottom-color: transparent;
 }
@@ -278,7 +278,7 @@
 }
 
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #a94442; /* normal text color */
+    color: $state-danger-text; /* normal text color */
 }
 
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
@@ -289,6 +289,6 @@
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a,
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: #fff; /* active text color */
-    background-color: #a94442; /* active bg color */
+    color: $btn-default-bg; /* active text color */
+    background-color: $state-danger-text; /* active bg color */
 }
