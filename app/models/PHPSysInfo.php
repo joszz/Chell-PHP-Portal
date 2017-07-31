@@ -51,9 +51,16 @@ class PHPSysInfo extends Model
      */
     private static function setMountClasses(&$data)
     {
-        for($i = 0; $i < count($data->FileSystem->Mount); $i++)
+        $count = count($data->FileSystem->Mount);
+
+        for($i = 0; $i < $count; $i++)
         {
             $mount = current($data->FileSystem->Mount[$i]);
+
+            if(strpos($mount->MountPoint, 'snap') !== false){
+                unset($data->FileSystem->Mount[$i]);
+                continue;
+            }
 
             $mount->Class = 'default';
 

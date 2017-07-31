@@ -22,7 +22,7 @@ div.panel-body {
     float: left;
 }
 
-div.panel-heading h4{
+div.panel-heading h4 {
     font-weight: bold;
 }
 
@@ -83,14 +83,14 @@ div.panel.transparent {
     font-size: 12px;
 }
 
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width : ($screen-sm - 1)) {
     body > div.container > div {
         padding: 0;
     }
 }
 
 
-@media only screen and (min-width : 481px) {
+@media only screen and (min-width : ($screen-xs + 1)) {
     div.panel .list-group,
     div.panel .panel-body:not(#main-settings) {
         display: block !important;

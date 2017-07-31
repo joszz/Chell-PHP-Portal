@@ -55,7 +55,7 @@ nav div.navbar-collapse ul a {
     text-overflow: ellipsis;
 }
 
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width : ($screen-sm - 1)) {
     nav div.navbar-collapse ul a {
         padding: 10px 20px;
     }
@@ -91,7 +91,7 @@ div#navbar div.btn-group {
 }
 
 
-@media only screen and (min-width : 481px) {
+@media only screen and (min-width : ($screen-xs + 1)) {
     #navbar > div {
         padding: 0;
     }

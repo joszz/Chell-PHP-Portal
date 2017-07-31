@@ -22,7 +22,7 @@ label {
     z-index: 9999;
 }
 
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width : ($screen-sm -1)) {
     label,
     .error {
         line-height: initial;

@@ -1,18 +1,7 @@
 ﻿[
   {
     "outputFile": "public/css/default.css",
-    "inputFile": "public/css/default/default.scss",
+    "inputFile": "public/css/default.scss",
     "options": { "sourceMap": true }
-  },
-  {
-    "outputFile": "public/css/bootstrap.css",
-    "inputFile": "public/css/bootstrap.scss",
-    "options": { "sourceMap": true }
-  },
-  {
-    "outputFile": "public/css/bootstrap.min.css",
-    "inputFile": "public/css/bootstrap.scss",
-    "options": { "sourceMap": true },
-    "minify": { "enabled": true }
   }
 ]

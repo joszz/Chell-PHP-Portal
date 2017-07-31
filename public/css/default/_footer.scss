@@ -25,13 +25,13 @@ footer a.copyright:focus {
     line-height: 36px;
 }
 
-@media only screen and (min-width : 481px) {
+@media only screen and (min-width : ($screen-xs + 1)) {
     footer .rounded-not-mobile {
         border-radius: 4px !important;
     }
 }
 
-@media only screen and (max-width : 480px) {
+@media only screen and (max-width : $screen-xs) {
     footer div:not(.container) {
         padding: 0;
     }
