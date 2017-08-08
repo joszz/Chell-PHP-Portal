@@ -85,7 +85,7 @@ class ErrorController
         return ob_get_clean();
 	}
 
-	/**
+    /**
      * This will show a user friendly error, not revealing details.
      *
      * @return string   The rendered HTML as a string
@@ -123,7 +123,13 @@ class ErrorController
         $this->logFile = $filename;
     }
 
-    private function getGUID(){
+    /**
+     * Generates a unique string.
+     * 
+     * @return string   A GUID string.
+     */
+    private function getGUID()
+    {
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 
