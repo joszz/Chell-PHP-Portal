@@ -74,10 +74,10 @@ class ErrorController
     }
 
 	/**
-	 * This will render the exceptions view when display_errors flag is on in php.ini.
+     * This will render the exceptions view when display_errors flag is on in php.ini.
      *
      * @return string   The rendered HTML as a string
-	 */
+     */
 	private function exception()
 	{
         ob_start();
@@ -86,10 +86,10 @@ class ErrorController
 	}
 
 	/**
-	 * This will show a user friendly error, not revealing details.
+     * This will show a user friendly error, not revealing details.
      *
      * @return string   The rendered HTML as a string
-	 */
+     */
 	private function error()
 	{
         ob_start();

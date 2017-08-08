@@ -67,6 +67,7 @@ class PHPSysInfo extends Model
             if($mount->Percent > 90) $mount->Class = 'danger';
             else if($mount->Percent > 70) $mount->Class = 'warning';
             else if($mount->Percent > 50) $mount->Class = 'info';
+            else $mount->Class = 'success';
 
             $data->FileSystem->Mount[$i] = $mount;
         }

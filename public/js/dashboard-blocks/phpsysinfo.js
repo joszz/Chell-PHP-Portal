@@ -144,7 +144,7 @@
                     }
 
                     $.each(data.Network.NetDevice, function (index, value) {
-                        if (typeof value['@attributes'] != "undefined") {
+                        if (typeof value['@attributes'] !== "undefined") {
                             var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var info = value["@attributes"].Info.split(";");
