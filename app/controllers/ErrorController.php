@@ -44,11 +44,12 @@ class ErrorController
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
-        if ($this->debug) {
+        if ($this->debug) 
+        {
             $this->content = $exceptionContent;
         }
-        else {
-
+        else 
+        {
             $this->content = $this->error();
             $this->content = $this->layout();
         }
@@ -73,29 +74,29 @@ class ErrorController
         return (new Dump())->variable($dump);
     }
 
-	/**
+    /**
      * This will render the exceptions view when display_errors flag is on in php.ini.
      *
      * @return string   The rendered HTML as a string
      */
-	private function exception()
-	{
+    private function exception()
+    {
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');
         return ob_get_clean();
-	}
+    }
 
     /**
      * This will show a user friendly error, not revealing details.
      *
      * @return string   The rendered HTML as a string
      */
-	private function error()
-	{
+    private function error()
+    {
         ob_start();
         require_once(APP_PATH . 'app/views/error/error.phtml');
         return ob_get_clean();
-	}
+    }
 
     /**
      * This will render the layout for exception and error views.
