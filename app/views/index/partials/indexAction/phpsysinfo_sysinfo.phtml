@@ -46,7 +46,7 @@
 
             <li class="list-group-item col-xs-12 col-lg-12">
                 <div class="col-xs-3">Updates</div>
-                <div class="col-xs-9 value update" data-phpsysinfo-url="<?php echo $this->config->dashboard->phpSysInfoURL ?>">
+                <div class="col-xs-9 value update" data-phpsysinfo-url="<?php echo $this->config->phpsysinfo->URL ?>">
                     <span class="label label-default packages" title="Update packages">
                         Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) : '-' ?>
                     </span>

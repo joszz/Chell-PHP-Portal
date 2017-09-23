@@ -44,12 +44,10 @@ class ErrorController
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
-        if ($this->debug) 
-        {
+        if ($this->debug) {
             $this->content = $exceptionContent;
         }
-        else 
-        {
+        else {
             $this->content = $this->error();
             $this->content = $this->layout();
         }

@@ -115,7 +115,8 @@ class KodiController extends BaseController
             if(!file_exists($filename)) {
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                 $output = curl_exec($ch);
                 curl_close($ch);
 
@@ -157,7 +158,7 @@ class KodiController extends BaseController
 
     /**
      * Resize an image based on $sourcePath and writes it back to $resizedPath.
-     * 
+     *
      * @param mixed $sourcePath     The source image path to resize
      * @param mixed $resizedPath    The destination path to save the resized image in.
      * @param mixed $maxWidth       The maximum width of the resized image, defaults to 800.
