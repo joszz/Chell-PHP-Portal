@@ -91,8 +91,7 @@ class KodiController extends BaseController
                     'conditions' => 'idAlbum = ?1',
                     'bind'       => array(1 => $id),
                 ));
-                $album = current(KodiMusic::extractAlbumImagesFromXML(array($item)));
-                $url = $type == 'thumb' ? $album->strImage : $album->strImage;
+                $url = current(KodiMusic::extractAlbumImagesFromXML(array($item)))->strImage;
                 break;
 
             case 'episodes':
@@ -100,8 +99,7 @@ class KodiController extends BaseController
                     'conditions' => 'idEpisode = ?1',
                     'bind'       => array(1 => $id),
                 ));
-                $episode = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)));
-                $url = $type == 'thumb' ? $episode->c06 : $episode->c06;
+                $url = current(KodiTVShowEpisodes::extractMovieImagesFromXML(array($item)))->c06;
                 break;
         }
 

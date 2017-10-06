@@ -1,5 +1,5 @@
 // ==================================================
-// fancyBox v3.1.25
+// fancyBox v3.1.28
 //
 // Licensed GPLv3 for open source use
 // or fancyBox Commercial License for commercial use
@@ -36,7 +36,7 @@
         // Enable infinite gallery navigation
         loop : false,
 
-        // Space around image, ignored if zoomed-in or viewport smaller than 800px
+        // Space around image, ignored if zoomed-in or viewport width is smaller than 800px
         margin : [44, 0],
 
         // Horizontal space between slides
@@ -227,6 +227,7 @@
             autoStart : false,
         },
 
+        // Set `touch: false` to disable dragging/swiping
         touch : {
             vertical : true,  // Allow to drag content vertically
             momentum : true   // Continue movement after releasing mouse/touch when panning
@@ -325,7 +326,7 @@
                 return current.type === 'image' ? 'toggleControls' : false;
             },
             clickSlide : function( current, event ) {
-                return current.type === 'image' ? 'toggleControls' : "close";
+                return current.type === 'image' ? 'toggleControls' : 'close';
             },
             dblclickContent : function( current, event ) {
                 return current.type === 'image' ? 'zoom' : false;
@@ -1759,7 +1760,7 @@
                 .attr('src', slide.src)
                 .appendTo( slide.$content );
 
-            if ( $img[0].complete ) {
+            if ( ( $img[0].complete || $img[0].readyState == "complete" ) && $img[0].naturalWidth && $img[0].naturalHeight ) {
                   $img.trigger( 'load' );
 
             } else if( $img[0].error ) {
@@ -1816,11 +1817,11 @@
 
                 $slide.on('refresh.fb', function() {
                     var $wrap = slide.$content,
-                        $contents,
-                        $body,
+                        frameWidth  = opts.css.width,
+                        frameHeight = opts.css.height,
                         scrollWidth,
-                        frameWidth,
-                        frameHeight;
+                        $contents,
+                        $body;
 
                     if ( $iframe[0].isReady !== 1 ) {
                         return;
@@ -1836,19 +1837,28 @@
                     } catch (ignore) {}
 
                     // Calculate dimensions for the wrapper
-                    if ( $body && $body.length && !( opts.css.width !== undefined && opts.css.height !== undefined ) ) {
+                    if ( $body && $body.length ) {
 
-                        scrollWidth = $iframe[0].contentWindow.document.documentElement.scrollWidth;
+                        if ( frameWidth === undefined ) {
+                            scrollWidth = $iframe[0].contentWindow.document.documentElement.scrollWidth;
 
-                        frameWidth	= Math.ceil( $body.outerWidth(true) + ( $wrap.width() - scrollWidth ) );
-                        frameHeight	= Math.ceil( $body.outerHeight(true) );
+                            frameWidth = Math.ceil( $body.outerWidth(true) + ( $wrap.width() - scrollWidth ) );
+                            frameWidth += $wrap.outerWidth() - $wrap.innerWidth();
+                        }
+
+                        if ( frameHeight === undefined ) {
+                            frameHeight = Math.ceil( $body.outerHeight(true) );
+                            frameHeight += $wrap.outerHeight() - $wrap.innerHeight();
+                        }
 
                         // Resize wrapper to fit iframe content
-                        $wrap.css({
-                            'width'  : opts.css.width  === undefined ? frameWidth  + ( $wrap.outerWidth()  - $wrap.innerWidth() )  : opts.css.width,
-                            'height' : opts.css.height === undefined ? frameHeight + ( $wrap.outerHeight() - $wrap.innerHeight() ) : opts.css.height
-                        });
+                        if ( frameWidth ) {
+                            $wrap.width( frameWidth );
+                        }
 
+                        if ( frameHeight ) {
+                            $wrap.height( frameHeight );
+                        }
                     }
 
                     $wrap.removeClass( 'fancybox-is-hidden' );
@@ -2085,7 +2095,6 @@
                 effect = 'fade';
             }
 
-
             // Zoom animation
             // ==============
 
@@ -2256,7 +2265,7 @@
 
                     $.fancybox.stop( slide.$slide );
 
-                    slide.$slide.unbind().remove();
+                    slide.$slide.off().remove();
                 }
             });
 
@@ -2310,8 +2319,16 @@
                 return;
             }
 
-            // Skip for images and iframes
-            $el = current && current.isComplete ? current.$slide.find('button,:input,[tabindex],a').filter(':not([disabled]):visible:first') : null;
+            if ( current && current.isComplete ) {
+
+                // Look for first input with autofocus attribute
+                $el = current.$slide.find('input[autofocus]:enabled:visible:first');
+
+                if ( !$el.length ) {
+                    $el = current.$slide.find('button,:input,[tabindex],a').filter(':enabled:visible:first');
+                }
+            }
+
             $el = $el && $el.length ? $el : this.$refs.container;
 
             $el.focus();
@@ -2495,7 +2512,6 @@
                 instance.activate();
 
             } else {
-
                 $W.scrollTop( self.scrollTop ).scrollLeft( self.scrollLeft );
 
                 $( 'html' ).removeClass( 'fancybox-enabled' );
@@ -2629,7 +2645,7 @@
 
     $.fancybox = {
 
-        version  : "3.1.25",
+        version  : "3.1.28",
         defaults : defaults,
 
 
@@ -2907,12 +2923,11 @@
         var target	= e.currentTarget,
             opts	= e.data ? e.data.options : {},
             items	= opts.selector ? $( opts.selector ) : ( e.data ? e.data.items : [] ),
-            value	= $(target).attr( 'data-fancybox' ) || '',
+            value	= $( target ).attr( 'data-fancybox' ) || '',
             index	= 0,
             active  = $.fancybox.getInstance();
 
         e.preventDefault();
-        e.stopPropagation();
 
         // Avoid opening multiple times
         if ( active && active.current.opts.$orig.is( target ) ) {
@@ -3265,7 +3280,7 @@
 
 	var isClickable = function( $el ) {
 
-		if ( $el.is('a,button,input,select,textarea') || $.isFunction( $el.get(0).onclick ) || $el.data('selectable') ) {
+		if ( $el.is('a,button,input,select,textarea,label') || $.isFunction( $el.get(0).onclick ) || $el.data('selectable') ) {
 			return true;
 		}
 
@@ -4562,7 +4577,7 @@
 
 			this.$list.find('img').hide().one('load', function() {
 
-				var $parent		= $(this).parent().removeClass('fancybox-thumbs-loading'),
+				var $parent		= $(this).parent().removeClass( 'fancybox-thumbs-loading' ),
 					thumbWidth	= $parent.outerWidth(),
 					thumbHeight	= $parent.outerHeight(),
 					width,
@@ -4573,12 +4588,12 @@
 				width  = this.naturalWidth	|| this.width;
 				height = this.naturalHeight	|| this.height;
 
-				//Calculate thumbnail width/height and center it
+				// Calculate thumbnail width/height and center it
 
 				widthRatio  = width  / thumbWidth;
 				heightRatio = height / thumbHeight;
 
-				if (widthRatio >= 1 && heightRatio >= 1) {
+				if ( widthRatio >= 1 && heightRatio >= 1 ) {
 					if (widthRatio > heightRatio) {
 						width  = width / heightRatio;
 						height = thumbHeight;
@@ -4608,9 +4623,9 @@
 			if ( this.instance.current ) {
 				this.$list
 					.children()
-					.removeClass('fancybox-thumbs-active')
-					.filter('[data-index="' + this.instance.current.index  + '"]')
-					.addClass('fancybox-thumbs-active')
+					.removeClass( 'fancybox-thumbs-active' )
+					.filter( '[data-index="' + this.instance.current.index  + '"]' )
+					.addClass( 'fancybox-thumbs-active' )
 					.focus();
 			}
 
@@ -4683,7 +4698,7 @@
 				return;
 			}
 
-			if ( firstRun && instance.opts.thumbs.autoStart === true ) {
+			if ( firstRun && item.opts.thumbs.autoStart === true ) {
 				Thumbs.show();
 			}
 
