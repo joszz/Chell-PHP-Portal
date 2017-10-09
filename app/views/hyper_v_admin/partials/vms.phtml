@@ -29,9 +29,7 @@
                             </a>
                         </div>
                     </td>
-                    <td>
-                        <?php echo $vm->Name ?>
-                    </td>
+                    <td><?php echo $vm->Name ?></td>
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:<?php echo $vm->CPULoad ?>%"></div>
@@ -39,17 +37,10 @@
                             </div>
                         </div>
                     </td>
-                    <td><?php echo $vm->CoresAmount ?>
-                    </td>
-                    <td>
-                        <?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?>
-                    </td>
-                    <td>
-                        <?php echo $vm->MAC ?>
-                    </td>
-                    <td>
-                        <?php echo $vm->GetOnTimeFormatted ?>
-                    </td>
+                    <td class="text-center"><?php echo $vm->CoresAmount ?></td>
+                    <td><?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?></td>
+                    <td><?php echo $vm->MAC ?></td>
+                    <td><?php echo $vm->GetOnTimeFormatted ?></td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
                             <a href="<?php echo $toggleStateURL ?>" class="btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
