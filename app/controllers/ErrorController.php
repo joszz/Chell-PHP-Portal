@@ -37,7 +37,6 @@ class ErrorController
         $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
 
-
         $this->css[] = $this->config->application->baseUri . 'css/prism.css';
         $this->js[] = $this->config->application->baseUri . 'js/prism.js';
 
@@ -124,7 +123,7 @@ class ErrorController
 
     /**
      * Generates a unique string.
-     * 
+     *
      * @return string   A GUID string.
      */
     private function getGUID()

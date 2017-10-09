@@ -11,7 +11,7 @@ use Phalcon\Mvc\Model;
  */
 class HyperVAdmin extends Model
 {
-    public const vmStates = array(2 => 'enabled', 3 => 'disabled');
+    const vmStates = array(2 => 'enabled', 3 => 'disabled');
 
     /**
      * Retrieves all VMs using cURL and settings defined in config.ini.
