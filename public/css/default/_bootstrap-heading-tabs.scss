@@ -2,11 +2,11 @@
     position: relative;
 }
 
-.panel.with-nav-tabs .nav-tabs {
+.panel.with-nav-tabs .panel-heading .nav-tabs {
     border-bottom: none;
 }
 
-.panel.with-nav-tabs .nav-justified {
+.panel.with-nav-tabs .panel-heading .nav-justified {
     margin-bottom: -1px;
 }
 
@@ -14,13 +14,13 @@
     border-width: 0;
 }
 
-.panel.with-nav-tabs .nav {
+.panel.with-nav-tabs .panel-heading .nav {
     position: absolute;
     bottom: 0;
     right: 15px;
 }
 
-.panel.with-nav-tabs .nav li a {
+.panel.with-nav-tabs .panel-heading .nav li a {
     padding: 8px 15px;
     font-size: 18px;
     line-height: 36px;

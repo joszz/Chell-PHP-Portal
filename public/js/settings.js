@@ -13,7 +13,7 @@
 * @method document.onload
 */
 $(function () {
-    $(".nav-tabs").tabCollapse();
+    $(".nav-tabs.visible-xs").tabCollapse();
 
     //Set focus to correct tab when URL navigated to with location.hash
     if (location.hash) {
