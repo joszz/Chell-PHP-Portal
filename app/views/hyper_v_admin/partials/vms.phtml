@@ -6,9 +6,9 @@
                 <tr>
                     <th class="visible-xs">Actions</th>
                     <th>Name</th>
-                    <th>RAM</th>
+                    <th>CPU Load</th>
                     <th>Cores</th>
-                    <th style="min-width:100px">Load</th>
+                    <th>RAM</th>
                     <th>MAC</th>
                     <th>On time</th>
                     <th class="text-right hidden-xs">Actions</th>
@@ -16,10 +16,10 @@
             </thead>
             <tbody>
                 <?php foreach($vms as $vm) :
-                            $state = \Chell\Models\HyperVAdmin::getVMState($vm->State);
-                            $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $vm->Name . '/';
-                            $toggleStateURL .=  $state == 'enabled' ? array_search('disabled', \Chell\Models\HyperVAdmin::vmStates) :
-                                array_search('enabled', \Chell\Models\HyperVAdmin::vmStates)
+                    $state = \Chell\Models\HyperVAdmin::getVMState($vm->State);
+                    $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $vm->Name . '/';
+                    $toggleStateURL .=  $state == 'enabled' ? array_search('disabled', \Chell\Models\HyperVAdmin::vmStates) :
+                        array_search('enabled', \Chell\Models\HyperVAdmin::vmStates);
                 ?>
                 <tr>
                     <td class="visible-xs">
@@ -33,18 +33,16 @@
                         <?php echo $vm->Name ?>
                     </td>
                     <td>
-                        <?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?>
-                    </td>
-                    <td>
-                        <?php echo $vm->CoresAmount ?>
-                    </td>
-                    <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:<?php echo $vm->CPULoad ?>%"></div>
-                            <div class="percent">
-                                <?php echo $vm->CPULoad ?>%
+                            <div class="percent"><?php echo $vm->CPULoad ?>%
                             </div>
                         </div>
+                    </td>
+                    <td><?php echo $vm->CoresAmount ?>
+                    </td>
+                    <td>
+                        <?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?>
                     </td>
                     <td>
                         <?php echo $vm->MAC ?>
