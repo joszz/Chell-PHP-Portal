@@ -1,7 +1,5 @@
-﻿
-.panel.with-nav-tabs .panel-heading {
+﻿.panel.with-nav-tabs .panel-heading {
     padding-bottom: 0;
-    padding-left: 5px;
 }
 
 .panel.with-nav-tabs .nav-tabs {
@@ -10,6 +8,10 @@
 
 .panel.with-nav-tabs .nav-justified {
     margin-bottom: -1px;
+}
+
+.panel.with-nav-tabs .tab-pane {
+    border-width: 0;
 }
 /********************************************************************/
 /*** PANEL DEFAULT ***/

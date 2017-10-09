@@ -87,6 +87,7 @@ class HyperVAdmin extends Model
         $curl = curl_init($config->hypervadmin->URL . $url);
 		curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_USERPWD => $config->hypervadmin->username . ':' . $config->hypervadmin->password,
             CURLOPT_USERAGENT => 'Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101'
         ));
