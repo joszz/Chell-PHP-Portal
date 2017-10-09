@@ -18,6 +18,13 @@ class KodiTVShowEpisodes extends Model
     {
         $this->setConnectionService('dbKodiVideo');
         $this->setSource('episode_view');
+
+        $this->hasMany(
+            'idFile',
+            'Chell\Models\Kodi\KodiFiles',
+            'idFile',
+            array('alias' => 'files')
+        );
     }
 
     /**

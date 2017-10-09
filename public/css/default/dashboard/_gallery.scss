@@ -90,3 +90,13 @@ div.gallery .panel-heading h4 {
         height: auto;
     }
 }
+
+.gallery .fa-eye {
+    position: absolute;
+    z-index: 5;
+    font-size: 38px;
+    bottom: 80px;
+    right: 15px;
+    text-shadow: 2px 2px 2px #505050 !important;
+    color: white;
+}

@@ -24,6 +24,10 @@
                 <div class="subtitle" title="<?php echo $title = utf8_encode($movie->c03) ?>">
                     <?php echo $title ?>
                 </div>
+
+                <?php if(!empty($movie->getFiles()[0]->lastPlayed)) : ?>
+                <div class="fa fa-eye" title="Watched"></div>
+                <?php endif ?>
             </a>
             <?php endforeach ?>
         </div>

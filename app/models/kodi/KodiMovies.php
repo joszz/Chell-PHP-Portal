@@ -18,6 +18,13 @@ class KodiMovies extends Model
     {
         $this->setConnectionService('dbKodiVideo');
         $this->setSource('movie_view');
+
+        $this->hasMany(
+            'idFile',
+            'Chell\Models\Kodi\KodiFiles',
+            'idFile',
+            array('alias' => 'files')
+        );
     }
 
     /**

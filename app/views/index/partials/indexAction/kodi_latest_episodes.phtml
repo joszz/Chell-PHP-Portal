@@ -11,7 +11,8 @@
             <h4>Latest episodes</h4>
         </div>
         <div class="panel-body hidden-xs">
-            <?php $i = 0; foreach($episodes as $episode) : ?>
+            <?php $i = 0; foreach($episodes as $episode) :
+                       ?>
             <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="episodes"
                 data-type="iframe"
@@ -25,6 +26,10 @@
                 <div class="subtitle" title="<?php echo $title = sprintf('%02d', $episode->c12) . 'E' . sprintf('%02d', $episode->c13) . ' - ' . utf8_encode($episode->c00) ?>">
                     <?php echo $title ?>
                 </div>
+
+                <?php if(!empty($episode->getFiles()[0]->lastPlayed)) : ?>
+                <div class="fa fa-eye" title="Watched"></div>
+                <?php endif ?>
             </a>
             <?php $i++;
                   endforeach ?>
