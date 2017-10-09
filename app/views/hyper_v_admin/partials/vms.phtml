@@ -18,8 +18,7 @@
                 <?php foreach($vms as $vm) :
                     $state = \Chell\Models\HyperVAdmin::getVMState($vm->State);
                     $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $vm->Name . '/';
-                    $toggleStateURL .=  $state == 'enabled' ? array_search('disabled', \Chell\Models\HyperVAdmin::vmStates) :
-                        array_search('enabled', \Chell\Models\HyperVAdmin::vmStates);
+                    $toggleStateURL .= $vm->State == \Chell\Models\HyperVAdmin::vmStateEnabed ? \Chell\Models\HyperVAdmin::vmStateDisabed : \Chell\Models\HyperVAdmin::vmStateEnabed;
                 ?>
                 <tr>
                     <td class="visible-xs">

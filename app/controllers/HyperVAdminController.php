@@ -34,6 +34,6 @@ class HyperVAdminController extends BaseController
     {
         HyperVAdmin::toggleVMState($vm, $state, $this->config);
 
-        return (new Response())->redirect('hyper_v_admin/vms');
+        return (new Response())->redirect('hyper_v_admin/');
     }
 }

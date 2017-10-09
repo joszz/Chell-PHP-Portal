@@ -11,7 +11,8 @@ use Phalcon\Mvc\Model;
  */
 class HyperVAdmin extends Model
 {
-    const vmStates = array(2 => 'enabled', 3 => 'disabled');
+    const vmStateEnabed = 2;
+    const vmStateDisabed = 3;
 
     /**
      * Retrieves all VMs using cURL and settings defined in config.ini.
@@ -36,11 +37,7 @@ class HyperVAdmin extends Model
      */
     public function getVMState($state)
     {
-        if(isset(self::vmStates[$state])) {
-            return self::vmStates[$state];
-        }
-
-        return 'disabled';
+        return $state == self::vmStateEnabed ? 'enabled' : 'disabled';
     }
 
     /**
@@ -57,7 +54,7 @@ class HyperVAdmin extends Model
 		$content = json_decode(curl_exec($curl));
         curl_close($curl);
 
-		return $content;
+        return $content;
     }
 
     /**
