@@ -109,9 +109,11 @@
 
                             if (!data["state"]) {
                                 dependentMenuItems.addClass("disabled");
+                                device.parent().find("a[title='HyperVAdmin']").addClass("disabled");
                             }
                             else {
                                 dependentMenuItems.removeClass("disabled");
+                                device.parent().find("a[title='HyperVAdmin']").removeClass("disabled");
                                 dependentMenuItems.find("a").unbind("click", false);
                             }
 
