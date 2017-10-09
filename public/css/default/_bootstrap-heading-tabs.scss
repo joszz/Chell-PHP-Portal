@@ -1,5 +1,5 @@
 ﻿.panel.with-nav-tabs .panel-heading {
-    padding-bottom: 0;
+    position: relative;
 }
 
 .panel.with-nav-tabs .nav-tabs {
@@ -13,6 +13,19 @@
 .panel.with-nav-tabs .tab-pane {
     border-width: 0;
 }
+
+.panel.with-nav-tabs .nav {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+.panel.with-nav-tabs .nav li a {
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 36px;
+}
+
 /********************************************************************/
 /*** PANEL DEFAULT ***/
 .with-nav-tabs.panel-default .nav-tabs > li > a,
