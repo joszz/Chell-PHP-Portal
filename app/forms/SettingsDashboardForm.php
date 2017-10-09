@@ -2,10 +2,13 @@
 
 namespace Chell\Forms;
 
+use Chell\Models\Devices;
+
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
+use Phalcon\Forms\Element\Select;
 
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
@@ -40,6 +43,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->setKodiFields();
         $this->setSickrageFields();
         $this->setCouchpotatoFields();
+        $this->setHyperVAdminFields();
     }
 
     /**
@@ -324,6 +328,55 @@ class SettingsDashboardForm extends SettingsBaseForm
     }
 
     /**
+     * Adds HyperVAdmin fields to the form.
+     */
+    private function setHyperVAdminFields()
+    {
+        $hyperVAdminEnabled = new Check('hypervadmin-enabled');
+        $hyperVAdminEnabled->setLabel('Enabled');
+        $hyperVAdminEnabled->setAttributes(array(
+            'checked' => $this->_config->hypervadmin->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'HyperVAdmin'
+        ));
+
+        $hyperVAdminURL = new Text('hypervadmin-url');
+        $hyperVAdminURL->setLabel('URL')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->hypervadmin->URL);
+
+        $hyperVAdminUsername = new Text('hypervadmin-username');
+        $hyperVAdminUsername->setLabel('Username')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->hypervadmin->username);
+
+        $hyperVAdminPassword = new Password('hypervadmin-password');
+        $hyperVAdminPassword->setLabel('Password')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->hypervadmin->password);
+
+        $deviceOptions[0] = 'Please select';
+        foreach(Devices::Find() as $device) {
+            $deviceOptions[$device->id] = $device->name;
+        }
+        $hyperVAdminDevice = new Select('hypervadmin-device', $deviceOptions, array('fieldset' => true));
+        $hyperVAdminDevice->setLabel('Host');
+        $hyperVAdminDevice->setDefault($this->_config->hypervadmin->device);
+
+        $this->add($hyperVAdminEnabled);
+        $this->add($hyperVAdminURL);
+        $this->add($hyperVAdminUsername);
+        $this->add($hyperVAdminPassword);
+        $this->add($hyperVAdminDevice);
+    }
+
+    /**
      * Check if form is valid. If so set the values to the config array.
      *
      * @param   array     $data     The form data posted.
@@ -372,6 +425,12 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->couchpotato->URL = $data['couchpotato-url'];
             $this->_config->couchpotato->APIKey = $data['couchpotato-apikey'];
             $this->_config->couchpotato->rotateInterval = $data['couchpotato-rotate-interval'];
+
+            $this->_config->hypervadmin->enabled = $data['hypervadmin-enabled'] == 'on' ? '1' : '0';
+            $this->_config->hypervadmin->URL = $data['hypervadmin-url'];
+            $this->_config->hypervadmin->username = $data['hypervadmin-username'];
+            $this->_config->hypervadmin->password = $data['hypervadmin-password'];
+            $this->_config->hypervadmin->device = $data['hypervadmin-device'];
         }
 
         return $valid;
