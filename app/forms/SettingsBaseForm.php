@@ -52,16 +52,17 @@ class SettingsBaseForm extends Form
     {
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
-        $html = '';
 
-        $html .= '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
-        $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
+        $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
+        $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '';
+        $html .= '<a class="fa fa-question pull-right" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a></div>';
         $html .= '<div class="col-lg-4 col-sm-5 col-xs-12">' . $element . '</div>';
-        $html .= '<div class="col-lg-5 col-sm-3 col-xs-12 error">';
 
-        if($hasErrors)
-        {
-            $html .= $this->getMessagesFor($name)[0]->getMessage();
+        $html .= '<div class="col-lg-5 col-sm-3 col-xs-12">';
+
+
+        if($hasErrors) {
+            $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
         }
 
         $html .= '</div></div>';
@@ -78,6 +79,7 @@ class SettingsBaseForm extends Form
     {
         $attributes = $element->getAttributes();
         $fieldset = $attributes['fieldset'];
+        $name = $element->getName();
         $html = '';
 
         unset($attributes['fieldset']);
@@ -90,7 +92,10 @@ class SettingsBaseForm extends Form
             $html = $this->renderGeneric($element, true) . '</fieldset>';
         }
         else {
-            $html = '<fieldset><legend>' . $element . $fieldset . '</legend>';
+            $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">';
+            $html .=  $element . '<span>'. $fieldset .  '</span>';
+            $html .= '<a class="fa fa-question pull-right" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a>';
+            $html .= '</div></legend>';
         }
 
         return $html;

@@ -6,6 +6,7 @@ use Chell\Controllers\ErrorController;
 use Chell\Exceptions\ChellException;
 use Chell\Plugins\SecurityPlugin;
 use Chell\Plugins\LicenseStamper;
+use Chell\Messages\TranslatorWrapper;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
@@ -104,6 +105,7 @@ class FrontController
         $this->setCSSCollection();
         $this->setJSCollection();
         $this->setTitle();
+        $this->setTranslator();
     }
 
     /**
@@ -161,6 +163,7 @@ class FrontController
             'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
             'Chell\Exceptions'  => APP_PATH . 'app/exceptions/',
             'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
+            'Chell\Messages'    => APP_PATH . 'app/messages/',
             'Chell\Models'      => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
             'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
@@ -408,6 +411,14 @@ class FrontController
     private function setTitle()
     {
         $this->application->tag->setTitle($this->application->view->title = $this->title);
+    }
+
+    /**
+     * Sets the translator for use in views.
+     */
+    private function setTranslator(){
+        $language = $this->application->request->getBestLanguage();
+        $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language . '.php');
     }
 
     /**

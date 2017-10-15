@@ -283,4 +283,11 @@ class SettingsController extends BaseController
 
         die('Log file not found!');
     }
+
+    public function helpAction($which)
+    {
+        $this->view->setMainView('layouts/empty');
+        $this->view->which = $which;
+        $this->view->title = 'test';
+    }
 }

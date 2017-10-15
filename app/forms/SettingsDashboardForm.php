@@ -59,7 +59,7 @@ class SettingsDashboardForm extends SettingsBaseForm
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small',
-            'fieldset' => 'rCPU'
+            'fieldset' => 'rCPU',
         ));
 
         $rCpuURL = new Text('rcpu-url');

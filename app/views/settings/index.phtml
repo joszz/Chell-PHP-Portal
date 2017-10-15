@@ -28,8 +28,7 @@
         <div class="panel-body">
             <ul class="nav nav-tabs pull-right visible-xs"><?php foreach ($forms AS $formId => $formContent) : ?>
                 <li <?php echo $activeTab == $formId ? 'class="active"' : null ?>>
-                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?>
-                    </a>
+                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
                 </li><?php endforeach ?>
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>

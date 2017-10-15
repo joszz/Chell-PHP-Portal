@@ -71,15 +71,31 @@ input[type=number]::-webkit-outer-spin-button {
     border-width: 0 1px 1px 1px;
 }
 
-#main-settings legend {
-    color: #3c763d;
-    border-bottom-color: #dff0d8;
+#main-settings legend span {
+    color: $state-success-text;
+    border-bottom-color: $state-success-bg;
     line-height: 50px;
     font-weight: bold;
     font-size: 18px;
     cursor: pointer;
 }
 
+#main-settings legend div.info {
+    font-size: 14px;
+    line-height: 50px;
+}
+
 #main-settings legend .toggle {
     margin-right: 15px;
+}
+
+#main-settings .fa-question {
+    text-decoration: none;
+    color: $state-success-text;
+    padding: 7px 0 7px 7px;
+    font-size: 14px;
+}
+
+#main-settings legend .fa-question {
+    padding: 18px 0;
 }
