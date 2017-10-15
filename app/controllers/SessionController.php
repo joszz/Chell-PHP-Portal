@@ -62,7 +62,7 @@ class SessionController extends BaseController
         $username = '';
         $password = '';
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost())//&& $this->security->checkToken())
         {
             $username = trim($this->request->getPost('username'));
             $password = trim($this->request->getPost('password'));

@@ -31,20 +31,20 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('jquery-3.2.1.js',
-                        'jquery.fancybox.js',
-                        'bootstrap.js',
-                        'bootstrap-select/bootstrap-select.js',
-                        'bootstrap-tabcollapse.js',
-                        'bootstrap-toggle.js',
-                        'jquery.bootstrap-touchspin.js',
-                        'jquery.vibrate.js',
-                        'jquery.tinytimer.js',
-                        'jquery.isloading.js',
-                        'jquery.fullscreen.js',
-                        'jquery.mobile-events.js',
-                        'waves.js',
-                        'md5.js',
+    private $js = array('vendor/jquery-3.2.1.js',
+                        'vendor/jquery.fancybox.js',
+                        'vendor/bootstrap.js',
+                        'vendor/bootstrap-select/bootstrap-select.js',
+                        'vendor/bootstrap-tabcollapse.js',
+                        'vendor/bootstrap-toggle.js',
+                        'vendor/jquery.bootstrap-touchspin.js',
+                        'vendor/jquery.vibrate.js',
+                        'vendor/jquery.tinytimer.js',
+                        'vendor/jquery.isloading.js',
+                        'vendor/jquery.fullscreen.js',
+                        'vendor/jquery.mobile-events.js',
+                        'vendor/waves.js',
+                        'vendor/md5.js',
                         'default.js',
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/phpsysinfo.js');
@@ -142,6 +142,10 @@ class FrontController
         if($this->config->kodi->enabled || $this->config->couchpotato->enabled){
             $this->js[] = 'dashboard-blocks/gallery.js';
         }
+
+        if($this->config->hypervadmin->enabled){
+            $this->js[] = 'dashboard-blocks/hyperv-admin.js';
+        }
     }
 
     /**
@@ -233,7 +237,7 @@ class FrontController
      */
     private function setSession()
     {
-        $this->di->set('session', function () {
+        $this->di->setShared('session', function () {
             $session = new Session();
             $session->start();
 

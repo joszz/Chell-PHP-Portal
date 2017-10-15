@@ -6,6 +6,7 @@ use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Hidden;
 
 /**
  * The from responsible for handling login to the application.
@@ -65,5 +66,8 @@ class LoginForm extends Form
         $this->add($username);
         $this->add($password);
         $this->add($rememberme);
+        $this->add(new Hidden($this->security->getTokenKey(), [
+            'value' => $this->security->getToken(),
+        ]));
     }
 }
