@@ -26,12 +26,13 @@
     <?php
     $this->partial('footer');
     $this->assets->outputJs('footer');
+    $controller = $this->dispatcher->getControllerName();
 
-    if($this->dispatcher->getControllerName() == 'index')
+    if($controller == 'index')
     {
         $this->assets->outputJs('dashboard');
     }
-    else if($this->dispatcher->getControllerName() == 'settings')
+    else if($controller == 'settings')
     {
         $this->assets->outputJs('settings');
     }

@@ -54,12 +54,14 @@ class SettingsBaseForm extends Form
         $hasErrors = $this->hasMessagesFor($name);
 
         $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
-        $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '';
-        $html .= '<a class="fa fa-question pull-right" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a></div>';
-        $html .= '<div class="col-lg-4 col-sm-5 col-xs-12">' . $element . '</div>';
+        $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
+        $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
+        $html .= '<a class="input-group-addon btn btn-default" data-fancybox data-type="iframe" href="';
+        $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
+        $html .= '<i class="fa fa-question"></i></a></div></div>';
+
 
         $html .= '<div class="col-lg-5 col-sm-3 col-xs-12">';
-
 
         if($hasErrors) {
             $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';

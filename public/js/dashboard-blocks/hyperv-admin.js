@@ -17,7 +17,7 @@
         * @type Object
         */
         var settings = $.extend({
-            block: this,
+            block: this
         }, options);
 
         /**
@@ -34,8 +34,18 @@
             * @method checkstates
             */
             initialize: function () {
-  
+                settings.block.find(".togglestate:visible").click(function () {
+                    openConfirmDialog("test", [], function () {
+                        functions.toggleState();
+                    });
+
+                    return false;
+                });
             },
+
+            toggleState: function () {
+                alert();
+            }
         };
 
         functions.initialize();

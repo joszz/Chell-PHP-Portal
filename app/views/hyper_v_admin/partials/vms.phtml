@@ -23,7 +23,7 @@
                 <tr>
                     <td class="visible-xs">
                         <div class="btn-group">
-                            <a href="<?php echo $toggleStateURL ?>" class="btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
+                            <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
                                 <i class="fa fa-power-off"></i>
                             </a>
                         </div>
@@ -42,7 +42,7 @@
                     <td><?php echo $vm->GetOnTimeFormatted ?></td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
-                            <a href="<?php echo $toggleStateURL ?>" class="btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
+                            <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
                                 <i class="fa fa-power-off"></i>
                             </a>
                         </div>
