@@ -59,8 +59,6 @@ class SettingsBaseForm extends Form
         $html .= '<a class="input-group-addon btn btn-default" data-fancybox data-type="iframe" href="';
         $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
         $html .= '<i class="fa fa-question"></i></a></div></div>';
-
-
         $html .= '<div class="col-lg-5 col-sm-3 col-xs-12">';
 
         if($hasErrors) {

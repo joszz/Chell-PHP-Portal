@@ -32,7 +32,7 @@
                     <td>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:<?php echo $vm->CPULoad ?>%"></div>
-                            <div class="percent"><?php echo $vm->CPULoad ?>%
+                            <div class="percent"><?php echo (empty($vm->CPULoad) ? '0' : $vm->CPULoad) ?>%
                             </div>
                         </div>
                     </td>
