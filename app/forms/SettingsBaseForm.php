@@ -56,7 +56,8 @@ class SettingsBaseForm extends Form
         $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
         $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
         $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
-        $html .= '<a class="input-group-addon btn btn-default" data-fancybox data-type="iframe" href="';
+
+        $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
         $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
         $html .= '<i class="fa fa-question"></i></a></div></div>';
         $html .= '<div class="col-lg-5 col-sm-3 col-xs-12">';
@@ -94,7 +95,8 @@ class SettingsBaseForm extends Form
         else {
             $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">';
             $html .=  $element . '<span>'. $fieldset .  '</span>';
-            $html .= '<a class="fa fa-question pull-right" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a>';
+            $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-12">';
+            $html .= '<a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a>';
             $html .= '</div></legend>';
         }
 
