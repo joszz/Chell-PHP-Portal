@@ -46,6 +46,14 @@
         </li>
         <?php endif ?>
 
+        <?php if(!empty($lastPlayed = $episode->getFiles()[0]->lastPlayed)) : ?>
+        <li class="list-group-item col-xs-12">
+            <div class="col-xs-3 text-bold">Last played</div>
+            <div class="col-xs-9"><?php echo $lastPlayed ?>
+            </div>
+        </li>
+        <?php endif ?>
+
         <li class="list-group-item col-xs-12">
             <div class="col-xs-3 text-bold">Genre</div>
             <div class="col-xs-9">

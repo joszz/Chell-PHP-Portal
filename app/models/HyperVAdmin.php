@@ -13,6 +13,8 @@ class HyperVAdmin extends Model
 {
     const vmStateEnabed = 2;
     const vmStateDisabed = 3;
+    const siteStateEnabed = 1;
+    const siteStateDisabed = 3;
 
     /**
      * Retrieves all VMs using cURL and settings defined in config.ini.
@@ -30,6 +32,21 @@ class HyperVAdmin extends Model
     }
 
     /**
+     * Retrieves all sites using cURL and settings defined in config.ini.
+     *
+     * @param object $config    The configuration file to use.
+     * @return object           List of sites as anonymous objects.
+     */
+    public static function getSites($config)
+    {
+        $curl = self::getCurl('Sites/GetSites', $config);
+		$content = json_decode(curl_exec($curl));
+        curl_close($curl);
+
+		return $content;
+    }
+
+    /**
      * Gets a string representing the state given an int.
      *
      * @param number $state     The VM state represented as a number.
@@ -38,6 +55,11 @@ class HyperVAdmin extends Model
     public function getVMState($state)
     {
         return $state == self::vmStateEnabed ? 'enabled' : 'disabled';
+    }
+
+    public function getSiteState($state)
+    {
+        return $state == self::siteStateEnabed ? 'enabled' : 'disabled';
     }
 
     /**
@@ -57,19 +79,14 @@ class HyperVAdmin extends Model
         return $content;
     }
 
-    /**
-     * Retrieves all sites using cURL and settings defined in config.ini.
-     *
-     * @param object $config    The configuration file to use.
-     * @return object           List of sites as anonymous objects.
-     */
-    public static function getSites($config)
+    public static function toggleSiteState($siteName, $state, $config)
     {
-        $curl = self::getCurl('Sites/GetSites', $config);
+        $url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . $siteName;
+        $curl = self::getCurl($url, $config);
 		$content = json_decode(curl_exec($curl));
         curl_close($curl);
 
-		return $content;
+        return $content;
     }
 
     /**

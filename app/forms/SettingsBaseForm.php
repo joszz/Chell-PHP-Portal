@@ -59,8 +59,8 @@ class SettingsBaseForm extends Form
 
         $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
         $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
-        $html .= '<i class="fa fa-question"></i></a></div></div>';
-        $html .= '<div class="col-lg-5 col-sm-3 col-xs-12">';
+        $html .= '<i class="fa fa-question"></i></a></div>';
+        $html .= '</div><div class="col-lg-5 col-sm-3 col-xs-12">';
 
         if($hasErrors) {
             $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
@@ -93,9 +93,9 @@ class SettingsBaseForm extends Form
             $html = $this->renderGeneric($element, true) . '</fieldset>';
         }
         else {
-            $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">';
+            $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-10 text-right-not-xs">';
             $html .=  $element . '<span>'. $fieldset .  '</span>';
-            $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-12">';
+            $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-2">';
             $html .= '<a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a>';
             $html .= '</div></legend>';
         }

@@ -2,6 +2,8 @@
 
 namespace Chell\Controllers;
 
+use Phalcon\Mvc\View;
+
 use Chell\Models\PHPSysInfo;
 
 /**
@@ -24,7 +26,7 @@ class RssController extends BaseController
 		$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off" ? "https" : "http") . '://' . $_SERVER['HTTP_HOST'];
 		$url .= $this->config->application->baseUri;
 
-		$this->view->setMainView('layouts/rss');
+		$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
 		$this->view->baseURL = $url;
 		$this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
 	}

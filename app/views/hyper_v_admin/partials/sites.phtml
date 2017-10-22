@@ -8,18 +8,26 @@
                     <th class="text-right hidden-xs">Actions</th>
                 </tr>
             </thead>
-            <tbody><?php foreach($sites as $site) : ?>
+            <tbody><?php foreach($sites as $site) :
+                        $state = \Chell\Models\HyperVAdmin::getSiteState($site->State);
+                        $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/siteToggleState/' . $site->Name . '/';
+                        $toggleStateURL .= $site->State == \Chell\Models\HyperVAdmin::siteStateEnabed ? \Chell\Models\HyperVAdmin::siteStateDisabed : \Chell\Models\HyperVAdmin::siteStateEnabed;
+                   ?>
                 <tr>
                     <td class="visible-xs">
                         <div class="btn-group">
-
+                            <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
+                                <i class="fa fa-power-off"></i>
+                            </a>
                         </div>
                     </td>
                     <td><?php echo $site->Name ?>
                     </td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
-
+                            <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
+                                <i class="fa fa-power-off"></i>
+                            </a>
                         </div>
                     </td>
                 </tr><?php endforeach ?>

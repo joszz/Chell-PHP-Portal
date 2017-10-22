@@ -1,40 +1,52 @@
-<item>
-    <title>
-Uptime: 
+<?php echo '<?' ?>xml version="1.0" encoding="UTF-8"<?= "?>\n" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <copyright>Copyright 2015 - <?= date('Y') ?> | Jos Nienhuis</copyright>
+        <language>en</language>
+        <atom:link href="<?php echo $baseURL ?>rss" rel="self" type="application/rss+xml" />
+        <link><?php echo $baseURL ?></link>
+        <title><?php echo $this->config->application->title ?></title>
+        <description></description>
+        <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
+
+        <item>
+ <title>Uptime:
 <?php echo (gmdate('d', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) - 1) . 'd ' . gmdate('H:i:s', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) ?>
-	</title>
-    <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
-    <category>Stats</category>
-</item>
+</title>
+            <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
+            <category>Stats</category>
+        </item>
 
-<item>
-    <title>
-Updates
-Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) : '-' ?> 
+        <item>
+<title>Updates
+Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) : '-' ?>
+
 Security: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->security) : '-' ?>
-    </title>
-    <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
-    <category>Stats</category>
-</item>
+</title>
+            <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
+            <category>Stats</category>
+        </item>
 
-<item>
-    <title>
-RAM: <?php echo $phpsysinfoData->Memory->{'@attributes'}->Percent ?>%
+        <item>
+<title>RAM: <?php echo $phpsysinfoData->Memory->{'@attributes'}->Percent ?>%
 Swap: <?php echo $phpsysinfoData->Memory->Swap->{'@attributes'}->Percent ?>%
 <?php $i = 0; foreach($phpsysinfoData->Hardware->CPU->CpuCore as $core) : ?>
-Core <?php echo $i++ . ': ' . $core->{'@attributes'}->CpuSpeed ?> GHz
+Core<?php echo $i++ . ':' . $core->{'@attributes'}->CpuSpeed ?> GHz
 <?php endforeach ?>
-    </title>
-    <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
-    <category>Stats</category>
-</item>
+</title>
+            <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
+            <category>Stats</category>
+        </item>
 
-<item>
-    <title>
+        <item>
+<title>
 <?php foreach($phpsysinfoData->FileSystem->Mount as $mount) : ?>
-<?php echo $mount->Name . ': ' . $mount->Percent . '%' ?> 
+<?php echo $mount->Name . ': ' . $mount->Percent . '%' ?>
+
 <?php endforeach ?>
-    </title>
-    <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
-    <category>Stats</category>
-</item>
+</title>
+            <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
+            <category>Stats</category>
+        </item>
+    </channel>
+</rss>

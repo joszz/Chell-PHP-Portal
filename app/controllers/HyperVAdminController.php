@@ -36,4 +36,11 @@ class HyperVAdminController extends BaseController
 
 		return (new Response())->redirect('hyper_v_admin/');
 	}
+
+    public function siteToggleStateAction($site, $state)
+	{
+		HyperVAdmin::toggleSiteState($site, $state, $this->config);
+
+		return (new Response())->redirect('hyper_v_admin/');
+	}
 }

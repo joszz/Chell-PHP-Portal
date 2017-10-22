@@ -1,6 +1,7 @@
 <?php
 
 $help = [
+    'cryptkey'                      => 'The key used for Phalcon\'s cryptographic functions.',
     'check-devicestate-interval'    => 'The interval of refreshing the devices block on the dashboard.',
     'phpsysinfo-url'                => 'The base URL of your <a href="http://phpsysinfo.github.io/phpsysinfo/" target="_blank">PHPSysinfo installation</a>',
     'phpsysinfo-username'           => 'Basicauth username needed when PHPSysInfo is protected by basicauth.',
@@ -30,6 +31,7 @@ $help = [
 ];
 
 $helpTitles = [
+    'cryptkey'                      => 'Phalcon cryptkey',
     'check-devicestate-interval'    => 'Check device state interval',
     'phpsysinfo-url'                => 'PHPSysInfo URL',
     'phpsysinfo-username'           => 'PHPSysInfo username',

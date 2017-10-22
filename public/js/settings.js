@@ -49,14 +49,6 @@ $(function () {
         });
     });
 
-    $("legend").click(function (event) {
-        if (event.target.nodeName.toLowerCase() === "legend") {
-            var state = $(this).find("input").prop("checked");
-
-            $(this).find("input").prop("checked", !state).change();
-        }
-    });
-
     $("#main-settings").fadeIn("fast");
 });
 
