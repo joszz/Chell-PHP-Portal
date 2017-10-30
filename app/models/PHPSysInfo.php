@@ -41,10 +41,6 @@ class PHPSysInfo extends Model
     }
 
     /**
-
-     */
-
-    /**
      * Loops through all mounts in $data and adds Bootstrap classes to the objects based on used percentage.
      *
      * @param object $data       The PHPSysInfo retrieved data, as JSON object. Passed by reference to adjust the data for display.

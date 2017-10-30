@@ -5,6 +5,7 @@ namespace Chell\Forms;
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 
@@ -23,24 +24,34 @@ class SettingsDeviceForm extends Form
         $name = new Text('name');
         $name->setLabel('Name')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+            ->setAttributes(array('class' => 'form-control'))
             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+            ->setAttributes(array('class' => 'form-control'))
             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
+            ->setAttributes(array('class' => 'form-control'));
 
         $webtemp = new Text('webtemp');
         $webtemp->setLabel('Webtemp path')
                 ->setFilters(array('striptags', 'string'))
-                ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
+                ->setAttributes(array('class' => 'form-control'));
+
+        $shutdownUser = new Text('shutdown_user');
+        $shutdownUser->setLabel('Shutdown user')
+                ->setFilters(array('striptags', 'string'))
+                ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-user'));
+
+        $shutdownPassword = new Password('shutdown_password');
+        $shutdownPassword->setLabel('Shutdown password')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password'));
 
         $shutdownMethod = new Select(
             'shutdown_method',
@@ -64,6 +75,8 @@ class SettingsDeviceForm extends Form
         $this->add($ip);
         $this->add($mac);
         $this->add($webtemp);
+        $this->add($shutdownUser);
+        $this->add($shutdownPassword);
         $this->add($shutdownMethod);
         $this->add($showDasboard);
     }

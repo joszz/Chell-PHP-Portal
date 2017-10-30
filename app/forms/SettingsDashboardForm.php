@@ -93,7 +93,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $phpSysInfoPassword = new Password('phpsysinfo-password');
         $phpSysInfoPassword->setLabel('PHPSysInfo password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password'))
             ->setDefault($this->_config->phpsysinfo->password);
 
         $this->add($phpSysInfoURL);
@@ -132,7 +132,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $transmissionPassword = new Password('transmission-password');
         $transmissionPassword->setLabel('Password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
             ->setDefault($this->_config->transmission->password);
 
         $transmissionInterval = new Numeric('transmission-update-interval');
@@ -180,7 +180,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $subsonicPassword = new Password('subsonic-password');
         $subsonicPassword->setLabel('Password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'))
             ->setDefault($this->_config->subsonic->password);
 
         $this->add($subsonicEnabled);
@@ -220,7 +220,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $kodiPassword = new Password('kodi-password');
         $kodiPassword->setLabel('Password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
             ->setDefault($this->_config->kodi->password);
 
         $rotateMoviesInterval = new Numeric('rotate-movies-interval');
@@ -358,7 +358,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $hyperVAdminPassword = new Password('hypervadmin-password');
         $hyperVAdminPassword->setLabel('Password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
             ->setDefault($this->_config->hypervadmin->password);
 
         $deviceOptions[0] = 'Please select';
