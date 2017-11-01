@@ -1,8 +1,22 @@
+
 <div class="panel panel-success">
     <div class="panel-heading">
-        <h4 class="pull-left"><?php echo $trans->helpTitles->_($which) ?></h4>
+        <h4 class="pull-left">
+            <?php echo $trans->helpTitles->_($which) ?>
+        </h4>
     </div>
     <div class="panel-body">
         <?php echo $trans->helpContent->_($which) ?>
+
+        <?php if($which == 'cryptkey') : ?>
+        <div class="col-xs-12 no-gutter">
+            <div class="input-group">
+                <input type="text" class="form-control" value="<?php echo bin2hex(random_bytes(32)) ?>" />
+                <a class="input-group-addon btn btn-default" href="#" onclick="location.reload()">
+                    <i class="fa fa-key"></i>
+                </a>
+            </div>
+        </div>
+        <?php endif ?>
     </div>
 </div>
