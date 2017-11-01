@@ -47,7 +47,7 @@ class HyperVAdmin extends Model
     }
 
     /**
-     * Gets a string representing the state given an int.
+     * Gets a string representing the VM state given an int.
      *
      * @param number $state     The VM state represented as a number.
      * @return string           The VM state represented as a string.
@@ -57,6 +57,12 @@ class HyperVAdmin extends Model
         return $state == self::vmStateEnabed ? 'enabled' : 'disabled';
     }
 
+    /**
+     * Gets a string representing the site state given an int.
+     *
+     * @param number $state     The site state represented as a number.
+     * @return string           The site state represented as a string.
+     */
     public function getSiteState($state)
     {
         return $state == self::siteStateEnabed ? 'enabled' : 'disabled';

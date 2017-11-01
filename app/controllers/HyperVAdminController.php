@@ -28,7 +28,7 @@ class HyperVAdminController extends BaseController
 	 *
 	 * @param string $vm        The name of the VM to set state for.
 	 * @param number $state     The state to set the VM to.
-	 * @return mixed            Redirect back to vmsAction().
+	 * @return mixed            Redirect back to indexAction().
 	 */
 	public function vmToggleStateAction($vm, $state)
 	{
@@ -37,6 +37,13 @@ class HyperVAdminController extends BaseController
 		return (new Response())->redirect('hyper_v_admin/');
 	}
 
+    /**
+     * Sets the state of an IIS site to on/off.
+     *
+     * @param string $site      The name of the site to set state for.
+     * @param number $state     The state to set the site to.
+     * @return mixed            Redirect back to indexAction().
+     */
     public function siteToggleStateAction($site, $state)
 	{
 		HyperVAdmin::toggleSiteState($site, $state, $this->config);
