@@ -38,7 +38,7 @@ class ErrorController
         $this->setLogFile();
 
         $this->css[] = $this->config->application->baseUri . 'css/prism.css';
-        $this->js[] = $this->config->application->baseUri . 'js/prism.js';
+        $this->js[] = $this->config->application->baseUri . 'js/vendor/prism.js';
 
         $this->content = $this->exception();
         $exceptionContent = $this->layout();

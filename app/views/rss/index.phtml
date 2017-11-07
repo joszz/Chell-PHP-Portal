@@ -12,6 +12,9 @@
         <item>
  <title>Uptime:
 <?php echo (gmdate('d', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) - 1) . 'd ' . gmdate('H:i:s', $phpsysinfoData->Vitals->{'@attributes'}->Uptime) ?>
+
+Refreshed on:
+<?php echo date('d-m-Y H:i') ?>
 </title>
             <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
             <category>Stats</category>

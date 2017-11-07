@@ -49,12 +49,12 @@ class FrontController
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/phpsysinfo.js');
 
-    private $css = array('font-awesome/font-awesome.css',
-                         'jquery.fancybox.css',
-                         'waves.css',
-                         'bootstrap-select.css',
-                         'bootstrap-toggle.css',
-                         'jquery.bootstrap-touchspin.css',
+    private $css = array('vendor/font-awesome/font-awesome.css',
+                         'vendor/jquery.fancybox.css',
+                         'vendor/waves.css',
+                         'vendor/bootstrap-select.css',
+                         'vendor/bootstrap-toggle.css',
+                         'vendor/jquery.bootstrap-touchspin.css',
                          'default.css');
 
     /**
