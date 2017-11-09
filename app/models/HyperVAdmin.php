@@ -78,7 +78,7 @@ class HyperVAdmin extends Model
      */
     public static function toggleVMState($vmName, $state, $config)
     {
-        $curl = self::getCurl('VMs/ToggleState?vmName=' . $vmName . '&state=' . $state, $config);
+        $curl = self::getCurl('VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state, $config);
 		$content = json_decode(curl_exec($curl));
         curl_close($curl);
 
