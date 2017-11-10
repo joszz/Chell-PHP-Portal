@@ -23,8 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($logs AS $log) :
-                          if($log == '.' || $log == '..') continue; ?>
+                <?php foreach($logs AS $log => $time) : ?>
                 <tr>
                     <td class="visible-xs">
                         <div class="btn-group">
@@ -36,7 +35,7 @@
                         <?php echo $log ?>
                     </td>
                     <td>
-                        <?php echo date('d-m-Y H:i:s', filemtime(APP_PATH . 'app/logs/' . $log)) ?>
+                        <?php echo $time ?>
                     </td>
                     <td>
                         <?php echo number_format(filesize($filePath = APP_PATH . 'app/logs/' . $log) / 1024, 2) ?> KB

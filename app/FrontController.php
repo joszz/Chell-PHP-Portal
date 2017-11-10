@@ -111,7 +111,6 @@ class FrontController
     /**
      * function defined for PHP's set_exception_handler.
      *
-     * @todo finish this
      * @param Throwable $exception  The exception being thrown.
      */
     public function exceptionHandler(\Throwable $exception)

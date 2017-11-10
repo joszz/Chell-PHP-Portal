@@ -38,7 +38,7 @@ class SettingsController extends BaseController
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
-        $this->view->logs = scandir(APP_PATH . 'app/logs/', SCANDIR_SORT_DESCENDING);
+        $this->view->logs = $this->getLogsOrderedByFilemtime();
     }
 
     /**
@@ -284,10 +284,36 @@ class SettingsController extends BaseController
         die('Log file not found!');
     }
 
+    /**
+     * Shows help content for an input in settings.
+     * 
+     * @param string $which     The input name to show the help for.
+     */
     public function helpAction($which)
     {
         $this->view->setMainView('layouts/empty');
         $this->view->which = $which;
-        $this->view->title = 'test';
+    }
+
+    /**
+     * Retrieves all log files from the logs directory and sorting them by filemtime descending.
+     * 
+     * @return array    The array of logfiles as key and formated datetime as value.
+     */
+    private function getLogsOrderedByFilemtime()
+    {
+        $logs = scandir(APP_PATH . 'app/logs/');
+        $logsOrdered = array();
+
+        foreach ($logs as $log) {
+            if($log == '.' || $log == '..') {
+                continue;
+            }
+
+            $logsOrdered[$log] = date('d-m-Y H:i:s', filemtime(APP_PATH . 'app/logs/' . $log));
+        }
+
+        asort($logsOrdered);
+        return array_reverse($logsOrdered);
     }
 }
