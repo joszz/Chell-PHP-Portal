@@ -87,7 +87,7 @@ class HyperVAdmin extends Model
 
     public static function toggleSiteState($siteName, $state, $config)
     {
-        $url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . $siteName;
+        $url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
         $curl = self::getCurl($url, $config);
 		$content = json_decode(curl_exec($curl));
         curl_close($curl);
