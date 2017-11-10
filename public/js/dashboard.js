@@ -41,9 +41,6 @@ function initializePlugins() {
     if (typeof $.fn.couchpotato !== "undefined") {
         $(".couchpotato").couchpotato();
     }
-    if (typeof $.fn.hypervadmin !== "undefined") {
-        $(".hypervadmin").hypervadmin();
-    }
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

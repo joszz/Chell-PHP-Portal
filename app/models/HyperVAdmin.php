@@ -22,11 +22,15 @@ class HyperVAdmin extends Model
      * @param object $config    The configuration file to use.
      * @return array            List of VMs as anonymous objects.
      */
-    public static function getVMs($config)
+    public static function getVMs($config, $jsonDecode = true)
     {
         $curl = self::getCurl('VMs/GetVMs', $config);
-		$content = json_decode(curl_exec($curl));
+		$content = curl_exec($curl);
         curl_close($curl);
+
+        if ($jsonDecode) {
+            $content = json_decode($content);
+        }
 
 		return $content;
     }
@@ -37,11 +41,15 @@ class HyperVAdmin extends Model
      * @param object $config    The configuration file to use.
      * @return object           List of sites as anonymous objects.
      */
-    public static function getSites($config)
+    public static function getSites($config, $jsonDecode = true)
     {
         $curl = self::getCurl('Sites/GetSites', $config);
-		$content = json_decode(curl_exec($curl));
+		$content = curl_exec($curl);
         curl_close($curl);
+
+        if ($jsonDecode) {
+            $content = json_decode($content);
+        }
 
 		return $content;
     }
@@ -85,6 +93,14 @@ class HyperVAdmin extends Model
         return $content;
     }
 
+    /**
+     * For the given site with the name of $siteName, set the state to $state.
+     *
+     * @param string $siteName  The name of the site to set the state for.
+     * @param number $state     The state to set the VM to.
+     * @param object $config    The configuration file to use.
+     * @return object           The response returned as an anonymous object.
+     */
     public static function toggleSiteState($siteName, $state, $config)
     {
         $url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
@@ -105,6 +121,7 @@ class HyperVAdmin extends Model
     private static function getCurl($url, $config)
     {
         $curl = curl_init($config->hypervadmin->URL . $url);
+
 		curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CONNECTTIMEOUT => 10,

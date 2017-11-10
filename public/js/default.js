@@ -68,7 +68,6 @@ function initializeGlobalPlugins() {
 * Initialized all globally used eventhandlers.
 * 
 * @method initializeGlobalEventHandlers
-* @todo: refactor magic numbers naar key
 */
 function initializeGlobalEventHandlers() {
     $(".navbar-toggle").click(function (event) {
@@ -152,10 +151,17 @@ function openConfirmDialog(title, data, buttonClick) {
 
     $.fancybox.open({
         src: "#confirm-dialog",
-        opts: { closeBtn: false, closeClickOutside: false }
+        modal: true
     });
 }
 
+/**
+ * Zeropads a string to match a string length of the given max.
+ * 
+ * @method zeropad
+ * @param {String} str          The string to zeropad.
+ * @param {max} max             The max length of the string.
+ */
 function zeropad(str, max) {
     str = str.toString();
     return str.length < max ? zeropad("0" + str, max) : str;

@@ -50,4 +50,20 @@ class HyperVAdminController extends BaseController
 
 		return (new Response())->redirect('hyper_v_admin/');
 	}
+
+    /**
+     * Used by AJAX functions to retrieve data about the VMs in a JSON string.
+     */
+    public function getVMsAction()
+    {
+        die(HyperVAdmin::getVMs($this->config, false));
+    }
+
+    /**
+     * Used by AJAX functions to retrieve data about the sites in a JSON string.
+     */
+    public function getSitesAction()
+    {
+        die(HyperVAdmin::getSites($this->config, false));
+    }
 }

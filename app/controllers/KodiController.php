@@ -111,10 +111,11 @@ class KodiController extends BaseController
             $filename = getcwd() . '/img/cache/' . basename($url);
 
             if(!file_exists($filename)) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                $ch = curl_init($url);
+                curl_setopt_array($ch, array(
+                    CURLOPT_RETURNTRANSFER, true,
+                    CURLOPT_FOLLOWLOCATION, true
+                ));
                 $output = curl_exec($ch);
                 curl_close($ch);
 
