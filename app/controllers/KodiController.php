@@ -109,16 +109,16 @@ class KodiController extends BaseController
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
-
             if(!file_exists($filename)) {
                 $ch = curl_init($url);
                 curl_setopt_array($ch, array(
-                    CURLOPT_RETURNTRANSFER, true,
-                    CURLOPT_FOLLOWLOCATION, true
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_MAXREDIRS => 5
                 ));
                 $output = curl_exec($ch);
                 curl_close($ch);
-
+                
                 file_put_contents($filename, $output);
             }
 
@@ -142,8 +142,8 @@ class KodiController extends BaseController
 
             session_cache_limiter('none');
             header('Cache-control: max-age='.(60 * 60 * 24 * 365));
-            header('Expires: '.gmdate(DATE_RFC1123,time()+ 60 * 60 * 24 * 365));
-            header('Last-Modified: '.gmdate(DATE_RFC1123,filemtime($filename)));
+            header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
+            header('Last-Modified: '.gmdate(DATE_RFC1123, filemtime($filename)));
             header('Content-type: ' . $ntct[exif_imagetype($filename)]);
             header("Pragma: cache");
 
