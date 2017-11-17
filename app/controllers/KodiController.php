@@ -109,6 +109,7 @@ class KodiController extends BaseController
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
+
             if(!file_exists($filename)) {
                 $ch = curl_init($url);
                 curl_setopt_array($ch, array(
@@ -116,9 +117,14 @@ class KodiController extends BaseController
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_MAXREDIRS => 5
                 ));
-                $output = curl_exec($ch);
+
+                if(($output = curl_exec($ch)) === false || empty($output)) {
+                    $this->getImageAction($which, $type, $id, $maxWidth);
+                    curl_close($ch);
+                    return;
+                }
+
                 curl_close($ch);
-                
                 file_put_contents($filename, $output);
             }
 
