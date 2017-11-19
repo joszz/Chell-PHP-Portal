@@ -25,6 +25,7 @@ body#bootstrap {
 
 body#iframe {
     min-height: 0;
+    overflow: hidden;
 }
 
 body#iframe .panel {

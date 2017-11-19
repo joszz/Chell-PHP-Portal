@@ -53,7 +53,6 @@
                         $.fancybox.close();
 
                         if ($(this).attr('id') === 'confirm-yes') {
-                            settings.block.isLoading();
                             functions.toggleState(url, name, whichTab);
                         }
                     });
@@ -83,12 +82,14 @@
              * @param {String} whichTab     From which tab the item comes from (either "sites" or "vms").
              */
             toggleState: function (url, name, whichTab) {
+                settings.block.isLoading();
+
                 $.ajax({
                     url: url,
                     success: function () {
-                        showAlert("success", "State toggled for " + (whichTab == "vm" ? "VM" : "site") + ": " + name);
+                        showAlert("success", "State toggled for " + (whichTab === "vm" ? "VM" : "site") + ": " + name);
 
-                        if (whichTab == "vm"){
+                        if (whichTab === "vm"){
                             functions.refreshVMs(false);
                         }
                         else {
@@ -105,7 +106,7 @@
              * @param {Boolean} showIsLoading   Whether to show the isLoading overlay, defaults to false.
              */
             refreshVMs: function (showIsLoading) {
-                showIsLoading = typeof showIsLoading == "undefined" ? false : showIsLoading;
+                showIsLoading = typeof showIsLoading === "undefined" ? false : showIsLoading;
 
                 if (showIsLoading) {
                     settings.block.isLoading();
@@ -121,7 +122,7 @@
 
                     $.each(data, function (index, item) {
                         var clone = settings.block.find("#vms tr.hidden").clone();
-                        var stateToggle = item.State == settings.vm.stateEnabed ? settings.vm.stateDisabed : settings.vm.stateEnabed;
+                        var stateToggle = item.State === settings.vm.stateEnabed ? settings.vm.stateDisabed : settings.vm.stateEnabed;
 
                         clone.find(".name").html(item.Name);
                         clone.find(".load .percent").html(item.CPULoad + "%");
@@ -130,7 +131,7 @@
                         clone.find(".ram").html(item.MemoryTotal + " " + item.MemoryAllocationUnits);
                         clone.find(".mac").html(item.MAC);
                         clone.find(".ontime").html(item.GetOnTimeFormatted);
-                        clone.find(".actions a").attr("href", settings.vm.toggleStateBaseURL + item.Name + "/" + stateToggle).addClass("btn-" + (item.State == settings.vm.stateEnabed ? "success" : "danger"));
+                        clone.find(".actions a").attr("href", settings.vm.toggleStateBaseURL + item.Name + "/" + stateToggle).addClass("btn-" + (item.State === settings.vm.stateEnabed ? "success" : "danger"));
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
@@ -146,7 +147,7 @@
              * @param {Boolean} showIsLoading   Whether to show the isLoading overlay, defaults to false.
              */
             refreshSites: function (showIsLoading) {
-                showIsLoading = typeof showIsLoading == "undefined" ? false : showIsLoading;
+                showIsLoading = typeof showIsLoading === "undefined" ? false : showIsLoading;
 
                 if (showIsLoading) {
                     settings.block.isLoading();
@@ -162,10 +163,10 @@
 
                     $.each(data, function (index, item) {
                         var clone = settings.block.find("#sites tr.hidden").clone();
-                        var stateToggle = item.State == settings.sites.stateEnabed ? settings.sites.stateDisabed : settings.sites.stateEnabed;
+                        var stateToggle = item.State === settings.sites.stateEnabed ? settings.sites.stateDisabed : settings.sites.stateEnabed;
 
                         clone.find(".name").html(item.Name);
-                        clone.find(".actions a").attr("href", settings.sites.toggleStateBaseURL + item.Name + "/" + stateToggle).addClass("btn-" + (item.State == settings.sites.stateEnabed ? "success" : "danger"));
+                        clone.find(".actions a").attr("href", settings.sites.toggleStateBaseURL + item.Name + "/" + stateToggle).addClass("btn-" + (item.State === settings.sites.stateEnabed ? "success" : "danger"));
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
