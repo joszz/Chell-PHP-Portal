@@ -28,6 +28,10 @@ body#iframe {
     overflow: hidden;
 }
 
+body#iframe.overflow {
+    overflow-y: auto;
+}
+
 body#iframe .panel {
     margin-bottom: 0;
 }

@@ -74,7 +74,7 @@ class DevicesController extends BaseController
     public function webtempAction()
     {
         $this->view->setMainView('layouts/empty');
-
+        $this->view->overflow = true;
         $this->view->device = Devices::findFirst(array(
             'conditions' => 'id = ?1',
             'order'      => 'name',

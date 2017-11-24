@@ -10,7 +10,7 @@
     <?php $this->partial('favicons') ?>
 </head>
 
-<body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?>>
+<body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?> <?php echo isset($overflow) ? ' class="overflow"' : null ?>>
     <div class="container-fluid no-gutter container-relative">
         <?php echo $this->getContent() ?>
     </div>
