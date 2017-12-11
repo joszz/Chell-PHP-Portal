@@ -36,7 +36,7 @@
             * @method checkstates
             */
             initialize: function () {
-                settings.block.on("click", ".fa-refresh", function () {
+                settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
                         self.checkstates(self);
@@ -94,11 +94,11 @@
                     $(this).addClass("disabled");
 
                     icon.removeClass("fa-power-off");
-                    icon.addClass("fa-refresh fa-spin");
+                    icon.addClass("fa-sync fa-spin");
 
                     (function (device, dependentMenuItems, icon, ip) {
                         $.getJSON("devices/state/" + ip + "&" + d.getTime(), "", function (data) {
-                            icon.removeClass("fa-refresh fa-spin");
+                            icon.removeClass("fa-sync fa-spin");
                             icon.addClass("fa-power-off");
 
                             device.removeClass("disabled");

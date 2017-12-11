@@ -37,7 +37,7 @@
                 * @method initialize
                 */
                 initialize: function () {
-                    settings.block.find(".fa-refresh").off().on("click", function () {
+                    settings.block.find(".fa-sync").off().on("click", function () {
                         if (settings.block.hasClass("processes")) {
                             functions.psstatus();
                         }
@@ -236,7 +236,7 @@
                 psstatus: function () {
                     $(".processes").isLoading();
 
-                    settings.block.find(".fa-refresh").off().on("click", functions.psstatus);
+                    settings.block.find(".fa-sync").off().on("click", functions.psstatus);
 
                     var d = new Date();
 

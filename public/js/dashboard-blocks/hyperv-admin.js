@@ -60,7 +60,7 @@
                     return false;
                 });
 
-                settings.block.find(".fa-refresh").click(function () {
+                settings.block.find(".fa-sync").click(function () {
                     switch ($(this).closest("a").attr("href")) {
                         case "#vms":
                             functions.refreshVMs(true);

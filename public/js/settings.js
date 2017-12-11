@@ -24,7 +24,7 @@ $(function () {
         location.hash = $(this).attr("href");
     });
 
-    $(".fa-remove").click(function () {
+    $(".fa-trash-alt").click(function () {
         openConfirmDialog("Delete this item?", [{ url: $(this).attr("href") }], function () {
             if ($(this).attr("id") === "confirm-yes") {
                 window.location.href = $(this).closest("div").data("url");

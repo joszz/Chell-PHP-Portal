@@ -63,7 +63,7 @@
                     functions.getTorrents(false);
                 }, settings.updateInterval);
 
-                settings.block.find(".fa-refresh").off().on("click", function () {
+                settings.block.find(".fa-sync").off().on("click", function () {
                     functions.getTorrents(false);
 
                     $(this).blur();
@@ -113,7 +113,7 @@
                                 self.startStopTorrents($(this).closest('li').data('id'), self);
                             });
 
-                            torrent.find('.torrentactions .fa-remove').off().on('click', function () {
+                            torrent.find('.torrentactions .fa-trash-alt').off().on('click', function () {
                                 openConfirmDialog('Delete torrent?', [], function () {
                                     $.fancybox.close();
 

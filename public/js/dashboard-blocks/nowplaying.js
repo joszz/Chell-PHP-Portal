@@ -51,7 +51,7 @@
             * @method initialize
             */
             initialize: function () {
-                settings.block.find(".fa-refresh").click(function () {
+                settings.block.find(".fa-sync").click(function () {
                     functions.nowPlaying();
                 });
 

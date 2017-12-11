@@ -36,7 +36,7 @@
             * @method initialize
             */
             initialize: function () {
-                settings.block.find(".fa-refresh").on("click", function () {
+                settings.block.find(".fa-sync").on("click", function () {
                     functions.refresh();
                 });
 
