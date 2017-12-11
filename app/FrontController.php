@@ -49,8 +49,8 @@ class FrontController
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/phpsysinfo.js');
 
-    private $css = array('vendor/fontawesome.css',
-                         'vendor/fa-solid.css',
+    private $css = array('vendor/fa-solid.css',
+                         'vendor/fontawesome.css',
                          'vendor/jquery.fancybox.css',
                          'vendor/waves.css',
                          'vendor/bootstrap-select.css',
@@ -265,8 +265,10 @@ class FrontController
         {
             if(!$this->config->application->debug)
             {
-                $this->cleanupCompressedFiles($finalFile, '/css/compressed//final_*.css');
-                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin())->addFilter(new LicenseStamper());
+                $this->cleanupCompressedFiles($finalFile, '/css/compressed/final_*.css');
+                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
+                //todo: stamps for all files, so will appear multiple times in minified output.
+                //->addFilter(new LicenseStamper());
             }
 
             foreach($this->css as $css)
