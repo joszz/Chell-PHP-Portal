@@ -24,7 +24,7 @@
                     <td class="visible-xs actions">
                         <div class="btn-group">
                             <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
-                                <i class="fa fa-power-off"></i>
+                                <span class="fa fa-power-off"></span>
                             </a>
                         </div>
                     </td>
@@ -32,8 +32,7 @@
                     <td class="load">
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:<?php echo $vm->CPULoad ?>%"></div>
-                            <div class="percent"><?php echo (empty($vm->CPULoad) ? '0' : $vm->CPULoad) ?>%
-                            </div>
+                            <div class="percent"><?php echo (empty($vm->CPULoad) ? '0' : $vm->CPULoad) ?>%</div>
                         </div>
                     </td>
                     <td class="text-center cores"><?php echo $vm->CoresAmount ?></td>
@@ -43,7 +42,7 @@
                     <td class="hidden-xs actions">
                         <div class="btn-group pull-right">
                             <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
-                                <i class="fa fa-power-off"></i>
+                                <span class="fa fa-power-off"></span>
                             </a>
                         </div>
                     </td>
@@ -53,7 +52,7 @@
                     <td class="visible-xs actions">
                         <div class="btn-group">
                             <a class="togglestate btn btn-default">
-                                <i class="fa fa-power-off"></i>
+                                <span class="fa fa-power-off"></span>
                             </a>
                         </div>
                     </td>
@@ -71,7 +70,7 @@
                     <td class="hidden-xs actions">
                         <div class="btn-group pull-right">
                             <a class="togglestate btn btn-default">
-                                <i class="fa fa-power-off"></i>
+                                <span class="fa fa-power-off"></span>
                             </a>
                         </div>
                     </td>
