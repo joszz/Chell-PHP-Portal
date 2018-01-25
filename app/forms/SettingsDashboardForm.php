@@ -44,6 +44,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->setSickrageFields();
         $this->setCouchpotatoFields();
         $this->setHyperVAdminFields();
+        $this->setMotionFields();
     }
 
     /**
@@ -376,6 +377,45 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->add($hyperVAdminDevice);
     }
 
+    private function setMotionFields()
+    {
+        $motionEnabled = new Check('motion-enabled');
+        $motionEnabled->setLabel('Enabled');
+        $motionEnabled->setAttributes(array(
+            'checked' => $this->_config->motion->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Motion'
+        ));
+
+        $motionURL = new Text('motion-url');
+        $motionURL->setLabel('URL')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->motion->URL);
+
+        $motionPicturePath = new Text('motion-picturepath');
+        $motionPicturePath->setLabel('Picture path')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->motion->picturePath);
+
+        $motionInterval = new Numeric('motion-update-interval');
+        $motionInterval->setLabel('Update interval')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+            ->setDefault($this->_config->motion->updateInterval)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+
+        $this->add($motionEnabled);
+        $this->add($motionURL);
+        $this->add($motionPicturePath);
+        $this->add($motionInterval);
+    }
+
     /**
      * Check if form is valid. If so set the values to the config array.
      *
@@ -431,6 +471,11 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->hypervadmin->username = $data['hypervadmin-username'];
             $this->_config->hypervadmin->password = $data['hypervadmin-password'];
             $this->_config->hypervadmin->device = $data['hypervadmin-device'];
+
+            $this->_config->motion->enabled = $data['motion-enabled'] == 'on' ? '1' : '0';
+            $this->_config->motion->URL = $data['motion-url'];
+            $this->_config->motion->picturePath = $data['motion-picturepath'];
+            $this->_config->motion->updateInterval = $data['motion-update-interval'];
         }
 
         return $valid;

@@ -33,7 +33,7 @@ div.login .toggle {
     float: right;
 }
 
-div.login label {
+div.login label:not(.toggle-on):not(.toggle-off) {
     margin-right: 15px;
     float: right;
 }

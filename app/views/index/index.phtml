@@ -29,6 +29,10 @@
 <?php $this->partial('index/partials/indexAction/couchpotato') ?>
 <?php endif ?>
 
+<?php if($this->config->motion->enabled) : ?>
+<?php $this->partial('index/partials/indexAction/motion') ?>
+<?php endif ?>
+
 <?php if($this->config->sickrage->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/sickrage') ?>
 <?php endif ?>

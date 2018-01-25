@@ -1,0 +1,16 @@
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="panel panel-success motion gallery" data-motion-interval="<?php echo $this->config->motion->updateInterval ?>">
+        <div class="panel-heading">
+            <div class="backdrop"></div>
+            <div class="btn-group pull-right">
+                <button class="btn btn-default fa fa-sync rounded-not-mobile"></button>
+                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse"></button>
+            </div>
+            <h4>Motion</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <a class="item" href="<?php echo $this->config->motion->URL ?>" target="_blank"
+                style="background-image: url('<?php echo $this->config->application->baseUri ?>motion/?t=<?php echo time() ?>')"></a>
+        </div>
+    </div>
+</div>

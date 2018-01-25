@@ -128,9 +128,11 @@ class FrontController
         if($this->config->transmission->enabled) {
             $this->js[] = 'dashboard-blocks/transmission.js';
         }
+
         if($this->config->sickrage->enabled) {
             $this->js[] = 'dashboard-blocks/sickrage.js';
         }
+
         if($this->config->couchpotato->enabled) {
             $this->js[] = 'dashboard-blocks/couchpotato.js';
         }
@@ -145,6 +147,10 @@ class FrontController
 
         if($this->config->hypervadmin->enabled){
             $this->js[] = 'dashboard-blocks/hyperv-admin.js';
+        }
+
+        if($this->config->motion->enabled){
+            $this->js[] = 'dashboard-blocks/motion.js';
         }
     }
 
