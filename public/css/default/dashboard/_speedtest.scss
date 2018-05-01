@@ -1,0 +1,56 @@
+﻿.speedtest .panel-body {
+    text-align: center;
+}
+
+.speedtest .testArea {
+    width: 50%;
+    height: 131px;
+    position: relative;
+    box-sizing: border-box;
+    float: left;
+}
+
+.speedtest .testName {
+    width: 100%;
+    font-size: 1.4em;
+    z-index: 9;
+}
+
+.speedtest .meterText {
+    position: absolute;
+    top: calc(50% - 0.5em);
+    width: 100%;
+    font-size: 2em;
+    line-height: 1.4em;
+    margin-bottom: -1.4em;
+    z-index: 9;
+}
+
+.speedtest .meterText:empty:before {
+    content: "0.00";
+}
+
+.speedtest .unit {
+    position: absolute;
+    bottom: 1.5em;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+.speedtest .testArea canvas {
+    width: 100%;
+    height: calc(100% - 2em);
+    z-index: 1;
+    margin-top: -1em;
+}
+
+.speedtest .testGroup {
+    display: inline-block;
+    width: 100%;
+}
+
+.speedtest #ipArea {
+    min-height: 38px;
+    margin-top: -1.4em;
+}

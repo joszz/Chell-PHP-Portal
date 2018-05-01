@@ -33,6 +33,10 @@
 <?php $this->partial('index/partials/indexAction/motion') ?>
 <?php endif ?>
 
+<?php if($this->config->speedtest->enabled) : ?>
+<?php $this->partial('index/partials/indexAction/speedtest') ?>
+<?php endif ?>
+
 <?php if($this->config->sickrage->enabled) : ?>
 <?php $this->partial('index/partials/indexAction/sickrage') ?>
 <?php endif ?>

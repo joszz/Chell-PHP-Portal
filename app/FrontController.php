@@ -152,6 +152,10 @@ class FrontController
         if($this->config->motion->enabled){
             $this->js[] = 'dashboard-blocks/motion.js';
         }
+
+        if($this->config->speedtest->enabled){
+            $this->js[] = 'dashboard-blocks/speedtest.js';
+        }
     }
 
     /**

@@ -44,6 +44,9 @@ function initializePlugins() {
     if (typeof $.fn.motion !== "undefined") {
         $(".motion").motion();
     }
+    if (typeof $.fn.speedtest !== "undefined") {
+        $(".speedtest").speedtest();
+    }
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

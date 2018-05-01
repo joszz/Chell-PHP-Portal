@@ -3,16 +3,5 @@
     "outputFile": "public/css/default.css",
     "inputFile": "public/css/default.scss",
     "options": { "sourceMap": true }
-  },
-
-  {
-    "outputFile": "public/css/vendor/fontawesome.css",
-    "inputFile": "public/css/vendor/fontawesome.scss",
-    "options": { "sourceMap": true }
-  },
-  {
-    "outputFile": "public/css/vendor/fa-solid.css",
-    "inputFile": "public/css/vendor/fa-solid.scss",
-    "options": { "sourceMap": true }
   }
 ]
