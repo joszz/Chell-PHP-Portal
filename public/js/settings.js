@@ -43,7 +43,7 @@ $(function () {
         buttonup_class: "btn btn-default",
     });
 
-    $("input[type='checkbox']").each(function () {
+    $("legend input[type='checkbox']").each(function () {
         toggleFieldsInFieldSet($(this));
 
         $(this).change(function () {

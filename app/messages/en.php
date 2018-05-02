@@ -45,7 +45,14 @@ $help = [
     'hypervadmin-url'               => 'The URL where HyperVAdmin can be found.',
     'hypervadmin-username'          => 'The basicauth username to access HyperVAdmin.',
     'hypervadmin-password'          => 'The basicauth password to access HyperVAdmin.',
-    'hypervadmin-host'              => 'Which device (configured in Chell) is the HyperVAdmin host. This will be used to determine where to place the button in the devices widget.'
+    'hypervadmin-host'              => 'Which device (configured in Chell) is the HyperVAdmin host. This will be used to determine where to place the button in the devices widget.',
+
+    'speedtest-enabled'             => 'Enables the <a href="" target="_blank">Speedtest</a> plugin.',
+    'speedtest-test-order'          => 'The order in which Speedtest performs it\'s tests.<br /><br /><ul><li>D=Download</li><li>U=Upload</li><li>P=Ping+Jitter</li><li>I=IP</li><li>_=1 second delay</li>',
+    'speedtest-time-ul'             => 'The time Speedtest will spent on testing the upload speed.',
+    'speedtest-time-dl'             => 'The time Speedtest will spent on testing the download speed.',
+    'speedtest-get-ispip'           => 'Whether the Speedtest plugin should show the IP of the client\'s ISP.',
+    'speedtest-isp-info-distance'   => 'Which units Speedtest uses to show the distance to the ISP.'
 ];
 
 $helpTitles = [
@@ -92,5 +99,11 @@ $helpTitles = [
     'hypervadmin-url'               => 'HyperVAdmin URL',
     'hypervadmin-username'          => 'HyperVAdmin username',
     'hypervadmin-password'          => 'HyperVAdmin password',
-    'hypervadmin-host'              => 'HyperVAdmin host'
+    'hypervadmin-host'              => 'HyperVAdmin host',
+    'speedtest-enabled'             => 'Speedtest',
+    'speedtest-test-order'          => 'Speedtest test order',
+    'speedtest-time-ul'             => 'Speedtest upload time',
+    'speedtest-time-dl'             => 'Speedtest download time',
+    'speedtest-get-ip'              => 'Speedtest show ISP IP',
+    'speedtest-isp-info-distance'   => 'Speedtest distance units'
 ];

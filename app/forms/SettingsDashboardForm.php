@@ -45,6 +45,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->setCouchpotatoFields();
         $this->setHyperVAdminFields();
         $this->setMotionFields();
+        $this->setSpeedtestFields();
     }
 
     /**
@@ -416,6 +417,65 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->add($motionInterval);
     }
 
+    private function setSpeedtestFields()
+    {
+        $speedtestEnabled = new Check('speedtest-enabled');
+        $speedtestEnabled->setLabel('Enabled');
+        $speedtestEnabled->setAttributes(array(
+            'checked' => $this->_config->speedtest->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Speedtest'
+        ));
+
+        $speedtestTestOrder = new Text('speedtest-test-order');
+        $speedtestTestOrder->setLabel('Test order')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->speedtest->test_order);
+
+
+        $speedtestUpTime = new Numeric('speedtest-time-ul');
+        $speedtestUpTime->setLabel('Upload time')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->speedtest->time_dl)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $speedtestDownloadTime = new Numeric('speedtest-time-dl');
+        $speedtestDownloadTime->setLabel('Download time')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->speedtest->time_dl)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $speedtestGetIP = new Check('speedtest-get-ispip');
+        $speedtestGetIP->setLabel('Get ISP IP');
+        $speedtestGetIP->setAttributes(array(
+            'checked' => $this->_config->speedtest->getIp_ispInfo == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => true
+        ));
+
+        $speedtestISPInfo = new Select('speedtest-isp-info-distance', array('km' => 'Kilometers', 'mi' => 'Miles'));
+        $speedtestISPInfo->setLabel('Distance units')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->speedtest->getIp_ispInfo_distance);
+
+        $this->add($speedtestEnabled);
+        $this->add($speedtestTestOrder);
+        $this->add($speedtestUpTime);
+        $this->add($speedtestDownloadTime);
+        $this->add($speedtestGetIP);
+        $this->add($speedtestISPInfo);
+    }
+
     /**
      * Check if form is valid. If so set the values to the config array.
      *
@@ -476,6 +536,13 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->motion->URL = $data['motion-url'];
             $this->_config->motion->picturePath = $data['motion-picturepath'];
             $this->_config->motion->updateInterval = $data['motion-update-interval'];
+
+            $this->_config->speedtest->enabled = $data['speedtest-enabled'] == 'on' ? '1' : '0';
+            $this->_config->speedtest->test_order = $data['speedtest-test-order'];
+            $this->_config->speedtest->time_ul = $data['speedtest-time-ul'];
+            $this->_config->speedtest->time_dl = $data['speedtest-time-dl'];
+            $this->_config->speedtest->getIp_ispInfo = $data['speedtest-get-ispip'];
+            $this->_config->speedtest->getIp_ispInfo_distance = $data['speedtest-isp-info-distance'];
         }
 
         return $valid;

@@ -17,6 +17,11 @@
         */
         var settings = $.extend({
             block: this,
+            testOrder: this.data("speedtest-testorder"),
+            uploadTime: this.data("speedtest-uploadtime"),
+            downloadTime: this.data("speedtest-downloadtime"),
+            getISPIP: this.data("speedtest-getispip"),
+            distanceUnit: this.data("speedtest-distance"),
         }, options);
 
 
@@ -90,7 +95,6 @@
                 }
             },
 
-            //SPEEDTEST AND UI CODE
             startStop: function () {
                 if (w != null) {
                     //speedtest is running, abort
@@ -102,14 +106,18 @@
                 else {
                     //test is not running, begin
                     w = new Worker('/portal/js/vendor/speedtest/speedtest_worker.min.js');
-                    w.postMessage('start ' + JSON.stringify({
-                        url_dl: "../../../speedtest/garbage",
-                        url_ul: "../../../speedtest/empty",
-                        url_ping: "../../../speedtest/empty",
-                        url_getIp: "../../../speedtest/getIP",
-                        time_ul: 5,
-                        time_dl: 5
-                    })); //Add optional parameters as a JSON object to this command
+                    w.postMessage('start ' +
+                        //Add optional parameters as a JSON object to this command
+                        JSON.stringify({
+                            url_dl: "../../../speedtest/garbage",
+                            url_ul: "../../../speedtest/empty",
+                            url_ping: "../../../speedtest/empty",
+                            url_getIp: "../../../speedtest/getIP",
+                            time_ul: settings.uploadTime,
+                            time_dl: settings.downloadTime,
+                            getIp_ispInfo: settings.getISPIP,
+                            getIp_ispInfo_distance: settings.distanceUnit
+                    })); 
                     w.onmessage = function (e) {
                         data = e.data.split(';');
                         var status = Number(data[0]);
