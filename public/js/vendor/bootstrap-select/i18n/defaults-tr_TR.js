@@ -1,8 +1,8 @@
 /*!
- * Bootstrap-select v1.13.0-alpha (http://silviomoreto.github.io/bootstrap-select)
+ * Bootstrap-select v1.13.1 (https://developer.snapappointments.com/bootstrap-select)
  *
- * Copyright 2013-2017 bootstrap-select
- * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
+ * Copyright 2012-2018 SnapAppointments, LLC
+ * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
  */
 
 (function (root, factory) {
@@ -23,19 +23,19 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Odaberite stavku',
-    noneResultsText: 'Nema rezultata pretrage {0}',
+    noneSelectedText: 'Hiçbiri seçilmedi',
+    noneResultsText: 'Hiçbir sonuç bulunamadı {0}',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? "{0} stavka selektirana" : "{0} stavke selektirane";
+      return (numSelected == 1) ? "{0} öğe seçildi" : "{0} öğe seçildi";
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Limit je postignut ({n} stvar maximalno)' : 'Limit je postignut ({n} stavke maksimalno)',
-        (numGroup == 1) ? 'Grupni limit je postignut ({n} stvar maksimalno)' : 'Grupni limit je postignut ({n} stavke maksimalno)'
+        (numAll == 1) ? 'Limit aşıldı (maksimum {n} sayıda öğe )' : 'Limit aşıldı (maksimum {n} sayıda öğe)',
+        (numGroup == 1) ? 'Grup limiti aşıldı (maksimum {n} sayıda öğe)' : 'Grup limiti aşıldı (maksimum {n} sayıda öğe)'
       ];
     },
-    selectAllText: 'Selektiraj sve',
-    deselectAllText: 'Deselektiraj sve',
+    selectAllText: 'Tümünü Seç',
+    deselectAllText: 'Seçiniz',
     multipleSeparator: ', '
   };
 })(jQuery);

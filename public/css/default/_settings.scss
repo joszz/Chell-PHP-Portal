@@ -106,3 +106,7 @@ input[type=number]::-webkit-outer-spin-button {
 #main-settings .input-group .bootstrap-touchspin-up {
     border-radius: 0;
 }
+
+.input-group .bootstrap-select button{
+    border-radius: 4px 0 0 4px;
+}
