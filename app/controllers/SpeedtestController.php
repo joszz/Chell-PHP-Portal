@@ -11,17 +11,32 @@ use Chell\Models\Speedtest;
  */
 class SpeedtestController extends BaseController
 {
+    /**
+     * Called by the JavaScript to get the ISP IP and other info.
+     */
     public function getIPAction()
     {
         header('Content-Type: text/plain; charset=utf-8');
         die(Speedtest::getIP());
     }
 
+    /**
+     * Used for ping and upload tests.
+     */
     public function emptyAction()
     {
+        header( "HTTP/1.1 200 OK" );
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header("Connection: keep-alive");
+
         die();
     }
 
+    /**
+     * Used for download tests.
+     */
     public function garbageAction()
     {
         ini_set('zlib.output_compression', 'Off');
@@ -44,7 +59,7 @@ class SpeedtestController extends BaseController
         $chunks = !empty($_GET['ckSize']) ? intval($_GET['ckSize']) : 4;
         $chunks = $chunks > 100 ? 100 : $chunks;
 
-        for($i=0; $i < $chunks; $i++)
+        for($i = 0; $i < $chunks; $i++)
         {
             echo $data;
             flush();

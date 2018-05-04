@@ -14,6 +14,11 @@ class Speedtest extends Model
     private static $ip = '', $isp = '', $clientLocaction, $serverLocation, $distance;
     private static $ipInfoURL = 'https://ipinfo.io/';
 
+    /**
+     * Get's ISP IP and name
+     *
+     * @return string The ISP IP and name as a concatenated string.
+     */
     public static function getIP()
     {
         self::setIP();
@@ -43,6 +48,9 @@ class Speedtest extends Model
         return self::$ip;
     }
 
+    /**
+     * Set's the client's IP from the $_SERVER global into self::$ip.
+     */
     private static function setIP()
     {
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -65,6 +73,9 @@ class Speedtest extends Model
         self::$ip = preg_replace('/^::ffff:/', '', self::$ip);
     }
 
+    /**
+     * Uses CURL to call ipinfo.io and get ISP details.
+     */
     private static function setISPDetails()
     {
         $curl = curl_init(self::$ipInfoURL . self::$ip . '/json');
@@ -84,6 +95,14 @@ class Speedtest extends Model
         self::$serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;
     }
 
+    /**
+     * Retrieves the distance to the ISP.
+     *
+     * @param mixed $latitudeFrom       Client's latitude
+     * @param mixed $longitudeFrom      Client's longitude
+     * @param mixed $latitudeTo         ISP latitude
+     * @param mixed $longitudeTo        ISP longitude
+     */
     public static function 	distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
     {
 		$rad = M_PI / 180;
