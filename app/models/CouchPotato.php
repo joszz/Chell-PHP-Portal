@@ -25,7 +25,7 @@ class Couchpotato extends Model
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		if($content->success){
+		if($content && $content->success){
 			return $content->movies;
 		}
 

@@ -83,7 +83,7 @@ class PHPSysInfo extends Model
 
             foreach($data->MBInfo->Temperature->Item as $temp)
             {
-                if($temp->{'@attributes'}->Label == 'Core ' . $i)
+                if(strpos($temp->{'@attributes'}->Label, 'Core ' . $i) !== false)
                 {
                     $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $data->Options->{'@attributes'}->tempFormat;
                 }
