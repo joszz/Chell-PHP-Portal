@@ -1,47 +1,58 @@
+
 <div class="panel panel-success">
     <ul class="list-group panel-success">
-        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) : ?>
+        <?php if(isset($statsURLs['stats'])) : ?>
         <li class="list-group-item list-group-item-success">
             <h4>Current stats</h4>
         </li>
         <li class="list-group-item text-center">
-            <img src="<?php echo $device->webtemp ?>/stats.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats.png') ?>" />
+            <a href="<?php echo $statsURLs['stats'] ?>" target="_blank">
+                <img src="<?php echo $statsURLs['stats'] ?>" />
+            </a>
         </li>
         <?php endif ?>
 
-        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png')) : ?>
+        <?php if(isset($statsURLs['stats24'])) : ?>
         <li class="list-group-item list-group-item-success">
             <h4>Stats daily</h4>
         </li>
         <li class="list-group-item text-center">
-            <img src="<?php echo $device->webtemp ?>/stats24.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats24.png') ?>" />
+            <a href="<?php echo $statsURLs['stats24'] ?>" target="_blank">
+                <img src="<?php echo $statsURLs['stats24'] ?>" />
+            </a>
         </li>
         <?php endif ?>
 
-        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png')) : ?>
+        <?php if(isset($statsURLs['stats7'])) : ?>
         <li class="list-group-item list-group-item-success">
             <h4>Stats week</h4>
         </li>
         <li class="list-group-item text-center">
-            <img src="<?php echo $device->webtemp ?>/stats7.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats7.png') ?>" />
+            <a href="<?php echo $statsURLs['stats7'] ?>" target="_blank">
+                <img src="<?php echo $statsURLs['stats7'] ?>" />
+            </a>
         </li>
         <?php endif ?>
 
-        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png')) : ?>
+        <?php if(isset($statsURLs['stats31'])) : ?>
         <li class="list-group-item list-group-item-success">
             <h4>Stats month</h4>
         </li>
         <li class="list-group-item text-center">
-            <img src="<?php echo $device->webtemp ?>/stats31.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats31.png') ?>" />
+            <a href="<?php echo $statsURLs['stats31'] ?>" target="_blank">
+                <img src="<?php echo $statsURLs['stats31'] ?>" />
+            </a>
         </li>
         <?php endif ?>
 
-        <?php if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png')) : ?>
+        <?php if(isset($statsURLs['stats365'])) : ?>
         <li class="list-group-item list-group-item-success">
             <h4>Stats year</h4>
         </li>
         <li class="list-group-item text-center">
-            <img src="<?php echo $device->webtemp ?>/stats365.png?t=<?php echo filemtime($this->config->application->webDir . $device->webtemp . '/stats365.png') ?>" />
+            <a href="<?php echo $statsURLs['stats365'] ?>" target="_blank">
+                <img src="<?php echo $statsURLs['stats365'] ?>" />
+            </a>
         </li>
         <?php endif ?>
     </ul>
