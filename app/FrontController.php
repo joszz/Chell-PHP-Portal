@@ -49,7 +49,7 @@ class FrontController
                         'dashboard-blocks/devices.js',
                         'dashboard-blocks/phpsysinfo.js');
 
-    private $css = array('vendor/fa-solid.css',
+    private $css = array('vendor/solid.css',
                          'vendor/fontawesome.css',
                          'vendor/jquery.fancybox.css',
                          'vendor/waves.css',
