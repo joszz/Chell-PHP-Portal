@@ -36,12 +36,10 @@ class MotionController extends BaseController
                 $this->resizeImage($file, $resizedPath, 800, 377);
             }
 
-            session_cache_limiter('none');
-            header('Cache-control: max-age='.(60 * 60 * 24 * 365));
-            header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
-            header('Last-Modified: '.gmdate(DATE_RFC1123, $filemtime));
+            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+            header("Cache-Control: post-check=0, pre-check=0", false);
+            header("Pragma: no-cache");
             header('Content-type: ' . $ntct[exif_imagetype($file)]);
-            header("Pragma: cache");
 
             if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
                 header('HTTP/1.1 304 Not Modified');
