@@ -7,8 +7,12 @@
     <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>rss" />
 
     <?php echo $this->tag->getTitle(); ?>
-    <?php $this->assets->outputCss('header') ?>
 
+    <?php foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
+    <link rel="dns-prefetch" href="<?php echo $dnsRecord ?>" />
+    <?php endforeach ?>
+
+    <?php $this->assets->outputCss('header') ?>
     <?php $this->partial('favicons') ?>
 </head>
 
