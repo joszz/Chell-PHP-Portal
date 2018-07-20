@@ -141,6 +141,7 @@ class SessionController extends BaseController
     public function duoAction($user)
     {
         $this->view->containerFullHeight = true;
+        $this->view->dnsPrefetchRecords = array('https://' . $this->config->duo->apiHostname);
         $this->view->signRequest = Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
     }
 
