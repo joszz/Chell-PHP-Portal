@@ -14,7 +14,6 @@ class MotionController extends BaseController
     {
         $latest_file = Motion::getLatest($this->config);
         $file = key($latest_file);
-        $filemtime = current($latest_file);
         $ntct = Array('1' => 'image/gif',
                       '2' => 'image/jpeg',
                       '3' => 'image/png',
@@ -31,10 +30,7 @@ class MotionController extends BaseController
 
             $resizedPath .= basename($file);
 
-            if(!file_exists($resizedPath))
-            {
-                $this->resizeImage($file, $resizedPath, 800, 377);
-            }
+            $this->resizeImage($file, $resizedPath, 800, 377);
 
             header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
             header("Cache-Control: post-check=0, pre-check=0", false);
