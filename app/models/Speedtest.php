@@ -11,17 +11,28 @@ use Phalcon\Mvc\Model;
  */
 class Speedtest extends Model
 {
-    private static $ip = '', $isp = '', $clientLocaction, $serverLocation, $distance;
+    private static $ipAddress = '', $isp = '', $clientLocaction, $serverLocation, $distance;
     private static $ipInfoURL = 'https://ipinfo.io/';
+
+    public $ip;
+    public $ispinfo;
+    public $extra;
+    public $ua;
+    public $lang;
+    public $dl;
+    public $ul;
+    public $ping;
+    public $jitter;
+    public $log;
 
     /**
      * Get's ISP IP and name
      *
      * @return string The ISP IP and name as a concatenated string.
      */
-    public static function getIP()
+    public static function getIPAddress()
     {
-        self::setIP();
+        self::setIPAddress();
 
         if(isset($_GET["isp"]))
         {
@@ -42,35 +53,35 @@ class Speedtest extends Model
                 }
             }
 
-            return self::$ip . ' - ' . self::$isp . ' (' . self::$distance . ')';
+            return self::$ipAddress . ' - ' . self::$isp . ' (' . self::$distance . ')';
         }
 
-        return self::$ip;
+        return self::$ipAddress;
     }
 
     /**
      * Set's the client's IP from the $_SERVER global into self::$ip.
      */
-    private static function setIP()
+    private static function setIPAddress()
     {
         if (!empty($_SERVER['HTTP_CLIENT_IP']))
         {
-            self::$ip = $_SERVER['HTTP_CLIENT_IP'];
+            self::$ipAddress = $_SERVER['HTTP_CLIENT_IP'];
         }
         elseif (!empty($_SERVER['X-Real-IP']))
         {
-            self::$ip = $_SERVER['X-Real-IP'];
+            self::$ipAddress = $_SERVER['X-Real-IP'];
         }
         elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
         {
-            self::$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            self::$ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
         else
         {
-            self::$ip = $_SERVER['REMOTE_ADDR'];
+            self::$ipAddress = $_SERVER['REMOTE_ADDR'];
         }
 
-        self::$ip = preg_replace('/^::ffff:/', '', self::$ip);
+        self::$ipAddress = preg_replace('/^::ffff:/', '', self::$ipAddress);
     }
 
     /**
@@ -78,7 +89,7 @@ class Speedtest extends Model
      */
     private static function setISPDetails()
     {
-        $curl = curl_init(self::$ipInfoURL . self::$ip . '/json');
+        $curl = curl_init(self::$ipInfoURL . self::$ipAddress . '/json');
         curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
         $details = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -103,7 +114,7 @@ class Speedtest extends Model
      * @param mixed $latitudeTo         ISP latitude
      * @param mixed $longitudeTo        ISP longitude
      */
-    public static function 	distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
+    public static function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
     {
 		$rad = M_PI / 180;
 		$theta = $longitudeFrom - $longitudeTo;

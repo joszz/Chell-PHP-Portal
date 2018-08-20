@@ -66,12 +66,3 @@
         <?php echo $this->dump($this->exception->getStacktrace()) ?>
     </div>
 </fieldset>
-
-<script type="text/javascript">
-    $(function () {
-        $("legend").click(function () {
-            $(this).next().slideToggle();
-            $(this).find("i").toggleClass("glyphicon-chevron-down glyphicon-chevron-up");
-        });
-    });
-</script>

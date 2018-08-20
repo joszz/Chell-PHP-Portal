@@ -52,12 +52,13 @@ class KodiMovies extends Model
         {
             $start = strpos($movie->c08, 'preview=') + 9;
 
-            if($start !== false)
+            if($start !== false && strlen($movie->c08) > $start)
             {
-                $end = strpos($movie->c08, '"', $start) - $start;
+                $end = strpos($movie->c08, '"', $start);
 
                 if($end !== false)
                 {
+                    $end -= $start;
                     $movie->c08 = substr($movie->c08, $start, $end);
                 }
             }

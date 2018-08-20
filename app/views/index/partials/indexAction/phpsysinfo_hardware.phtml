@@ -89,7 +89,7 @@
                         <div class="lan-tx col-xs-6">
                             <?php echo round($network->{'@attributes'}->TxBytes / 1024 / 1024 / 1024 * 100) / 100 ?> GB
                         </div>
-                        <?php if(++$i != count($phpsysinfoData->Network->NetDevice)) : ?>
+                        <?php if(++$i != count($netdevices)) : ?>
                         <hr class="pull-left col-xs-12 no-gutter" />
                         <?php endif ?>
                     </div>

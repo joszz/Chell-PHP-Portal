@@ -1,5 +1,5 @@
 /*
-	HTML5 Speedtest v4.5.4
+	HTML5 Speedtest v4.6.1
 	by Federico Dossena
 	https://github.com/adolfintel/speedtest/
 	GNU LGPLv3 License
@@ -15,6 +15,7 @@ var clientIp = '' // client's IP address as reported by getIP.php
 var dlProgress = 0 //progress of download test 0-1
 var ulProgress = 0 //progress of upload test 0-1
 var pingProgress = 0 //progress of ping+jitter test 0-1
+var testId = 'noID' //test ID (sent back by telemetry if used, the string 'noID' otherwise)
 
 var log='' //telemetry log
 function tlog(s){log+=Date.now()+': '+s+'\n'}
@@ -46,7 +47,8 @@ var settings = {
   overheadCompensationFactor: 1.06, //can be changed to compensatie for transport overhead. (see doc.md for some other values)
   useMebibits: false, //if set to true, speed will be reported in mebibits/s instead of megabits/s
   telemetry_level: 0, // 0=disabled, 1=basic (results only), 2=full (results+log)
-  url_telemetry: 'telemetry.php' // path to the script that adds telemetry data to the database
+  url_telemetry: 'telemetry/telemetry.php', // path to the script that adds telemetry data to the database
+  telemetry_extra: '' //extra data that can be passed to the telemetry through the settings
 }
 
 var xhr = null // array of currently active xhr requests
@@ -61,7 +63,7 @@ function url_sep (url) { return url.match(/\?/) ? '&' : '?'; }
 /*
 	listener for commands from main thread to this worker.
 	commands:
-	-status: returns the current status as a string of values spearated by a semicolon (;) in this order: testStatus;dlStatus;ulStatus;pingStatus;clientIp;jitterStatus;dlProgress;ulProgress;pingProgress
+	-status: returns the current status as a JSON string containing testStatus, dlStatus, ulStatus, pingStatus, clientIp, jitterStatus, dlProgress, ulProgress, pingProgress
 	-abort: aborts the current test
 	-start: starts the test. optionally, settings can be passed as JSON.
 		example: start {"time_ul":"10", "time_dl":"10", "count_ping":"50"}
@@ -69,7 +71,18 @@ function url_sep (url) { return url.match(/\?/) ? '&' : '?'; }
 this.addEventListener('message', function (e) {
   var params = e.data.split(' ')
   if (params[0] === 'status') { // return status
-    postMessage(testStatus + ';' + dlStatus + ';' + ulStatus + ';' + pingStatus + ';' + clientIp + ';' + jitterStatus + ';' + dlProgress + ';' + ulProgress + ';' + pingProgress)
+    postMessage(JSON.stringify({
+		testState:testStatus,
+		dlStatus:dlStatus,
+		ulStatus:ulStatus,
+		pingStatus:pingStatus,
+		clientIp:clientIp,
+		jitterStatus:jitterStatus,
+		dlProgress:dlProgress,
+		ulProgress:ulProgress,
+		pingProgress:pingProgress,
+		testId:testId
+	}))
   }
   if (params[0] === 'start' && testStatus === -1) { // start new test
     testStatus = 0
@@ -125,7 +138,12 @@ this.addEventListener('message', function (e) {
 	var iRun=false,dRun=false,uRun=false,pRun=false;
     var runNextTest=function(){
       if(testStatus==5) return;
-      if(test_pointer>=settings.test_order.length){testStatus=4; sendTelemetry(); return;}
+      if(test_pointer>=settings.test_order.length){ //test is finished
+		if(settings.telemetry_level>0)
+			  sendTelemetry(function(id){testStatus=4; if(id!=-1)testId=id})
+		else testStatus=4
+		return;
+	  }
       switch(settings.test_order.charAt(test_pointer)){
         case 'I':{test_pointer++; if(iRun) {runNextTest(); return;} else iRun=true; getIp(runNextTest);} break;
         case 'D':{test_pointer++; if(dRun) {runNextTest(); return;} else dRun=true;  testStatus=1; dlTest(runNextTest);} break;
@@ -142,7 +160,7 @@ this.addEventListener('message', function (e) {
     clearRequests() // stop all xhr activity
     runNextTest=null;
     if (interval) clearInterval(interval) // clear timer if present
-    if (settings.telemetry_level > 1) sendTelemetry()
+    if (settings.telemetry_level > 1) sendTelemetry(function(){})
 	  testStatus = 5; dlStatus = ''; ulStatus = ''; pingStatus = ''; jitterStatus = '' // set test as aborted
   }
 })
@@ -161,13 +179,21 @@ function clearRequests () {
 }
 // gets client's IP using url_getIp, then calls the done function
 var ipCalled = false // used to prevent multiple accidental calls to getIp
+var ispInfo=""; //used for telemetry
 function getIp (done) {
   tlog('getIp')
   if (ipCalled) return; else ipCalled = true // getIp already called?
   xhr = new XMLHttpRequest()
   xhr.onload = function () {
 	tlog("IP: "+xhr.responseText)
-    clientIp = xhr.responseText
+	try{
+		var data=JSON.parse(xhr.responseText)
+		clientIp=data.processedString
+		ispInfo=data.rawIspInfo
+	}catch(e){
+		clientIp = xhr.responseText
+		ispInfo=''
+	}
     done()
   }
   xhr.onerror = function () {
@@ -264,13 +290,14 @@ function ulTest (done) {
   if (ulCalled) return; else ulCalled = true // ulTest already called?
 // garbage data for upload test
   var r = new ArrayBuffer(1048576)
-  try { r = new Float32Array(r); for (var i = 0; i < r.length; i++)r[i] = Math.random() } catch (e) { }
+  var maxInt=Math.pow(2,32)-1;
+  try { r = new Uint32Array(r); for (var i = 0; i < r.length; i++)r[i] = Math.random()*maxInt } catch (e) { }
   var req = []
   var reqsmall = []
   for (var i = 0; i < settings.xhr_ul_blob_megabytes; i++) req.push(r)
   req = new Blob(req)
   r = new ArrayBuffer(262144)
-  try { r = new Float32Array(r); for (var i = 0; i < r.length; i++)r[i] = Math.random() } catch (e) { }
+  try { r = new Uint32Array(r); for (var i = 0; i < r.length; i++)r[i] = Math.random()*maxInt } catch (e) { }
   reqsmall.push(r)
   reqsmall = new Blob(reqsmall)
   var totLoaded = 0.0, // total number of transmitted bytes
@@ -441,29 +468,47 @@ function pingTest (done) {
         if (i < settings.count_ping) doPing(); else done() // more pings to do?
       }
     }.bind(this)
-    // sent xhr
+    // send xhr
     xhr[0].open('GET', settings.url_ping + url_sep(settings.url_ping) + 'r=' + Math.random(), true) // random string to prevent caching
     xhr[0].send()
   }.bind(this)
   doPing() // start first ping
 }
 // telemetry
-function sendTelemetry(){
+function sendTelemetry(done){
   if (settings.telemetry_level < 1) return
   xhr = new XMLHttpRequest()
-  xhr.onload = function () { console.log('TELEMETRY OL '+xhr.responseText) }
-  xhr.onerror = function () { console.log('TELEMETRY ERROR '+xhr) }
+  xhr.onload = function () { 
+	try{
+		var parts=xhr.responseText.split(' ')
+		if(parts[0]=='id'){
+			try{
+				var id=Number(parts[1])
+				if(!isNaN(id)) done(id); else done(-1);
+			}catch(e){done(-1)}
+		} else done(-1);
+	}catch(e){
+		done(-1)
+	}
+  }
+  xhr.onerror = function () { console.log('TELEMETRY ERROR '+xhr); done(-1) }
   xhr.open('POST', settings.url_telemetry+url_sep(settings.url_telemetry)+"r="+Math.random(), true);
+  var telemetryIspInfo={
+	  processedString: clientIp,
+	  rawIspInfo: (typeof ispInfo === "object")?ispInfo:""
+  }
   try{
     var fd = new FormData()
-    fd.append('dl', dlStatus)
+    fd.append('ispinfo', JSON.stringify(telemetryIspInfo));
+	fd.append('dl', dlStatus)
     fd.append('ul', ulStatus)
     fd.append('ping', pingStatus)
     fd.append('jitter', jitterStatus)
     fd.append('log', settings.telemetry_level>1?log:"")
+	fd.append('extra', settings.telemetry_extra);
     xhr.send(fd)
   }catch(ex){
-    var postData = 'dl='+encodeURIComponent(dlStatus)+'&ul='+encodeURIComponent(ulStatus)+'&ping='+encodeURIComponent(pingStatus)+'&jitter='+encodeURIComponent(jitterStatus)+'&log='+encodeURIComponent(settings.telemetry_level>1?log:'')
+    var postData = 'extra='+encodeURIComponent(settings.telemetry_extra)+'&ispinfo='+encodeURIComponent(JSON.stringify(telemetryIspInfo))+'&dl='+encodeURIComponent(dlStatus)+'&ul='+encodeURIComponent(ulStatus)+'&ping='+encodeURIComponent(pingStatus)+'&jitter='+encodeURIComponent(jitterStatus)+'&log='+encodeURIComponent(settings.telemetry_level>1?log:'')
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
     xhr.send(postData)
   }

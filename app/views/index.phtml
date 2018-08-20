@@ -8,9 +8,9 @@
 
     <?php echo $this->tag->getTitle(); ?>
 
-    <?php foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
+    <?php if(isset($dnsPrefetchRecords)) : foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
     <link rel="dns-prefetch" href="<?php echo $dnsRecord ?>" />
-    <?php endforeach ?>
+    <?php endforeach; endif ?>
 
     <?php $this->assets->outputCss('header') ?>
     <?php $this->partial('favicons') ?>

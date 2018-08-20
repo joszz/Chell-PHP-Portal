@@ -17,7 +17,7 @@ class SpeedtestController extends BaseController
     public function getIPAction()
     {
         header('Content-Type: text/plain; charset=utf-8');
-        die(Speedtest::getIP());
+        die(Speedtest::getIPAddress());
     }
 
     /**
@@ -63,6 +63,19 @@ class SpeedtestController extends BaseController
         {
             echo $data;
             flush();
+        }
+    }
+
+    public function telemetryAction()
+    {
+        if ($this->request->isPost())
+        {
+            $item = new Speedtest($this->request->getPost());
+            $item->ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+            $item->ua = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+            $item->lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+
+            die(var_dump($item->save()));
         }
     }
 }

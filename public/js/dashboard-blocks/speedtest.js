@@ -22,6 +22,7 @@
             downloadTime: this.data("speedtest-downloadtime"),
             getISPIP: this.data("speedtest-getispip"),
             distanceUnit: this.data("speedtest-distance"),
+            animationFrameId: -1
         }, options);
 
 
@@ -52,14 +53,8 @@
                     functions.startStop();
                 });
 
-                setInterval(function () {
-                    if (w) w.postMessage('status');
-                }, 200);
-
                 //update the UI every frame
                 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || (function (callback, element) { setTimeout(callback, 1000 / 60); });
-
-                functions.frame();
 
                 setTimeout(functions.initUI, 100);
             },
@@ -101,9 +96,14 @@
                     w.postMessage('abort');
                     w = null;
                     data = null;
+
+                    cancelAnimationFrame(settings.animationFrameId);
+
                     functions.initUI();
                 }
                 else {
+                    functions.frame();
+
                     //test is not running, begin
                     w = new Worker('/portal/js/vendor/speedtest/speedtest_worker.min.js');
                     w.postMessage('start ' +
@@ -113,18 +113,22 @@
                             url_ul: "../../../speedtest/empty",
                             url_ping: "../../../speedtest/empty",
                             url_getIp: "../../../speedtest/getIP",
+                            url_telemetry: "../../../speedtest/telemetry",
+                            telemetry_level: "full",
                             time_ul: settings.uploadTime,
                             time_dl: settings.downloadTime,
                             getIp_ispInfo: settings.getISPIP,
                             getIp_ispInfo_distance: settings.distanceUnit
-                    })); 
+                        }));
                     w.onmessage = function (e) {
-                        data = e.data.split(';');
-                        var status = Number(data[0]);
+                        data = JSON.parse(e.data);
+                        var status = data.testState;
                         if (status >= 4) {
                             //test completed
                             w = null;
                             functions.updateUI(true);
+                            cancelAnimationFrame(settings.animationFrameId);
+
                             settings.block.find(".fa-play, .fa-stop").removeClass("fa-stop").addClass("fa-play");
                         }
                     };
@@ -154,23 +158,24 @@
             },
 
             frame: function () {
-                requestAnimationFrame(functions.frame);
+                settings.animationFrameId = requestAnimationFrame(functions.frame);
                 functions.updateUI();
             },
 
             //this function reads the data sent back by the worker and updates the UI
             updateUI: function (forced) {
+                if(w) w.postMessage('status');
                 if (!forced && (!data || !w)) return;
-                var status = Number(data[0]);
-                functions.I("ip").textContent = data[4] != "" ? "IP Address: " + data[4] : "";
-                functions.I("dlText").textContent = (status == 1 && data[1] == 0) ? "..." : data[1];
-                functions.drawMeter(functions.I("dlMeter"), functions.mbpsToAmount(Number(data[1] * (status == 1 ? functions.oscillate() : 1))), meterBk, dlColor, Number(data[6]), progColor);
-                functions.I("ulText").textContent = (status == 3 && data[2] == 0) ? "..." : data[2];
-                functions.drawMeter(functions.I("ulMeter"), functions.mbpsToAmount(Number(data[2] * (status == 3 ? functions.oscillate() : 1))), meterBk, ulColor, Number(data[7]), progColor);
-                functions.I("pingText").textContent = data[3];
-                functions.drawMeter(functions.I("pingMeter"), functions.msToAmount(Number(data[3] * (status == 2 ? functions.oscillate() : 1))), meterBk, pingColor, Number(data[8]), progColor);
-                functions.I("jitText").textContent = data[5];
-                functions.drawMeter(functions.I("jitMeter"), functions.msToAmount(Number(data[5] * (status == 2 ? functions.oscillate() : 1))), meterBk, jitColor, Number(data[8]), progColor);
+                var status = data.testState;
+                functions.I("ip").textContent = data.clientIp;
+                functions.I("dlText").textContent = (status == 1 && data.dlStatus == 0) ? "..." : data.dlStatus;
+                functions.drawMeter(functions.I("dlMeter"), functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))), meterBk, dlColor, Number(data.dlProgress), progColor);
+                functions.I("ulText").textContent = (status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus;
+                functions.drawMeter(functions.I("ulMeter"), functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))), meterBk, ulColor, Number(data.ulProgress), progColor);
+                functions.I("pingText").textContent = data.pingStatus;
+                functions.drawMeter(functions.I("pingMeter"), functions.msToAmount(Number(data.pingStatus * (status == 2 ? functions.oscillate() : 1))), meterBk, pingColor, Number(data.pingProgress), progColor);
+                functions.I("jitText").textContent = data.jitterStatus;
+                functions.drawMeter(functions.I("jitMeter"), functions.msToAmount(Number(data.jitterStatus * (status == 2 ? functions.oscillate() : 1))), meterBk, jitColor, Number(data.pingProgress), progColor);
             },
 
             oscillate: function () {

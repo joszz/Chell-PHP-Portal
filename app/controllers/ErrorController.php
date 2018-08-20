@@ -37,9 +37,6 @@ class ErrorController
         $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
 
-        $this->css[] = $this->config->application->baseUri . 'css/prism.css';
-        $this->js[] = $this->config->application->baseUri . 'js/vendor/prism.js';
-
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
@@ -78,6 +75,9 @@ class ErrorController
      */
     private function exception()
     {
+        $this->js[] = $this->config->application->baseUri . 'js/vendor/prism.js';
+        $this->js[] = $this->config->application->baseUri . 'js/exception.js';
+
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');
         return ob_get_clean();

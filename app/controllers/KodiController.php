@@ -146,7 +146,6 @@ class KodiController extends BaseController
                 $filename = $resizedPath;
             }
 
-            session_cache_limiter('none');
             header('Cache-control: max-age='.(60 * 60 * 24 * 365));
             header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
             header('Last-Modified: '.gmdate(DATE_RFC1123, filemtime($filename)));
