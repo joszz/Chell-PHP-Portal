@@ -468,12 +468,19 @@ class SettingsDashboardForm extends SettingsBaseForm
             ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
             ->setDefault($this->_config->speedtest->getIp_ispInfo_distance);
 
+        $speedtestTelemetry = new Select('speedtest-telemetry', array('off' => 'Off', 'basic' => 'Basic', 'full' => 'Full'));
+        $speedtestTelemetry->setLabel('Telemetry')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->speedtest->telemetry);
+
         $this->add($speedtestEnabled);
         $this->add($speedtestTestOrder);
         $this->add($speedtestUpTime);
         $this->add($speedtestDownloadTime);
         $this->add($speedtestGetIP);
         $this->add($speedtestISPInfo);
+        $this->add($speedtestTelemetry);
     }
 
     /**
@@ -491,25 +498,25 @@ class SettingsDashboardForm extends SettingsBaseForm
         {
             $this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
 
-            $this->_config->rcpu->enabled = $data['rcpu-enabled'] == 'on' ? '1' : '0';
+            $this->_config->rcpu->enabled = isset($data['rcpu-enabled']) && $data['rcpu-enabled'] == 'on' ? '1' : '0';
             $this->_config->rcpu->URL = $data['rcpu-url'];
 
             $this->_config->phpsysinfo->URL = $data['phpsysinfo-url'];
             $this->_config->phpsysinfo->username = $data['phpsysinfo-username'];
             $this->_config->phpsysinfo->password = $data['phpsysinfo-password'];
 
-            $this->_config->transmission->enabled = $data['transmission-enabled'] == 'on' ? '1' : '0';
+            $this->_config->transmission->enabled = isset($data['transmission-enabled']) && $data['transmission-enabled'] == 'on' ? '1' : '0';
             $this->_config->transmission->URL = $data['transmission-url'];
             $this->_config->transmission->username = $data['transmission-username'];
             $this->_config->transmission->password = $data['transmission-password'];
             $this->_config->transmission->updateInterval = $data['transmission-update-interval'];
 
-            $this->_config->subsonic->enabled = $data['subsonic-enabled'] == 'on' ? '1' : '0';
+            $this->_config->subsonic->enabled = isset($data['subsonic-enabled']) && $data['subsonic-enabled'] == 'on' ? '1' : '0';
             $this->_config->subsonic->URL = $data['subsonic-url'];
             $this->_config->subsonic->username = $data['subsonic-username'];
             $this->_config->subsonic->password = $data['subsonic-password'];
 
-            $this->_config->kodi->enabled = $data['kodi-enabled'] == 'on' ? '1' : '0';
+            $this->_config->kodi->enabled = isset($data['kodi-enabled']) && $data['kodi-enabled'] == 'on' ? '1' : '0';
             $this->_config->kodi->URL = $data['kodi-url'];
             $this->_config->kodi->username = $data['kodi-username'];
             $this->_config->kodi->password = $data['kodi-password'];
@@ -517,32 +524,33 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->kodi->rotateEpisodesInterval = $data['rotate-episodes-interval'];
             $this->_config->kodi->rotateAlbumsInterval = $data['rotate-albums-interval'];
 
-            $this->_config->sickrage->enabled = $data['sickrage-enabled'] == 'on' ? '1' : '0';
+            $this->_config->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
             $this->_config->sickrage->URL = $data['sickrage-url'];
             $this->_config->sickrage->APIKey = $data['sickrage-apikey'];
 
-            $this->_config->couchpotato->enabled = $data['couchpotato-enabled'] == 'on' ? '1' : '0';
+            $this->_config->couchpotato->enabled = isset($data['couchpotato-enabled']) && $data['couchpotato-enabled'] == 'on' ? '1' : '0';
             $this->_config->couchpotato->URL = $data['couchpotato-url'];
             $this->_config->couchpotato->APIKey = $data['couchpotato-apikey'];
             $this->_config->couchpotato->rotateInterval = $data['couchpotato-rotate-interval'];
 
-            $this->_config->hypervadmin->enabled = $data['hypervadmin-enabled'] == 'on' ? '1' : '0';
+            $this->_config->hypervadmin->enabled = isset($data['hypervadmin-enabled']) && $data['hypervadmin-enabled'] == 'on' ? '1' : '0';
             $this->_config->hypervadmin->URL = $data['hypervadmin-url'];
             $this->_config->hypervadmin->username = $data['hypervadmin-username'];
             $this->_config->hypervadmin->password = $data['hypervadmin-password'];
             $this->_config->hypervadmin->device = $data['hypervadmin-device'];
 
-            $this->_config->motion->enabled = $data['motion-enabled'] == 'on' ? '1' : '0';
+            $this->_config->motion->enabled = isset($data['motion-enabled']) && $data['motion-enabled'] == 'on' ? '1' : '0';
             $this->_config->motion->URL = $data['motion-url'];
             $this->_config->motion->picturePath = $data['motion-picturepath'];
             $this->_config->motion->updateInterval = $data['motion-update-interval'];
 
-            $this->_config->speedtest->enabled = $data['speedtest-enabled'] == 'on' ? '1' : '0';
+            $this->_config->speedtest->enabled = isset($data['speedtest-enabled']) && $data['speedtest-enabled'] == 'on' ? '1' : '0';
             $this->_config->speedtest->test_order = $data['speedtest-test-order'];
             $this->_config->speedtest->time_ul = $data['speedtest-time-ul'];
             $this->_config->speedtest->time_dl = $data['speedtest-time-dl'];
             $this->_config->speedtest->getIp_ispInfo = $data['speedtest-get-ispip'];
             $this->_config->speedtest->getIp_ispInfo_distance = $data['speedtest-isp-info-distance'];
+            $this->_config->speedtest->telemetry = $data['speedtest-telemetry'];
         }
 
         return $valid;

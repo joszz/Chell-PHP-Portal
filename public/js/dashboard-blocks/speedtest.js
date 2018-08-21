@@ -22,6 +22,7 @@
             downloadTime: this.data("speedtest-downloadtime"),
             getISPIP: this.data("speedtest-getispip"),
             distanceUnit: this.data("speedtest-distance"),
+            telemetry : this.data("speedtest-telemetry"),
             animationFrameId: -1,
             colors: {
                 meterBk: "#E0E0E0",
@@ -115,7 +116,7 @@
                             url_ping: "../../../speedtest/empty",
                             url_getIp: "../../../speedtest/getIP",
                             url_telemetry: "../../../speedtest/telemetry",
-                            telemetry_level: "full",
+                            telemetry_level: settings.telemetry,
                             time_ul: settings.uploadTime,
                             time_dl: settings.downloadTime,
                             getIp_ispInfo: settings.getISPIP,

@@ -1,46 +1,46 @@
-<?php $this->partial('index/partials/indexAction/phpsysinfo_sysinfo') ?>
-<?php $this->partial('index/partials/indexAction/devices') ?>
+<?php $this->partial('index/partials/phpsysinfo_sysinfo') ?>
+<?php $this->partial('index/partials/devices') ?>
 
 <div class="clearfix visible-sm"></div>
 
-<?php $this->partial('index/partials/indexAction/phpsysinfo_disks') ?>
+<?php $this->partial('index/partials/phpsysinfo_disks') ?>
 
 <div class="clearfix visible-lg visible-md"></div>
 
-<?php $this->partial('index/partials/indexAction/phpsysinfo_processes') ?>
+<?php $this->partial('index/partials/phpsysinfo_processes') ?>
 
 <?php if($this->config->rcpu->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/rcpu') ?>
+<?php $this->partial('index/partials/rcpu') ?>
 <?php endif ?>
 
 <div class="clearfix"></div>
 
 <?php if($this->config->kodi->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/kodi_latest_movies') ?>
-<?php $this->partial('index/partials/indexAction/kodi_latest_episodes') ?>
-<?php $this->partial('index/partials/indexAction/kodi_latest_albums') ?>
+<?php $this->partial('index/partials/kodi_latest_movies') ?>
+<?php $this->partial('index/partials/kodi_latest_episodes') ?>
+<?php $this->partial('index/partials/kodi_latest_albums') ?>
 <?php endif ?>
 
 <?php if($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/now_playing') ?>
+<?php $this->partial('index/partials/now_playing') ?>
 <?php endif ?>
 
 <?php if($this->config->couchpotato->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/couchpotato') ?>
+<?php $this->partial('index/partials/couchpotato') ?>
 <?php endif ?>
 
 <?php if($this->config->motion->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/motion') ?>
+<?php $this->partial('index/partials/motion') ?>
 <?php endif ?>
 
 <?php if($this->config->speedtest->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/speedtest') ?>
+<?php $this->partial('index/partials/speedtest') ?>
 <?php endif ?>
 
 <?php if($this->config->sickrage->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/sickrage') ?>
+<?php $this->partial('index/partials/sickrage') ?>
 <?php endif ?>
 
 <?php if($this->config->transmission->enabled) : ?>
-<?php $this->partial('index/partials/indexAction/transmission') ?>
+<?php $this->partial('index/partials/transmission') ?>
 <?php endif ?>
