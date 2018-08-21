@@ -22,18 +22,19 @@
             downloadTime: this.data("speedtest-downloadtime"),
             getISPIP: this.data("speedtest-getispip"),
             distanceUnit: this.data("speedtest-distance"),
-            animationFrameId: -1
+            animationFrameId: -1,
+            colors: {
+                meterBk: "#E0E0E0",
+                dlColor: "#6060AA",
+                ulColor: "#309030",
+                pingColor: "#AA6060",
+                jitColor: "#AA6060",
+                progColor: "#EEEEEE"
+            }
         }, options);
 
-
-        var meterBk = "#E0E0E0";
-        var dlColor = "#6060AA",
-            ulColor = "#309030",
-            pingColor = "#AA6060",
-            jitColor = "#AA6060";
-        var progColor = "#EEEEEE";
-        var w = null; //speedtest worker
-        var data = null; //data from worker
+        var worker = null;
+        var data = null;
 
         /**
         * All the functions for this block.
@@ -76,12 +77,12 @@
                 ctx.beginPath();
                 ctx.strokeStyle = bk;
                 ctx.lineWidth = 16 * sizScale;
-                ctx.arc(c.width / 2, c.height - 58 * sizScale, c.height / 1.8 - ctx.lineWidth, -Math.PI * 1.1, Math.PI * 0.1);
+                ctx.arc(c.width / 2, c.height - 58 * sizScale, Math.abs(c.height / 1.8 - ctx.lineWidth), -Math.PI * 1.1, Math.PI * 0.1);
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.strokeStyle = fg;
                 ctx.lineWidth = 16 * sizScale;
-                ctx.arc(c.width / 2, c.height - 58 * sizScale, c.height / 1.8 - ctx.lineWidth, -Math.PI * 1.1, amount * Math.PI * 1.2 - Math.PI * 1.1);
+                ctx.arc(c.width / 2, c.height - 58 * sizScale, Math.abs(c.height / 1.8 - ctx.lineWidth), -Math.PI * 1.1, amount * Math.PI * 1.2 - Math.PI * 1.1);
                 ctx.stroke();
 
                 if (typeof progress !== "undefined") {
@@ -91,10 +92,10 @@
             },
 
             startStop: function () {
-                if (w != null) {
+                if (worker != null) {
                     //speedtest is running, abort
-                    w.postMessage('abort');
-                    w = null;
+                    worker.postMessage('abort');
+                    worker = null;
                     data = null;
 
                     cancelAnimationFrame(settings.animationFrameId);
@@ -105,8 +106,8 @@
                     functions.frame();
 
                     //test is not running, begin
-                    w = new Worker('/portal/js/vendor/speedtest/speedtest_worker.min.js');
-                    w.postMessage('start ' +
+                    worker = new Worker('js/vendor/speedtest/speedtest_worker.min.js');
+                    worker.postMessage('start ' +
                         //Add optional parameters as a JSON object to this command
                         JSON.stringify({
                             url_dl: "../../../speedtest/garbage",
@@ -120,12 +121,12 @@
                             getIp_ispInfo: settings.getISPIP,
                             getIp_ispInfo_distance: settings.distanceUnit
                         }));
-                    w.onmessage = function (e) {
+                    worker.onmessage = function (e) {
                         data = JSON.parse(e.data);
-                        var status = data.testState;
-                        if (status >= 4) {
+
+                        if (data.testState >= 4) {
                             //test completed
-                            w = null;
+                            worker = null;
                             functions.updateUI(true);
                             cancelAnimationFrame(settings.animationFrameId);
 
@@ -146,10 +147,10 @@
             I: function (id) { return document.getElementById(id); },
 
             initUI: function () {
-                functions.drawMeter(functions.I("dlMeter"), 0, meterBk, dlColor, 0);
-                functions.drawMeter(functions.I("ulMeter"), 0, meterBk, ulColor, 0);
-                functions.drawMeter(functions.I("pingMeter"), 0, meterBk, pingColor, 0);
-                functions.drawMeter(functions.I("jitMeter"), 0, meterBk, jitColor, 0);
+                functions.drawMeter(functions.I("dlMeter"), 0, settings.colors.meterBk, settings.colors.dlColor, 0);
+                functions.drawMeter(functions.I("ulMeter"), 0, settings.colors.meterBk, settings.colors.ulColor, 0);
+                functions.drawMeter(functions.I("pingMeter"), 0, settings.colors.meterBk, settings.colors.pingColor, 0);
+                functions.drawMeter(functions.I("jitMeter"), 0, settings.colors.meterBk, settings.colors.jitColor, 0);
                 functions.I("dlText").textContent = "";
                 functions.I("ulText").textContent = "";
                 functions.I("pingText").textContent = "";
@@ -164,18 +165,22 @@
 
             //this function reads the data sent back by the worker and updates the UI
             updateUI: function (forced) {
-                if(w) w.postMessage('status');
-                if (!forced && (!data || !w)) return;
-                var status = data.testState;
-                functions.I("ip").textContent = data.clientIp;
-                functions.I("dlText").textContent = (status == 1 && data.dlStatus == 0) ? "..." : data.dlStatus;
-                functions.drawMeter(functions.I("dlMeter"), functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))), meterBk, dlColor, Number(data.dlProgress), progColor);
-                functions.I("ulText").textContent = (status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus;
-                functions.drawMeter(functions.I("ulMeter"), functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))), meterBk, ulColor, Number(data.ulProgress), progColor);
-                functions.I("pingText").textContent = data.pingStatus;
-                functions.drawMeter(functions.I("pingMeter"), functions.msToAmount(Number(data.pingStatus * (status == 2 ? functions.oscillate() : 1))), meterBk, pingColor, Number(data.pingProgress), progColor);
-                functions.I("jitText").textContent = data.jitterStatus;
-                functions.drawMeter(functions.I("jitMeter"), functions.msToAmount(Number(data.jitterStatus * (status == 2 ? functions.oscillate() : 1))), meterBk, jitColor, Number(data.pingProgress), progColor);
+                if (worker) {
+                    worker.postMessage('status');
+                }
+
+                if (data || forced) {
+                    var status = data.testState;
+                    functions.I("ip").textContent = data.clientIp;
+                    functions.I("dlText").textContent = (status == 1 && data.dlStatus == 0) ? "..." : data.dlStatus;
+                    functions.drawMeter(functions.I("dlMeter"), functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.dlColor, Number(data.dlProgress), settings.colors.progColor);
+                    functions.I("ulText").textContent = (status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus;
+                    functions.drawMeter(functions.I("ulMeter"), functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.ulColor, Number(data.ulProgress), settings.colors.progColor);
+                    functions.I("pingText").textContent = data.pingStatus;
+                    functions.drawMeter(functions.I("pingMeter"), functions.msToAmount(Number(data.pingStatus * (status == 2 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.pingColor, Number(data.pingProgress), settings.colors.progColor);
+                    functions.I("jitText").textContent = data.jitterStatus;
+                    functions.drawMeter(functions.I("jitMeter"), functions.msToAmount(Number(data.jitterStatus * (status == 2 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.jitColor, Number(data.pingProgress), settings.colors.progColor);
+                }
             },
 
             oscillate: function () {
