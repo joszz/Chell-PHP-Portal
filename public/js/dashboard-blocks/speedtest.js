@@ -22,7 +22,7 @@
             downloadTime: this.data("speedtest-downloadtime"),
             getISPIP: this.data("speedtest-getispip"),
             distanceUnit: this.data("speedtest-distance"),
-            telemetry : this.data("speedtest-telemetry"),
+            telemetry: this.data("speedtest-telemetry"),
             animationFrameId: -1,
             colors: {
                 meterBk: "#E0E0E0",
@@ -59,6 +59,28 @@
                 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || (function (callback, element) { setTimeout(callback, 1000 / 60); });
 
                 setTimeout(functions.initUI, 100);
+            },
+
+            initializeIframe: function () {
+                var data = {
+                    labels: settings.block.data("labels").split(","),
+                    series: [
+                        settings.block.data("dl").split(","),
+                        settings.block.data("ul").split(","),
+                        settings.block.data("ping").split(","),
+                        settings.block.data("jitter").split(",")
+                    ]
+                };
+
+                new Chartist.Bar('#ct-chart', data, {
+                    horizontalBars: true,
+                    height: "500px",
+                    plugins: [
+                        Chartist.plugins.legend({
+                            legendNames: ['Download', 'Upload', 'Ping', 'Jitter']
+                        })
+                    ]
+                });
             },
 
             drawMeter: function (c, amount, bk, fg, progress, prog) {
@@ -145,18 +167,20 @@
                 return 1 - (1 / (Math.pow(1.08, Math.sqrt(s))));
             },
 
-            I: function (id) { return document.getElementById(id); },
+            oscillate: function () {
+                return 1 + 0.02 * Math.sin(Date.now() / 100);
+            },
 
             initUI: function () {
-                functions.drawMeter(functions.I("dlMeter"), 0, settings.colors.meterBk, settings.colors.dlColor, 0);
-                functions.drawMeter(functions.I("ulMeter"), 0, settings.colors.meterBk, settings.colors.ulColor, 0);
-                functions.drawMeter(functions.I("pingMeter"), 0, settings.colors.meterBk, settings.colors.pingColor, 0);
-                functions.drawMeter(functions.I("jitMeter"), 0, settings.colors.meterBk, settings.colors.jitColor, 0);
-                functions.I("dlText").textContent = "";
-                functions.I("ulText").textContent = "";
-                functions.I("pingText").textContent = "";
-                functions.I("jitText").textContent = "";
-                functions.I("ip").textContent = "";
+                functions.drawMeter($("#dlMeter")[0], 0, settings.colors.meterBk, settings.colors.dlColor, 0);
+                functions.drawMeter($("#ulMeter")[0], 0, settings.colors.meterBk, settings.colors.ulColor, 0);
+                functions.drawMeter($("#pingMeter")[0], 0, settings.colors.meterBk, settings.colors.pingColor, 0);
+                functions.drawMeter($("#jitMeter")[0], 0, settings.colors.meterBk, settings.colors.jitColor, 0);
+                $("#dlText").textContent = "";
+                $("#ulText").textContent = "";
+                $("#pingText").textContent = "";
+                $("#jitText").textContent = "";
+                $("#ip").textContent = "";
             },
 
             frame: function () {
@@ -172,25 +196,60 @@
 
                 if (data || forced) {
                     var status = data.testState;
-                    functions.I("ip").textContent = data.clientIp;
-                    functions.I("dlText").textContent = (status == 1 && data.dlStatus == 0) ? "..." : data.dlStatus;
-                    functions.drawMeter(functions.I("dlMeter"), functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.dlColor, Number(data.dlProgress), settings.colors.progColor);
-                    functions.I("ulText").textContent = (status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus;
-                    functions.drawMeter(functions.I("ulMeter"), functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.ulColor, Number(data.ulProgress), settings.colors.progColor);
-                    functions.I("pingText").textContent = data.pingStatus;
-                    functions.drawMeter(functions.I("pingMeter"), functions.msToAmount(Number(data.pingStatus * (status == 2 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.pingColor, Number(data.pingProgress), settings.colors.progColor);
-                    functions.I("jitText").textContent = data.jitterStatus;
-                    functions.drawMeter(functions.I("jitMeter"), functions.msToAmount(Number(data.jitterStatus * (status == 2 ? functions.oscillate() : 1))), settings.colors.meterBk, settings.colors.jitColor, Number(data.pingProgress), settings.colors.progColor);
-                }
-            },
 
-            oscillate: function () {
-                return 1 + 0.02 * Math.sin(Date.now() / 100);
+                    $("#ip").text(data.clientIp);
+
+                    $("#dlText").text(status == 1 && data.dlStatus == 0 ? "..." : data.dlStatus);
+                    functions.drawMeter(
+                        $("#dlMeter")[0],
+                        functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))),
+                        settings.colors.meterBk,
+                        settings.colors.dlColor,
+                        Number(data.dlProgress),
+                        settings.colors.progColor
+                    );
+
+                    $("#ulText").text((status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus);
+                    functions.drawMeter(
+                        $("#ulMeter")[0],
+                        functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))),
+                        settings.colors.meterBk,
+                        settings.colors.ulColor,
+                        Number(data.ulProgress),
+                        settings.colors.progColor
+                    );
+
+                    $("#pingText").text(data.pingStatus);
+                    functions.drawMeter(
+                        $("#pingMeter")[0],
+                        functions.msToAmount(Number(data.pingStatus * (status == 2 ? functions.oscillate() : 1))),
+                        settings.colors.meterBk,
+                        settings.colors.pingColor,
+                        Number(data.pingProgress),
+                        settings.colors.progColor
+                    );
+
+                    $("#jitText").text(data.jitterStatus);
+                    functions.drawMeter(
+                        $("#jitMeter")[0],
+                        functions.msToAmount(Number(data.jitterStatus * (status == 2 ? functions.oscillate() : 1))),
+                        settings.colors.meterBk,
+                        settings.colors.jitColor,
+                        Number(data.pingProgress),
+                        settings.colors.progColor
+                    );
+                }
             }
         };
 
-        functions.initialize();
+        if (!$("body#iframe").length) {
+            functions.initialize();
+        }
 
         return functions;
     };
+
+    if ($("body#iframe").length) {
+        $("#ct-chart").speedtest().initializeIframe();
+    }
 })(jQuery);

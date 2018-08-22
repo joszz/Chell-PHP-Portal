@@ -308,3 +308,8 @@
     color: $btn-default-bg; /* active text color */
     background-color: $state-danger-text; /* active bg color */
 }
+
+
+.with-nav-tabs  li a button {
+    margin-left: 5px;
+}

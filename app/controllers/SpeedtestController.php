@@ -66,6 +66,9 @@ class SpeedtestController extends BaseController
         }
     }
 
+    /**
+     * Called by Speedtest JavaScript to store the telemetry of the current run. Called at the end of the speedtest run.
+     */
     public function telemetryAction()
     {
         if ($this->request->isPost())
@@ -77,5 +80,37 @@ class SpeedtestController extends BaseController
 
             die(var_dump($item->save()));
         }
+    }
+
+    /**
+     * Used to display the telemetry gathered in a fancybox. Showing both a table and a chartist chart.
+     */
+    public function statsAction()
+    {
+        $this->view->setMainView('layouts/empty');
+
+        $stats = Speedtest::find(array('order' => 'timestamp DESC'));
+
+        $labels = array();
+        $dl = array();
+        $ul = array();
+        $ping = array();
+        $jitter = array();
+
+        foreach($stats as $stat){
+            $labels[] = $stat->id;
+
+            $dl[] = empty($stat->dl) ? '0' : $stat->dl;
+            $ul[] = empty($stat->ul) ? '0' : $stat->ul;
+            $ping[] = empty($stat->ping) ? '0' : $stat->ping;
+            $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
+        }
+
+        $this->view->stats = $stats;
+        $this->view->labels = $labels;
+        $this->view->dl = $dl;
+        $this->view->ul = $ul;
+        $this->view->ping = $ping;
+        $this->view->jitter = $jitter;
     }
 }

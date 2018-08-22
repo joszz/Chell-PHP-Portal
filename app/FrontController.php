@@ -153,6 +153,11 @@ class FrontController
             $this->js[] = 'dashboard-blocks/motion.js';
         }
 
+        if($this->config->speedtest->telemetry != 'off'){
+            $this->js[] = 'vendor/chartist/chartist.js';
+            $this->js[] = 'vendor/chartist/chartist-plugin-legend.js';
+        }
+
         if($this->config->speedtest->enabled){
             $this->js[] = 'dashboard-blocks/speedtest.js';
         }

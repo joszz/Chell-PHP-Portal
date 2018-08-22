@@ -1,5 +1,5 @@
 
-<div id="vms" class="tab-pane in active panel" data-togglestate-baseurl="<?php echo $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' ?>">
+<div id="vms" class="tab-pane in active panel fade" data-togglestate-baseurl="<?php echo $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -28,17 +28,29 @@
                             </a>
                         </div>
                     </td>
-                    <td class="name"><?php echo $vm->Name ?></td>
+                    <td class="name">
+                        <?php echo $vm->Name ?>
+                    </td>
                     <td class="load">
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" style="width:<?php echo $vm->CPULoad ?>%"></div>
-                            <div class="percent"><?php echo (empty($vm->CPULoad) ? '0' : $vm->CPULoad) ?>%</div>
+                            <div class="percent">
+                                <?php echo (empty($vm->CPULoad) ? '0' : $vm->CPULoad) ?>%
+                            </div>
                         </div>
                     </td>
-                    <td class="text-center cores"><?php echo $vm->CoresAmount ?></td>
-                    <td class="ram"><?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?></td>
-                    <td class="mac"><?php echo $vm->MAC ?></td>
-                    <td class="ontime"><?php echo $vm->GetOnTimeFormatted ?></td>
+                    <td class="text-center cores">
+                        <?php echo $vm->CoresAmount ?>
+                    </td>
+                    <td class="ram">
+                        <?php echo $vm->MemoryTotal . ' ' . $vm->MemoryAllocationUnits ?>
+                    </td>
+                    <td class="mac">
+                        <?php echo $vm->MAC ?>
+                    </td>
+                    <td class="ontime">
+                        <?php echo $vm->GetOnTimeFormatted ?>
+                    </td>
                     <td class="hidden-xs actions">
                         <div class="btn-group pull-right">
                             <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">
