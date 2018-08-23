@@ -57,7 +57,7 @@ function initializeGlobalPlugins() {
     Waves.init();
 
     $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
-    $.fancybox.defaults.buttons = [ "close" ];
+    $.fancybox.defaults.buttons = ["close"];
     $.fancybox.defaults.iframe.css = {
         "max-width": "800px",
         "width": "90%"
@@ -90,6 +90,10 @@ function initializeGlobalEventHandlers() {
 
     $("footer .fa-arrows-alt").click(function () {
         $(document).fullScreen(!$(document).fullScreen());
+    });
+
+    $("body").on("a.disabled", "click", function () {
+        return false;
     });
 }
 

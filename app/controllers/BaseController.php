@@ -163,4 +163,21 @@ class BaseController extends Controller
 
         return true;
     }
+
+    protected function SetPaginatorEndAndStart($page) 
+    {
+        $page->paginatorStart = 1;
+        $page->paginatorEnd = 9;
+
+        if($page - 5 > 0) {
+            $page->paginatorStart = $page - 5;
+            $page->paginatorEnd = $page + 5;
+        }
+
+        if($page->total_pages) {
+            $page->paginatorEnd = $page->total_pages;
+        }
+
+        return $page;
+    }
 }

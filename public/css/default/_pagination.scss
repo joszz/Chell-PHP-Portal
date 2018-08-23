@@ -1,5 +1,12 @@
-﻿.pagination {
+﻿nav.paginator {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+.pagination {
     margin: 0;
+    display: inline-block;
 }
 
 .pagination > .active > a,

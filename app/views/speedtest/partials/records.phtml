@@ -1,4 +1,5 @@
-<div id="records" class="tab-pane panel fade">
+
+<div id="records" class="tab-pane panel fade in active">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -12,14 +13,26 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($stats AS $stat) : ?>
+                <?php foreach($stats->items AS $stat) : ?>
                 <tr>
-                    <td><?php echo $stat->timestamp ?></td>
-                    <td><?php echo $stat->ip ?></td>
-                    <td><?php echo $stat->dl ?> Mbps</td>
-                    <td><?php echo $stat->ul ?> Mbps</td>
-                    <td><?php echo $stat->ping ?> ms</td>
-                    <td><?php echo $stat->jitter ?> ms</td>
+                    <td class="text-left">
+                        <?php echo $stat->timestamp ?>
+                    </td>
+                    <td class="text-left">
+                        <?php echo !empty($stat->ip) ? $stat->ip : '...' ?>
+                    </td>
+                    <td class="text-left">
+                        <?php echo !empty($stat->dl) ? $stat->dl . ' Mbps' : '...' ?>
+                    </td>
+                    <td class="text-left">
+                        <?php echo !empty($stat->ul) ? $stat->ul .' Mbps' : '...' ?>
+                    </td>
+                    <td class="text-left">
+                        <?php echo !empty($stat->ping) ? $stat->ping . ' ms ' : '...' ?>
+                    </td>
+                    <td class="text-left">
+                        <?php echo !empty($stat->jitter) ? $stat->jitter .' ms' : '...' ?>
+                    </td>
                 </tr>
                 <?php endforeach ?>
             </tbody>

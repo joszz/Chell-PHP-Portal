@@ -61,6 +61,12 @@
                 setTimeout(functions.initUI, 100);
             },
 
+            /**
+             * Called when this plugin is nested in a document with a body#iframe.
+             * Initializes Chartist to display statistics.
+             * 
+             * @method initializeIframe
+             */
             initializeIframe: function () {
                 var data = {
                     labels: settings.block.data("labels").split(","),
@@ -72,7 +78,7 @@
                     ]
                 };
 
-                new Chartist.Bar('#ct-chart', data, {
+                var chart = new Chartist.Bar('#ct-chart', data, {
                     horizontalBars: true,
                     height: "500px",
                     plugins: [
@@ -81,8 +87,20 @@
                         })
                     ]
                 });
+
+                //Update chart after 250ms timeout since it will otherwise display incorrectly
+                settings.block.closest(".panel.with-nav-tabs").find(".nav-tabs a").click(function () {
+                    setTimeout(function () {
+                        chart.update();
+                    }, 250);
+                });
             },
 
+            /**
+             * Draws the different gauges of the speedtest.
+             * 
+             * @method drawMeter
+             */
             drawMeter: function (c, amount, bk, fg, progress, prog) {
                 var ctx = c.getContext("2d");
                 var dp = window.devicePixelRatio || 1;
@@ -114,6 +132,11 @@
                 }
             },
 
+            /**
+             * Called when clicking the start/stop button to start the speedtest.
+             * 
+             * @method startStop
+             */
             startStop: function () {
                 if (worker != null) {
                     //speedtest is running, abort
@@ -159,10 +182,20 @@
                 }
             },
 
+            /**
+             * Calculates the MBps to display in the gauges.
+             * 
+             * @method mbpsToAmount
+             */
             mbpsToAmount: function (s) {
                 return 1 - (1 / (Math.pow(1.3, Math.sqrt(s))));
             },
 
+            /**
+             * Calculates the milliseconds to display in the gauges.
+             * 
+             * @method msToAmount
+             */
             msToAmount: function (s) {
                 return 1 - (1 / (Math.pow(1.08, Math.sqrt(s))));
             },
@@ -171,6 +204,11 @@
                 return 1 + 0.02 * Math.sin(Date.now() / 100);
             },
 
+            /**
+             * First called to draw the blank gauges.
+             * 
+             * @method initUI
+             */
             initUI: function () {
                 functions.drawMeter($("#dlMeter")[0], 0, settings.colors.meterBk, settings.colors.dlColor, 0);
                 functions.drawMeter($("#ulMeter")[0], 0, settings.colors.meterBk, settings.colors.ulColor, 0);
@@ -183,12 +221,21 @@
                 $("#ip").textContent = "";
             },
 
+            /**
+             * Set for RequestAnimationFrame, updating the UI.
+             * 
+             * @method frame
+             */
             frame: function () {
                 settings.animationFrameId = requestAnimationFrame(functions.frame);
                 functions.updateUI();
             },
 
-            //this function reads the data sent back by the worker and updates the UI
+            /**
+             * this function reads the data sent back by the worker and updates the UI
+             *  
+             * @method updateUI
+             */
             updateUI: function (forced) {
                 if (worker) {
                     worker.postMessage('status');

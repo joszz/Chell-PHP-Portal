@@ -309,7 +309,10 @@
     background-color: $state-danger-text; /* active bg color */
 }
 
+.with-nav-tabs .panel-heading {
+    min-height: 57px;
+}
 
-.with-nav-tabs  li a button {
+.with-nav-tabs li a button {
     margin-left: 5px;
 }

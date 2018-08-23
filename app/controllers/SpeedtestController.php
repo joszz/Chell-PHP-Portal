@@ -3,6 +3,7 @@
 namespace Chell\Controllers;
 
 use Chell\Models\Speedtest;
+use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
 /**
  * The controller responsible for all Speedtest related actions.
@@ -85,11 +86,16 @@ class SpeedtestController extends BaseController
     /**
      * Used to display the telemetry gathered in a fancybox. Showing both a table and a chartist chart.
      */
-    public function statsAction()
+    public function statsAction($requestedPage = 1)
     {
         $this->view->setMainView('layouts/empty');
 
-        $stats = Speedtest::find(array('order' => 'timestamp DESC'));
+        $paginator = new PaginatorModel([
+            'data' => Speedtest::find(array('order' => 'timestamp DESC')),
+            'limit' => 10,
+            'page' => $requestedPage
+        ]);
+        $page = self::SetPaginatorEndAndStart($paginator->getPaginate());
 
         $labels = array();
         $dl = array();
@@ -97,7 +103,7 @@ class SpeedtestController extends BaseController
         $ping = array();
         $jitter = array();
 
-        foreach($stats as $stat){
+        foreach($page->items as $stat) {
             $labels[] = $stat->id;
 
             $dl[] = empty($stat->dl) ? '0' : $stat->dl;
@@ -106,11 +112,11 @@ class SpeedtestController extends BaseController
             $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
         }
 
-        $this->view->stats = $stats;
-        $this->view->labels = $labels;
-        $this->view->dl = $dl;
-        $this->view->ul = $ul;
-        $this->view->ping = $ping;
-        $this->view->jitter = $jitter;
+        $this->view->stats = $page;
+        $this->view->labels = array_reverse($labels);
+        $this->view->dl = array_reverse($dl);
+        $this->view->ul = array_reverse($ul);
+        $this->view->ping = array_reverse($ping);
+        $this->view->jitter = array_reverse($jitter);
     }
 }

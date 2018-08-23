@@ -11,6 +11,7 @@
         cursor: pointer;
     }
 
+
     li:before {
         width: 12px;
         height: 12px;
@@ -43,4 +44,15 @@
 .ct-labels span {
     font-size: 15px;
     font-weight: bold;
+}
+
+@media only screen and (max-width : ($screen-sm - 1)) {
+    .ct-legend li {
+        width: 100px;
+        margin-right: 0;
+    }
+
+    li.ct-series-2 {
+        clear: left;
+    }
 }
