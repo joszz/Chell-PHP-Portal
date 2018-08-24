@@ -12,6 +12,11 @@ use Phalcon\Mvc\Dispatcher;
  */
 class SecurityPlugin extends Plugin
 {
+    private $publiclyAccessible = array(
+        ['controller' => 'rss', 'action' => '*'],
+        ['controller' => 'index', 'action' => 'manifest'],
+        ['controller' => 'speedtest', 'action' => 'share']
+    );
     /**
      * Called before executing each function. If not authenticated and requested controller is not rss or session,
      * then forward to session controller.
@@ -21,9 +26,12 @@ class SecurityPlugin extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
-        if($controller == 'rss' || ($controller == 'index' && $action == 'manifest'))
+        foreach($this->publiclyAccessible AS $access) 
         {
-            return true;
+            if($controller == $access['controller'] && ($access['action'] == '*'  || $action == $access['action'])) 
+            {
+                return true;
+            }
         }
 
         if (!$this->session->get('auth') && $controller != 'session')
@@ -31,5 +39,7 @@ class SecurityPlugin extends Plugin
             $dispatcher->forward(array('controller' => 'session', 'action' => 'index'));
             return false;
         }
+
+        return true;
     }
 }

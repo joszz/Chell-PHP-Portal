@@ -120,4 +120,97 @@ class SpeedtestController extends BaseController
         $this->view->ping = array_reverse($ping);
         $this->view->jitter = array_reverse($jitter);
     }
+
+    public function shareAction($id){
+        putenv('GDFONTPATH=' . APP_PATH . 'public/fonts/');
+
+        $item = Speedtest::findFirst(array(
+            'conditions' => 'id = ?1',
+            'bind'       => array(1 => $id),
+        ));
+
+        $ispinfo = json_decode($item->ispinfo, true)["processedString"];
+        $dash = strrpos($ispinfo,"-");
+
+        if(!($dash === FALSE)) {
+            $ispinfo = substr($ispinfo, $dash+2);
+            $par = strrpos($ispinfo, "(");
+            if(!($par===FALSE)) {
+                $ispinfo=substr($ispinfo,0,$par);
+            }
+        }
+        else $ispinfo="";
+
+        $SCALE = 1.25;
+        $WIDTH = 530*$SCALE;
+        $HEIGHT = 150*$SCALE;
+        $im = imagecreatetruecolor($WIDTH, $HEIGHT);
+        $BACKGROUND_COLOR = imagecolorallocate($im, 248, 248, 248);
+
+        $FONT_1 = "OpenSans-Semibold";
+        $FONT_2 = $FONT_WATERMARK = "OpenSans-Light";
+        $FONT_3 = $FONT_4 = "OpenSans-Semibold";
+        $FONT_1_SIZE = 16 * $SCALE;
+        $FONT_2_SIZE = 24 * $SCALE;
+        $FONT_3_SIZE = 14 * $SCALE;
+        $FONT_4_SIZE = 10 * $SCALE;
+
+        $FONT_WATERMARK_SIZE=8*$SCALE;
+        $TEXT_COLOR_1 = imagecolorallocate($im, 40, 40, 40);
+        $TEXT_COLOR_2 = imagecolorallocate($im, 96, 96, 96);
+        $TEXT_COLOR_3 = imagecolorallocate($im, 40, 40, 40);
+        $TEXT_COLOR_4 = imagecolorallocate($im, 40, 40, 40);
+        $TEXT_COLOR_WATERMARK = imagecolorallocate($im, 160, 160, 160);
+        $POSITION_Y_1 = 24 * $SCALE;
+        $POSITION_Y_2 = 78 * $SCALE;
+        $POSITION_Y_3 = 118 * $SCALE;
+        $POSITION_Y_4 = 146 * $SCALE;
+        $POSITION_Y_WATERMARK = 146 * $SCALE;
+        $POSITION_X_DL = 68 * $SCALE;
+        $POSITION_X_UL = 200 * $SCALE;
+        $POSITION_X_PING = 330 * $SCALE;
+        $POSITION_X_JIT = 460 * $SCALE;
+        $POSITION_X_ISP = 4 * $SCALE;
+        $DL_TEXT = "Download";
+        $UL_TEXT = "Upload";
+        $PING_TEXT = "Ping";
+        $JIT_TEXT = "Jitter";
+        $MBPS_TEXT = "Mbps";
+        $MS_TEXT = "ms";
+        $WATERMARK_TEXT = "HTML5 Speedtest";
+
+        $dlBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$DL_TEXT);
+        $ulBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$UL_TEXT);
+        $pingBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$PING_TEXT);
+        $jitBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$JIT_TEXT);
+        $dlMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->dl);
+        $ulMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->ul);
+        $pingMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->ping);
+        $jitMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->jitter);
+        $mbpsBbox=imageftbbox($FONT_3_SIZE,0,$FONT_3,$MBPS_TEXT);
+        $msBbox=imageftbbox($FONT_3_SIZE,0,$FONT_3,$MS_TEXT);
+        $watermarkBbox=imageftbbox($FONT_WATERMARK_SIZE,0,$FONT_WATERMARK,$WATERMARK_TEXT);
+        $POSITION_X_WATERMARK=$WIDTH-$watermarkBbox[4]-4*$SCALE;
+
+        imagefilledrectangle($im, 0, 0, $WIDTH, $HEIGHT, $BACKGROUND_COLOR);
+        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_DL-$dlBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$DL_TEXT);
+        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_UL-$ulBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$UL_TEXT);
+        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_PING-$pingBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$PING_TEXT);
+        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_JIT-$jitBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$JIT_TEXT);
+        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_DL-$dlMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->dl);
+        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_UL-$ulMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->ul);
+        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_PING-$pingMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->ping);
+        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_JIT-$jitMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->jitter);
+        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_DL-$mbpsBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MBPS_TEXT);
+        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_UL-$mbpsBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MBPS_TEXT);
+        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_PING-$msBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MS_TEXT);
+        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_JIT-$msBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MS_TEXT);
+        imagefttext($im,$FONT_4_SIZE,0,$POSITION_X_ISP,$POSITION_Y_4,$TEXT_COLOR_4,$FONT_4,$ispinfo);
+        imagefttext($im,$FONT_WATERMARK_SIZE,0,$POSITION_X_WATERMARK,$POSITION_Y_WATERMARK,$TEXT_COLOR_WATERMARK,$FONT_WATERMARK,$WATERMARK_TEXT);
+
+        header('Content-Type: image/png');
+        imagepng($im);
+        imagedestroy($im);
+        die;
+    }
 }

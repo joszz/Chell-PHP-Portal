@@ -4,17 +4,22 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Time</th>
                     <th>IP</th>
                     <th>Download</th>
                     <th>Upload</th>
                     <th>Ping</th>
                     <th>Jitter</th>
+                    <th>Share</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($stats->items AS $stat) : ?>
                 <tr>
+                    <td class="text-left">
+                        <?php echo $stat->id ?>
+                    </td>
                     <td class="text-left">
                         <?php echo $stat->timestamp ?>
                     </td>
@@ -32,6 +37,9 @@
                     </td>
                     <td class="text-left">
                         <?php echo !empty($stat->jitter) ? $stat->jitter .' ms' : '...' ?>
+                    </td>
+                    <td class="text-left">
+                        <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat->id ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>
                     </td>
                 </tr>
                 <?php endforeach ?>
