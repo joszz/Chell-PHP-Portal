@@ -78,6 +78,7 @@ class SpeedtestController extends BaseController
             $item->ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
             $item->ua = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
             $item->lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+            $item->extra = $this->whatIsMyBrowser();
 
             die(var_dump($item->save()));
         }
@@ -85,6 +86,8 @@ class SpeedtestController extends BaseController
 
     /**
      * Used to display the telemetry gathered in a fancybox. Showing both a table and a chartist chart.
+     *
+     * @param int       $requestedPage The requested page for the paginator to display, defaults to 1.
      */
     public function statsAction($requestedPage = 1)
     {
@@ -110,6 +113,11 @@ class SpeedtestController extends BaseController
             $ul[] = empty($stat->ul) ? '0' : $stat->ul;
             $ping[] = empty($stat->ping) ? '0' : $stat->ping;
             $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
+
+            if ($stat->extra != 'false') {
+                $browser = json_decode($stat->extra);
+                $stat->browser = strtolower($browser->parse->software_name);
+            }
         }
 
         $this->view->activetab = isset($_GET['activetab']) ? $_GET['activetab'] : 'records';
@@ -212,5 +220,42 @@ class SpeedtestController extends BaseController
         imagepng($im);
         imagedestroy($im);
         die;
+    }
+
+    /**
+     * Try to retrieve browser information
+     *
+     * @param int       $try The amount of tries done, if more than 5 it will stop trying
+     * @return mixed    Either 'false' on failure or a JSON string when succesfull.
+     */
+    private function whatIsMyBrowser($try = 1)
+    {
+        if($try > 5) {
+            return 'false';
+        }
+
+        $ch = curl_init($this->config->application->whatIsMyBrowserAPIURL . 'user_agent_parse');
+        curl_setopt_array($ch, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->config->application->whatIsMyBrowserAPIKey],
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}',
+            CURLOPT_TIMEOUT => 10
+        ));
+
+        if(($output = curl_exec($ch)) !== false){
+            $parsed = json_decode($output);
+
+            if($parsed->result->code == 'success'){
+                return $output;
+            }
+            else if($parsed->result->message_code == 'usage_limit_exceeded') {
+                return 'false';
+            }
+        }
+
+        curl_close($ch);
+
+        return $this->whatIsMyBrowser(++$try);
     }
 }

@@ -28,7 +28,7 @@ class SecurityPlugin extends Plugin
 
         foreach($this->publiclyAccessible AS $access) 
         {
-            if($controller == $access['controller'] && ($access['action'] == '*'  || $action == $access['action'])) 
+            if($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action'])) 
             {
                 return true;
             }

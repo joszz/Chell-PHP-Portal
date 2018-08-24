@@ -207,6 +207,11 @@
                 return 1 - (1 / (Math.pow(1.08, Math.sqrt(s))));
             },
 
+            /**
+             * Oscillates values so they are less static and more lifelike.
+             * 
+             * @method oscillate
+             */
             oscillate: function () {
                 return 1 + 0.02 * Math.sin(Date.now() / 100);
             },
@@ -296,6 +301,7 @@
             }
         };
 
+        //Called as dashboard block
         if (!$("body#iframe").length) {
             functions.initialize();
         }
@@ -303,6 +309,7 @@
         return functions;
     };
 
+    //Called from Speedtest stats dialog
     if ($("body#iframe").length) {
         $("#ct-chart").speedtest().initializeIframe();
     }

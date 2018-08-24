@@ -11,34 +11,38 @@
                     <th>Upload</th>
                     <th>Ping</th>
                     <th>Jitter</th>
-                    <th>Share</th>
+                    <th class="text-center">Browser</th>
+                    <th class="text-center">Share</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($stats->items AS $stat) : ?>
                 <tr>
-                    <td class="text-left">
+                    <td>
                         <?php echo $stat->id ?>
                     </td>
-                    <td class="text-left">
+                    <td>
                         <?php echo $stat->timestamp ?>
                     </td>
-                    <td class="text-left">
+                    <td>
                         <?php echo !empty($stat->ip) ? $stat->ip : '...' ?>
                     </td>
-                    <td class="text-left">
+                    <td>
                         <?php echo !empty($stat->dl) ? $stat->dl . ' Mbps' : '...' ?>
                     </td>
-                    <td class="text-left">
+                    <td >
                         <?php echo !empty($stat->ul) ? $stat->ul .' Mbps' : '...' ?>
                     </td>
-                    <td class="text-left">
+                    <td>
                         <?php echo !empty($stat->ping) ? $stat->ping . ' ms ' : '...' ?>
                     </td>
-                    <td class="text-left">
+                    <td>
                         <?php echo !empty($stat->jitter) ? $stat->jitter .' ms' : '...' ?>
                     </td>
-                    <td class="text-left">
+                    <td class="text-center">
+                        <i class="text-success fab fa-<?php echo $stat->browser ?>"></i>
+                    </td>
+                    <td class="text-center">
                         <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat->id ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>
                     </td>
                 </tr>
