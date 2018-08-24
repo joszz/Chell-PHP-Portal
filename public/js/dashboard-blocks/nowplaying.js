@@ -69,7 +69,7 @@
             * @param {Boolean} onload Whether this function is called as part of initialization
             */
             nowPlaying: function (onload) {
-                onload = typeof onload === 'undefined' ? false : onload;
+                onload = typeof onload === "undefined" ? false : onload;
 
                 if (!onload) {
                     $(".nowplaying").isLoading();
@@ -321,7 +321,7 @@
                         data: JSON.stringify(data),
                         timeout: settings.kodi.timeout,
                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
                         },
                         success: function (response) {
                             if (response.result[0]) {
@@ -344,7 +344,7 @@
                                     data: JSON.stringify(data),
                                     timeout: settings.kodi.timeout,
                                     beforeSend: function (xhr) {
-                                        xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.kodi.username + ':' + settings.kodi.password));
+                                        xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
                                     },
                                     success: function (response) {
                                         if ($.trim(response.result.item.title) !== "") {

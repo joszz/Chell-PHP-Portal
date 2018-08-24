@@ -112,6 +112,7 @@ class SpeedtestController extends BaseController
             $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
         }
 
+        $this->view->activetab = isset($_GET['activetab']) ? $_GET['activetab'] : 'records';
         $this->view->stats = $page;
         $this->view->labels = array_reverse($labels);
         $this->view->dl = array_reverse($dl);

@@ -62,7 +62,7 @@
                         url: settings.url + "xml.php?json&" + d.getTime(),
                         dataType: "json",
                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('phpsysinfo-username') + ':' + settings.block.data('phpsysinfo-password')));
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
                         },
                         success: function (data) {
                             functions.setSysinfo(data);
@@ -144,7 +144,7 @@
                     }
 
                     $.each(data.Network.NetDevice, function (index, value) {
-                        if (typeof value['@attributes'] !== "undefined") {
+                        if (typeof value["@attributes"] !== "undefined") {
                             var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var info = value["@attributes"].Info.split(";");
@@ -244,7 +244,7 @@
                         url: settings.url + "xml.php?plugin=psstatus&json&" + d.getTime(),
                         dataType: "json",
                         beforeSend: function (xhr) {
-                            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('phpsysinfo-username') + ':' + settings.block.data('phpsysinfo-password')));
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
                         },
                         success: function (data) {
                             data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {

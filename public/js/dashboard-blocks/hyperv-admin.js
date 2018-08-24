@@ -52,7 +52,7 @@
                     openConfirmDialog("Are you sure?", [], function () {
                         $.fancybox.close();
 
-                        if ($(this).attr('id') === 'confirm-yes') {
+                        if ($(this).attr("id") === "confirm-yes") {
                             functions.toggleState(url, name, whichTab);
                         }
                     });

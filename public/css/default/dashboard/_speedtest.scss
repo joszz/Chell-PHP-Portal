@@ -56,5 +56,22 @@
 }
 
 .speedtest .paginator {
-    margin-top: 10px;
+    margin: 10px 0;
+}
+
+.speedtest .tab-pane {
+    float: left;
+    width: 100%;
+}
+
+.speedtest .table-responsive,
+.speedtest .table {
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width : $screen-xs) {
+    .speedtest .tab-pane {
+        height: 400px;
+        overflow-y: scroll;
+    }
 }

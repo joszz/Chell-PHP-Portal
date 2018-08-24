@@ -18,7 +18,7 @@
         */
         var settings = $.extend({
             block: this,
-            updateInterval: this.data('device-state-interval') * 1000,
+            updateInterval: this.data("device-state-interval") * 1000,
             updateIntervalId: -1
         }, options);
 
@@ -74,7 +74,7 @@
             * @param {Object} self  Reference to jquery selector, used to initialize the plugin with.
             */
             checkstates: function (self) {
-                self = typeof self === 'undefined' ? this : self;
+                self = typeof self === "undefined" ? this : self;
                 var d = new Date();
 
                 clearInterval(settings.updateIntervalId);

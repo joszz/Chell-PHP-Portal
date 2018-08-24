@@ -68,32 +68,39 @@
              * @method initializeIframe
              */
             initializeIframe: function () {
-                var data = {
-                    labels: settings.block.data("labels").split(","),
-                    series: [
-                        settings.block.data("dl").split(","),
-                        settings.block.data("ul").split(","),
-                        settings.block.data("ping").split(","),
-                        settings.block.data("jitter").split(",")
-                    ]
-                };
-
-                var chart = new Chartist.Bar('#ct-chart', data, {
-                    horizontalBars: true,
-                    height: "500px",
-                    plugins: [
-                        Chartist.plugins.legend({
-                            legendNames: ['Download', 'Upload', 'Ping', 'Jitter']
-                        })
-                    ]
-                });
+                var panel = settings.block.closest(".panel.with-nav-tabs");
+                var chart = new Chartist.Bar("#ct-chart", 
+                    {
+                        labels: settings.block.data("labels").split(","),
+                        series: [
+                            settings.block.data("dl").split(","),
+                            settings.block.data("ul").split(","),
+                            settings.block.data("ping").split(","),
+                            settings.block.data("jitter").split(",")
+                        ]
+                    }, 
+                    {
+                        horizontalBars: true,
+                        height: "500px",
+                        plugins: [
+                            Chartist.plugins.legend({
+                                legendNames: ["Download", "Upload", "Ping", "Jitter"]
+                            })
+                        ]
+                    }
+                );
 
                 //Update chart after 250ms timeout since it will otherwise display incorrectly
-                settings.block.closest(".panel.with-nav-tabs").find(".nav-tabs a").click(function () {
+                panel.find(".nav-tabs a").click(function () {
                     setTimeout(function () {
                         chart.update();
                     }, 250);
                 });
+
+                panel.find(".paginator a").click(function () {
+                    $(this).attr("href", $(this).attr("href") + "?activetab=" + panel.find(".nav-tabs li.active a").attr("href").replace("#", ""));
+                })
+
             },
 
             /**
@@ -140,7 +147,7 @@
             startStop: function () {
                 if (worker != null) {
                     //speedtest is running, abort
-                    worker.postMessage('abort');
+                    worker.postMessage("abort");
                     worker = null;
                     data = null;
 
@@ -152,8 +159,8 @@
                     functions.frame();
 
                     //test is not running, begin
-                    worker = new Worker('js/vendor/speedtest/speedtest_worker.min.js');
-                    worker.postMessage('start ' +
+                    worker = new Worker("js/vendor/speedtest/speedtest_worker.min.js");
+                    worker.postMessage("start " +
                         //Add optional parameters as a JSON object to this command
                         JSON.stringify({
                             url_dl: "../../../speedtest/garbage",
@@ -238,7 +245,7 @@
              */
             updateUI: function (forced) {
                 if (worker) {
-                    worker.postMessage('status');
+                    worker.postMessage("status");
                 }
 
                 if (data || forced) {

@@ -19,7 +19,7 @@
             */
             var settings = $.extend({
                 block: $(this),
-                rotateInterval: $(this).data('rotate-interval') * 1000,
+                rotateInterval: $(this).data("rotate-interval") * 1000,
                 rotateIntervalId: -1
             }, options);
 

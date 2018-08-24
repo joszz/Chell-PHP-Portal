@@ -18,7 +18,7 @@
         */
         var settings = $.extend({
             block: this,
-            updateInterval: this.data('motion-interval') * 1000,
+            updateInterval: this.data("motion-interval") * 1000,
             updateIntervalId: -1
         }, options);
 
