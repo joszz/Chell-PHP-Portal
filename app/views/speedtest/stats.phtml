@@ -1,5 +1,5 @@
 
-<div class="panel panel-success with-nav-tabs speedtest">
+<div class="panel panel-success with-nav-tabs speedtest" style="max-height:800px">
     <div class="panel-heading ">
         <h4 class="pull-left hidden-xs">Speedtest</h4>
         <ul class="nav nav-tabs pull-right">
@@ -22,8 +22,8 @@
     <nav class="paginator">
         <ul class="pagination">
             <li>
-                <a href="<?php echo $this->config->application->baseUri . 'speedtest/stats/' . $stats->before ?>"
-                    class="fa fa-backward <?php echo $stats->current == $stats-before ? 'disabled': null ?>"></a>
+                <a href="<?php echo $stats->current == $stats->before ? '#' : $this->config->application->baseUri . 'speedtest/stats/' . $stats->before ?>"
+                    class="fa fa-backward <?php echo $stats->current == $stats->before ? 'disabled': null ?>"></a>
             </li>
 
             <?php for($i = $stats->paginatorStart; $i <= $stats->paginatorEnd; $i++ ) : ?>
@@ -35,7 +35,7 @@
             <?php endfor ?>
 
             <li>
-                <a href="<?php echo $this->config->application->baseUri . 'speedtest/stats/' . $stats->next ?>"
+                <a href="<?php echo $stats->current == $stats->next ? '#' : $this->config->application->baseUri . 'speedtest/stats/' . $stats->next ?>"
                     class="fa fa-forward <?php echo $stats->current == $stats->next ? 'disabled': null ?>"></a>
             </li>
         </ul>

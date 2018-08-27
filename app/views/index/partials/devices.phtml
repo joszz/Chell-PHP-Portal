@@ -17,7 +17,7 @@
                 <div class="col-xs-6 col-sm-7">
                     <div class="btn-group pull-right">
                         <?php if(!empty($device->webtemp)) : ?>
-                        <a href="devices/webtemp/?id=<?php echo $device->id ?>" class="btn btn-default" data-fancybox data-type="iframe" title="Webtemp: <?php echo $device->name ?>">
+                        <a href="#" data-deviceid="<?php echo $device->id ?>" class="btn btn-default webtemp"  title="Webtemp: <?php echo $device->name ?>">
                             <span class="fa fa-thermometer-half"></span>
                         </a>
                         <?php endif ?>

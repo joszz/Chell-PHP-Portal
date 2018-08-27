@@ -55,6 +55,12 @@
                     functions.startStop();
                 });
 
+                settings.block.find("h4").click(function () {
+                    if (settings.block.find(".panel-body").is(":visible")) {
+                        functions.initUI();
+                    }
+                });
+
                 //update the UI every frame
                 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || (function (callback, element) { setTimeout(callback, 1000 / 60); });
 
@@ -71,17 +77,17 @@
                 var panel = settings.block.closest(".panel.with-nav-tabs");
                 var chart = new Chartist.Bar("#ct-chart", 
                     {
-                        labels: settings.block.data("labels").split(","),
+                        labels: settings.block.data("labels").toString().indexOf(",") != -1 ? settings.block.data("labels").split(",") : [settings.block.data("labels")],
                         series: [
-                            settings.block.data("dl").split(","),
-                            settings.block.data("ul").split(","),
-                            settings.block.data("ping").split(","),
-                            settings.block.data("jitter").split(",")
+                            settings.block.data("dl").toString().indexOf(",") != -1 ? settings.block.data("dl").split(",") : [settings.block.data("dl")],
+                            settings.block.data("ul").toString().indexOf(",") != -1 ? settings.block.data("ul").split(",") : [settings.block.data("ul")],
+                            settings.block.data("ping").toString().indexOf(",") != -1 ? settings.block.data("ping").split(",") : [settings.block.data("ping")],
+                            settings.block.data("jitter").toString().indexOf(",") != -1 ? settings.block.data("jitter").split(",") : [settings.block.data("jitter")]
                         ]
                     }, 
                     {
                         horizontalBars: true,
-                        height: "500px",
+                        height: "650px",
                         plugins: [
                             Chartist.plugins.legend({
                                 legendNames: ["Download", "Upload", "Ping", "Jitter"]
@@ -310,7 +316,7 @@
     };
 
     //Called from Speedtest stats dialog
-    if ($("body#iframe").length) {
+    if ($("#ct-chart").length) {
         $("#ct-chart").speedtest().initializeIframe();
     }
 })(jQuery);

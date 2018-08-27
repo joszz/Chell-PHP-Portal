@@ -92,6 +92,7 @@ class SpeedtestController extends BaseController
     public function statsAction($requestedPage = 1)
     {
         $this->view->setMainView('layouts/empty');
+        $this->view->overflow = true;
 
         $paginator = new PaginatorModel([
             'data' => Speedtest::find(array('order' => 'timestamp DESC')),

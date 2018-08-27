@@ -180,4 +180,8 @@
 
         return functions;
     };
+
+    if ($(".hypervadmin").length) {
+        $(".hypervadmin").hypervadmin();
+    }
 })(jQuery);

@@ -92,7 +92,7 @@ function initializeGlobalEventHandlers() {
         $(document).fullScreen(!$(document).fullScreen());
     });
 
-    $("body").on("a.disabled", "click", function () {
+    $("body").on(".disabled", "click", function () {
         return false;
     });
 }

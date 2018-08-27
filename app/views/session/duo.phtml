@@ -1,10 +1,9 @@
 
 <script src="<?php echo $this->config->application->baseUri ?>js/vendor/duo/Duo-Web-v2.min.js"></script>
-<script src="<?php echo $this->config->application->baseUri ?>js/duo.js"></script>
+<script src="<?php echo $this->config->application->baseUri ?>js/duo.js" id="duojs" data-baseuri="<?php echo $this->config->application->baseUri ?>"></script>
 
-<div class="vertical-center text-center">
+<div class="vertical-center text-center" >
     <iframe id="duo_iframe" class="hidden_not_important"
-        data-baseuri="<?php echo $this->config->application->baseUri ?>"
         data-host="<?php echo $this->config->duo->apiHostname ?>"
         data-sig-request="<?php echo $signRequest ?>"
         data-post-action="<?php echo $this->config->application->baseUri ?>session/duoVerify"></iframe>

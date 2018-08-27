@@ -1,3 +1,3 @@
 ﻿if (window.self !== window.top) {
-    window.top.location = $("#duo_iframe").data("baseuri");
+    window.top.location = document.getElementById("duojs").dataset.baseuri;
 }

@@ -64,6 +64,12 @@
                     });
                 });
 
+                settings.block.on("click", ".webtemp", function () {
+                    $.getJSON("devices/webtemp/?id=" + $(this).data("deviceid"), function (data) {
+                        $.fancybox.open(data);
+                    });
+                });
+
                 functions.checkstates();
             },
 

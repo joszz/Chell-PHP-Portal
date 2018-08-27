@@ -18,9 +18,5 @@
     <?php $this->partial('dialog-confirm') ?>
 
     <?php $this->assets->outputJs('footer'); ?>
-
-    <?php if($this->dispatcher->getControllerName() == 'hyper_v_admin'): ?>
-    <script>$(function () { $(".hypervadmin").hypervadmin(); });</script>
-    <?php endif ?>
 </body>
 </html>
