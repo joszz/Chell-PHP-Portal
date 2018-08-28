@@ -31,19 +31,6 @@ class SettingsGeneralForm extends SettingsBaseForm
         $title->setDefault($this->_config->application->title);
         $title->addValidators(array(new PresenceOf(array())));
 
-        $cryptKey = new Text('cryptkey');
-        $cryptKey->setLabel('Cryptkey');
-        $cryptKey->setFilters(array('striptags', 'string'));
-        $cryptKey->setAttributes(array('class' => 'form-control'));
-        $cryptKey->setDefault($this->_config->application->phalconCryptKey);
-        $cryptKey->addValidators(array(new PresenceOf(array())));
-
-        $tmdbAPIKey = new Text('tmdb-apikey');
-        $tmdbAPIKey->setLabel('TMDB API key');
-        $tmdbAPIKey->setFilters(array('striptags', 'string'));
-        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
-        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
-
         $bgcolor = new Select(
             'bgcolor',
             array('blackbg' => 'Black', 'whitebg' => 'White'),
@@ -58,6 +45,31 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setAttributes(array('class' => 'form-control'))
             ->setDefault($this->_config->application->alertTimeout)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $cryptKey = new Text('cryptkey');
+        $cryptKey->setLabel('Cryptkey');
+        $cryptKey->setFilters(array('striptags', 'string'));
+        $cryptKey->setAttributes(array('class' => 'form-control'));
+        $cryptKey->setDefault($this->_config->application->phalconCryptKey);
+        $cryptKey->addValidators(array(new PresenceOf(array())));
+
+        $tmdbAPIKey = new Text('tmdb-apikey');
+        $tmdbAPIKey->setLabel('TMDB API key');
+        $tmdbAPIKey->setFilters(array('striptags', 'string'));
+        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
+        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
+
+        $whatIsMyBrowserAPIKey = new Text('whatismybrowser-apikey');
+        $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key');
+        $whatIsMyBrowserAPIKey->setFilters(array('striptags', 'string'));
+        $whatIsMyBrowserAPIKey->setAttributes(array('class' => 'form-control'));
+        $whatIsMyBrowserAPIKey->setDefault($this->_config->application->whatIsMyBrowserAPIKey);
+
+        $whatIsMyBrowserAPIURL = new Text('whatismybrowser-apiurl');
+        $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL');
+        $whatIsMyBrowserAPIURL->setFilters(array('striptags', 'string'));
+        $whatIsMyBrowserAPIURL->setAttributes(array('class' => 'form-control'));
+        $whatIsMyBrowserAPIURL->setDefault($this->_config->application->whatIsMyBrowserAPIURL);
 
         $debug = new Check('debug');
         $debug->setLabel('Debug');
@@ -74,6 +86,8 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($alertTimeout);
         $this->add($cryptKey);
         $this->add($tmdbAPIKey);
+        $this->add($whatIsMyBrowserAPIKey);
+        $this->add($whatIsMyBrowserAPIURL);
         $this->add($debug);
         $this->setDuoFields();
     }
@@ -138,10 +152,12 @@ class SettingsGeneralForm extends SettingsBaseForm
         if($valid)
         {
             $this->_config->application->title = $data['title'];
-            $this->_config->application->phalconCryptKey = $data['cryptkey'];
-            $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
             $this->_config->application->background = $data['bgcolor'];
             $this->_config->application->alertTimeout = $data['alert-timeout'];
+            $this->_config->application->phalconCryptKey = $data['cryptkey'];
+            $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
+            $this->_config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
+            $this->_config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
             $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
 
 

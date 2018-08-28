@@ -130,7 +130,13 @@ class SpeedtestController extends BaseController
         $this->view->jitter = array_reverse($jitter);
     }
 
-    public function shareAction($id){
+    /**
+     * Create an image (PNG) for sharing results of the speedrun. Includes all major data; upload/download/ping/jitter/ISP.
+     *
+     * @param int $id The ID of the Speedtest run.
+     */
+    public function shareAction($id)
+    {
         putenv('GDFONTPATH=' . APP_PATH . 'public/fonts/');
 
         $item = Speedtest::findFirst(array(
@@ -138,84 +144,82 @@ class SpeedtestController extends BaseController
             'bind'       => array(1 => $id),
         ));
 
-        $ispinfo = json_decode($item->ispinfo, true)["processedString"];
-        $dash = strrpos($ispinfo,"-");
+        $ispinfo = json_decode($item->ispinfo, true)['processedString'];
+        $dash = strrpos($ispinfo, '-');
 
-        if(!($dash === FALSE)) {
-            $ispinfo = substr($ispinfo, $dash+2);
-            $par = strrpos($ispinfo, "(");
-            if(!($par===FALSE)) {
-                $ispinfo=substr($ispinfo,0,$par);
+        if($dash !== FALSE) {
+            $ispinfo = substr($ispinfo, $dash + 2);
+            $par = strrpos($ispinfo, '(');
+            if($par !== FALSE) {
+                $ispinfo = substr($ispinfo,0,$par);
             }
         }
-        else $ispinfo="";
+        else {
+            $ispinfo = '';
+        }
 
-        $SCALE = 1.25;
-        $WIDTH = 530*$SCALE;
-        $HEIGHT = 150*$SCALE;
-        $im = imagecreatetruecolor($WIDTH, $HEIGHT);
-        $BACKGROUND_COLOR = imagecolorallocate($im, 248, 248, 248);
+        $scale = 1.25;
+        $im = imagecreatetruecolor($width = 530 * $scale, $height = 150 * $scale);
+        $bgColor = imagecolorallocate($im, 248, 248, 248);
 
-        $FONT_1 = "OpenSans-Semibold";
-        $FONT_2 = $FONT_WATERMARK = "OpenSans-Light";
-        $FONT_3 = $FONT_4 = "OpenSans-Semibold";
-        $FONT_1_SIZE = 16 * $SCALE;
-        $FONT_2_SIZE = 24 * $SCALE;
-        $FONT_3_SIZE = 14 * $SCALE;
-        $FONT_4_SIZE = 10 * $SCALE;
+        $font =  'roboto-light';
 
-        $FONT_WATERMARK_SIZE=8*$SCALE;
-        $TEXT_COLOR_1 = imagecolorallocate($im, 40, 40, 40);
-        $TEXT_COLOR_2 = imagecolorallocate($im, 96, 96, 96);
-        $TEXT_COLOR_3 = imagecolorallocate($im, 40, 40, 40);
-        $TEXT_COLOR_4 = imagecolorallocate($im, 40, 40, 40);
-        $TEXT_COLOR_WATERMARK = imagecolorallocate($im, 160, 160, 160);
-        $POSITION_Y_1 = 24 * $SCALE;
-        $POSITION_Y_2 = 78 * $SCALE;
-        $POSITION_Y_3 = 118 * $SCALE;
-        $POSITION_Y_4 = 146 * $SCALE;
-        $POSITION_Y_WATERMARK = 146 * $SCALE;
-        $POSITION_X_DL = 68 * $SCALE;
-        $POSITION_X_UL = 200 * $SCALE;
-        $POSITION_X_PING = 330 * $SCALE;
-        $POSITION_X_JIT = 460 * $SCALE;
-        $POSITION_X_ISP = 4 * $SCALE;
-        $DL_TEXT = "Download";
-        $UL_TEXT = "Upload";
-        $PING_TEXT = "Ping";
-        $JIT_TEXT = "Jitter";
-        $MBPS_TEXT = "Mbps";
-        $MS_TEXT = "ms";
-        $WATERMARK_TEXT = "HTML5 Speedtest";
+        $positionXDownload = 68 * $scale;
+        $positionXUpload = 200 * $scale;
+        $positionXPing = 330 * $scale;
+        $positionXJitter = 460 * $scale;
+        $positionXISP = 4 * $scale;
 
-        $dlBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$DL_TEXT);
-        $ulBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$UL_TEXT);
-        $pingBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$PING_TEXT);
-        $jitBbox=imageftbbox($FONT_1_SIZE,0,$FONT_1,$JIT_TEXT);
-        $dlMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->dl);
-        $ulMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->ul);
-        $pingMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->ping);
-        $jitMeterBbox=imageftbbox($FONT_2_SIZE,0,$FONT_2,$item->jitter);
-        $mbpsBbox=imageftbbox($FONT_3_SIZE,0,$FONT_3,$MBPS_TEXT);
-        $msBbox=imageftbbox($FONT_3_SIZE,0,$FONT_3,$MS_TEXT);
-        $watermarkBbox=imageftbbox($FONT_WATERMARK_SIZE,0,$FONT_WATERMARK,$WATERMARK_TEXT);
-        $POSITION_X_WATERMARK=$WIDTH-$watermarkBbox[4]-4*$SCALE;
+        $downloadText = 'Download';
+        $uploadText = 'Upload';
+        $pingText = 'Ping';
+        $jitterText = 'Jitter';
+        $mbpsText = 'Mbps';
+        $msText = 'ms';
+        $watermarkText = 'HTML5 Speedtest';
 
-        imagefilledrectangle($im, 0, 0, $WIDTH, $HEIGHT, $BACKGROUND_COLOR);
-        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_DL-$dlBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$DL_TEXT);
-        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_UL-$ulBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$UL_TEXT);
-        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_PING-$pingBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$PING_TEXT);
-        imagefttext($im,$FONT_1_SIZE,0,$POSITION_X_JIT-$jitBbox[4]/2,$POSITION_Y_1,$TEXT_COLOR_1,$FONT_1,$JIT_TEXT);
-        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_DL-$dlMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->dl);
-        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_UL-$ulMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->ul);
-        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_PING-$pingMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->ping);
-        imagefttext($im,$FONT_2_SIZE,0,$POSITION_X_JIT-$jitMeterBbox[4]/2,$POSITION_Y_2,$TEXT_COLOR_2,$FONT_2,$item->jitter);
-        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_DL-$mbpsBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MBPS_TEXT);
-        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_UL-$mbpsBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MBPS_TEXT);
-        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_PING-$msBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MS_TEXT);
-        imagefttext($im,$FONT_3_SIZE,0,$POSITION_X_JIT-$msBbox[4]/2,$POSITION_Y_3,$TEXT_COLOR_3,$FONT_3,$MS_TEXT);
-        imagefttext($im,$FONT_4_SIZE,0,$POSITION_X_ISP,$POSITION_Y_4,$TEXT_COLOR_4,$FONT_4,$ispinfo);
-        imagefttext($im,$FONT_WATERMARK_SIZE,0,$POSITION_X_WATERMARK,$POSITION_Y_WATERMARK,$TEXT_COLOR_WATERMARK,$FONT_WATERMARK,$WATERMARK_TEXT);
+        $fonts = [
+            'size1'     => ['font' => $font, 'size' => 16 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 24 * $scale],
+            'size2'     => ['font' => $font,    'size' => 24 * $scale, 'color' =>imagecolorallocate($im, 96, 96, 96), 'position-y' => 78 * $scale],
+            'size3'     => ['font' => $font, 'size' => 14 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 118 * $scale],
+            'size4'     => ['font' => $font, 'size' => 10 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 146 * $scale],
+            'watermark' => ['font' => $font,    'size' => 8 * $scale,  'color' =>imagecolorallocate($im, 160, 160, 160), 'position-y' => 146 * $scale],
+        ];
+
+        $dlBbox = imageftbbox($fonts['size1']['size'], 0, $fonts['size1']['font'], $downloadText);
+        $ulBbox = imageftbbox($fonts['size1']['size'], 0, $fonts['size1']['font'], $uploadText);
+        $pingBbox = imageftbbox($fonts['size1']['size'], 0, $fonts['size1']['font'], $pingText);
+        $jitBbox = imageftbbox($fonts['size1']['size'], 0, $fonts['size1']['font'], $jitterText);
+
+        $dlMeterBbox = imageftbbox($fonts['size2']['size'], 0, $fonts['size2']['font'], $item->dl);
+        $ulMeterBbox = imageftbbox($fonts['size2']['size'], 0, $fonts['size2']['font'], $item->ul);
+        $pingMeterBbox = imageftbbox($fonts['size2']['size'], 0, $fonts['size2']['font'], $item->ping);
+        $jitMeterBbox = imageftbbox($fonts['size2']['size'], 0, $fonts['size2']['font'], $item->jitter);
+
+        $mbpsBbox = imageftbbox($fonts['size3']['size'], 0, $fonts['size3']['font'], $mbpsText);
+        $msBbox = imageftbbox($fonts['size3']['size'], 0, $fonts['size3']['font'], $msText);
+
+        $watermarkBbox = imageftbbox($fonts['watermark']['size'], 0, $fonts['watermark']['font'], $watermarkText);
+        $watermarkPositionX = $width - $watermarkBbox[4] - 4 * $scale;
+
+        imagefilledrectangle($im, 0, 0, $width, $height, $bgColor);
+        imagefttext($im, $fonts['size1']['size'], 0, $positionXDownload - $dlBbox[4] / 2, $fonts['size1']['position-y'], $fonts['size1']['color'], $fonts['size1']['font'], $downloadText);
+        imagefttext($im, $fonts['size1']['size'], 0, $positionXUpload - $ulBbox[4] / 2, $fonts['size1']['position-y'], $fonts['size1']['color'], $fonts['size1']['font'], $uploadText);
+        imagefttext($im, $fonts['size1']['size'], 0, $positionXPing - $pingBbox[4] / 2, $fonts['size1']['position-y'], $fonts['size1']['color'], $fonts['size1']['font'], $pingText);
+        imagefttext($im, $fonts['size1']['size'], 0, $positionXJitter - $jitBbox[4] / 2, $fonts['size1']['position-y'], $fonts['size1']['color'], $fonts['size1']['font'], $jitterText);
+
+        imagefttext($im, $fonts['size2']['size'], 0, $positionXDownload - $dlMeterBbox[4] / 2, $fonts['size2']['position-y'], $fonts['size2']['color'], $fonts['size2']['font'], $item->dl);
+        imagefttext($im, $fonts['size2']['size'], 0, $positionXUpload - $ulMeterBbox[4] / 2, $fonts['size2']['position-y'], $fonts['size2']['color'], $fonts['size2']['font'], $item->ul);
+        imagefttext($im, $fonts['size2']['size'], 0, $positionXPing - $pingMeterBbox[4] / 2, $fonts['size2']['position-y'], $fonts['size2']['color'], $fonts['size2']['font'], $item->ping);
+        imagefttext($im, $fonts['size2']['size'], 0, $positionXJitter - $jitMeterBbox[4] / 2, $fonts['size2']['position-y'], $fonts['size2']['color'], $fonts['size2']['font'], $item->jitter);
+
+        imagefttext($im, $fonts['size3']['size'], 0, $positionXDownload - $mbpsBbox[4] / 2, $fonts['size3']['position-y'], $fonts['size3']['color'], $fonts['size3']['font'], $mbpsText);
+        imagefttext($im, $fonts['size3']['size'], 0, $positionXUpload - $mbpsBbox[4] / 2, $fonts['size3']['position-y'], $fonts['size3']['color'], $fonts['size3']['font'], $mbpsText);
+        imagefttext($im, $fonts['size3']['size'], 0, $positionXPing - $msBbox[4] / 2, $fonts['size3']['position-y'], $fonts['size3']['color'], $fonts['size3']['font'], $msText);
+        imagefttext($im, $fonts['size3']['size'], 0, $positionXJitter - $msBbox[4] / 2, $fonts['size3']['position-y'], $fonts['size3']['color'], $fonts['size3']['font'], $msText);
+
+        imagefttext($im, $fonts['size4']['size'], 0, $positionXISP, $fonts['size4']['position-y'], $fonts['size4']['color'], $fonts['size4']['font'], $ispinfo);
+        imagefttext($im, $fonts['watermark']['size'], 0, $watermarkPositionX, $fonts['watermark']['position-y'], $fonts['watermark']['color'], $fonts['watermark']['font'], $watermarkText);
 
         header('Content-Type: image/png');
         imagepng($im);
