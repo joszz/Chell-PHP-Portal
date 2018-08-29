@@ -153,7 +153,7 @@ class KodiController extends BaseController
             header("Pragma: cache");
 
             if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-                header('HTTP/1.1 304 Not Modified');
+                header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
             }
 
             die(readfile($filename));

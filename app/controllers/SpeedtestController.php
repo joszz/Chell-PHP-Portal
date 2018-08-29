@@ -26,11 +26,11 @@ class SpeedtestController extends BaseController
      */
     public function emptyAction()
     {
-        header( "HTTP/1.1 200 OK" );
-        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");
-        header("Connection: keep-alive");
+        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        header('Cache-Control: post-check=0, pre-check=0', false);
+        header('Pragma: no-cache');
+        header('Connection: keep-alive');
 
         die();
     }
@@ -44,7 +44,7 @@ class SpeedtestController extends BaseController
         ini_set('output_buffering', 'Off');
         ini_set('output_handler', '');
 
-        header('HTTP/1.1 200 OK');
+        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename=random.dat');

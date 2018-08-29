@@ -38,7 +38,7 @@ class MotionController extends BaseController
             header('Content-type: ' . $ntct[exif_imagetype($file)]);
 
             if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-                header('HTTP/1.1 304 Not Modified');
+                header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
             }
 
             die(readfile($resizedPath));
