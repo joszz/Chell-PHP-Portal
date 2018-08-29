@@ -372,9 +372,6 @@
                             functions.nowPlayingCallback();
                         }
                     });
-                    /*
-
-                    */
                 }
             }
         };
