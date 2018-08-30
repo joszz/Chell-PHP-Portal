@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+var speedtest = false;
+
 /**
 * Main entry point for dashboard view.
 * 
@@ -45,7 +47,7 @@ function initializePlugins() {
         $(".motion").motion();
     }
     if (typeof $.fn.speedtest !== "undefined") {
-        $(".speedtest").speedtest();
+        speedtest = $(".speedtest").speedtest();
     }
 
     var date = new Date();
@@ -78,6 +80,11 @@ function initializeDashboardEventHandlers() {
 
     $("footer .toggle-all").click(function () {
         $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
+        
+        if ($(this).hasClass("fa-expand") && speedtest !== false) {
+            speedtest.initUI();
+        }
+
         $(this).toggleClass("fa-expand fa-compress");
     });
 }
