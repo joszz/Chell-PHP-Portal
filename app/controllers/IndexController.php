@@ -49,7 +49,7 @@ class IndexController extends BaseController
 
     /**
      * Sets the URLs for <link rel="dns-prefetch" />
-     * 
+     *
      * @return array An array with strings for the DNS prefetch URLs
      */
     private function setDNSPrefetchRecords()
@@ -71,7 +71,7 @@ class IndexController extends BaseController
                 {
                     $parsedURL = parse_url($configValue);
 
-                    if ($parsedURL['host'] != $hostname)
+                    if (isset($parsedURL['host'] ) && $parsedURL['host'] != $hostname)
                     {
                         $dnsPrefetchRecords[] = $parsedURL['scheme'] . '://' . $parsedURL['host'];
                     }
