@@ -25,9 +25,8 @@
 
     <div class="alert" role="alert" data-alert-timeout="<?php echo $this->config->application->alertTimeout ?>"></div>
 
-    <?php $this->partial('dialog-confirm') ?>
-
     <?php
+    $this->partial('dialog-confirm');
     $this->partial('footer');
     $this->assets->outputJs('footer');
     $controller = $this->dispatcher->getControllerName();

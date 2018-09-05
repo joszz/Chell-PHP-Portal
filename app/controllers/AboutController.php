@@ -43,10 +43,6 @@ class AboutController extends BaseController
         $content = current(json_decode(curl_exec($curl)));
         curl_close($curl);
 
-        if (empty($content->total)) {
-            return $this->getGithubStats();
-        }
-
-        return $content;
+        return empty($content->total) ? $this->getGithubStats() : $content;
     }
 }

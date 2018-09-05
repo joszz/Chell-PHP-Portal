@@ -5,7 +5,6 @@
         </div>
         <div class="panel-body">
             <form action="<?php echo $form->getAction() ?>" method="post">
-
                 <?php foreach($form AS $element) : ?>
 
                 <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>
