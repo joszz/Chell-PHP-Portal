@@ -436,7 +436,6 @@ class SettingsDashboardForm extends SettingsBaseForm
             ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
             ->setDefault($this->_config->speedtest->test_order);
 
-
         $speedtestUpTime = new Numeric('speedtest-time-ul');
         $speedtestUpTime->setLabel('Upload time')
             ->setFilters(array('striptags', 'int'))

@@ -34,20 +34,20 @@ class Speedtest extends Model
     {
         self::setIPAddress();
 
-        if(isset($_GET["isp"]))
+        if (isset($_GET["isp"]))
         {
             self::setISPDetails();
 
-            if(isset($_GET['distance']) && self::$clientLocaction && self::$serverLocation)
+            if (isset($_GET['distance']) && self::$clientLocaction && self::$serverLocation)
             {
                 self::distance(self::$clientLocaction[0], self::$clientLocaction[1], self::$serverLocation[0], self::$serverLocation[1]);
 
-                if($_GET['distance'] == 'mi')
+                if ($_GET['distance'] == 'mi')
                 {
                     self::$distance /= 1.609344;
                     self::$distance = round(self::$distance, 2) . ' mi';
                 }
-                else if($_GET['distance'] == 'km')
+                else if ($_GET['distance'] == 'km')
                 {
                     self::$distance = round(self::$distance, 2) .' km';
                 }

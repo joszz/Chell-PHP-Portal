@@ -72,11 +72,13 @@ class Devices extends Model
 
         // Strip empty lines and reorder the indexes from 0 (to make results more uniform across OS versions).
         $output = array_values(array_filter($output));
+
         // If the result line in the output is not empty, parse it.
         if (!empty($output[1]))
         {
             // Search for a 'time' value in the result line.
             $response = preg_match("/time(?:=|<)(?<time>[\.0-9]+)(?:|\s)ms/", $output[1], $matches);
+
             // If there's a result and it's greater than 0, return the latency.
             if ($response > 0 && isset($matches['time']))
             {
@@ -95,13 +97,21 @@ class Devices extends Model
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public static function wakeOnLan($mac, $config, $socket_number = '7', $repetition = 16)
+    public static function wakeOnLan($mac, $config, $socket_number = 7, $repetition = 16)
     {
         $addr_byte = explode(':', $mac);
         $hw_addr = '';
-        for ($a=0; $a <6; $a++) $hw_addr .= chr(hexdec($addr_byte[$a]));
         $msg = chr(255).chr(255).chr(255).chr(255).chr(255).chr(255);
-        for ($a = 1; $a <= $repetition; $a++) $msg .= $hw_addr;
+
+        for ($a=0; $a <6; $a++)
+        {
+            $hw_addr .= chr(hexdec($addr_byte[$a]));
+        }
+
+        for ($a = 1; $a <= $repetition; $a++)
+        {
+            $msg .= $hw_addr;
+        }
 
         // send it to the broadcast address using UDP
         // SQL_BROADCAST option isn't help!!
@@ -110,17 +120,19 @@ class Devices extends Model
         {
             echo 'Error creating socket!\n';
             echo 'Error code is "' . socket_last_error($s) . '" - ' . socket_strerror(socket_last_error($s));
-            return FALSE;
+            return false;
         }
         else
         {
             // setting a broadcast option to socket:
-            $opt_ret = socket_set_option($s, 1, 6, TRUE);
+            $opt_ret = socket_set_option($s, 1, 6, true);
+
             if($opt_ret <0)
             {
                 echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
                 return false;
             }
+
             if(socket_sendto($s, $msg, strlen($msg), 0, $config->network->broadcast, $socket_number))
             {
                 echo 'Magic Packet sent successfully!';

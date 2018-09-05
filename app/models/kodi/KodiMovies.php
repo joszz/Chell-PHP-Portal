@@ -48,30 +48,30 @@ class KodiMovies extends Model
     {
         $return = array();
 
-        foreach($movies as $movie)
+        foreach ($movies as $movie)
         {
             $start = strpos($movie->c08, 'preview=') + 9;
 
-            if($start !== false && strlen($movie->c08) > $start)
+            if ($start !== false && strlen($movie->c08) > $start)
             {
                 $end = strpos($movie->c08, '"', $start);
 
-                if($end !== false)
+                if ($end !== false)
                 {
                     $end -= $start;
                     $movie->c08 = substr($movie->c08, $start, $end);
                 }
             }
 
-            if(!empty($movie->c20))
+            if (!empty($movie->c20))
             {
                 $start = strpos($movie->c20, '>http://') + 1;
 
-                if($start !== false)
+                if ($start !== false)
                 {
                     $end = strpos($movie->c20, '</', $start) - $start;
 
-                    if($end !== false)
+                    if ($end !== false)
                     {
                         $movie->c20 = substr($movie->c20, $start, $end);
                         $movie->c20 = current(explode('?', $movie->c20));

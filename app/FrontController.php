@@ -126,40 +126,49 @@ class FrontController
      * Adds necessary JS to JS array based upon what's enabled in config.
      */
     private function setJSBasedOnEnabledBlocks(){
-        if($this->config->transmission->enabled) {
+        if ($this->config->transmission->enabled)
+        {
             $this->js[] = 'dashboard-blocks/transmission.js';
         }
 
-        if($this->config->sickrage->enabled) {
+        if ($this->config->sickrage->enabled) 
+        {
             $this->js[] = 'dashboard-blocks/sickrage.js';
         }
 
-        if($this->config->couchpotato->enabled) {
+        if ($this->config->couchpotato->enabled) 
+        {
             $this->js[] = 'dashboard-blocks/couchpotato.js';
         }
 
-        if($this->config->kodi->enabled || $this->config->subsonic->enabled) {
+        if ($this->config->kodi->enabled || $this->config->subsonic->enabled) 
+        {
             $this->js[] = 'dashboard-blocks/nowplaying.js';
         }
 
-        if($this->config->kodi->enabled || $this->config->couchpotato->enabled){
+        if ($this->config->kodi->enabled || $this->config->couchpotato->enabled)
+        {
             $this->js[] = 'dashboard-blocks/gallery.js';
         }
 
-        if($this->config->hypervadmin->enabled){
+        if ($this->config->hypervadmin->enabled)
+        {
             $this->js[] = 'dashboard-blocks/hyperv-admin.js';
         }
 
-        if($this->config->motion->enabled){
+        if ($this->config->motion->enabled)
+        {
             $this->js[] = 'dashboard-blocks/motion.js';
         }
 
-        if($this->config->speedtest->telemetry != 'off'){
+        if ($this->config->speedtest->telemetry != 'off')
+        {
             $this->js[] = 'vendor/chartist/chartist.js';
             $this->js[] = 'vendor/chartist/chartist-plugin-legend.js';
         }
 
-        if($this->config->speedtest->enabled){
+        if ($this->config->speedtest->enabled)
+        {
             $this->js[] = 'dashboard-blocks/speedtest.js';
         }
     }
@@ -269,7 +278,7 @@ class FrontController
         $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
         $finalFile = 'css/compressed/final_' . $mtimeHash . '.css';
 
-        if(!$this->config->application->debug)
+        if (!$this->config->application->debug)
         {
             $this->application->assets
                  ->collection('header')
@@ -277,9 +286,9 @@ class FrontController
                  ->setTargetUri($finalFile);
         }
 
-        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalFile))
+        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalFile))
         {
-            if(!$this->config->application->debug)
+            if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalFile, '/css/compressed/final_*.css');
                 $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
@@ -287,7 +296,7 @@ class FrontController
                 //->addFilter(new LicenseStamper());
             }
 
-            foreach($this->css as $css)
+            foreach ($this->css as $css)
             {
                 $this->application->assets->collection('header')->addCss('css/' . $css);
             }
@@ -306,7 +315,7 @@ class FrontController
         $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
         $finalDefaultFile = 'js/compressed/default_' . $mtimeHash . '.min.js';
 
-        if(!$this->config->application->debug)
+        if (!$this->config->application->debug)
         {
             $this->application->assets
                  ->collection('footer')
@@ -314,15 +323,15 @@ class FrontController
                  ->setTargetUri($finalDefaultFile);
         }
 
-        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDefaultFile))
+        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDefaultFile))
         {
-            if(!$this->config->application->debug)
+            if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
                 $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
             }
 
-            foreach($this->js as $js)
+            foreach ($this->js as $js)
             {
                 $this->application->assets->collection('footer')->addJs('js/' . $js);
             }
@@ -336,7 +345,7 @@ class FrontController
         $mtimeHash = $this->createMTimeHash(array('dashboard.js'), getcwd() . '/js/');
         $finalDashboardFile = 'js/compressed/dashboard_' . $mtimeHash . '.min.js';
 
-        if(!$this->config->application->debug)
+        if (!$this->config->application->debug)
         {
             $this->application->assets
                  ->collection('dashboard')
@@ -344,11 +353,11 @@ class FrontController
                  ->setTargetUri($finalDashboardFile);
         }
 
-        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDashboardFile))
+        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDashboardFile))
         {
             $dashJS = $this->application->assets->collection('dashboard')->addJs('js/dashboard.js');
 
-            if(!$this->config->application->debug)
+            if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
                 $dashJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
@@ -363,7 +372,7 @@ class FrontController
         $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
         $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
 
-        if(!$this->config->application->debug)
+        if (!$this->config->application->debug)
         {
             $this->application->assets
                  ->collection('settings')
@@ -371,11 +380,11 @@ class FrontController
                  ->setTargetUri($finalSettingsFile);
         }
 
-        if($this->config->application->debug || !file_exists(getcwd() . '/' . $finalSettingsFile))
+        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalSettingsFile))
         {
             $settingsJS = $this->application->assets->collection('settings')->addJs('js/settings.js');
 
-            if(!$this->config->application->debug)
+            if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
                 $settingsJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
@@ -397,12 +406,12 @@ class FrontController
     {
         $files = glob(getcwd() . $pattern);
 
-        if(($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
+        if (($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
         {
             unset($files[$key]);
         }
 
-        if(count($files))
+        if (count($files))
         {
             array_map('unlink', $files);
         }
@@ -419,7 +428,7 @@ class FrontController
     {
         $mtimes = 0;
 
-        foreach($files as $file)
+        foreach ($files as $file)
         {
             $mtimes += filemtime($basepath . $file);
         }
@@ -438,7 +447,8 @@ class FrontController
     /**
      * Sets the translator for use in views.
      */
-    private function setTranslator(){
+    private function setTranslator()
+    {
         $language = $this->application->request->getBestLanguage();
         $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language . '.php');
     }
@@ -447,7 +457,7 @@ class FrontController
      * Echoes the HTML to the browser.
      * @return mixed    The complete HTML of the request.
      */
-    public function tostring()
+    public function __tostring()
     {
         return $this->application->handle()->getContent();
     }

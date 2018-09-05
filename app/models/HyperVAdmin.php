@@ -28,11 +28,7 @@ class HyperVAdmin extends Model
 		$content = curl_exec($curl);
         curl_close($curl);
 
-        if ($jsonDecode) {
-            $content = json_decode($content);
-        }
-
-		return $content;
+		return $jsonDecode ? json_decode($content) : $content;
     }
 
     /**
@@ -47,11 +43,7 @@ class HyperVAdmin extends Model
 		$content = curl_exec($curl);
         curl_close($curl);
 
-        if ($jsonDecode) {
-            $content = json_decode($content);
-        }
-
-		return $content;
+		return $jsonDecode ? json_decode($content) :  $content;
     }
 
     /**

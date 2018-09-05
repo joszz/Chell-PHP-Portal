@@ -25,5 +25,3 @@ class LicenseStamper implements FilterInterface
         return $license . PHP_EOL . trim($contents);
     }
 }
-
-?>

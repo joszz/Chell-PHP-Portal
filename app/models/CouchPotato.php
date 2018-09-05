@@ -21,15 +21,14 @@ class Couchpotato extends Model
 	public static function getAllMovies($config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.list');
-		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
+		curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 0
+        ));
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		if($content && $content->success){
-			return $content->movies;
-		}
-
-		return false;
+		return $content && $content->success ? $content->movies : false;
 	}
 
 	/**
@@ -41,19 +40,22 @@ class Couchpotato extends Model
 	 */
 	public static function getMovie($id, $config)
 	{
+        $movie = false;
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.get/?id=' . $id);
-		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
+		curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CONNECTTIMEOUT => 0
+        ));
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		if($content->success) {
+		if ($content->success)
+        {
 			$movie = $content->media;
 			$movie->trailer = self::getRandomTrailerFormTMDB($movie->info->tmdb_id, $config);
-
-			return $movie;
 		}
 
-		return false;
+		return $movie;
 	}
 
 	/**
@@ -72,10 +74,6 @@ class Couchpotato extends Model
 
 		$randomTrailerIndex = array_rand($content->results);
 
-		if(isset($content->results[$randomTrailerIndex])) {
-			return $content->results[$randomTrailerIndex]->key;
-		}
-
-		return '';
+		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key '';
 	}
 }

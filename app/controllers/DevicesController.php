@@ -18,7 +18,8 @@ class DevicesController extends BaseController
      */
     public function wolAction($mac)
     {
-        if (isset($mac)) {
+        if (isset($mac)) 
+        {
             Devices::wakeOnLan($mac, $this->config);
         }
 
@@ -35,7 +36,8 @@ class DevicesController extends BaseController
      */
     public function shutdownAction($ip, $user, $password)
     {
-        if (isset($ip, $user, $password)){
+        if (isset($ip, $user, $password))
+        {
             $output = Devices::shutdown($ip, $user, $password);
 
             if(isset($output[1]))
@@ -82,35 +84,40 @@ class DevicesController extends BaseController
 
         $result = array();
 
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) {
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) 
+        {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
             $statsURLs->src = $device->webtemp . '/stats.png?t=' . filemtime($this->config->application->webDir . $device->webtemp . '/stats.png');
             $statsURLs->opts->caption = 'Current stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png')) {
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png')) 
+        {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
             $statsURLs->src = $device->webtemp . '/stats24.png?t=' . filemtime($this->config->application->webDir . $device->webtemp . '/stats24.png');
             $statsURLs->opts->caption = 'Daily stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png')) {
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png')) 
+        {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
             $statsURLs->src = $device->webtemp . '/stats7.png?t=' . filemtime($this->config->application->webDir . $device->webtemp . '/stats7.png');
             $statsURLs->opts->caption = 'Week stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png')) {
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png')) 
+        {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
             $statsURLs->src = $device->webtemp . '/stats31.png?t=' . filemtime($this->config->application->webDir . $device->webtemp . '/stats31.png');
             $statsURLs->opts->caption = 'Monthly stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png')) {
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png')) 
+        {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
             $statsURLs->src = $device->webtemp . '/stats365.png?t=' . filemtime($this->config->application->webDir . $device->webtemp . '/stats365.png');

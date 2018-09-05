@@ -7,4 +7,4 @@ namespace Chell;
  */
 
 require_once('../app/FrontController.php');
-echo (new FrontController())->tostring();
+echo new FrontController();

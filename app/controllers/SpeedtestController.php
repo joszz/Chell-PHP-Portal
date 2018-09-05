@@ -107,7 +107,8 @@ class SpeedtestController extends BaseController
         $ping = array();
         $jitter = array();
 
-        foreach($page->items as $stat) {
+        foreach($page->items as $stat)
+        {
             $labels[] = $stat->id;
 
             $dl[] = empty($stat->dl) ? '0' : $stat->dl;
@@ -115,7 +116,8 @@ class SpeedtestController extends BaseController
             $ping[] = empty($stat->ping) ? '0' : $stat->ping;
             $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
 
-            if ($stat->extra != 'false') {
+            if ($stat->extra != 'false')
+            {
                 $browser = json_decode($stat->extra);
                 $stat->browser = strtolower($browser->parse->software_name);
             }
@@ -147,14 +149,18 @@ class SpeedtestController extends BaseController
         $ispinfo = json_decode($item->ispinfo, true)['processedString'];
         $dash = strrpos($ispinfo, '-');
 
-        if($dash !== FALSE) {
+        if($dash !== false)
+        {
             $ispinfo = substr($ispinfo, $dash + 2);
             $par = strrpos($ispinfo, '(');
-            if($par !== FALSE) {
+
+            if($par !== false) 
+            {
                 $ispinfo = substr($ispinfo,0,$par);
             }
         }
-        else {
+        else 
+        {
             $ispinfo = '';
         }
 
@@ -235,7 +241,8 @@ class SpeedtestController extends BaseController
      */
     private function whatIsMyBrowser($try = 1)
     {
-        if($try > 5) {
+        if($try > 5) 
+        {
             return 'false';
         }
 
@@ -248,13 +255,16 @@ class SpeedtestController extends BaseController
             CURLOPT_TIMEOUT => 10
         ));
 
-        if(($output = curl_exec($ch)) !== false){
+        if (($output = curl_exec($ch)) !== false)
+        {
             $parsed = json_decode($output);
 
-            if($parsed->result->code == 'success'){
+            if ($parsed->result->code == 'success')
+            {
                 return $output;
             }
-            else if($parsed->result->message_code == 'usage_limit_exceeded') {
+            else if ($parsed->result->message_code == 'usage_limit_exceeded') 
+            {
                 return 'false';
             }
         }

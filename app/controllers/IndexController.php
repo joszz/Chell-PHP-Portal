@@ -28,10 +28,18 @@ class IndexController extends BaseController
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
 
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
-        $this->view->movies = KodiMovies::getLatestMovies();
-        $this->view->albums = KodiMusic::getLatestAlbums();
-        $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
-        $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
+
+        if ($this->config->kodi->enabled) 
+        {
+            $this->view->movies = KodiMovies::getLatestMovies();
+            $this->view->albums = KodiMusic::getLatestAlbums();
+            $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
+        }
+
+        if ($this->config->couchpotato->enabled) 
+        {
+            $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
+        }
 
         $this->executionTime = -microtime(true);
         $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);

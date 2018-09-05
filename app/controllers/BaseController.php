@@ -25,7 +25,8 @@ class BaseController extends Controller
     {
         $this->config = $this->di->get('config');
 
-        if(in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu)) {
+        if(in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
+        {
             $this->view->menu = Menus::findFirst(array(
                 'conditions' => 'id = ?1',
                 'order'      => 'name',
@@ -55,24 +56,30 @@ class BaseController extends Controller
      */
     protected function writeIniFile($assoc_arr, $path, $has_sections = false)
     {
-        $content = "";
+        $content = '';
 
         if ($has_sections)
         {
             foreach ($assoc_arr as $key=>$elem)
             {
-                $content .= "[".$key."]\n";
+                $content .= '[' . $key . ']\n';
                 foreach ($elem as $key2=>$elem2)
                 {
                     if(is_array($elem2))
                     {
                         for($i=0;$i<count($elem2);$i++)
                         {
-                            $content .= $key2."[] = \"".$elem2[$i]."\"\n";
+                            $content .= $key2.'[] = "' . $elem2[$i] . '"\n';
                         }
                     }
-                    else if($elem2=="") $content .= $key2." = \n";
-                    else $content .= $key2." = \"".$elem2."\"\n";
+                    else if ($elem2 == '')
+                    {
+                        $content .= $key2 . ' = \n';
+                    }
+                    else
+                    {
+                        $content .= $key2. ' = "' . $elem2 . '"\n';
+                    }
                 }
             }
         }
@@ -84,11 +91,17 @@ class BaseController extends Controller
                 {
                     for($i=0;$i<count($elem);$i++)
                     {
-                        $content .= $key."[] = \"".$elem[$i]."\"\n";
+                        $content .= $key . '[] = "' . $elem[$i] . '"\n';
                     }
                 }
-                else if($elem=="") $content .= $key." = \n";
-                else $content .= $key." = \"".$elem."\"\n";
+                else if ($elem == '')
+                {
+                    $content .= $key . ' = \n';
+                }
+                else 
+                {
+                    $content .= $key . ' = "' . $elem . '"\n';
+                }
             }
         }
 
@@ -164,17 +177,19 @@ class BaseController extends Controller
         return true;
     }
 
-    protected function SetPaginatorEndAndStart($page) 
+    protected function SetPaginatorEndAndStart($page)
     {
         $page->paginatorStart = 1;
         $page->paginatorEnd = 9;
 
-        if($page - 5 > 0) {
+        if ($page - 5 > 0) 
+        {
             $page->paginatorStart = $page - 5;
             $page->paginatorEnd = $page + 5;
         }
 
-        if($page->total_pages) {
+        if ($page->total_pages) 
+        {
             $page->paginatorEnd = $page->total_pages;
         }
 

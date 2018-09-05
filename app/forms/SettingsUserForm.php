@@ -29,7 +29,8 @@ class SettingsUserForm extends Form
         $username->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
         $username->addValidators(array(new PresenceOf(array())));
 
-        if(isset($user->username)){
+        if (isset($user->username))
+        {
             $username->setDefault($user->username);
         }
 

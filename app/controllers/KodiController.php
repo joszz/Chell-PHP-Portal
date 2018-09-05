@@ -103,14 +103,16 @@ class KodiController extends BaseController
                 break;
         }
 
-        if(isset($url)) {
+        if(isset($url)) 
+        {
             $ntct = Array('1' => 'image/gif',
                           '2' => 'image/jpeg',
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
 
-            if(!file_exists($filename)) {
+            if(!file_exists($filename)) 
+            {
                 $ch = curl_init($url);
                 curl_setopt_array($ch, array(
                     CURLOPT_RETURNTRANSFER => true,
@@ -118,7 +120,8 @@ class KodiController extends BaseController
                     CURLOPT_MAXREDIRS => 5
                 ));
 
-                if(($output = curl_exec($ch)) === false || empty($output)) {
+                if(($output = curl_exec($ch)) === false || empty($output)) 
+                {
                     $this->getImageAction($which, $type, $id, $maxWidth);
                     curl_close($ch);
                     return;
@@ -128,7 +131,8 @@ class KodiController extends BaseController
                 file_put_contents($filename, $output);
             }
 
-            if($maxWidth != 'disabled') {
+            if($maxWidth != 'disabled') 
+            {
                 $resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
 
                 if(!file_exists($resizedPath))
@@ -152,7 +156,8 @@ class KodiController extends BaseController
             header('Content-type: ' . $ntct[exif_imagetype($filename)]);
             header("Pragma: cache");
 
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
+            {
                 header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
             }
 

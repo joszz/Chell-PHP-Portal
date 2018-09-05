@@ -62,7 +62,8 @@ class SettingsBaseForm extends Form
         $html .= '<i class="fa fa-question"></i></a></div>';
         $html .= '</div><div class="col-lg-5 col-sm-3 col-xs-12">';
 
-        if($hasErrors) {
+        if ($hasErrors) 
+        {
             $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
         }
 
@@ -86,13 +87,16 @@ class SettingsBaseForm extends Form
         unset($attributes['fieldset']);
         $element->setAttributes($attributes);
 
-        if($fieldset === true){
+        if ($fieldset === true)
+        {
             $html = $this->renderGeneric($element, true);
         }
-        else if($fieldset == 'end'){
+        else if ($fieldset == 'end')
+        {
             $html = $this->renderGeneric($element, true) . '</fieldset>';
         }
-        else {
+        else 
+        {
             $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-10 text-right-not-xs">';
             $html .=  $element . '<span>'. $fieldset .  '</span>';
             $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-2">';

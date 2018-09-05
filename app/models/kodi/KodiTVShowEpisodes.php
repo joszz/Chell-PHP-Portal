@@ -48,7 +48,7 @@ class KodiTVShowEpisodes extends Model
     {
         $return = array();
 
-        foreach($episodes as $episode)
+        foreach ($episodes as $episode)
         {
             $episode->c06 = substr($episode->c06, $start = strpos($episode->c06, '>') + 1, strpos($episode->c06, '<', $start) - $start);
             $episode->c06 = current(explode('?', $episode->c06));   //Remove any query parameters from the string

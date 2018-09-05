@@ -17,6 +17,7 @@ class SecurityPlugin extends Plugin
         ['controller' => 'index', 'action' => 'manifest'],
         ['controller' => 'speedtest', 'action' => 'share']
     );
+
     /**
      * Called before executing each function. If not authenticated and requested controller is not rss or session,
      * then forward to session controller.
@@ -26,9 +27,9 @@ class SecurityPlugin extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
-        foreach($this->publiclyAccessible AS $access) 
+        foreach ($this->publiclyAccessible AS $access) 
         {
-            if($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action'])) 
+            if ($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action'])) 
             {
                 return true;
             }

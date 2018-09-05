@@ -47,7 +47,8 @@ class ChellException extends \Exception
      */
     private function getFileContents()
     {
-        if (is_file($file = $this->getFile())) {
+        if (is_file($file = $this->getFile())) 
+        {
             $fileContents = file($file);
 
             $exceptionContentsStart = $this->line - $this->surroundingLines >= 0 ? $this->line - $this->surroundingLines : 0;

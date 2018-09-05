@@ -107,6 +107,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             'data-size' => 'small',
             'fieldset' => 'Duo'
         ));
+
         $duoAPIHostname = new Text('duo-apiHostname');
         $duoAPIHostname->setLabel('API hostname');
         $duoAPIHostname->setFilters(array('striptags', 'string'));

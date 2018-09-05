@@ -40,10 +40,12 @@ class ErrorController
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
-        if ($this->debug) {
+        if ($this->debug) 
+        {
             $this->content = $exceptionContent;
         }
-        else {
+        else
+        {
             $this->content = $this->error();
             $this->content = $this->layout();
         }
@@ -114,7 +116,8 @@ class ErrorController
     {
         $filename = $this->getGUID() . '.htm';
 
-        while (is_file($this->logPath . $filename)) {
+        while (is_file($this->logPath . $filename)) 
+        {
             $filename = $this->getGUID() . '.htm';
         }
 

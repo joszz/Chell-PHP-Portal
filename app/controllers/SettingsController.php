@@ -53,12 +53,14 @@ class SettingsController extends BaseController
         $data = $this->request->getPost();
         $form = new SettingsGeneralForm($this->config);
 
-        if ($this->request->isPost()){
+        if ($this->request->isPost())
+        {
             if($form->isValid($data))
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
-            else {
+            else 
+            {
                 $this->generalForm = $form;
                 return $this->dispatcher->forward(
                     array(
@@ -84,12 +86,14 @@ class SettingsController extends BaseController
         $data = $this->request->getPost();
         $form = new SettingsDashboardForm($this->config);
 
-        if ($this->request->isPost()){
+        if ($this->request->isPost())
+        {
             if($form->isValid($data))
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
-            else {
+            else 
+            {
                 $this->dashboarForm = $form;
                 return $this->dispatcher->forward(
                     array(
@@ -116,14 +120,16 @@ class SettingsController extends BaseController
         {
             if($which == 'Logs')
             {
-                if(is_file(APP_PATH .'app/logs/' . $id)){
+                if(is_file(APP_PATH .'app/logs/' . $id))
+                {
                     unlink(APP_PATH . 'app/logs/' . $id);
                 }
                 else if($id == 'all'){
                     array_map('unlink', glob(APP_PATH . 'app/logs/*'));
                 }
             }
-            else {
+            else 
+            {
                 $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
                     'conditions' => 'id = ?1',
                     'bind'       => array(1 => intval($id))
@@ -202,7 +208,6 @@ class SettingsController extends BaseController
 
             if($form->isValid($data, $item))
             {
-
                 if($id == 0)
                 {
                     $item = new MenuItems($data);
@@ -234,7 +239,7 @@ class SettingsController extends BaseController
                 'bind'       => array(1 => $id),
             ));
 
-            $user->password ='';
+            $user->password = '';
         }
 
         $form = $this->view->form = new SettingsUserForm($user);
@@ -305,8 +310,10 @@ class SettingsController extends BaseController
         $logs = scandir(APP_PATH . 'app/logs/');
         $logsOrdered = array();
 
-        foreach ($logs as $log) {
-            if($log == '.' || $log == '..') {
+        foreach ($logs as $log) 
+        {
+            if($log == '.' || $log == '..') 
+            {
                 continue;
             }
 

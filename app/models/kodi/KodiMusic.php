@@ -41,9 +41,9 @@ class KodiMusic extends Model
     {
         $return = array();
 
-        foreach($albums as $album)
+        foreach ($albums as $album)
         {
-            if(!empty($album->strImage))
+            if (!empty($album->strImage))
             {
                 $album->strImage = substr($album->strImage, $start = strpos($album->strImage, '>') + 1, strpos($album->strImage, '<', $start) - $start);
                 $album->strImage = current(explode('?', $album->strImage));

@@ -27,9 +27,7 @@ class PHPSysInfo extends Model
         curl_close($curl);
 
         sort($data->Plugins->Plugin_PSStatus->Process);
-        usort($data->FileSystem->Mount,
-            function($a, $b)
-            {
+        usort($data->FileSystem->Mount, function($a, $b) {
                 return strcmp(current($a)->MountPoint, current($b)->MountPoint);
             }
         );
@@ -53,17 +51,30 @@ class PHPSysInfo extends Model
         {
             $mount = current($data->FileSystem->Mount[$i]);
 
-            if(strpos($mount->MountPoint, 'snap') !== false){
+            if (strpos($mount->MountPoint, 'snap') !== false)
+            {
                 unset($data->FileSystem->Mount[$i]);
                 continue;
             }
 
             $mount->Class = 'default';
 
-            if($mount->Percent > 90) $mount->Class = 'danger';
-            else if($mount->Percent > 70) $mount->Class = 'warning';
-            else if($mount->Percent > 50) $mount->Class = 'info';
-            else $mount->Class = 'success';
+            if ($mount->Percent > 90) 
+            {
+                $mount->Class = 'danger';
+            }
+            else if ($mount->Percent > 70)
+            {
+                $mount->Class = 'warning';
+            }
+            else if ($mount->Percent > 50)
+            {
+                $mount->Class = 'info';
+            }
+            else 
+            {
+                $mount->Class = 'success';
+            }
 
             $data->FileSystem->Mount[$i] = $mount;
         }
@@ -77,13 +88,13 @@ class PHPSysInfo extends Model
      */
     private static function setCPUData(&$data, $config)
     {
-        for($i = 0; $i < count($data->Hardware->CPU->CpuCore); $i++)
+        for ($i = 0; $i < count($data->Hardware->CPU->CpuCore); $i++)
         {
             $cpuCore = $data->Hardware->CPU->CpuCore[$i];
 
-            foreach($data->MBInfo->Temperature->Item as $temp)
+            foreach ($data->MBInfo->Temperature->Item as $temp)
             {
-                if(strpos($temp->{'@attributes'}->Label, 'Core ' . $i) !== false)
+                if (strpos($temp->{'@attributes'}->Label, 'Core ' . $i) !== false)
                 {
                     $cpuCore->Temp = $temp->{'@attributes'}->Value . ' &deg;' . $data->Options->{'@attributes'}->tempFormat;
                 }
