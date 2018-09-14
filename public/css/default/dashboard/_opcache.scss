@@ -1,0 +1,60 @@
+﻿
+.panel.opcache .ct-legend {
+    bottom: 0;
+    top: auto;
+    padding-left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.panel.opcache .ct-legend li {
+    display: inline-block;
+    float: none;
+    width: auto;
+    margin-right: 10px;
+}
+
+.panel.opcache .ct-legend li:last-child {
+    margin-right: 0;
+}
+
+.panel.opcache .ct-label {
+    font-weight: bold;
+    font-size: 16px;
+    fill: #FFF;
+    opacity: 0;
+    text-shadow: 1px 1px 1px #333 !important;
+}
+
+.panel.opcache.with-nav-tabs {
+    height: 800px;
+}
+
+.panel.opcache.with-nav-tabs .tab-content {
+    overflow-y: scroll;
+    height: calc(100% - 57px);
+    float: left;
+    width: 100%;
+}
+
+.panel.opcache .panel-body h4 {
+    text-align: center;
+}
+
+.panel.opcache .panel-body {
+    position: relative;
+    padding-bottom: 30px;
+    min-height: 200px;
+}
+
+.panel.opcache #scripts table th:last-child,
+.panel.opcache #scripts table td:last-child {
+    max-width: 300px;
+}
+
+.panel.opcache #scripts table td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+

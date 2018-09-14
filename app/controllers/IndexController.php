@@ -29,14 +29,14 @@ class IndexController extends BaseController
 
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
 
-        if ($this->config->kodi->enabled) 
+        if ($this->config->kodi->enabled)
         {
             $this->view->movies = KodiMovies::getLatestMovies();
             $this->view->albums = KodiMusic::getLatestAlbums();
             $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
         }
 
-        if ($this->config->couchpotato->enabled) 
+        if ($this->config->couchpotato->enabled)
         {
             $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
         }

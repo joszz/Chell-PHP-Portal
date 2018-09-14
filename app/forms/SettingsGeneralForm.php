@@ -33,7 +33,7 @@ class SettingsGeneralForm extends SettingsBaseForm
 
         $bgcolor = new Select(
             'bgcolor',
-            array('blackbg' => 'Black', 'whitebg' => 'White'),
+            array('blackbg' => 'Black', 'whitebg' => 'White', 'time' => 'Time based'),
             array('useEmpty' => false)
         );
         $bgcolor->setLabel('Background color');

@@ -8,14 +8,14 @@
             <h4 class="pull-left">Hardware</h4>
         </div>
         <ul class="list-group panel-success">
-            <li class="list-group-item col-xs-12 col-lg-12">
+            <li class="list-group-item col-xs-12">
                 <div class="col-xs-3">CPU</div>
                 <div class="col-xs-9 cpu-model-label value">
                     <?php echo $phpsysinfoData->Hardware->CPU->CpuCore[0]->{'@attributes'}->Model ?>
                 </div>
             </li>
 
-            <li class="list-group-item col-xs-12 col-lg-12">
+            <li class="list-group-item col-xs-12">
                 <div class="col-xs-3">Mobo</div>
                 <div class="col-xs-9 motherboard value">
                     <?php echo $phpsysinfoData->Hardware->{'@attributes'}->Name ?>
@@ -23,7 +23,7 @@
             </li>
 
             <?php $i = 0; foreach($phpsysinfoData->Hardware->CPU->CpuCore as $core) : ?>
-            <li class="list-group-item col-xs-12 col-lg-12 cpu-cores">
+            <li class="list-group-item col-xs-12 cpu-cores">
                 <div class="cpu-core col-xs-3">
                     Core <?php echo $i ?>
                 </div>
@@ -49,7 +49,7 @@
             <?php $i++;
                   endforeach ?>
 
-            <li class="list-group-item col-xs-12 col-lg-12">
+            <li class="list-group-item col-xs-12">
                 <div class="col-xs-3">Network</div>
                 <div class="lan-stats col-xs-9">
                     <?php

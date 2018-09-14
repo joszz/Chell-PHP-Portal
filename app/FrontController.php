@@ -131,17 +131,17 @@ class FrontController
             $this->js[] = 'dashboard-blocks/transmission.js';
         }
 
-        if ($this->config->sickrage->enabled) 
+        if ($this->config->sickrage->enabled)
         {
             $this->js[] = 'dashboard-blocks/sickrage.js';
         }
 
-        if ($this->config->couchpotato->enabled) 
+        if ($this->config->couchpotato->enabled)
         {
             $this->js[] = 'dashboard-blocks/couchpotato.js';
         }
 
-        if ($this->config->kodi->enabled || $this->config->subsonic->enabled) 
+        if ($this->config->kodi->enabled || $this->config->subsonic->enabled)
         {
             $this->js[] = 'dashboard-blocks/nowplaying.js';
         }
@@ -171,6 +171,8 @@ class FrontController
         {
             $this->js[] = 'dashboard-blocks/speedtest.js';
         }
+
+        $this->js[] = 'dashboard-blocks/opcache.js';
     }
 
     /**
@@ -457,7 +459,7 @@ class FrontController
      * Echoes the HTML to the browser.
      * @return mixed    The complete HTML of the request.
      */
-    public function __tostring()
+    public function tostring()
     {
         return $this->application->handle()->getContent();
     }

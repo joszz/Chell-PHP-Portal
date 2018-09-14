@@ -1,4 +1,3 @@
-
 <div id="records" class="tab-pane fade <?php echo $activetab == 'records' ? 'in active' : null ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
@@ -40,7 +39,7 @@
                         <?php echo !empty($stat->jitter) ? $stat->jitter .' ms' : '...' ?>
                     </td>
                     <td class="text-center">
-                        <i class="text-success fab fa-<?php echo $stat->browser ?>"></i>
+                        <i class="text-success fab fa-<?php echo str_replace(' ', '-', $stat->browser) ?>" title="<?php echo $stat->browser ?>"></i>
                     </td>
                     <td class="text-center">
                         <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat->id ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>

@@ -60,47 +60,49 @@ class BaseController extends Controller
 
         if ($has_sections)
         {
-            foreach ($assoc_arr as $key=>$elem)
+            foreach ($assoc_arr as $key => $elem)
             {
-                $content .= '[' . $key . ']\n';
+                $content .= '[' . $key . "]\n";
                 foreach ($elem as $key2=>$elem2)
                 {
-                    if(is_array($elem2))
+                    if (is_array($elem2))
                     {
-                        for($i=0;$i<count($elem2);$i++)
+                        $count = count($elem2);
+                        for ($i = 0; $i < $count; $i++)
                         {
-                            $content .= $key2.'[] = "' . $elem2[$i] . '"\n';
+                            $content .= $key2 .'[] = "' . $elem2[$i] . "\"\n";
                         }
                     }
                     else if ($elem2 == '')
                     {
-                        $content .= $key2 . ' = \n';
+                        $content .= $key2 . " = \"\"\n";
                     }
                     else
                     {
-                        $content .= $key2. ' = "' . $elem2 . '"\n';
+                        $content .= $key2. ' = "' . $elem2 . "\"\n";
                     }
                 }
             }
         }
         else
         {
-            foreach ($assoc_arr as $key=>$elem)
+            foreach ($assoc_arr as $key => $elem)
             {
-                if(is_array($elem))
+                if (is_array($elem))
                 {
-                    for($i=0;$i<count($elem);$i++)
+                    $count = count($elem);
+                    for ($i = 0; $i < $count; $i++)
                     {
-                        $content .= $key . '[] = "' . $elem[$i] . '"\n';
+                        $content .= $key . '[] = "' . $elem[$i] . "\"\n";
                     }
                 }
                 else if ($elem == '')
                 {
-                    $content .= $key . ' = \n';
+                    $content .= $key . " = \"\"\n";
                 }
-                else 
+                else
                 {
-                    $content .= $key . ' = "' . $elem . '"\n';
+                    $content .= $key . ' = "' . $elem . "\"\n";
                 }
             }
         }
@@ -129,6 +131,7 @@ class BaseController extends Controller
     protected function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70)
     {
         list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);
+        $source_gd_image = false;
 
         switch ($source_image_type) {
             case IMAGETYPE_GIF:
@@ -177,18 +180,18 @@ class BaseController extends Controller
         return true;
     }
 
-    protected function SetPaginatorEndAndStart($page)
+    public function SetPaginatorEndAndStart($page)
     {
         $page->paginatorStart = 1;
         $page->paginatorEnd = 9;
 
-        if ($page - 5 > 0) 
+        if ($page - 5 > 0)
         {
             $page->paginatorStart = $page - 5;
             $page->paginatorEnd = $page + 5;
         }
 
-        if ($page->total_pages) 
+        if ($page->total_pages)
         {
             $page->paginatorEnd = $page->total_pages;
         }

@@ -1,0 +1,27 @@
+<div class="panel panel-success with-nav-tabs opcache">
+    <div class="panel-heading ">
+        <h4 class="pull-left hidden-xs">Opcache</h4>
+        <ul class="nav nav-tabs pull-right">
+            <li class="active">
+                <a data-toggle="tab" href="#status">
+                    Status
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#config">
+                    Configuration
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#scripts">
+                    Scripts
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <?php $this->partial('opcache/partials/status') ?>
+        <?php $this->partial('opcache/partials/config') ?>
+        <?php $this->partial('opcache/partials/scripts') ?>
+    </div>
+</div>

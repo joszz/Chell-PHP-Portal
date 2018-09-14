@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var speedtest = false;
+var speedtest = false, opache = false;
 
 /**
 * Main entry point for dashboard view.
@@ -17,6 +17,10 @@ var speedtest = false;
 $(function () {
     initializeDashboardEventHandlers();
     initializePlugins();
+
+    if ($("html").hasClass("time")) {
+        getLocation();
+    }
 });
 
 /**
@@ -49,6 +53,9 @@ function initializePlugins() {
     if (typeof $.fn.speedtest !== "undefined") {
         speedtest = $(".speedtest").speedtest();
     }
+    if (typeof $.fn.opcache !== "undefined") {
+        opache = $(".opcache").opcache();
+    }
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
@@ -72,6 +79,11 @@ function initializeDashboardEventHandlers() {
                 panel.css("height", panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px");
             }
 
+            if (panel.hasClass("opcache")) {
+                opache.initializeChart();
+            }
+
+
             if (!panel.find(".tab-content").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");
             }
@@ -87,4 +99,12 @@ function initializeDashboardEventHandlers() {
 
         $(this).toggleClass("fa-expand fa-compress");
     });
+}
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            alert(position);
+        });
+    } 
 }

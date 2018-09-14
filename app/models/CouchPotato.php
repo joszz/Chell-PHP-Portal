@@ -74,6 +74,6 @@ class Couchpotato extends Model
 
 		$randomTrailerIndex = array_rand($content->results);
 
-		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key '';
+		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key : '';
 	}
 }

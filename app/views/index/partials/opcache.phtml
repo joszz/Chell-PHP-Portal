@@ -1,0 +1,18 @@
+
+<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+    <div class="panel panel-success pull-left opcache">
+        <div class="panel-heading">
+            <div class="btn-group pull-right">
+                <button class="btn btn-default fa fa-chevron-left"></button>
+                <button class="btn btn-default fa fa-chevron-right"></button>
+                <a href="<?php echo $this->config->application->baseUri ?>opcache/details" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar rounded-not-mobile"></a>
+                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse"></button>
+            </div>
+            <h4>Opcache</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <h4>Memory</h4>
+            <div id="graph"></div>
+        </div>
+    </div>
+</div>

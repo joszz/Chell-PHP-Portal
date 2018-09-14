@@ -1,0 +1,59 @@
+
+<div id="scripts" class="tab-pane fade">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Hits</th>
+                    <th>Memory</th>
+                    <th style="max-width:300px">Path</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($scripts as $dir => $info) : $count = count($info['files']); ?>
+                <?php if($count > 1) :  ?>
+                <tr>
+                    <th colspan="3">
+                        <?php echo $dir . ' (' . $count . ' files, '  . $opcache->getFormattedData('opcache.memory_consumption', $info['memory_usage']) . ')' ?>
+                    </th>
+                </tr>
+                <?php endif ?>
+                <?php foreach ($info['files'] as $file => $data) : ?>
+                <tr>
+                    <td>
+                        <?php echo $data['hits'] ?>
+                    </td>
+                    <td>
+                        <?php echo $opcache->getFormattedData('opcache.memory_consumption', $data['memory_consumption']) ?>
+                    </td>
+                    <td title="<?php echo ($path = $count > 1 ? $file : $dir . $file ) ?>">
+                        <?php echo $path ?>
+                    </td>
+                </tr>
+                <?php endforeach;
+                      endforeach  ?>
+            </tbody>
+        </table>
+    </div>
+    <nav class="paginator">
+        <ul class="pagination">
+            <li>
+                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->before ? '#' : $this->config->application->baseUri . 'opcache/details/' . $scriptsPaginator->before ?>"
+                    class="fa fa-backward <?php echo $scriptsPaginator->current == $scriptsPaginator->before ? 'disabled': null ?>"></a>
+            </li>
+
+            <?php for($i = $scriptsPaginator->paginatorStart; $i <= $scriptsPaginator->paginatorEnd; $i++ ) : ?>
+            <li class="hidden-xs <?php echo $scriptsPaginator->current == $i ? 'active' : null ?>">
+                <a href="<?php echo $this->config->application->baseUri . 'opcache/details/' . $i ?>">
+                    <?php echo $i ?>
+                </a>
+            </li>
+            <?php endfor ?>
+
+            <li>
+                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->next ? '#' : $this->config->application->baseUri . 'opcache/details/' . $scriptsPaginator->next ?>"
+                    class="fa fa-forward <?php echo $scriptsPaginator->current == $scriptsPaginator->next ? 'disabled': null ?>"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
