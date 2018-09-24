@@ -34,6 +34,11 @@ class Speedtest extends Model
     {
         self::setIPAddress();
 
+        if (strpos(self::$ipAddress, '127.0.0') !== false || strpos(self::$ipAddress, '::1') !== false) 
+        {
+            return self::$ipAddress . ' - localhost access';
+        }
+
         if (isset($_GET["isp"]))
         {
             self::setISPDetails();

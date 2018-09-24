@@ -1,5 +1,5 @@
 /*
-	HTML5 Speedtest v4.6.1
+	HTML5 Speedtest v4.6.2
 	by Federico Dossena
 	https://github.com/adolfintel/speedtest/
 	GNU LGPLv3 License
@@ -28,7 +28,7 @@ var settings = {
   time_dl: 15, // duration of download test in seconds
   time_ulGraceTime: 3, //time to wait in seconds before actually measuring ul speed (wait for buffers to fill)
   time_dlGraceTime: 1.5, //time to wait in seconds before actually measuring dl speed (wait for TCP window to increase)
-  count_ping: 35, // number of pings to perform in ping test
+  count_ping: 10, // number of pings to perform in ping test
   url_dl: 'garbage.php', // path to a large file or garbage.php, used for download test. must be relative to this js file
   url_ul: 'empty.php', // path to an empty file, used for upload test. must be relative to this js file
   url_ping: 'empty.php', // path to an empty file, used for ping test. must be relative to this js file
@@ -442,8 +442,10 @@ function pingTest (done) {
 		}
         var instjitter = Math.abs(instspd - prevInstspd)
         if (i === 1) ping = instspd; /* first ping, can't tell jitter yet*/ else {
-          ping = ping * 0.9 + instspd * 0.1 // ping, weighted average
-          jitter = instjitter > jitter ? (jitter * 0.2 + instjitter * 0.8) : (jitter * 0.9 + instjitter * 0.1) // update jitter, weighted average. spikes in ping values are given more weight.
+          ping = instspd < ping ? instspd : ping * 0.8 + instspd * 0.2 // update ping, weighted average. if the instant ping is lower than the current average, it is set to that value instead of averaging
+          if(i === 2) jitter=instjitter //discard the first jitter measurement because it might be much higher than it should be
+			else 
+		  jitter = instjitter > jitter ? (jitter * 0.3 + instjitter * 0.7) : (jitter * 0.8 + instjitter * 0.2) // update jitter, weighted average. spikes in ping values are given more weight.
         }
         prevInstspd = instspd
       }
