@@ -15,14 +15,14 @@
                 data-fancybox="albums"
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/album/' . $album->idAlbum ?>"
-                title="<?php echo utf8_encode($album->strAlbum) ?>"
+                title="<?php echo $album->strAlbum ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($album->strImage) ? 'kodi/getImage/albums/thumb/' . $album->idAlbum : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
-                <div class="title" title="<?php echo $title = utf8_encode($album->strArtists) ?>">
-                    <?php echo $title ?>
+                <div class="title" title="<?php echo $album->strArtists ?>">
+                    <?php echo $album->strAlbum ?>
                 </div>
-                <div class="subtitle" title="<?php echo $title = utf8_encode($album->strAlbum) ?>">
-                    <?php echo $title ?>
+                <div class="subtitle" title="<?php echo $album->strAlbum ?>">
+                    <?php echo $album->strAlbum ?>
                 </div>
             </a>
             <?php $i++;

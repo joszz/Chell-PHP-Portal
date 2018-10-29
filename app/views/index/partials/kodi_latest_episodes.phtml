@@ -16,13 +16,13 @@
                 data-fancybox="episodes"
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
-                title="<?php echo utf8_encode($episode->c00) ?>"
+                title="<?php echo $episode->c00 ?>"
                 style="background-image: url('<?php echo $this->config->application->baseUri . (!empty($episode->c06) ? 'kodi/getImage/episodes/thumb/' . $episode->idEpisode : 'img/icons/unknown.jpg')  ?>')">
                 <div class="overlay"></div>
-                <div class="title" title="<?php echo $title = utf8_encode($episode->strTitle) ?>">
-                    <?php echo $title ?>
+                <div class="title" title="<?php echo $episode->strTitle ?>">
+                    <?php echo $episode->strTitle ?>
                 </div>
-                <div class="subtitle" title="<?php echo $title = sprintf('%02d', $episode->c12) . 'E' . sprintf('%02d', $episode->c13) . ' - ' . utf8_encode($episode->c00) ?>">
+                <div class="subtitle" title="<?php echo $title = sprintf('%02d', $episode->c12) . 'E' . sprintf('%02d', $episode->c13) . ' - ' . $episode->c00 ?>">
                     <?php echo $title ?>
                 </div>
 

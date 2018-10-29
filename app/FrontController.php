@@ -221,7 +221,8 @@ class FrontController
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname'   => $config->database->kodiMusic
+                'dbname'   => $config->database->kodiMusic,
+                'charset'  => 'utf8'
             ));
         });
 
@@ -230,7 +231,8 @@ class FrontController
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname'   => $config->database->kodiVideo
+                'dbname'   => $config->database->kodiVideo,
+                'charset'  => 'utf8'
             ));
         });
     }
