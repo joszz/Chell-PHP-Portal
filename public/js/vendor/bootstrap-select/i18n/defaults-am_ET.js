@@ -24,20 +24,20 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Ei valintoja',
-    noneResultsText: 'Ei hakutuloksia {0}',
+    noneSelectedText: 'ምንም አልተመረጠም',
+    noneResultsText: 'ከ{0} ጋር ተመሳሳይ ውጤት የለም',
     countSelectedText: function (numSelected, numTotal) {
-      return (numSelected == 1) ? '{0} valittu' : '{0} valitut';
+      return (numSelected == 1) ? '{0} ምርጫ ተመርጧል' : '{0} ምርጫዎች ተመርጠዋል';
     },
     maxOptionsText: function (numAll, numGroup) {
       return [
-        (numAll == 1) ? 'Valintojen maksimimäärä ({n} saavutettu)' : 'Valintojen maksimimäärä ({n} saavutettu)',
-        (numGroup == 1) ? 'Ryhmän maksimimäärä ({n} saavutettu)' : 'Ryhmän maksimimäärä ({n} saavutettu)'
+        (numAll == 1) ? 'ገደብ ላይ ተደርሷል  (ቢበዛ {n} ምርጫ)' : 'ገደብ ላይ ተደርሷል  (ቢበዛ {n} ምርጫዎች)',
+        (numGroup == 1) ? 'የቡድን ገደብ ላይ ተደርሷል (ቢበዛ {n} ምርጫ)' : 'የቡድን ገደብ ላይ ተደርሷል (ቢበዛ {n} ምርጫዎች)'
       ];
     },
-    selectAllText: 'Valitse kaikki',
-    deselectAllText: 'Poista kaikki',
-    multipleSeparator: ', '
+    selectAllText: 'ሁሉም ይመረጥ',
+    deselectAllText: 'ሁሉም አይመረጥ',
+    multipleSeparator: ' ፣ '
   };
 })(jQuery);
 
