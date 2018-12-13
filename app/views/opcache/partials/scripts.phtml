@@ -1,5 +1,5 @@
 
-<div id="scripts" class="tab-pane fade">
+<div id="scripts" class="tab-pane fade<?php echo ($activeTab == 'scripts' ? ' active in' : null) ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -38,21 +38,21 @@
     <nav class="paginator">
         <ul class="pagination">
             <li>
-                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->before ? '#' : $this->config->application->baseUri . 'opcache/details/' . $scriptsPaginator->before ?>"
-                    class="fa fa-backward <?php echo $scriptsPaginator->current == $scriptsPaginator->before ? 'disabled': null ?>"></a>
+                <a href="<?php echo $scriptsPaginator->current == 1 ? '#' : $this->config->application->baseUri . 'opcache/details/' . ($scriptsPaginator->current - 1) ?>/scripts"
+                    class="fa fa-backward <?php echo $scriptsPaginator->current == 1 ? 'disabled': null ?>"></a>
             </li>
 
-            <?php for($i = $scriptsPaginator->paginatorStart; $i <= $scriptsPaginator->paginatorEnd; $i++ ) : ?>
+            <?php for($i = $scriptsPaginator->start; $i <= $scriptsPaginator->end; $i++ ) : ?>
             <li class="hidden-xs <?php echo $scriptsPaginator->current == $i ? 'active' : null ?>">
-                <a href="<?php echo $this->config->application->baseUri . 'opcache/details/' . $i ?>">
+                <a href="<?php echo $this->config->application->baseUri . 'opcache/details/' . $i ?>/scripts">
                     <?php echo $i ?>
                 </a>
             </li>
             <?php endfor ?>
 
             <li>
-                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->next ? '#' : $this->config->application->baseUri . 'opcache/details/' . $scriptsPaginator->next ?>"
-                    class="fa fa-forward <?php echo $scriptsPaginator->current == $scriptsPaginator->next ? 'disabled': null ?>"></a>
+                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->total ? '#' : $this->config->application->baseUri . 'opcache/details/' . ($scriptsPaginator->current + 1) ?>/scripts"
+                    class="fa fa-forward <?php echo $scriptsPaginator->current == $scriptsPaginator->total ? 'disabled': null ?>"></a>
             </li>
         </ul>
     </nav>

@@ -1,5 +1,4 @@
-﻿
-.panel.opcache .ct-legend {
+﻿.panel.opcache .ct-legend {
     bottom: 0;
     top: auto;
     padding-left: 0;
@@ -27,11 +26,10 @@
 }
 
 .panel.opcache.with-nav-tabs {
-    height: 800px;
+    max-height: 800px;
 }
 
 .panel.opcache.with-nav-tabs .tab-content {
-    overflow-y: scroll;
     height: calc(100% - 57px);
     float: left;
     width: 100%;
@@ -58,3 +56,8 @@
     white-space: nowrap;
 }
 
+@media only screen and (max-width : $screen-xs) {
+    .panel.opcache.with-nav-tabs {
+        max-height: 500px;
+    }
+}

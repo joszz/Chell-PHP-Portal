@@ -13,8 +13,10 @@
 .pagination > .active > a:hover,
 .pagination > .active > a:focus {
     background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
+    background-color: transparent;
     border-color: #d6e9c6;
     color: #3c763d;
+    margin: 0;
 }
 
 .pagination > li > a {

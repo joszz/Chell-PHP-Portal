@@ -2,7 +2,7 @@
     <div class="panel-heading ">
         <h4 class="pull-left hidden-xs">Opcache</h4>
         <ul class="nav nav-tabs pull-right">
-            <li class="active">
+            <li class="<?php echo ($activeTab != 'scripts' ? 'active ' : null) ?>">
                 <a data-toggle="tab" href="#status">
                     Status
                 </a>
@@ -12,7 +12,7 @@
                     Configuration
                 </a>
             </li>
-            <li>
+            <li class="<?php echo ($activeTab == 'scripts' ? 'active' : null) ?>">
                 <a data-toggle="tab" href="#scripts">
                     Scripts
                 </a>

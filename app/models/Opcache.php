@@ -47,7 +47,7 @@ class Opcache extends Model
     public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage = 20)
     {
         $dirs = array();
-        $count = 0;
+        
         foreach ($this->status['scripts'] as $key => $data)
         {
             $dirs[dirname($key)]['files'][basename($key)] = $data;

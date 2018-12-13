@@ -26,7 +26,6 @@ class IndexController extends BaseController
     public function indexAction()
     {
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
-
         $this->view->devices = Devices::find(array('order' => 'name ASC'));
 
         if ($this->config->kodi->enabled)
@@ -42,8 +41,12 @@ class IndexController extends BaseController
         }
 
         $this->executionTime = -microtime(true);
-        $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
-        $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+
+        if ($this->config->phpsysinfo->enabled)
+        {
+            $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
+            $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+        }
     }
 
     /**

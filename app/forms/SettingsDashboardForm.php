@@ -79,25 +79,37 @@ class SettingsDashboardForm extends SettingsBaseForm
      */
     private function setPHPSysInfoFields()
     {
+        $phpSysInfoEnabled = new Check('phpsysinfo-enabled');
+        $phpSysInfoEnabled->setLabel('Enabled');
+        $phpSysInfoEnabled->setAttributes(array(
+            'checked' => $this->_config->phpsysinfo->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'PHPSysInfo'
+        ));
+
         $phpSysInfoURL = new Text('phpsysinfo-url');
         $phpSysInfoURL->setLabel('PHPSysInfo URL')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
             ->setDefault($this->_config->phpsysinfo->URL)
             ->addValidators(array(new PresenceOf(array())));
 
         $phpSysInfoUsername = new Text('phpsysinfo-username');
         $phpSysInfoUsername->setLabel('PHPSysInfo username')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
             ->setDefault($this->_config->phpsysinfo->username);
 
         $phpSysInfoPassword = new Password('phpsysinfo-password');
         $phpSysInfoPassword->setLabel('PHPSysInfo password')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password'))
+            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'))
             ->setDefault($this->_config->phpsysinfo->password);
 
+        $this->add($phpSysInfoEnabled);
         $this->add($phpSysInfoURL);
         $this->add($phpSysInfoUsername);
         $this->add($phpSysInfoPassword);
@@ -500,6 +512,7 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->rcpu->enabled = isset($data['rcpu-enabled']) && $data['rcpu-enabled'] == 'on' ? '1' : '0';
             $this->_config->rcpu->URL = $data['rcpu-url'];
 
+            $this->_config->phpsysinfo->enabled = isset($data['phpsysinfo-enabled']) && $data['phpsysinfo-enabled'] == 'on' ? '1' : '0';
             $this->_config->phpsysinfo->URL = $data['phpsysinfo-url'];
             $this->_config->phpsysinfo->username = $data['phpsysinfo-username'];
             $this->_config->phpsysinfo->password = $data['phpsysinfo-password'];

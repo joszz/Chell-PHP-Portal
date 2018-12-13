@@ -180,22 +180,25 @@ class BaseController extends Controller
         return true;
     }
 
-    public function SetPaginatorEndAndStart($page)
+    public function GetPaginator($currentPage, $totalPages)
     {
-        $page->paginatorStart = 1;
-        $page->paginatorEnd = 9;
+        $paginator = new \stdClass();
+        $paginator->current = $currentPage;
+        $paginator->total = $totalPages;
+        $paginator->start = 1;
+        $paginator->end = 9;
 
-        if ($page - 5 > 0)
+        if ($currentPage - 5 > 0)
         {
-            $page->paginatorStart = $page - 5;
-            $page->paginatorEnd = $page + 5;
+            $paginator->start = $currentPage - 5;
+            $paginator->end = $currentPage + 5;
         }
 
-        if ($page->total_pages)
+        if ($paginator->total < $paginator->end)
         {
-            $page->paginatorEnd = $page->total_pages;
+            $paginator->end = $paginator->total;
         }
 
-        return $page;
+        return $paginator;
     }
 }

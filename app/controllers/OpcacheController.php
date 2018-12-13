@@ -24,23 +24,22 @@ class OpcacheController extends BaseController
 
     /**
      * Called by fancybox as iFrame when clicking the stats button.
+     *
+     * @param int    $currentPage       The page to display, defaults to 1
+     * @param string $tab               The active tab to display, defaults to 'status'. Will be set to 'scripts' when paging the scripts tab.
      */
-    public function detailsAction($page = 1)
+    public function detailsAction($currentPage = 1, $tab = 'status')
     {
         $opcache = new Opcache();
 
         $totalPages = 0;
-        $scripts = $opcache->getScriptStatusRows($page, $totalPages);
-        
-        $page = new \stdClass();
-        $page->total_pages = $totalPages;
-        $page = $this->SetPaginatorEndAndStart($page);
+        $scripts = $opcache->getScriptStatusRows($currentPage, $totalPages);
 
         $this->view->scripts = $scripts;
-        $this->view->scriptsPaginator = $page;
+        $this->view->scriptsPaginator = $this->GetPaginator($currentPage, $totalPages);
         $this->view->opcache = $opcache;
+        $this->view->activeTab = $tab;
+        $this->view->overflow = true;
         $this->view->setMainView('layouts/empty');
-
-
     }
 }
