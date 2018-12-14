@@ -180,9 +180,13 @@ class BaseController extends Controller
         return true;
     }
 
-    public function GetPaginator($currentPage, $totalPages)
+    public function GetPaginator($currentPage, $totalPages, $paginator = null)
     {
-        $paginator = new \stdClass();
+        if($paginator == null)
+        {
+            $paginator = new \stdClass();
+        }
+
         $paginator->current = $currentPage;
         $paginator->total = $totalPages;
         $paginator->start = 1;

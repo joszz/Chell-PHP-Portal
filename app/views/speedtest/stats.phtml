@@ -18,25 +18,6 @@
         <?php $this->partial('speedtest/partials/chart') ?>
         <?php $this->partial('speedtest/partials/records') ?>
     </div>
-    <nav class="paginator">
-        <ul class="pagination">
-            <li>
-                <a href="<?php echo $stats->current == $stats->before ? '#' : $this->config->application->baseUri . 'speedtest/stats/' . $stats->before ?>"
-                    class="fa fa-backward <?php echo $stats->current == $stats->before ? 'disabled': null ?>"></a>
-            </li>
 
-            <?php for($i = $stats->paginatorStart; $i <= $stats->paginatorEnd; $i++ ) : ?>
-            <li class="hidden-xs <?php echo $stats->current == $i ? 'active' : null ?>">
-                <a href="<?php echo $this->config->application->baseUri . 'speedtest/stats/' . $i ?>">
-                    <?php echo $i ?>
-                </a>
-            </li>
-            <?php endfor ?>
-
-            <li>
-                <a href="<?php echo $stats->current == $stats->next ? '#' : $this->config->application->baseUri . 'speedtest/stats/' . $stats->next ?>"
-                    class="fa fa-forward <?php echo $stats->current == $stats->next ? 'disabled': null ?>"></a>
-            </li>
-        </ul>
-    </nav>
+    <?php $this->partial('paginator') ?>
 </div>

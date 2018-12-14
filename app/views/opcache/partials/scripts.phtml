@@ -35,25 +35,5 @@
             </tbody>
         </table>
     </div>
-    <nav class="paginator">
-        <ul class="pagination">
-            <li>
-                <a href="<?php echo $scriptsPaginator->current == 1 ? '#' : $this->config->application->baseUri . 'opcache/details/' . ($scriptsPaginator->current - 1) ?>/scripts"
-                    class="fa fa-backward <?php echo $scriptsPaginator->current == 1 ? 'disabled': null ?>"></a>
-            </li>
-
-            <?php for($i = $scriptsPaginator->start; $i <= $scriptsPaginator->end; $i++ ) : ?>
-            <li class="hidden-xs <?php echo $scriptsPaginator->current == $i ? 'active' : null ?>">
-                <a href="<?php echo $this->config->application->baseUri . 'opcache/details/' . $i ?>/scripts">
-                    <?php echo $i ?>
-                </a>
-            </li>
-            <?php endfor ?>
-
-            <li>
-                <a href="<?php echo $scriptsPaginator->current == $scriptsPaginator->total ? '#' : $this->config->application->baseUri . 'opcache/details/' . ($scriptsPaginator->current + 1) ?>/scripts"
-                    class="fa fa-forward <?php echo $scriptsPaginator->current == $scriptsPaginator->total ? 'disabled': null ?>"></a>
-            </li>
-        </ul>
-    </nav>
+    <?php $this->partial('paginator') ?>
 </div>

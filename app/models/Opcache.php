@@ -44,7 +44,7 @@ class Opcache extends Model
         return json_encode($dataset);
     }
 
-    public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage = 20)
+    public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage)
     {
         $dirs = array();
         

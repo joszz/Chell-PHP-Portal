@@ -96,10 +96,12 @@ class SpeedtestController extends BaseController
 
         $paginator = new PaginatorModel([
             'data' => Speedtest::find(array('order' => 'timestamp DESC')),
-            'limit' => 10,
+            'limit' => $this->config->application->itemsPerPage,
             'page' => $requestedPage
         ]);
-        $page = self::SetPaginatorEndAndStart($paginator->getPaginate());
+
+        $page = $paginator->getPaginate();
+        $page = self::GetPaginator($page->current, $page->total_pages, $page);
 
         $labels = array();
         $dl = array();
@@ -124,7 +126,7 @@ class SpeedtestController extends BaseController
         }
 
         $this->view->activetab = isset($_GET['activetab']) ? $_GET['activetab'] : 'records';
-        $this->view->stats = $page;
+        $this->view->stats = $this->view->paginator = $page;
         $this->view->labels = array_reverse($labels);
         $this->view->dl = array_reverse($dl);
         $this->view->ul = array_reverse($ul);
@@ -154,12 +156,12 @@ class SpeedtestController extends BaseController
             $ispinfo = substr($ispinfo, $dash + 2);
             $par = strrpos($ispinfo, '(');
 
-            if($par !== false) 
+            if($par !== false)
             {
                 $ispinfo = substr($ispinfo,0,$par);
             }
         }
-        else 
+        else
         {
             $ispinfo = '';
         }
@@ -241,7 +243,7 @@ class SpeedtestController extends BaseController
      */
     private function whatIsMyBrowser($try = 1)
     {
-        if($try > 5) 
+        if($try > 5)
         {
             return 'false';
         }
@@ -263,7 +265,7 @@ class SpeedtestController extends BaseController
             {
                 return $output;
             }
-            else if ($parsed->result->message_code == 'usage_limit_exceeded') 
+            else if ($parsed->result->message_code == 'usage_limit_exceeded')
             {
                 return 'false';
             }

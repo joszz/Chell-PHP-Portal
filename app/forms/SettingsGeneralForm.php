@@ -46,6 +46,13 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setDefault($this->_config->application->alertTimeout)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
+        $itemsPerPage = new Numeric('items-per-page');
+        $itemsPerPage->setLabel('Items per page')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control'))
+            ->setDefault($this->_config->application->itemsPerPage)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
         $cryptKey = new Text('cryptkey');
         $cryptKey->setLabel('Cryptkey');
         $cryptKey->setFilters(array('striptags', 'string'));
@@ -84,6 +91,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($title);
         $this->add($bgcolor);
         $this->add($alertTimeout);
+        $this->add($itemsPerPage);
         $this->add($cryptKey);
         $this->add($tmdbAPIKey);
         $this->add($whatIsMyBrowserAPIKey);
@@ -155,6 +163,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->_config->application->title = $data['title'];
             $this->_config->application->background = $data['bgcolor'];
             $this->_config->application->alertTimeout = $data['alert-timeout'];
+            $this->_config->application->itemsPerPage = $data['items-per-page'];
             $this->_config->application->phalconCryptKey = $data['cryptkey'];
             $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
             $this->_config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
