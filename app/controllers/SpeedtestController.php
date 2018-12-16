@@ -101,7 +101,7 @@ class SpeedtestController extends BaseController
         ]);
 
         $page = $paginator->getPaginate();
-        $page = self::GetPaginator($page->current, $page->total_pages, $page);
+        $page = self::GetPaginator($page->current, $page->total_pages, 'speedtest/stats/', $page);
 
         $labels = array();
         $dl = array();

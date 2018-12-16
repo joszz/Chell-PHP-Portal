@@ -35,10 +35,14 @@ class SettingsController extends BaseController
             'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm($this->config),
         );
 
+        $logsTotal = 0;
+        $logs = $this->getLogsOrderedByFilemtime($logsTotal);
+        
+        $this->view->paginator = self::GetPaginator(1, $logsTotal);
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
-        $this->view->logs = $this->getLogsOrderedByFilemtime();
+        $this->view->logs = $logs;
     }
 
     /**
@@ -59,7 +63,7 @@ class SettingsController extends BaseController
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
-            else 
+            else
             {
                 $this->generalForm = $form;
                 return $this->dispatcher->forward(
@@ -92,7 +96,7 @@ class SettingsController extends BaseController
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
-            else 
+            else
             {
                 $this->dashboarForm = $form;
                 return $this->dispatcher->forward(
@@ -128,7 +132,7 @@ class SettingsController extends BaseController
                     array_map('unlink', glob(APP_PATH . 'app/logs/*'));
                 }
             }
-            else 
+            else
             {
                 $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
                     'conditions' => 'id = ?1',
@@ -291,7 +295,7 @@ class SettingsController extends BaseController
 
     /**
      * Shows help content for an input in settings.
-     * 
+     *
      * @param string $which     The input name to show the help for.
      */
     public function helpAction($which)
@@ -302,17 +306,17 @@ class SettingsController extends BaseController
 
     /**
      * Retrieves all log files from the logs directory and sorting them by filemtime descending.
-     * 
+     *
      * @return array    The array of logfiles as key and formated datetime as value.
      */
-    private function getLogsOrderedByFilemtime()
+    private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1)
     {
         $logs = scandir(APP_PATH . 'app/logs/');
         $logsOrdered = array();
 
-        foreach ($logs as $log) 
+        foreach ($logs as $log)
         {
-            if($log == '.' || $log == '..') 
+            if($log == '.' || $log == '..')
             {
                 continue;
             }
@@ -321,6 +325,9 @@ class SettingsController extends BaseController
         }
 
         asort($logsOrdered);
-        return array_reverse($logsOrdered);
+        $totalItems = count($logsOrdered);
+        $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->config->application->itemsPerPage, $this->config->application->itemsPerPage);
+
+        return $logsOrdered;
     }
 }
