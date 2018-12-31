@@ -175,8 +175,9 @@
                             url_getIp: "../../../speedtest/getIP",
                             url_telemetry: "../../../speedtest/telemetry",
                             telemetry_level: settings.telemetry,
-                            time_ul: settings.uploadTime,
-                            time_dl: settings.downloadTime,
+                            time_ul_max: settings.uploadTime,
+                            time_dl_max: settings.downloadTime,
+                            time_auto: false,
                             getIp_ispInfo: settings.getISPIP,
                             getIp_ispInfo_distance: settings.distanceUnit
                         }));

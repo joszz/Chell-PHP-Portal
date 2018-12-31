@@ -38,7 +38,7 @@ class SettingsController extends BaseController
         $logsTotal = 0;
         $logs = $this->getLogsOrderedByFilemtime($logsTotal);
         
-        $this->view->paginator = self::GetPaginator(1, $logsTotal);
+        $this->view->paginator = self::GetPaginator(1, $logsTotal, 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
