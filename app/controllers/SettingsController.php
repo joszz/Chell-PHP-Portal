@@ -23,26 +23,28 @@ use Phalcon\Validation\Message;
 class SettingsController extends BaseController
 {
     private $generalForm, $dashboarForm;
+    private $logsPage = 1;
 
     /**
      * Shows the settings view
      */
-    public function indexAction()
+    public function indexAction($activeTab = 'General')
     {
-        $this->view->activeTab = 'General';
+        $this->view->activeTab = $activeTab;
         $this->view->forms = array(
             'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm($this->config),
             'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm($this->config),
         );
 
         $logsTotal = 0;
-        $logs = $this->getLogsOrderedByFilemtime($logsTotal);
+        $logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
         
-        $this->view->paginator = self::GetPaginator(1, $logsTotal, 'settings/logs/');
+        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
         $this->view->logs = $logs;
+
     }
 
     /**
@@ -291,6 +293,13 @@ class SettingsController extends BaseController
         }
 
         die('Log file not found!');
+    }
+
+    public function logsAction($page)
+    {
+        $this->logsPage = $page;
+        $this->view->pick('settings/index');
+        $this->indexAction('Logs');
     }
 
     /**
