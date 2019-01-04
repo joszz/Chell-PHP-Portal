@@ -89,11 +89,11 @@
                     success: function () {
                         showAlert("success", "State toggled for " + (whichTab === "vm" ? "VM" : "site") + ": " + name);
 
-                        if (whichTab === "vm"){
-                            functions.refreshVMs(false);
+                        if (whichTab === "vm") {
+                            setTimeout(functions.refreshVMs, 250);
                         }
                         else {
-                            functions.refreshSites(false);
+                            setTimeout(functions.refreshSites, 250);
                         }
                     }
                 });

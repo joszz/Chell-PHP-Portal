@@ -51,7 +51,7 @@ $(function () {
 function initializeGlobalPlugins() {
     $("a, button, h4").vibrate("short");
 
-    $("select").selectpicker({ width: "100%", container: "body" });
+    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: 'fa-check', iconBase: 'fa' });
 
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
