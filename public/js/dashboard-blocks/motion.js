@@ -29,6 +29,11 @@
         * @type Object
         */
         var functions = {
+            /**
+            * Initializes the eventhandler for refresh button click and sets the interval to automatically refresh.
+            * 
+            * @method initialize
+            */
             initialize: function () {
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
@@ -38,8 +43,17 @@
 
                     functions.refreshImage();
                 });
+
+                settings.updateIntervalId = setInterval(function () {
+                    functions.refreshImage();
+                }, settings.updateInterval);
             },
 
+            /**
+            * Refreshes the image either by interval or manually by clicking the refresh button.
+            * 
+            * @method initialize
+            */
             refreshImage: function () {
                 var anchor = settings.block.find("a");
                 var bgImgUrl = anchor.css("background-image");

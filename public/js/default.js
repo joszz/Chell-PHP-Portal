@@ -23,7 +23,7 @@ var alertTimeout;
  */
 var keys = {
     Enter: 13, Alt: 18, M: 77,
-    Number1: 49, Numver9: 57,
+    Number1: 49, Number9: 57,
     ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40
 };
 
@@ -82,7 +82,7 @@ function initializeGlobalEventHandlers() {
                 $(".navbar-toggle").trigger("click");
             }
             //number pressed
-            if (e.which >= keys.Number1 && e.which <= keys.Numver9) {
+            if (e.which >= keys.Number1 && e.which <= keys.Number9) {
                 $("ul.nav li").eq(e.which - 49).find("a")[0].click();
             }
         }
@@ -105,9 +105,7 @@ function initializeGlobalEventHandlers() {
  * @param {String} message      The message to show.
  */
 function showAlert(alertType, message) {
-    $("div.alert").addClass("alert-" + alertType);
-    $("div.alert").html(message);
-    $("div.alert").fadeIn("fast");
+    $("div.alert").addClass("alert-" + alertType).html(message).fadeIn("fast");
     fadeOutAlert();
 }
 

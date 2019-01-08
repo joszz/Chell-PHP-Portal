@@ -60,7 +60,7 @@
                     return false;
                 });
 
-                settings.block.find(".fa-sync").click(function () {
+                settings.block.find(".fa-sync").on("click", function () {
                     switch ($(this).closest("a").attr("href")) {
                         case "#vms":
                             functions.refreshVMs(true);
@@ -74,7 +74,7 @@
             },
 
             /**
-             * Toggles the state of a site or VM and refreshes the list when the state toggle was successful.
+             * Toggles the state of a site or VM/site and refreshes the list when the state toggle was successful.
              * 
              * @method toggleState
              * @param {String} url          The URL to call to toggle the state.
@@ -89,11 +89,11 @@
                     success: function () {
                         showAlert("success", "State toggled for " + (whichTab === "vm" ? "VM" : "site") + ": " + name);
 
-                        if (whichTab === "vm") {
-                            setTimeout(functions.refreshVMs, 250);
+                        if (whichTab === "vms") {
+                            functions.refreshVMs();
                         }
                         else {
-                            setTimeout(functions.refreshSites, 250);
+                            functions.refreshSites();
                         }
                     }
                 });

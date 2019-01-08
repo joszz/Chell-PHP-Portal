@@ -22,7 +22,6 @@ class AboutController extends BaseController
         $this->view->versionCommit = $content->total;
         $this->view->versionStability = '&alpha;';
 
-        $this->view->lastUpdatedApiGen = date('d-m-Y H:i:s', filemtime(getcwd() . '/documentation/apigen/'));
         $this->view->lastUpdatedYUIDoc = date('d-m-Y H:i:s', filemtime(getcwd() . '/documentation/yuidoc/'));
     }
 

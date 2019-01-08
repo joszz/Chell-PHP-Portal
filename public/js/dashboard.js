@@ -100,11 +100,3 @@ function initializeDashboardEventHandlers() {
         $(this).toggleClass("fa-expand fa-compress");
     });
 }
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            alert(position);
-        });
-    } 
-}

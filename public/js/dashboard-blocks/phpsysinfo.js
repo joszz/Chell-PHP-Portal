@@ -149,7 +149,7 @@
                             var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var info = value["@attributes"].Info.split(";");
                             var network = $(".lan-stats div:eq(" + index + ")");
-                            
+
                             network.find(".lan-name").html(value.Name);
                             network.find(".lan-mac").html(info[0]);
                             network.find(".lan-ip").html(info[1]);
