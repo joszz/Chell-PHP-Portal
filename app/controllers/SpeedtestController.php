@@ -89,7 +89,7 @@ class SpeedtestController extends BaseController
      *
      * @param int       $requestedPage The requested page for the paginator to display, defaults to 1.
      */
-    public function statsAction($requestedPage = 1)
+    public function statsAction($requestedPage = 1, $activeTab = 'records')
     {
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
@@ -125,7 +125,7 @@ class SpeedtestController extends BaseController
             }
         }
 
-        $this->view->activetab = isset($_GET['activetab']) ? $_GET['activetab'] : 'records';
+        $this->view->activetab =  $activeTab;
         $this->view->stats = $this->view->paginator = $page;
         $this->view->labels = array_reverse($labels);
         $this->view->dl = array_reverse($dl);

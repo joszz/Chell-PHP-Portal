@@ -104,7 +104,7 @@
                 });
 
                 panel.find(".paginator a").click(function () {
-                    $(this).attr("href", $(this).attr("href") + "?activetab=" + panel.find(".nav-tabs li.active a").attr("href").replace("#", ""));
+                    $(this).attr("href", $(this).attr("href") + "/" + panel.find(".nav-tabs li.active a").attr("href").replace("#", ""));
                 })
 
             },

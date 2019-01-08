@@ -1,6 +1,6 @@
 Chell PHP Portal
 ================
-Copyright (c), 2015-2018, Jos Nienhuis
+&copy; 2019, Jos Nienhuis
 
 I created this project to have an easy to use portal for my homeserver. 
 It aggregates different services and webapplications that I want easily accessible from within this portal.
@@ -44,8 +44,6 @@ Finally you can edit the config.ini file. You can find this file in "app/config/
 
 Documentation
 ------------------------------
-* [ApiGen generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/apigen/)
-* [YuiDoc generated docs](https://josnienhuis.gotgeeks.com/portal/documentation/yuidoc/)
 
 #### Database
 

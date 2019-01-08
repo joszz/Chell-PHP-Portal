@@ -18,7 +18,7 @@ class DevicesController extends BaseController
      */
     public function wolAction($mac)
     {
-        if (isset($mac)) 
+        if (isset($mac))
         {
             Devices::wakeOnLan($mac, $this->config);
         }
@@ -73,9 +73,9 @@ class DevicesController extends BaseController
      *
      * @return View The webtemp view
      */
-    public function webtempAction()
+    public function webtempAction($id)
     {
-        $id = intval($_GET['id']);
+        $id = intval($id);
         $device = $this->view->device = Devices::findFirst(array(
             'conditions' => 'id = ?1',
             'order'      => 'name',
@@ -84,7 +84,7 @@ class DevicesController extends BaseController
 
         $result = array();
 
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png')) 
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats.png'))
         {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
@@ -92,7 +92,7 @@ class DevicesController extends BaseController
             $statsURLs->opts->caption = 'Current stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png')) 
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats24.png'))
         {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
@@ -100,7 +100,7 @@ class DevicesController extends BaseController
             $statsURLs->opts->caption = 'Daily stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png')) 
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats7.png'))
         {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
@@ -108,7 +108,7 @@ class DevicesController extends BaseController
             $statsURLs->opts->caption = 'Week stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png')) 
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats31.png'))
         {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
@@ -116,7 +116,7 @@ class DevicesController extends BaseController
             $statsURLs->opts->caption = 'Monthly stats';
             $result[] = $statsURLs;
         }
-        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png')) 
+        if(file_exists($this->config->application->webDir . $device->webtemp . '/stats365.png'))
         {
             $statsURLs = new \stdClass;
             $statsURLs->opts = new \stdClass;
