@@ -5,18 +5,27 @@ namespace Chell\Models;
 use Phalcon\Mvc\Model;
 
 /**
+ * The model responsible for all actions related to Opcache.
  *
  * @package Models
  */
 class Opcache extends Model
 {
-    public $status;
+    private $status;
 
+    /**
+     * Retrieves the Opcache status.
+     */
     public function initialize()
     {
         $this->status = opcache_get_status();
     }
 
+    /**
+     * Builds up a JSON object to be consumed by ChartistJS.
+     *
+     * @return string A JSON string that contains all the (formatted) Opcache data in a structured object.
+     */
     public function getGraphDataSetJson()
     {
         $dataset['memory'] = array(
@@ -44,10 +53,18 @@ class Opcache extends Model
         return json_encode($dataset);
     }
 
+    /**
+     * Formats the scripts in opcache status and applies the paging to it.
+     *
+     * @param mixed $page           The page to be displayed, defaults to 1.
+     * @param mixed $totalPages     The total amount of pages. Calculated from the data, passed in by reference to be used in the Controller.
+     * @param mixed $itemsPerPage   The amount of items to show per page.
+     * @return array                A paginated array of scripts in Opcache.
+     */
     public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage)
     {
         $dirs = array();
-        
+
         foreach ($this->status['scripts'] as $key => $data)
         {
             $dirs[dirname($key)]['files'][basename($key)] = $data;
@@ -69,6 +86,13 @@ class Opcache extends Model
         return array_slice($dirs, ($page - 1) * $itemsPerPage, $itemsPerPage, true);
     }
 
+    /**
+     * Formats different Opcache data fields.
+     *
+     * @param mixed $key    The Opcache field to format.
+     * @param mixed $value  The Opcache data to format.
+     * @return mixed        The formatted data.
+     */
     public function getFormattedData($key, $value)
     {
         switch($key){
