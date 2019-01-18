@@ -24,4 +24,9 @@ class Motion extends Model
 
         return array(key($files) => current($files));
     }
+
+    public static function getModifiedTime($config){
+        $latest_file = self::getLatest($config);
+        return date('d-m-Y H:i', current($latest_file));
+    }
 }

@@ -46,8 +46,7 @@ class FrontController
                         'vendor/waves.js',
                         'vendor/md5.js',
                         'default.js',
-                        'dashboard-blocks/devices.js',
-                        'dashboard-blocks/phpsysinfo.js');
+                        'dashboard-blocks/devices.js');
 
     private $css = array('vendor/solid.css',
                          'vendor/brands.css',
@@ -125,7 +124,13 @@ class FrontController
     /**
      * Adds necessary JS to JS array based upon what's enabled in config.
      */
-    private function setJSBasedOnEnabledBlocks(){
+    private function setJSBasedOnEnabledBlocks()
+    {
+        if ($this->config->phpsysinfo->enabled)
+        {
+            $this->js[] = 'dashboard-blocks/phpsysinfo.js';
+        }
+
         if ($this->config->transmission->enabled)
         {
             $this->js[] = 'dashboard-blocks/transmission.js';
@@ -172,7 +177,15 @@ class FrontController
             $this->js[] = 'dashboard-blocks/speedtest.js';
         }
 
-        $this->js[] = 'dashboard-blocks/opcache.js';
+        if ($this->config->youless->enabled)
+        {
+            $this->js[] = 'dashboard-blocks/youless.js';
+        }
+
+        if ($this->config->opcache->enabled)
+        {
+            $this->js[] = 'dashboard-blocks/opcache.js';
+        }
     }
 
     /**

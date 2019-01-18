@@ -45,9 +45,14 @@
 <?php $this->partial('index/partials/sickrage') ?>
 <?php endif ?>
 
+<?php if($this->config->opcache->enabled) : ?>
 <?php $this->partial('index/partials/opcache') ?>
+<?php endif ?>
+
+<?php if($this->config->youless->enabled) : ?>
+<?php $this->partial('index/partials/youless') ?>
+<?php endif ?>
 
 <?php if($this->config->transmission->enabled) : ?>
 <?php $this->partial('index/partials/transmission') ?>
 <?php endif ?>
-

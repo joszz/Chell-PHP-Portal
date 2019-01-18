@@ -18,6 +18,7 @@
         */
         var settings = $.extend({
             block: this,
+            baseUri: this.data("baseuri"),
             updateInterval: this.data("motion-interval") * 1000,
             updateIntervalId: -1
         }, options);
@@ -39,13 +40,16 @@
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
                         functions.refreshImage();
+                        functions.refreshModifiedTime();
                     }, settings.updateInterval);
 
                     functions.refreshImage();
+                    functions.refreshModifiedTime();
                 });
 
                 settings.updateIntervalId = setInterval(function () {
                     functions.refreshImage();
+                    functions.refreshModifiedTime();
                 }, settings.updateInterval);
             },
 
@@ -60,6 +64,17 @@
                 var bgImgUrlParts = bgImgUrl.split("?t=");
                 
                 anchor.css("background-image", bgImgUrlParts[0] + "?t=" + Date.now() + "\")");
+            },
+
+            refreshModifiedTime() {
+                
+
+                $.ajax({
+                    url: settings.baseUri + "motion/modifiedTime",
+                    success: function (data) {
+                        settings.block.find(".subtitle").text(data);
+                    }
+                });
             }
         };
 

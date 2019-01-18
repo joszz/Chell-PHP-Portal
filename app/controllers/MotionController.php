@@ -37,7 +37,7 @@ class MotionController extends BaseController
             header("Pragma: no-cache");
             header('Content-type: ' . $ntct[exif_imagetype($file)]);
 
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])) 
+            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
             {
                 header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
             }
@@ -46,5 +46,9 @@ class MotionController extends BaseController
         }
 
         die;
+    }
+
+    public function modifiedTimeAction(){
+        die(Motion::getModifiedTime($this->config));
     }
 }

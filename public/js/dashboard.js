@@ -57,6 +57,10 @@ function initializePlugins() {
         opache = $(".opcache").opcache();
     }
 
+    if (typeof $.fn.youless !== "undefined") {
+        $(".youless").youless();
+    }
+
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
@@ -75,7 +79,7 @@ function initializeDashboardEventHandlers() {
             panel.find(".toggle-collapse").toggleClass("fa-minus fa-plus");
             panel.find(".panel-body:eq(0)").toggleClass("hidden-xs");
 
-            if (panel.hasClass("gallery")){
+            if (panel.hasClass("gallery")) {
                 panel.css("height", panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px");
             }
 
@@ -92,7 +96,7 @@ function initializeDashboardEventHandlers() {
 
     $("footer .toggle-all").click(function () {
         $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
-        
+
         if ($(this).hasClass("fa-expand") && speedtest !== false) {
             speedtest.initUI();
         }

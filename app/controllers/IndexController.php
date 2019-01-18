@@ -7,6 +7,8 @@ use Phalcon\Mvc\View;
 use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\PHPSysInfo;
+use Chell\Models\Motion;
+use Chell\Models\Youless;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiMusic;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
@@ -38,6 +40,16 @@ class IndexController extends BaseController
         if ($this->config->couchpotato->enabled)
         {
             $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
+        }
+
+        if ($this->config->motion->enabled)
+        {
+            $this->view->motionModifiedTime = Motion::getModifiedTime($this->config);
+        }
+
+        if ($this->config->youless->enabled)
+        {
+            $this->view->youlessPowerUsage = (new Youless())->getCurrentPowerUsage($this->config);
         }
 
         $this->executionTime = -microtime(true);
