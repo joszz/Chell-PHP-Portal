@@ -180,6 +180,15 @@ class BaseController extends Controller
         return true;
     }
 
+    /**
+     * Does some basic math to calculate the different values used for building paginators.
+     * 
+     * @param mixed $currentPage    The current page requested.
+     * @param mixed $totalPages     The total amount of pages in the dataset.
+     * @param mixed $baseURI        The baseURI to create pagination URLs with.
+     * @param mixed $paginator      The pagination object, defaults to null (which will make a new stdClass).
+     * @return object   an object with all pagination data.
+     */
     public function GetPaginator($currentPage, $totalPages, $baseURI, $paginator = null)
     {
         if($paginator == null)

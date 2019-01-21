@@ -28,7 +28,7 @@
                         settings.transmissionSessionId = request.getResponseHeader('X-Transmission-Session-Id');
                     }
                 },
-                url: this.data('transmission-url')
+                url: this.data('transmission-url') + "rpc/"
             },
             block: this,
             transmissionSessionId: -1,
