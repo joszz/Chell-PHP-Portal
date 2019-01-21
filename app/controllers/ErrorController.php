@@ -15,8 +15,8 @@ class ErrorController
     private $exception;
     private $content;
     private $config;
-    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-    private $js = array('https://code.jquery.com/jquery-3.2.1.min.js');
+    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css');
+    private $js = array('https://code.jquery.com/jquery-3.3.1.min.js');
     private $logPath = APP_PATH . 'app/logs/';
 
     public $logFile;
@@ -139,7 +139,7 @@ class ErrorController
      */
     private function writeLogAsHTML($content)
     {
-        $gzip = gzopen($filePath = $this->logPath . $this->logFile, 'w9');
+        $gzip = gzopen($this->logPath . $this->logFile, 'w9');
         gzwrite($gzip, $content);
         gzclose($gzip);
     }
