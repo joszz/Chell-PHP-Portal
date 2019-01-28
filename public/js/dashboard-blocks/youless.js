@@ -50,7 +50,7 @@
             },
 
             refresh: function () {
-                $(".youless").isLoading();
+                settings.block.isLoading();
 
                 $.ajax({
                     url: "youless/",
@@ -58,8 +58,9 @@
                     success: function (data) {
                         settings.block.find(".value").text(data.power);
                         settings.block.find(".power").attr("class", "power " + data.class);
-
-                        $(".youless").isLoading("hide");
+                    },
+                    complete: function () {
+                        settings.block.isLoading("hide");
                     }
                 });
             }

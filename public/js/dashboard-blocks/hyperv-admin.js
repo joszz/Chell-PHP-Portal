@@ -135,8 +135,10 @@
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
-                        settings.block.isLoading("hide");
+                        
                     });
+                }).always(function () {
+                    settings.block.isLoading("hide");
                 });
             },
 
@@ -170,8 +172,10 @@
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
-                        settings.block.isLoading("hide");
+                        
                     });
+                }).always(function () {
+                    settings.block.isLoading("hide");
                 });
             }
         };

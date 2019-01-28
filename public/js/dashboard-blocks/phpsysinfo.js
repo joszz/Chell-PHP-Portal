@@ -71,7 +71,8 @@
                             functions.setRAM(data);
                             functions.setDisks(data);
                             functions.setUpdateNotifier(data);
-
+                        },
+                        complete: function () {
                             $(".sysinfo, #hardware, .harddisks").isLoading("hide");
                         }
                     });
@@ -275,8 +276,6 @@
                                 $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
                                 listItem.appendTo($("div.processes ul"));
                             });
-
-
                         },
                         complete: function () {
                             $(".processes").isLoading("hide");
