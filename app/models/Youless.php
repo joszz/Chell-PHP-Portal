@@ -14,7 +14,7 @@ class Youless extends Model
 
 	/**
 	 * Gets the current power usage from YouLess
-     *
+	 *
 	 * @param mixed $config The config object to get the YouLess URL from.
 	 * @return int          The current power usage in watts.
 	 */
@@ -30,7 +30,7 @@ class Youless extends Model
 
 	/**
 	 * Gets a bootstrap text- class to be used to indicate powerusage thresholds.
-     * @param mixed $config     The config object to get the different threshold levels for.
+	 * @param mixed $config     The config object to get the different threshold levels for.
 	 * @param mixed $power      The current power usage.
 	 * @return string           A bootstrap class indicating which threshold is passed.
 	 */
@@ -48,7 +48,7 @@ class Youless extends Model
 		}
 		if($power > $config->youless->warnThreshold && $power <= $config->youless->dangerThreshold)
 		{
-			$class .=  'warn';
+			$class .=  'warning';
 		}
 		if($power > $config->youless->dangerThreshold)
 		{
