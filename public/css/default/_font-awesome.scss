@@ -141,3 +141,15 @@
 .#{$fa-css-prefix}-share-alt:before {
     content: fa-content($fa-var-share-alt);
 }
+.#{$fa-css-prefix}-forward:before {
+    content: fa-content($fa-var-forward);
+}
+.#{$fa-css-prefix}-backward:before {
+    content: fa-content($fa-var-backward);
+}
+.#{$fa-css-prefix}-minus:before {
+    content: fa-content($fa-var-minus);
+}
+.#{$fa-css-prefix}-pause:before {
+    content: fa-content($fa-var-pause);
+}
