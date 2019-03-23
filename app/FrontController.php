@@ -48,10 +48,7 @@ class FrontController
                         'default.js',
                         'dashboard-blocks/devices.js');
 
-    private $css = array('vendor/solid.css',
-                         'vendor/brands.css',
-                         'vendor/fontawesome.css',
-                         'vendor/jquery.fancybox.css',
+    private $css = array('vendor/jquery.fancybox.css',
                          'vendor/waves.css',
                          'vendor/bootstrap-select.css',
                          'vendor/bootstrap-toggle.css',
