@@ -31,7 +31,7 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('vendor/jquery-3.4.0.js',
+    private $js = array('vendor/jquery-3.4.1.js',
                         'vendor/jquery.fancybox.js',
                         'vendor/bootstrap.js',
                         'vendor/bootstrap-select/bootstrap-select.js',
