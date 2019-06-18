@@ -114,42 +114,63 @@
 .#{$fa-css-prefix}-sign-out-alt:before {
     content: fa-content($fa-var-sign-out-alt);
 }
+
 .#{$fa-css-prefix}-chart-bar:before {
     content: fa-content($fa-var-chart-bar);
 }
+
 .#{$fa-css-prefix}-eye:before {
     content: fa-content($fa-var-eye);
 }
+
 .#{$fa-css-prefix}-plus:before {
     content: fa-content($fa-var-plus);
 }
+
 .#{$fa-css-prefix}-chrome:before {
     content: fa-content($fa-var-chrome);
 }
+
 .#{$fa-css-prefix}-firefox:before {
     content: fa-content($fa-var-firefox);
 }
+
 .#{$fa-css-prefix}-opera:before {
     content: fa-content($fa-var-opera);
 }
+
 .#{$fa-css-prefix}-edge:before {
     content: fa-content($fa-var-edge);
 }
+
 .#{$fa-css-prefix}-internet-explorer:before {
     content: fa-content($fa-var-internet-explorer);
 }
+
 .#{$fa-css-prefix}-share-alt:before {
     content: fa-content($fa-var-share-alt);
 }
+
 .#{$fa-css-prefix}-forward:before {
     content: fa-content($fa-var-forward);
 }
+
 .#{$fa-css-prefix}-backward:before {
     content: fa-content($fa-var-backward);
 }
+
 .#{$fa-css-prefix}-minus:before {
     content: fa-content($fa-var-minus);
 }
+
 .#{$fa-css-prefix}-pause:before {
     content: fa-content($fa-var-pause);
+}
+
+.#{$fa-css-prefix}-compress:before {
+    content: fa-content($fa-var-compress);
+}
+
+.#{$fa-css-prefix}-expand:before {
+    content: fa-content($fa-var-expand);
 }
