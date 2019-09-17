@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var speedtest = false, opache = false;
+var speedtest = false, opache = false, pihole = false;
 
 /**
 * Main entry point for dashboard view.
@@ -56,11 +56,12 @@ function initializePlugins() {
     if (typeof $.fn.opcache !== "undefined") {
         opache = $(".opcache").opcache();
     }
-
     if (typeof $.fn.youless !== "undefined") {
         $(".youless").youless();
     }
-
+    if (typeof $.fn.pihole !== "undefined") {
+        pihole = $(".pihole").pihole();
+    }
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
@@ -83,10 +84,12 @@ function initializeDashboardEventHandlers() {
                 panel.css("height", panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px");
             }
 
-            if (panel.hasClass("opcache")) {
+            else if (panel.hasClass("opcache")) {
                 opache.initializeChart();
             }
-
+            else if (panel.hasClass("pihole")) {
+                pihole.initializeChart();
+            }
 
             if (!panel.find(".tab-content").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");

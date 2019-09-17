@@ -49,6 +49,10 @@
 <?php $this->partial('index/partials/opcache') ?>
 <?php endif ?>
 
+<?php if($this->config->pihole->enabled) : ?>
+<?php $this->partial('index/partials/pihole') ?>
+<?php endif ?>
+
 <?php if($this->config->youless->enabled) : ?>
 <?php $this->partial('index/partials/youless') ?>
 <?php endif ?>

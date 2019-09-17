@@ -116,5 +116,3 @@
   };
 
 }).call(this);
-
-//# sourceMappingURL=jquery.vibrate.js.map

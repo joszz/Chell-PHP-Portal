@@ -53,7 +53,7 @@ class FrontController
                          'vendor/bootstrap-select.css',
                          'vendor/bootstrap-toggle.css',
                          'vendor/jquery.bootstrap-touchspin.css',
-                         'default.css');
+                         'default/default.css');
 
     /**
      * Initialize Phalcon.
@@ -182,6 +182,11 @@ class FrontController
         if ($this->config->opcache->enabled)
         {
             $this->js[] = 'dashboard-blocks/opcache.js';
+        }
+
+        if ($this->config->pihole->enabled)
+        {
+            $this->js[] = 'dashboard-blocks/pihole.js';
         }
     }
 

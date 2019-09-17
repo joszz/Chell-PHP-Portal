@@ -1,23 +1,22 @@
-﻿.panel.opcache .ct-legend {
-    bottom: 0;
-    top: auto;
+﻿.panel.chartist .ct-legend {
     padding-left: 0;
     width: 100%;
     text-align: center;
+    position: initial;
 }
 
-.panel.opcache .ct-legend li {
+.panel.chartist .ct-legend li {
     display: inline-block;
     float: none;
     width: auto;
     margin-right: 10px;
 }
 
-.panel.opcache .ct-legend li:last-child {
+.panel.chartist .ct-legend li:last-child {
     margin-right: 0;
 }
 
-.panel.opcache .ct-label {
+.panel.chartist .ct-label {
     font-weight: bold;
     font-size: 16px;
     fill: #FFF;
@@ -25,39 +24,49 @@
     text-shadow: 1px 1px 1px #333 !important;
 }
 
-.panel.opcache.with-nav-tabs {
+.panel.chartist.with-nav-tabs {
     max-height: 800px;
 }
 
-.panel.opcache.with-nav-tabs .tab-content {
+.panel.chartist.with-nav-tabs .tab-content {
     height: calc(100% - 57px);
     float: left;
     width: 100%;
 }
 
-.panel.opcache .panel-body h4 {
+.panel.chartist .panel-body h4 {
     text-align: center;
 }
 
-.panel.opcache .panel-body {
+.panel.chartist .panel-body {
     position: relative;
     padding-bottom: 30px;
-    min-height: 200px;
+    min-height: 321px;
 }
 
-.panel.opcache #scripts table th:last-child,
-.panel.opcache #scripts table td:last-child {
+.panel.chartist #scripts table th:last-child,
+.panel.chartist #scripts table td:last-child {
     max-width: 300px;
 }
 
-.panel.opcache #scripts table td {
+.panel.chartist #scripts table td {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
+.panel.chartist .graph {
+    height: calc(100% - 45px);
+    width: calc(100% - 30px);
+    position: absolute;
+}
+
+.panel.chartist .graph svg {
+    height: calc(100% - 45px) !important;
+}
+
 @media only screen and (max-width : $screen-xs) {
-    .panel.opcache.with-nav-tabs {
+    .panel.chartist.with-nav-tabs {
         max-height: 500px;
     }
 }

@@ -8,7 +8,7 @@
 * @submodule DashboardBlocks
 */
 (function ($) {
-    $.fn.opcache = function (options) {
+    $.fn.pihole = function (options) {
         /**
         * All the settings for this block.
         * 
@@ -17,11 +17,9 @@
         */
         var settings = $.extend({
             block: this,
+            url: $(this).data("pihole-url"),
             charts: [
-                { name: "Memory", legendNames: ["Used", "Free", "Wasted"], unitIndicator: "MB", active: true },
-                { name: "Keys", legendNames: ["Cached", "Free"], unitIndicator: false, active: false },
-                { name: "Hits", legendNames: ["Misses", "Hits"], unitIndicator: false, active: false },
-                { name: "Restarts", legendNames: ["Memory", "Manual", "Keys"], unitIndicator: false, active: false },
+                { name: "Queries today", legendNames: ["Cached", "Not cached", "Blocked"], active: true },
             ],
        
         }, options);
@@ -39,38 +37,22 @@
             * @method initialize
             */
             initialize: function () {
-                $.getJSON("opcache/dataset", function (data) {
-                    settings.charts[0].data = data.memory;
-                    settings.charts[1].data = data.keys;
-                    settings.charts[2].data = data.hits;
-                    settings.charts[3].data = data.restarts;
-
-                    functions.initializeChart(settings.charts[0]);
+                settings.block.on("click", ".fa-sync", function () {
+                    functions.refresh();
                 });
 
-                settings.block.find(".fa-chevron-right, .fa-chevron-left").off().on("click", function () {
-                    var offset = 1;
-                    var activeChart = settings.charts.find(chart => chart.active === true);
-                    var activeIndex = settings.charts.indexOf(activeChart);
+                functions.refresh();
+            },
 
-                    if ($(this).hasClass("fa-chevron-left")) {
-                        offset = -1;
-                    }
+            refresh: function () {
+                $.getJSON(settings.url + "api.php?summaryRaw", function (data) {
+                    settings.charts[0].data = [
+                        data.queries_cached,
+                        data.dns_queries_today - data.queries_cached,
+                        data.ads_blocked_today
+                    ];
 
-                    var newIndex = activeIndex + offset;
-
-                    if (newIndex >= settings.charts.length) {
-                        newIndex = 0;
-                    }
-                    else if (newIndex < 0) {
-                        newIndex = settings.charts.length - 1;
-                    }
-                    
-                    settings.charts[activeIndex].active = false;
-                    settings.charts[newIndex].active = true;
-
-                    settings.block.find(".panel-body h4").text(settings.charts[newIndex].name);
-                    functions.initializeChart(settings.charts[newIndex]);
+                    functions.initializeChart(settings.charts[0]);
                 });
             },
 
@@ -84,7 +66,7 @@
                     chartData = settings.charts[0];
                 }
 
-                var chart = new Chartist.Pie(".panel.opcache .graph", {
+                var chart = new Chartist.Pie(".panel.pihole .graph", {
                     series: chartData.data
                 }, {
                     donut: true,
@@ -106,7 +88,6 @@
                     setTimeout(function () {
                         settings.block.find(".ct-label ").fadeTo("fast", 1);
                     }, 1000);
-
                 });
             },
 

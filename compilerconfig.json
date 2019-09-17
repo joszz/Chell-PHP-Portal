@@ -1,7 +1,9 @@
 ﻿[
   {
-    "outputFile": "public/css/default.css",
-    "inputFile": "public/css/default.scss",
-    "options": { "sourceMap": true }
+    "outputFile": "public/css/default/default.css",
+    "inputFile": "public/css/default/default.scss",
+    "options": {
+      "sourceMap": true
+    }
   }
 ]

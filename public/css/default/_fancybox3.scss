@@ -22,3 +22,7 @@
 .fancybox-content {
     max-width: 800px;
 }
+
+.fancybox-container {
+    backdrop-filter: blur(5px);
+}
