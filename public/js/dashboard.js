@@ -62,6 +62,7 @@ function initializePlugins() {
     if (typeof $.fn.pihole !== "undefined") {
         pihole = $(".pihole").pihole();
     }
+
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
     $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });

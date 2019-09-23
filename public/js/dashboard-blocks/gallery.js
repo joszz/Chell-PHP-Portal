@@ -49,14 +49,6 @@
                             functions.rotateGallery("right");
                         }, settings.rotateInterval);
                     });
-
-                    settings.block.find(".item").on("swipeleft", function () {
-                        functions.rotateGallery("left");
-                    });
-
-                    settings.block.find(".item").on("swiperight", function () {
-                        functions.rotateGallery("right");
-                    });
                 },
 
                 /**
