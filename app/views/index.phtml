@@ -14,6 +14,20 @@
 
     <?php $this->assets->outputCss('header') ?>
     <?php $this->partial('favicons') ?>
+
+    <?php
+    $this->assets->outputJs('footer');
+    $controller = $this->dispatcher->getControllerName();
+
+    if($controller == 'index')
+    {
+        $this->assets->outputJs('dashboard');
+    }
+    else if($controller == 'settings')
+    {
+        $this->assets->outputJs('settings');
+    }
+    ?>
 </head>
 
 <body id="bootstrap">
@@ -28,17 +42,6 @@
     <?php
     $this->partial('dialog-confirm');
     $this->partial('footer');
-    $this->assets->outputJs('footer');
-    $controller = $this->dispatcher->getControllerName();
-
-    if($controller == 'index')
-    {
-        $this->assets->outputJs('dashboard');
-    }
-    else if($controller == 'settings')
-    {
-        $this->assets->outputJs('settings');
-    }
     ?>
 </body>
 </html>

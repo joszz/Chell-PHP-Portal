@@ -351,12 +351,12 @@ class FrontController
 
             foreach ($this->js as $js)
             {
-                $this->application->assets->collection('footer')->addJs('js/' . $js);
+                $this->application->assets->collection('footer')->addJs('js/' . $js, null, false, array('defer' => 'defer'));
             }
         }
         else
         {
-            $this->application->assets->collection('footer')->addJs($finalDefaultFile);
+            $this->application->assets->collection('footer')->addJs($finalDefaultFile, null, false, array('defer' => 'defer'));
         }
 
         //Dashboard file
@@ -373,7 +373,7 @@ class FrontController
 
         if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDashboardFile))
         {
-            $dashJS = $this->application->assets->collection('dashboard')->addJs('js/dashboard.js');
+            $dashJS = $this->application->assets->collection('dashboard')->addJs('js/dashboard.js', null, false, array('defer' => 'defer'));
 
             if (!$this->config->application->debug)
             {
@@ -383,7 +383,7 @@ class FrontController
         }
         else
         {
-            $this->application->assets->collection('dashboard')->addJs($finalDashboardFile);
+            $this->application->assets->collection('dashboard')->addJs($finalDashboardFile, null, false, array('defer' => 'defer'));
         }
 
         //Settings file
@@ -400,7 +400,7 @@ class FrontController
 
         if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalSettingsFile))
         {
-            $settingsJS = $this->application->assets->collection('settings')->addJs('js/settings.js');
+            $settingsJS = $this->application->assets->collection('settings')->addJs('js/settings.js', null, false, array('defer' => 'defer'));
 
             if (!$this->config->application->debug)
             {
@@ -410,7 +410,7 @@ class FrontController
         }
         else
         {
-            $this->application->assets->collection('settings')->addJs($finalSettingsFile);
+            $this->application->assets->collection('settings')->addJs($finalSettingsFile, null, false, array('defer' => 'defer'));
         }
     }
 
