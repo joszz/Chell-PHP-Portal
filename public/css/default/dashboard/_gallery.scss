@@ -39,15 +39,18 @@ div.gallery .panel-heading h4 {
 .gallery .panel-body {
     height: 377px;
     position: absolute;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     border-radius: 0 0 4px 4px;
     color: #333;
     float: left;
     clear: left;
     width: 100%;
     top: 0;
+}
+
+.gallery .item > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .item div.overlay {

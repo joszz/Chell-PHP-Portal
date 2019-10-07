@@ -5,10 +5,11 @@ namespace Chell\Forms;
 use Chell\Models\Devices;
 
 use Phalcon\Forms\Element\Check;
-use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Text;
 
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Regex;
@@ -46,6 +47,9 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->setHyperVAdminFields();
         $this->setMotionFields();
         $this->setSpeedtestFields();
+        $this->setOpcacheFields();
+        $this->setPiHoleFields();
+        $this->setYoulessFields();
     }
 
     /**
@@ -379,7 +383,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         foreach(Devices::Find() as $device) {
             $deviceOptions[$device->id] = $device->name;
         }
-        $hyperVAdminDevice = new Select('hypervadmin-device', $deviceOptions, array('fieldset' => true));
+        $hyperVAdminDevice = new Select('hypervadmin-device', $deviceOptions, array('fieldset' => 'end'));
         $hyperVAdminDevice->setLabel('Host');
         $hyperVAdminDevice->setDefault($this->_config->hypervadmin->device);
 
@@ -482,7 +486,7 @@ class SettingsDashboardForm extends SettingsBaseForm
         $speedtestTelemetry = new Select('speedtest-telemetry', array('off' => 'Off', 'basic' => 'Basic', 'full' => 'Full'));
         $speedtestTelemetry->setLabel('Telemetry')
             ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
             ->setDefault($this->_config->speedtest->telemetry);
 
         $this->add($speedtestEnabled);
@@ -492,6 +496,114 @@ class SettingsDashboardForm extends SettingsBaseForm
         $this->add($speedtestGetIP);
         $this->add($speedtestISPInfo);
         $this->add($speedtestTelemetry);
+    }
+
+    private function setOpcacheFields()
+    {
+        $opcacheEnabled = new Check('opcache-enabled');
+        $opcacheEnabled->setLabel('Enabled');
+        $opcacheEnabled->setAttributes(array(
+            'checked' => $this->_config->opcache->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Opcache'
+        ));
+
+        $opcacheHidden = new Hidden('opcache-hidden');
+        $opcacheHidden->setLabel('');
+        $opcacheHidden->setAttributes(array(
+            'fieldset' => 'end'
+        ));
+
+        $this->add($opcacheEnabled);
+        $this->add($opcacheHidden);
+    }
+
+    private function setPiHoleFields()
+    {
+        $piholeEnabled = new Check('pihole-enabled');
+        $piholeEnabled->setLabel('Enabled');
+        $piholeEnabled->setAttributes(array(
+            'checked' => $this->_config->pihole->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Pihole'
+        ));
+
+        $piholeURL = new Text('pihole-url');
+        $piholeURL->setLabel('URL')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+            ->setDefault($this->_config->pihole->URL);
+
+        $this->add($piholeEnabled);
+        $this->add($piholeURL);
+    }
+
+    private function setYoulessFields()
+    {
+        $youlessEnabled = new Check('youless-enabled');
+        $youlessEnabled->setLabel('Enabled');
+        $youlessEnabled->setAttributes(array(
+            'checked' => $this->_config->youless->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Youless'
+        ));
+
+        $youlessURL = new Text('youless-url');
+        $youlessURL->setLabel('URL')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->youless->URL);
+
+        $youlessPassword = new Password('youless-password');
+        $youlessPassword->setLabel('YouLess password')
+            ->setFilters(array('striptags', 'string'))
+            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true))
+            ->setDefault($this->_config->youless->password);
+
+        $youlessInterval = new Numeric('youless-update-interval');
+        $youlessInterval->setLabel('YouLess interval')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->youless->updateInterval)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $youlessPrimaryThreshold = new Numeric('youless-primary-threshold');
+        $youlessPrimaryThreshold->setLabel('YouLess primary threshold')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->youless->primaryThreshold)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $youlessWarnThreshold = new Numeric('youless-warn-threshold');
+        $youlessWarnThreshold->setLabel('YouLess warn threshold')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+            ->setDefault($this->_config->youless->warnThreshold)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $youlessDangerThreshold = new Numeric('youless-danger-threshold');
+        $youlessDangerThreshold->setLabel('YouLess danger threshold')
+            ->setFilters(array('striptags', 'int'))
+            ->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+            ->setDefault($this->_config->youless->dangerThreshold)
+            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+
+        $this->add($youlessEnabled);
+        $this->add($youlessURL);
+        $this->add($youlessPassword);
+        $this->add($youlessInterval);
+        $this->add($youlessPrimaryThreshold);
+        $this->add($youlessWarnThreshold);
+        $this->add($youlessDangerThreshold);
     }
 
     /**
@@ -563,6 +675,15 @@ class SettingsDashboardForm extends SettingsBaseForm
             $this->_config->speedtest->getIp_ispInfo = $data['speedtest-get-ispip'];
             $this->_config->speedtest->getIp_ispInfo_distance = $data['speedtest-isp-info-distance'];
             $this->_config->speedtest->telemetry = $data['speedtest-telemetry'];
+
+            $this->_config->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
+
+            $this->_config->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
+            $this->_config->youless->URL = $data['youless-url'];
+            $this->_config->youless->password = $data['youless-update-interval'];
+            $this->_config->youless->password = $data['youless-primary-threshold'];
+            $this->_config->youless->password = $data['youless-warn-threshold'];
+            $this->_config->youless->password = $data['youless-danger-threshold'];
         }
 
         return $valid;

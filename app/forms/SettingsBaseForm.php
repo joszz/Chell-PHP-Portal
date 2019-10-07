@@ -53,21 +53,29 @@ class SettingsBaseForm extends Form
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
 
-        $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
-        $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
-        $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
-
-        $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
-        $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
-        $html .= '<i class="fa fa-question"></i></a></div>';
-        $html .= '</div><div class="col-lg-5 col-sm-3 col-xs-12">';
-
-        if ($hasErrors) 
+        if(get_class($element) == 'Phalcon\Forms\Element\Hidden')
         {
-            $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
+            $html = $element;
         }
+        else 
+        {
+            $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
+            $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
+            $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
 
-        $html .= '</div></div>';
+            $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
+            $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
+            $html .= '<i class="fa fa-question"></i></a></div>';
+
+            $html .= '</div><div class="col-lg-5 col-sm-3 col-xs-12">';
+
+            if ($hasErrors)
+            {
+                $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
+            }
+
+            $html .= '</div></div>';
+        }
 
         return $html;
     }
@@ -95,7 +103,7 @@ class SettingsBaseForm extends Form
         {
             $html = $this->renderGeneric($element, true) . '</fieldset>';
         }
-        else 
+        else
         {
             $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-10 text-right-not-xs">';
             $html .=  $element . '<span>'. $fieldset .  '</span>';

@@ -41,6 +41,7 @@ $(function () {
         verticaldownclass: "fa fa-chevron-right",
         buttondown_class: "btn btn-default",
         buttonup_class: "btn btn-default",
+        max: 1000
     });
 
     $("legend input[type='checkbox']").each(function () {

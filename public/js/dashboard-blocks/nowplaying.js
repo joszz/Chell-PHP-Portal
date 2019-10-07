@@ -178,7 +178,7 @@
                 clone.removeClass("nothing-playing");
                 clone.addClass(values.type);
 
-                clone.find(".item").css("background-image", "url(" + values.bgImage + ")")
+                clone.find(".item > img").attr("src", values.bgImage)
                     .attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index })
                     .removeClass("disabled");
 
