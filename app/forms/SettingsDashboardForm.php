@@ -678,6 +678,9 @@ class SettingsDashboardForm extends SettingsBaseForm
 
             $this->_config->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
 
+			$this->_config->pihole->enabled = isset($data['pihole-enabled']) && $data['pihole-enabled'] == 'on' ? '1' : '0';
+			$this->_config->pihole->URL = $data['pihole-url'];
+
             $this->_config->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
             $this->_config->youless->URL = $data['youless-url'];
             $this->_config->youless->password = $data['youless-update-interval'];

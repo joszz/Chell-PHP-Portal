@@ -110,58 +110,62 @@ class KodiController extends BaseController
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
+			$filetype = $ntct[exif_imagetype($filename)];
+			
+			if(isset($filetype)){
+				if(!file_exists($filename)) 
+				{
+					$ch = curl_init($url);
+					curl_setopt_array($ch, array(
+						CURLOPT_RETURNTRANSFER => true,
+						CURLOPT_FOLLOWLOCATION => true,
+						CURLOPT_MAXREDIRS => 5
+					));
 
-            if(!file_exists($filename)) 
-            {
-                $ch = curl_init($url);
-                curl_setopt_array($ch, array(
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_MAXREDIRS => 5
-                ));
+					if(($output = curl_exec($ch)) === false || empty($output)) 
+					{
+						$this->getImageAction($which, $type, $id, $maxWidth);
+						curl_close($ch);
+						return;
+					}
 
-                if(($output = curl_exec($ch)) === false || empty($output)) 
-                {
-                    $this->getImageAction($which, $type, $id, $maxWidth);
-                    curl_close($ch);
-                    return;
-                }
+					curl_close($ch);
+					file_put_contents($filename, $output);
+				}
 
-                curl_close($ch);
-                file_put_contents($filename, $output);
-            }
+				if($maxWidth != 'disabled') 
+				{
+					$resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
 
-            if($maxWidth != 'disabled') 
-            {
-                $resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
+					if(!file_exists($resizedPath))
+					{
+						mkdir($resizedPath);
+					}
 
-                if(!file_exists($resizedPath))
-                {
-                    mkdir($resizedPath);
-                }
+					$resizedPath .= basename($url);
 
-                $resizedPath .= basename($url);
+					if(!file_exists($resizedPath))
+					{
+						
+						$this->resizeImage($filename, $resizedPath);
+					}
 
-                if(!file_exists($resizedPath))
-                {
-                    $this->resizeImage($filename, $resizedPath);
-                }
+					$filename = $resizedPath;
+				}
 
-                $filename = $resizedPath;
-            }
+				header('Cache-control: max-age='.(60 * 60 * 24 * 365));
+				header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
+				header('Last-Modified: '.gmdate(DATE_RFC1123, filemtime($filename)));
+				header('Content-type: ' . $filetype);
+				header("Pragma: cache");
 
-            header('Cache-control: max-age='.(60 * 60 * 24 * 365));
-            header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
-            header('Last-Modified: '.gmdate(DATE_RFC1123, filemtime($filename)));
-            header('Content-type: ' . $ntct[exif_imagetype($filename)]);
-            header("Pragma: cache");
+				if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
+				{
+					header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+				}
 
-            if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
-            {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
-            }
-
-            die(readfile($filename));
+				die(readfile($filename));
+			}
         }
     }
 }
