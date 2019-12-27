@@ -103,7 +103,7 @@
                     icon.addClass("fa-sync fa-spin");
 
                     (function (device, dependentMenuItems, icon, ip) {
-                        $.getJSON("devices/state/" + ip + "&" + d.getTime(), "", function (data) {
+                        $.getJSON("devices/state/" + ip + "/" + d.getTime(), "", function (data) {
                             icon.removeClass("fa-sync fa-spin");
                             icon.addClass("fa-power-off");
 

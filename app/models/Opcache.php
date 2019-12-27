@@ -11,7 +11,7 @@ use Phalcon\Mvc\Model;
  */
 class Opcache extends Model
 {
-    private $status;
+    public $status;
 
     /**
      * Retrieves the Opcache status.

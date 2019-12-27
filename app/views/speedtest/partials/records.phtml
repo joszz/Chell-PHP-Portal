@@ -18,31 +18,31 @@
                 <?php foreach($stats->items AS $stat) : ?>
                 <tr>
                     <td>
-                        <?php echo $stat->id ?>
+                        <?php echo $stat['id'] ?>
                     </td>
                     <td>
-                        <?php echo $stat->timestamp ?>
+                        <?php echo $stat['timestamp'] ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat->ip) ? $stat->ip : '...' ?>
+                        <?php echo !empty($stat['ip']) ? $stat['ip'] : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat->dl) ? $stat->dl . ' Mbps' : '...' ?>
+                        <?php echo !empty($stat['dl']) ? $stat['dl'] . ' Mbps' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat->ul) ? $stat->ul .' Mbps' : '...' ?>
+                        <?php echo !empty($stat['ul']) ? $stat['ul'] .' Mbps' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat->ping) ? $stat->ping . ' ms ' : '...' ?>
+                        <?php echo !empty($stat['ping']) ? $stat['ping'] . ' ms ' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat->jitter) ? $stat->jitter .' ms' : '...' ?>
+                        <?php echo !empty($stat['jitter']) ? $stat['jitter'] .' ms' : '...' ?>
                     </td>
                     <td class="text-center">
-                        <i class="text-success fab fa-<?php echo str_replace(' ', '-', $stat->browser) ?>" title="<?php echo $stat->browser ?>"></i>
+                        <i class="text-success fab fa-<?php echo str_replace(' ', '-', $stat['browser']) ?>" title="<?php echo $stat['browser'] ?>"></i>
                     </td>
                     <td class="text-center">
-                        <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat->id ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>
+                        <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat['id'] ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>
                     </td>
                 </tr>
                 <?php endforeach ?>

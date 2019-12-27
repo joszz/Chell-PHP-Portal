@@ -103,7 +103,7 @@ class KodiController extends BaseController
                 break;
         }
 
-        if(isset($url)) 
+        if(isset($url))
         {
             $ntct = Array('0' => 'unknown',
 						  '1' => 'image/gif',
@@ -111,8 +111,8 @@ class KodiController extends BaseController
                           '3' => 'image/png',
                           '6' => 'image/bmp');
             $filename = getcwd() . '/img/cache/' . basename($url);
-				
-			if(!file_exists($filename)) 
+
+			if(!file_exists($filename))
 			{
 				$ch = curl_init($url);
 				curl_setopt_array($ch, array(
@@ -122,23 +122,23 @@ class KodiController extends BaseController
 					CURLOPT_TIMEOUT => 3
 				));
 
-				if(($output = curl_exec($ch)) !== false && empty($output)) 
+				if(($output = curl_exec($ch)) !== false && !empty($output))
 				{
 					file_put_contents($filename, $output);
 				}
-				
+
 				curl_close($ch);
 			}
 
 			$filetype = $ntct[@exif_imagetype($filename)];
-			
+
 			if($filetype === 'unknown' || !isset($filetype))
 			{
 				$filename = getcwd() . '/img/icons/unknown.jpg';
 				$filetype = $ntct[exif_imagetype($filename)];
 			}
 
-			if($maxWidth != 'disabled') 
+			if($maxWidth != 'disabled')
 			{
 				$resizedPath = getcwd() . '/img/cache/resized/' . $maxWidth. '/';
 
@@ -151,7 +151,7 @@ class KodiController extends BaseController
 
 				if(!file_exists($resizedPath))
 				{
-					
+
 					$this->resizeImage($filename, $resizedPath);
 				}
 
@@ -170,7 +170,7 @@ class KodiController extends BaseController
 			}
 
 			die(readfile($filename));
-		
+
         }
     }
 }
