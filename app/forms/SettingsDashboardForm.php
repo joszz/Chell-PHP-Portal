@@ -613,7 +613,7 @@ class SettingsDashboardForm extends SettingsBaseForm
      * @param   object    $entity   The entity to validate.
      * @return  bool                Whether or not form is valid.
      */
-    public function IsValid($data = null, $entity = null)
+    public function IsValid($data = null, $entity = null) : bool
     {
         $valid = parent::IsValid($data, $entity);
 
