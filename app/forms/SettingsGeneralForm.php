@@ -22,7 +22,7 @@ class SettingsGeneralForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->_action = $this->_config->application->baseUri . 'settings/general';
+        $this->setAction($this->_config->application->baseUri . 'settings/general');
 
         $title = new Text('title');
         $title->setLabel('Title');

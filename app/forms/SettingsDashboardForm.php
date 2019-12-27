@@ -27,7 +27,7 @@ class SettingsDashboardForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->_action = $this->_config->application->baseUri . 'settings/dashboard#dashboard';
+        $this->setAction($this->_config->application->baseUri . 'settings/dashboard#dashboard');
 
         $devicestateTimeouts = new Numeric('check-devicestate-interval');
         $devicestateTimeouts->setLabel('Check device state interval')

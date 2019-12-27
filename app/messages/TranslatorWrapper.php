@@ -2,8 +2,6 @@
 
 namespace Chell\Messages;
 
-use Phalcon\Translate\Adapter\NativeArray;
-
 /**
  * Wrapper class for translations in Chell.
  *
@@ -21,7 +19,7 @@ class TranslatorWrapper
     {
         require file_exists($translationFile) ? $translationFile :  APP_PATH . 'app/messages/en.php';
 
-        $this->helpContent = new NativeArray([ "content" => $help ]);
-        $this->helpTitles = new NativeArray([ "content" => $helpTitles ]);
+        $this->helpContent = [ "content" => $help ];
+        $this->helpTitles = [ "content" => $helpTitles ];
     }
 }

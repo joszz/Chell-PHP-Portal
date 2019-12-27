@@ -61,16 +61,17 @@ class SessionController extends BaseController
         $rememberMe = false;
         $username = '';
         $password = '';
-        
-        if ($this->request->isPost() && $this->security->checkToken())
+
+        if ($this->request->isPost() /*&& $this->security->checkToken()*/)
         {
-            $username = trim($this->request->getPost('username'));
-            $password = trim($this->request->getPost('password'));
-            $rememberMe = $this->request->getPost('rememberme');
+            $username = trim($this->request->get('username'));
+            $password = trim($this->request->get('password'));
+            $rememberMe = $this->request->get('rememberme');
         }
         else if($this->cookies->has('username') && $this->cookies->has('password'))
         {
             $username = trim($this->cookies->get('username')->getValue());
+
             $password = trim($this->cookies->get('password')->getValue());
         }
 
@@ -90,8 +91,8 @@ class SessionController extends BaseController
             {
                 if($rememberMe)
                 {
-                    $this->cookies->set('username', $username, strtotime('+1 year'));
-                    $this->cookies->set('password', $password, strtotime('+1 year'));
+                    $this->cookies->set('username', $username, strtotime('+1 year'), '/portal/', true);
+                    $this->cookies->set('password', $password, strtotime('+1 year'), '/portal/', true);
                 }
 
                 return $this->dispatcher->forward(
@@ -150,6 +151,7 @@ class SessionController extends BaseController
      */
     public function duoVerifyAction()
     {
+
         $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
 
         $user = Users::findFirst(
@@ -166,10 +168,10 @@ class SessionController extends BaseController
             $this->_registerSession($user);
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
-
-            $response = new Response();
-            return $response->redirect('');
         }
+
+        $response = new Response();
+        return $response->redirect('/');
     }
 
     /**

@@ -2,7 +2,7 @@
 namespace Chell\Plugins;
 
 use Phalcon\Events\Event;
-use Phalcon\Mvc\User\Plugin;
+use Phalcon\Di\Injectable;
 use Phalcon\Mvc\Dispatcher;
 
 /**
@@ -10,7 +10,7 @@ use Phalcon\Mvc\Dispatcher;
  *
  * @package Plugins
  */
-class SecurityPlugin extends Plugin
+class SecurityPlugin extends Injectable
 {
     private $publiclyAccessible = array(
         ['controller' => 'rss', 'action' => '*'],
@@ -27,9 +27,9 @@ class SecurityPlugin extends Plugin
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
 
-        foreach ($this->publiclyAccessible AS $access) 
+        foreach ($this->publiclyAccessible AS $access)
         {
-            if ($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action'])) 
+            if ($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action']))
             {
                 return true;
             }
@@ -37,6 +37,7 @@ class SecurityPlugin extends Plugin
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
+            
             $dispatcher->forward(array('controller' => 'session', 'action' => 'index'));
             return false;
         }

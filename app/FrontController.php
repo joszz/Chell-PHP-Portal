@@ -10,7 +10,7 @@ use Chell\Messages\TranslatorWrapper;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
-use Phalcon\Mvc\Url as UrlProvider;
+use Phalcon\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Dispatcher;
@@ -18,9 +18,11 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Events\Manager as EventsManager;
-use Phalcon\Session\Adapter\Files as Session;
+use Phalcon\Session\Manager;
+use Phalcon\Session\Adapter\Stream;
 use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Assets\Filters\Cssmin;
+use Phalcon\Http\Request;
 
 /**
  * Frontcontroller sets up Phalcon to run the application.
@@ -281,7 +283,13 @@ class FrontController
     private function setSession()
     {
         $this->di->setShared('session', function () {
-            $session = new Session();
+            $session = new Manager();
+            $files = new Stream(
+                [
+                    'savePath' => '/tmp',
+                ]
+            );
+            $session->setAdapter($files);
             $session->start();
 
             return $session;
@@ -477,6 +485,8 @@ class FrontController
      */
     public function tostring()
     {
-        return $this->application->handle()->getContent();
+        $request = new Request();
+
+        return $this->application->handle(str_replace($this->config->application->baseUri, '', '/' . $request->getURI()))->getContent();
     }
 }
