@@ -198,7 +198,7 @@ class BaseController extends Controller
 
         $paginator->baseURI = $baseURI;
         $paginator->current = $currentPage;
-        $paginator->total = $totalPages;
+        $paginator->total_items = $totalPages;
         $paginator->start = 1;
         $paginator->end = 9;
 

@@ -15,12 +15,6 @@
                 </div>
                 <div class="col-xs-6 col-sm-7">
                     <div class="btn-group pull-right">
-                        <?php if(!empty($device->webtemp)) : ?>
-                        <a href="#" data-deviceid="<?php echo $device->id ?>" class="btn btn-default webtemp"  title="Webtemp: <?php echo $device->name ?>">
-                            <span class="fa fa-thermometer-half"></span>
-                        </a>
-                        <?php endif ?>
-
                         <?php if($device->id == $this->config->hypervadmin->device) : ?>
                         <a href="<?php echo $this->config->application->baseUri?>hyper_v_admin/" class="btn btn-default disabled hypervadmin" data-fancybox data-type="iframe" title="HyperVAdmin">
                             <span class="fa fa-server"></span>

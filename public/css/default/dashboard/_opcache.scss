@@ -65,6 +65,15 @@
     height: calc(100% - 45px) !important;
 }
 
+.panel.opcache .panel-body {
+    padding: 0;
+}
+
+.panel.opcache .table-responsive {
+    float: left;
+    width: 100%;
+}
+
 @media only screen and (max-width : $screen-xs) {
     .panel.chartist.with-nav-tabs {
         max-height: 500px;

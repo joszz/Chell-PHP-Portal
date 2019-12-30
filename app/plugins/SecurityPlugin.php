@@ -37,7 +37,6 @@ class SecurityPlugin extends Injectable
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
-            
             $dispatcher->forward(array('controller' => 'session', 'action' => 'index'));
             return false;
         }

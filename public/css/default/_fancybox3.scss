@@ -23,6 +23,10 @@
     max-width: 800px;
 }
 
+.fancybox-slide--iframe .fancybox-content {
+    max-height: 90%;
+}
+
 .fancybox-container {
     backdrop-filter: blur(5px);
     transition: backdrop-filter 1.5s ease-out;

@@ -38,11 +38,6 @@ class SettingsDeviceForm extends Form
             ->setFilters(array('striptags', 'string'))
             ->setAttributes(array('class' => 'form-control'));
 
-        $webtemp = new Text('webtemp');
-        $webtemp->setLabel('Webtemp path')
-                ->setFilters(array('striptags', 'string'))
-                ->setAttributes(array('class' => 'form-control'));
-
         $shutdownUser = new Text('shutdown_user');
         $shutdownUser->setLabel('Shutdown user')
                 ->setFilters(array('striptags', 'string'))
@@ -74,7 +69,6 @@ class SettingsDeviceForm extends Form
         $this->add($name);
         $this->add($ip);
         $this->add($mac);
-        $this->add($webtemp);
         $this->add($shutdownUser);
         $this->add($shutdownPassword);
         $this->add($shutdownMethod);

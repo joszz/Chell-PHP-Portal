@@ -19,7 +19,9 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Session\Manager;
-use Phalcon\Session\Adapter\Stream;
+use Phalcon\Session\Adapter\Redis;
+use Phalcon\Storage\SerializerFactory;
+use Phalcon\Storage\AdapterFactory;
 use Phalcon\Assets\Filters\Jsmin;
 use Phalcon\Assets\Filters\Cssmin;
 use Phalcon\Http\Request;
@@ -284,12 +286,13 @@ class FrontController
     {
         $this->di->setShared('session', function () {
             $session = new Manager();
-            $files = new Stream(
-                [
-                    'savePath' => '/tmp',
-                ]
-            );
-            $session->setAdapter($files);
+            $redis   = new Redis(new AdapterFactory(new SerializerFactory()), [
+                'host'  => 'localhost',
+                'port'  => 6379,
+                'index' => '1',
+            ]);
+
+            $session->setAdapter($redis);
             $session->start();
 
             return $session;
