@@ -19,12 +19,9 @@
     padding: 44px 0;
 }
 
-.fancybox-content {
-    max-width: 800px;
-}
-
 .fancybox-slide--iframe .fancybox-content {
     max-height: 90%;
+    max-width: 800px;
 }
 
 .fancybox-container {

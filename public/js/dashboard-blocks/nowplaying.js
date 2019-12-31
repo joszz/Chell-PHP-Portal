@@ -332,7 +332,7 @@
                                     jsonrpc: "2.0",
                                     method: "Player.GetItem",
                                     params: {
-                                        properties: ["title", "artist", "thumbnail"],
+                                        properties: ["title", "showtitle", "artist", "thumbnail"],
                                         playerid: playerID
                                     }
                                 };
@@ -348,14 +348,15 @@
                                     },
                                     success: function (response) {
                                         if ($.trim(response.result.item.title) !== "") {
+                                            console.log(response.result);
                                             var bgImage = encodeURI(response.result.item.thumbnail);
                                             bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
-
+                                            
                                             functions.createPlayer({
                                                 type: "kodi",
                                                 index: 99,
                                                 bgImage: bgImage,
-                                                title: response.result.item.artist,
+                                                title: response.result.item.showtitle,
                                                 subtitle: response.result.item.title
                                             });
                                         }

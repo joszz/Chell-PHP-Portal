@@ -18,7 +18,7 @@ class LicenseStamper implements FilterInterface
      * @param string $contents
      * @return string
      */
-    public function filter($contents)
+    public function sanitize($contents, $sanitizers, $noRecursive)
     {
         $license = '/* Copyright (c) 2015 - ' . date('Y') . ' Jos Nienhuis */';
 

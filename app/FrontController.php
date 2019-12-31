@@ -5,7 +5,6 @@ namespace Chell;
 use Chell\Controllers\ErrorController;
 use Chell\Exceptions\ChellException;
 use Chell\Plugins\SecurityPlugin;
-use Chell\Plugins\LicenseStamper;
 use Chell\Messages\TranslatorWrapper;
 
 use Phalcon\Crypt;
@@ -321,8 +320,6 @@ class FrontController
             {
                 $this->cleanupCompressedFiles($finalFile, '/css/compressed/final_*.css');
                 $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
-                //todo: stamps for all files, so will appear multiple times in minified output.
-                //->addFilter(new LicenseStamper());
             }
 
             foreach ($this->css as $css)
@@ -357,7 +354,7 @@ class FrontController
             if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
-                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
+                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
             }
 
             foreach ($this->js as $js)
@@ -389,7 +386,7 @@ class FrontController
             if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
-                $dashJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
+                $dashJS->join(true)->addFilter(new Jsmin());
             }
         }
         else
@@ -416,7 +413,7 @@ class FrontController
             if (!$this->config->application->debug)
             {
                 $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
-                $settingsJS->join(true)->addFilter(new Jsmin())->addFilter(new LicenseStamper());
+                $settingsJS->join(true)->addFilter(new Jsmin());
             }
         }
         else

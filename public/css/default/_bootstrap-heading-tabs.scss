@@ -16,9 +16,8 @@
 }
 
 .panel.with-nav-tabs .panel-heading .nav {
-    position: absolute;
-    bottom: 0;
-    right: 5px;
+    float: right;
+    margin-bottom: -1rem;
 }
 
 .panel.with-nav-tabs .panel-heading .nav li a {
