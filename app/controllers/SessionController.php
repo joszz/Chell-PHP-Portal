@@ -91,8 +91,8 @@ class SessionController extends BaseController
             {
                 if($rememberMe)
                 {
-                    $this->cookies->set('username', $username, strtotime('+1 year'), '/portal/', true);
-                    $this->cookies->set('password', $password, strtotime('+1 year'), '/portal/', true);
+                    $this->cookies->set('username', $username, strtotime('+1 year'), $this->config->application->baseUri, true);
+                    $this->cookies->set('password', $password, strtotime('+1 year'), $this->config->application->baseUri, true);
                 }
 
                 return $this->dispatcher->forward(
@@ -110,8 +110,8 @@ class SessionController extends BaseController
 
                 if($rememberMe)
                 {
-                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year')));
-                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year')));
+                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->config->application->baseUri, true)));
+                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->config->application->baseUri, true)));
                 }
 
                 $this->_registerSession($user);
@@ -179,12 +179,16 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
-        $response = new Response();
+        $this->cookies->set('username', 'username', strtotime('-1 year'), $this->config->application->baseUri, true);
+        $this->cookies->set('password', 'password', strtotime('-1 year'), $this->config->application->baseUri, true);
 
-        $response->setCookies($this->cookies->set('username', '', strtotime('-1 year')));
-        $response->setCookies($this->cookies->set('password', '', strtotime('-1 year')));
         $this->session->destroy();
 
-        return $response->redirect('session/index');
+        return $this->dispatcher->forward(
+            array(
+                'controller' => 'session',
+                'action'     => 'index'
+            )
+        );
     }
 }

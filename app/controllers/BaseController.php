@@ -182,7 +182,7 @@ class BaseController extends Controller
 
     /**
      * Does some basic math to calculate the different values used for building paginators.
-     * 
+     *
      * @param mixed $currentPage    The current page requested.
      * @param mixed $totalPages     The total amount of pages in the dataset.
      * @param mixed $baseURI        The baseURI to create pagination URLs with.
@@ -208,9 +208,9 @@ class BaseController extends Controller
             $paginator->end = $currentPage + 5;
         }
 
-        if ($paginator->total < $paginator->end)
+        if ($paginator->total_items < $paginator->end)
         {
-            $paginator->end = $paginator->total;
+            $paginator->end = $paginator->total_items;
         }
 
         return $paginator;

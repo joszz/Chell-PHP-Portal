@@ -44,7 +44,6 @@ class SettingsController extends BaseController
         $this->view->devices = Devices::Find();
         $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
         $this->view->logs = $logs;
-
     }
 
     /**

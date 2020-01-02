@@ -102,7 +102,7 @@ class SpeedtestController extends BaseController
         ]);
 
         $page = $paginator->paginate();
-        $page = self::GetPaginator($page->current, $page->total_pages, 'speedtest/stats/', $page);
+        $page = self::GetPaginator($page->current, $page->last, 'speedtest/stats/', $page);
 
         $labels = array();
         $dl = array();
@@ -112,20 +112,20 @@ class SpeedtestController extends BaseController
 
         foreach($page->items as $stat)
         {
-            $labels[] = $stat->id;
+            $labels[] = $stat['id'];
 
-            $dl[] = empty($stat->dl) ? '0' : $stat->dl;
-            $ul[] = empty($stat->ul) ? '0' : $stat->ul;
-            $ping[] = empty($stat->ping) ? '0' : $stat->ping;
-            $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
-
-            if ($stat->extra != 'false')
+            $dl[] = empty($stat['dl']) ? '0' : $stat['dl'];
+            $ul[] = empty($stat['ul']) ? '0' : $stat['ul'];
+            $ping[] = empty($stat['ping']) ? '0' : $stat['ping'];
+            $jitter[] = empty($stat['jitter']) ? '0' : $stat['jitter'];
+            
+            if ($stat['extra'] != 'false' && !empty($stat['extra']))
             {
-                $browser = json_decode($stat->extra);
-                $stat->browser = strtolower($browser->parse->software_name);
+                $browser = json_decode($stat['extra']);
+                $stat['browser'] = strtolower($browser->parse->software_name);
             }
         }
-
+        
         $this->view->activetab =  $activeTab;
         $this->view->stats = $this->view->paginator = $page;
         $this->view->labels = array_reverse($labels);
@@ -133,6 +133,7 @@ class SpeedtestController extends BaseController
         $this->view->ul = array_reverse($ul);
         $this->view->ping = array_reverse($ping);
         $this->view->jitter = array_reverse($jitter);
+        $this->view->paginator = $page;
     }
 
     /**
