@@ -62,7 +62,7 @@ class SessionController extends BaseController
         $username = '';
         $password = '';
 
-        if ($this->request->isPost() /*&& $this->security->checkToken()*/)
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             $username = trim($this->request->get('username'));
             $password = trim($this->request->get('password'));
@@ -181,14 +181,10 @@ class SessionController extends BaseController
     {
         $this->cookies->set('username', 'username', strtotime('-1 year'), $this->config->application->baseUri, true);
         $this->cookies->set('password', 'password', strtotime('-1 year'), $this->config->application->baseUri, true);
-
         $this->session->destroy();
 
-        return $this->dispatcher->forward(
-            array(
-                'controller' => 'session',
-                'action'     => 'index'
-            )
-        );
+        $this->view->containerFullHeight = true;
+        $this->view->form = new LoginForm($this->config, $this->loginFailed);
+        $this->view->pick('session/index');
     }
 }

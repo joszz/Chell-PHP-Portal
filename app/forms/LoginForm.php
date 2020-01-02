@@ -66,8 +66,5 @@ class LoginForm extends Form
         $this->add($username);
         $this->add($password);
         $this->add($rememberme);
-        $this->add(new Hidden($this->security->getTokenKey(), [
-            'value' => $this->security->getToken(),
-        ]));
     }
 }

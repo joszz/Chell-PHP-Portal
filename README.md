@@ -1,6 +1,6 @@
 Chell PHP Portal
 ================
-&copy; 2019, Jos Nienhuis
+&copy; 2020, Jos Nienhuis
 
 I created this project to have an easy to use portal for my homeserver. 
 It aggregates different services and webapplications that I want easily accessible from within this portal.
@@ -23,12 +23,11 @@ Prerequisites
 -------------
 - [PHP 7.x](http://www.php.net/)
 - [MySQL 5.x](https://www.mysql.com/)
-- [Phalcon PHP framework 3.x](https://phalconphp.com/)
+- [Phalcon PHP framework 4.x](https://phalconphp.com/)
 - [Apache 2.x](https://httpd.apache.org/)
 - [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
 - [rCPU](https://github.com/davidsblog/rCPU) (optional)
 - [Transmission](https://www.transmissionbt.com/) (optional)
-- [WebTemp](https://www.webtemp.org/) (optional)
 - [Sickrage](https://sickrage.github.io/) (optional)
 - [Couchpotato](https://couchpota.to//) (optional)
 

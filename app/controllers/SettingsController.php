@@ -38,7 +38,7 @@ class SettingsController extends BaseController
 
         $logsTotal = 0;
         $logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
-        
+
         $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
@@ -58,7 +58,7 @@ class SettingsController extends BaseController
         $data = $this->request->getPost();
         $form = new SettingsGeneralForm($this->config);
 
-        if ($this->request->isPost())
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             if($form->isValid($data))
             {
@@ -91,7 +91,7 @@ class SettingsController extends BaseController
         $data = $this->request->getPost();
         $form = new SettingsDashboardForm($this->config);
 
-        if ($this->request->isPost())
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             if($form->isValid($data))
             {
@@ -167,7 +167,7 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsDeviceForm($device);
 
-        if ($this->request->isPost())
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             $form->bind($data = $this->request->getPost(), $device);
 
@@ -207,7 +207,7 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsMenuItemForm($item);
 
-        if ($this->request->isPost())
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             $form->bind($data = $this->request->getPost(), $item);
 
@@ -249,7 +249,7 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsUserForm($user);
 
-        if ($this->request->isPost())
+        if ($this->request->isPost() && $this->security->checkToken())
         {
             $form->bind($data = $this->request->getPost(), $user);
 
