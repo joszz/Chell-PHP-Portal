@@ -15,8 +15,8 @@ class ErrorController
     private $exception;
     private $content;
     private $config;
-    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css');
-    private $js = array('https://code.jquery.com/jquery-3.3.1.min.js');
+    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css');
+    private $js = array('https://code.jquery.com/jquery-3.4.1.min.js');
     private $logPath = APP_PATH . 'app/logs/';
 
     public $logFile;
