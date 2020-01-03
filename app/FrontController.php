@@ -209,13 +209,13 @@ class FrontController
 
         $loader->registerNamespaces([
             'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
-            'Chell\Exceptions'  => APP_PATH . 'app/exceptions/',
+            'Chell\Exceptions'  => APP_PATH . $this->config->application->exceptionsDir,
             'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
-            'Chell\Messages'    => APP_PATH . 'app/messages/',
+            'Chell\Messages'    => APP_PATH . $this->config->application->messagesDir,
             'Chell\Models'      => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
             'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'               => APP_PATH . 'app/duo/',
+            'Duo'               => APP_PATH . $this->config->application->duoDir,
         ])->register();
     }
 
@@ -229,7 +229,8 @@ class FrontController
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname'   => $config->database->name
+                'dbname'   => $config->database->name,
+                'charset'  => 'utf8'
             ));
         });
 
