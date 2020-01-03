@@ -19,7 +19,8 @@
         var settings = $.extend({
             block: this,
             apiKey: this.data("couchpotato-apikey"),
-            baseUrl: this.data("couchpotato-url")
+            baseUrl: this.data("base-url"),
+            couchpotatoBaseUrl : this.data("couchpotato-url")
         }, options);
 
         /**
@@ -58,7 +59,7 @@
 
                             clone.removeClass("clone").addClass("item");
                             clone.attr({
-                                "href": "/portal/couchpotato/movie/" + value._id,
+                                "href": settings.baseUrl + "couchpotato/movie/" + value._id,
                                 "data-fancybox": "couchpotato",
                                 "data-type": "iframe",
                                 "title": value.info.tagline
@@ -108,7 +109,7 @@
              * @returns {String}    The Couchpotato API URL string to use for the AJAX calls.
              */
             url: function (cmd) {
-                return settings.baseUrl + "api/" + settings.apiKey + "/" + cmd + "/";
+                return settings.couchpotatoBaseUrl + "api/" + settings.apiKey + "/" + cmd + "/";
             }
         };
 
