@@ -21,8 +21,6 @@ use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Redis;
 use Phalcon\Storage\SerializerFactory;
 use Phalcon\Storage\AdapterFactory;
-use Phalcon\Assets\Filters\Jsmin;
-use Phalcon\Assets\Filters\Cssmin;
 use Phalcon\Http\Request;
 
 /**
