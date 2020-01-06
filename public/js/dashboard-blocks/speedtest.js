@@ -50,6 +50,10 @@
             * @method checkstates
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.find(".fa-play, .fa-stop").on("click", function () {
                     $(this).toggleClass("fa-play fa-stop");
                     functions.startStop();

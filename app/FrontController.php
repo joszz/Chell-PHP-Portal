@@ -34,27 +34,6 @@ class FrontController
     private $config;
     private $di;
     private $application;
-    private $js = array('vendor/jquery-3.4.1.js',
-                        'vendor/jquery.fancybox.js',
-                        'vendor/bootstrap.js',
-                        'vendor/bootstrap-select/bootstrap-select.js',
-                        'vendor/bootstrap-tabcollapse.js',
-                        'vendor/bootstrap-toggle.js',
-                        'vendor/jquery.bootstrap-touchspin.js',
-                        'vendor/jquery.vibrate.js',
-                        'vendor/jquery.tinytimer.js',
-                        'vendor/jquery.isloading.js',
-                        'vendor/jquery.fullscreen.js',
-                        'vendor/waves.js',
-                        'vendor/md5.js',
-                        'default.js');
-
-    private $css = array('vendor/jquery.fancybox.css',
-                         'vendor/waves.css',
-                         'vendor/bootstrap-select.css',
-                         'vendor/bootstrap-toggle.css',
-                         'vendor/jquery.bootstrap-touchspin.css',
-                         'default/default.css');
 
     /**
      * Initialize Phalcon.
@@ -101,9 +80,7 @@ class FrontController
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
 
-        $this->setCSSCollection();
-        $this->setJSBasedOnEnabledBlocks();
-        $this->setJSCollection();
+        $this->setAssets();
         $this->setTitle();
         $this->setTranslator();
     }
@@ -118,83 +95,6 @@ class FrontController
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
         new ErrorController(new ChellException($exception), $this->config);
-    }
-
-    /**
-     * Adds necessary JS to JS array based upon what's enabled in config.
-     */
-    private function setJSBasedOnEnabledBlocks()
-    {
-        if ($this->di->get('dispatcher') ->getControllerName() == 'index')
-        {
-            if ($this->config->phpsysinfo->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/phpsysinfo.js';
-            }
-
-            if ($this->config->transmission->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/transmission.js';
-            }
-
-            if ($this->config->sickrage->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/sickrage.js';
-            }
-
-            if ($this->config->couchpotato->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/couchpotato.js';
-            }
-
-            if ($this->config->kodi->enabled || $this->config->subsonic->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/nowplaying.js';
-            }
-
-            if ($this->config->kodi->enabled || $this->config->couchpotato->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/gallery.js';
-            }
-
-            if ($this->config->hypervadmin->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/hyperv-admin.js';
-            }
-
-            if ($this->config->motion->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/motion.js';
-            }
-
-            if ($this->config->speedtest->telemetry != 'off')
-            {
-                $this->js[] = 'vendor/chartist/chartist.js';
-                $this->js[] = 'vendor/chartist/chartist-plugin-legend.js';
-            }
-
-            if ($this->config->speedtest->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/speedtest.js';
-            }
-
-            if ($this->config->youless->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/youless.js';
-            }
-
-            if ($this->config->opcache->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/opcache.js';
-            }
-
-            if ($this->config->pihole->enabled)
-            {
-                $this->js[] = 'dashboard-blocks/pihole.js';
-            }
-
-            $this->js[] = 'dashboard-blocks/devices.js';
-        }
     }
 
     /**
@@ -304,168 +204,13 @@ class FrontController
         });
     }
 
-    /**
-     * Create and compress CSS collection using $this->css as base.
-     */
-    private function setCSSCollection()
+    private function setAssets()
     {
-        $mtimeHash = $this->createMTimeHash($this->css, getcwd() . '/css/');
-        $finalFile = 'css/compressed/final_' . $mtimeHash . '.css';
+        $this->application->assets->collection('header')->addCss('css/default/default.min.css');
 
-        if (!$this->config->application->debug)
-        {
-            $this->application->assets
-                 ->collection('header')
-                 ->setTargetPath($finalFile)
-                 ->setTargetUri($finalFile);
-        }
-
-        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalFile))
-        {
-            if (!$this->config->application->debug)
-            {
-                $this->cleanupCompressedFiles($finalFile, '/css/compressed/final_*.css');
-                $this->application->assets->collection('header')->join(true)->addFilter(new Cssmin());
-            }
-
-            foreach ($this->css as $css)
-            {
-                $this->application->assets->collection('header')->addCss('css/' . $css);
-            }
-        }
-        else
-        {
-            $this->application->assets->collection('header')->addCss($finalFile);
-        }
-    }
-
-    /**
-     * Create and compress JS collections using $this->js as base.
-     */
-    private function setJSCollection()
-    {
-        $mtimeHash = $this->createMTimeHash($this->js, getcwd() . '/js/');
-        $finalDefaultFile = 'js/compressed/default_' . $mtimeHash . '.min.js';
-
-        if (!$this->config->application->debug)
-        {
-            $this->application->assets
-                 ->collection('footer')
-                 ->setTargetPath($finalDefaultFile)
-                 ->setTargetUri($finalDefaultFile);
-        }
-
-        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDefaultFile))
-        {
-            if (!$this->config->application->debug)
-            {
-                $this->cleanupCompressedFiles($finalDefaultFile, '/js/compressed/default_*.min.js');
-                $this->application->assets->collection('footer')->join(true)->addFilter(new Jsmin());
-            }
-
-            foreach ($this->js as $js)
-            {
-                $this->application->assets->collection('footer')->addJs('js/' . $js, true, false, array('defer' => 'defer'));
-            }
-        }
-        else
-        {
-            $this->application->assets->collection('footer')->addJs($finalDefaultFile, true, false, array('defer' => 'defer'));
-        }
-
-        //Dashboard file
-        $mtimeHash = $this->createMTimeHash(array('dashboard.js'), getcwd() . '/js/');
-        $finalDashboardFile = 'js/compressed/dashboard_' . $mtimeHash . '.min.js';
-
-        if (!$this->config->application->debug)
-        {
-            $this->application->assets
-                 ->collection('dashboard')
-                 ->setTargetPath($finalDashboardFile)
-                 ->setTargetUri($finalDashboardFile);
-        }
-
-        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalDashboardFile))
-        {
-            $dashJS = $this->application->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, array('defer' => 'defer'));
-
-            if (!$this->config->application->debug)
-            {
-                $this->cleanupCompressedFiles($finalDashboardFile, '/js/compressed/dashboard_*.min.js');
-                $dashJS->join(true)->addFilter(new Jsmin());
-            }
-        }
-        else
-        {
-            $this->application->assets->collection('dashboard')->addJs($finalDashboardFile, true, false, array('defer' => 'defer'));
-        }
-
-        //Settings file
-        $mtimeHash = $this->createMTimeHash(array('settings.js'), getcwd() . '/js/');
-        $finalSettingsFile = 'js/compressed/settings_' . $mtimeHash . '.min.js';
-
-        if (!$this->config->application->debug)
-        {
-            $this->application->assets
-                 ->collection('settings')
-                 ->setTargetPath($finalSettingsFile)
-                 ->setTargetUri($finalSettingsFile);
-        }
-
-        if ($this->config->application->debug || !file_exists(getcwd() . '/' . $finalSettingsFile))
-        {
-            $settingsJS = $this->application->assets->collection('settings')->addJs('js/settings.js', true, false, array('defer' => 'defer'));
-
-            if (!$this->config->application->debug)
-            {
-                $this->cleanupCompressedFiles($finalSettingsFile, '/js/compressed/settings_*.min.js');
-                $settingsJS->join(true)->addFilter(new Jsmin());
-            }
-        }
-        else
-        {
-            $this->application->assets->collection('settings')->addJs($finalSettingsFile, true, false, array('defer' => 'defer'));
-        }
-    }
-
-    /**
-     * Cleanup absolete compressed files.
-     *
-     * @param mixed $finalFile      The new compressed file
-     * @param mixed $pattern        The pattern to match against for files in directory.
-     */
-    private function cleanupCompressedFiles($finalFile, $pattern)
-    {
-        $files = glob(getcwd() . $pattern);
-
-        if (($key = array_search(getcwd() . '/' . $finalFile, $files)) !== false)
-        {
-            unset($files[$key]);
-        }
-
-        if (count($files))
-        {
-            array_map('unlink', $files);
-        }
-    }
-
-    /**
-     * Creates a filemtime string from all files in array and then create a hash out of it.
-     *
-     * @param array $files      The array of files to create the hash for based on their modified time.
-     * @param mixed $basepath   The path where the files in the array can be found.
-     * @return string           The hash based on the string of filemtimes.
-     */
-    private function createMTimeHash(array $files, $basepath)
-    {
-        $mtimes = 0;
-
-        foreach ($files as $file)
-        {
-            $mtimes += filemtime($basepath . $file);
-        }
-
-        return md5($mtimes);
+        $this->application->assets->collection('footer')->addJs('js/default.min.js', true, false, array('defer' => 'defer'));
+        $this->application->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, array('defer' => 'defer'));
+        $this->application->assets->collection('settings')->addJs('js/settings.min.js', true, false, array('defer' => 'defer'));
     }
 
     /**

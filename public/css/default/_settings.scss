@@ -71,7 +71,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-width: 0 1px 1px 1px;
 }
 
-#main-settings legend span {
+#settings legend span {
     color: $state-success-text;
     border-bottom-color: $state-success-bg;
     line-height: 50px;
@@ -80,30 +80,30 @@ input[type=number]::-webkit-outer-spin-button {
     cursor: pointer;
 }
 
-#main-settings legend div.info {
+#settings legend div.info {
     font-size: 14px;
     line-height: 50px;
 }
 
-#main-settings legend .toggle {
+#settings legend .toggle {
     margin-right: 15px;
 }
 
-#main-settings .fa-question {
+#settings .fa-question {
     text-decoration: none;
     color: $state-success-text;
     font-size: 14px;
 }
 
-#main-settings legend .fa-question {
+#settings legend .fa-question {
     margin-top: 5px;
 }
 
-#main-settings .input-group {
+#settings .input-group {
     width: 100%;
 }
 
-#main-settings .input-group .bootstrap-touchspin-up {
+#settings .input-group .bootstrap-touchspin-up {
     border-radius: 0;
 }
 
@@ -115,6 +115,6 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 4px 0 0 4px;
 }
 
-#main-settings .panel-body .row {
+#settings .panel-body .row {
     width: calc(100% + 30px);
 }

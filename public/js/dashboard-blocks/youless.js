@@ -35,6 +35,10 @@
             * @method checkstates
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {

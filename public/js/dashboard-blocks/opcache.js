@@ -23,7 +23,7 @@
                 { name: "Hits", legendNames: ["Misses", "Hits"], unitIndicator: false, active: false },
                 { name: "Restarts", legendNames: ["Memory", "Manual", "Keys"], unitIndicator: false, active: false },
             ],
-       
+
         }, options);
 
         /**
@@ -39,6 +39,10 @@
             * @method initialize
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 $.getJSON("opcache/dataset", function (data) {
                     settings.charts[0].data = data.memory;
                     settings.charts[1].data = data.keys;
@@ -50,7 +54,10 @@
 
                 settings.block.find(".fa-chevron-right, .fa-chevron-left").off().on("click", function () {
                     var offset = 1;
-                    var activeChart = settings.charts.find(chart => chart.active === true);
+                    
+                    var activeChart = settings.charts.find(function (chart) {
+                        return chart.active === true;
+                    });
                     var activeIndex = settings.charts.indexOf(activeChart);
 
                     if ($(this).hasClass("fa-chevron-left")) {
@@ -65,7 +72,7 @@
                     else if (newIndex < 0) {
                         newIndex = settings.charts.length - 1;
                     }
-                    
+
                     settings.charts[activeIndex].active = false;
                     settings.charts[newIndex].active = true;
 

@@ -44,6 +44,10 @@
             * @method checkstates
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.on("click", ".togglestate:visible", function () {
                     var whichTab = $(this).closest(".panel").attr("id");
                     var url = $(this).attr("href");

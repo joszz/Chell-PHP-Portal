@@ -36,6 +36,10 @@
             * @method initialize
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
@@ -62,13 +66,11 @@
                 var anchor = settings.block.find("a");
                 var bgImgUrl = anchor.css("background-image");
                 var bgImgUrlParts = bgImgUrl.split("?t=");
-                
+
                 anchor.css("background-image", bgImgUrlParts[0] + "?t=" + Date.now() + "\")");
             },
 
-            refreshModifiedTime() {
-                
-
+            refreshModifiedTime: function() {
                 $.ajax({
                     url: settings.baseUri + "motion/modifiedTime",
                     success: function (data) {

@@ -37,6 +37,10 @@
             * @method initialize
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.find(".fa-sync").on("click", functions.refresh);
                 settings.block.find(".fa-search").on("click", functions.searchWantedMovies);
             },

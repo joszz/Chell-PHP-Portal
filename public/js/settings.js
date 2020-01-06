@@ -52,7 +52,7 @@ $(function () {
         });
     });
 
-    $("#main-settings").fadeIn("fast");
+    $("#settings").fadeIn("fast");
 });
 
 /**

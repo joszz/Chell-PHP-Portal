@@ -203,7 +203,9 @@
             }
         };
 
-        functions.getTorrents(true);
+        if (settings.block.length !== 0) {
+            functions.getTorrents(true);
+        }
 
         return functions;
     };

@@ -31,37 +31,16 @@ $(function () {
 function initializePlugins() {
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     $(".devices").devices();
-
-    if (typeof $.fn.transmission !== "undefined") {
-        $(".transmission").transmission();
-    }
-    if (typeof $.fn.gallery !== "undefined") {
-        $(".movies, .episodes, .albums, .couchpotato").gallery();
-    }
-    if (typeof $.fn.nowplaying !== "undefined") {
-        $(".nowplaying").nowplaying();
-    }
-    if (typeof $.fn.sickrage !== "undefined") {
-        $(".sickrage").sickrage();
-    }
-    if (typeof $.fn.couchpotato !== "undefined") {
-        $(".couchpotato").couchpotato();
-    }
-    if (typeof $.fn.motion !== "undefined") {
-        $(".motion").motion();
-    }
-    if (typeof $.fn.speedtest !== "undefined") {
-        speedtest = $(".speedtest").speedtest();
-    }
-    if (typeof $.fn.opcache !== "undefined") {
-        opache = $(".opcache").opcache();
-    }
-    if (typeof $.fn.youless !== "undefined") {
-        $(".youless").youless();
-    }
-    if (typeof $.fn.pihole !== "undefined") {
-        pihole = $(".pihole").pihole();
-    }
+    $(".transmission").transmission();
+    $(".movies, .episodes, .albums, .couchpotato").gallery();
+    $(".nowplaying").nowplaying();
+    $(".sickrage").sickrage();
+    $(".couchpotato").couchpotato();
+    $(".motion").motion();
+    speedtest = $(".speedtest").speedtest();
+    opache = $(".opcache").opcache();
+    $(".youless").youless();
+    pihole = $(".pihole").pihole();
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));

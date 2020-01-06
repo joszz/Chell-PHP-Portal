@@ -3,7 +3,18 @@
     "outputFile": "public/css/default/default.css",
     "inputFile": "public/css/default/default.scss",
     "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "public/css/default/default.min.css",
+    "inputFile": "public/css/default/default.scss",
+    "options": {
       "sourceMap": true
+    },
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
     }
   }
 ]

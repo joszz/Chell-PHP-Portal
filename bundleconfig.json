@@ -1,0 +1,69 @@
+[
+  {
+    "outputFileName": "public/js/dashboard.min.js",
+    "inputFiles": [
+      "public/js/dashboard-blocks/couchpotato.js",
+      "public/js/dashboard-blocks/devices.js",
+      "public/js/dashboard-blocks/gallery.js",
+      "public/js/dashboard-blocks/hyperv-admin.js",
+      "public/js/dashboard-blocks/motion.js",
+      "public/js/dashboard-blocks/nowplaying.js",
+      "public/js/dashboard-blocks/opcache.js",
+      "public/js/dashboard-blocks/phpsysinfo.js",
+      "public/js/dashboard-blocks/pihole.js",
+      "public/js/dashboard-blocks/sickrage.js",
+      "public/js/dashboard-blocks/speedtest.js",
+      "public/js/dashboard-blocks/transmission.js",
+      "public/js/dashboard-blocks/youless.js",
+      "public/js/dashboard.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "public/js/default.min.js",
+    "inputFiles": [
+      "public/js/vendor/jquery-3.4.1.js",
+      "public/js/vendor/jquery.fancybox.js",
+      "public/js/vendor/bootstrap.js",
+      "public/js/vendor/bootstrap-select/bootstrap-select.js",
+      "public/js/vendor/bootstrap-tabcollapse.js",
+      "public/js/vendor/bootstrap-toggle.js",
+      "public/js/vendor/jquery.bootstrap-touchspin.js",
+      "public/js/vendor/jquery.vibrate.js",
+      "public/js/vendor/jquery.tinytimer.js",
+      "public/js/vendor/jquery.isloading.js",
+      "public/js/vendor/jquery.fullscreen.js",
+      "public/js/vendor/chartist/chartist.js",
+      "public/js/vendor/chartist/chartist-plugin-legend.js",
+      "public/js/vendor/waves.js",
+      "public/js/vendor/md5.js",
+      "public/js/default.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "public/js/settings.min.js",
+    "inputFiles": [
+      "public/js/settings.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": true
+  }
+]
