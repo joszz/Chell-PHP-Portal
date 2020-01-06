@@ -1,6 +1,6 @@
 
 <div id="logs" class="tab-pane fade panel panel-square<?php echo $activeTab == 'Logs' ? ' in active' : null ?>">
-    <?php if(count($logs) <= 2) : ?>
+    <?php if(count($logs) == 0) : ?>
     <h3 class="text-success">No error logs found!</h3>
     <?php else :?>
     <div class="table-responsive col-lg-12 col-xs-12 no-gutter">

@@ -21,8 +21,6 @@ class AboutController extends BaseController
         $this->view->versionMinor = 1;
         $this->view->versionCommit = $content->total;
         $this->view->versionStability = '&alpha;';
-
-        $this->view->lastUpdatedYUIDoc = date('d-m-Y H:i:s', filemtime(getcwd() . '/documentation/yuidoc/'));
     }
 
     /**

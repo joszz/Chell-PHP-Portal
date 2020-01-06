@@ -65,7 +65,7 @@
     </style>
 
     <?php foreach($this->js as $js) : ?>
-    <script type="text/javascript" src="<?php echo $js ?>"></script>
+    <script type="text/javascript" src="<?php echo $js ?>" defer="defer"></script>
     <?php endforeach ?>
 
     <?php if(!$this->debug) : ?>

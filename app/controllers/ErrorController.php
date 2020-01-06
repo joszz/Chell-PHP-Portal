@@ -15,8 +15,8 @@ class ErrorController
     private $exception;
     private $content;
     private $config;
-    private $css = array('https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css');
-    private $js = array('https://code.jquery.com/jquery-3.4.1.min.js');
+    private $css = array();
+    private $js = array();
     private $logPath = APP_PATH . 'app/logs/';
 
     public $logFile;
@@ -33,6 +33,7 @@ class ErrorController
         ob_clean();
 
         $this->config = $config;
+
         $this->exception = $exception;
         $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
@@ -40,7 +41,7 @@ class ErrorController
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
-        if ($this->debug) 
+        if ($this->debug)
         {
             $this->content = $exceptionContent;
         }
@@ -77,8 +78,14 @@ class ErrorController
      */
     private function exception()
     {
-        $this->js[] = $this->config->application->baseUri . 'js/vendor/prism.js';
-        $this->js[] = $this->config->application->baseUri . 'js/exception.js';
+        $this->css = array(
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
+            $this->config->application->baseUri . 'css/vendor/prism.css');
+        $this->js = array(
+            $this->config->application->baseUri . 'js/vendor/jquery-3.4.1.min.js',
+            $this->config->application->baseUri . 'js/vendor/prism.js',
+            $this->config->application->baseUri . 'js/exception.js'
+        );
 
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');
@@ -116,7 +123,7 @@ class ErrorController
     {
         $filename = $this->getGUID() . '.htm';
 
-        while (is_file($this->logPath . $filename)) 
+        while (is_file($this->logPath . $filename))
         {
             $filename = $this->getGUID() . '.htm';
         }
