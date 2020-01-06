@@ -37,7 +37,7 @@ class SettingsUserForm extends Form
         $email = new Email('email');
         $email->setLabel('Email');
         $email->setFilters(array('striptags', 'string'));
-        $email->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password'));
+        $email->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'));
 
         $password = new Password('password');
         $password->setLabel('Password');

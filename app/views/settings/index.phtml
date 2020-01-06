@@ -1,5 +1,5 @@
 <div class="col-xs-12">
-    <div id="main-settings" class="panel panel-success with-nav-tabs">
+    <div id="main-settings" class="panel panel-success hidden_not_important with-nav-tabs">
         <div class="panel-heading">
             <h4 class="pull-left">Settings</h4>
 
@@ -26,9 +26,12 @@
             </ul>
         </div>
         <div class="panel-body">
-            <ul class="nav nav-tabs pull-right visible-xs"><?php foreach ($forms AS $formId => $formContent) : ?>
+            <ul class="nav nav-tabs pull-right visible-xs">
+                <?php foreach ($forms AS $formId => $formContent) : ?>
                 <li <?php echo $activeTab == $formId ? 'class="active"' : null ?>>
-                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>"><?php echo $formId ?></a>
+                    <a data-toggle="tab" href="#<?php echo strtolower($formId) ?>">
+                        <?php echo $formId ?>
+                    </a>
                 </li><?php endforeach ?>
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>

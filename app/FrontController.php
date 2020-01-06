@@ -47,8 +47,7 @@ class FrontController
                         'vendor/jquery.fullscreen.js',
                         'vendor/waves.js',
                         'vendor/md5.js',
-                        'default.js',
-                        'dashboard-blocks/devices.js');
+                        'default.js');
 
     private $css = array('vendor/jquery.fancybox.css',
                          'vendor/waves.css',
@@ -65,13 +64,13 @@ class FrontController
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
-        set_exception_handler(array(&$this, 'exceptionHandler'));
+        set_exception_handler(array(&$this, 'ExceptionHandler'));
 
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
 
-        $this->setJSBasedOnEnabledBlocks();
+
         $this->registerNamespaces();
 
         $this->di->set('dispatcher', function () {
@@ -103,6 +102,7 @@ class FrontController
         $this->application->view->executionTime = $executionTime;
 
         $this->setCSSCollection();
+        $this->setJSBasedOnEnabledBlocks();
         $this->setJSCollection();
         $this->setTitle();
         $this->setTranslator();
@@ -113,7 +113,7 @@ class FrontController
      *
      * @param \Throwable $exception  The exception being thrown.
      */
-    public function exceptionHandler(\Throwable $exception)
+    public function ExceptionHandler(\Throwable $exception)
     {
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
@@ -125,70 +125,75 @@ class FrontController
      */
     private function setJSBasedOnEnabledBlocks()
     {
-        if ($this->config->phpsysinfo->enabled)
+        if ($this->di->get('dispatcher') ->getControllerName() == 'index')
         {
-            $this->js[] = 'dashboard-blocks/phpsysinfo.js';
-        }
+            if ($this->config->phpsysinfo->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/phpsysinfo.js';
+            }
 
-        if ($this->config->transmission->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/transmission.js';
-        }
+            if ($this->config->transmission->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/transmission.js';
+            }
 
-        if ($this->config->sickrage->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/sickrage.js';
-        }
+            if ($this->config->sickrage->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/sickrage.js';
+            }
 
-        if ($this->config->couchpotato->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/couchpotato.js';
-        }
+            if ($this->config->couchpotato->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/couchpotato.js';
+            }
 
-        if ($this->config->kodi->enabled || $this->config->subsonic->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/nowplaying.js';
-        }
+            if ($this->config->kodi->enabled || $this->config->subsonic->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/nowplaying.js';
+            }
 
-        if ($this->config->kodi->enabled || $this->config->couchpotato->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/gallery.js';
-        }
+            if ($this->config->kodi->enabled || $this->config->couchpotato->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/gallery.js';
+            }
 
-        if ($this->config->hypervadmin->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/hyperv-admin.js';
-        }
+            if ($this->config->hypervadmin->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/hyperv-admin.js';
+            }
 
-        if ($this->config->motion->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/motion.js';
-        }
+            if ($this->config->motion->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/motion.js';
+            }
 
-        if ($this->config->speedtest->telemetry != 'off')
-        {
-            $this->js[] = 'vendor/chartist/chartist.js';
-            $this->js[] = 'vendor/chartist/chartist-plugin-legend.js';
-        }
+            if ($this->config->speedtest->telemetry != 'off')
+            {
+                $this->js[] = 'vendor/chartist/chartist.js';
+                $this->js[] = 'vendor/chartist/chartist-plugin-legend.js';
+            }
 
-        if ($this->config->speedtest->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/speedtest.js';
-        }
+            if ($this->config->speedtest->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/speedtest.js';
+            }
 
-        if ($this->config->youless->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/youless.js';
-        }
+            if ($this->config->youless->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/youless.js';
+            }
 
-        if ($this->config->opcache->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/opcache.js';
-        }
+            if ($this->config->opcache->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/opcache.js';
+            }
 
-        if ($this->config->pihole->enabled)
-        {
-            $this->js[] = 'dashboard-blocks/pihole.js';
+            if ($this->config->pihole->enabled)
+            {
+                $this->js[] = 'dashboard-blocks/pihole.js';
+            }
+
+            $this->js[] = 'dashboard-blocks/devices.js';
         }
     }
 
@@ -484,10 +489,9 @@ class FrontController
      * Echoes the HTML to the browser.
      * @return mixed    The complete HTML of the request.
      */
-    public function tostring()
+    public function ToString()
     {
         $request = new Request();
-
         return $this->application->handle(str_replace($this->config->application->baseUri, '', '/' . $request->getURI()))->getContent();
     }
 }

@@ -51,6 +51,8 @@ $(function () {
             toggleFieldsInFieldSet($(this));
         });
     });
+
+    $("#main-settings").fadeIn("fast");
 });
 
 /**
