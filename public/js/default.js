@@ -33,17 +33,16 @@ var keys = {
 * @method document.onload
 */
 $(function () {
-
+    //Install dummy service worker to make the site installable
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
             navigator.serviceWorker.register("/portal/js/worker.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
                 // Registration was successful
-            }, function (err) {
+            }, function (_err) {
                 // registration failed :(
             });
         });
     }
-
 
     alertTimeout = $(".alert").data("alert-timeout");
 
