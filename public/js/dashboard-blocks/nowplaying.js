@@ -177,7 +177,7 @@
 
                 clone.removeClass("nothing-playing");
                 clone.addClass(values.type);
-                clone.find(".item .image").css("background-image", "url(" + values.bgImage +  ")").parent().
+                clone.find(".item .image").css("background-image", "url(" + values.bgImage + ")").parent().
                     attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index });
 
                 clone.find(".title").html(values.title);
@@ -308,51 +308,53 @@
 
                     var playerId = functions.kodi.getPlayerId();
 
-                    $.ajax({
-                        url: settings.kodi.urlJSON,
-                        type: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            id: 1,
-                            jsonrpc: "2.0",
-                            method: "Player.GetItem",
-                            params: {
-                                properties: ["title", "showtitle", "artist", "thumbnail"],
-                                playerid: playerId
-                            }
-                        }),
-                        timeout: settings.kodi.timeout,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
-                        },
-                        success: function (response) {
-                            if ($.trim(response.result.item.title) !== "") {
-
-                                var title = response.result.item.title;
-                                var subtitle = "";
-                                if (typeof response.result.item.showtitle !== "undefined") {
-                                    title = response.result.item.showtitle;
+                    if (typeof playerId !== "undefined") {
+                        $.ajax({
+                            url: settings.kodi.urlJSON,
+                            type: "POST",
+                            async: false,
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                id: "getnowplaying",
+                                jsonrpc: "2.0",
+                                method: "Player.GetItem",
+                                params: {
+                                    properties: ["title", "showtitle", "artist", "thumbnail"],
+                                    playerid: playerId
                                 }
-                                else if (typeof response.result.item.artist !== "undefined") {
-                                    title = response.result.item.artist;
-                                    subtitle = response.result.item.title;
+                            }),
+                            timeout: settings.kodi.timeout,
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
+                            },
+                            success: function (response) {
+                                //todo: check if this is ok, or maybe refactor ugly if/else construction
+                                if ($.trim(response.result.item.title) !== "") {
+                                    var title = response.result.item.title;
+                                    var subtitle = "";
+                                    if (typeof response.result.item.showtitle !== "undefined") {
+                                        title = response.result.item.showtitle;
+                                    }
+                                    else if (typeof response.result.item.artist !== "undefined") {
+                                        title = response.result.item.artist;
+                                        subtitle = response.result.item.title;
+                                    }
+
+                                    functions.createPlayer({
+                                        type: "kodi",
+                                        index: 99,
+                                        bgImage: functions.kodi.getImage(response.result.item.thumbnail),
+                                        title: title,
+                                        subtitle: subtitle
+                                    });
+
                                 }
-
-                                functions.createPlayer({
-                                    type: "kodi",
-                                    index: 99,
-                                    bgImage: functions.kodi.getImage(response.result.item.thumbnail),
-                                    title: title,
-                                    subtitle: subtitle
-                                });
-
                             }
-                        },
-                        complete: function () {
-                            settings.kodi.loading = false;
-                            functions.nowPlayingCallback();
-                        }
-                    });
+                        });
+                    }
+
+                    settings.kodi.loading = false;
+                    functions.nowPlayingCallback();
                 },
 
                 /**
@@ -367,7 +369,7 @@
                         async: false,
                         contentType: "application/json",
                         data: JSON.stringify({
-                            id: 1,
+                            id: "activaplayers",
                             jsonrpc: "2.0",
                             method: "Player.GetActivePlayers"
                         }),

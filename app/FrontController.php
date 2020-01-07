@@ -204,11 +204,52 @@ class FrontController
 
     private function setAssets()
     {
-        $this->application->assets->collection('header')->addCss('css/default/default.min.css');
+        if($this->config->application->debug)
+        {
+            $this->application->assets->collection('header')->addCss('css/default/default.css');
 
-        $this->application->assets->collection('footer')->addJs('js/default.min.js', true, false, array('defer' => 'defer'));
-        $this->application->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, array('defer' => 'defer'));
-        $this->application->assets->collection('settings')->addJs('js/settings.min.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery-3.4.1.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.fancybox.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-select/bootstrap-select.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-tabcollapse.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-toggle.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.bootstrap-touchspin.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.vibrate.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.tinytimer.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.isloading.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery.fullscreen.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/chartist/chartist.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/chartist/chartist-plugin-legend.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/waves.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/vendor/md5.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('default')->addJs('js/default.js', true, false, array('defer' => 'defer'));
+
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/devices.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/gallery.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/motion.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/nowplaying.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/opcache.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/phpsysinfo.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/pihole.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/sickrage.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/transmission.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/youless.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, array('defer' => 'defer'));
+
+            $this->application->assets->collection('settings')->addJs('js/settings.js', true, false, array('defer' => 'defer'));
+        }
+        else
+        {
+            $this->application->assets->collection('header')->addCss('css/default/default.min.css');
+
+            $this->application->assets->collection('default')->addJs('js/default.min.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, array('defer' => 'defer'));
+            $this->application->assets->collection('settings')->addJs('js/settings.min.js', true, false, array('defer' => 'defer'));
+        }
     }
 
     /**

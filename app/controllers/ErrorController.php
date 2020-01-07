@@ -20,7 +20,6 @@ class ErrorController
     private $logPath = APP_PATH . 'app/logs/';
 
     public $logFile;
-    public $debug = false;
 
     /**
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
@@ -35,13 +34,12 @@ class ErrorController
         $this->config = $config;
 
         $this->exception = $exception;
-        $this->debug = ini_get('display_errors') == 'on';
         $this->setLogFile();
 
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
-        if ($this->debug)
+        if ($this->config->application->debug)
         {
             $this->content = $exceptionContent;
         }
