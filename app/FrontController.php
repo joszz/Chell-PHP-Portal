@@ -28,7 +28,6 @@ use Phalcon\Http\Request;
  */
 class FrontController
 {
-    private $title;
     private $config;
     private $di;
     private $application;
@@ -68,8 +67,6 @@ class FrontController
         });
 
         $this->setDisplayErrors();
-        $this->title = $config->application->title;
-
         $this->setDB($config);
         $this->setViewProvider($config);
         $this->setURLProvider($config);
@@ -202,6 +199,9 @@ class FrontController
         });
     }
 
+    /**
+     * Sets the static assets files, such as JS and CSS.
+     */
     private function setAssets()
     {
         if($this->config->application->debug)
@@ -257,7 +257,7 @@ class FrontController
      */
     private function setTitle()
     {
-        $this->application->tag->setTitle($this->application->view->title = $this->title);
+        $this->application->tag->setTitle($this->config->application->title);
     }
 
     /**

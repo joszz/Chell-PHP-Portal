@@ -33,12 +33,24 @@ var keys = {
 * @method document.onload
 */
 $(function () {
+
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+            navigator.serviceWorker.register("/portal/js/worker.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
+                // Registration was successful
+            }, function (err) {
+                // registration failed :(
+            });
+        });
+    }
+
+
     alertTimeout = $(".alert").data("alert-timeout");
 
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
 
-    $("#duo_iframe").on('load', function () {
+    $("#duo_iframe").on("load", function () {
         $(this).fadeIn();
     });
 });
@@ -51,7 +63,7 @@ $(function () {
 function initializeGlobalPlugins() {
     $("a, button, h4").vibrate("short");
 
-    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: 'fa-check', iconBase: 'fa' });
+    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
 
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
