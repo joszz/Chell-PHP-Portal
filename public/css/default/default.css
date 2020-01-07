@@ -7376,6 +7376,11 @@ div.gallery .panel-heading h4 {
   height: 100%;
   width: 100%; }
 
+.gallery .item .image {
+  background-size: cover;
+  height: 100%;
+  width: 100%; }
+
 .item div.overlay {
   position: absolute;
   width: 100%;

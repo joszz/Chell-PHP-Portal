@@ -177,10 +177,8 @@
 
                 clone.removeClass("nothing-playing");
                 clone.addClass(values.type);
-
-                clone.find(".item > img").attr("src", values.bgImage)
-                    .attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index })
-                    .removeClass("disabled");
+                clone.find(".item .image").css("background-image", "url(" + values.bgImage +  ")").parent().
+                    attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index });
 
                 clone.find(".title").html(values.title);
                 clone.find(".subtitle").html(values.subtitle);
@@ -308,69 +306,110 @@
                 nowPlaying: function () {
                     settings.kodi.loading = true;
 
-                    var data = {
-                        id: 1,
-                        jsonrpc: "2.0",
-                        method: "Player.GetActivePlayers"
-                    };
+                    var playerId = functions.kodi.getPlayerId();
 
                     $.ajax({
                         url: settings.kodi.urlJSON,
                         type: "POST",
                         contentType: "application/json",
-                        data: JSON.stringify(data),
+                        data: JSON.stringify({
+                            id: 1,
+                            jsonrpc: "2.0",
+                            method: "Player.GetItem",
+                            params: {
+                                properties: ["title", "showtitle", "artist", "thumbnail"],
+                                playerid: playerId
+                            }
+                        }),
+                        timeout: settings.kodi.timeout,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
+                        },
+                        success: function (response) {
+                            if ($.trim(response.result.item.title) !== "") {
+
+                                var title = response.result.item.title;
+                                var subtitle = "";
+                                if (typeof response.result.item.showtitle !== "undefined") {
+                                    title = response.result.item.showtitle;
+                                }
+                                else if (typeof response.result.item.artist !== "undefined") {
+                                    title = response.result.item.artist;
+                                    subtitle = response.result.item.title;
+                                }
+
+                                functions.createPlayer({
+                                    type: "kodi",
+                                    index: 99,
+                                    bgImage: functions.kodi.getImage(response.result.item.thumbnail),
+                                    title: title,
+                                    subtitle: subtitle
+                                });
+
+                            }
+                        },
+                        complete: function () {
+                            settings.kodi.loading = false;
+                            functions.nowPlayingCallback();
+                        }
+                    });
+                },
+
+                /**
+                * Retrieves the current active player Id from Kodi. Used to retrieve information for now playing item in Kodi.
+                *
+                * @method kodi.getPlayerId
+                */
+                getPlayerId: function () {
+                    $.ajax({
+                        url: settings.kodi.urlJSON,
+                        type: "POST",
+                        async: false,
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            id: 1,
+                            jsonrpc: "2.0",
+                            method: "Player.GetActivePlayers"
+                        }),
                         timeout: settings.kodi.timeout,
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
                         },
                         success: function (response) {
                             if (response.result[0]) {
-                                var playerID = response.result[0].playerid;
-
-                                var data = {
-                                    id: 1,
-                                    jsonrpc: "2.0",
-                                    method: "Player.GetItem",
-                                    params: {
-                                        properties: ["title", "showtitle", "artist", "thumbnail"],
-                                        playerid: playerID
-                                    }
-                                };
-
-                                $.ajax({
-                                    url: settings.kodi.urlJSON,
-                                    type: "POST",
-                                    contentType: "application/json",
-                                    data: JSON.stringify(data),
-                                    timeout: settings.kodi.timeout,
-                                    beforeSend: function (xhr) {
-                                        xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
-                                    },
-                                    success: function (response) {
-                                        if ($.trim(response.result.item.title) !== "") {
-                                            console.log(response.result);
-                                            var bgImage = encodeURI(response.result.item.thumbnail);
-                                            bgImage = settings.kodi.url.replace("//", "//" + settings.kodi.username + ":" + settings.kodi.password + "@") + "/image/" + bgImage;
-                                            
-                                            functions.createPlayer({
-                                                type: "kodi",
-                                                index: 99,
-                                                bgImage: bgImage,
-                                                title: response.result.item.showtitle,
-                                                subtitle: response.result.item.title
-                                            });
-                                        }
-                                    },
-                                    complete: function () {
-                                        settings.kodi.loading = false;
-                                        functions.nowPlayingCallback();
-                                    }
-                                });
+                                return response.result[0].playerid;
                             }
+                        }
+                    });
+                },
+
+                /**
+                * Retrieves the image URL from Kodi. Used to display nowplaying image for Kodi.
+                *
+                * @method kodi.getPlayerId
+                */
+                getImage: function (thumbnail) {
+                    $.ajax({
+                        url: settings.kodi.urlJSON,
+                        type: "POST",
+                        async: false,
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            id: "preparedl",
+                            jsonrpc: "2.0",
+                            method: "Files.PrepareDownload",
+                            params: {
+                                path: thumbnail
+                            }
+                        }),
+                        timeout: settings.kodi.timeout,
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.kodi.username + ":" + settings.kodi.password));
                         },
-                        complete: function () {
-                            settings.kodi.loading = false;
-                            functions.nowPlayingCallback();
+                        success: function (responseImage) {
+                            var bgImage = settings.kodi.url + "/" + responseImage.result.details.path;
+
+                            return bgImage;
                         }
                     });
                 }
