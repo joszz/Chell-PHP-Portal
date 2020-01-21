@@ -68,8 +68,10 @@
     <script type="text/javascript" src="<?php echo $js ?>" defer="defer"></script>
     <?php endforeach ?>
 
-    <?php if(!$this->debug) : ?>
+    <?php if($this->config->application->debug) : ?>
     <title>ChellException: "<?php echo $this->exception->getMessage() ?>"</title>
+    <?php else : ?>
+    <title>Oops! An error occurred</title>
     <?php endif ?>
 </head>
 

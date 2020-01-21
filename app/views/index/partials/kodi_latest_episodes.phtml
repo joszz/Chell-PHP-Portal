@@ -10,15 +10,13 @@
             <h4>Latest episodes</h4>
         </div>
         <div class="panel-body hidden-xs">
-            <?php $i = 0; foreach($episodes as $episode) :
-                       ?>
+            <?php $i = 0; foreach($episodes as $episode) : ?>
             <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="episodes"
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
                 title="<?php echo $episode->c00 ?>">
-				<img src="<?php echo $this->config->application->baseUri . (!empty($episode->c06) ? 'kodi/getImage/episodes/thumb/' . $episode->idEpisode : 'img/icons/unknown.jpg')  ?>" 
-					loading="lazy" width="348" height="377" />
+                <img src="<?php echo $episode->getImageUrl($this->config, 'thumb', 'c06', 'idEpisode') ?>" loading="lazy" width="348" height="377" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $episode->strTitle ?>">
                     <?php echo $episode->strTitle ?>

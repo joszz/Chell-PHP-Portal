@@ -2,14 +2,13 @@
 
 namespace Chell\Models\Kodi;
 
-use Phalcon\Mvc\Model;
 
 /**
  * The model responsible for all Kodi movies.
  *
  * @package Models\Kodi
  */
-class KodiMovies extends Model
+class KodiMovies extends KodiBase
 {
     /**
      * Sets the right DB connection and sets the table/view to movie_view
@@ -50,34 +49,11 @@ class KodiMovies extends Model
 
         foreach ($movies as $movie)
         {
-            $start = strpos($movie->c08, 'preview=') + 9;
+            $xml = self::getXml($movie->c08);
+            $movie->c08 = (string)$xml->thumb[rand(0, count($xml->thumb) - 1)]['preview'];
 
-            if ($start !== false && strlen($movie->c08) > $start)
-            {
-                $end = strpos($movie->c08, '"', $start);
-
-                if ($end !== false)
-                {
-                    $end -= $start;
-                    $movie->c08 = substr($movie->c08, $start, $end);
-                }
-            }
-
-            if (!empty($movie->c20))
-            {
-                $start = strpos($movie->c20, '>http://') + 1;
-
-                if ($start !== false)
-                {
-                    $end = strpos($movie->c20, '</', $start) - $start;
-
-                    if ($end !== false)
-                    {
-                        $movie->c20 = substr($movie->c20, $start, $end);
-                        $movie->c20 = current(explode('?', $movie->c20));
-                    }
-                }
-            }
+            $xml = self::getXml($movie->c20);
+            $movie->c20= (string)$xml->fanart->thumb[rand(0, count($xml->fanart->thumb) - 1)];
 
             $return[] = $movie;
         }

@@ -2,14 +2,13 @@
 
 namespace Chell\Models\Kodi;
 
-use Phalcon\Mvc\Model;
 
 /**
  * The model responsible for all Kodi episodes.
  *
  * @package Models\Kodi
  */
-class KodiTVShowEpisodes extends Model
+class KodiTVShowEpisodes extends KodiBase
 {
     /**
      * Sets the right DB connection and sets the table/view to album
@@ -24,6 +23,13 @@ class KodiTVShowEpisodes extends Model
             'Chell\Models\Kodi\KodiFiles',
             'idFile',
             array('alias' => 'files')
+        );
+
+        $this->belongsTo(
+            'idShow',
+            'Chell\Models\Kodi\KodiTVShow',
+            'idShow',
+            array('alias' => 'show')
         );
     }
 
@@ -50,8 +56,11 @@ class KodiTVShowEpisodes extends Model
 
         foreach ($episodes as $episode)
         {
-            $episode->c06 = substr($episode->c06, $start = strpos($episode->c06, '>') + 1, strpos($episode->c06, '<', $start) - $start);
-            $episode->c06 = current(explode('?', $episode->c06));   //Remove any query parameters from the string
+            if(!empty($episode->c06))
+            {
+                $xml = self::getXml($episode->c06);
+                $episode->c06 = (string)$xml->thumb[rand(0, count($xml->thumb) - 1)];
+            }
 
             $return[] = $episode;
         }

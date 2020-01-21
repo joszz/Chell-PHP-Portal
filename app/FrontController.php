@@ -108,14 +108,17 @@ class FrontController
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Chell\Controllers' => APP_PATH . $this->config->application->controllersDir,
-            'Chell\Exceptions'  => APP_PATH . $this->config->application->exceptionsDir,
-            'Chell\Forms'       => APP_PATH . $this->config->application->formsDir,
-            'Chell\Messages'    => APP_PATH . $this->config->application->messagesDir,
-            'Chell\Models'      => APP_PATH . $this->config->application->modelsDir,
-            'Chell\Models\Kodi' => APP_PATH . $this->config->application->modelsDir . 'kodi/',
-            'Chell\Plugins'     => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'               => APP_PATH . $this->config->application->duoDir,
+            'Chell\Controllers'             => APP_PATH . $this->config->application->controllersDir,
+            'Chell\Exceptions'              => APP_PATH . $this->config->application->exceptionsDir,
+            'Chell\Forms'                   => APP_PATH . $this->config->application->formsDir,
+            'Chell\Messages'                => APP_PATH . $this->config->application->messagesDir,
+            'Chell\Models'                  => APP_PATH . $this->config->application->modelsDir,
+            'Chell\Models\Kodi'             => APP_PATH . $this->config->application->modelsDir . 'kodi/',
+            'Chell\Plugins'                 => APP_PATH . $this->config->application->pluginsDir,
+            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/',
+            'WillWashburn\Phpamo'           => APP_PATH . $this->config->application->vendorDir . 'camo/',
+            'WillWashburn\Phpamo\Encoder'   => APP_PATH . $this->config->application->vendorDir . 'camo/Encoder',
+            'WillWashburn\Phpamo\Formatter' => APP_PATH . $this->config->application->vendorDir . 'camo/Formatter',
         ])->register();
     }
 

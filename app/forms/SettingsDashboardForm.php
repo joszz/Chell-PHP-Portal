@@ -241,21 +241,21 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
 			->setDefault($this->_config->kodi->password);
 
-		$rotateMoviesInterval = new Numeric('rotate-movies-interval');
+		$rotateMoviesInterval = new Numeric('kodi-rotate-movies-interval');
 		$rotateMoviesInterval->setLabel('Rotate movies interval')
 			->setFilters(array('striptags', 'int'))
 			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
 			->setDefault($this->_config->kodi->rotateMoviesInterval)
 			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-		$rotateEpisodesInterval = new Numeric('rotate-episodes-interval');
+		$rotateEpisodesInterval = new Numeric('kodi-rotate-episodes-interval');
 		$rotateEpisodesInterval->setLabel('Rotate episode interval')
 			->setFilters(array('striptags', 'int'))
 			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
 			->setDefault($this->_config->kodi->rotateEpisodesInterval)
 			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-		$rotateAlbumsInterval = new Numeric('rotate-albums-interval');
+		$rotateAlbumsInterval = new Numeric('kodi-rotate-albums-interval');
 		$rotateAlbumsInterval->setLabel('Rotate albums interval')
 			->setFilters(array('striptags', 'int'))
 			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
@@ -659,9 +659,9 @@ class SettingsDashboardForm extends SettingsBaseForm
 			$this->_config->kodi->URL = $data['kodi-url'];
 			$this->_config->kodi->username = $data['kodi-username'];
 			$this->_config->kodi->password = $data['kodi-password'];
-			$this->_config->kodi->rotateMoviesInterval = $data['rotate-movies-interval'];
-			$this->_config->kodi->rotateEpisodesInterval = $data['rotate-episodes-interval'];
-			$this->_config->kodi->rotateAlbumsInterval = $data['rotate-albums-interval'];
+			$this->_config->kodi->rotateMoviesInterval = $data['kodi-rotate-movies-interval'];
+			$this->_config->kodi->rotateEpisodesInterval = $data['kodi-rotate-episodes-interval'];
+			$this->_config->kodi->rotateAlbumsInterval = $data['kodi-rotate-albums-interval'];
 
 			$this->_config->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
 			$this->_config->sickrage->URL = $data['sickrage-url'];

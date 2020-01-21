@@ -9,7 +9,7 @@ use Phalcon\Mvc\Model;
  *
  * @package Models\Kodi
  */
-class KodiMusic extends Model
+class KodiMusic extends KodiBase
 {
     /**
      * Sets the right DB connection and sets the table/view to album
@@ -45,8 +45,8 @@ class KodiMusic extends Model
         {
             if (!empty($album->strImage))
             {
-                $album->strImage = substr($album->strImage, $start = strpos($album->strImage, '>') + 1, strpos($album->strImage, '<', $start) - $start);
-                $album->strImage = current(explode('?', $album->strImage));
+                $xml = self::getXml($album->strImage);
+                $album->strImage = (string)$xml->thumb[rand(0, count($xml->thumb) - 1)];
             }
 
             $return[] = $album;

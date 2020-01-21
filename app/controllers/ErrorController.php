@@ -14,11 +14,11 @@ class ErrorController
 {
     private $exception;
     private $content;
-    private $config;
     private $css = array();
     private $js = array();
     private $logPath = APP_PATH . 'app/logs/';
 
+    public $config;
     public $logFile;
 
     /**

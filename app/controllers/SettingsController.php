@@ -306,10 +306,10 @@ class SettingsController extends BaseController
      *
      * @param string $which     The input name to show the help for.
      */
-    public function helpAction($which)
+    public function helpAction($id)
     {
         $this->view->setMainView('layouts/empty');
-        $this->view->which = $which;
+        $this->view->which = $id;
     }
 
     /**

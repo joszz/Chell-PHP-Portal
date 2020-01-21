@@ -10,14 +10,13 @@
             <h4>Latest movies</h4>
         </div>
         <div class="panel-body hidden-xs">
-            <?php $i = 0; foreach($movies as $movie) : ?>
+            <?php $i = 0; foreach($movies as $movie) :?>
             <a class="movie item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
                 data-fancybox="movies"
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
                 title="<?php echo $movie->c00 ?>">
-				<img src="<?php echo $this->config->application->baseUri . (!empty($movie->c08) ? 'kodi/getImage/movies/thumb/' . $movie->idMovie : 'img/icons/unknown.jpg')  ?>" 
-					loading="lazy" width="348" height="377" />
+                <img src="<?php echo $movie->getImageUrl($this->config, 'thumb', 'c08', 'idMovie') ?>" loading="lazy" width="348" height="377" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $movie->c00 ?>">
                     <?php echo $movie->c00 ?>

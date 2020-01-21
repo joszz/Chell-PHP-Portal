@@ -1,11 +1,11 @@
 <div class="panel panel-success">
     <div class="panel-heading">
         <h4 class="pull-left">
-            <?php echo $trans->helpTitles->_($which) ?>
+            <?php echo $trans->helpTitles[$which] ?>
         </h4>
     </div>
     <div class="panel-body">
-        <?php echo $trans->helpContent->_($which) ?>
+        <?php echo $trans->helpContent[$which] ?>
 
         <?php if($which == 'cryptkey') : ?>
         <div class="col-xs-12 no-gutter">

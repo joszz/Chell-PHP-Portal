@@ -98,6 +98,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($whatIsMyBrowserAPIURL);
         $this->add($debug);
         $this->setDuoFields();
+        $this->setImageProxyFields();
     }
 
     /**
@@ -147,6 +148,28 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($duoAKey);
     }
 
+    private function setImageProxyFields(){
+        $imageproxyEnabled = new Check('imageproxy-enabled');
+        $imageproxyEnabled->setLabel('Enabled');
+        $imageproxyEnabled->setAttributes(array(
+            'checked' => $this->_config->imageproxy->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Imageproxy'
+        ));
+
+        $imageproxyUrl = new Text('imageproxy-url');
+        $imageproxyUrl->setLabel('URL');
+        $imageproxyUrl->setFilters(array('striptags', 'string'));
+        $imageproxyUrl->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $imageproxyUrl->setDefault($this->_config->imageproxy->URL);
+
+        $this->add($imageproxyEnabled);
+        $this->add($imageproxyUrl);
+    }
+
     /**
      * Check if form is valid. If so set the values to the config array.
      *
@@ -176,6 +199,9 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->_config->duo->ikey = $data['duo-ikey'];
             $this->_config->duo->skey = $data['duo-skey'];
             $this->_config->duo->akey = $data['duo-akey'];
+
+            $this->_config->imageproxy->enabled = $data['imageproxy-enabled'] == 'on' ? '1' : '0';
+            $this->_config->imageproxy->URL = $data['imageproxy-url'];
         }
 
         return $valid;

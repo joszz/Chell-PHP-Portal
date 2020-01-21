@@ -19,7 +19,7 @@ class TranslatorWrapper
     {
         require file_exists($translationFile) ? $translationFile :  APP_PATH . 'app/messages/en.php';
 
-        $this->helpContent = [ "content" => $help ];
-        $this->helpTitles = [ "content" => $helpTitles ];
+        $this->helpContent =  $help ;
+        $this->helpTitles =  $helpTitles;
     }
 }
