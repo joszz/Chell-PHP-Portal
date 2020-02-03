@@ -19,6 +19,7 @@ use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Redis;
+use Phalcon\Session\Adapter\Stream;
 use Phalcon\Storage\SerializerFactory;
 use Phalcon\Storage\AdapterFactory;
 use Phalcon\Http\Request;
@@ -70,7 +71,7 @@ class FrontController
         $this->setDB($config);
         $this->setViewProvider($config);
         $this->setURLProvider($config);
-        $this->setSession();
+        $this->setSession($config);
 
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
@@ -185,17 +186,26 @@ class FrontController
     /**
      * Instantiate session.
      */
-    private function setSession()
+    private function setSession($config)
     {
-        $this->di->setShared('session', function () {
+        $this->di->setShared('session', function () use ($config) {
             $session = new Manager();
-            $redis   = new Redis(new AdapterFactory(new SerializerFactory()), [
-                'host'  => 'localhost',
-                'port'  => 6379,
-                'index' => '1',
-            ]);
+            $adapter = null;
 
-            $session->setAdapter($redis);
+            if($config->redis->enabled){
+                $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
+                   'host'   => $config->redis->host,
+                   'port'   => $config->redis->port,
+                   'index'  => '1',
+                   'auth'   => $config->redis->auth
+               ]);
+            }
+            else {
+                $savePath = ini_get('session.save_path');
+                $adapter = new Stream(['savePath' => $savePath]);
+            }
+
+            $session->setAdapter($adapter);
             $session->start();
 
             return $session;

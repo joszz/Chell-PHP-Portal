@@ -47,6 +47,7 @@ div.panel ul div:not(.embed-responsive) {
 
 div#confirm-dialog {
     overflow: hidden;
+    user-select: none;
 }
 
 div#confirm-dialog h2 {

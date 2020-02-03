@@ -139,7 +139,7 @@
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
-                        
+
                     });
                 }).always(function () {
                     settings.block.isLoading("hide");
@@ -176,7 +176,7 @@
                         clone.removeClass("hidden");
 
                         clone.prependTo(content);
-                        
+
                     });
                 }).always(function () {
                     settings.block.isLoading("hide");

@@ -99,6 +99,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($debug);
         $this->setDuoFields();
         $this->setImageProxyFields();
+        $this->setRedisFields();
     }
 
     /**
@@ -170,6 +171,42 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($imageproxyUrl);
     }
 
+    private function setRedisFields(){
+        $redisEnabled = new Check('redis-enabled');
+        $redisEnabled->setLabel('Enabled');
+        $redisEnabled->setAttributes(array(
+            'checked' => $this->_config->redis->enabled == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small',
+            'fieldset' => 'Redis'
+        ));
+
+        $redisHost = new Text('redis-host');
+        $redisHost->setLabel('Host');
+        $redisHost->setFilters(array('striptags', 'string'));
+        $redisHost->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisHost->setDefault($this->_config->redis->host);
+
+        $redisPort = new Text('redis-port');
+        $redisPort->setLabel('Port');
+        $redisPort->setFilters(array('striptags', 'int'));
+        $redisPort->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisPort->setDefault($this->_config->redis->port);
+
+        $redisAuth = new Text('redis-auth');
+        $redisAuth->setLabel('Auth');
+        $redisAuth->setFilters(array('striptags', 'string'));
+        $redisAuth->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisAuth->setDefault($this->_config->redis->auth);
+
+        $this->add($redisEnabled);
+        $this->add($redisHost);
+        $this->add($redisPort);
+        $this->add($redisAuth);
+    }
+
     /**
      * Check if form is valid. If so set the values to the config array.
      *
@@ -202,6 +239,11 @@ class SettingsGeneralForm extends SettingsBaseForm
 
             $this->_config->imageproxy->enabled = $data['imageproxy-enabled'] == 'on' ? '1' : '0';
             $this->_config->imageproxy->URL = $data['imageproxy-url'];
+
+            $this->_config->redis->enabled = $data['redis-enabled'] == 'on' ? '1' : '0';
+            $this->_config->redis->host = $data['redis-host'];
+            $this->_config->redis->port = $data['redis-port'];
+            $this->_config->redis->auth = $data['redis-auth'];
         }
 
         return $valid;

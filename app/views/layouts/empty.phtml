@@ -7,6 +7,8 @@
     <?php echo $this->tag->renderTitle(); ?>
     <?php $this->assets->outputCss('header') ?>
     <?php $this->assets->outputJs('default'); ?>
+    <?php //todo: below needed for HyperVAdmin, but not ideal solution.. ?>
+    <?php $this->assets->outputJs('dashboard'); ?>
     <?php $this->partial('favicons') ?>
 </head>
 

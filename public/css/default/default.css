@@ -7683,7 +7683,8 @@ div.panel ul div:not(.embed-responsive) {
   padding: 0; }
 
 div#confirm-dialog {
-  overflow: hidden; }
+  overflow: hidden;
+  user-select: none; }
 
 div#confirm-dialog h2 {
   white-space: nowrap; }
