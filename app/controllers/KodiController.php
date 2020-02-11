@@ -173,7 +173,6 @@ class KodiController extends BaseController
 			}
 
 			die(readfile($filename));
-
 		}
 	}
 }

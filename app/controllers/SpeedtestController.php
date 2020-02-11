@@ -18,7 +18,7 @@ class SpeedtestController extends BaseController
     public function getIPAction()
     {
         header('Content-Type: text/plain; charset=utf-8');
-        die(Speedtest::getIPAddress());
+        die(Speedtest::getIPAddress($this->config));
     }
 
     /**
@@ -58,7 +58,7 @@ class SpeedtestController extends BaseController
 
         // Deliver chunks of 1048576 bytes
         $chunks = !empty($_GET['ckSize']) ? intval($_GET['ckSize']) : 4;
-        $chunks = $chunks > 100 ? 100 : $chunks;
+        $chunks = $chunks > 1024 ? 1024 : $chunks;
 
         for($i = 0; $i < $chunks; $i++)
         {

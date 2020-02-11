@@ -492,8 +492,20 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$speedtestTelemetry = new Select('speedtest-telemetry', array('off' => 'Off', 'basic' => 'Basic', 'full' => 'Full'));
 		$speedtestTelemetry->setLabel('Telemetry')
 			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setAttributes(array('class' => 'form-control'))
 			->setDefault($this->_config->speedtest->telemetry);
+
+		$speedtestIpInfoURL = new Text('speedtest-ipinfo-url');
+		$speedtestIpInfoURL->setLabel('URL')
+			->setFilters(array('striptags', 'string'))
+			->setAttributes(array('class' => 'form-control'))
+			->setDefault($this->_config->speedtest->ipInfoUrl);
+
+		$speedtestIpInfoToken = new Text('speedtest-ipinfo-token');
+		$speedtestIpInfoToken->setLabel('URL')
+			->setFilters(array('striptags', 'string'))
+			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setDefault($this->_config->speedtest->ipInfoToken);
 
 		$this->add($speedtestEnabled);
 		$this->add($speedtestTestOrder);
@@ -502,6 +514,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->add($speedtestGetIP);
 		$this->add($speedtestISPInfo);
 		$this->add($speedtestTelemetry);
+		$this->add($speedtestIpInfoURL);
+		$this->add($speedtestIpInfoToken);
 	}
 
 	/**
@@ -689,7 +703,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 			$this->_config->speedtest->time_dl = $data['speedtest-time-dl'];
 			$this->_config->speedtest->getIp_ispInfo = $data['speedtest-get-ispip'];
 			$this->_config->speedtest->getIp_ispInfo_distance = $data['speedtest-isp-info-distance'];
-			$this->_config->speedtest->telemetry = $data['speedtest-telemetry'];
+			$this->_config->speedtest->ipInfoUrl = $data['speedtest-ipinfo-url'];
+			$this->_config->speedtest->ipInfoToken = $data['speedtest-ipinfo-token'];
 
 			$this->_config->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
 

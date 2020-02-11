@@ -37,33 +37,33 @@ class HyperVAdminController extends BaseController
 		return (new Response())->redirect('hyper_v_admin/');
 	}
 
-    /**
-     * Sets the state of an IIS site to on/off.
-     *
-     * @param string $site      The name of the site to set state for.
-     * @param number $state     The state to set the site to.
-     * @return mixed            Redirect back to indexAction().
-     */
-    public function siteToggleStateAction($site, $state)
+	/**
+	 * Sets the state of an IIS site to on/off.
+	 *
+	 * @param string $site      The name of the site to set state for.
+	 * @param number $state     The state to set the site to.
+	 * @return mixed            Redirect back to indexAction().
+	 */
+	public function siteToggleStateAction($site, $state)
 	{
 		HyperVAdmin::toggleSiteState($site, $state, $this->config);
 
 		return (new Response())->redirect('hyper_v_admin/');
 	}
 
-    /**
-     * Used by AJAX functions to retrieve data about the VMs in a JSON string.
-     */
-    public function getVMsAction()
-    {
-        die(HyperVAdmin::getVMs($this->config, false));
-    }
+	/**
+	 * Used by AJAX functions to retrieve data about the VMs in a JSON string.
+	 */
+	public function getVMsAction()
+	{
+		die(HyperVAdmin::getVMs($this->config, false));
+	}
 
-    /**
-     * Used by AJAX functions to retrieve data about the sites in a JSON string.
-     */
-    public function getSitesAction()
-    {
-        die(HyperVAdmin::getSites($this->config, false));
-    }
+	/**
+	 * Used by AJAX functions to retrieve data about the sites in a JSON string.
+	 */
+	public function getSitesAction()
+	{
+		die(HyperVAdmin::getSites($this->config, false));
+	}
 }
