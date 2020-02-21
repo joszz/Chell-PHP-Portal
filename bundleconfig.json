@@ -65,5 +65,18 @@
       "preserveImportantComments": false
     },
     "sourceMap": true
+  },
+  {
+    "outputFileName": "public/js/vendor/speedtest/speedtest_worker.min.js",
+    "inputFiles": [
+      "public/js/vendor/speedtest/speedtest_worker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": true
   }
 ]
