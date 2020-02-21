@@ -20,6 +20,11 @@ $help = [
     'duo-skey'                      => 'DUO secret key, <a href="https://duo.com/docs/duoweb" target="_blank">find more information at the DUO help pages.</a>',
     'duo-akey'                      => 'DUO akey, <a href="https://duo.com/docs/duoweb" target="_blank">find more information at the DUO help pages.</a>',
 
+    'redis-enabled'                 => 'Enables the <a href="https://redis.io/" target="_blank">Redis server</a>.',
+    'redis-host'                    => 'Specifies the host location of the Redis server.',
+    'redis-port'                    => 'Specifies the port the Redis server is listening on. The default port is 6379.',
+    'redis-auth'                    => 'Specifies the password to access the Redis server. Default installs leave this empty.',
+
     /* Dashboard related settings */
     'couchpotato-enabled'           => 'Enables the <a href="https://couchpota.to/" target="_blank">Couchpotato</a> plugin.',
     'couchpotato-url'               => 'The URL where Couchpotato can be found.',
@@ -112,6 +117,11 @@ $helpTitles = [
     'duo-ikey'                      => 'DUO integration key',
     'duo-skey'                      => 'DUO secret key',
     'duo-akey'                      => 'DUO akey',
+
+    'redis-enabled'                 => 'Redis',
+    'redis-host'                    => 'Redis host',
+    'redis-port'                    => 'Redis listening port',
+    'redis-auth'                    => 'Redis password',
 
     /* Dashboard related settings */
     'couchpotato-enabled'           => 'Couchpotato',
