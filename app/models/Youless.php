@@ -30,6 +30,7 @@ class Youless extends Model
 
 	/**
 	 * Gets a bootstrap text- class to be used to indicate powerusage thresholds.
+	 *
 	 * @param mixed $config     The config object to get the different threshold levels for.
 	 * @param mixed $power      The current power usage.
 	 * @return string           A bootstrap class indicating which threshold is passed.

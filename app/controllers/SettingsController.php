@@ -294,6 +294,12 @@ class SettingsController extends BaseController
         die('Log file not found!');
     }
 
+    /**
+     * Displays all the log files in a paginated fashion.
+     * Calls IndexAction to set all the data for all the tabs displayed.
+     *
+     * @param int $page      The page requested
+     */
     public function logsAction($page)
     {
         $this->logsPage = $page;

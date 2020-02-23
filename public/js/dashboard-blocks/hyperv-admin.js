@@ -124,7 +124,7 @@
                         return a.Name < b.Name ? 1 : -1;
                     });
 
-                    $.each(data, function (index, item) {
+                    $.each(data, function (_index, item) {
                         var clone = settings.block.find("#vms tr.hidden").clone();
                         var stateToggle = item.State === settings.vm.stateEnabed ? settings.vm.stateDisabed : settings.vm.stateEnabed;
 

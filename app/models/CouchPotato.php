@@ -22,9 +22,9 @@ class Couchpotato extends Model
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.list');
 		curl_setopt_array($curl, array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 0
-        ));
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 0
+		));
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -40,17 +40,17 @@ class Couchpotato extends Model
 	 */
 	public static function getMovie($id, $config)
 	{
-        $movie = false;
+		$movie = false;
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.get/?id=' . $id);
 		curl_setopt_array($curl, array(
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 0
-        ));
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 0
+		));
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
 		if ($content->success)
-        {
+		{
 			$movie = $content->media;
 			$movie->trailer = self::getRandomTrailerFormTMDB($movie->info->tmdb_id, $config);
 		}

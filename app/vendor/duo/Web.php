@@ -7,7 +7,6 @@ namespace Duo;
 
 class Web
 {
-
     const DUO_PREFIX = "TX";
     const APP_PREFIX = "APP";
     const AUTH_PREFIX = "AUTH";
@@ -19,10 +18,10 @@ class Web
     const SKEY_LEN = 40;
     const AKEY_LEN = 40; // if this changes you have to change ERR_AKEY
 
-    const ERR_USER = 'ERR|The username passed to sign_request() is invalid.';
-    const ERR_IKEY = 'ERR|The Duo integration key passed to sign_request() is invalid.';
-    const ERR_SKEY = 'ERR|The Duo secret key passed to sign_request() is invalid.';
-    const ERR_AKEY = 'ERR|The application secret key passed to sign_request() must be at least 40 characters.';
+    const ERR_USER = 'ERR|The username specified is invalid.';
+    const ERR_IKEY = 'ERR|The Duo integration key specified is invalid.';
+    const ERR_SKEY = 'ERR|The Duo secret key specified is invalid.';
+    const ERR_AKEY = 'ERR|The application secret key specified must be at least 40 characters.';
 
     private static function signVals($key, $vals, $prefix, $expire, $time = null)
     {

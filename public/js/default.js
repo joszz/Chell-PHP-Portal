@@ -34,15 +34,16 @@ var keys = {
 */
 $(function () {
     //Install dummy service worker to make the site installable
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-            navigator.serviceWorker.register("/portal/js/worker.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
-                // Registration was successful
-            }, function (_err) {
-                // registration failed :(
-            });
-        });
-    }
+    //todo: interferes with Speedtest worker
+    //if ("serviceWorker" in navigator) {
+    //    window.addEventListener("load", function () {
+    //        navigator.serviceWorker.register("/portal/js/worker.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
+    //            // Registration was successful
+    //        }, function (_err) {
+    //            // registration failed :(
+    //        });
+    //    });
+    //}
 
     alertTimeout = $(".alert").data("alert-timeout");
 
