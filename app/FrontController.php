@@ -47,9 +47,6 @@ class FrontController
         $this->di = new FactoryDefault();
         $this->di->set('config', $config);
 
-
-        $this->registerNamespaces();
-
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
@@ -67,6 +64,7 @@ class FrontController
             return $crypt;
         });
 
+        $this->registerNamespaces();
         $this->setDisplayErrors();
         $this->setDB($config);
         $this->setViewProvider($config);
@@ -116,10 +114,7 @@ class FrontController
             'Chell\Models'                  => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi'             => APP_PATH . $this->config->application->modelsDir . 'kodi/',
             'Chell\Plugins'                 => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/',
-            'WillWashburn\Phpamo'           => APP_PATH . $this->config->application->vendorDir . 'camo/',
-            'WillWashburn\Phpamo\Encoder'   => APP_PATH . $this->config->application->vendorDir . 'camo/Encoder',
-            'WillWashburn\Phpamo\Formatter' => APP_PATH . $this->config->application->vendorDir . 'camo/Formatter',
+            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/'
         ])->register();
     }
 
