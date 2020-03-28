@@ -74,6 +74,8 @@ function initializeGlobalPlugins() {
         "max-width": "800px",
         "width": "90%"
     };
+
+    $(".toggle-password").togglePasswords();
 }
 
 /**
@@ -155,7 +157,7 @@ String.prototype.capitalize = function () {
 function openConfirmDialog(title, data, buttonClick) {
     $("div#confirm-dialog h2").html(title);
 
-    $.each(data, function (index, value) {
+    $.each(data, function (_index, value) {
         $.each(value, function (index, value) {
             $("div#confirm-dialog").data(index, value);
         });

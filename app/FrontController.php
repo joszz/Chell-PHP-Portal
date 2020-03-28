@@ -233,6 +233,7 @@ class FrontController
             $this->application->assets->collection('default')->addJs('js/vendor/chartist/chartist-plugin-legend.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/vendor/waves.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/vendor/md5.js', true, false, array('defer' => 'defer'), $version, true);
+            $this->application->assets->collection('default')->addJs('js/toggle-passwords.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/default.js', true, false, array('defer' => 'defer'), $version, true);
 
             $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js', true, false, array('defer' => 'defer'), $version, true);

@@ -89,7 +89,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin-right: 15px;
 }
 
-#settings .fa-question {
+#settings .fa-question,
+#settings .fa-eye {
     text-decoration: none;
     color: $state-success-text;
     font-size: 14px;

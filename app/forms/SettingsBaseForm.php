@@ -57,17 +57,21 @@ class SettingsBaseForm extends Form
         {
             $html = $element;
         }
-        else 
+        else
         {
             $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
             $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(array('class' => 'text-bold')) . '</div>';
             $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
 
+            if(get_class($element) == 'Phalcon\Forms\Element\Password'){
+                $html .= '<a class="btn btn-default input-group-addon toggle-password" title="Toggle password display"><i class="fa fa-eye"></i></a>';
+            }
+
             $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
             $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
-            $html .= '<i class="fa fa-question"></i></a></div>';
+            $html .= '<i class="fa fa-question"></i></a>';
 
-            $html .= '</div><div class="col-lg-5 col-sm-3 col-xs-12">';
+            $html .= '</div></div><div class="col-lg-5 col-sm-3 col-xs-12">';
 
             if ($hasErrors)
             {

@@ -43,6 +43,7 @@
       "public/js/vendor/chartist/chartist-plugin-legend.js",
       "public/js/vendor/waves.js",
       "public/js/vendor/md5.js",
+      "public/js/toggle-passwords.js",
       "public/js/default.js"
     ],
     "minify": {

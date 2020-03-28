@@ -7,7 +7,14 @@
             <form action="<?php echo $form->getAction() ?>" method="post">
                 <?php foreach($form AS $element) : ?>
 
-                <?php if(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>
+                <?php if(get_class($element) == 'Phalcon\Forms\Element\Password') : ?>
+                <div class="input-group">
+                    <?php echo $element ?>
+                    <a class="btn btn-default input-group-addon toggle-password vibrate waves-effect" title="Toggle password display">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>
+                <?php elseif(get_class($element) == 'Phalcon\Forms\Element\Check') : ?>
                 <div id="rememberme-wrapper">
                     <?php echo $element ?>
                     <?php echo $element->label() ?>
