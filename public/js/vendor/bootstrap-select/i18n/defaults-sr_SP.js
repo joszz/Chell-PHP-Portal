@@ -24,16 +24,23 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Nenhum seleccionado',
-    noneResultsText: 'Sem resultados contendo {0}',
-    countSelectedText: 'Selecionado {0} de {1}',
-    maxOptionsText: ['Limite ultrapassado (máx. {n} {var})', 'Limite de seleções ultrapassado (máx. {n} {var})', ['itens', 'item']],
-    multipleSeparator: ', ',
-    selectAllText: 'Selecionar Tudo',
-    deselectAllText: 'Desmarcar Todos'
+    noneSelectedText: 'Izaberite',
+    noneResultsText: 'Nema rezultata za {0}',
+    countSelectedText: function (numSelected, numTotal) {
+      return (numSelected == 1) ? '{0} izabrana' : '{0} izabrane';
+    },
+    maxOptionsText: function (numAll, numGroup) {
+      return [
+        (numAll == 1) ? 'Limit je dostignut ({n} stvar maximalno)' : 'Limit je dostignut ({n} stavke maksimalno)',
+        (numGroup == 1) ? 'Grupni limit je dostignut ({n} stvar maksimalno)' : 'Grupni limit je dostignut ({n} stavke maksimalno)'
+      ];
+    },
+    selectAllText: 'Izaberi sve',
+    deselectAllText: 'Obrisi sve',
+    multipleSeparator: ', '
   };
 })(jQuery);
 
 
 }));
-//# sourceMappingURL=defaults-pt_PT.js.map
+//# sourceMappingURL=defaults-sr_SP.js.map

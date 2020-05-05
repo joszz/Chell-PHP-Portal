@@ -218,7 +218,7 @@ class FrontController
         {
             $this->application->assets->collection('header')->addCss('css/default/default.css', true, false, array(), $version, true);
 
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery-3.4.1.js', true, false, array('defer' => 'defer'), $version, true);
+            $this->application->assets->collection('default')->addJs('js/vendor/jquery-3.5.1.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/vendor/jquery.fancybox.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/vendor/bootstrap.js', true, false, array('defer' => 'defer'), $version, true);
             $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-select/bootstrap-select.js', true, false, array('defer' => 'defer'), $version, true);

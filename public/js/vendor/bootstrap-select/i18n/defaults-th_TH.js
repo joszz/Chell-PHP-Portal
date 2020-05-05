@@ -24,16 +24,16 @@
 
 (function ($) {
   $.fn.selectpicker.defaults = {
-    noneSelectedText: 'Nenhum seleccionado',
-    noneResultsText: 'Sem resultados contendo {0}',
-    countSelectedText: 'Selecionado {0} de {1}',
-    maxOptionsText: ['Limite ultrapassado (máx. {n} {var})', 'Limite de seleções ultrapassado (máx. {n} {var})', ['itens', 'item']],
-    multipleSeparator: ', ',
-    selectAllText: 'Selecionar Tudo',
-    deselectAllText: 'Desmarcar Todos'
+    noneSelectedText: 'ไม่ได้เลือกอะไรเลย',
+    noneResultsText: 'ไม่มีผลลัพธ์ที่ตรงกัน {0}',
+    countSelectedText: '{0} รายการที่เลือก',
+    maxOptionsText: ['เกินจำนวนที่กำหนด (สูงสุด {n} รายการ)', 'เกินจำนวนที่กำหนด (สูงสุด {n} กลุ่ม)'],
+    selectAllText: 'เลือกทั้งหมด',
+    deselectAllText: 'ไม่เลือกทั้งหมด',
+    multipleSeparator: ', '
   };
 })(jQuery);
 
 
 }));
-//# sourceMappingURL=defaults-pt_PT.js.map
+//# sourceMappingURL=defaults-th_TH.js.map
