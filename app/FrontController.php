@@ -33,6 +33,45 @@ class FrontController
     private $di;
     private $application;
 
+    private $jsFiles = [
+        'default' => [
+            'vendor/jquery-3.5.1.js',
+            'vendor/jquery.fancybox.js',
+            'vendor/bootstrap.js',
+            'vendor/bootstrap-select/bootstrap-select.js',
+            'vendor/bootstrap-tabcollapse.js',
+            'vendor/bootstrap-toggle.js',
+            'vendor/jquery.bootstrap-touchspin.js',
+            'vendor/jquery.vibrate.js',
+            'vendor/jquery.tinytimer.js',
+            'vendor/jquery.isloading.js',
+            'vendor/jquery.fullscreen.js',
+            'vendor/chartist/chartist.js',
+            'vendor/chartist/chartist-plugin-legend.js',
+            'vendor/waves.js',
+            'vendor/md5.js',
+            'toggle-passwords.js',
+            'default.js',
+        ],
+        'dashboard' => [
+            'dashboard-blocks/couchpotato.js',
+            'dashboard-blocks/devices.js',
+            'dashboard-blocks/gallery.js',
+            'dashboard-blocks/hyperv-admin.js',
+            'dashboard-blocks/motion.js',
+            'dashboard-blocks/nowplaying.js',
+            'dashboard-blocks/opcache.js',
+            'dashboard-blocks/phpsysinfo.js',
+            'dashboard-blocks/pihole.js',
+            'dashboard-blocks/sickrage.js',
+            'dashboard-blocks/speedtest.js',
+            'dashboard-blocks/transmission.js',
+            'dashboard-blocks/youless.js',
+            'dashboard.js',
+        ],
+        'settings' => ['settings.js']
+    ];
+
     /**
      * Initialize Phalcon.
      */
@@ -214,52 +253,17 @@ class FrontController
     {
         $version = $this->config->application->version;
 
-        if($this->config->application->debug)
-        {
-            $this->application->assets->collection('header')->addCss('css/default/default.css', true, false, array(), $version, true);
+        $this->application->assets->collection('header')->addCss('css/default/default.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, array(), $version, true);
 
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery-3.5.1.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.fancybox.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-select/bootstrap-select.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-tabcollapse.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/bootstrap-toggle.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.bootstrap-touchspin.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.vibrate.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.tinytimer.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.isloading.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/jquery.fullscreen.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/chartist/chartist.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/chartist/chartist-plugin-legend.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/waves.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/vendor/md5.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/toggle-passwords.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('default')->addJs('js/default.js', true, false, array('defer' => 'defer'), $version, true);
-
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/devices.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/gallery.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/motion.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/nowplaying.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/opcache.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/phpsysinfo.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/pihole.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/sickrage.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/transmission.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard-blocks/youless.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, array('defer' => 'defer'), $version, true);
-
-            $this->application->assets->collection('settings')->addJs('js/settings.js', true, false, array('defer' => 'defer'), $version, true);
-        }
-        else
-        {
-            $this->application->assets->collection('header')->addCss('css/default/default.min.css', true, false, array(), $version, true);
-
-            $this->application->assets->collection('default')->addJs('js/default.min.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, array('defer' => 'defer'), $version, true);
-            $this->application->assets->collection('settings')->addJs('js/settings.min.js', true, false, array('defer' => 'defer'), $version, true);
+        foreach($this->jsFiles as $collection => $files){
+            if($this->config->application->debug){
+                foreach($files as $file){
+                    $this->application->assets->collection($collection)->addJs('js/' . $file, true, false, array('defer' => 'defer'), $version, true);
+                }
+            }
+            else {
+                $this->application->assets->collection($collection)->addJs('js/' . $collection . '.min.js', true, false, array('defer' => 'defer'), $version, true);
+            }
         }
     }
 
