@@ -80,7 +80,7 @@ class ErrorController
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
             $this->config->application->baseUri . 'css/vendor/prism.css');
         $this->js = array(
-            $this->config->application->baseUri . 'js/vendor/jquery-3.4.1.min.js',
+            $this->config->application->baseUri . 'js/vendor/' . basename(current(glob(APP_PATH . 'public/js/vendor/jquery-*.min.js'))),
             $this->config->application->baseUri . 'js/vendor/prism.js',
             $this->config->application->baseUri . 'js/exception.js'
         );

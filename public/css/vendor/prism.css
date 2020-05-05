@@ -1,4 +1,4 @@
-/* PrismJS 1.18.0
+/* PrismJS 1.20.0
 https://prismjs.com/download.html?#themes=prism&languages=markup+clike+markup-templating+php+php-extras&plugins=line-highlight+line-numbers */
 /**
  * prism.js default theme for JavaScript, CSS and HTML
@@ -79,7 +79,7 @@ pre[class*="language-"] {
 	color: #999;
 }
 
-.namespace {
+.token.namespace {
 	opacity: .7;
 }
 
