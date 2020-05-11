@@ -240,6 +240,7 @@ class FrontController
             }
 
             $session->setAdapter($adapter);
+            $session->setName(ini_get('session.name'));
             $session->start();
 
             return $session;

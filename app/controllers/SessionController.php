@@ -71,7 +71,6 @@ class SessionController extends BaseController
         else if($this->cookies->has('username') && $this->cookies->has('password'))
         {
             $username = trim($this->cookies->get('username')->getValue());
-
             $password = trim($this->cookies->get('password')->getValue());
         }
 
@@ -151,7 +150,6 @@ class SessionController extends BaseController
      */
     public function duoVerifyAction()
     {
-
         $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
 
         $user = Users::findFirst(
