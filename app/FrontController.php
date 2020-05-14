@@ -84,18 +84,10 @@ class FrontController
 
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
+        $this->setSession($config);
         $this->di->set('config', $config);
 
-        $this->di->set('dispatcher', function () {
-            $eventsManager = new EventsManager();
-            $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
 
-            $dispatcher = new Dispatcher();
-            $dispatcher->setEventsManager($eventsManager);
-            $dispatcher->setDefaultNamespace('Chell\Controllers');
-
-            return $dispatcher;
-        });
 
         $this->di->set('crypt', function() use ($config) {
             $crypt = new Crypt();
@@ -108,7 +100,7 @@ class FrontController
         $this->setDB($config);
         $this->setViewProvider($config);
         $this->setURLProvider($config);
-        $this->setSession($config);
+
 
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
@@ -116,6 +108,17 @@ class FrontController
         $this->setAssets();
         $this->setTitle();
         $this->setTranslator();
+
+        $this->di->set('dispatcher', function () {
+            $eventsManager = new EventsManager();
+            $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
+
+            $dispatcher = new Dispatcher();
+            $dispatcher->setEventsManager($eventsManager);
+            $dispatcher->setDefaultNamespace('Chell\Controllers');
+
+            return $dispatcher;
+        });
     }
 
     /**
