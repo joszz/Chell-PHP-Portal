@@ -84,26 +84,7 @@ class FrontController
 
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
-        $this->setSession($config);
         $this->di->set('config', $config);
-        $this->di->set('crypt', function() use ($config) {
-            $crypt = new Crypt();
-            $crypt->setKey($config->application->phalconCryptKey);
-            return $crypt;
-        });
-
-        $this->registerNamespaces();
-        $this->setDisplayErrors();
-        $this->setDB($config);
-        $this->setViewProvider($config);
-        $this->setURLProvider($config);
-
-        $this->application = new Application($this->di);
-        $this->application->view->executionTime = $executionTime;
-
-        $this->setAssets();
-        $this->setTitle();
-        $this->setTranslator();
 
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
@@ -115,6 +96,26 @@ class FrontController
 
             return $dispatcher;
         });
+
+        $this->di->set('crypt', function() use ($config) {
+            $crypt = new Crypt();
+            $crypt->setKey($config->application->phalconCryptKey);
+            return $crypt;
+        });
+
+        $this->registerNamespaces();
+        $this->setDisplayErrors();
+        $this->setDB($config);
+        $this->setViewProvider($config);
+        $this->setURLProvider($config);
+        $this->setSession($config);
+
+        $this->application = new Application($this->di);
+        $this->application->view->executionTime = $executionTime;
+
+        $this->setAssets();
+        $this->setTitle();
+        $this->setTranslator();
     }
 
     /**
@@ -239,7 +240,7 @@ class FrontController
             }
 
             $session->setAdapter($adapter);
-            $session->setName(ini_get('session.name'));
+            $session->setName(ini_get('session.name') . '_' . str_replace(' ', '_', $config->application->title));
             $session->start();
 
             return $session;
