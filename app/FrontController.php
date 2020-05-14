@@ -86,9 +86,6 @@ class FrontController
         $this->di = new FactoryDefault();
         $this->setSession($config);
         $this->di->set('config', $config);
-
-
-
         $this->di->set('crypt', function() use ($config) {
             $crypt = new Crypt();
             $crypt->setKey($config->application->phalconCryptKey);
@@ -100,7 +97,6 @@ class FrontController
         $this->setDB($config);
         $this->setViewProvider($config);
         $this->setURLProvider($config);
-
 
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
