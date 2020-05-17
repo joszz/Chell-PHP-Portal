@@ -118,14 +118,8 @@ class SpeedtestController extends BaseController
             $ul[] = empty($stat['ul']) ? '0' : $stat['ul'];
             $ping[] = empty($stat['ping']) ? '0' : $stat['ping'];
             $jitter[] = empty($stat['jitter']) ? '0' : $stat['jitter'];
-            
-            if ($stat['extra'] != 'false' && !empty($stat['extra']))
-            {
-                $browser = json_decode($stat['extra']);
-                $stat['browser'] = strtolower($browser->parse->software_name);
-            }
         }
-        
+
         $this->view->activetab =  $activeTab;
         $this->view->stats = $this->view->paginator = $page;
         $this->view->labels = array_reverse($labels);
@@ -262,7 +256,6 @@ class SpeedtestController extends BaseController
         if (($output = curl_exec($ch)) !== false)
         {
             $parsed = json_decode($output);
-
             if ($parsed->result->code == 'success')
             {
                 return $output;
