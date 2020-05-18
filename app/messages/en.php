@@ -77,6 +77,8 @@ $help = [
     'speedtest-get-ispip'           => 'Whether the Speedtest plugin should show the IP of the client\'s ISP.',
     'speedtest-isp-info-distance'   => 'Which units Speedtest uses to show the distance to the ISP.',
     'speedtest-telemetry'           => 'The telemetry to save.',
+    'speedtest-ipinfo-url'          => 'The URL to access the IPInfo API.',
+    'speedtest-ipinfo-token'        => 'The IPInfo API token used.',
 
     'subsonic-enabled'              => 'Enables the <a href="http://www.subsonic.org/pages/index.jsp" target="_blank">Subsonic plugin.',
     'subsonic-url'                  => 'The URL where the Subsonic webclient is found.',
@@ -175,6 +177,8 @@ $helpTitles = [
     'speedtest-get-ispip'           => 'Speedtest show ISP IP',
     'speedtest-isp-info-distance'   => 'Speedtest distance units',
     'speedtest-telemetry'           => 'Speedtest telemetry',
+    'speedtest-ipinfo-url'          => 'IPInfo API URL',
+    'speedtest-ipinfo-token'        => 'IPInfo API token',
 
     'subsonic-enabled'              => 'Subsonic',
     'subsonic-url'                  => 'Subsonic URL',

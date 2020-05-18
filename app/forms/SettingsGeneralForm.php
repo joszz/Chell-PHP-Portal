@@ -4,6 +4,7 @@ namespace Chell\Forms;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
@@ -53,20 +54,20 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setDefault($this->_config->application->itemsPerPage)
             ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
 
-        $cryptKey = new Text('cryptkey');
+        $cryptKey = new Password('cryptkey');
         $cryptKey->setLabel('Cryptkey');
         $cryptKey->setFilters(array('striptags', 'string'));
         $cryptKey->setAttributes(array('class' => 'form-control'));
         $cryptKey->setDefault($this->_config->application->phalconCryptKey);
         $cryptKey->addValidators(array(new PresenceOf(array())));
 
-        $tmdbAPIKey = new Text('tmdb-apikey');
+        $tmdbAPIKey = new Password('tmdb-apikey');
         $tmdbAPIKey->setLabel('TMDB API key');
         $tmdbAPIKey->setFilters(array('striptags', 'string'));
         $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
         $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
 
-        $whatIsMyBrowserAPIKey = new Text('whatismybrowser-apikey');
+        $whatIsMyBrowserAPIKey = new Password('whatismybrowser-apikey');
         $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key');
         $whatIsMyBrowserAPIKey->setFilters(array('striptags', 'string'));
         $whatIsMyBrowserAPIKey->setAttributes(array('class' => 'form-control'));
@@ -124,19 +125,19 @@ class SettingsGeneralForm extends SettingsBaseForm
         $duoAPIHostname->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoAPIHostname->setDefault($this->_config->duo->apiHostname);
 
-        $duoIKey = new Text('duo-ikey');
+        $duoIKey = new Password('duo-ikey');
         $duoIKey->setLabel('Integration key');
         $duoIKey->setFilters(array('striptags', 'string'));
         $duoIKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoIKey->setDefault($this->_config->duo->ikey);
 
-        $duoSKey = new Text('duo-skey');
+        $duoSKey = new Password('duo-skey');
         $duoSKey->setLabel('Secret key');
         $duoSKey->setFilters(array('striptags', 'string'));
         $duoSKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $duoSKey->setDefault($this->_config->duo->skey);
 
-        $duoAKey = new Text('duo-akey');
+        $duoAKey = new Password('duo-akey');
         $duoAKey->setLabel('Akey');
         $duoAKey->setFilters(array('striptags', 'string'));
         $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
@@ -195,7 +196,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $redisPort->setAttributes(array('class' => 'form-control', 'fieldset' => true));
         $redisPort->setDefault($this->_config->redis->port);
 
-        $redisAuth = new Text('redis-auth');
+        $redisAuth = new Password('redis-auth');
         $redisAuth->setLabel('Auth');
         $redisAuth->setFilters(array('striptags', 'string'));
         $redisAuth->setAttributes(array('class' => 'form-control', 'fieldset' => true));

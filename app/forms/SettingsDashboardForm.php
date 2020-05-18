@@ -496,13 +496,13 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setDefault($this->_config->speedtest->telemetry);
 
 		$speedtestIpInfoURL = new Text('speedtest-ipinfo-url');
-		$speedtestIpInfoURL->setLabel('URL')
+		$speedtestIpInfoURL->setLabel('IPInfo URL')
 			->setFilters(array('striptags', 'string'))
 			->setAttributes(array('class' => 'form-control'))
 			->setDefault($this->_config->speedtest->ipInfoUrl);
 
-		$speedtestIpInfoToken = new Text('speedtest-ipinfo-token');
-		$speedtestIpInfoToken->setLabel('URL')
+		$speedtestIpInfoToken = new Password('speedtest-ipinfo-token');
+		$speedtestIpInfoToken->setLabel('IPInfo token')
 			->setFilters(array('striptags', 'string'))
 			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
 			->setDefault($this->_config->speedtest->ipInfoToken);

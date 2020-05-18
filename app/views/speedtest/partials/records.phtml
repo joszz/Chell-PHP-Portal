@@ -27,16 +27,16 @@
                         <?php echo !empty($stat['ip']) ? $stat['ip'] : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['dl']) ? $stat['dl'] . ' Mbps' : '...' ?>
+                        <?php echo !empty($stat['dl']) ? $stat['dl'] . '&nbsp;Mbps' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['ul']) ? $stat['ul'] .' Mbps' : '...' ?>
+                        <?php echo !empty($stat['ul']) ? $stat['ul'] .'&nbsp;Mbps' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['ping']) ? $stat['ping'] . ' ms ' : '...' ?>
+                        <?php echo !empty($stat['ping']) ? $stat['ping'] . '&nbsp;ms ' : '...' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['jitter']) ? $stat['jitter'] .' ms' : '...' ?>
+                        <?php echo !empty($stat['jitter']) ? $stat['jitter'] .'&nbsp;ms' : '...' ?>
                     </td>
                     <td class="text-center">
                         <?php $browser = json_decode($stat['extra'])->parse->software_name; ?>

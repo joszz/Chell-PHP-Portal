@@ -50,6 +50,12 @@ $(function () {
     initializeGlobalPlugins();
     initializeGlobalEventHandlers();
 
+    if ($("#duo_iframe").length) {
+        $(window).on("beforeunload", function () {
+            $("#duo_iframe").isLoading();
+        });
+    }
+
     $("#duo_iframe").on("load", function () {
         $(this).fadeIn();
     });

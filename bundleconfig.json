@@ -28,7 +28,7 @@
   {
     "outputFileName": "public/js/default.min.js",
     "inputFiles": [
-      "public/js/vendor/jquery-3.4.1.js",
+      "public/js/vendor/jquery-3.5.1.js",
       "public/js/vendor/jquery.fancybox.js",
       "public/js/vendor/bootstrap.js",
       "public/js/vendor/bootstrap-select/bootstrap-select.js",
