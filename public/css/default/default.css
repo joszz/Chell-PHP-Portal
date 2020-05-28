@@ -7116,6 +7116,18 @@ fieldset[disabled] .btn-danger.active {
   top: 10%;
   z-index: 7000; }
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3c763d #d6e9c6; }
+
+*::-webkit-scrollbar {
+  width: 7px;
+  background-color: #d6e9c6;
+  border: 1px solid #d6e9c6; }
+
+*::-webkit-scrollbar-thumb {
+  background-color: #3c763d; }
+
 html {
   min-height: 100%; }
 
@@ -7292,6 +7304,9 @@ nav div.navbar-collapse ul {
   max-height: 290px;
   overflow-y: auto;
   padding-bottom: 1px; }
+
+nav div.navbar-collapse ul::-webkit-scrollbar {
+  display: none; }
 
 nav div.navbar-collapse ul a {
   color: #FFF;
@@ -7479,6 +7494,11 @@ div.distro span {
 #hardware {
   margin: 12px;
   padding: 0; }
+
+.panel.processes ul {
+  height: 362px;
+  overflow-y: auto;
+  float: left; }
 
 div.transmission li div.torrentname,
 div.transmission li div.torrentprogress {

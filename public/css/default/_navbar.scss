@@ -41,11 +41,14 @@ a.navbar-brand span {
     white-space: nowrap;
 }
 
-
 nav div.navbar-collapse ul {
     max-height: 290px;
     overflow-y: auto;
     padding-bottom: 1px;
+}
+
+nav div.navbar-collapse ul::-webkit-scrollbar {
+    display: none;
 }
 
 nav div.navbar-collapse ul a {

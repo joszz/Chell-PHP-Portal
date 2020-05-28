@@ -1,4 +1,19 @@
-﻿html {
+﻿* {
+    scrollbar-width: thin;
+    scrollbar-color: #3c763d #d6e9c6;
+}
+
+*::-webkit-scrollbar {
+    width: 7px;
+    background-color: #d6e9c6;
+    border: 1px solid #d6e9c6;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #3c763d;
+}
+
+html {
     min-height: 100%;
 }
 

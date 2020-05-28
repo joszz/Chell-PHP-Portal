@@ -24,3 +24,8 @@ div.distro span {
     margin: 12px;
     padding: 0;
 }
+.panel.processes ul {
+    height: 362px;
+    overflow-y: auto;
+    float: left;
+}
