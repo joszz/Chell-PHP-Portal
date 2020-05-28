@@ -44,7 +44,7 @@ function initializePlugins() {
 
     var date = new Date();
     date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
-    $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
+    $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" }).removeClass("hide");
 }
 
 /**
