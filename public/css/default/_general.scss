@@ -5,8 +5,6 @@
 
 *::-webkit-scrollbar {
     width: 7px;
-    background-color: #d6e9c6;
-    border: 1px solid #d6e9c6;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -29,7 +27,7 @@ html.blackbg body {
 body {
     font-family: "Roboto", sans-serif !important;
     font-weight: 300;
-    overflow-y: scroll;
+    overflow-y: overlay;
     height: 100%;
     min-height: 100vh;
 }

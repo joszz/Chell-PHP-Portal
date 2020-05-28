@@ -7121,9 +7121,7 @@ fieldset[disabled] .btn-danger.active {
   scrollbar-color: #3c763d #d6e9c6; }
 
 *::-webkit-scrollbar {
-  width: 7px;
-  background-color: #d6e9c6;
-  border: 1px solid #d6e9c6; }
+  width: 7px; }
 
 *::-webkit-scrollbar-thumb {
   background-color: #3c763d; }
@@ -7141,7 +7139,7 @@ html.blackbg body {
 body {
   font-family: "Roboto", sans-serif !important;
   font-weight: 300;
-  overflow-y: scroll;
+  overflow-y: overlay;
   height: 100%;
   min-height: 100vh; }
 
@@ -7269,6 +7267,10 @@ div.vertical-center {
 .navbar {
   background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
   backdrop-filter: blur(5px); }
+
+@supports (overflow: overlay) {
+  .navbar {
+    width: calc(100% + 7px); } }
 
 nav.navbar-fixed-top {
   top: 0;
@@ -7761,6 +7763,10 @@ footer.navbar {
   border-radius: 0;
   opacity: 0.9;
   z-index: 7500; }
+
+@supports (overflow: overlay) {
+  footer.navbar {
+    width: calc(100% + 7px); } }
 
 footer .execution-time {
   line-height: 36px; }

@@ -9,6 +9,12 @@
     z-index: 7500;
 }
 
+@supports (overflow: overlay) {
+    footer.navbar {
+        width: calc(100% + 7px);
+    }
+}
+
 footer .execution-time {
     line-height: 36px;
 }

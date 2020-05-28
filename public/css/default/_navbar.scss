@@ -3,6 +3,13 @@
     backdrop-filter: blur(5px);
 }
 
+@supports (overflow: overlay) {
+    .navbar {
+        width: calc(100% + 7px);
+    }
+}
+
+
 nav.navbar-fixed-top {
     top: 0;
     opacity: 0.9;
