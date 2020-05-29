@@ -25,6 +25,6 @@
 }
 
 .fancybox-container {
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur($backdropBlur);
     transition: backdrop-filter 1.5s ease-out;
 }

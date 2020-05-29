@@ -146,7 +146,7 @@
 }
 
 .with-nav-tabs.panel-success .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #dff0d8;
+    background-color: $state-success-bg;
     border-color: $state-success-bg;
 }
 
@@ -170,7 +170,7 @@
 .with-nav-tabs.panel-info .nav-tabs > li > a,
 .with-nav-tabs.panel-info .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li > a:focus {
-    color: #31708f;
+    color: $state-info-text;
 }
 
 .with-nav-tabs.panel-info .nav-tabs > .open > a,
@@ -178,7 +178,7 @@
 .with-nav-tabs.panel-info .nav-tabs > .open > a:focus,
 .with-nav-tabs.panel-info .nav-tabs > li > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li > a:focus {
-    color: #31708f;
+    color: $state-info-text;
     background-color: #bce8f1;
     border-color: transparent;
 }
@@ -186,19 +186,19 @@
 .with-nav-tabs.panel-info .nav-tabs > li.active > a,
 .with-nav-tabs.panel-info .nav-tabs > li.active > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li.active > a:focus {
-    color: #31708f;
+    color: $state-info-text;
     background-color: $btn-default-bg;
     border-color: #bce8f1;
     border-bottom-color: transparent;
 }
 
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #d9edf7;
+    background-color: $state-info-bg;
     border-color: #bce8f1;
 }
 
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: #31708f;
+    color: $state-info-text;
 }
 
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
@@ -210,7 +210,7 @@
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
 .with-nav-tabs.panel-info .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
     color: $btn-default-bg;
-    background-color: #31708f;
+    background-color: $state-info-text;
 }
 /********************************************************************/
 /*** PANEL WARNING ***/
@@ -240,7 +240,7 @@
 }
 
 .with-nav-tabs.panel-warning .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #fcf8e3;
+    background-color: $state-warning-bg;
     border-color: $state-warning-bg;
 }
 
@@ -287,7 +287,7 @@
 }
 
 .with-nav-tabs.panel-danger .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: #f2dede; /* bg color */
+    background-color: $state-danger-bg; /* bg color */
     border-color: #ebccd1; /* border color */
 }
 

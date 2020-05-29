@@ -1,14 +1,7 @@
 ﻿.navbar {
-    background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
-    backdrop-filter: blur(5px);
+    background-image: $darkBackgroundGradient;
+    backdrop-filter: blur($backdropBlur);
 }
-
-@supports (overflow: overlay) {
-    .navbar {
-        width: calc(100% + 7px);
-    }
-}
-
 
 nav.navbar-fixed-top {
     top: 0;
@@ -30,7 +23,6 @@ div#navbar {
 .navbar-toggle {
     margin-right: 0;
 }
-
 
 a.navbar-brand {
     padding: 10px 15px 15px 0;
@@ -80,7 +72,7 @@ nav div.navbar-collapse ul a img {
 nav div.navbar-collapse a:active,
 nav div.navbar-collapse a:hover,
 nav div.navbar-collapse li:hover a {
-    background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
+    background-image: linear-gradient(to bottom, $brand-success 0px, #419641 100%);
     color: #FFF;
 }
 
@@ -101,9 +93,14 @@ div#navbar div.btn-group {
     margin: 8px 0;
 }
 
-
 @media only screen and (min-width : ($screen-xs + 1)) {
     #navbar > div {
         padding: 0;
+    }
+}
+
+@supports (overflow: overlay) {
+    .navbar {
+        width: calc(100% + 7px);
     }
 }

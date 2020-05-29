@@ -9,12 +9,6 @@
     z-index: 7500;
 }
 
-@supports (overflow: overlay) {
-    footer.navbar {
-        width: calc(100% + 7px);
-    }
-}
-
 footer .execution-time {
     line-height: 36px;
 }
@@ -27,8 +21,14 @@ footer a.copyright,
 footer a.copyright:hover,
 footer a.copyright:active,
 footer a.copyright:focus {
-    color: #777;
+    color: $gray-light;
     line-height: 36px;
+}
+
+@supports (overflow: overlay) {
+    footer.navbar {
+        width: calc(100% + 7px);
+    }
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {

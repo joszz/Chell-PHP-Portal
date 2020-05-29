@@ -1,5 +1,5 @@
 .panel-square {
-    border-color: #ddd;
+    border-color: $nav-tabs-border-color;
     border-radius: 0 0 4px 4px;
     border-width: 0 1px 1px;
     float: left;
@@ -13,7 +13,7 @@ label {
 }
 
 .error {
-    color: #a94442;
+    color: $state-danger-text;
     font-weight: bold;
     line-height: 29px;
 }
@@ -21,15 +21,6 @@ label {
 .bs-container {
     z-index: 9999;
 }
-
-@media only screen and (max-width : ($screen-sm -1)) {
-    label,
-    .error {
-        line-height: initial;
-        margin-bottom: 0;
-    }
-}
-
 .table > tbody > tr > td {
     border: 0;
     line-height: 33px;
@@ -129,5 +120,13 @@ input[type=number] {
 
     a {
         float: none;
+    }
+}
+
+@media only screen and (max-width : ($screen-sm -1)) {
+    label,
+    .error {
+        line-height: initial;
+        margin-bottom: 0;
     }
 }

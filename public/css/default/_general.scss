@@ -1,6 +1,6 @@
 ﻿* {
     scrollbar-width: thin;
-    scrollbar-color: #3c763d #d6e9c6;
+    scrollbar-color: $state-success-text $state-success-bg;
 }
 
 *::-webkit-scrollbar {
@@ -8,7 +8,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-    background-color: #3c763d;
+    background-color: $state-success-text;
 }
 
 html {
@@ -21,7 +21,7 @@ html.full-height {
 
 html.blackbg,
 html.blackbg body {
-    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #3c3c3c 0%, #222 100%) repeat scroll 0 0;
+    background: $darkBackgroundGradient;
 }
 
 body {
@@ -67,19 +67,13 @@ h1, h2, h3, h4, h5, h6 {
 h2 {
     margin: 10px 0 20px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid $btn-default-border;
 }
 
 h4 {
     margin: 0;
     line-height: 36px;
     font-weight: bold;
-}
-
-@media only screen and (max-width : $screen-xs) {
-    h4 {
-        cursor: pointer;
-    }
 }
 
 div.content {
@@ -110,20 +104,6 @@ div.content {
     padding-right: 0;
 }
 
-@media only screen and (max-width : ($screen-sm - 1)) {
-    .no-gutter-xs {
-        padding: 0;
-    }
-
-    .no-gutter-left-xs {
-        padding-left: 0;
-    }
-
-    .no-gutter-right-xs {
-        padding-right: 0;
-    }
-}
-
 .hidden_not_important {
     display: none;
 }
@@ -137,7 +117,7 @@ div.content {
 }
 
 input.has-error {
-    border-color: #a94442;
+    border-color: $state-danger-text;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
 }
 
@@ -164,19 +144,6 @@ div.alert {
     display: none;
 }
 
-.btn-dark,
-.btn-dark:active,
-.btn-dark:focus,
-.btn-dark:hover {
-    color: #FFF;
-    background-color: transparent;
-    border: 1px solid #333;
-}
-
-.btn-dark:hover {
-    background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%);
-}
-
 div.vertical-center {
     display: table-cell;
     vertical-align: middle;
@@ -188,4 +155,23 @@ div.vertical-center {
 
 .bootstrap-touchspin input[type=number] {
     height: inherit;
+}
+
+@media only screen and (max-width : $screen-xs) {
+    h4 {
+        cursor: pointer;
+    }
+}
+@media only screen and (max-width : ($screen-sm - 1)) {
+    .no-gutter-xs {
+        padding: 0;
+    }
+
+    .no-gutter-left-xs {
+        padding-left: 0;
+    }
+
+    .no-gutter-right-xs {
+        padding-right: 0;
+    }
 }
