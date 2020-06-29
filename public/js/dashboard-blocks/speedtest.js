@@ -106,6 +106,16 @@
                         chart.update();
                     }, 250);
                 });
+
+                panel.find(".paginator a:not([href='#'])").click(function () {
+                    var href = $(this).attr("href");
+                    var start = href.indexOf('stats/');
+                    var currentPanel = panel.find(".nav-tabs li.active a").attr("href").replace("#", "") + "/";
+                    var page = href.substr(href.lastIndexOf("/") + 1);
+                    var newhref = href.substr(0, start + 6) + currentPanel + page;
+                    
+                    $(this).attr("href", newhref);
+                });
             },
 
             /**

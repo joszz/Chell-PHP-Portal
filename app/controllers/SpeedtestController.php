@@ -89,7 +89,7 @@ class SpeedtestController extends BaseController
      *
      * @param int       $requestedPage The requested page for the paginator to display, defaults to 1.
      */
-    public function statsAction($requestedPage = 1, $activeTab = 'records')
+    public function statsAction($activeTab = 'records', $requestedPage = 1)
     {
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
@@ -103,7 +103,7 @@ class SpeedtestController extends BaseController
         ]);
 
         $page = $paginator->paginate();
-        $page = self::GetPaginator($page->current, $page->last, 'speedtest/stats/', $page);
+        $page = self::GetPaginator($page->current, $page->last, 'speedtest/stats/' . $activeTab . '/', $page);
 
         $labels = array();
         $dl = array();
