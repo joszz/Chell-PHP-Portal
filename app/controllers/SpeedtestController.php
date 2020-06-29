@@ -95,10 +95,11 @@ class SpeedtestController extends BaseController
         $this->view->overflow = true;
 
         $paginator = new PaginatorModel([
-            'model'      => Speedtest::class,
-            'data' => Speedtest::find(array('order' => 'timestamp DESC')),
+            'model' => Speedtest::class,
+            'data'  => Speedtest::find(),
+            'parameters' => ['order' => 'timestamp DESC'],
             'limit' => $this->config->application->itemsPerPage,
-            'page' => $requestedPage
+            'page'  => $requestedPage
         ]);
 
         $page = $paginator->paginate();

@@ -7132,7 +7132,8 @@ fieldset[disabled] .btn-danger.active {
   scrollbar-color: #3c763d #dff0d8; }
 
 *::-webkit-scrollbar {
-  width: 7px; }
+  width: 7px;
+  height: 7px; }
 
 *::-webkit-scrollbar-thumb {
   background-color: #3c763d; }

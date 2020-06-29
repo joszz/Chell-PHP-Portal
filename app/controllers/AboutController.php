@@ -30,6 +30,12 @@ class AboutController extends BaseController
      */
     private function getGithubStats()
     {
+        //first hit the main repo, to have the stats refreshed
+        $curl = curl_init("https://github.com/joszz/Chell-PHP-Portal");
+        $content = curl_exec($curl);
+        curl_close($curl);
+
+        //Now get the actual stats
         $curl = curl_init("https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors");
         curl_setopt_array ($curl, array(
             CURLOPT_RETURNTRANSFER => true,
