@@ -35,7 +35,7 @@ class OpcacheController extends BaseController
         $scripts = $opcache->getScriptStatusRows($currentPage, $totalPages, $this->config->application->itemsPerPage);
 
         $this->view->scripts = $scripts;
-        $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/' . $tab .'/');
+        $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/scripts/');
         $this->view->opcache = $opcache;
         $this->view->activeTab = $tab;
         $this->view->overflow = true;

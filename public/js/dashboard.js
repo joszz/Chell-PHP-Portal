@@ -41,10 +41,14 @@ function initializePlugins() {
     opache = $(".opcache").opcache();
     $(".youless").youless();
     pihole = $(".pihole").pihole();
+    $(".snmp").snmp();
 
-    var date = new Date();
-    date.setSeconds(date.getSeconds() - Math.floor($("div.uptime").html()));
-    $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" }).fadeIn();
+
+    $(".time").each(function () {
+        var date = new Date();
+        date.setSeconds(date.getSeconds() - Math.floor($(this).html()));
+        $(this).tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" }).fadeIn();
+    });
 }
 
 /**

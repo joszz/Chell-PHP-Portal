@@ -12,6 +12,7 @@ use Chell\Models\Youless;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiMusic;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
+use Chell\Models\SnmpHosts;
 
 /**
  * The controller responsible for all dashboard related actions.
@@ -58,6 +59,12 @@ class IndexController extends BaseController
         {
             $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
             $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+        }
+
+        if ($this->config->snmp->enabled)
+        {
+            $hosts = SnmpHosts::find();
+            $this->view->snmpHosts = $hosts;
         }
     }
 

@@ -67,6 +67,7 @@ class FrontController
             'dashboard-blocks/speedtest.js',
             'dashboard-blocks/transmission.js',
             'dashboard-blocks/youless.js',
+            'dashboard-blocks/snmp.js',
             'dashboard.js',
         ],
         'settings' => ['settings.js']
