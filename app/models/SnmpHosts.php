@@ -29,8 +29,10 @@ class SnmpHosts extends Model
         $values = [];
         $oidLabelCache = [];
         $session = new \SNMP(constant('SNMP::VERSION_' . $this->version), $this->ip, $this->community);
+        //$fulltree = $session->walk(".");
+        //die(var_dump($fulltree));
 
-        foreach($this->records as $record)
+        foreach($this->getRecords(['order' => '-position DESC']) as $record)
         {
             if ($record->show_dashboard == $showDashboard)
             {
@@ -52,34 +54,57 @@ class SnmpHosts extends Model
 
                         $oidLabel = $oidLabelCache[$record->label_oid];
                         $values[$record->id] = [
-                            'label'     => $oidLabel . '(' . $record->label . ')',
-                            'values'     => [ $oidValue ]
+                            'label'             => $oidLabel . '(' . $record->label . ')',
+                            'values'            => [ $oidValue ],
+                            'divisor'           => $record->divisor,
+                            'divisor_decimals'  => $record->divisor_decimals,
+                            'value_unit'        => $record->value_unit
                         ];
                     }
                     else
                     {
                         $values[$record->id] =[
-                            'label' => $record->label,
-                            'values' => [ $oidValue ]
+                            'label'             => $record->label,
+                            'values'            => [ $oidValue ],
+                            'divisor'           => $record->divisor,
+                            'divisor_decimals'  => $record->divisor_decimals,
+                            'value_unit'        => $record->value_unit
                         ];
                     }
                 }
             }
         }
 
+        $session->close();
+
         return $values;
     }
 
-    public function getOidValues($values){
+    public function formatOidValues($record){
         $formattedValues = [];
 
-        foreach ($values as $value)
+        foreach ($record['values'] as $value)
         {
             list($type, $value) = explode(': ', $value, 2);
+            $type = strtolower($type);
 
-            if ($type == 'Timeticks')
+            if ($type == 'timeticks')
             {
-                $value = intval(trim(explode(')', $value, 2)[0], '(')) / 100;
+                $value = intval(trim(explode(')', $value, 2)[0], '('));
+
+            }
+            else if ($type == 'integer')
+            {
+                $value = intval($value);
+            }
+
+            if(!empty($record['divisor']))
+            {
+                $value = round($value / $record['divisor'], $record['divisor_decimals']);
+            }
+
+            if(!empty($record['value_unit'])){
+                $value .= ' ' . $record['value_unit'];
             }
 
             $formattedValues[] = trim($value, '"');

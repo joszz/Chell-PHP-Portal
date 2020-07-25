@@ -63,8 +63,7 @@ class IndexController extends BaseController
 
         if ($this->config->snmp->enabled)
         {
-            $hosts = SnmpHosts::find();
-            $this->view->snmpHosts = $hosts;
+            $this->view->snmpHosts = SnmpHosts::find();
         }
     }
 
