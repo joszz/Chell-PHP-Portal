@@ -13,25 +13,9 @@
         </div>
         <div>
             <?php $i = 0; foreach($snmpHosts as $host) :?>
-            <div class="host <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" data-name="<?php echo $host->name ?>" data-id="<?php echo $host->id ?>">
-                <ul class="list-group hidden-xs">
-                    <li class="list-group-item col-xs-12 col-lg-12">
-                        <div class="col-xs-4">Name</div>
-                        <div class="col-xs-8 value name"><?php echo $host->name ?></div>
-                    </li>
 
-                    <?php $records = $host->getValues(true); foreach($records as $record) : ?>
-                    <li class="list-group-item col-xs-12 col-lg-12">
-                        <div class="col-xs-4">
-                            <?php echo  $record['label'] ?>
-                        </div>
-                        <?php list($type, $values) = $host->formatOidValues($record) ?>
-                        <div class="col-xs-8 value <?php echo ($type == 'timeticks' ? 'time hidden_not_important' : '') ?>">
-                            <?php echo implode(', ', $values) ?>
-                        </div>
-                    </li>
-                    <?php endforeach ?>
-                </ul>
+            <div class="host <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" data-name="<?php echo $host->name ?>" data-id="<?php echo $host->id ?>">
+                <?php $this->partial('snmp/hostcontent') ?>
             </div>
 
             <?php endforeach ?>
