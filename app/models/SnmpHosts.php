@@ -80,7 +80,8 @@ class SnmpHosts extends Model
         return $values;
     }
 
-    public function formatOidValues($record){
+    public function formatOidValues($record)
+    {
         $formattedValues = [];
 
         foreach ($record['values'] as $value)
@@ -103,7 +104,8 @@ class SnmpHosts extends Model
                 $value = round($value / $record['divisor'], $record['divisor_decimals']);
             }
 
-            if(!empty($record['value_unit'])){
+            if(!empty($record['value_unit']))
+            {
                 $value .= ' ' . $record['value_unit'];
             }
 

@@ -2,7 +2,7 @@
 
 /**
 * The various blocks on the dashboard that build upon PHPSysInfo data.
-* 
+*
 * @class PHPSysInfo
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -14,7 +14,7 @@
 
             /**
             * All the settings for this block.
-            * 
+            *
             * @property settings
             * @type Object
             */
@@ -25,7 +25,7 @@
 
             /**
             * All the functions for this block.
-            * 
+            *
             * @property functions
             * @type Object
             */
@@ -33,7 +33,7 @@
 
                 /**
                 * Initializes the eventhandler for the refresh button. Because of limitations of PHPSysinfo.
-                * 
+                *
                 * @method initialize
                 */
                 initialize: function () {
@@ -49,7 +49,7 @@
 
                 /**
                 * Wrapper function to retrieve all data except psstatus plugin.
-                * 
+                *
                 * @method getAll
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
@@ -80,33 +80,33 @@
 
                 /**
                 * Wrapper function to retrieve all data except psstatus plugin.
-                * 
+                *
                 * @method getAll
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 setSysinfo: function (data) {
-                    $("div.host").html(data.Vitals["@attributes"].Hostname);
+                    settings.block.find("div.host").html(data.Vitals["@attributes"].Hostname);
 
-                    $("div.distro span").html(data.Vitals["@attributes"].Distro);
-                    $("div.distro div.icon").css("background-image", "url('" + settings.url + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
-
-                    $("div.kernel").html(data.Vitals["@attributes"].Kernel);
-                    $(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
-                    $("div.motherboard").html(data.Hardware["@attributes"].Name);
+                    settings.block.find("div.distro span").html(data.Vitals["@attributes"].Distro);
+                    settings.block.find("div.distro div.icon").css("background-image", "url('" + settings.url + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
+                    settings.block.find
+                    settings.block.find("div.kernel").html(data.Vitals["@attributes"].Kernel);
+                    settings.block.find(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
+                    settings.block.find("div.motherboard").html(data.Hardware["@attributes"].Name);
 
                     var date = new Date();
                     date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
 
-                    if ($("div.uptime").data("tinyTimer") !== undefined) {
-                        clearInterval($("div.uptime").data("tinyTimer").interval);
+                    if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
+                        clearInterval(settings.block.find("div.time").data("tinyTimer").interval);
                     }
-                    $("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
+                    settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                 },
 
                 /**
                 * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
-                * 
+                *
                 * @method setCPUCores
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
@@ -135,7 +135,7 @@
 
                 /**
                 * Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.
-                * 
+                *
                 * @method setNetwork
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
@@ -150,7 +150,7 @@
                             var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var info = value["@attributes"].Info.split(";");
                             var network = $(".lan-stats div:eq(" + index + ")");
-                            
+
                             network.find(".lan-name").html(value.Name);
                             network.find(".lan-mac").html(info[0]);
                             network.find(".lan-ip").html(info[1]);
@@ -163,7 +163,7 @@
 
                 /**
                 * Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.
-                * 
+                *
                 * @method setRAM
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
@@ -183,7 +183,7 @@
 
                 /**
                 * Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.
-                * 
+                *
                 * @method setDisks
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
@@ -217,7 +217,7 @@
 
                 /**
                 * Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.
-                * 
+                *
                 * @method setDisks
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
@@ -231,7 +231,7 @@
                 /**
                 * Retrieves psstatus data from PHPSysInfo using AJAX.<br />
                 * Then clears all processess and dynamically create new nodes and appends them to the block.
-                * 
+                *
                 * @method psstatus
                 */
                 psstatus: function () {
