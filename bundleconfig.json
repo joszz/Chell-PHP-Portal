@@ -15,6 +15,7 @@
       "public/js/dashboard-blocks/speedtest.js",
       "public/js/dashboard-blocks/transmission.js",
       "public/js/dashboard-blocks/youless.js",
+      "public/js/dashboard-blocks/snmp.js",
       "public/js/dashboard.js"
     ],
     "minify": {
@@ -23,7 +24,7 @@
       "commentMode": "none",
       "preserveImportantComments": false
     },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "public/js/default.min.js",
@@ -52,7 +53,7 @@
       "commentMode": "none",
       "preserveImportantComments": false
     },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "public/js/settings.min.js",
@@ -65,7 +66,7 @@
       "commentMode": "none",
       "preserveImportantComments": false
     },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "public/js/vendor/speedtest/speedtest_worker.min.js",

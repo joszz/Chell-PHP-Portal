@@ -19,6 +19,8 @@
             */
             var settings = $.extend({
                 block: $(this),
+                updateInterval: $(this).data("update-interval") * 1000,
+                updateIntervalId: -1
             }, options);
 
             /**
@@ -30,7 +32,7 @@
             var functions = {
 
                 /**
-                * Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.
+                * Initializes the eventhandlers for button clicks to navigate between SNMP hosts.
                 *
                 * @method initialize
                 */
@@ -46,12 +48,33 @@
 
                         if (currentIndex !== nextIndex) {
                             currentHost.fadeOut("fast", function () {
-                                settings.block.find("h4").html(nextHost.data("name"));
                                 nextHost.fadeIn("fast").css("display", "block");
                             });
                         }
                     });
+
+                    //change details button in header
+                    settings.block.find("a").click(function () {
+                        $(this).attr("href", "/portal/snmp/details/" + settings.block.find(".host:visible").data("id"));
+                    });
+                    settings.block.find(".fa-sync").click(functions.update);
+
+                    settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
                 },
+
+                update: function () {
+                    settings.block.isLoading();
+                    window.clearInterval(settings.updateIntervalId);
+
+                    var currentHost = settings.block.find(".host:visible");
+                    $.get("snmp/hostcontent/" + currentHost.data("id"), function (html) {
+                        currentHost.html(html);
+                        initializeTinyTimer(currentHost.find('.time'));
+                    });
+
+                    settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                    settings.block.isLoading('hide');
+                }
             };
 
             functions.initialize();

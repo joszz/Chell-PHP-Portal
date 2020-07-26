@@ -1,5 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
+-- Host: 192.168.1.30    Database: HomeServerPortal
 -- ------------------------------------------------------
 -- Server version	5.7.30-0ubuntu0.18.04.1
 
@@ -124,9 +125,13 @@ CREATE TABLE `snmp_records` (
   `value_oid` varchar(255) DEFAULT NULL,
   `show_dashboard` tinyint(3) unsigned DEFAULT '1',
   `group_value` int(10) unsigned DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  `divisor` int(10) unsigned DEFAULT NULL,
+  `divisor_decimals` tinyint(3) unsigned DEFAULT NULL,
+  `value_unit` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,4 +186,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-24 16:07:04
+-- Dump completed on 2020-07-26 12:50:23

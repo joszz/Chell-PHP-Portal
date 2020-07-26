@@ -4,14 +4,14 @@ var speedtest = false, opache = false, pihole = false;
 
 /**
 * Main entry point for dashboard view.
-* 
+*
 * @class Index
 * @module Dashboard
 */
 
 /**
 * Document onload, call to initialize eventhandlers and plugins.
-* 
+*
 * @method document.onload
 */
 $(function () {
@@ -25,7 +25,7 @@ $(function () {
 
 /**
  * Initializes all plugins for the dashboard.
- * 
+ *
  * @method initializePlugins
  */
 function initializePlugins() {
@@ -45,15 +45,13 @@ function initializePlugins() {
 
 
     $(".time").each(function () {
-        var date = new Date();
-        date.setSeconds(date.getSeconds() - Math.floor($(this).html()));
-        $(this).tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" }).fadeIn();
+        initializeTinyTimer($(this));
     });
 }
 
 /**
 * Initializes the eventhandlers
-* 
+*
 * @method initializeDashboardEventHandlers
 */
 function initializeDashboardEventHandlers() {
@@ -90,4 +88,10 @@ function initializeDashboardEventHandlers() {
 
         $(this).toggleClass("fa-expand fa-compress");
     });
+}
+
+function initializeTinyTimer($this) {
+    var date = new Date();
+    date.setSeconds(date.getSeconds() - Math.floor($this.html()));
+    $this.tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" }).fadeIn();
 }
