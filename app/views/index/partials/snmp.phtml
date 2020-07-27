@@ -1,4 +1,3 @@
-
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <div class="panel panel-success pull-left snmp" data-update-interval="<?php echo $this->config->snmp->updateInterval ?>">
         <div class="panel-heading">
@@ -13,11 +12,9 @@
         </div>
         <div>
             <?php $i = 0; foreach($snmpHosts as $host) :?>
-
             <div class="host <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" data-name="<?php echo $host->name ?>" data-id="<?php echo $host->id ?>">
                 <?php $this->partial('snmp/hostcontent') ?>
             </div>
-
             <?php endforeach ?>
         </div>
     </div>

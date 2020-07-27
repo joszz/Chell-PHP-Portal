@@ -12,11 +12,11 @@ use Phalcon\Mvc\Dispatcher;
  */
 class SecurityPlugin extends Injectable
 {
-    private $publiclyAccessible = array(
+    private $publiclyAccessible = [
         ['controller' => 'rss', 'action' => '*'],
         ['controller' => 'index', 'action' => 'manifest'],
         ['controller' => 'speedtest', 'action' => 'share']
-    );
+    ];
 
     /**
      * Called before executing each function. If not authenticated and requested controller is not rss or session,
@@ -37,7 +37,7 @@ class SecurityPlugin extends Injectable
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
-            $dispatcher->forward(array('controller' => 'session', 'action' => 'index'));
+            $dispatcher->forward(['controller' => 'session', 'action' => 'index']);
             return false;
         }
 

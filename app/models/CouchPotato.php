@@ -13,18 +13,18 @@ class Couchpotato extends Model
 {
 
 	/**
-	 * Retrieves all wanted movies from CouchPotat API.
-	 *
-	 * @param object $config    The config.ini as an object.
-	 * @return array            The movies objects as an array.
-	 */
+     * Retrieves all wanted movies from CouchPotat API.
+     *
+     * @param object $config    The config.ini as an object.
+     * @return array            The movies objects as an array.
+     */
 	public static function getAllMovies($config)
 	{
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.list');
-		curl_setopt_array($curl, array(
+		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
-		));
+		]);
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -32,20 +32,20 @@ class Couchpotato extends Model
 	}
 
 	/**
-	 * Retrieves movie details from CouchPotato API.
-	 *
-	 * @param string $id        The CouchPotate ID to use to call the API with.
-	 * @param object $config    The config.ini as an object.
-	 * @return mixed            The movie object or false when API call is unsuccessful.
-	 */
+     * Retrieves movie details from CouchPotato API.
+     *
+     * @param string $id        The CouchPotate ID to use to call the API with.
+     * @param object $config    The config.ini as an object.
+     * @return mixed            The movie object or false when API call is unsuccessful.
+     */
 	public static function getMovie($id, $config)
 	{
 		$movie = false;
 		$curl = curl_init($config->couchpotato->URL . 'api/' . $config->couchpotato->APIKey . '/media.get/?id=' . $id);
-		curl_setopt_array($curl, array(
+		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
-		));
+		]);
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -59,16 +59,19 @@ class Couchpotato extends Model
 	}
 
 	/**
-	 * Gets a random trailer from TMDB provided a TMDB ID.
-	 *
-	 * @param int $id           The TMDB ID to call the API by.
-	 * @param object $config    The config.ini as an object.
-	 * @return string           The YouTube ID to be used for iFrame src.
-	 */
+     * Gets a random trailer from TMDB provided a TMDB ID.
+     *
+     * @param int $id           The TMDB ID to call the API by.
+     * @param object $config    The config.ini as an object.
+     * @return string           The YouTube ID to be used for iFrame src.
+     */
 	private static function getRandomTrailerFormTMDB($id, $config)
 	{
 		$curl = curl_init($config->application->tmdbAPIURL . 'movie/' . $id . '/videos?api_key=' . $config->application->tmdbAPIKey);
-		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
+		curl_setopt_array($curl, [
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 0
+		]);
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 

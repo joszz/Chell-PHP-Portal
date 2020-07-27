@@ -29,10 +29,10 @@ class Speedtest extends Model
 	public $log;
 
 	/**
-	 * Get's ISP IP and name
-	 *
-	 * @return string The ISP IP and name as a concatenated string.
-	 */
+     * Get's ISP IP and name
+     *
+     * @return string The ISP IP and name as a concatenated string.
+     */
 	public static function getIPAddress($config)
 	{
 		self::$config = $config;
@@ -83,8 +83,8 @@ class Speedtest extends Model
 	}
 
 	/**
-	 * Set's the client's IP from the $_SERVER global into self::$ip.
-	 */
+     * Set's the client's IP from the $_SERVER global into self::$ip.
+     */
 	private static function setIPAddress()
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
@@ -108,21 +108,29 @@ class Speedtest extends Model
 	}
 
 	/**
-	 * Uses CURL to call ipinfo.io and get ISP details.
-	 */
+     * Uses CURL to call ipinfo.io and get ISP details.
+     */
 	private static function setISPDetails()
 	{
 		$curl = curl_init(self::$config->speedtest->ipInfoUrl . self::$ipAddress . '/json?token=' . self::$config->speedtest->ipInfoToken);
-		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0, CURLOPT_SSL_VERIFYHOST => false, CURLOPT_SSL_VERIFYPEER => false));
+		curl_setopt_array($curl, [
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_CONNECTTIMEOUT => 0,
+			CURLOPT_SSL_VERIFYHOST => false,
+			CURLOPT_SSL_VERIFYPEER => false
+		]);
 		$details = json_decode(curl_exec($curl));
 		curl_close($curl);
-		
+
 		self::$isp .= isset($details->org) ? $details->org : 'Unknown ISP';
 		self::$isp .= isset($details->country) ? ', ' . $details->country : '';
 		self::$clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
 		$curl = curl_init(self::$ipInfoURL . 'json?token=' . self::$config->speedtest->ipInfoToken);
-		curl_setopt_array($curl, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 0));
+		curl_setopt_array($curl, [
+			CURLOPT_RETURNTRANSFER => true, 
+			CURLOPT_CONNECTTIMEOUT => 0
+		]);
 		$details = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -130,13 +138,13 @@ class Speedtest extends Model
 	}
 
 	/**
-	 * Retrieves the distance to the ISP.
-	 *
-	 * @param mixed $latitudeFrom       Client's latitude
-	 * @param mixed $longitudeFrom      Client's longitude
-	 * @param mixed $latitudeTo         ISP latitude
-	 * @param mixed $longitudeTo        ISP longitude
-	 */
+     * Retrieves the distance to the ISP.
+     *
+     * @param mixed $latitudeFrom       Client's latitude
+     * @param mixed $longitudeFrom      Client's longitude
+     * @param mixed $latitudeTo         ISP latitude
+     * @param mixed $longitudeTo        ISP longitude
+     */
 	private static function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
 	{
 		$rad = M_PI / 180;

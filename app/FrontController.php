@@ -81,7 +81,7 @@ class FrontController
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
-        set_exception_handler(array(&$this, 'ExceptionHandler'));
+        set_exception_handler([&$this, 'ExceptionHandler']);
 
         $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
@@ -164,33 +164,33 @@ class FrontController
     private function setDB($config)
     {
         $this->di->set('db', function() use ($config) {
-            return new DbAdapter(array(
+            return new DbAdapter([
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname'   => $config->database->name,
                 'charset'  => 'utf8'
-            ));
+            ]);
         });
 
         $this->di->set('dbKodiMusic', function() use ($config) {
-            return new DbAdapter(array(
+            return new DbAdapter([
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname'   => $config->database->kodiMusic,
                 'charset'  => 'utf8'
-            ));
+            ]);
         });
 
         $this->di->set('dbKodiVideo', function() use ($config) {
-            return new DbAdapter(array(
+            return new DbAdapter([
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname'   => $config->database->kodiVideo,
                 'charset'  => 'utf8'
-            ));
+            ]);
         });
     }
 
@@ -255,16 +255,16 @@ class FrontController
     {
         $version = $this->config->application->version;
 
-        $this->application->assets->collection('header')->addCss('css/default/default.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, array(), $version, true);
+        $this->application->assets->collection('header')->addCss('css/default/default.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, [], $version, true);
 
         foreach($this->jsFiles as $collection => $files){
             if($this->config->application->debug){
                 foreach($files as $file){
-                    $this->application->assets->collection($collection)->addJs('js/' . $file, true, false, array('defer' => 'defer'), $version, true);
+                    $this->application->assets->collection($collection)->addJs('js/' . $file, true, false, ['defer' => 'defer'], $version, true);
                 }
             }
             else {
-                $this->application->assets->collection($collection)->addJs('js/' . $collection . '.min.js', true, false, array('defer' => 'defer'), $version, true);
+                $this->application->assets->collection($collection)->addJs('js/' . $collection . '.min.js', true, false, ['defer' => 'defer'], $version, true);
             }
         }
     }

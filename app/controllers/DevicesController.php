@@ -57,10 +57,10 @@ class DevicesController extends BaseController
      */
     public function stateAction($ip)
     {
-        $device = Devices::findFirst(array(
+        $device = Devices::findFirst([
            'conditions' => 'ip = ?1',
-           'bind'       => array(1 => $ip),
-       ));
+           'bind'       => [1 => $ip]
+       ]);
 
         $state['state'] = Devices::isDeviceOn($device->ip);
         $state['ip'] = $device->ip;

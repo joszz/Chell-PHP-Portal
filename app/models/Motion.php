@@ -23,7 +23,7 @@ class Motion extends Model
         $files = array_combine($files, array_map("filemtime", $files));
         arsort($files);
 
-        return array(key($files) => current($files));
+        return [key($files) => current($files)];
     }
 
     /**

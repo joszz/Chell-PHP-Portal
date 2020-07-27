@@ -8,19 +8,21 @@ use Chell\Models\SnmpHosts;
 
 class SnmpController extends BaseController
 {
-    public function hostcontentAction($id) {
+    public function hostcontentAction($id)
+    {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-        $this->view->host = SnmpHosts::findFirst(array(
+        $this->view->host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
-            'bind'       => array(1 => $id),
-        ));
+            'bind'       => [1 => $id],
+        ]);
     }
 
-    public function detailsAction($id) {
-        $host = SnmpHosts::findFirst(array(
+    public function detailsAction($id)
+    {
+        $host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
-            'bind'       => array(1 => $id),
-        ));
+            'bind'       => [1 => $id],
+        ]);
 
         $values = $host->getValues($host);
 

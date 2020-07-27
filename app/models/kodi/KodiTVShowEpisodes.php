@@ -22,14 +22,14 @@ class KodiTVShowEpisodes extends KodiBase
             'idFile',
             'Chell\Models\Kodi\KodiFiles',
             'idFile',
-            array('alias' => 'files')
+            ['alias' => 'files']
         );
 
         $this->belongsTo(
             'idShow',
             'Chell\Models\Kodi\KodiTVShow',
             'idShow',
-            array('alias' => 'show')
+            ['alias' => 'show']
         );
     }
 
@@ -41,7 +41,7 @@ class KodiTVShowEpisodes extends KodiBase
      */
     public static function getLatestEpisodes($limit = 10)
     {
-        return self::extractMovieImagesFromXML(self::find(array('order' => 'idEpisode DESC', 'limit' => $limit)));
+        return self::extractMovieImagesFromXML(self::find(['order' => 'idEpisode DESC', 'limit' => $limit]));
     }
 
     /**
@@ -52,7 +52,7 @@ class KodiTVShowEpisodes extends KodiBase
      */
     public static function extractMovieImagesFromXML($episodes)
     {
-        $return = array();
+        $return = [];
 
         foreach ($episodes as $episode)
         {

@@ -29,7 +29,7 @@ class IndexController extends BaseController
     public function indexAction()
     {
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
-        $this->view->devices = Devices::find(array('order' => 'name ASC'));
+        $this->view->devices = Devices::find(['order' => 'name ASC']);
 
         if ($this->config->kodi->enabled)
         {
@@ -84,7 +84,7 @@ class IndexController extends BaseController
     private function setDNSPrefetchRecords()
     {
         $hostname = getenv('HTTP_HOST');
-        $dnsPrefetchRecords = array($this->config->application->tmdbAPIURL);
+        $dnsPrefetchRecords = [$this->config->application->tmdbAPIURL];
 
         foreach($this->config as $configSectionValue)
         {

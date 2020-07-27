@@ -18,10 +18,10 @@ class MotionController extends BaseController
     {
         $latest_file = Motion::getLatest($this->config);
         $file = key($latest_file);
-        $ntct = Array('1' => 'image/gif',
-                      '2' => 'image/jpeg',
-                      '3' => 'image/png',
-                      '6' => 'image/bmp');
+        $ntct = ['1' => 'image/gif',
+                 '2' => 'image/jpeg',
+                 '3' => 'image/png',
+                 '6' => 'image/bmp'];
 
         if (is_file($file))
         {

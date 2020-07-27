@@ -161,7 +161,7 @@ class Devices extends Model
         $ip = escapeshellcmd($ip);
         $user = trim(escapeshellcmd($user));
         $password = trim(escapeshellcmd($password));
-        $output = array();
+        $output = [];
 
         exec('net rpc shutdown -I ' . $ip . ' -U ' . $user . '%' . $password, $output);
 

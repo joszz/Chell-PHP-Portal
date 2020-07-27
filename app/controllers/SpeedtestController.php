@@ -105,11 +105,11 @@ class SpeedtestController extends BaseController
         $page = $paginator->paginate();
         $page = self::GetPaginator($page->current, $page->last, 'speedtest/stats/' . $activeTab . '/', $page);
 
-        $labels = array();
-        $dl = array();
-        $ul = array();
-        $ping = array();
-        $jitter = array();
+        $labels = [];
+        $dl = [];
+        $ul = [];
+        $ping = [];
+        $jitter = [];
 
         foreach($page->items as $stat)
         {
@@ -140,10 +140,10 @@ class SpeedtestController extends BaseController
     {
         putenv('GDFONTPATH=' . APP_PATH . 'public/fonts/');
 
-        $item = Speedtest::findFirst(array(
+        $item = Speedtest::findFirst([
             'conditions' => 'id = ?1',
-            'bind'       => array(1 => $id),
-        ));
+            'bind'       => [1 => $id],
+        ]);
 
         $ispinfo = json_decode($item->ispinfo, true)['processedString'];
         $dash = strrpos($ispinfo, '-');
@@ -246,13 +246,13 @@ class SpeedtestController extends BaseController
         }
 
         $ch = curl_init($this->config->application->whatIsMyBrowserAPIURL . 'user_agent_parse');
-        curl_setopt_array($ch, array(
+        curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->config->application->whatIsMyBrowserAPIKey],
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}',
             CURLOPT_TIMEOUT => 10
-        ));
+        ]);
 
         if (($output = curl_exec($ch)) !== false)
         {

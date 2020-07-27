@@ -21,7 +21,7 @@ class KodiTVShow extends KodiBase
             'idShow',
             'Chell\Models\Kodi\KodiTVShowEpisodes',
             'idShow',
-            array('alias' => 'episodes')
+            ['alias' => 'episodes']
         );
     }
 
@@ -33,7 +33,7 @@ class KodiTVShow extends KodiBase
      */
     public static function extractMovieImagesFromXML($shows)
     {
-        $return = array();
+        $return = [];
 
         foreach ($shows as $show)
         {

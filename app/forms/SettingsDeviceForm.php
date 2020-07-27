@@ -23,48 +23,46 @@ class SettingsDeviceForm extends Form
     {
         $name = new Text('name');
         $name->setLabel('Name')
-            ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
-            ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')
-            ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control'));
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control']);
 
         $shutdownUser = new Text('shutdown_user');
         $shutdownUser->setLabel('Shutdown user')
-                ->setFilters(array('striptags', 'string'))
-                ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-user'));
+                ->setFilters(['striptags', 'string'])
+                ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-user']);
 
         $shutdownPassword = new Password('shutdown_password');
         $shutdownPassword->setLabel('Shutdown password')
-            ->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password'));
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password']);
 
         $shutdownMethod = new Select(
             'shutdown_method',
-            array('none' => 'None', 'rpc' => 'RPC'),
-            array(
-                'useEmpty'      => false
-            )
+            ['none' => 'None', 'rpc' => 'RPC'],
+            ['useEmpty' => false]
         );
         $shutdownMethod->setLabel('Shutdown method');
 
         $showDasboard = new Check('show_on_dashboard', ['value' => '1']);
         $showDasboard->setLabel('Show on dashboard')
-                     ->setAttributes(array(
+                     ->setAttributes([
                         'data-toggle' => 'toggle',
                         'data-onstyle' => 'success',
                         'data-offstyle' => 'danger',
                         'data-size' => 'small'
-        ));
+        ]);
 
         $this->add($name);
         $this->add($ip);

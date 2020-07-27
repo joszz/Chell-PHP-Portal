@@ -31,11 +31,11 @@ class KodiController extends BaseController
 	 */
 	public function movieAction($id)
 	{
-		$movie = KodiMovies::findFirst(array(
+		$movie = KodiMovies::findFirst([
 			'conditions' => 'idMovie = ?1',
-			'bind'       => array(1 => $id),
-		));
-		$movie = current(KodiMovies::extractMovieImagesFromXML(array($movie)));
+			'bind'       => [1 => $id],
+		]);
+		$movie = current(KodiMovies::extractMovieImagesFromXML([$movie]));
 		$movie->trailer = substr($movie->c19, strpos($movie->c19, 'videoid=') + 8);
 
 		$this->view->bgImage = $movie->getImageUrl($this->config, 'fanart',  'c20', 'idMovie');
@@ -49,12 +49,12 @@ class KodiController extends BaseController
 	 */
 	public function episodeAction($id)
 	{
-		$episode = KodiTVShowEpisodes::findFirst(array(
+		$episode = KodiTVShowEpisodes::findFirst([
 			'conditions' => 'idEpisode = ?1',
-			'bind'       => array(1 => $id),
-		));
+			'bind'       => [1 => $id],
+		]);
 
-		$episode->show = current(KodiTVShow::extractMovieImagesFromXML(array($episode->show)));
+		$episode->show = current(KodiTVShow::extractMovieImagesFromXML([$episode->show]));
 		$this->view->bgImage = $episode->show->getImageUrl($this->config, 'fanart',  'c06', 'idShow');
 		$this->view->episode = $episode;
 	}
@@ -66,10 +66,10 @@ class KodiController extends BaseController
 	 */
 	public function albumAction($id)
 	{
-		$album = KodiMusic::findFirst(array(
+		$album = KodiMusic::findFirst([
 			'conditions' => 'idAlbum = ?1',
-			'bind'       => array(1 => $id),
-		));
+			'bind'       => [1 => $id],
+		]);
 
 		$this->view->album = $album;
 	}
@@ -81,49 +81,49 @@ class KodiController extends BaseController
 	{
 		switch($which) {
 			case 'movies':
-				$item = KodiMovies::findFirst(array(
+				$item = KodiMovies::findFirst([
 					'conditions' => 'idMovie = ?1',
-					'bind'       => array(1 => $id),
-				));
-				$movie = current(KodiMovies::extractMovieImagesFromXML(array($item)));
+					'bind'       => [1 => $id],
+				]);
+				$movie = current(KodiMovies::extractMovieImagesFromXML([$item]));
 				$url = $type == 'thumb' ? $movie->c08 : $movie->c20;
 				break;
 
 			case 'albums':
-				$item = KodiMusic::findFirst(array(
+				$item = KodiMusic::findFirst([
 					'conditions' => 'idAlbum = ?1',
-					'bind'       => array(1 => $id),
-				));
-				$url = current(KodiMusic::extractAlbumImagesFromXML(array($item)))->strImage;
+					'bind'       => [1 => $id],
+				]);
+				$url = current(KodiMusic::extractAlbumImagesFromXML([$item]))->strImage;
 				break;
 
 			case 'episodes':
-				$item = KodiTVShowEpisodes::findFirst(array(
+				$item = KodiTVShowEpisodes::findFirst([
 					'conditions' => 'idEpisode = ?1',
-					'bind'       => array(1 => $id),
-				));
-				$url = current(KodiTVShow::extractMovieImagesFromXML(array($item->show)))->c06;
+					'bind'       => [1 => $id],
+				]);
+				$url = current(KodiTVShow::extractMovieImagesFromXML([$item->show]))->c06;
 				break;
 		}
 
 		if(isset($url))
 		{
-			$ntct = Array('0' => 'unknown',
-						  '1' => 'image/gif',
-						  '2' => 'image/jpeg',
-						  '3' => 'image/png',
-						  '6' => 'image/bmp');
+			$ntct = ['0' => 'unknown',
+ 					 '1' => 'image/gif',
+ 					 '2' => 'image/jpeg',
+					 '3' => 'image/png',
+					 '6' => 'image/bmp'];
 			$filename = getcwd() . '/img/cache/' . basename($url);
 
 			if(!file_exists($filename))
 			{
 				$ch = curl_init($url);
-				curl_setopt_array($ch, array(
+				curl_setopt_array($ch, [
 					CURLOPT_RETURNTRANSFER => true,
 					CURLOPT_FOLLOWLOCATION => true,
 					CURLOPT_MAXREDIRS => 5,
 					CURLOPT_TIMEOUT => 3
-				));
+				]);
 
 				if(($output = curl_exec($ch)) !== false && !empty($output))
 				{

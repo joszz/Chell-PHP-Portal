@@ -14,8 +14,8 @@ class ErrorController
 {
     private $exception;
     private $content;
-    private $css = array();
-    private $js = array();
+    private $css = [];
+    private $js = [];
     private $logPath = APP_PATH . 'app/logs/';
 
     public $config;
@@ -76,14 +76,15 @@ class ErrorController
      */
     private function exception()
     {
-        $this->css = array(
+        $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            $this->config->application->baseUri . 'css/vendor/prism.css');
-        $this->js = array(
+            $this->config->application->baseUri . 'css/vendor/prism.css'
+        ];
+        $this->js = [
             $this->config->application->baseUri . 'js/vendor/' . basename(current(glob(APP_PATH . 'public/js/vendor/jquery-*.min.js'))),
             $this->config->application->baseUri . 'js/vendor/prism.js',
             $this->config->application->baseUri . 'js/exception.js'
-        );
+        ];
 
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');

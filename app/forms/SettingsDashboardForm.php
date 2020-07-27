@@ -31,10 +31,10 @@ class SettingsDashboardForm extends SettingsBaseForm
 
 		$devicestateTimeouts = new Numeric('check-devicestate-interval');
 		$devicestateTimeouts->setLabel('Check device state interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->_config->dashboard->checkDeviceStatesInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 		$this->add($devicestateTimeouts);
 
 		$this->setPHPSysInfoFields();
@@ -59,19 +59,19 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$rCpuEnabled = new Check('rcpu-enabled');
 		$rCpuEnabled->setLabel('Enabled');
-		$rCpuEnabled->setAttributes(array(
+		$rCpuEnabled->setAttributes([
 			'checked' => $this->_config->rcpu->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'rCPU',
-		));
+		]);
 
 		$rCpuURL = new Text('rcpu-url');
 		$rCpuURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->rcpu->URL);
 
 		$this->add($rCpuEnabled);
@@ -85,32 +85,32 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
 		$phpSysInfoEnabled->setLabel('Enabled');
-		$phpSysInfoEnabled->setAttributes(array(
+		$phpSysInfoEnabled->setAttributes([
 			'checked' => $this->_config->phpsysinfo->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'PHPSysInfo'
-		));
+		]);
 
 		$phpSysInfoURL = new Text('phpsysinfo-url');
 		$phpSysInfoURL->setLabel('PHPSysInfo URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->phpsysinfo->URL)
-			->addValidators(array(new PresenceOf(array())));
+			->addValidators([new PresenceOf([])]);
 
 		$phpSysInfoUsername = new Text('phpsysinfo-username');
 		$phpSysInfoUsername->setLabel('PHPSysInfo username')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->phpsysinfo->username);
 
 		$phpSysInfoPassword = new Password('phpsysinfo-password');
 		$phpSysInfoPassword->setLabel('PHPSysInfo password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
 			->setDefault($this->_config->phpsysinfo->password);
 
 		$this->add($phpSysInfoEnabled);
@@ -126,39 +126,39 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$transmissionEnabled = new Check('transmission-enabled');
 		$transmissionEnabled->setLabel('Enabled');
-		$transmissionEnabled->setAttributes(array(
+		$transmissionEnabled->setAttributes([
 			'checked' => $this->_config->transmission->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Transmission'
-		));
+		]);
 
 		$transmissionURL = new Text('transmission-url');
 		$transmissionURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->transmission->URL);
 
 		$transmissionUsername = new Text('transmission-username');
 		$transmissionUsername->setLabel('Username')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->transmission->username);
 
 		$transmissionPassword = new Password('transmission-password');
 		$transmissionPassword->setLabel('Password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
 			->setDefault($this->_config->transmission->password);
 
 		$transmissionInterval = new Numeric('transmission-update-interval');
 		$transmissionInterval->setLabel('Update interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->transmission->updateInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$this->add($transmissionEnabled);
 		$this->add($transmissionURL);
@@ -174,31 +174,31 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$subsonicEnabled = new Check('subsonic-enabled');
 		$subsonicEnabled->setLabel('Enabled');
-		$subsonicEnabled->setAttributes(array(
+		$subsonicEnabled->setAttributes([
 			'checked' => $this->_config->subsonic->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Subsonic'
-		));
+		]);
 
 		$subsonicURL = new Text('subsonic-url');
 		$subsonicURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->subsonic->URL);
 
 		$subsonicUsername = new Text('subsonic-username');
 		$subsonicUsername->setLabel('Username')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->subsonic->username);
 
 		$subsonicPassword = new Password('subsonic-password');
 		$subsonicPassword->setLabel('Password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'])
 			->setDefault($this->_config->subsonic->password);
 
 		$this->add($subsonicEnabled);
@@ -214,53 +214,53 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$kodiEnabled = new Check('kodi-enabled');
 		$kodiEnabled->setLabel('Enabled');
-		$kodiEnabled->setAttributes(array(
+		$kodiEnabled->setAttributes([
 			'checked' => $this->_config->kodi->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Kodi'
-		));
+		]);
 
 		$kodiURL = new Text('kodi-url');
 		$kodiURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->URL);
 
 		$kodiUsername = new Text('kodi-username');
 		$kodiUsername->setLabel('Username')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->username);
 
 		$kodiPassword = new Password('kodi-password');
 		$kodiPassword->setLabel('Password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
 			->setDefault($this->_config->kodi->password);
 
 		$rotateMoviesInterval = new Numeric('kodi-rotate-movies-interval');
 		$rotateMoviesInterval->setLabel('Rotate movies interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->rotateMoviesInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$rotateEpisodesInterval = new Numeric('kodi-rotate-episodes-interval');
 		$rotateEpisodesInterval->setLabel('Rotate episode interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->rotateEpisodesInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$rotateAlbumsInterval = new Numeric('kodi-rotate-albums-interval');
 		$rotateAlbumsInterval->setLabel('Rotate albums interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->kodi->rotateAlbumsInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$this->add($kodiEnabled);
 		$this->add($kodiURL);
@@ -278,25 +278,25 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$sickrageEnabled = new Check('sickrage-enabled');
 		$sickrageEnabled->setLabel('Enabled');
-		$sickrageEnabled->setAttributes(array(
+		$sickrageEnabled->setAttributes([
 			'checked' => $this->_config->sickrage->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Sickrage'
-		));
+		]);
 
 		$sickrageURL = new Text('sickrage-url');
 		$sickrageURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->sickrage->URL);
 
 		$sickrageAPIKey = new Text('sickrage-apikey');
 		$sickrageAPIKey->setLabel('API key')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->sickrage->APIKey);
 
 		$this->add($sickrageEnabled);
@@ -311,33 +311,33 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$couchpotatoEnabled = new Check('couchpotato-enabled');
 		$couchpotatoEnabled->setLabel('Enabled');
-		$couchpotatoEnabled->setAttributes(array(
+		$couchpotatoEnabled->setAttributes([
 			'checked' => $this->_config->couchpotato->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Couchpotato'
-		));
+		]);
 
 		$couchpotatoURL = new Text('couchpotato-url');
 		$couchpotatoURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->couchpotato->URL);
 
 		$couchpotatoAPIKey = new Text('couchpotato-apikey');
 		$couchpotatoAPIKey->setLabel('API key')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->couchpotato->APIKey);
 
 		$rotateInterval = new Numeric('couchpotato-rotate-interval');
 		$rotateInterval->setLabel('Rotate interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->couchpotato->rotateInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$this->add($couchpotatoEnabled);
 		$this->add($couchpotatoURL);
@@ -352,38 +352,38 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$hyperVAdminEnabled = new Check('hypervadmin-enabled');
 		$hyperVAdminEnabled->setLabel('Enabled');
-		$hyperVAdminEnabled->setAttributes(array(
+		$hyperVAdminEnabled->setAttributes([
 			'checked' => $this->_config->hypervadmin->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'HyperVAdmin'
-		));
+		]);
 
 		$hyperVAdminURL = new Text('hypervadmin-url');
 		$hyperVAdminURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->hypervadmin->URL);
 
 		$hyperVAdminUsername = new Text('hypervadmin-username');
 		$hyperVAdminUsername->setLabel('Username')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->hypervadmin->username);
 
 		$hyperVAdminPassword = new Password('hypervadmin-password');
 		$hyperVAdminPassword->setLabel('Password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
 			->setDefault($this->_config->hypervadmin->password);
 
 		$deviceOptions[0] = 'Please select';
 		foreach(Devices::Find() as $device) {
 			$deviceOptions[$device->id] = $device->name;
 		}
-		$hyperVAdminDevice = new Select('hypervadmin-device', $deviceOptions, array('fieldset' => 'end'));
+		$hyperVAdminDevice = new Select('hypervadmin-device', $deviceOptions, ['fieldset' => 'end']);
 		$hyperVAdminDevice->setLabel('Host');
 		$hyperVAdminDevice->setDefault($this->_config->hypervadmin->device);
 
@@ -401,33 +401,33 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$motionEnabled = new Check('motion-enabled');
 		$motionEnabled->setLabel('Enabled');
-		$motionEnabled->setAttributes(array(
+		$motionEnabled->setAttributes([
 			'checked' => $this->_config->motion->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Motion'
-		));
+		]);
 
 		$motionURL = new Text('motion-url');
 		$motionURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->motion->URL);
 
 		$motionPicturePath = new Text('motion-picturepath');
 		$motionPicturePath->setLabel('Picture path')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->motion->picturePath);
 
 		$motionInterval = new Numeric('motion-update-interval');
 		$motionInterval->setLabel('Update interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->motion->updateInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 
 		$this->add($motionEnabled);
@@ -443,68 +443,68 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$speedtestEnabled = new Check('speedtest-enabled');
 		$speedtestEnabled->setLabel('Enabled');
-		$speedtestEnabled->setAttributes(array(
+		$speedtestEnabled->setAttributes([
 			'checked' => $this->_config->speedtest->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Speedtest'
-		));
+		]);
 
 		$speedtestTestOrder = new Text('speedtest-test-order');
 		$speedtestTestOrder->setLabel('Test order')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->test_order);
 
 		$speedtestUpTime = new Numeric('speedtest-time-ul');
 		$speedtestUpTime->setLabel('Upload time')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->time_dl)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$speedtestDownloadTime = new Numeric('speedtest-time-dl');
 		$speedtestDownloadTime->setLabel('Download time')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->time_dl)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$speedtestGetIP = new Check('speedtest-get-ispip');
 		$speedtestGetIP->setLabel('Get ISP IP');
-		$speedtestGetIP->setAttributes(array(
+		$speedtestGetIP->setAttributes([
 			'checked' => $this->_config->speedtest->getIp_ispInfo == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => true
-		));
+		]);
 
-		$speedtestISPInfo = new Select('speedtest-isp-info-distance', array('km' => 'Kilometers', 'mi' => 'Miles'));
+		$speedtestISPInfo = new Select('speedtest-isp-info-distance', ['km' => 'Kilometers', 'mi' => 'Miles']);
 		$speedtestISPInfo->setLabel('Distance units')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->getIp_ispInfo_distance);
 
-		$speedtestTelemetry = new Select('speedtest-telemetry', array('off' => 'Off', 'basic' => 'Basic', 'full' => 'Full'));
+		$speedtestTelemetry = new Select('speedtest-telemetry', ['off' => 'Off', 'basic' => 'Basic', 'full' => 'Full']);
 		$speedtestTelemetry->setLabel('Telemetry')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->_config->speedtest->telemetry);
 
 		$speedtestIpInfoURL = new Text('speedtest-ipinfo-url');
 		$speedtestIpInfoURL->setLabel('IPInfo URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->_config->speedtest->ipInfoUrl);
 
 		$speedtestIpInfoToken = new Password('speedtest-ipinfo-token');
 		$speedtestIpInfoToken->setLabel('IPInfo token')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->speedtest->ipInfoToken);
 
 		$this->add($speedtestEnabled);
@@ -525,20 +525,18 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$opcacheEnabled = new Check('opcache-enabled');
 		$opcacheEnabled->setLabel('Enabled');
-		$opcacheEnabled->setAttributes(array(
+		$opcacheEnabled->setAttributes([
 			'checked' => $this->_config->opcache->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Opcache'
-		));
+		]);
 
 		$opcacheHidden = new Hidden('opcache-hidden');
 		$opcacheHidden->setLabel('');
-		$opcacheHidden->setAttributes(array(
-			'fieldset' => 'end'
-		));
+		$opcacheHidden->setAttributes(['fieldset' => 'end']);
 
 		$this->add($opcacheEnabled);
 		$this->add($opcacheHidden);
@@ -551,19 +549,19 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$piholeEnabled = new Check('pihole-enabled');
 		$piholeEnabled->setLabel('Enabled');
-		$piholeEnabled->setAttributes(array(
+		$piholeEnabled->setAttributes([
 			'checked' => $this->_config->pihole->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Pihole'
-		));
+		]);
 
 		$piholeURL = new Text('pihole-url');
 		$piholeURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->pihole->URL);
 
 		$this->add($piholeEnabled);
@@ -577,54 +575,54 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$youlessEnabled = new Check('youless-enabled');
 		$youlessEnabled->setLabel('Enabled');
-		$youlessEnabled->setAttributes(array(
+		$youlessEnabled->setAttributes([
 			'checked' => $this->_config->youless->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => 'Youless'
-		));
+		]);
 
 		$youlessURL = new Text('youless-url');
 		$youlessURL->setLabel('URL')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->URL);
 
 		$youlessPassword = new Password('youless-password');
 		$youlessPassword->setLabel('YouLess password')
-			->setFilters(array('striptags', 'string'))
-			->setAttributes(array('class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true))
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($this->_config->youless->password);
 
 		$youlessInterval = new Numeric('youless-update-interval');
 		$youlessInterval->setLabel('YouLess interval')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->updateInterval)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$youlessPrimaryThreshold = new Numeric('youless-primary-threshold');
 		$youlessPrimaryThreshold->setLabel('YouLess primary threshold')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->primaryThreshold)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$youlessWarnThreshold = new Numeric('youless-warn-threshold');
 		$youlessWarnThreshold->setLabel('YouLess warn threshold')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => true))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->warnThreshold)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$youlessDangerThreshold = new Numeric('youless-danger-threshold');
 		$youlessDangerThreshold->setLabel('YouLess danger threshold')
-			->setFilters(array('striptags', 'int'))
-			->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'))
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->youless->dangerThreshold)
-			->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
 		$this->add($youlessEnabled);
 		$this->add($youlessURL);

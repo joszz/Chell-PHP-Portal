@@ -23,14 +23,14 @@ class KodiFiles extends Model
             'idFile',
             'Chell\Models\Kodi\KodiTVShowEpisodes',
             'idFile',
-            array('alias' => 'episodes')
+            ['alias' => 'episodes']
         );
 
         $this->belongsTo(
             'idFile',
             'Chell\Models\Kodi\KodiMovies',
             'idFile',
-            array('alias' => 'movies')
+            ['alias' => 'movies']
         );
     }
 }

@@ -22,7 +22,7 @@ class KodiMovies extends KodiBase
             'idFile',
             'Chell\Models\Kodi\KodiFiles',
             'idFile',
-            array('alias' => 'files')
+            ['alias' => 'files']
         );
     }
 
@@ -34,7 +34,7 @@ class KodiMovies extends KodiBase
      */
     public static function getLatestMovies($limit = 10)
     {
-        return self::extractMovieImagesFromXML(self::find(array('order' => 'idMovie DESC', 'limit' => $limit)));
+        return self::extractMovieImagesFromXML(self::find(['order' => 'idMovie DESC', 'limit' => $limit]));
     }
 
     /**
@@ -45,7 +45,7 @@ class KodiMovies extends KodiBase
      */
     public static function extractMovieImagesFromXML($movies)
     {
-        $return = array();
+        $return = [];
 
         foreach ($movies as $movie)
         {

@@ -28,7 +28,7 @@ class KodiMusic extends KodiBase
      */
     public static function getLatestAlbums($limit = 10)
     {
-        return self::extractAlbumImagesFromXML(self::find(array('order' => 'idAlbum DESC', 'limit' => $limit)));
+        return self::extractAlbumImagesFromXML(self::find(['order' => 'idAlbum DESC', 'limit' => $limit]));
     }
 
     /**
@@ -39,7 +39,7 @@ class KodiMusic extends KodiBase
      */
     public static function extractAlbumImagesFromXML($albums)
     {
-        $return = array();
+        $return = [];
 
         foreach ($albums as $album)
         {

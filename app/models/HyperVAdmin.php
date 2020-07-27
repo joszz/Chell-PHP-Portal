@@ -114,11 +114,11 @@ class HyperVAdmin extends Model
 	{
 		$curl = curl_init($config->hypervadmin->URL . $url);
 
-		curl_setopt_array($curl, array(
+		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 10,
 			CURLOPT_USERPWD => $config->hypervadmin->username . ':' . $config->hypervadmin->password,
-		));
+		]);
 
 		return $curl;
 	}

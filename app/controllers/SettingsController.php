@@ -31,10 +31,10 @@ class SettingsController extends BaseController
     public function indexAction($activeTab = 'General')
     {
         $this->view->activeTab = $activeTab;
-        $this->view->forms = array(
+        $this->view->forms = [
             'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm($this->config),
             'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm($this->config),
-        );
+        ];
 
         $logsTotal = 0;
         $logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
@@ -42,7 +42,7 @@ class SettingsController extends BaseController
         $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
-        $this->view->menuitems = MenuItems::Find(array('order' => 'name'));
+        $this->view->menuitems = MenuItems::Find(['order' => 'name']);
         $this->view->logs = $logs;
     }
 
@@ -67,12 +67,10 @@ class SettingsController extends BaseController
             else
             {
                 $this->generalForm = $form;
-                return $this->dispatcher->forward(
-                    array(
-                        'controller' => 'settings',
-                        'action'     => 'index'
-                    )
-                );
+                return $this->dispatcher->forward([
+                    'controller' => 'settings',
+                    'action'     => 'index'
+                ]);
             }
         }
 
@@ -100,12 +98,10 @@ class SettingsController extends BaseController
             else
             {
                 $this->dashboarForm = $form;
-                return $this->dispatcher->forward(
-                    array(
-                        'controller' => 'settings',
-                        'action'     => 'index'
-                    )
-                );
+                return $this->dispatcher->forward([
+                    'controller' => 'settings',
+                    'action'     => 'index'
+                ]);
             }
         }
 
@@ -135,10 +131,10 @@ class SettingsController extends BaseController
             }
             else
             {
-                $entity = call_user_func(array('Chell\Models\\' . $which, 'findFirst'), array(
+                $entity = call_user_func(['Chell\Models\\' . $which, 'findFirst'], [
                     'conditions' => 'id = ?1',
-                    'bind'       => array(1 => intval($id))
-                ));
+                    'bind'       => [1 => intval($id)]
+                ]);
 
                 $entity->delete();
             }
@@ -159,10 +155,10 @@ class SettingsController extends BaseController
 
         if($id != 0)
         {
-            $device  = Devices::findFirst(array(
+            $device  = Devices::findFirst([
                 'conditions' => 'id = ?1',
-                'bind'       => array(1 => $id),
-            ));
+                'bind'       => [1 => $id],
+            ]);
         }
 
         $form = $this->view->form = new SettingsDeviceForm($device);
@@ -199,10 +195,10 @@ class SettingsController extends BaseController
 
         if($id != 0)
         {
-            $item  = MenuItems::findFirst(array(
+            $item  = MenuItems::findFirst([
                 'conditions' => 'id = ?1',
-                'bind'       => array(1 => $id),
-            ));
+                'bind'       => [1 => $id],
+            ]);
         }
 
         $form = $this->view->form = new SettingsMenuItemForm($item);
@@ -239,10 +235,10 @@ class SettingsController extends BaseController
 
         if($id != 0)
         {
-            $user  = Users::findFirst(array(
+            $user  = Users::findFirst([
                 'conditions' => 'id = ?1',
-                'bind'       => array(1 => $id),
-            ));
+                'bind'       => [1 => $id],
+            ]);
 
             $user->password = '';
         }
@@ -326,7 +322,7 @@ class SettingsController extends BaseController
     private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1)
     {
         $logs = scandir(APP_PATH . 'app/logs/');
-        $logsOrdered = array();
+        $logsOrdered = [];
 
         foreach ($logs as $log)
         {

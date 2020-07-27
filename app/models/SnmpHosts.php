@@ -20,7 +20,7 @@ class SnmpHosts extends Model
             'id',
             'Chell\Models\SnmpRecords',
             'snmp_host_id',
-            array('alias' => 'records')
+            ['alias' => 'records']
         );
     }
 

@@ -16,7 +16,7 @@ class BaseController extends Controller
 {
     protected $config;
 
-    private $controllersToLoadMenu = array('index', 'about', 'settings');
+    private $controllersToLoadMenu = ['index', 'about', 'settings'];
 
     /**
      * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.
@@ -27,11 +27,11 @@ class BaseController extends Controller
 
         if(in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
-            $this->view->menu = Menus::findFirst(array(
+            $this->view->menu = Menus::findFirst([
                 'conditions' => 'id = ?1',
                 'order'      => 'name',
-                'bind'       => array(1 => 1),
-            ));
+                'bind'       => [1 => 1],
+            ]);
         }
     }
 

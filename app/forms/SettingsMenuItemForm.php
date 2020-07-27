@@ -23,31 +23,31 @@ class SettingsMenuItemForm extends Form
     public function initialize()
     {
         $name = new Text('name');
-        $name->setFilters(array('striptags', 'string'))
-             ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'))
+        $name->setFilters(['striptags', 'string'])
+             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'])
              ->setLabel('Name')
              ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $url = new Text('url');
-        $url->setFilters(array('striptags', 'string'))
-            ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+        $url->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
             ->setLabel('URL')
             ->addValidator(new PresenceOf(["message" => "Required"]));
 
         $icon = new Text('icon');
-        $icon->setFilters(array('striptags', 'string'))
-             ->setAttributes(array('class' => 'form-control', 'autocomplete' => 'off'))
+        $icon->setFilters(['striptags', 'string'])
+             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
              ->setLabel('Icon');
 
         $device = new Select(
             'device_id' ,
             Devices::find(),
-            array(
-                'using'         => array('id', 'name'),
+            [
+                'using'         => ['id', 'name'],
                 'useEmpty'      => true,
                 'emptyText'     => 'None',
                 'emptyValue'    => 0
-            )
+            ]
         );
         $device->setLabel('Device');
 

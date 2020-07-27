@@ -45,23 +45,23 @@ class LoginForm extends Form
 
         $username = new Text('username');
         $username->setLabel('Username');
-        $username->setFilters(array('striptags', 'string'));
-        $username->setAttributes(array('placeholder' => 'Username', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)));
+        $username->setFilters(['striptags', 'string']);
+        $username->setAttributes(['placeholder' => 'Username', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)]);
 
         $password = new Password('password');
         $password->setLabel('Password');
-        $password->setFilters(array('striptags', 'string'));
-        $password->setAttributes(array('placeholder' => 'Password', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)));
+        $password->setFilters(['striptags', 'string']);
+        $password->setAttributes(['placeholder' => 'Password', 'class' => 'form-control' . ($this->_loginFailed ? ' has-error' : null)]);
 
         $rememberme = new Check('rememberme');
         $rememberme->setLabel('Remember me');
-        $rememberme->setAttributes(array(
+        $rememberme->setAttributes([
             'checked' => true,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small'
-        ));
+        ]);
 
         $this->add($username);
         $this->add($password);

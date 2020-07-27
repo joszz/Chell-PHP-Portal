@@ -27,67 +27,67 @@ class SettingsGeneralForm extends SettingsBaseForm
 
         $title = new Text('title');
         $title->setLabel('Title');
-        $title->setFilters(array('striptags', 'string'));
-        $title->setAttributes(array('class' => 'form-control'));
+        $title->setFilters(['striptags', 'string']);
+        $title->setAttributes(['class' => 'form-control']);
         $title->setDefault($this->_config->application->title);
-        $title->addValidators(array(new PresenceOf(array())));
+        $title->addValidators([new PresenceOf([])]);
 
         $bgcolor = new Select(
             'bgcolor',
-            array('blackbg' => 'Black', 'whitebg' => 'White', 'time' => 'Time based'),
-            array('useEmpty' => false)
+            ['blackbg' => 'Black', 'whitebg' => 'White', 'time' => 'Time based'],
+            ['useEmpty' => false]
         );
         $bgcolor->setLabel('Background color');
         $bgcolor->setDefault($this->_config->application->background);
 
         $alertTimeout = new Numeric('alert-timeout');
         $alertTimeout->setLabel('Alert timeout')
-            ->setFilters(array('striptags', 'int'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setFilters(['striptags', 'int'])
+            ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->_config->application->alertTimeout)
-            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+            ->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
         $itemsPerPage = new Numeric('items-per-page');
         $itemsPerPage->setLabel('Items per page')
-            ->setFilters(array('striptags', 'int'))
-            ->setAttributes(array('class' => 'form-control'))
+            ->setFilters(['striptags', 'int'])
+            ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->_config->application->itemsPerPage)
-            ->addValidator(new Regex(array('pattern' => '/^[0-9]+$/', 'message' => 'Not a number')));
+            ->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
 
         $cryptKey = new Password('cryptkey');
         $cryptKey->setLabel('Cryptkey');
-        $cryptKey->setFilters(array('striptags', 'string'));
-        $cryptKey->setAttributes(array('class' => 'form-control'));
+        $cryptKey->setFilters(['striptags', 'string']);
+        $cryptKey->setAttributes(['class' => 'form-control']);
         $cryptKey->setDefault($this->_config->application->phalconCryptKey);
-        $cryptKey->addValidators(array(new PresenceOf(array())));
+        $cryptKey->addValidators([new PresenceOf([])]);
 
         $tmdbAPIKey = new Password('tmdb-apikey');
         $tmdbAPIKey->setLabel('TMDB API key');
-        $tmdbAPIKey->setFilters(array('striptags', 'string'));
-        $tmdbAPIKey->setAttributes(array('class' => 'form-control'));
+        $tmdbAPIKey->setFilters(['striptags', 'string']);
+        $tmdbAPIKey->setAttributes(['class' => 'form-control']);
         $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
 
         $whatIsMyBrowserAPIKey = new Password('whatismybrowser-apikey');
         $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key');
-        $whatIsMyBrowserAPIKey->setFilters(array('striptags', 'string'));
-        $whatIsMyBrowserAPIKey->setAttributes(array('class' => 'form-control'));
+        $whatIsMyBrowserAPIKey->setFilters(['striptags', 'string']);
+        $whatIsMyBrowserAPIKey->setAttributes(['class' => 'form-control']);
         $whatIsMyBrowserAPIKey->setDefault($this->_config->application->whatIsMyBrowserAPIKey);
 
         $whatIsMyBrowserAPIURL = new Text('whatismybrowser-apiurl');
         $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL');
-        $whatIsMyBrowserAPIURL->setFilters(array('striptags', 'string'));
-        $whatIsMyBrowserAPIURL->setAttributes(array('class' => 'form-control'));
+        $whatIsMyBrowserAPIURL->setFilters(['striptags', 'string']);
+        $whatIsMyBrowserAPIURL->setAttributes(['class' => 'form-control']);
         $whatIsMyBrowserAPIURL->setDefault($this->_config->application->whatIsMyBrowserAPIURL);
 
         $debug = new Check('debug');
         $debug->setLabel('Debug');
-        $debug->setAttributes(array(
+        $debug->setAttributes([
             'checked' => $this->_config->application->debug == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small'
-        ));
+        ]);
 
         $this->add($title);
         $this->add($bgcolor);
@@ -110,37 +110,37 @@ class SettingsGeneralForm extends SettingsBaseForm
     {
         $duoEnabled = new Check('duo-enabled');
         $duoEnabled->setLabel('Enabled');
-        $duoEnabled->setAttributes(array(
+        $duoEnabled->setAttributes([
             'checked' => $this->_config->duo->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small',
             'fieldset' => 'Duo'
-        ));
+        ]);
 
         $duoAPIHostname = new Text('duo-apiHostname');
         $duoAPIHostname->setLabel('API hostname');
-        $duoAPIHostname->setFilters(array('striptags', 'string'));
-        $duoAPIHostname->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $duoAPIHostname->setFilters(['striptags', 'string']);
+        $duoAPIHostname->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $duoAPIHostname->setDefault($this->_config->duo->apiHostname);
 
         $duoIKey = new Password('duo-ikey');
         $duoIKey->setLabel('Integration key');
-        $duoIKey->setFilters(array('striptags', 'string'));
-        $duoIKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $duoIKey->setFilters(['striptags', 'string']);
+        $duoIKey->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $duoIKey->setDefault($this->_config->duo->ikey);
 
         $duoSKey = new Password('duo-skey');
         $duoSKey->setLabel('Secret key');
-        $duoSKey->setFilters(array('striptags', 'string'));
-        $duoSKey->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $duoSKey->setFilters(['striptags', 'string']);
+        $duoSKey->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $duoSKey->setDefault($this->_config->duo->skey);
 
         $duoAKey = new Password('duo-akey');
         $duoAKey->setLabel('Akey');
-        $duoAKey->setFilters(array('striptags', 'string'));
-        $duoAKey->setAttributes(array('class' => 'form-control', 'fieldset' => 'end'));
+        $duoAKey->setFilters(['striptags', 'string']);
+        $duoAKey->setAttributes(['class' => 'form-control', 'fieldset' => 'end']);
         $duoAKey->setDefault($this->_config->duo->akey);
 
         $this->add($duoEnabled);
@@ -153,19 +153,19 @@ class SettingsGeneralForm extends SettingsBaseForm
     private function setImageProxyFields(){
         $imageproxyEnabled = new Check('imageproxy-enabled');
         $imageproxyEnabled->setLabel('Enabled');
-        $imageproxyEnabled->setAttributes(array(
+        $imageproxyEnabled->setAttributes([
             'checked' => $this->_config->imageproxy->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small',
             'fieldset' => 'Imageproxy'
-        ));
+        ]);
 
         $imageproxyUrl = new Text('imageproxy-url');
         $imageproxyUrl->setLabel('URL');
-        $imageproxyUrl->setFilters(array('striptags', 'string'));
-        $imageproxyUrl->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $imageproxyUrl->setFilters(['striptags', 'string']);
+        $imageproxyUrl->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $imageproxyUrl->setDefault($this->_config->imageproxy->URL);
 
         $this->add($imageproxyEnabled);
@@ -175,31 +175,31 @@ class SettingsGeneralForm extends SettingsBaseForm
     private function setRedisFields(){
         $redisEnabled = new Check('redis-enabled');
         $redisEnabled->setLabel('Enabled');
-        $redisEnabled->setAttributes(array(
+        $redisEnabled->setAttributes([
             'checked' => $this->_config->redis->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
             'data-size' => 'small',
             'fieldset' => 'Redis'
-        ));
+        ]);
 
         $redisHost = new Text('redis-host');
         $redisHost->setLabel('Host');
-        $redisHost->setFilters(array('striptags', 'string'));
-        $redisHost->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisHost->setFilters(['striptags', 'string']);
+        $redisHost->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $redisHost->setDefault($this->_config->redis->host);
 
         $redisPort = new Text('redis-port');
         $redisPort->setLabel('Port');
-        $redisPort->setFilters(array('striptags', 'int'));
-        $redisPort->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisPort->setFilters(['striptags', 'int']);
+        $redisPort->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $redisPort->setDefault($this->_config->redis->port);
 
         $redisAuth = new Password('redis-auth');
         $redisAuth->setLabel('Auth');
-        $redisAuth->setFilters(array('striptags', 'string'));
-        $redisAuth->setAttributes(array('class' => 'form-control', 'fieldset' => true));
+        $redisAuth->setFilters(['striptags', 'string']);
+        $redisAuth->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $redisAuth->setDefault($this->_config->redis->auth);
 
         $this->add($redisEnabled);

@@ -26,10 +26,10 @@ class SessionController extends BaseController
     {
         $this->session->set(
             'auth',
-            array(
+            [
                 'id'        => $user->id,
                 'username'  => $user->username
-            )
+            ]
         );
     }
 
@@ -40,12 +40,10 @@ class SessionController extends BaseController
     {
         if(!$this->loginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {
-            return $this->dispatcher->forward(
-                array(
-                    'controller' => 'session',
-                    'action'     => 'login'
-                )
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'session',
+                'action'     => 'login'
+            ]);
         }
 
         $this->view->containerFullHeight = true;
@@ -74,14 +72,10 @@ class SessionController extends BaseController
             $password = trim($this->cookies->get('password')->getValue());
         }
 
-        $user = Users::findFirst(
-            array(
-                'username = :username:',
-                'bind' => array(
-                    'username' => $username,
-                )
-            )
-        );
+        $user = Users::findFirst([
+            'username = :username:',
+            'bind' => ['username' => $username]
+        ]);
 
         if ($user && $this->security->checkHash($password, $user->password))
         {
@@ -94,13 +88,11 @@ class SessionController extends BaseController
                     $this->cookies->set('password', $password, strtotime('+1 year'), $this->config->application->baseUri, true);
                 }
 
-                return $this->dispatcher->forward(
-                    array(
-                        'controller' => 'session',
-                        'action'     => 'duo',
-                        'params' => [$user]
-                    )
-                );
+                return $this->dispatcher->forward([
+                    'controller' => 'session',
+                    'action'     => 'duo',
+                    'params' => [$user]
+                ]);
             }
             //Normal login
             else
@@ -125,12 +117,10 @@ class SessionController extends BaseController
             $this->loginFailed = true;
         }
 
-        return $this->dispatcher->forward(
-            array(
-                'controller' => 'session',
-                'action'     => 'index'
-            )
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'session',
+            'action'     => 'index'
+        ]);
     }
 
     /**
@@ -141,7 +131,7 @@ class SessionController extends BaseController
     public function duoAction($user)
     {
         $this->view->containerFullHeight = true;
-        $this->view->dnsPrefetchRecords = array('https://' . $this->config->duo->apiHostname);
+        $this->view->dnsPrefetchRecords = ['https://' . $this->config->duo->apiHostname];
         $this->view->signRequest = Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
     }
 
@@ -152,14 +142,10 @@ class SessionController extends BaseController
     {
         $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
 
-        $user = Users::findFirst(
-            array(
-                'username = :username:',
-                'bind' => array(
-                    'username' => $username,
-                )
-            )
-        );
+        $user = Users::findFirst([
+            'username = :username:',
+            'bind' => ['username' => $username]
+        ]);
 
         if($user)
         {

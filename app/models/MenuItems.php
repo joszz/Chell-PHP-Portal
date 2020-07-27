@@ -26,7 +26,7 @@ class MenuItems extends Model
             'device_id',
             'Chell\Models\Devices',
             'id',
-            array('alias' => 'device')
+            ['alias' => 'device']
         );
     }
 }

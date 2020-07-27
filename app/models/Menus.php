@@ -20,7 +20,7 @@ class Menus extends Model
             'id',
             'Chell\Models\MenuItems',
             'menu_id',
-            array('alias' => 'items')
+            ['alias' => 'items']
         );
     }
 }

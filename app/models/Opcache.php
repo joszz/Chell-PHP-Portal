@@ -28,27 +28,27 @@ class Opcache extends Model
      */
     public function getGraphDataSetJson()
     {
-        $dataset['memory'] = array(
+        $dataset['memory'] = [
             round($this->status['memory_usage']['used_memory'] / 1048576, 2),
             round($this->status['memory_usage']['free_memory'] / 1048576 , 2),
             round($this->status['memory_usage']['wasted_memory'] / 1048576, 2),
-        );
+        ];
 
-        $dataset['keys'] = array(
+        $dataset['keys'] = [
             $this->status['opcache_statistics']['num_cached_keys'],
             $this->status['opcache_statistics']['max_cached_keys'] - $this->status['opcache_statistics']['num_cached_keys']
-        );
+        ];
 
-        $dataset['hits'] = array(
+        $dataset['hits'] = [
             $this->status['opcache_statistics']['misses'],
             $this->status['opcache_statistics']['hits']
-        );
+        ];
 
-        $dataset['restarts'] = array(
+        $dataset['restarts'] = [
             $this->status['opcache_statistics']['oom_restarts'],
             $this->status['opcache_statistics']['manual_restarts'],
             $this->status['opcache_statistics']['hash_restarts'],
-        );
+        ];
 
         return json_encode($dataset);
     }
@@ -63,7 +63,7 @@ class Opcache extends Model
      */
     public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage)
     {
-        $dirs = array();
+        $dirs = [];
 
         foreach ($this->status['scripts'] as $key => $data)
         {

@@ -54,7 +54,7 @@
                 <div class="lan-stats col-xs-9">
                     <?php
                     $i = 0;
-                    $netdevices = is_array($phpsysinfoData->Network->NetDevice) ? $phpsysinfoData->Network->NetDevice : array($phpsysinfoData->Network->NetDevice);
+                    $netdevices = is_array($phpsysinfoData->Network->NetDevice) ? $phpsysinfoData->Network->NetDevice : [$phpsysinfoData->Network->NetDevice];
 
                     foreach($netdevices as $network) :
                         if(!isset($network->{'@attributes'})) continue;
