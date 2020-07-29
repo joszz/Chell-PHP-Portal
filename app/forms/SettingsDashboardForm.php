@@ -50,6 +50,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->setOpcacheFields();
 		$this->setPiHoleFields();
 		$this->setYoulessFields();
+		$this->setSnmpFields();
 	}
 
 	/**
@@ -633,6 +634,30 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->add($youlessDangerThreshold);
 	}
 
+	private function setSnmpFields()
+	{
+		$snmpEnabled = new Check('snmp-enabled');
+		$snmpEnabled->setLabel('Enabled');
+		$snmpEnabled->setAttributes([
+			'checked' => $this->_config->snmp->enabled == '1' ? 'checked' : null,
+			'data-toggle' => 'toggle',
+			'data-onstyle' => 'success',
+			'data-offstyle' => 'danger',
+			'data-size' => 'small',
+			'fieldset' => 'Snmp'
+		]);
+
+		$snmpInterval = new Numeric('snmp-update-interval');
+		$snmpInterval->setLabel('SNMP interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->snmp->updateInterval)
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+
+		$this->add($snmpEnabled);
+		$this->add($snmpInterval);
+	}
+
 	/**
 	 * Check if form is valid. If so set the values to the config array.
 	 *
@@ -711,10 +736,13 @@ class SettingsDashboardForm extends SettingsBaseForm
 
 			$this->_config->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
 			$this->_config->youless->URL = $data['youless-url'];
-			$this->_config->youless->password = $data['youless-update-interval'];
-			$this->_config->youless->password = $data['youless-primary-threshold'];
-			$this->_config->youless->password = $data['youless-warn-threshold'];
-			$this->_config->youless->password = $data['youless-danger-threshold'];
+			$this->_config->youless->updateInterval = $data['youless-update-interval'];
+			$this->_config->youless->primaryThreshold = $data['youless-primary-threshold'];
+			$this->_config->youless->warnThreshold = $data['youless-warn-threshold'];
+			$this->_config->youless->dangerThreshold = $data['youless-danger-threshold'];
+
+			$this->_config->snmp->enabled = isset($data['snmp-enabled']) && $data['snmp-enabled'] == 'on' ? '1' : '0';
+			$this->_config->snmp->updateInterval = $data['snmp-update-interval'];
 		}
 
 		return $valid;

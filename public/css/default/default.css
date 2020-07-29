@@ -7581,8 +7581,7 @@ div.motion .panel-body {
   margin-top: -1em; }
 
 .speedtest .testGroup {
-  display: inline-block;
-  width: 100%; }
+  display: inline-block; }
 
 .speedtest #ipArea {
   min-height: 38px;
@@ -7891,6 +7890,9 @@ input[type=number] {
   display: flex; }
   #settings .btn-group a {
     float: none; }
+
+.back-btn {
+  margin-right: 15px; }
 
 @media only screen and (max-width: 768px -1) {
   label,

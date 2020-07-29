@@ -7,10 +7,12 @@ use Chell\Forms\SettingsDashboardForm;
 use Chell\Forms\SettingsDeviceForm;
 use Chell\Forms\SettingsMenuItemForm;
 use Chell\Forms\SettingsUserForm;
+use Chell\Forms\SettingsSnmpHostForm;
 
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
+use Chell\Models\SnmpHosts;
 
 use Phalcon\Http\Response;
 use Phalcon\Validation\Message;
@@ -42,6 +44,7 @@ class SettingsController extends BaseController
         $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
+        $this->view->snmpHosts = SnmpHosts::Find(['order' => 'name']);
         $this->view->menuitems = MenuItems::Find(['order' => 'name']);
         $this->view->logs = $logs;
     }
@@ -312,6 +315,40 @@ class SettingsController extends BaseController
     {
         $this->view->setMainView('layouts/empty');
         $this->view->which = $id;
+    }
+
+    public function snmphostAction($id = 0)
+    {
+        $host = new SnmpHosts();
+
+        if($id != 0)
+        {
+            $host  = SnmpHosts::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $id],
+            ]);
+        }
+
+        $form = $this->view->form = new SettingsSnmpHostForm($host);
+
+        if ($this->request->isPost() && $this->security->checkToken())
+        {
+            $form->bind($data = $this->request->getPost(), $host);
+
+            if($form->isValid($data, $host))
+            {
+                if($id == 0)
+                {
+                    $host = new SnmpHosts($data);
+                }
+
+                $host->save();
+
+                return (new Response())->redirect('settings/index#snmphosts');
+            }
+        }
+
+        $this->view->host = $host;
     }
 
     /**

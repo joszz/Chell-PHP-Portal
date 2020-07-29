@@ -66,11 +66,13 @@
                     settings.block.isLoading();
                     window.clearInterval(settings.updateIntervalId);
 
-                    if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
-                        clearInterval(settings.block.find("div.time").data("tinyTimer").interval);
+                    var currentHost = settings.block.find(".host:visible");
+                    var time = currentHost.find("div.time");
+
+                    if (time.data("tinyTimer") !== undefined) {
+                        clearInterval(time.data("tinyTimer").interval);
                     }
 
-                    var currentHost = settings.block.find(".host:visible");
                     $.get("snmp/hostcontent/" + currentHost.data("id"), function (html) {
                         currentHost.html(html);
                         initializeTinyTimer(currentHost.find('.time'));

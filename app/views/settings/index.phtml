@@ -14,6 +14,11 @@
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>
                 </li>
+                <?php if ($this->config->snmp->enabled) : ?>
+                <li <?php echo $activeTab == 'SNMP' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#snmphosts">SNMP</a>
+                </li>
+                <?php endif ?>
                 <li <?php echo $activeTab == 'Menu' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#menuitems" class="pull-left">Menu</a>
                 </li>
@@ -36,6 +41,11 @@
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>
                 </li>
+                <?php if ($this->config->snmp->enabled) : ?>
+                <li <?php echo $activeTab == 'SNMP' ? 'class="active"' : null ?>>
+                    <a data-toggle="tab" href="#snmp" class="pull-left">SNMP</a>
+                </li>
+                <?php endif ?>
                 <li <?php echo $activeTab == 'Menu' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#menuitems" class="pull-left">Menu</a>
                 </li>
@@ -67,6 +77,7 @@
                 <?php endforeach ?>
 
                 <?php $this->partial('settings/partials/devices') ?>
+                <?php $this->partial('settings/partials/snmp') ?>
                 <?php $this->partial('settings/partials/menuitems') ?>
                 <?php $this->partial('settings/partials/users') ?>
                 <?php $this->partial('settings/partials/logs') ?>

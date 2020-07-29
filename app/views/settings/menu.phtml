@@ -1,11 +1,11 @@
 <div class="panel panel-success">
     <div class="panel-heading">
+        <div class="btn-group pull-left back-btn">
+            <a href="<?php echo $this->config->application->baseUri ?>settings/index#menuitems" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
+        </div>
         <h4 class="pull-left">
             <?php echo !empty($item->name) ? 'Edit' : 'New' ?> menuitem
         </h4>
-        <div class="btn-group pull-right">
-            <a href="<?php echo $this->config->application->baseUri ?>settings/index#menuitems" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
-        </div>
     </div>
     <div class="panel-body">
         <form action="<?php echo $form->getAction() ?>" method="post">

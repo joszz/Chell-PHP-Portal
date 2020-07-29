@@ -114,4 +114,17 @@ class SnmpHosts extends Model
 
         return [$type, $formattedValues];
     }
+
+    public function getGroupLabelById($id)
+    {
+        foreach($this->records as $record)
+        {
+            if($record->id == $id)
+            {
+                return $record->label;
+            }
+        }
+
+        return '';
+    }
 }
