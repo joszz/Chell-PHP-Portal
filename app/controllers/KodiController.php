@@ -109,8 +109,8 @@ class KodiController extends BaseController
 		if(isset($url))
 		{
 			$ntct = ['0' => 'unknown',
- 					 '1' => 'image/gif',
- 					 '2' => 'image/jpeg',
+					 '1' => 'image/gif',
+					 '2' => 'image/jpeg',
 					 '3' => 'image/png',
 					 '6' => 'image/bmp'];
 			$filename = getcwd() . '/img/cache/' . basename($url);

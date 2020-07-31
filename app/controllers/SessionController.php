@@ -91,7 +91,7 @@ class SessionController extends BaseController
                 return $this->dispatcher->forward([
                     'controller' => 'session',
                     'action'     => 'duo',
-                    'params' => [$user]
+                    'params'     => [$user]
                 ]);
             }
             //Normal login

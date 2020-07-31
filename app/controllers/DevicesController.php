@@ -42,11 +42,11 @@ class DevicesController extends BaseController
 
             if(isset($output[1]))
             {
-                die(strpos($output[1], 'succeeded') !== false ? "true" : "false");
+                die(strpos($output[1], 'succeeded') !== false ? 'true' : 'false');
             }
         }
 
-        die("false");
+        die('false');
     }
 
     /**

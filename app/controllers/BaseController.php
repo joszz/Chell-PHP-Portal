@@ -62,7 +62,7 @@ class BaseController extends Controller
         {
             foreach ($assoc_arr as $key => $elem)
             {
-                $content .= '[' . $key . "]\n";
+                $content .= '[' . $key . ']\n';
                 foreach ($elem as $key2=>$elem2)
                 {
                     if (is_array($elem2))
@@ -70,16 +70,16 @@ class BaseController extends Controller
                         $count = count($elem2);
                         for ($i = 0; $i < $count; $i++)
                         {
-                            $content .= $key2 .'[] = "' . $elem2[$i] . "\"\n";
+                            $content .= $key2 .'[] = "' . $elem2[$i] . '"\n';
                         }
                     }
                     else if ($elem2 == '')
                     {
-                        $content .= $key2 . " = \"\"\n";
+                        $content .= $key2 . ' = ""\n';
                     }
                     else
                     {
-                        $content .= $key2. ' = "' . $elem2 . "\"\n";
+                        $content .= $key2. ' = "' . $elem2 . '"\n';
                     }
                 }
             }
@@ -93,16 +93,16 @@ class BaseController extends Controller
                     $count = count($elem);
                     for ($i = 0; $i < $count; $i++)
                     {
-                        $content .= $key . '[] = "' . $elem[$i] . "\"\n";
+                        $content .= $key . '[] = "' . $elem[$i] . '"\n';
                     }
                 }
                 else if ($elem == '')
                 {
-                    $content .= $key . " = \"\"\n";
+                    $content .= $key . ' = ""\n';
                 }
                 else
                 {
-                    $content .= $key . ' = "' . $elem . "\"\n";
+                    $content .= $key . ' = "' . $elem . '"\n';
                 }
             }
         }

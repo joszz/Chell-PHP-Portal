@@ -29,8 +29,6 @@ class SnmpHosts extends Model
         $values = [];
         $oidLabelCache = [];
         $session = new \SNMP(constant('SNMP::VERSION_' . $this->version), $this->ip, $this->community);
-        //$fulltree = $session->walk(".");
-        //die(var_dump($fulltree));
 
         foreach($this->getRecords(['order' => '-position DESC']) as $record)
         {
@@ -113,18 +111,5 @@ class SnmpHosts extends Model
         }
 
         return [$type, $formattedValues];
-    }
-
-    public function getGroupLabelById($id)
-    {
-        foreach($this->records as $record)
-        {
-            if($record->id == $id)
-            {
-                return $record->label;
-            }
-        }
-
-        return '';
     }
 }

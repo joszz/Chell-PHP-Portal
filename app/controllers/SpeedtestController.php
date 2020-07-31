@@ -184,11 +184,11 @@ class SpeedtestController extends BaseController
         $watermarkText = 'HTML5 Speedtest';
 
         $fonts = [
-            'size1'     => ['font' => $font, 'size' => 16 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 24 * $scale],
-            'size2'     => ['font' => $font,    'size' => 24 * $scale, 'color' =>imagecolorallocate($im, 96, 96, 96), 'position-y' => 78 * $scale],
-            'size3'     => ['font' => $font, 'size' => 14 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 118 * $scale],
-            'size4'     => ['font' => $font, 'size' => 10 * $scale, 'color' =>imagecolorallocate($im, 40, 40, 40), 'position-y' => 146 * $scale],
-            'watermark' => ['font' => $font,    'size' => 8 * $scale,  'color' =>imagecolorallocate($im, 160, 160, 160), 'position-y' => 146 * $scale],
+            'size1'     => ['font' => $font, 'size' => 16 * $scale, 'color' => imagecolorallocate($im, 40, 40, 40), 'position-y' => 24 * $scale],
+            'size2'     => ['font' => $font, 'size' => 24 * $scale, 'color' => imagecolorallocate($im, 96, 96, 96), 'position-y' => 78 * $scale],
+            'size3'     => ['font' => $font, 'size' => 14 * $scale, 'color' => imagecolorallocate($im, 40, 40, 40), 'position-y' => 118 * $scale],
+            'size4'     => ['font' => $font, 'size' => 10 * $scale, 'color' => imagecolorallocate($im, 40, 40, 40), 'position-y' => 146 * $scale],
+            'watermark' => ['font' => $font, 'size' => 8 * $scale,  'color' => imagecolorallocate($im, 160, 160, 160), 'position-y' => 146 * $scale],
         ];
 
         $dlBbox = imageftbbox($fonts['size1']['size'], 0, $fonts['size1']['font'], $downloadText);

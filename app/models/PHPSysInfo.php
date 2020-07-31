@@ -21,17 +21,17 @@ class PHPSysInfo extends Model
      */
     public static function getData($config)
     {
-        $curl = curl_init($config->phpsysinfo->URL . "xml.php?json&plugin=complete&t=" . time());
+        $curl = curl_init($config->phpsysinfo->URL . 'xml.php?json&plugin=complete&t=' . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_USERPWD, $config->phpsysinfo->username . ":" . $config->phpsysinfo->password);
+        curl_setopt($curl, CURLOPT_USERPWD, $config->phpsysinfo->username . ':' . $config->phpsysinfo->password);
         $data = json_decode(curl_exec($curl));
         curl_close($curl);
 
         sort($data->Plugins->Plugin_PSStatus->Process);
         usort($data->FileSystem->Mount, function($a, $b) {
-                return strcmp(current($a)->MountPoint, current($b)->MountPoint);
-            }
-        );
+            return strcmp(current($a)->MountPoint, current($b)->MountPoint);
+        }
+    );
 
         self::setMountClasses($data);
         self::setCPUData($data, $config);
@@ -60,7 +60,7 @@ class PHPSysInfo extends Model
 
             $mount->Class = 'default';
 
-            if ($mount->Percent > 90) 
+            if ($mount->Percent > 90)
             {
                 $mount->Class = 'danger';
             }
@@ -72,7 +72,7 @@ class PHPSysInfo extends Model
             {
                 $mount->Class = 'info';
             }
-            else 
+            else
             {
                 $mount->Class = 'success';
             }

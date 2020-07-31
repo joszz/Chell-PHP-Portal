@@ -98,6 +98,9 @@ $help = [
     'youless-primary-threshold'     => 'The powerusage reported by Youless to consider as low.',
     'youless-warn-threshold'        => 'The powerusage reported by Youless to consider as a warning.',
     'youless-danger-threshold'      => 'The powerusage reported by Youless to consider as high.',
+
+    'snmp-enabled'                  => 'Enables the SNMP widget.',
+    'snmp-update-interval'          => 'The poll interval used to update the SNMP values for the currently active host.',
 ];
 
 $helpTitles = [
@@ -198,4 +201,7 @@ $helpTitles = [
     'youless-primary-threshold'     => 'Youless primary threshold',
     'youless-warn-threshold'        => 'Youless warn threshold',
     'youless-danger-threshold'      => 'Youless danger threshold',
+
+    'snmp-enabled'                  => 'SNMP',
+    'snmp-update-interval'          => 'SNMP update interval',
 ];
