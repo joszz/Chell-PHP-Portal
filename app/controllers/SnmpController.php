@@ -19,13 +19,10 @@ class SnmpController extends BaseController
 
     public function detailsAction($id)
     {
-        $host = SnmpHosts::findFirst([
+        $this->view->setMainView('layouts/empty');
+        $this->view->host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],
         ]);
-
-        $values = $host->getValues($host);
-
-        die(var_dump($values));
     }
 }

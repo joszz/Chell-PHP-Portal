@@ -54,7 +54,7 @@ class SnmpHosts extends Model
 
                         $oidLabel = $oidLabelCache[$record->label_oid];
                         $values[$record->id] = [
-                            'label'             => $oidLabel . '(' . $record->label . ')',
+                            'label'             => $oidLabel . ' (' . $record->label . ')',
                             'values'            => [ $oidValue ],
                             'divisor'           => $record->divisor,
                             'divisor_decimals'  => $record->divisor_decimals,
