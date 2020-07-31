@@ -57,6 +57,7 @@
                         <thead>
                             <tr>
                                 <th class="visible-xs">Actions</th>
+                                <th>Id</th>
                                 <th>Position</th>
                                 <th>Label</th>
                                 <th>Label OID</th>
@@ -70,7 +71,7 @@
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
-                                <td colspan="6" class="text-right hidden-xs">
+                                <td colspan="7" class="text-right hidden-xs">
                                     <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
@@ -83,9 +84,12 @@
                             <tr>
                                 <td class="visible-xs">
                                     <div class="btn-group">
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $host->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $host->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                                     </div>
+                                </td>
+                                <td>
+                                    <?php echo $record->id ?>
                                 </td>
                                 <td>
                                     <?php echo $record->position ?>
@@ -104,8 +108,8 @@
                                 </td>
                                 <td class="hidden-xs">
                                     <div class="btn-group pull-right">
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $host->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $host->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                                     </div>
                                 </td>
                             </tr>
@@ -113,14 +117,14 @@
                         </tbody>
                         <tfoot>
                             <tr class="visible-xs">
-                                <td colspan="6">
+                                <td colspan="7">
                                     <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
                             </tr>
                             <tr class="hidden-xs">
-                                <td colspan="6" class="text-right">
+                                <td colspan="7" class="text-right">
                                     <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>

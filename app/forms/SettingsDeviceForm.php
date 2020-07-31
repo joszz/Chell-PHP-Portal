@@ -25,13 +25,13 @@ class SettingsDeviceForm extends Form
         $name->setLabel('Name')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')

@@ -26,13 +26,13 @@ class SettingsMenuItemForm extends Form
         $name->setFilters(['striptags', 'string'])
              ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'])
              ->setLabel('Name')
-             ->addValidator(new PresenceOf(["message" => "Required"]));
+             ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $url = new Text('url');
         $url->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
             ->setLabel('URL')
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $icon = new Text('icon');
         $icon->setFilters(['striptags', 'string'])

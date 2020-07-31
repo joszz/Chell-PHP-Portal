@@ -8,7 +8,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 
 /**
- * The form responsible for adding new devices.
+ * The form responsible for adding new SNMP hosts.
  *
  * @package Forms
  */
@@ -23,19 +23,19 @@ class SettingsSnmpHostForm extends Form
         $name->setLabel('Name')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $community = new Text('community');
         $community->setLabel('Community')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(["message" => "Required"]));
+            ->addValidator(new PresenceOf(['message' => 'Required']));
 
         $version = new Select(
             'version',

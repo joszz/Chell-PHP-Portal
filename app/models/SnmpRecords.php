@@ -20,7 +20,8 @@ class SnmpRecords extends Model
         $this->belongsTo(
             'snmp_host_id',
             'Chell\Models\SnmpHosts',
-            'id'
+            'id',
+            ['alias' => 'host']
         );
     }
 }

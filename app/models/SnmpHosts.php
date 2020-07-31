@@ -34,7 +34,7 @@ class SnmpHosts extends Model
 
         foreach($this->getRecords(['order' => '-position DESC']) as $record)
         {
-            if ($record->show_dashboard == $showDashboard)
+            if (!$showDashboard || $record->show_dashboard == $showDashboard)
             {
                 $oidValue = $session->get($record->value_oid);
 

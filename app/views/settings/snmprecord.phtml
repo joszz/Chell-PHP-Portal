@@ -1,0 +1,37 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <div class="btn-group pull-left back-btn">
+            <a href="<?php echo $this->config->application->baseUri ?>settings/snmphost/<?php echo $record->snmp_host_id ?>#records" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
+        </div>
+        <h4 class="pull-left"><?php echo !empty($record->snmp_host_id) ? 'Edit' : 'New' ?> SNMP record</h4>
+    </div>
+    <div class="panel-body">
+        <form action="<?php echo $form->getAction() ?>" method="post">
+            <?php foreach($form AS $element) : ?>
+            <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
+                <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
+                    <?php echo $element->label(['class' => 'text-bold']) ?>
+                </div>
+                <div class="col-lg-4 col-sm-5 col-xs-12">
+                    <?php echo $element ?>
+                </div>
+                <div class="col-lg-5 col-sm-3 col-xs-12 error">
+                    <?php if($hasErrors) : ?>
+                    <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
+                    <?php endif ?>
+                </div>
+            </div>
+            <?php endforeach ?>
+
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-3 col-xs-12">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-save"></i>
+                    </button>
+                </div>
+            </div>
+
+            <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
+        </form>
+    </div>
+</div>

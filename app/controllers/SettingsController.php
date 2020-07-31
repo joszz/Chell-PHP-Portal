@@ -8,11 +8,13 @@ use Chell\Forms\SettingsDeviceForm;
 use Chell\Forms\SettingsMenuItemForm;
 use Chell\Forms\SettingsUserForm;
 use Chell\Forms\SettingsSnmpHostForm;
+use Chell\Forms\SettingsSnmpRecordForm;
 
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
+use Chell\Models\SnmpRecords;
 
 use Phalcon\Http\Response;
 use Phalcon\Validation\Message;
@@ -349,6 +351,40 @@ class SettingsController extends BaseController
         }
 
         $this->view->host = $host;
+    }
+
+    public function snmprecordAction($id = 0)
+    {
+        $record = new SnmpRecords();
+
+        if($id != 0)
+        {
+            $record  = SnmpRecords::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $id],
+            ]);
+        }
+
+        $form = $this->view->form = new SettingsSnmpRecordForm($record);
+
+        if ($this->request->isPost() && $this->security->checkToken())
+        {
+            $form->bind($data = $this->request->getPost(), $record);
+
+            if($form->isValid($data, $record))
+            {
+                if($id == 0)
+                {
+                    $record = new SnmpRecords($data);
+                }
+
+                $record->save();
+
+                return (new Response())->redirect('settings/snmphost/' . $record->snmp_host_id . '#records');
+            }
+        }
+
+        $this->view->record = $record;
     }
 
     /**
