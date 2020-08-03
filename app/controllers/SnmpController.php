@@ -8,6 +8,10 @@ use Chell\Models\SnmpHosts;
 
 class SnmpController extends BaseController
 {
+
+    /**
+     * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.
+     */
     public function hostcontentAction($id)
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
@@ -17,6 +21,11 @@ class SnmpController extends BaseController
         ]);
     }
 
+    /**
+     * Shows all the details of a SNMP host by the given $id.
+     *
+     * @param int $id   The SNMP Host ID.
+     */
     public function detailsAction($id)
     {
         $this->view->setMainView('layouts/empty');

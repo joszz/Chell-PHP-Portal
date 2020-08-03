@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var speedtest = false, opache = false, pihole = false;
+var speedtest = false, opache = false, pihole = false, snmp = false;
 
 /**
 * Main entry point for dashboard view.
@@ -41,7 +41,7 @@ function initializePlugins() {
     opache = $(".opcache").opcache();
     $(".youless").youless();
     pihole = $(".pihole").pihole();
-    $(".snmp").snmp();
+    snmp = $(".snmp").snmp();
 
 
     $(".time").each(function () {
@@ -75,6 +75,10 @@ function initializeDashboardEventHandlers() {
 
             if (!panel.find(".tab-content").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");
+            }
+
+            if (panel.hasClass("snmp")) {
+                snmp.update();
             }
         }
     });

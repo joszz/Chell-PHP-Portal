@@ -5,7 +5,7 @@ namespace Chell\Models;
 use Phalcon\Mvc\Model;
 
 /**
- * The model responsible for all actions related to devices.
+ * The model responsible for all actions related to SNMP records.
  *
  * @package Models
  */
