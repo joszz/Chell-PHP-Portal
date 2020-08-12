@@ -7339,23 +7339,12 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff2") format("woff2"), url("../../fonts/icomoon.woff") format("woff"), url("../../fonts/icomoon.ttf") format("truetype"), url("../../fonts/icomoon.svg#fontawesome") format("svg"); }
-
-@font-face {
-  font-family: 'Font Awesome 5 Brands';
-  font-style: normal;
-  font-weight: normal;
-  font-display: block;
-  src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("../../fonts/icomoon.woff2") format("woff2"), url("../../fonts/icomoon.woff") format("woff"), url("../../fonts/icomoon.ttf") format("truetype"), url("../../fonts/icomoon.svg#fontawesome") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&2087823") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9194563") format("woff2"), url("../../fonts/icomoon.woff?6164424") format("woff"), url("../../fonts/icomoon.ttf?582097") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?1074588") format("svg"); }
 
 .fa,
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
-
-.fab {
-  font-family: 'Font Awesome 5 Brands'; }
 
 .btn.fa {
   line-height: 1.42857; }
@@ -7464,6 +7453,18 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-expand:before {
   content: "\f065"; }
+
+.fa-lock:before {
+  content: "\f023"; }
+
+.fa-lock-open:before {
+  content: "\f3c1"; }
+
+.fa-shield:before {
+  content: "\f3ed"; }
+
+.fa-globe:before {
+  content: "\f0ac"; }
 
 .panel-group .panel-heading {
   padding: 0; }
@@ -7929,6 +7930,11 @@ div.vertical-center {
   .no-gutter-right-xs {
     padding-right: 0; } }
 
+#iframe .tab-pane,
+#iframe .tab-content {
+  float: left;
+  width: 100%; }
+
 .navbar {
   background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
   backdrop-filter: blur(5px); }
@@ -8248,16 +8254,11 @@ div.motion .panel-body {
   display: inline-block; }
 
 .speedtest #ipArea {
-  min-height: 38px;
+  min-height: 37px;
   margin-top: -1.4em; }
 
 .speedtest .paginator {
   margin: 10px 0; }
-
-.speedtest .tab-pane,
-.speedtest .tab-content {
-  float: left;
-  width: 100%; }
 
 .speedtest .table-responsive,
 .speedtest .table {
@@ -8340,6 +8341,28 @@ div.motion .panel-body {
 
 .youless .power {
   font-size: 40px; }
+
+.verisure .panel-body {
+  padding: 0; }
+
+.verisure #amstate {
+  font-size: 10rem; }
+
+.verisure .top {
+  display: flex;
+  align-items: center;
+  padding: 15px; }
+  .verisure .top > div {
+    flex: 1; }
+  .verisure .top .temp {
+    margin-bottom: 1rem;
+    font-size: 1.75rem; }
+
+.verisure .panel-body li:first-child {
+  border-radius: 0; }
+
+.verisure .panel-body li {
+  border-width: 1px; }
 
 canvas,
 div.harddisks,

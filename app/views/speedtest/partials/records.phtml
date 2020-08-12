@@ -40,7 +40,7 @@
                     </td>
                     <td class="text-center">
                         <?php $browser = json_decode($stat['extra'])->parse->software_name; ?>
-                        <i class="text-success fab fa-<?php echo str_replace(' ', '-', strtolower($browser)) ?>" title="<?php echo $browser ?>"></i>
+                        <i class="text-success fa fa-<?php echo str_replace(' ', '-', strtolower($browser)) ?>" title="<?php echo $browser ?>"></i>
                     </td>
                     <td class="text-center">
                         <a href="<?php echo $this->config->application->baseUri ?>Speedtest/share/<?php echo $stat['id'] ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt"></a>

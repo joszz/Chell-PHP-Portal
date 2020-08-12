@@ -87,7 +87,7 @@
     },
     {
       "provider": "filesystem",
-      "library": "https://raw.githubusercontent.com/duosecurity/duo_php/master/js/Duo-Web-v2.js",
+      "library": "https://raw.githubusercontent.com/duosecurity/duo_php/master/js/Duo-Web-v2.min.js",
       "destination": "public/vendor/duo/"
     },
     {

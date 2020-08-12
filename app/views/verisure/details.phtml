@@ -1,0 +1,22 @@
+
+<div class="panel panel-success with-nav-tabs" >
+    <div class="panel-heading ">
+        <h4 class="pull-left hidden-xs">Verisure</h4>
+        <ul class="nav nav-tabs pull-right">
+            <li class="active">
+                <a data-toggle="tab" href="#doorwindow">
+                    Doors &amp; windows
+                </a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#log">
+                    Log
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <?php $this->partial('verisure/partials/doorwindow') ?>
+        <?php $this->partial('verisure/partials/log') ?>
+    </div>
+</div>

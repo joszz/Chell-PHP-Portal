@@ -176,3 +176,10 @@ div.vertical-center {
         padding-right: 0;
     }
 }
+
+
+#iframe .tab-pane,
+#iframe .tab-content {
+    float: left;
+    width: 100%;
+}

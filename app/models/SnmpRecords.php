@@ -11,7 +11,6 @@ use Phalcon\Mvc\Model;
  */
 class SnmpRecords extends Model
 {
-
     /**
      * Sets the database relations
      */

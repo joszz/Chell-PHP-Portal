@@ -42,7 +42,7 @@ function initializePlugins() {
     $(".youless").youless();
     pihole = $(".pihole").pihole();
     snmp = $(".snmp").snmp();
-
+    $(".verisure").verisure();
 
     $(".time").each(function () {
         initializeTinyTimer($(this));
@@ -73,7 +73,7 @@ function initializeDashboardEventHandlers() {
                 pihole.initializeChart();
             }
 
-            if (!panel.find(".tab-content").length) {
+            if (!panel.find(".tab-content").length && !panel.find(".panel-body").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");
             }
 

@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?php echo $this->tag->renderTitle(); ?>
     <?php $this->assets->outputCss('header') ?>
-    <?php $this->assets->outputJs('default'); ?>
+    <?php $this->assets->outputJs('general'); ?>
     <?php //todo: below needed for HyperVAdmin, but not ideal solution.. ?>
     <?php $this->assets->outputJs('dashboard'); ?>
     <?php $this->partial('favicons') ?>
 </head>
 
-<body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?> 
+<body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?>
     <?php echo isset($overflow) && $overflow == true ? ' class="overflow"' : null ?>>
     <div class="container-fluid no-gutter container-relative">
         <?php echo $this->getContent() ?>

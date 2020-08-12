@@ -1,0 +1,30 @@
+﻿.verisure .panel-body {
+    padding: 0;
+}
+
+.verisure #amstate {
+    font-size: 10rem;
+}
+
+.verisure .top {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+
+    > div {
+        flex: 1;
+    }
+
+    .temp {
+        margin-bottom: 1rem;
+        font-size: 1.75rem;
+    }
+}
+
+.verisure .panel-body li:first-child {
+    border-radius: 0;
+}
+
+.verisure .panel-body li {
+    border-width: 1px;
+}

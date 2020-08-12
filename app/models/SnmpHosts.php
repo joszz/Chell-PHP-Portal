@@ -24,12 +24,19 @@ class SnmpHosts extends Model
         );
     }
 
+    /**
+     * Sets up on SNMP session for this host and retrieves all record by order. Structures the records in an array of $values.
+     *
+     * @param boolean $showDashboard    Whether or not to retrieve only the values marked as show_dashboard.
+     * @return array                    The structured value array, ordered by position ASC and after that the null values.
+     */
     public function getValues($showDashboard)
     {
         $values = [];
         $oidLabelCache = [];
         $session = new \SNMP(constant('SNMP::VERSION_' . $this->version), $this->ip, $this->community);
 
+        //MySQL feature to have the positions ordered ASC and null values afterwards.
         foreach($this->getRecords(['order' => '-position DESC']) as $record)
         {
             if (!$showDashboard || $record->show_dashboard == $showDashboard)
@@ -78,6 +85,12 @@ class SnmpHosts extends Model
         return $values;
     }
 
+    /**
+     * Formats a given record. Checks the type and formats accordingly
+     *
+     * @param array $record     The SNMP record array item (provided by $this->getValues()) to format the value(s) for.
+     * @return array            The formatted value(s) and the corresponding type of the value(s).
+     */
     public function formatOidValues($record)
     {
         $formattedValues = [];

@@ -1,7 +1,9 @@
-﻿@import '../vendor/fontawesome/variables';
-@import '../vendor/fontawesome/mixins';
-@import '../vendor/fontawesome/core';
-@import '../vendor/fontawesome/animated';
+﻿@import '../../vendor/fortawesome/scss/variables';
+@import '../../vendor/fortawesome/scss/mixins';
+@import '../../vendor/fortawesome/scss/core';
+@import '../../vendor/fortawesome/scss/animated';
+
+$fa-font-path: "../../fonts";
 
 @font-face {
     font-family: 'Font Awesome 5 Free';
@@ -9,26 +11,13 @@
     font-weight: 900;
     font-display: $fa-font-display;
     src: url('#{$fa-font-path}/icomoon.eot');
-    src: url('#{$fa-font-path}/icomoon.eot?#iefix') format('embedded-opentype'), url('#{$fa-font-path}/icomoon.woff2') format('woff2'), url('#{$fa-font-path}/icomoon.woff') format('woff'), url('#{$fa-font-path}/icomoon.ttf') format('truetype'), url('#{$fa-font-path}/icomoon.svg#fontawesome') format('svg');
-}
-
-@font-face {
-    font-family: 'Font Awesome 5 Brands';
-    font-style: normal;
-    font-weight: normal;
-    font-display: $fa-font-display;
-    src: url('#{$fa-font-path}/icomoon.eot');
-    src: url('#{$fa-font-path}/icomoon.eot?#iefix') format('embedded-opentype'), url('#{$fa-font-path}/icomoon.woff2') format('woff2'), url('#{$fa-font-path}/icomoon.woff') format('woff'), url('#{$fa-font-path}/icomoon.ttf') format('truetype'), url('#{$fa-font-path}/icomoon.svg#fontawesome') format('svg');
+    src: url('#{$fa-font-path}/icomoon.eot?#iefix&#{random(10000000)}') format('embedded-opentype'), url('#{$fa-font-path}/icomoon.woff2?#{random(10000000)}') format('woff2'), url('#{$fa-font-path}/icomoon.woff?#{random(10000000)}') format('woff'), url('#{$fa-font-path}/icomoon.ttf?#{random(10000000)}') format('truetype'), url('#{$fa-font-path}/icomoon.svg#fontawesome?#{random(10000000)}') format('svg');
 }
 
 .fa,
 .fas {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
-}
-
-.fab {
-    font-family: 'Font Awesome 5 Brands';
 }
 
 .btn.fa {
@@ -173,4 +162,20 @@
 
 .#{$fa-css-prefix}-expand:before {
     content: fa-content($fa-var-expand);
+}
+
+.#{$fa-css-prefix}-lock:before {
+    content: fa-content($fa-var-lock);
+}
+
+.#{$fa-css-prefix}-lock-open:before {
+    content: fa-content($fa-var-lock-open);
+}
+
+.#{$fa-css-prefix}-shield:before {
+    content: fa-content($fa-var-shield-alt);
+}
+
+.#{$fa-css-prefix}-globe:before {
+    content: fa-content($fa-var-globe);
 }

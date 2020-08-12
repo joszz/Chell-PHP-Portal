@@ -2,6 +2,7 @@
 
 namespace Chell\Forms;
 
+use Phalcon\Forms\Element\ElementInterface;
 use Phalcon\Forms\Form;
 
 /**
@@ -13,14 +14,14 @@ class SettingsBaseForm extends Form
 {
     /**
      * The configuration object containing all the info from config.ini.
-     * @var array
+     * @var object
      */
     protected $_config;
 
     /**
      * Set the config array (config.ini contents) to private variable.
      *
-     * @param array $config     The config array.
+     * @param object $config     The config array.
      */
     public function __construct($config)
     {
@@ -33,8 +34,8 @@ class SettingsBaseForm extends Form
      * Will render a formelement and it's associated label.
      * If the element has an attribute fieldset defined, call renderFieldset, otherwise call renderGeneric.
      *
-     * @param Element $element The element to render.
-     * @return string          The generated HTML string.
+     * @param ElementInterface  $element The element to render.
+     * @return string           The generated HTML string.
      */
     public function renderDecorated($element)
     {
@@ -44,8 +45,8 @@ class SettingsBaseForm extends Form
     /**
      * Generic formelement renderer. If called with $hidden: true, will hide the entire row (used for fieldsets).
      *
-     * @param Element   $element    The Element to render.
-     * @param bool      $hidden     Whether the entire form-group should be hidden on load.
+     * @param ElementInterface      $element    The Element to render.
+     * @param bool                  $hidden     Whether the entire form-group should be hidden on load.
      * @return string               The generated HTML string.
      */
     protected function renderGeneric($element, $hidden = false)
@@ -86,7 +87,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Renders formelements that should be grouped in a fieldset.
-     * @param Element $element  The element to render.
+     * @param ElementInterface  $element  The element to render.
      * @return string           The generated HTML string.
      */
     protected function renderFieldset($element)

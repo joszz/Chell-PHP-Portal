@@ -13,6 +13,7 @@ use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiMusic;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\SnmpHosts;
+use Chell\Models\Verisure;
 
 /**
  * The controller responsible for all dashboard related actions.
@@ -64,6 +65,11 @@ class IndexController extends BaseController
         if ($this->config->snmp->enabled)
         {
             $this->view->snmpHosts = SnmpHosts::find();
+        }
+
+        if ($this->config->verisure->enabled)
+        {
+            $this->view->verisure = verisure::GetOverview($this->config, true);
         }
     }
 

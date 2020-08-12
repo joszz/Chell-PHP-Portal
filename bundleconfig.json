@@ -16,6 +16,7 @@
       "public/js/dashboard-blocks/transmission.js",
       "public/js/dashboard-blocks/youless.js",
       "public/js/dashboard-blocks/snmp.js",
+      "public/js/dashboard-blocks/verisure.js",
       "public/js/dashboard.js"
     ],
     "minify": {
@@ -27,25 +28,26 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "public/js/default.min.js",
+    "outputFileName": "public/js/general.min.js",
     "inputFiles": [
-      "public/js/vendor/jquery-3.5.1.js",
-      "public/js/vendor/jquery.fancybox.js",
-      "public/js/vendor/bootstrap.js",
-      "public/js/vendor/bootstrap-select/bootstrap-select.js",
-      "public/js/vendor/bootstrap-tabcollapse.js",
-      "public/js/vendor/bootstrap-toggle.js",
-      "public/js/vendor/jquery.bootstrap-touchspin.js",
-      "public/js/vendor/jquery.vibrate.js",
-      "public/js/vendor/jquery.tinytimer.js",
-      "public/js/vendor/jquery.isloading.js",
-      "public/js/vendor/jquery.fullscreen.js",
-      "public/js/vendor/chartist/chartist.js",
-      "public/js/vendor/chartist/chartist-plugin-legend.js",
-      "public/js/vendor/waves.js",
-      "public/js/vendor/md5.js",
+      "public/vendor/jquery/jquery.js",
+      "public/vendor/fancybox/jquery.fancybox.js",
+      "public/vendor/bootstrap-select/js/bootstrap-select.js",
+      "public/vendor/bootstrap-toggle/js/bootstrap-toggle.js",
+      "public/vendor/jquery-fullscreen-plugin/jquery.fullscreen.js",
+      "public/vendor/chartist/dist/chartist.js",
+      "public/vendor/chartist-plugin-legend/chartist-plugin-legend.js",
+      "public/vendor/spark-md5/spark-md5.js",
+      "public/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js",
+      "public/vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js",
+      "public/vendor/jquery.vibrate/jquery.vibrate.js",
+      "public/vendor/tinytimer/jquery.tinytimer.js",
+      "public/vendor/jquery.isloading/jquery.isloading.js",
+      "public/vendor/waves/waves.js",
+      "public/vendor/bootstrap-sass/assets/javascripts/bootstrap.js",
+
       "public/js/toggle-passwords.js",
-      "public/js/default.js"
+      "public/js/general.js"
     ],
     "minify": {
       "enabled": true,
@@ -69,9 +71,50 @@
     "sourceMap": false
   },
   {
-    "outputFileName": "public/js/vendor/speedtest/speedtest_worker.min.js",
+    "outputFileName": "public/vendor/speedtest/speedtest_worker.min.js",
     "inputFiles": [
-      "public/js/vendor/speedtest/speedtest_worker.js"
+      "public/vendor/speedtest/speedtest_worker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "public/css/default/bundle.css",
+    "inputFiles": [
+      "public/vendor/fancybox/jquery.fancybox.css",
+      "public/css/vendor/waves.css",
+      "public/vendor/bootstrap-select/css/bootstrap-select.css",
+      "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
+      "public/vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css",
+      "public/vendor/chartist/dist/chartist.css",
+      "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
+
+      "public/css/default/default.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false,
+      "preserveImportantComments": false
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "public/css/default/bundle.min.css",
+    "inputFiles": [
+      "public/vendor/fancybox/jquery.fancybox.css",
+      "public/css/vendor/waves.css",
+      "public/vendor/bootstrap-select/css/bootstrap-select.css",
+      "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
+      "public/vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css",
+      "public/vendor/chartist/dist/chartist.css",
+      "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
+
+      "public/css/default/default.css"
     ],
     "minify": {
       "enabled": true,

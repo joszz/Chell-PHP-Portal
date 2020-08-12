@@ -34,43 +34,44 @@ class FrontController
     private $application;
 
     private $jsFiles = [
-        'default' => [
-            'vendor/jquery-3.5.1.js',
-            'vendor/jquery.fancybox.js',
-            'vendor/bootstrap.js',
-            'vendor/bootstrap-select/bootstrap-select.js',
-            'vendor/bootstrap-tabcollapse.js',
-            'vendor/bootstrap-toggle.js',
-            'vendor/jquery.bootstrap-touchspin.js',
-            'vendor/jquery.vibrate.js',
-            'vendor/jquery.tinytimer.js',
-            'vendor/jquery.isloading.js',
-            'vendor/jquery.fullscreen.js',
-            'vendor/chartist/chartist.js',
-            'vendor/chartist/chartist-plugin-legend.js',
-            'vendor/waves.js',
-            'vendor/md5.js',
-            'toggle-passwords.js',
-            'default.js',
+        'general' => [
+            'vendor/jquery/jquery.js',
+            'vendor/fancybox/jquery.fancybox.js',
+            'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
+            'vendor/bootstrap-select/js/bootstrap-select.js',
+            'vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
+            'vendor/bootstrap-toggle/js/bootstrap-toggle.js',
+            'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js',
+            'vendor/jquery.vibrate/jquery.vibrate.js',
+            'vendor/tinytimer/jquery.tinytimer.js',
+            'vendor/jquery.isloading/jquery.isloading.js',
+            'vendor/jquery-fullscreen-plugin/jquery.fullscreen.js',
+            'vendor/chartist/dist/chartist.js',
+            'vendor/chartist-plugin-legend/chartist-plugin-legend.js',
+            'vendor/waves/waves.js',
+            'vendor/spark-md5/spark-md5.js',
+            'js/toggle-passwords.js',
+            'js/general.js',
         ],
         'dashboard' => [
-            'dashboard-blocks/couchpotato.js',
-            'dashboard-blocks/devices.js',
-            'dashboard-blocks/gallery.js',
-            'dashboard-blocks/hyperv-admin.js',
-            'dashboard-blocks/motion.js',
-            'dashboard-blocks/nowplaying.js',
-            'dashboard-blocks/opcache.js',
-            'dashboard-blocks/phpsysinfo.js',
-            'dashboard-blocks/pihole.js',
-            'dashboard-blocks/sickrage.js',
-            'dashboard-blocks/speedtest.js',
-            'dashboard-blocks/transmission.js',
-            'dashboard-blocks/youless.js',
-            'dashboard-blocks/snmp.js',
-            'dashboard.js',
+            'js/dashboard-blocks/couchpotato.js',
+            'js/dashboard-blocks/devices.js',
+            'js/dashboard-blocks/gallery.js',
+            'js/dashboard-blocks/hyperv-admin.js',
+            'js/dashboard-blocks/motion.js',
+            'js/dashboard-blocks/nowplaying.js',
+            'js/dashboard-blocks/opcache.js',
+            'js/dashboard-blocks/phpsysinfo.js',
+            'js/dashboard-blocks/pihole.js',
+            'js/dashboard-blocks/sickrage.js',
+            'js/dashboard-blocks/speedtest.js',
+            'js/dashboard-blocks/transmission.js',
+            'js/dashboard-blocks/youless.js',
+            'js/dashboard-blocks/snmp.js',
+            'js/dashboard-blocks/verisure.js',
+            'js/dashboard.js',
         ],
-        'settings' => ['settings.js']
+        'settings' => ['js/settings.js']
     ];
 
     /**
@@ -255,12 +256,12 @@ class FrontController
     {
         $version = $this->config->application->version;
 
-        $this->application->assets->collection('header')->addCss('css/default/default.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, [], $version, true);
+        $this->application->assets->collection('header')->addCss('css/default/bundle.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, [], $version, true);
 
         foreach($this->jsFiles as $collection => $files){
             if($this->config->application->debug){
                 foreach($files as $file){
-                    $this->application->assets->collection($collection)->addJs('js/' . $file, true, false, ['defer' => 'defer'], $version, true);
+                    $this->application->assets->collection($collection)->addJs($file, true, false, ['defer' => 'defer'], $version, true);
                 }
             }
             else {
