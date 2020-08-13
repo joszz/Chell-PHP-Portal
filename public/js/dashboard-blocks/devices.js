@@ -2,7 +2,7 @@
 
 /**
 * The devices block on the dashboard.
-* 
+*
 * @class Devices
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -12,7 +12,7 @@
 
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -24,7 +24,7 @@
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
@@ -32,10 +32,14 @@
 
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method checkstates
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
@@ -75,7 +79,7 @@
 
             /**
             * Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.
-            * 
+            *
             * @method checkstates
             * @param {Object} self  Reference to jquery selector, used to initialize the plugin with.
             */
@@ -131,7 +135,7 @@
 
             /**
             * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.
-            * 
+            *
             * @method checkstates
             * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
             */
@@ -149,7 +153,7 @@
 
             /**
             * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.
-            * 
+            *
             * @method checkstates
             * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
             */

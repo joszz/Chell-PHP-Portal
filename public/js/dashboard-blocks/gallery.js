@@ -2,7 +2,7 @@
 
 /**
 * The gallery blocks on the dashboard.
-* 
+*
 * @class Gallery
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -13,7 +13,7 @@
 
             /**
             * All the settings for this block.
-            * 
+            *
             * @property settings
             * @type Object
             */
@@ -25,7 +25,7 @@
 
             /**
             * All the functions for this block.
-            * 
+            *
             * @property functions
             * @type Object
             */
@@ -33,10 +33,14 @@
 
                 /**
                 * Initializes the eventhandlers for button clicks to navigate between gallery items and sets the auto rotate interval for the gallery.
-                * 
+                *
                 * @method initialize
                 */
                 initialize: function () {
+                    if (settings.block.length === 0) {
+                        return;
+                    }
+
                     settings.rotateIntervalId = setInterval(function () {
                         functions.rotateGallery("right");
                     }, settings.rotateInterval);
@@ -53,7 +57,7 @@
 
                 /**
                 * Called when navigating to a new item in the gallery. Either by button clicks or by the interval.
-                * 
+                *
                 * @method rotateGallery
                 * @param {String} direction The direction to rotate to, valid values are "left" and "right".
                 */

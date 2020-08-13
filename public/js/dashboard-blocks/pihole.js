@@ -2,7 +2,7 @@
 
 /**
 * The speedtest block on the dashboard.
-* 
+*
 * @class Speedtest
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -11,7 +11,7 @@
     $.fn.pihole = function (options) {
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -21,19 +21,19 @@
             charts: [
                 { name: "Queries today", legendNames: ["Cached", "Not cached", "Blocked"], active: true },
             ],
-       
+
         }, options);
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
         var functions = {
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method initialize
             */
             initialize: function () {
@@ -62,7 +62,7 @@
 
             /**
              * Creates the ChartistJS chart. Called when flipping through the different charts with prev/next buttons.
-             * 
+             *
              * @method initializeChart
              */
             initializeChart: function (chartData) {
@@ -97,7 +97,7 @@
 
             /**
              * Animates the chart, same as the example on ChartistJS website.
-             * 
+             *
              * @method animateChart
              */
             animateChart: function (data) {

@@ -2,7 +2,7 @@
 
 /**
 * The speedtest block on the dashboard.
-* 
+*
 * @class Speedtest
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -11,7 +11,7 @@
     $.fn.opcache = function (options) {
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -28,14 +28,14 @@
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
         var functions = {
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method initialize
             */
             initialize: function () {
@@ -54,7 +54,7 @@
 
                 settings.block.find(".fa-chevron-right, .fa-chevron-left").off().on("click", function () {
                     var offset = 1;
-                    
+
                     var activeChart = settings.charts.find(function (chart) {
                         return chart.active === true;
                     });
@@ -83,7 +83,7 @@
 
             /**
              * Creates the ChartistJS chart. Called when flipping through the different charts with prev/next buttons.
-             * 
+             *
              * @method initializeChart
              */
             initializeChart: function (chartData) {
@@ -119,7 +119,7 @@
 
             /**
              * Animates the chart, same as the example on ChartistJS website.
-             * 
+             *
              * @method animateChart
              */
             animateChart: function (data) {
