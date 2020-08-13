@@ -78,11 +78,14 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            $this->config->application->baseUri . 'css/vendor/prism.css'
+            $this->config->application->baseUri . 'vendor/prism/themes/prism.css'
         ];
         $this->js = [
-            $this->config->application->baseUri . 'js/vendor/' . basename(current(glob(APP_PATH . 'public/js/vendor/jquery-*.min.js'))),
-            $this->config->application->baseUri . 'js/vendor/prism.js',
+            $this->config->application->baseUri . 'vendor/jquery/jquery.min.js',
+            $this->config->application->baseUri . 'vendor/prism/prism.min.js',
+            $this->config->application->baseUri . 'vendor/prism/components/prism-markup-templating.min.js',
+            $this->config->application->baseUri . 'vendor/prism/components/prism-php.min.js',
+            $this->config->application->baseUri . 'vendor/prism/components/prism-php-extras.min.js',
             $this->config->application->baseUri . 'js/exception.js'
         ];
 

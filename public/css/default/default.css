@@ -5201,7 +5201,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&2087823") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9194563") format("woff2"), url("../../fonts/icomoon.woff?6164424") format("woff"), url("../../fonts/icomoon.ttf?582097") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?1074588") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&9227398") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9194219") format("woff2"), url("../../fonts/icomoon.woff?6146962") format("woff"), url("../../fonts/icomoon.ttf?3629074") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7396870") format("svg"); }
 
 .fa,
 .fas {
@@ -5834,6 +5834,7 @@ a.navbar-brand span {
 nav div.navbar-collapse ul {
   max-height: 290px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-bottom: 1px; }
 
 nav div.navbar-collapse ul::-webkit-scrollbar {

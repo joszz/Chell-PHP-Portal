@@ -16,13 +16,7 @@
     },
     {
       "library": "prism@1.21.0",
-      "destination": "public/vendor/prism/",
-      "files": [
-        "prism.min.js",
-        "themes/prism.css",
-        "themes/prism.min.css",
-        "prism.js"
-      ]
+      "destination": "public/vendor/prism/"
     },
     {
       "library": "jquery-fullscreen-plugin@1.1.5",
@@ -63,6 +57,11 @@
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/Illyism/jquery.vibrate.js/master/build/jquery/jquery.vibrate.js",
+      "destination": "public/vendor/jquery.vibrate/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "https://raw.githubusercontent.com/Illyism/jquery.vibrate.js/master/build/jquery/jquery.vibrate.js.map",
       "destination": "public/vendor/jquery.vibrate/"
     },
     {

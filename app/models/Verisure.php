@@ -18,16 +18,12 @@ class Verisure extends Model
 
     public static function GetArmState($config)
     {
-        $command = escapeshellcmd('vsure ' . $config->verisure->user . ' ' . $config->verisure->password . ' armstate');
-        $output = shell_exec($command);
-        return json_decode($output);
+        return self::executeCommand('armstate', $config);
     }
 
     public static function GetOverview($config, $decode)
     {
-        $command = escapeshellcmd('vsure ' . $config->verisure->user . ' ' . $config->verisure->password . ' overview');
-        $output = shell_exec($command);
-        $overview = json_decode($output);
+        $overview = self::executeCommand('overview', $config);
 
         foreach($overview->climateValues as $value)
         {
@@ -50,9 +46,7 @@ class Verisure extends Model
 
     public static function GetLog($config)
     {
-        $command = escapeshellcmd('vsure ' . $config->verisure->user . ' ' . $config->verisure->password . ' eventlog');
-        $output = shell_exec($command);
-        $log = json_decode($output);
+        $log = self::executeCommand('eventlog', $config);
 
         foreach ($log->eventLogItems as $logItem)
         {
@@ -67,5 +61,12 @@ class Verisure extends Model
         }
 
         return $log;
+    }
+
+    private static function executeCommand($command, $config)
+    {
+        $command = escapeshellcmd('vsure ' . $config->verisure->username . ' ' . $config->verisure->password . ' ' . $command);
+        $output = shell_exec($command);
+        return json_decode($output);
     }
 }

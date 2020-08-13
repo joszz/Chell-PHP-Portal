@@ -43,6 +43,7 @@ a.navbar-brand span {
 nav div.navbar-collapse ul {
     max-height: 290px;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-bottom: 1px;
 }
 

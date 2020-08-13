@@ -30,7 +30,10 @@
         var functions = {
 
             /**
-            * Initializes the eventhandlers for button clicks to navigate between SNMP hosts.
+            * Initializes the eventhandlers for;
+            * - button clicks to navigate between SNMP hosts.
+            * - Detail page click, changing the URL to currently visible SNMP host Id.
+            * and sets up the interval to auto update the content.
             *
             * @method initialize
             */
@@ -60,6 +63,11 @@
                 settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
             },
 
+            /**
+            * Updates the currently visible SNMP host. First destroys the TinyTimer to reinitiate after content is updated.
+            *
+            * @method update
+            */
             update: function () {
                 var currentHost = settings.block.find(".host:visible");
                 if (currentHost.find("ul:visible").length === 0) {

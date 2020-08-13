@@ -101,6 +101,12 @@ $help = [
 
     'snmp-enabled'                  => 'Enables the SNMP widget.',
     'snmp-update-interval'          => 'The poll interval used to update the SNMP values for the currently active host.',
+
+    'verisure-enabled'              => 'Enables the Verisure widget.',
+    'verisure-update-interval'      => 'The poll interval used to update the Verisure values. <br />Requests are being throttled when too many are made. Recommended to not go below 120 seconds.',
+    'verisure-url'                  => 'The URL for the Verisure MyPages website (or any other URL you would like the button in the header to link to).',
+    'verisure-username'             => 'The Verisure MyPages username to authenticate to the API with.',
+    'verisure-password'             => 'The Verisure MyPages password to authenticate to the API with.',
 ];
 
 $helpTitles = [
@@ -204,4 +210,10 @@ $helpTitles = [
 
     'snmp-enabled'                  => 'SNMP',
     'snmp-update-interval'          => 'SNMP update interval',
+
+    'verisure-enabled'              => 'Verisure',
+    'verisure-update-interval'      => 'Verisure update interval',
+    'verisure-url'                  => 'Verisure URL',
+    'verisure-username'             => 'Verisure username.',
+    'verisure-password'             => 'Verisure password',
 ];

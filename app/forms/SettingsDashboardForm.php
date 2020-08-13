@@ -23,8 +23,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 {
 
 	/**
-	 * Add all fields to the form and set form specific attributes.
-	 */
+     * Add all fields to the form and set form specific attributes.
+     */
 	public function initialize()
 	{
 		$this->setAction($this->_config->application->baseUri . 'settings/dashboard#dashboard');
@@ -51,11 +51,12 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->setPiHoleFields();
 		$this->setYoulessFields();
 		$this->setSnmpFields();
+		$this->setVerisureFields();
 	}
 
 	/**
-	 * Adds rCPU fields to the form.
-	 */
+     * Adds rCPU fields to the form.
+     */
 	private function setrCPUFields()
 	{
 		$rCpuEnabled = new Check('rcpu-enabled');
@@ -80,8 +81,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds PHPSysInfo fields to the form.
-	 */
+     * Adds PHPSysInfo fields to the form.
+     */
 	private function setPHPSysInfoFields()
 	{
 		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
@@ -121,8 +122,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Transmission fields to the form.
-	 */
+     * Adds Transmission fields to the form.
+     */
 	private function setTransmissionFields()
 	{
 		$transmissionEnabled = new Check('transmission-enabled');
@@ -169,8 +170,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Subsonic fields to the form.
-	 */
+     * Adds Subsonic fields to the form.
+     */
 	private function setSubsonicFields()
 	{
 		$subsonicEnabled = new Check('subsonic-enabled');
@@ -209,8 +210,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Kodi fields to the form.
-	 */
+     * Adds Kodi fields to the form.
+     */
 	private function setKodiFields()
 	{
 		$kodiEnabled = new Check('kodi-enabled');
@@ -273,8 +274,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Sickrage fields to the form.
-	 */
+     * Adds Sickrage fields to the form.
+     */
 	private function setSickrageFields()
 	{
 		$sickrageEnabled = new Check('sickrage-enabled');
@@ -306,8 +307,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Couchpotato fields to the form.
-	 */
+     * Adds Couchpotato fields to the form.
+     */
 	private function setCouchpotatoFields()
 	{
 		$couchpotatoEnabled = new Check('couchpotato-enabled');
@@ -347,8 +348,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds HyperVAdmin fields to the form.
-	 */
+     * Adds HyperVAdmin fields to the form.
+     */
 	private function setHyperVAdminFields()
 	{
 		$hyperVAdminEnabled = new Check('hypervadmin-enabled');
@@ -396,8 +397,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Motion fields to the form.
-	 */
+     * Adds Motion fields to the form.
+     */
 	private function setMotionFields()
 	{
 		$motionEnabled = new Check('motion-enabled');
@@ -438,8 +439,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Speedtest fields to the form.
-	 */
+     * Adds Speedtest fields to the form.
+     */
 	private function setSpeedtestFields()
 	{
 		$speedtestEnabled = new Check('speedtest-enabled');
@@ -520,8 +521,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Opcache fields to the form.
-	 */
+     * Adds Opcache fields to the form.
+     */
 	private function setOpcacheFields()
 	{
 		$opcacheEnabled = new Check('opcache-enabled');
@@ -544,8 +545,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds PiHole fields to the form.
-	 */
+     * Adds PiHole fields to the form.
+     */
 	private function setPiHoleFields()
 	{
 		$piholeEnabled = new Check('pihole-enabled');
@@ -570,8 +571,8 @@ class SettingsDashboardForm extends SettingsBaseForm
 	}
 
 	/**
-	 * Adds Youless fields to the form.
-	 */
+     * Adds Youless fields to the form.
+     */
 	private function setYoulessFields()
 	{
 		$youlessEnabled = new Check('youless-enabled');
@@ -634,6 +635,9 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->add($youlessDangerThreshold);
 	}
 
+    /**
+     * Adds SNMP fields to the form.
+     */
 	private function setSnmpFields()
 	{
 		$snmpEnabled = new Check('snmp-enabled');
@@ -658,13 +662,62 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->add($snmpInterval);
 	}
 
+
+    /**
+     * Adds Verisure fields to the form.
+     */
+	private function setVerisureFields()
+	{
+		$verisureEnabled = new Check('verisure-enabled');
+		$verisureEnabled->setLabel('Enabled');
+		$verisureEnabled->setAttributes([
+			'checked' => $this->_config->verisure->enabled == '1' ? 'checked' : null,
+			'data-toggle' => 'toggle',
+			'data-onstyle' => 'success',
+			'data-offstyle' => 'danger',
+			'data-size' => 'small',
+			'fieldset' => 'Verisure'
+		]);
+
+		$verisureInterval = new Numeric('verisure-update-interval');
+		$verisureInterval->setLabel('Verisure interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->verisure->updateInterval)
+			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+
+        $verisureURL = new Text('verisure-url');
+		$verisureURL->setLabel('URL')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->_config->verisure->URL);
+
+		$verisureUsername = new Text('verisure-username');
+		$verisureUsername->setLabel('Verisure username')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->verisure->username);
+
+		$verisurePassword = new Password('verisure-password');
+		$verisurePassword->setLabel('Verisure password')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
+			->setDefault($this->_config->verisure->password);
+
+		$this->add($verisureEnabled);
+		$this->add($verisureInterval);
+		$this->add($verisureURL);
+		$this->add($verisureUsername);
+		$this->add($verisurePassword);
+	}
+
 	/**
-	 * Check if form is valid. If so set the values to the config array.
-	 *
-	 * @param   array     $data     The form data posted.
-	 * @param   object    $entity   The entity to validate.
-	 * @return  bool                Whether or not form is valid.
-	 */
+     * Check if form is valid. If so set the values to the config array.
+     *
+     * @param   array     $data     The form data posted.
+     * @param   object    $entity   The entity to validate.
+     * @return  bool                Whether or not form is valid.
+     */
 	public function IsValid($data = null, $entity = null) : bool
 	{
 		$valid = parent::IsValid($data, $entity);
@@ -743,6 +796,12 @@ class SettingsDashboardForm extends SettingsBaseForm
 
 			$this->_config->snmp->enabled = isset($data['snmp-enabled']) && $data['snmp-enabled'] == 'on' ? '1' : '0';
 			$this->_config->snmp->updateInterval = $data['snmp-update-interval'];
+
+            $this->_config->verisure->enabled = isset($data['verisure-enabled']) && $data['verisure-enabled'] == 'on' ? '1' : '0';
+			$this->_config->verisure->updateInterval = $data['verisure-update-interval'];
+			$this->_config->verisure->URL = $data['verisure-url'];
+			$this->_config->verisure->username = $data['verisure-username'];
+			$this->_config->verisure->password = $data['verisure-password'];
 		}
 
 		return $valid;

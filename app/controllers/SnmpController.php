@@ -28,6 +28,7 @@ class SnmpController extends BaseController
      */
     public function detailsAction($id)
     {
+        $this->view->overflow = true;
         $this->view->setMainView('layouts/empty');
         $this->view->host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
