@@ -40,7 +40,7 @@
                         Status
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 status">
-                        <?php echo ucfirst(strtolower($verisure->armState->statusType)) ?>
+                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure->armState->statusType))) ?>
                     </div>
                 </li>
                 <li class="list-group-item col-xs-12">
@@ -64,7 +64,7 @@
                         Changed with
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 via">
-                        <?php echo ucfirst(strtolower($verisure->armState->changedVia)) ?>
+                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure->armState->changedVia))) ?>
                     </div>
                 </li>
             </ul>

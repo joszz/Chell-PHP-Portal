@@ -53,10 +53,14 @@
                     dataType: "json",
                     success: function (data) {
                         var date = new Date(data.armState.date);
-                        settings.block.find(".status").html(data.armState.statusType.toLowerCase().capitalize());
+                        var regexUnderscore = new RegExp("_", "g");
+                        var status = data.armState.statusType.toLowerCase().capitalize().replace(regexUnderscore, " ");
+                        var via = data.armState.changedVia.toLowerCase().capitalize().replace(regexUnderscore, " ");
+
+                        settings.block.find(".status").html(status);
                         settings.block.find(".name").html(data.armState.name !== undefined ? data.armState.name : "Unknown");
                         settings.block.find(".date").html(date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes());
-                        settings.block.find(".via").html(data.armState.changedVia.toLowerCase().capitalize());
+                        settings.block.find(".via").html(via);
 
                         var armstateIcon = settings.block.find("#amstate i");
                         switch (data.armState.statusType) {
