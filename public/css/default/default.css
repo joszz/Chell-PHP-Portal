@@ -5201,7 +5201,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&9227398") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9194219") format("woff2"), url("../../fonts/icomoon.woff?6146962") format("woff"), url("../../fonts/icomoon.ttf?3629074") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7396870") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&3404966") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3380740") format("woff2"), url("../../fonts/icomoon.woff?4059892") format("woff"), url("../../fonts/icomoon.ttf?4690565") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5107428") format("svg"); }
 
 .fa,
 .fas {
@@ -5316,14 +5316,14 @@ fieldset[disabled] .btn-danger.active {
 .fa-expand:before {
   content: "\f065"; }
 
-.fa-lock:before {
-  content: "\f023"; }
+.fa-verisure-stay:before {
+  content: "\e902"; }
 
-.fa-lock-open:before {
-  content: "\f3c1"; }
+.fa-verisure-disarmed:before {
+  content: "\e900"; }
 
-.fa-shield:before {
-  content: "\f3ed"; }
+.fa-verisure-away:before {
+  content: "\e901"; }
 
 .fa-globe:before {
   content: "\f0ac"; }

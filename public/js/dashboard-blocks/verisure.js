@@ -65,13 +65,13 @@
                         var armstateIcon = settings.block.find("#amstate i");
                         switch (data.armState.statusType) {
                             default:
-                                armstateIcon.attr("class", "fa fa-shield text-warning");
+                                armstateIcon.attr("class", "fa fa-verisure-stay text-warning");
                                 break;
                             case "DISARMED":
-                                armstateIcon.attr("class", "fa fa-lock-open text-danger");
+                                armstateIcon.attr("class", "fa fa-verisure-disarmed text-danger");
                                 break;
                             case "ARMED":
-                                armstateIcon.attr("class", "fa fa-lock text-success");
+                                armstateIcon.attr("class", "fa fa-verisure-away text-success");
                                 break;
                         }
 

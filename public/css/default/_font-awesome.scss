@@ -164,16 +164,16 @@ $fa-font-path: "../../fonts";
     content: fa-content($fa-var-expand);
 }
 
-.#{$fa-css-prefix}-lock:before {
-    content: fa-content($fa-var-lock);
+.#{$fa-css-prefix}-verisure-stay:before {
+    content: fa-content(\e902);
 }
 
-.#{$fa-css-prefix}-lock-open:before {
-    content: fa-content($fa-var-lock-open);
+.#{$fa-css-prefix}-verisure-disarmed:before {
+    content: fa-content(\e900);
 }
 
-.#{$fa-css-prefix}-shield:before {
-    content: fa-content($fa-var-shield-alt);
+.#{$fa-css-prefix}-verisure-away:before {
+    content: fa-content(\e901);
 }
 
 .#{$fa-css-prefix}-globe:before {

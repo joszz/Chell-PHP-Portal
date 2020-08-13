@@ -13,11 +13,11 @@
             <div class="top">
                 <div class="text-center" id="amstate">
                     <?php if ($verisure->armState->statusType == 'DISARMED') : ?>
-                    <i class="fa fa-lock-open text-danger"></i>
+                    <i class="fa fa-verisure-disarmed text-danger"></i>
                     <?php elseif ($verisure->armState->statusType == 'ARMED') : ?>
-                    <i class="fa fa-lock text-success"></i>
+                    <i class="fa fa-verisure-away text-success"></i>
                     <?php else : ?>
-                    <i class="fa fa-shield text-warning"></i>
+                    <i class="fa fa-verisure-stay text-warning"></i>
                     <?php endif ?>
                 </div>
                 <div>
