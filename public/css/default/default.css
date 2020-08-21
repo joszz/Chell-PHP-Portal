@@ -5201,7 +5201,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&3761195") format("embedded-opentype"), url("../../fonts/icomoon.woff2?4392801") format("woff2"), url("../../fonts/icomoon.woff?5906630") format("woff"), url("../../fonts/icomoon.ttf?3536040") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2900856") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&1422881") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1490544") format("woff2"), url("../../fonts/icomoon.woff?3120078") format("woff"), url("../../fonts/icomoon.ttf?4972062") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3039265") format("svg"); }
 
 .fa,
 .fas {
@@ -6569,6 +6569,14 @@ body.demo-mode .panel.snmp li div:last-child,
 body.demo-mode .panel.verisure li div:last-child,
 body.demo-mode .panel.speedtest #records td:nth-child(3),
 body.demo-mode .panel #scripts td:nth-child(3),
-body.demo-mode .panel #config td:nth-child(2) {
+body.demo-mode .panel #config td:nth-child(2),
+body.demo-mode .panel.hypervadmin td:nth-child(6),
+body.demo-mode .panel.hw-panel .lan-ip,
+body.demo-mode .panel.hw-panel .lan-mac,
+body.demo-mode .panel.snmp-details li div:last-child,
+body.demo-mode #doorwindow td:nth-child(2),
+body.demo-mode #doorwindow td:nth-child(3),
+body.demo-mode #log td:nth-child(2),
+body.demo-mode #log td:nth-child(3) {
   color: transparent;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }

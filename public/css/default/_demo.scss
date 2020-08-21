@@ -22,7 +22,15 @@ body.demo-mode {
     .panel.verisure li div:last-child,
     .panel.speedtest #records td:nth-child(3),
     .panel #scripts td:nth-child(3),
-    .panel #config td:nth-child(2) {
+    .panel #config td:nth-child(2),
+    .panel.hypervadmin td:nth-child(6),
+    .panel.hw-panel .lan-ip,
+    .panel.hw-panel .lan-mac,
+    .panel.snmp-details li div:last-child,
+    #doorwindow td:nth-child(2),
+    #doorwindow td:nth-child(3),
+    #log td:nth-child(2),
+    #log td:nth-child(3) {
         color: transparent;
         text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }

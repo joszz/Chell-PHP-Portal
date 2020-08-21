@@ -9,7 +9,7 @@ Some functionality might not yet be fully decoupled from my own setup but the go
 
 Video
 -----------
-[![Demo](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/video.jpg)](https://www.youtube.com/watch?v=4GJcNp3fnK0)
+[![Demo](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/video.jpg)](https://www.youtube.com/watch?v=IzuMtewr6gc)
 
 Screenshots
 -----------
