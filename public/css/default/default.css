@@ -5201,7 +5201,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&3404966") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3380740") format("woff2"), url("../../fonts/icomoon.woff?4059892") format("woff"), url("../../fonts/icomoon.ttf?4690565") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5107428") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&3761195") format("embedded-opentype"), url("../../fonts/icomoon.woff2?4392801") format("woff2"), url("../../fonts/icomoon.woff?5906630") format("woff"), url("../../fonts/icomoon.ttf?3536040") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2900856") format("svg"); }
 
 .fa,
 .fas {
@@ -6074,14 +6074,15 @@ div.motion .panel-body {
   padding: 0; }
 
 .speedtest .panel-body {
-  text-align: center; }
+  text-align: center;
+  height: 320px; }
 
 .speedtest .testArea {
   width: 50%;
   height: 131px;
   position: relative;
   box-sizing: border-box;
-  float: left; }
+  display: inline-block; }
 
 .speedtest .testName {
   width: 100%;
@@ -6114,7 +6115,7 @@ div.motion .panel-body {
   margin-top: -1em; }
 
 .speedtest .testGroup {
-  display: inline-block; }
+  white-space: nowrap; }
 
 .speedtest #ipArea {
   min-height: 37px;
@@ -6168,7 +6169,7 @@ div.motion .panel-body {
 .panel.chartist .panel-body {
   position: relative;
   padding-bottom: 30px;
-  min-height: 321px; }
+  height: 320px; }
 
 .panel.chartist #scripts table th:last-child,
 .panel.chartist #scripts table td:last-child {
@@ -6545,3 +6546,29 @@ nav.paginator {
 .fancybox-container {
   backdrop-filter: blur(5px);
   transition: backdrop-filter 1.5s ease-out; }
+
+.blur-text {
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
+body.demo-mode form input[type='text'],
+body.demo-mode form input[type='email'],
+body.demo-mode #settings #devices td:nth-child(3),
+body.demo-mode #settings #devices td:nth-child(4),
+body.demo-mode #settings #snmphosts td:nth-child(3),
+body.demo-mode #settings #snmphosts td:nth-child(4),
+body.demo-mode #settings #menuitems td:nth-child(4) a,
+body.demo-mode #settings #users td:nth-child(3),
+body.demo-mode #settings #users td:nth-child(4),
+body.demo-mode #settings #users td:nth-child(5),
+body.demo-mode .panel.sysinfo .host.value,
+body.demo-mode .panel.sysinfo .distro.value,
+body.demo-mode .panel.sysinfo .kernel.value,
+body.demo-mode .panel.processes li div:first-child,
+body.demo-mode .panel.snmp li div:last-child,
+body.demo-mode .panel.verisure li div:last-child,
+body.demo-mode .panel.speedtest #records td:nth-child(3),
+body.demo-mode .panel #scripts td:nth-child(3),
+body.demo-mode .panel #config td:nth-child(2) {
+  color: transparent;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }

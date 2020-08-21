@@ -1,0 +1,29 @@
+﻿.blur-text {
+    color: transparent;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+body.demo-mode {
+    form input[type='text'],
+    form input[type='email'],
+    #settings #devices td:nth-child(3),
+    #settings #devices td:nth-child(4),
+    #settings #snmphosts td:nth-child(3),
+    #settings #snmphosts td:nth-child(4),
+    #settings #menuitems td:nth-child(4) a,
+    #settings #users td:nth-child(3),
+    #settings #users td:nth-child(4),
+    #settings #users td:nth-child(5),
+    .panel.sysinfo .host.value,
+    .panel.sysinfo .distro.value,
+    .panel.sysinfo .kernel.value,
+    .panel.processes li div:first-child,
+    .panel.snmp li div:last-child,
+    .panel.verisure li div:last-child,
+    .panel.speedtest #records td:nth-child(3),
+    .panel #scripts td:nth-child(3),
+    .panel #config td:nth-child(2) {
+        color: transparent;
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+}

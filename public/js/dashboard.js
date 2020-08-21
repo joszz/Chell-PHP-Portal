@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var speedtest = false, opache = false, pihole = false, snmp = false;
+var speedtest = false, opcache = false, pihole = false, snmp = false;
 
 /**
 * Main entry point for dashboard view.
@@ -38,7 +38,7 @@ function initializePlugins() {
     $(".couchpotato").couchpotato();
     $(".motion").motion();
     speedtest = $(".speedtest").speedtest();
-    opache = $(".opcache").opcache();
+    opcache = $(".opcache").opcache();
     $(".youless").youless();
     pihole = $(".pihole").pihole();
     snmp = $(".snmp").snmp();
@@ -65,31 +65,24 @@ function initializeDashboardEventHandlers() {
             if (panel.hasClass("gallery")) {
                 panel.css("height", panel.find(".panel-body:eq(0)").hasClass("hidden-xs") ? "auto" : "379px");
             }
-
-            else if (panel.hasClass("opcache")) {
-                opache.initializeChart();
+            else if (opcache !== false && panel.hasClass("opcache")) {
+                opcache.initializeChart();
             }
-            else if (panel.hasClass("pihole")) {
+            else if (pihole !== false && panel.hasClass("pihole")) {
                 pihole.initializeChart();
+            }
+            else if (speedtest !== false && panel.hasClass("speedtest")) {
+                speedtest.initUI();
             }
 
             if (!panel.find(".tab-content").length && !panel.find(".panel-body").length) {
                 panel.find(".list-group").toggleClass("hidden-xs");
-            }
-
-            if (panel.hasClass("snmp")) {
-                snmp.update();
             }
         }
     });
 
     $("footer .toggle-all").click(function () {
         $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
-
-        if ($(this).hasClass("fa-expand") && speedtest !== false) {
-            speedtest.initUI();
-        }
-
         $(this).toggleClass("fa-expand fa-compress");
     });
 }

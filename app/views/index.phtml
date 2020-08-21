@@ -30,7 +30,7 @@
     ?>
 </head>
 
-<body id="bootstrap" data-baseuri="<?php echo $this->config->application->baseUri ?>">
+<body id="bootstrap" data-baseuri="<?php echo $this->config->application->baseUri ?>" class="<?php echo $this->config->application->demoMode ? 'demo-mode' : null ?>">
     <?php $this->partial('navbar') ?>
 
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">

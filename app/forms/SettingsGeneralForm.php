@@ -89,6 +89,16 @@ class SettingsGeneralForm extends SettingsBaseForm
             'data-size' => 'small'
         ]);
 
+        $demo = new Check('demo');
+        $demo->setLabel('Demo mode');
+        $demo->setAttributes([
+            'checked' => $this->_config->application->demoMode == '1' ? 'checked' : null,
+            'data-toggle' => 'toggle',
+            'data-onstyle' => 'success',
+            'data-offstyle' => 'danger',
+            'data-size' => 'small'
+        ]);
+
         $this->add($title);
         $this->add($bgcolor);
         $this->add($alertTimeout);
@@ -98,6 +108,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($whatIsMyBrowserAPIKey);
         $this->add($whatIsMyBrowserAPIURL);
         $this->add($debug);
+        $this->add($demo);
         $this->setDuoFields();
         $this->setImageProxyFields();
         $this->setRedisFields();
@@ -230,7 +241,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->_config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
             $this->_config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
             $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
-
+            $this->_config->application->demoMode = $data['demo'] == 'on' ? '1' : '0';
 
             $this->_config->duo->enabled = $data['duo-enabled'] == 'on' ? '1' : '0';
             $this->_config->duo->apiHostname = $data['duo-apiHostname'];

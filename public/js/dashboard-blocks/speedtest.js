@@ -2,7 +2,7 @@
 
 /**
 * The speedtest block on the dashboard.
-* 
+*
 * @class Speedtest
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -11,7 +11,7 @@
     $.fn.speedtest = function (options) {
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -39,14 +39,14 @@
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
         var functions = {
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method checkstates
             */
             initialize: function () {
@@ -74,12 +74,12 @@
             /**
              * Called when this plugin is nested in a document with a body#iframe.
              * Initializes Chartist to display statistics.
-             * 
+             *
              * @method initializeIframe
              */
             initializeIframe: function () {
                 var panel = settings.block.closest(".panel.with-nav-tabs");
-                var chart = new Chartist.Bar("#ct-chart", 
+                var chart = new Chartist.Bar("#ct-chart",
                     {
                         labels: settings.block.data("labels").toString().indexOf(",") != -1 ? settings.block.data("labels").split(",") : [settings.block.data("labels")],
                         series: [
@@ -88,7 +88,7 @@
                             settings.block.data("ping").toString().indexOf(",") != -1 ? settings.block.data("ping").split(",") : [settings.block.data("ping")],
                             settings.block.data("jitter").toString().indexOf(",") != -1 ? settings.block.data("jitter").split(",") : [settings.block.data("jitter")]
                         ]
-                    }, 
+                    },
                     {
                         horizontalBars: true,
                         height: "650px",
@@ -113,14 +113,14 @@
                     var currentPanel = panel.find(".nav-tabs li.active a").attr("href").replace("#", "") + "/";
                     var page = href.substr(href.lastIndexOf("/") + 1);
                     var newhref = href.substr(0, start + 6) + currentPanel + page;
-                    
+
                     $(this).attr("href", newhref);
                 });
             },
 
             /**
              * Draws the different gauges of the speedtest.
-             * 
+             *
              * @method drawMeter
              */
             drawMeter: function (c, amount, bk, fg, progress, prog) {
@@ -156,7 +156,7 @@
 
             /**
              * Called when clicking the start/stop button to start the speedtest.
-             * 
+             *
              * @method startStop
              */
             startStop: function () {
@@ -174,15 +174,15 @@
                     functions.frame();
 
                     //test is not running, begin
-                    worker = new Worker("js/vendor/speedtest/speedtest_worker.min.js?t=" + Date.now());
+                    worker = new Worker("vendor/speedtest/speedtest_worker.min.js?t=" + Date.now());
                     worker.postMessage("start " +
                         //Add optional parameters as a JSON object to this command
                         JSON.stringify({
-                            url_dl: "../../../speedtest/garbage",
-                            url_ul: "../../../speedtest/empty",
-                            url_ping: "../../../speedtest/empty",
-                            url_getIp: "../../../speedtest/getIP",
-                            url_telemetry: "../../../speedtest/telemetry",
+                            url_dl: "../../speedtest/garbage",
+                            url_ul: "../../speedtest/empty",
+                            url_ping: "../../speedtest/empty",
+                            url_getIp: "../../speedtest/getIP",
+                            url_telemetry: "../../speedtest/telemetry",
                             telemetry_level: settings.telemetry,
                             time_ul_max: settings.uploadTime,
                             time_dl_max: settings.downloadTime,
@@ -207,7 +207,7 @@
 
             /**
              * Calculates the MBps to display in the gauges.
-             * 
+             *
              * @method mbpsToAmount
              */
             mbpsToAmount: function (s) {
@@ -216,7 +216,7 @@
 
             /**
              * Calculates the milliseconds to display in the gauges.
-             * 
+             *
              * @method msToAmount
              */
             msToAmount: function (s) {
@@ -225,7 +225,7 @@
 
             /**
              * Oscillates values so they are less static and more lifelike.
-             * 
+             *
              * @method oscillate
              */
             oscillate: function () {
@@ -234,7 +234,7 @@
 
             /**
              * First called to draw the blank gauges.
-             * 
+             *
              * @method initUI
              */
             initUI: function () {
@@ -251,7 +251,7 @@
 
             /**
              * Set for RequestAnimationFrame, updating the UI.
-             * 
+             *
              * @method frame
              */
             frame: function () {
@@ -261,7 +261,7 @@
 
             /**
              * this function reads the data sent back by the worker and updates the UI
-             *  
+             *
              * @method updateUI
              */
             updateUI: function (forced) {

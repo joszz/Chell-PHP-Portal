@@ -1,5 +1,6 @@
 ﻿.speedtest .panel-body {
     text-align: center;
+    height: 320px;
 }
 
 .speedtest .testArea {
@@ -7,7 +8,7 @@
     height: 131px;
     position: relative;
     box-sizing: border-box;
-    float: left;
+    display: inline-block;
 }
 
 .speedtest .testName {
@@ -46,7 +47,8 @@
 }
 
 .speedtest .testGroup {
-    display: inline-block;
+
+    white-space: nowrap;
 }
 
 .speedtest #ipArea {

@@ -1,12 +1,7 @@
-﻿@import "../vendor/jquery.fancybox";
-@import "../vendor/waves";
-@import "../vendor/bootstrap-select";
-@import "../vendor/bootstrap-toggle";
-@import "../vendor/jquery.bootstrap-touchspin";
-@import "../vendor/bootstrap";
-@import "../vendor/chartist/chartist";
-@import "../vendor/chartist/legend";
+﻿@import "bootstrap";
+@import "../../vendor/chartist/dist/scss/chartist";
 
+@import "chartist-legend";
 @import "variables";
 @import "animations";
 @import "buttons";
@@ -23,3 +18,4 @@
 @import "login";
 @import "pagination";
 @import "fancybox3";
+@import "demo";

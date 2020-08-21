@@ -295,7 +295,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->sickrage->URL);
 
-		$sickrageAPIKey = new Text('sickrage-apikey');
+		$sickrageAPIKey = new Password('sickrage-apikey');
 		$sickrageAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
@@ -328,7 +328,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->couchpotato->URL);
 
-		$couchpotatoAPIKey = new Text('couchpotato-apikey');
+		$couchpotatoAPIKey = new Password('couchpotato-apikey');
 		$couchpotatoAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
@@ -789,6 +789,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 
 			$this->_config->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
 			$this->_config->youless->URL = $data['youless-url'];
+			$this->_config->youless->password = $data['youless-password'];
 			$this->_config->youless->updateInterval = $data['youless-update-interval'];
 			$this->_config->youless->primaryThreshold = $data['youless-primary-threshold'];
 			$this->_config->youless->warnThreshold = $data['youless-warn-threshold'];

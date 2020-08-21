@@ -127,6 +127,10 @@ class FrontController
      */
     public function ExceptionHandler(\Throwable $exception)
     {
+        if(strpos(basename($_SERVER['REQUEST_URI']), '.') !== false) {
+            die(header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found'));
+        }
+
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
         new ErrorController(new ChellException($exception), $this->config);
