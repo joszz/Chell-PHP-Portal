@@ -26,10 +26,23 @@ Prerequisites
 - [Phalcon PHP framework 4.x](https://phalconphp.com/)
 - [Apache 2.x](https://httpd.apache.org/)
 - [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
-- [rCPU](https://github.com/davidsblog/rCPU) (optional)
-- [Transmission](https://www.transmissionbt.com/) (optional)
-- [Sickrage](https://sickrage.github.io/) (optional)
-- [Couchpotato](https://couchpota.to//) (optional)
+
+Optional integrations
+-------------
+- [rCPU](https://github.com/davidsblog/rCPU)
+- [Transmission](https://www.transmissionbt.com/)
+- [Sickrage](https://sickrage.github.io/)
+- [Couchpotato](https://couchpota.to//)
+- [Subsonic](http://www.subsonic.org/pages/index.jsp)
+- [Kodi](https://kodi.tv/)
+- [HyperVAdmin](https://github.com/joszz/HyperVAdmin)
+- [Motion](https://motion-project.github.io/)
+- [Pihole](https://pi-hole.net/)
+- [ImageProxy](https://github.com/willnorris/imageproxy)
+- [Duo](https://duo.com/)
+- [Redis](https://redis.io/)
+- [WhatIsMyBrowser](https://www.whatismybrowser.com/)
+- [TMDB](https://www.themoviedb.org/)
 
 Installation and configuration
 ------------------------------

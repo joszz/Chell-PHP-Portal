@@ -9,6 +9,7 @@ $help = [
     'cryptkey'                      => 'The key used for Phalcon\'s cryptographic functions.',
     'tmdb-apikey'                   => 'The API key used to access TMDB information, used by the Couchpotato plugin.',
     'debug'                         => 'Whether debug mode is enabled; <ul><li>Sets PHP\'s display_error mode to on</li><li>Disables minification of JS and CSS</li><li>Outputs error information to the browser</li>',
+    'demo'                          => 'Whether the demo mode is enabled. Will blur all sensitive information when enabled.',
     'check-devicestate-interval'    => 'The interval of refreshing the devices block on the dashboard.',
 
     'whatismybrowser-apikey'        => 'The API key used to access <a href="https://www.whatismybrowser.com/" target="_blank">WhatIsMyBrowser</a> information, used by the Speedtest plugin.',
@@ -37,7 +38,7 @@ $help = [
     'hypervadmin-password'          => 'The basicauth password to access HyperVAdmin.',
     'hypervadmin-device'            => 'Which device (configured in Chell) is the HyperVAdmin host. This will be used to determine where to place the button in the devices widget.',
 
-    'imageproxy-enabled'            => 'Enables the optional imageproxy.',
+    'imageproxy-enabled'            => 'Enables the optional <a href="https://github.com/willnorris/imageproxy" target="_blank">imageproxy</a>.',
     'imageproxy-url'                => 'The URL for the imageproxy.',
 
     'kodi-enabled'                  => 'Enables the Kodi plugins for latest movies, episodes and music albums.',
@@ -60,7 +61,7 @@ $help = [
     'phpsysinfo-username'           => 'Basicauth username needed when PHPSysInfo is protected by basicauth.',
     'phpsysinfo-password'           => 'Basicauth password needed when PHPSysInfo is protected by basicauth.',
 
-    'pihole-enabled'                => 'Enables PiHole statistics.',
+    'pihole-enabled'                => 'Enables <a href="https://pi-hole.net/" target="_blank"PiHole</a> statistics.',
     'pihole-url'                    => 'The URL for PiHole admin interface.',
 
     'rcpu-enabled'                  => 'Enables the <a href="https://github.com/davidsblog/rCPU" target="_blank">rCPU</a> plugin.',
@@ -119,6 +120,7 @@ $helpTitles = [
     'tmdb-apikey'                   => 'TMDB API key',
     'check-devicestate-interval'    => 'Check device state interval',
     'debug'                         => 'Debug mode',
+    'demo'                          => 'Demo mode',
 
     'whatismybrowser-apikey'        => 'WhatIsMyBrowser API key',
     'whatismybrowser-apiurl'        => 'WhatIsMyBrowser API URL',
