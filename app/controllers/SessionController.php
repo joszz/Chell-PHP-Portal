@@ -107,7 +107,15 @@ class SessionController extends BaseController
                     $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->config->application->baseUri, true)));
                 }
 
-                $this->_registerSession($user);
+                if($user instanceof Users)
+                {
+                    $this->_registerSession($user);
+                }
+                else
+                {
+                    throw new \Exception('Expected type Users, got type' . get_class($user));
+                }
+
                 $user->last_login = date('Y-m-d H:i:s');
                 $user->save();
 
@@ -151,7 +159,16 @@ class SessionController extends BaseController
 
         if($user)
         {
-            $this->_registerSession($user);
+
+            if($user instanceof Users)
+            {
+                $this->_registerSession($user);
+            }
+            else
+            {
+                throw new \Exception('Expected type Users, got type' . get_class($user));
+            }
+
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
         }

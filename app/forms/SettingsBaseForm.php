@@ -14,6 +14,7 @@ class SettingsBaseForm extends Form
 {
     /**
      * The configuration object containing all the info from config.ini.
+     *
      * @var object
      */
     protected $_config;
@@ -87,6 +88,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Renders formelements that should be grouped in a fieldset.
+     *
      * @param ElementInterface  $element  The element to render.
      * @return string           The generated HTML string.
      */

@@ -8,7 +8,6 @@ use Chell\Models\SnmpHosts;
 
 class SnmpController extends BaseController
 {
-
     /**
      * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.
      */

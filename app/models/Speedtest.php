@@ -31,7 +31,8 @@ class Speedtest extends Model
 	/**
      * Get's ISP IP and name
      *
-     * @return string The ISP IP and name as a concatenated string.
+     * @param object $config	The config object representing config.ini.
+     * @return string			The ISP IP and name as a concatenated string.
      */
 	public static function getIPAddress($config)
 	{
@@ -128,7 +129,7 @@ class Speedtest extends Model
 
 		$curl = curl_init(self::$ipInfoURL . 'json?token=' . self::$config->speedtest->ipInfoToken);
 		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true, 
+			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
 		]);
 		$details = json_decode(curl_exec($curl));

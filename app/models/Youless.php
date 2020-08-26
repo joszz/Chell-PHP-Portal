@@ -15,8 +15,8 @@ class Youless extends Model
 	/**
 	 * Gets the current power usage from YouLess
 	 *
-	 * @param mixed $config The config object to get the YouLess URL from.
-	 * @return int          The current power usage in watts.
+	 * @param object $config The config object to get the YouLess URL from.
+	 * @return int           The current power usage in watts.
 	 */
 	public function getCurrentPowerUsage($config)
 	{

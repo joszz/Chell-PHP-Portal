@@ -165,6 +165,8 @@ class FrontController
 
     /**
      * Setup the database services.
+     *
+     * @param object $config	The config object representing config.ini.
      */
     private function setDB($config)
     {
@@ -201,6 +203,8 @@ class FrontController
 
     /**
      * Setup Phalcon view provider.
+     *
+     * @param object $config	The config object representing config.ini.
      */
     private function setViewProvider($config)
     {
@@ -213,6 +217,8 @@ class FrontController
 
     /**
      * Setup Phalcon URL provider.
+     *
+     * @param object $config	The config object representing config.ini.
      */
     private function setURLProvider($config)
     {
@@ -225,6 +231,8 @@ class FrontController
 
     /**
      * Instantiate session.
+     *
+     * @param object $config	The config object representing config.ini.
      */
     private function setSession($config)
     {

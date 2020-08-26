@@ -17,7 +17,7 @@ use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 
 use Phalcon\Http\Response;
-use Phalcon\Validation\Message;
+use Phalcon\Messages\Message;
 
 /**
  * The controller responsible for all setting related actions.
@@ -151,8 +151,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.
      *
-     * @param int $id   Optional, the device to edit.
-     * @return void     Will forward to settings/index#devices when successful, or will show the form again when failed.
+     * @param int $id                                   Optional, the device to edit.
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#devices when successful, or will show the form again when failed.
      */
     public function deviceAction($id = 0)
     {
@@ -191,8 +191,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
      *
-     * @param int $id   Optional, the menuitem to edit.
-     * @return void     Will forward to settings/index#menu when successful, or will show the form again when failed.
+     * @param int $id                                   Optional, the menuitem to edit.
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
      */
     public function menuAction($id = 0)
     {
@@ -231,8 +231,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
      *
-     * @param int       $id     Optional, the user ID to edit.
-     * @return void             Will forward to settings/index#users when successful, or will show the form again when failed.
+     * @param int $id                                   Optional, the user ID to edit.
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
      */
     public function userAction($id = 0)
     {
@@ -270,7 +270,6 @@ class SettingsController extends BaseController
                 else
                 {
                     $messages = $form->getMessagesFor('password');
-
                     $messages->appendMessage(new Message('Password fields should match!') );
                 }
             }
@@ -322,8 +321,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a SNMP host. If $id is set will edit that host, otherwise it will create a new host.
      *
-     * @param int $id
-     * @return void
+     * @param int $id                                   Optional, SNMPHost ID to edit.
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#snmphosts when successful, or will show the form again when failed.
      */
     public function snmphostAction($id = 0)
     {
@@ -362,8 +361,8 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a SNMP record. If $id is set will edit that record, otherwise it will create a new record.
      *
-     * @param int $id
-     * @return void
+     * @param int $id                                   Optional, SNMPRecord ID to edit.
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
     public function snmprecordAction($id = 0)
     {

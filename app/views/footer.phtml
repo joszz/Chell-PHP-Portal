@@ -15,7 +15,7 @@
             </div>
             <div class="visible-sm visible-md visible-lg execution-time pull-right">
                 Execution time | Total: <?php echo round(($executionTime + microtime(true)), 2) ?>s
-                <?php if(isset($phpsysinfoExecutionTime)) : ?>
+                <?php if(isset($phpsysinfoExecutionTime) && is_string($phpsysinfoExecutionTime)) : ?>
                 | PHPSysInfo: <?php echo $phpsysinfoExecutionTime ?>
                 <?php endif ?>
             </div>

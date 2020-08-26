@@ -40,8 +40,8 @@ class KodiMovies extends KodiBase
     /**
      * Extracts thumbs and fanart from the XML stored in the DB.
      *
-     * @param array $movies     The array of Kodi movies.
-     * @return array            The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
+     * @param array|\Phalcon\Mvc\Model\ResultsetInterface $movies   The array of Kodi movies.
+     * @return array                                                The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
     public static function extractMovieImagesFromXML($movies)
     {

@@ -6724,7 +6724,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&1422881") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1490544") format("woff2"), url("../../fonts/icomoon.woff?3120078") format("woff"), url("../../fonts/icomoon.ttf?4972062") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3039265") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&2612946") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1160172") format("woff2"), url("../../fonts/icomoon.woff?7164910") format("woff"), url("../../fonts/icomoon.ttf?9242389") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?9077577") format("svg"); }
 
 .fa,
 .fas {
@@ -7738,7 +7738,7 @@ div.motion .panel-body {
 .verisure .top {
   display: flex;
   align-items: center;
-  padding: 15px; }
+  padding: 0 15px 15px; }
   .verisure .top > div {
     flex: 1; }
   .verisure .top .temp {

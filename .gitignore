@@ -58,3 +58,4 @@ documentation/
 app/config/config.ini
 apigen.neon
 logs/
+phalcon-stubs/
