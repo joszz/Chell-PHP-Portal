@@ -31,6 +31,8 @@ class SettingsController extends BaseController
 
     /**
      * Shows the settings view
+     *
+     * @param string Which tab to be active on load, defaults to General.
      */
     public function indexAction($activeTab = 'General')
     {
@@ -281,7 +283,7 @@ class SettingsController extends BaseController
     /**
      * Displays the requested log file.
      *
-     * @param string $file      The log filename to display.
+     * @param string $file The log filename to display.
      */
     public function logAction($file)
     {
@@ -298,7 +300,7 @@ class SettingsController extends BaseController
      * Displays all the log files in a paginated fashion.
      * Calls IndexAction to set all the data for all the tabs displayed.
      *
-     * @param int $page      The page requested
+     * @param int $page The page requested
      */
     public function logsAction($page)
     {
@@ -401,7 +403,9 @@ class SettingsController extends BaseController
     /**
      * Retrieves all log files from the logs directory and sorting them by filemtime descending.
      *
-     * @return array    The array of logfiles as key and formated datetime as value.
+     * @param mixed $totalItems     The total amount of log items passed by reference, calculated form all logs.
+     * @param mixed $currentPage    The page to display, defaults to the first page.
+     * @return array                The array of logfiles as key and formated datetime as value.
      */
     private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1)
     {

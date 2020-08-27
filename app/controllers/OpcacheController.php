@@ -14,7 +14,7 @@ class OpcacheController extends BaseController
     /**
      * Called through AJAX to retrieve the opache data.
      *
-     * @return string   A JSON encoded array.
+     * @return string A JSON encoded array.
      */
     public function datasetAction()
     {

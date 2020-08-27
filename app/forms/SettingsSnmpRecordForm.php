@@ -97,7 +97,6 @@ class SettingsSnmpRecordForm extends Form
 		);
 		$groupValue->setLabel('Group value');
 
-
 		$this->add($label);
 		$this->add($host);
 		$this->add($labelOID);

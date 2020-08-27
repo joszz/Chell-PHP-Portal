@@ -53,7 +53,7 @@ class DevicesController extends BaseController
      * This action will return the power state of the device identified by IP. Will sent ping to determine state.
      *
      * @param string $ip     The IP address to get the on/off state for.
-     * @return string       A JSON encoded object with the state of the device.
+     * @return string        A JSON encoded object with the state of the device.
      */
     public function stateAction($ip)
     {

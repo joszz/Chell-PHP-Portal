@@ -11,8 +11,8 @@
                 <?php if($this->config->speedtest->telemetry != 'off') : ?>
                 <a href="<?php echo $this->config->application->baseUri ?>speedtest/stats" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
                 <?php endif ?>
-                <button class="btn btn-default fa fa-play" title="Start/Stop"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse"></button>
+                <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>
+                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
             </div>
             <h4>Speedtest</h4>
         </div>

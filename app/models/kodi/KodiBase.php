@@ -23,7 +23,7 @@ class KodiBase extends Model
      */
     public function getImageUrl($config, $type, $imageField, $idField)
     {
-        $width = $type == 'fanart' ? 800 : '';
+        $width = $type == 'fanart' ? 800 : '350';
         $which = str_replace('Kodi', '', strtolower(get_class($this)));
 
         if (empty($this->{$imageField}))
@@ -33,7 +33,7 @@ class KodiBase extends Model
 
         if($config->imageproxy->enabled)
         {
-            return $config->imageproxy->URL . (!empty($width) ? $width .  '/' : null) . $this->{$imageField};
+            return $config->imageproxy->URL . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }
 
         return $config->application->baseUri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);

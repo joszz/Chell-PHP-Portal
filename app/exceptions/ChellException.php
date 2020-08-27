@@ -16,7 +16,7 @@ class ChellException extends \Exception
     /**
      * Receives the original exception and sets the variables.
      *
-     * @param \Throwable $exception     The original exception.
+     * @param \Throwable $exception The original exception.
      */
     public function __construct(\Throwable $exception)
     {
@@ -32,7 +32,7 @@ class ChellException extends \Exception
      * Since it's not possible to override getTrace, redefine as getStacktrace.
      * return original exceptions trace.
      *
-     * @return array    The original exceptions trace.
+     * @return array The original exceptions trace.
      */
     public function getStacktrace()
     {
@@ -43,11 +43,11 @@ class ChellException extends \Exception
      * Retrieves the contents of the file the exception was generated in as an array.
      * Slice the array to have 10 lines before and after the exception. Then return as concatenated string.
      *
-     * @return string   The partial contents of the file where the exception occurred.
+     * @return string The partial contents of the file where the exception occurred.
      */
     private function getFileContents()
     {
-        if (is_file($file = $this->getFile())) 
+        if (is_file($file = $this->getFile()))
         {
             $fileContents = file($file);
 
@@ -73,7 +73,7 @@ class ChellException extends \Exception
     /**
      * Retrieves the datetime the exception occurred.
      *
-     * @param mixed $format     The format to use for PHP's date function. Defaults to 'd-m-Y H:i:s'.
+     * @param mixed     $format The format to use for PHP's date function. Defaults to 'd-m-Y H:i:s'.
      * @return string           The formatted date string the exception occurred.
      */
     public function getDate($format = 'd-m-Y H:i:s')

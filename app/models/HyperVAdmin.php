@@ -60,8 +60,8 @@ class HyperVAdmin extends Model
 	/**
 	 * Gets a string representing the site state given an int.
 	 *
-	 * @param number $state     The site state represented as a number.
-	 * @return string           The site state represented as a string.
+	 * @param number $state	The site state represented as a number.
+	 * @return string		The site state represented as a string.
 	 */
 	public function getSiteState($state)
 	{
@@ -108,7 +108,7 @@ class HyperVAdmin extends Model
 	 *
 	 * @param string $url       The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
 	 * @param object $config    The configuration file to use.
-	 * @return resource           The cURL object to be used to query HyperVAdmin.
+	 * @return resource			The cURL object to be used to query HyperVAdmin.
 	 */
 	private static function getCurl($url, $config)
 	{

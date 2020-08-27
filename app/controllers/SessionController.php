@@ -20,7 +20,7 @@ class SessionController extends BaseController
     /**
      * Sets session cookie with user id and username.
      *
-     * @param Users $user   The user object to populate the session with.
+     * @param Users $user The user object to populate the session with.
      */
     private function _registerSession($user)
     {

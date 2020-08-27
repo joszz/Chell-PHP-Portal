@@ -13,7 +13,8 @@ class TranslatorWrapper
 
     /**
      * Given the translationFile, set the translation messages.
-     * @param mixed $translationFile    The translation file to use.
+     *
+     * @param string $translationFile The translation file to use.
      */
     public function __construct($translationFile)
     {

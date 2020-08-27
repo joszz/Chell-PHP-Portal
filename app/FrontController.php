@@ -232,7 +232,7 @@ class FrontController
     /**
      * Instantiate session.
      *
-     * @param object $config	The config object representing config.ini.
+     * @param object $config    The config object representing config.ini.
      */
     private function setSession($config)
     {
@@ -301,7 +301,8 @@ class FrontController
 
     /**
      * Echoes the HTML to the browser.
-     * @return mixed    The complete HTML of the request.
+     *
+     * @return string   The complete HTML of the request.
      */
     public function ToString()
     {

@@ -2,14 +2,15 @@
 <html lang="en" class="<?php echo $this->config->application->background ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+    <meta name="description" content="Chell PHP Portal - Aggregate all your webserver services" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>rss" />
 
     <?php echo $this->tag->renderTitle(); ?>
 
     <?php if(isset($dnsPrefetchRecords)) : foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
-    <link rel="dns-prefetch" href="<?php echo $dnsRecord ?>" />
+    <link rel="preconnect" href="<?php echo $dnsRecord ?>" />
     <?php endforeach; endif ?>
 
     <?php $this->assets->outputCss('header') ?>

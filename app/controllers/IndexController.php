@@ -69,7 +69,7 @@ class IndexController extends BaseController
 
         if ($this->config->verisure->enabled)
         {
-            $this->view->verisure = verisure::GetOverview($this->config, true);
+            $this->view->verisure = verisure::GetOverview($this->config, false);
         }
     }
 

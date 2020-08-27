@@ -26,7 +26,7 @@ class AboutController extends BaseController
     /**
      * Retrieves the contributors from github for this project, using total commit count for versioning.
      *
-     * @return mixed     The content of the JSON decoded CURL call.
+     * @return mixed The content of the JSON decoded CURL call.
      */
     private function getGithubStats()
     {

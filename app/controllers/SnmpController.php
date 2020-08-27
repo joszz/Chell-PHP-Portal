@@ -23,7 +23,7 @@ class SnmpController extends BaseController
     /**
      * Shows all the details of a SNMP host by the given $id.
      *
-     * @param int $id   The SNMP Host ID.
+     * @param int $id The SNMP Host ID.
      */
     public function detailsAction($id)
     {

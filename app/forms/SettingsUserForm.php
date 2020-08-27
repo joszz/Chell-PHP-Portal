@@ -19,7 +19,7 @@ class SettingsUserForm extends Form
     /**
      * Loops over all users and sets fields for each user
      *
-     * @param array $users	All users currently stored in the database.
+     * @param array $users All users currently stored in the database.
      */
     public function initialize($user)
     {

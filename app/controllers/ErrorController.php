@@ -25,7 +25,7 @@ class ErrorController
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
      * The constructor handles rendering and logging of the error page.
      *
-     * @param ChellException $exception     The exception being thrown.
+     * @param ChellException $exception The exception being thrown.
      */
     public function __construct(ChellException $exception, $config)
     {
@@ -97,7 +97,7 @@ class ErrorController
     /**
      * This will show a user friendly error, not revealing details.
      *
-     * @return string   The rendered HTML as a string
+     * @return string The rendered HTML as a string
      */
     private function error()
     {

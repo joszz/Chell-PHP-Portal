@@ -187,7 +187,7 @@ class BaseController extends Controller
      * @param mixed $totalPages     The total amount of pages in the dataset.
      * @param mixed $baseURI        The baseURI to create pagination URLs with.
      * @param mixed $paginator      The pagination object, defaults to null (which will make a new stdClass).
-     * @return object   an object with all pagination data.
+     * @return object               An object with all pagination data.
      */
     public function GetPaginator($currentPage, $totalPages, $baseURI, $paginator = null)
     {

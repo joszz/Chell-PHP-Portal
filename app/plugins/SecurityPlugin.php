@@ -21,6 +21,10 @@ class SecurityPlugin extends Injectable
     /**
      * Called before executing each function. If not authenticated and requested controller is not rss or session,
      * then forward to session controller.
+     *
+     * @param Event $event                  The fired Phalcon Event.
+     * @param Dispatcher $dispatcher        The Phalcon Dispatcher.
+     * @return bool                         Whether or not to allow access to the current requested action.
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
     {

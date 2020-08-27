@@ -87,7 +87,7 @@ class SpeedtestController extends BaseController
     /**
      * Used to display the telemetry gathered in a fancybox. Showing both a table and a chartist chart.
      *
-     * @param int       $requestedPage The requested page for the paginator to display, defaults to 1.
+     * @param int $requestedPage The requested page for the paginator to display, defaults to 1.
      */
     public function statsAction($activeTab = 'records', $requestedPage = 1)
     {
@@ -235,8 +235,8 @@ class SpeedtestController extends BaseController
     /**
      * Try to retrieve browser information
      *
-     * @param int       $try The amount of tries done, if more than 5 it will stop trying
-     * @return mixed    Either 'false' on failure or a JSON string when succesfull.
+     * @param int       $try    The amount of tries done, if more than 5 it will stop trying
+     * @return boolean|string   Either 'false' on failure or a JSON string when succesfull.
      */
     private function whatIsMyBrowser($try = 1)
     {

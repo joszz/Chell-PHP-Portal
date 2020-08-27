@@ -34,8 +34,8 @@ class KodiMusic extends KodiBase
     /**
      * Extracts thumbs from the XML stored in the DB.
      *
-     * @param array $movies     The array of Kodi albums.
-     * @return array            The array of Kodi albums with the XML field transformed to string holding only image URL.
+     * @param array $movies The array of Kodi albums.
+     * @return array        The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
     public static function extractAlbumImagesFromXML($albums)
     {

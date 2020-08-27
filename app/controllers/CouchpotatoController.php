@@ -23,7 +23,7 @@ class CouchpotatoController extends BaseController
 	/**
 	 * Retrieves movie details from CouchPotato API.
 	 *
-	 * @param string $id    The CouchPotate ID to use to call the API with.
+	 * @param string $id The CouchPotate ID to use to call the API with.
 	 */
 	public function movieAction($id)
 	{

@@ -3,9 +3,9 @@
         <div class="panel-heading">
             <div class="backdrop"></div>
             <div class="btn-group pull-right">
-                <button class="btn btn-default fa fa-chevron-left"></button>
-                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse"></button>
+                <button class="btn btn-default fa fa-chevron-left" title="Previous movie" aria-label="Previous movie"></button>
+                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next movie" aria-label="Next movie"></button>
+                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
             </div>
             <h4>Latest movies</h4>
         </div>
@@ -16,7 +16,7 @@
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
                 title="<?php echo $movie->c00 ?>">
-                <img src="<?php echo $movie->getImageUrl($this->config, 'thumb', 'c08', 'idMovie') ?>" loading="lazy" width="348" height="377" />
+                <img src="<?php echo $movie->getImageUrl($this->config, 'thumb', 'c08', 'idMovie') ?>" loading="lazy" width="348" height="377" alt="<?php echo $movie->c00 ?>" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $movie->c00 ?>">
                     <?php echo $movie->c00 ?>

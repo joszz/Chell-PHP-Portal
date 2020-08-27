@@ -161,6 +161,9 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($duoAKey);
     }
 
+    /**
+     * Adds ImageProxy fields to the form.
+     */
     private function setImageProxyFields(){
         $imageproxyEnabled = new Check('imageproxy-enabled');
         $imageproxyEnabled->setLabel('Enabled');
@@ -183,6 +186,9 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($imageproxyUrl);
     }
 
+    /**
+     * Adds Redis fields to the form.
+     */
     private function setRedisFields(){
         $redisEnabled = new Check('redis-enabled');
         $redisEnabled->setLabel('Enabled');

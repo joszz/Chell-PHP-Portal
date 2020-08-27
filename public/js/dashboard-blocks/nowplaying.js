@@ -2,7 +2,7 @@
 
 /**
 * The nowplaying block on the dashboard.
-* 
+*
 * @class Nowplaying
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -13,7 +13,7 @@
 
             /**
             * All the settings for this block.
-            * 
+            *
             * @property settings
             * @type Object
             */
@@ -40,7 +40,7 @@
 
             /**
             * All the functions for this block.
-            * 
+            *
             * @property functions
             * @type Object
             */
@@ -48,7 +48,7 @@
 
                 /**
                 * Initializes the eventhandlers for button clicks to navigate between nowplaying  items and sets the refresh button click handler.
-                * 
+                *
                 * @method initialize
                 */
                 initialize: function () {
@@ -64,8 +64,8 @@
                 },
 
                 /**
-                * Wrapper function to retrieve all nowplaying details. 
-                * 
+                * Wrapper function to retrieve all nowplaying details.
+                *
                 * @method nowPlaying
                 * @param {Boolean} onload Whether this function is called as part of initialization
                 */
@@ -96,7 +96,7 @@
                 /**
                 * Called on completing AJAX request to retrieve nowplaying details for either Kodi or Subsonic.<br />
                 * Hides and shows certain DOM elements based on what's playing.
-                * 
+                *
                 * @method nowPlayingCallback
                 */
                 nowPlayingCallback: function () {
@@ -124,7 +124,7 @@
 
                 /**
                 * Sets the interval to retreive new nowplaying information automatically.
-                * 
+                *
                 * @method setInterval
                 */
                 setInterval: function () {
@@ -139,7 +139,7 @@
 
                 /**
                 * Rotates the block to the next/prev player. Called by interval or pressing next/prev buttons.
-                * 
+                *
                 * @method rotate
                 * @param {String} direction Which direction to rotate to. Valid values are "left" and "right".
                 */
@@ -168,7 +168,7 @@
 
                 /**
                 * Clones the .player.nothing-playing and uses it to set up a new player based on the supplied values.
-                * 
+                *
                 * @method createPlayer
                 * @param {Object} values The values to set for the new player.
                 */
@@ -206,7 +206,7 @@
 
                 /**
                 * The Subsonic object containing all the functions related to Subsonic nowplaying.
-                * 
+                *
                 * @property subsonic
                 * @type Object
                 * @example http://www.subsonic.org/pages/api.jsp
@@ -215,7 +215,7 @@
 
                     /**
                     * Retrieves the nowplaying information from SubSonic. On complete calls functions.nowPlayingCallback().
-                    * 
+                    *
                     * @method subsonic.nowPlaying
                     */
                     nowPlaying: function () {
@@ -259,7 +259,7 @@
 
                     /**
                     * Creates a salt, used to salt the login information with. Used by functions.subsonic.getURL.
-                    * 
+                    *
                     * @method subsonic.getSalt
                     * @returns {String} A random string used as salt.
                     */
@@ -270,7 +270,7 @@
                     /**
                     * Creates a SubSonic style REST URL with username, password and salt.<br />
                     * Pass along an Array of arguments to append them to the URL.
-                    * 
+                    *
                     * @method subsonic.getURL
                     * @param {String}       view Which SubSonic view to retrieve.
                     * @param {Array} args   The extra arguments to append to the REST URL. The key will be used as the queryparameter, the value as queryvalue.
@@ -278,7 +278,7 @@
                     */
                     getURL: function (view, args) {
                         var salt = functions.subsonic.getSalt();
-                        var password = md5(settings.subsonic.password + salt);
+                        var password = SparkMD5.hash(settings.subsonic.password + salt);
                         var url = settings.subsonic.url + "rest/" + view + ".view?u=" + settings.subsonic.username + "&t=" + password + "&s=" + salt + "&v=1.14.0&c=chell";
 
                         $.each(args, function (key, value) {
@@ -291,7 +291,7 @@
 
                 /**
                 * The Kodi object containing all the functions related to Kodi nowplaying.
-                * 
+                *
                 * @property kodi
                 * @type Object
                 * @example http://kodi.wiki/view/JSON-RPC_API
@@ -301,7 +301,7 @@
                 kodi: {
                     /**
                     * Retrieves the nowplaying information from Kodi. On complete calls functions.nowPlayingCallback().
-                    * 
+                    *
                     * @method kodi.nowPlaying
                     */
                     nowPlaying: function () {
