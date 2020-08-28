@@ -2,14 +2,14 @@
 
 /**
 * Main entry point for all views.
-* 
+*
 * @class Window
 * @module General
 */
 
 /**
 * The time to show notifications, defined in config.ini.
-* 
+*
 * @property alertTimeout
 * @type Number
 */
@@ -17,7 +17,7 @@ var alertTimeout;
 
 /**
  * Enum with used keyboard shortcut codes
- * 
+ *
  * @property keys
  * @type Object
  */
@@ -29,21 +29,19 @@ var keys = {
 
 /**
 * Document onload, call to initialize plugins and eventhandlers.
-* 
+*
 * @method document.onload
 */
 $(function () {
-    //Install dummy service worker to make the site installable
-    //todo: interferes with Speedtest worker
-    //if ("serviceWorker" in navigator) {
-    //    window.addEventListener("load", function () {
-    //        navigator.serviceWorker.register("/portal/js/worker.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
-    //            // Registration was successful
-    //        }, function (_err) {
-    //            // registration failed :(
-    //        });
-    //    });
-    //}
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+            navigator.serviceWorker.register("/portal/js/worker.min.js", { scope: $("body").data("baseuri") }).then(function (_registration) {
+                // Registration was successful
+            }, function (_err) {
+                // registration failed :(
+            });
+        });
+    }
 
     alertTimeout = $(".alert").data("alert-timeout");
 
@@ -63,7 +61,7 @@ $(function () {
 
 /**
 * Initializes all globally used plugins.
-* 
+*
 * @method initializeGlobalPlugins
 */
 function initializeGlobalPlugins() {
@@ -86,7 +84,7 @@ function initializeGlobalPlugins() {
 
 /**
 * Initialized all globally used eventhandlers.
-* 
+*
 * @method initializeGlobalEventHandlers
 */
 function initializeGlobalEventHandlers() {
@@ -119,7 +117,7 @@ function initializeGlobalEventHandlers() {
 
 /**
  * Shows the alert box with the message provided.. Alerttype is a bootstrap type (success, danger etc)
- * 
+ *
  * @method showAlert
  * @param {String} alertType    The bootstrap type.
  * @param {String} message      The message to show.
@@ -131,7 +129,7 @@ function showAlert(alertType, message) {
 
 /**
 * Sets a timeout to fadeout the alert, uses alertTimeout (defined in config.ini) to determine the timeout
-* 
+*
 * @method fadeOutAlert
 */
 function fadeOutAlert() {
@@ -144,7 +142,7 @@ function fadeOutAlert() {
 
 /**
 * Capitalizes the first character of a string, as prototype so it can be used on strings.
-* 
+*
 * @method capitalize
 * @returns {String}     The capitalized string.
 */
@@ -154,7 +152,7 @@ String.prototype.capitalize = function () {
 
 /**
 * Shows a confirm dialog with yes/no buttons
-* 
+*
 * @method openConfirmDialog
 * @param {String} title         The title to set for the confirm dialog.
 * @param {String} data          The data attributes to set on the confirm dialog, for later us.
@@ -179,7 +177,7 @@ function openConfirmDialog(title, data, buttonClick) {
 
 /**
  * Zeropads a string to match a string length of the given max.
- * 
+ *
  * @method zeropad
  * @param {String} str          The string to zeropad.
  * @param {max} max             The max length of the string.

@@ -1,11 +1,15 @@
-﻿self.addEventListener("install", (event) => {
+﻿/**
+* Just a stub worker file, to make this project installable as PWA.
+*/
+
+self.addEventListener("install", function (_event) {
     self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener("activate", function(_event) {
     return self.clients.claim();
 });
 
 self.addEventListener("fetch", function (event) {
-    event.respondWith(fetch(event.request));
+    return;
 });

@@ -84,6 +84,19 @@
     "sourceMap": true
   },
   {
+    "outputFileName": "public/js/worker.min.js",
+    "inputFiles": [
+      "public/js/worker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": false
+  },
+  {
     "outputFileName": "public/css/default/bundle.css",
     "inputFiles": [
       "public/vendor/fancybox/jquery.fancybox.css",

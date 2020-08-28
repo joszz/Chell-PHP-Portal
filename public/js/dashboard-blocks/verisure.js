@@ -44,6 +44,12 @@
                 settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
             },
 
+            /**
+            * Calls the Verisure controller, Index action, to retrieve up to date information in JSON.
+            * Sets the new values to the associated blocks and formats the data (stripping underscores from values and readable dates).
+            *
+            * @method update
+            */
             update: function () {
                 settings.block.isLoading();
                 window.clearInterval(settings.updateIntervalId);
