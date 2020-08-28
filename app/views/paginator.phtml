@@ -3,7 +3,7 @@
     <ul class="pagination">
         <li>
             <a href="<?php echo ($paginator->current == 1 ? '#' : $this->config->application->baseUri . $paginator->baseURI . ($paginator->current - 1)) ?>"
-                class="fa fa-backward <?php echo $paginator->current == 1 ? 'disabled': null ?>"></a>
+                class="fa fa-backward <?php echo $paginator->current == 1 ? 'disabled': null ?>" title="Backward"></a>
         </li>
 
         <?php for($i = $paginator->start; $i <= $paginator->end; $i++ ) : ?>
@@ -16,7 +16,7 @@
 
         <li>
             <a href="<?php echo ($paginator->current == $paginator->total_items ? '#' : $this->config->application->baseUri . $paginator->baseURI . ($paginator->current + 1)) ?>"
-                class="fa fa-forward <?php echo ($paginator->current == $paginator->total_items ? 'disabled': null) ?>"></a>
+                class="fa fa-forward <?php echo ($paginator->current == $paginator->total_items ? 'disabled': null) ?>" title="Forward"></a>
         </li>
     </ul>
 </nav>

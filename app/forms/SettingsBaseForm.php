@@ -69,7 +69,7 @@ class SettingsBaseForm extends Form
                 $html .= '<a class="btn btn-default input-group-addon toggle-password" title="Toggle password display"><i class="fa fa-eye"></i></a>';
             }
 
-            $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" href="';
+            $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" title="Help" href="';
             $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
             $html .= '<i class="fa fa-question"></i></a>';
 
@@ -115,7 +115,7 @@ class SettingsBaseForm extends Form
             $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-10 text-right-not-xs">';
             $html .=  $element . '<span>'. $fieldset .  '</span>';
             $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-2">';
-            $html .= '<a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '"></a>';
+            $html .= '<a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '" title="help"></a>';
             $html .= '</div></legend>';
         }
 

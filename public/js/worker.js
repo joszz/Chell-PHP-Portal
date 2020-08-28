@@ -10,6 +10,6 @@ self.addEventListener("activate", function(_event) {
     return self.clients.claim();
 });
 
-self.addEventListener("fetch", function (event) {
+self.addEventListener("fetch", function (_event) {
     return;
 });

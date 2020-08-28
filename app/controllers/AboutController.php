@@ -15,37 +15,9 @@ class AboutController extends BaseController
     public function indexAction()
     {
         $this->view->containerFullHeight = true;
-        $content = $this->getGithubStats();
 
         $this->view->versionMajor = 0;
         $this->view->versionMinor = 1;
-        $this->view->versionCommit = $content->total;
         $this->view->versionStability = '&alpha;';
-    }
-
-    /**
-     * Retrieves the contributors from github for this project, using total commit count for versioning.
-     *
-     * @return mixed The content of the JSON decoded CURL call.
-     */
-    private function getGithubStats()
-    {
-        //first hit the main repo, to have the stats refreshed
-        $curl = curl_init("https://github.com/joszz/Chell-PHP-Portal");
-        $content = curl_exec($curl);
-        curl_close($curl);
-
-        //Now get the actual stats
-        $curl = curl_init("https://api.github.com/repos/joszz/Chell-PHP-Portal/stats/contributors");
-        curl_setopt_array ($curl, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CONNECTTIMEOUT => 0,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
-        ]);
-
-        $content = current(json_decode(curl_exec($curl)));
-        curl_close($curl);
-
-        return empty($content->total) ? $this->getGithubStats() : $content;
     }
 }
