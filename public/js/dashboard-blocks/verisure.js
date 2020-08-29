@@ -18,7 +18,8 @@
         var settings = $.extend({
             block: $(this),
             updateInterval: $(this).data("update-interval") * 1000,
-            updateIntervalId: -1
+            updateIntervalId: -1,
+            series: $(this).find(".fa-camera").data("photos")
         }, options);
 
         /**
@@ -42,12 +43,14 @@
                 $.fancybox.defaults.btnTpl.take_photo = "<button data-fancybox-take-photo class='fancybox-button fa fa-camera' title='Take photo'></button>";
 
                 $("body").on("click", "[data-fancybox-take-photo]", function () {
-                    var instance = $.fancybox.getInstance();
                     $.ajax({
-                        url: "verisure/captureimage/" + encodeURI(instance.current.deviceLabel),
+                        url: "verisure/captureimage/" + encodeURI($.fancybox.getInstance().current.deviceLabel),
                         dataType: "json",
                         success: function (data) {
-                            console.log(data);
+                            alert("photo taken");
+                        },
+                        error: function () {
+                            alert("Something went wrong");
                         }
                     });
                 });
@@ -116,10 +119,9 @@
             },
 
             photos: function () {
-                var series = settings.block.find(".fa-camera").data("photos");
                 var photos = [];
 
-                $.each(series.imageSeries, function (_index, serie) {
+                $.each(settings.series.imageSeries, function (_index, serie) {
                     photos.push({
                         src: "/portal/verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
                         caption: serie.area,
@@ -129,8 +131,8 @@
 
                 $.fancybox.open(photos, {
                     buttons: [
-                        'take_photo',
-                        'close'
+                        settings.block.find("#amstate i").hasClass("fa-verisure-away")  ? "take_photo" : null,
+                        "close"
                     ],
                     loop: true
                 });

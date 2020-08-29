@@ -41,6 +41,13 @@ class VerisureController extends BaseController
 
     public function captureimageAction($device_label)
     {
-        die(json_encode(Verisure::CaptureImage($this->config, $device_label)));
+        $output = json_encode(Verisure::CaptureImage($this->config, $device_label));
+
+        if(json_last_error() == JSON_ERROR_NONE)
+        {
+            die($output);
+        }
+
+        http_response_code(500);
     }
 }
