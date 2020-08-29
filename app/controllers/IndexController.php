@@ -70,6 +70,7 @@ class IndexController extends BaseController
         if ($this->config->verisure->enabled)
         {
             $this->view->verisure = verisure::GetOverview($this->config, false);
+            $this->view->verisure_images = verisure::GetImageSeries($this->config);
         }
     }
 

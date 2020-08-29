@@ -30,4 +30,17 @@ class VerisureController extends BaseController
         $this->view->overview = Verisure::GetOverview($this->config, false);
         $this->view->log = Verisure::GetLog($this->config);
     }
+
+    public function imageAction($device_label, $image_id, $capture_time)
+    {
+        $filename = Verisure::GetImage($this->config, $device_label, $image_id, $capture_time);
+        header('Content-Type: image/jpeg');
+        header('Content-Length: ' . filesize($filename));
+        die(readfile($filename));
+    }
+
+    public function captureimageAction($device_label)
+    {
+        die(json_encode(Verisure::CaptureImage($this->config, $device_label)));
+    }
 }

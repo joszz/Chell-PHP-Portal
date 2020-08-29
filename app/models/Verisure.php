@@ -83,6 +83,28 @@ class Verisure extends Model
         return $log;
     }
 
+    public static function GetImageSeries($config)
+    {
+        return self::executeCommand('imageseries', $config);
+    }
+
+    public static function GetImage($config, $device_label, $image_id, $capture_time)
+    {
+        $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
+
+        if(!file_exists($filename))
+        {
+            self::executeCommand('getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename, $config);
+        }
+
+        return $filename;
+    }
+
+    public static function CaptureImage($config, $device_label)
+    {
+        return self::executeCommand('capture ' . $device_label, $config);
+    }
+
     /**
      * Executes the vsure python library on the commandline and retrieves the output from the Verisure API.
      *

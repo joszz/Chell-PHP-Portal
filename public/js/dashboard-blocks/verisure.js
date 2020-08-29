@@ -39,7 +39,21 @@
                     return;
                 }
 
+                $.fancybox.defaults.btnTpl.take_photo = "<button data-fancybox-take-photo class='fancybox-button fa fa-camera' title='Take photo'></button>";
+
+                $("body").on("click", "[data-fancybox-take-photo]", function () {
+                    var instance = $.fancybox.getInstance();
+                    $.ajax({
+                        url: "verisure/captureimage/" + encodeURI(instance.current.deviceLabel),
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+                });
+
                 settings.block.find(".fa-sync").click(functions.update);
+                settings.block.find(".fa-camera").click(functions.photos);
 
                 settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
             },
@@ -98,6 +112,27 @@
                         settings.updateIntervalId = window.setInterval(functions.update, timeout);
                         settings.block.isLoading("hide");
                     }
+                });
+            },
+
+            photos: function () {
+                var series = settings.block.find(".fa-camera").data("photos");
+                var photos = [];
+
+                $.each(series.imageSeries, function (_index, serie) {
+                    photos.push({
+                        src: "/portal/verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
+                        caption: serie.area,
+                        deviceLabel: serie.deviceLabel
+                    });
+                });
+
+                $.fancybox.open(photos, {
+                    buttons: [
+                        'take_photo',
+                        'close'
+                    ],
+                    loop: true
                 });
             }
         };

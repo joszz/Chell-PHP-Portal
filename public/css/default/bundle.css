@@ -6725,7 +6725,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&3055150") format("embedded-opentype"), url("../../fonts/icomoon.woff2?8109489") format("woff2"), url("../../fonts/icomoon.woff?656864") format("woff"), url("../../fonts/icomoon.ttf?7905354") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8228076") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&8099282") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1585954") format("woff2"), url("../../fonts/icomoon.woff?7539194") format("woff"), url("../../fonts/icomoon.ttf?7896414") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?6365129") format("svg"); }
 
 .fa,
 .fas {
@@ -6854,6 +6854,9 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-key:before {
   content: "\f084"; }
+
+.fa-camera:before {
+  content: "\f030"; }
 
 .panel-group .panel-heading {
   padding: 0; }
