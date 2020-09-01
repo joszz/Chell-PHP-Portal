@@ -9,7 +9,7 @@ use Phalcon\Mvc\Model;
  *
  * @package Models\Kodi
  */
-class KodiMusic extends KodiBase
+class KodiAlbums extends KodiBase
 {
     /**
      * Sets the right DB connection and sets the table/view to album
@@ -17,7 +17,7 @@ class KodiMusic extends KodiBase
     public function initialize()
     {
         $this->setConnectionService('dbKodiMusic');
-        $this->setSource('album');
+        $this->setSource('albumview');
     }
 
     /**
@@ -28,7 +28,7 @@ class KodiMusic extends KodiBase
      */
     public static function getLatestAlbums($limit = 10)
     {
-        return self::extractAlbumImagesFromXML(self::find(['order' => 'idAlbum DESC', 'limit' => $limit]));
+        return self::extractAlbumImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
 
     /**

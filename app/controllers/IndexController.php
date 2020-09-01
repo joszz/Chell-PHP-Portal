@@ -10,7 +10,7 @@ use Chell\Models\PHPSysInfo;
 use Chell\Models\Motion;
 use Chell\Models\Youless;
 use Chell\Models\Kodi\KodiMovies;
-use Chell\Models\Kodi\KodiMusic;
+use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\SnmpHosts;
 use Chell\Models\Verisure;
@@ -35,7 +35,7 @@ class IndexController extends BaseController
         if ($this->config->kodi->enabled)
         {
             $this->view->movies = KodiMovies::getLatestMovies();
-            $this->view->albums = KodiMusic::getLatestAlbums();
+            $this->view->albums = KodiAlbums::getLatestAlbums();
             $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
         }
 
@@ -69,7 +69,7 @@ class IndexController extends BaseController
 
         if ($this->config->verisure->enabled)
         {
-            $this->view->verisure = verisure::GetOverview($this->config, false);
+            $this->view->verisure_overview = verisure::GetOverview($this->config, false);
             $this->view->verisure_images = verisure::GetImageSeries($this->config);
         }
     }

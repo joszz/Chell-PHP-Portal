@@ -187,3 +187,7 @@ $fa-font-path: "../../fonts";
 .#{$fa-css-prefix}-camera:before {
     content: fa-content($fa-var-camera);
 }
+
+.#{$fa-css-prefix}-image:before {
+    content: fa-content($fa-var-image);
+}

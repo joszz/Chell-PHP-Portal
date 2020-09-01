@@ -1,12 +1,14 @@
+
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <div class="panel panel-success verisure" data-update-interval="<?php echo $this->config->verisure->updateInterval ?>">
         <div class="panel-heading">
             <div class="btn-group pull-right">
                 <a href="<?php echo $this->config->application->baseUri ?>verisure/details/" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>
                 <a href="<?php echo $this->config->verisure->URL ?>" target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="MyPages"></a>
-                <?php if($verisure_images->totalNumberOfImageSeries > 0) : ?>
-                <button class="btn btn-default fa fa-camera" title="Photos" aria-label="Photos" data-photos='<?php echo json_encode($verisure_images) ?>'></button>
-                <?php endif ?>
+                <button class="btn btn-default fa fa-camera <?php echo ($verisure_images->totalNumberOfImageSeries == 0 ? 'hidden' : null) ?>"
+                    title="Photos" aria-label="Photos" data-photos='<?php echo json_encode($verisure_images) ?>'></button>
+                <button class="btn btn-default fa fa-image <?php echo ($verisure_overview->armState->statusType != Chell\Models\Verisure::$statusArmedAwayCode ? 'hidden' : null) ?>"
+                    title="Take photo" aria-label="Photos" data-overview='<?php echo json_encode($verisure_overview) ?>'></button>
                 <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
                 <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
             </div>
@@ -15,16 +17,16 @@
         <div class="panel-body hidden-xs">
             <div class="top">
                 <div class="text-center" id="amstate">
-                    <?php if ($verisure->armState->statusType == 'DISARMED') : ?>
-                    <i class="fa fa-verisure-disarmed text-danger"></i>
-                    <?php elseif ($verisure->armState->statusType == 'ARMED') : ?>
-                    <i class="fa fa-verisure-away text-success"></i>
+                    <?php if ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode) : ?>
+                    <button class="fa fa-verisure-disarmed text-danger"></button>
+                    <?php elseif ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode) : ?>
+                    <button class="fa fa-verisure-away text-success"></button>
                     <?php else : ?>
-                    <i class="fa fa-verisure-stay text-warning"></i>
+                    <button class="fa fa-verisure-stay text-warning"></button>
                     <?php endif ?>
                 </div>
                 <div>
-                    <?php foreach($verisure->climateValues as $value) : ?>
+                    <?php foreach($verisure_overview->climateValues as $value) : ?>
                     <div class="temp text-right" id="<?php echo str_replace(' ', '_', $value->deviceLabel) ?>">
                         <span class="text-bold">
                             <?php echo $value->deviceArea ?>
@@ -43,7 +45,7 @@
                         Status
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 status">
-                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure->armState->statusType))) ?>
+                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure_overview->armState->statusType))) ?>
                     </div>
                 </li>
                 <li class="list-group-item col-xs-12">
@@ -51,7 +53,7 @@
                         Changed by
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 name">
-                        <?php echo (isset($verisure->armState->name) ? $verisure->armState->name : 'Unknown') ?>
+                        <?php echo (isset($verisure_overview->armState->name) ? $verisure_overview->armState->name : 'Unknown') ?>
                     </div>
                 </li>
                 <li class="list-group-item col-xs-12">
@@ -59,7 +61,7 @@
                         Changed on
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 date">
-                        <?php echo date('d-m-Y H:i', strtotime($verisure->armState->date)) ?>
+                        <?php echo date('d-m-Y H:i', strtotime($verisure_overview->armState->date)) ?>
                     </div>
                 </li>
                 <li class="list-group-item col-xs-12">
@@ -67,10 +69,49 @@
                         Changed with
                     </div>
                     <div class="col-xs-8 col-sm-7 col-lg-8 via">
-                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure->armState->changedVia))) ?>
+                        <?php echo str_replace('_', ' ', ucfirst(strtolower($verisure_overview->armState->changedVia))) ?>
                     </div>
                 </li>
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="hidden_not_important" id="verisure_device_select">
+    <h2>Take photo</h2>
+    <div>
+        <?php foreach($verisure_overview->customerImageCameras as $camera) : ?>
+        <button data-device-label="<?php echo $camera->deviceLabel ?>" class="btn btn-primary">
+            <?php echo $camera->area ?>
+        </button>
+        <?php endforeach ?>
+    </div>
+</div>
+
+<div class="hidden_not_important" id="verisure_set_armstate">
+    <div class="text-center">
+        <?php if ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode) : ?>
+        <i class="fa fa-verisure-disarmed text-danger" title="Disarmed"></i>
+        <?php elseif ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode) : ?>
+        <i class="fa fa-verisure-away text-success" title="Away"></i>
+        <?php else : ?>
+        <i class="fa fa-verisure-stay text-warning" title="Stay"></i>
+        <?php endif ?>
+        <h2>Select new arm state </h2>
+
+        <div class="button-wrapper">
+            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode ? 'hidden' : null ?>">
+                <button class="btn btn-success fa fa-verisure-away" data-state="<?php echo Chell\Models\Verisure::$statusArmedAwayCode ?>"></button>
+                <h3>Arm away</h3>
+            </div>
+            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedStayCode ? 'hidden' : null ?>">
+                <button class="btn btn-warning fa fa-verisure-stay" data-state="<?php echo Chell\Models\Verisure::$statusArmedStayCode ?>"></button>
+                <h3>Arm stay</h3>
+            </div>
+            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode ? 'hidden' : null ?>">
+                <button class="btn btn-danger fa fa-verisure-disarmed" data-state="<?php echo Chell\Models\Verisure::$statusDisarmedCode ?>"></button>
+                <h3>Disarm</h3>
+            </div>
         </div>
     </div>
 </div>

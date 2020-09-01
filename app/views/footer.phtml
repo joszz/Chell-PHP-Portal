@@ -14,9 +14,10 @@
                 <button class="btn btn-dark fa fa-arrows-alt rounded-not-mobile" title="Fullscreen" aria-label="Fullscreen"></button>
             </div>
             <div class="visible-sm visible-md visible-lg execution-time pull-right">
-                Execution time | Total: <?php echo round(($executionTime + microtime(true)), 2) ?>s
+                Version: <?php echo $this->config->application->version ?> |
+                Execution time - Total: <?php echo round(($executionTime + microtime(true)), 2) ?>s
                 <?php if(isset($phpsysinfoExecutionTime) && is_string($phpsysinfoExecutionTime)) : ?>
-                | PHPSysInfo: <?php echo $phpsysinfoExecutionTime ?>
+                - PHPSysInfo: <?php echo $phpsysinfoExecutionTime ?>
                 <?php endif ?>
             </div>
         </div>

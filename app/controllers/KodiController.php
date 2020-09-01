@@ -3,7 +3,7 @@
 namespace Chell\Controllers;
 
 use Chell\Models\Kodi\KodiMovies;
-use Chell\Models\Kodi\KodiMusic;
+use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShow;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 
@@ -66,7 +66,7 @@ class KodiController extends BaseController
 	 */
 	public function albumAction($id)
 	{
-		$album = KodiMusic::findFirst([
+		$album = KodiAlbums::findFirst([
 			'conditions' => 'idAlbum = ?1',
 			'bind'       => [1 => $id],
 		]);
@@ -90,11 +90,11 @@ class KodiController extends BaseController
 				break;
 
 			case 'albums':
-				$item = KodiMusic::findFirst([
+				$item = KodiAlbums::findFirst([
 					'conditions' => 'idAlbum = ?1',
 					'bind'       => [1 => $id],
 				]);
-				$url = current(KodiMusic::extractAlbumImagesFromXML([$item]))->strImage;
+				$url = current(KodiAlbums::extractAlbumImagesFromXML([$item]))->strImage;
 				break;
 
 			case 'episodes':

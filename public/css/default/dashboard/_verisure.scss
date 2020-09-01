@@ -2,14 +2,10 @@
     padding: 0;
 }
 
-.verisure #amstate {
-    font-size: 10rem;
-}
-
 .verisure .top {
     display: flex;
     align-items: center;
-    padding: 0 15px 15px;
+    padding: 15px;
 
     > div {
         flex: 1;
@@ -19,6 +15,18 @@
         margin-bottom: 1rem;
         font-size: 1.75rem;
     }
+
+    button {
+        border: 0;
+        background: transparent;
+        font-size: 10rem;
+        line-height: 12rem;
+        transition: font-size .25s;
+
+        &:hover {
+            font-size: 12rem;
+        }
+    }
 }
 
 .verisure .panel-body li:first-child {
@@ -27,4 +35,67 @@
 
 .verisure .panel-body li {
     border-width: 1px;
+}
+
+#verisure_device_select button {
+    font-size: 2rem;
+    margin-right: 5rem;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+#verisure_set_armstate {
+    padding: 22px;
+
+    > .text-center {
+        min-width: 300px;
+    }
+
+    h2 {
+        margin-top: 20px;
+    }
+
+    .fa {
+        font-size: 6rem;
+        line-height: normal;
+        box-shadow: 0 5px 5px #CCC;
+        border-radius: 50%;
+        border: 1px solid #CCC;
+        padding: 15px 15px 15px 15px;
+        transition: font-size .25s;
+    }
+
+    .button-wrapper {
+        display: flex;
+        min-height: 200px;
+
+        h3 {
+            margin-top: auto;
+        }
+
+        .state-change {
+            display: flex;
+            flex-direction: column;
+            margin: 0 15px;
+            flex: 1;
+
+            button {
+                font-size: 6rem;
+                line-height: normal;
+                box-shadow: 0 5px 5px #CCC;
+                margin: auto auto 0;
+                border-radius: 50%;
+                border: 1px solid #CCC;
+                flex-grow: 0;
+                padding: 15px 15px 15px 15px;
+                transition: font-size .25s;
+
+                &:hover {
+                    font-size: 8rem;
+                }
+            }
+        }
+    }
 }

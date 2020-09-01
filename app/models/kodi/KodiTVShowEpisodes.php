@@ -41,7 +41,7 @@ class KodiTVShowEpisodes extends KodiBase
      */
     public static function getLatestEpisodes($limit = 10)
     {
-        return self::extractMovieImagesFromXML(self::find(['order' => 'idEpisode DESC', 'limit' => $limit]));
+        return self::extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
 
     /**

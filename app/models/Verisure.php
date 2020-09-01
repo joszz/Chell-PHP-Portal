@@ -17,6 +17,10 @@ class Verisure extends Model
         'DOORWINDOW_STATE_OPENED' => 'Opened'
     ];
 
+    public static $statusDisarmedCode = 'DISARMED';
+    public static $statusArmedAwayCode = 'ARMED_AWAY';
+    public static $statusArmedStayCode = 'ARMED_HOME';
+
     /**
      * Gets the current arm state of the alarm.
      *
@@ -58,11 +62,16 @@ class Verisure extends Model
         return $encode ? json_encode($overview) : $overview;
     }
 
+    public static function SetArmState($config, $state)
+    {
+        self::executeCommand('set alarm ' . $config->verisure->securityCode . ' ' . $state, $config);
+    }
+
     /**
      * Retrieves the current log records.
      *
      * @param object $config	The config object representing config.ini.
-     * @return object           An objectwith all eventLogItems in it.
+     * @return object           An object with all eventLogItems in it.
      */
     public static function GetLog($config)
     {
@@ -83,11 +92,23 @@ class Verisure extends Model
         return $log;
     }
 
+    /**
+     * Retrieves all the recorded images for the configured account.
+     *
+     * @param object $config	The config object representing config.ini.
+     * @return object           An objectwith all the imageseries in it.
+     */
     public static function GetImageSeries($config)
     {
         return self::executeCommand('imageseries', $config);
     }
 
+    /**
+     * Calls the Verisure API to retrieve an image and write it to disk. If the file already exists, than return the filename directly.
+     *
+     * @param object $config	The config object representing config.ini.
+     * @return string           The full filepath for the image cached on disk.
+     */
     public static function GetImage($config, $device_label, $image_id, $capture_time)
     {
         $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
@@ -100,6 +121,12 @@ class Verisure extends Model
         return $filename;
     }
 
+    /**
+     * Calls the Verisure API to capture an image for the device with $device_label.
+     *
+     * @param object $config	The config object representing config.ini.
+     * @return object           An object with the JSON encoded output of the API call.
+     */
     public static function CaptureImage($config, $device_label)
     {
         return self::executeCommand('capture ' . $device_label, $config);

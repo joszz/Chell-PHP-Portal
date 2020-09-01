@@ -34,7 +34,7 @@ class KodiMovies extends KodiBase
      */
     public static function getLatestMovies($limit = 10)
     {
-        return self::extractMovieImagesFromXML(self::find(['order' => 'idMovie DESC', 'limit' => $limit]));
+        return self::extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
 
     /**

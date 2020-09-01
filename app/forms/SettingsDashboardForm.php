@@ -701,14 +701,21 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$verisurePassword = new Password('verisure-password');
 		$verisurePassword->setLabel('Verisure password')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($this->_config->verisure->password);
+
+        $verisurePin = new Password('verisure-pin');
+		$verisurePin->setLabel('Verisure pin')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setDefault($this->_config->verisure->securityCode);
 
 		$this->add($verisureEnabled);
 		$this->add($verisureInterval);
 		$this->add($verisureURL);
 		$this->add($verisureUsername);
 		$this->add($verisurePassword);
+		$this->add($verisurePin);
 	}
 
 	/**
@@ -803,6 +810,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			$this->_config->verisure->URL = $data['verisure-url'];
 			$this->_config->verisure->username = $data['verisure-username'];
 			$this->_config->verisure->password = $data['verisure-password'];
+			$this->_config->verisure->securityCode = $data['verisure-pin'];
 		}
 
 		return $valid;

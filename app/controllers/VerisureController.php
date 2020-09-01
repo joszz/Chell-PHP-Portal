@@ -31,6 +31,24 @@ class VerisureController extends BaseController
         $this->view->log = Verisure::GetLog($this->config);
     }
 
+    /**
+     * Sets the alarm to the requested $state.
+     *
+     * @param string $state The state to set the alarm to.
+     */
+    public function armAction($state)
+    {
+        Verisure::SetArmState($this->config, $state);
+        die("true");
+    }
+
+    /**
+     * Retrieves the image from the Verisure API, writes it to disk and then output the contents to the browser.
+     *
+     * @param string $device_label  The device label to retrieve the image for.
+     * @param string $image_id      The image Id to retrieve.
+     * @param string $capture_time  The capture time, used as the filename.
+     */
     public function imageAction($device_label, $image_id, $capture_time)
     {
         $filename = Verisure::GetImage($this->config, $device_label, $image_id, $capture_time);
@@ -39,6 +57,12 @@ class VerisureController extends BaseController
         die(readfile($filename));
     }
 
+    /**
+     * Calls the Verisure API to capture an image for the requested device (defined by $device_label).
+     * If the output of the call is valid JSON, output the $output to the browser. Otherwise set a 500 error.
+     *
+     * @param string $device_label  The device label to capture an image for.
+     */
     public function captureimageAction($device_label)
     {
         $output = json_encode(Verisure::CaptureImage($this->config, $device_label));
@@ -49,5 +73,13 @@ class VerisureController extends BaseController
         }
 
         http_response_code(500);
+    }
+
+    /**
+     * Retrieves the imageSeries for the configured account.
+     */
+    public function imageseriesAction()
+    {
+        die(json_encode(verisure::GetImageSeries($this->config)));
     }
 }

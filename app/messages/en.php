@@ -108,6 +108,7 @@ $help = [
     'verisure-url'                  => 'The URL for the Verisure MyPages website (or any other URL you would like the button in the header to link to).',
     'verisure-username'             => 'The Verisure MyPages username to authenticate to the API with.',
     'verisure-password'             => 'The Verisure MyPages password to authenticate to the API with.',
+    'verisure-pin'                  => 'The Verisure PIN to set the alarm with.',
 ];
 
 $helpTitles = [
@@ -218,4 +219,5 @@ $helpTitles = [
     'verisure-url'                  => 'Verisure URL',
     'verisure-username'             => 'Verisure username.',
     'verisure-password'             => 'Verisure password',
+    'verisure-pin'                  => 'Verisure PIN',
 ];

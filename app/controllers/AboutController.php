@@ -15,9 +15,5 @@ class AboutController extends BaseController
     public function indexAction()
     {
         $this->view->containerFullHeight = true;
-
-        $this->view->versionMajor = 0;
-        $this->view->versionMinor = 1;
-        $this->view->versionStability = '&alpha;';
     }
 }
