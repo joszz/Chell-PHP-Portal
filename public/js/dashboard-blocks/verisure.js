@@ -128,8 +128,9 @@
             },
 
             set_arm_state: function (state) {
+
                 $.ajax({
-                    url: "verisure/arm/" + state,
+                    url: "verisure/arm/" + state + "/" + $("#verisure_set_armstate #verisure_pin").val(),
                     success: function (_data) {
                         showAlert("success", "Alarm state changed");
                         $.fancybox.getInstance().close();

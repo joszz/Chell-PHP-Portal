@@ -99,6 +99,10 @@
         <?php endif ?>
         <h2>Select new arm state </h2>
 
+        <?php if(empty($this->config->verisure->securityCode)): ?>
+        <input type="password" id="verisure_pin" value="" class="form-control" placeholder="PIN" />
+        <?php endif ?>
+
         <div class="button-wrapper">
             <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode ? 'hidden' : null ?>">
                 <button class="btn btn-success fa fa-verisure-away" data-state="<?php echo Chell\Models\Verisure::$statusArmedAwayCode ?>"></button>

@@ -78,7 +78,8 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            $this->config->application->baseUri . 'vendor/prism/themes/prism.css'
+            $this->config->application->baseUri . 'vendor/prism/themes/prism.css',
+            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css'
         ];
         $this->js = [
             $this->config->application->baseUri . 'vendor/jquery/jquery.min.js',
@@ -86,6 +87,7 @@ class ErrorController
             $this->config->application->baseUri . 'vendor/prism/components/prism-markup-templating.min.js',
             $this->config->application->baseUri . 'vendor/prism/components/prism-php.min.js',
             $this->config->application->baseUri . 'vendor/prism/components/prism-php-extras.min.js',
+            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
             $this->config->application->baseUri . 'js/exception.js'
         ];
 

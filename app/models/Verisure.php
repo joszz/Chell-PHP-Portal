@@ -62,9 +62,9 @@ class Verisure extends Model
         return $encode ? json_encode($overview) : $overview;
     }
 
-    public static function SetArmState($config, $state)
+    public static function SetArmState($config, $state, $pin)
     {
-        self::executeCommand('set alarm ' . $config->verisure->securityCode . ' ' . $state, $config);
+        self::executeCommand('set alarm ' . $pin . ' ' . $state, $config);
     }
 
     /**

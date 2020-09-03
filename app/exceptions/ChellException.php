@@ -67,7 +67,7 @@ class ChellException extends \Exception
      */
     public function getFileHighlight()
     {
-        return '<pre data-line="' . $this->surroundingLines . '"><code class="language-php">'. $this->getFileContents() . '</code></pre>';
+        return '<pre data-line="' . $this->surroundingLines . '" data-start="' . $this->getLineNumberStart() . '"><code class="language-php">'. $this->getFileContents() . '</code></pre>';
     }
 
     /**
@@ -79,5 +79,10 @@ class ChellException extends \Exception
     public function getDate($format = 'd-m-Y H:i:s')
     {
         return date($format, $this->time);
+    }
+
+    private function getLineNumberStart()
+    {
+        return $this->line - $this->surroundingLines > 0 ? $this->line - $this->surroundingLines : 1;
     }
 }
