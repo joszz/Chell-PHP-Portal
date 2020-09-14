@@ -29,13 +29,11 @@
                 <div>
                     <?php foreach($verisure_overview->climateValues as $value) : ?>
                     <div class="temp text-right" id="<?php echo str_replace(' ', '_', $value->deviceLabel) ?>">
-                        <span class="text-bold">
+                        <div class="text-bold">
                             <?php echo $value->deviceArea ?>
-                        </span> :
-                        <span class="value">
-                            <?php echo $value->temperature ?>&deg;
-                        </span>
-                        <i class="fa fa-thermometer-half <?php echo $value->cssClass ?>"></i>
+                            <i class="fa fa-thermometer-half <?php echo $value->cssClass ?>"></i>
+                        </div>
+                        <div class="value"><?php echo $value->temperature ?>&deg;</div>
                     </div>
                     <?php endforeach?>
                 </div>

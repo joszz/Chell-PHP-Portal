@@ -1,14 +1,11 @@
 ﻿.youless {
-    h5 {
-        font-size: 24px;
-    }
-
-    .panel-body {
-        text-align: center;
-    }
-
     .power {
-        font-size: 40px;
-        font-weight: bold;
+        display: flex;
+        align-items: center;
+
+        .value {
+            font-size: 40px;
+            font-weight: bold;
+        }
     }
 }

@@ -5202,7 +5202,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&7310770") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5677007") format("woff2"), url("../../fonts/icomoon.woff?3845079") format("woff"), url("../../fonts/icomoon.ttf?3033776") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8087617") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&73741") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9158432") format("woff2"), url("../../fonts/icomoon.woff?6303609") format("woff"), url("../../fonts/icomoon.ttf?2360248") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?6603037") format("svg"); }
 
 .fa,
 .fas {
@@ -6214,15 +6214,12 @@ div.motion .panel-body {
   .panel.chartist.with-nav-tabs {
     max-height: 500px; } }
 
-.youless h5 {
-  font-size: 24px; }
-
-.youless .panel-body {
-  text-align: center; }
-
 .youless .power {
-  font-size: 40px;
-  font-weight: bold; }
+  display: flex;
+  align-items: center; }
+  .youless .power .value {
+    font-size: 40px;
+    font-weight: bold; }
 
 .verisure .panel-body {
   padding: 0; }

@@ -61,8 +61,8 @@
                     dataType: "json",
                     success: function (data) {
                         settings.block.find(".counter .value").text(data.counter);
-                        settings.block.find(".power .value").text(data.power);
-                        settings.block.find(".power").attr("class", "power " + data.class);
+                        settings.block.find(".power .value span").text(data.power);
+                        settings.block.find(".power .value").attr("class", "value " + data.class);
                     },
                     complete: function () {
                         settings.block.isLoading("hide");

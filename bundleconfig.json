@@ -100,10 +100,10 @@
     "outputFileName": "public/css/default/bundle.css",
     "inputFiles": [
       "public/vendor/fancybox/jquery.fancybox.css",
-      "public/css/vendor/waves.css",
+      "public/vendor/waves/waves.css",
       "public/vendor/bootstrap-select/css/bootstrap-select.css",
       "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
-      "public/vendor/bootstrap-touchspin/css/jquery.bootstrap-touchspin.css",
+      "public/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.css",
       "public/vendor/bootstrap-toggle/css/bootstrap-toggle.css",
 
       "public/css/default/default.css"

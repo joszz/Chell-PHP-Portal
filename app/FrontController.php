@@ -74,6 +74,16 @@ class FrontController
         'settings' => ['js/settings.js']
     ];
 
+    private $cssFiles = [
+        'vendor/fancybox/jquery.fancybox.css',
+        'vendor/waves/waves.css',
+        'vendor/bootstrap-select/css/bootstrap-select.css',
+        'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
+        'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.css',
+        'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
+        'css/default/default.css'
+    ];
+
     /**
      * Initialize Phalcon.
      */
@@ -268,15 +278,29 @@ class FrontController
     {
         $version = $this->config->application->version;
 
-        $this->application->assets->collection('header')->addCss('css/default/bundle.' . ($this->config->application->debug ? null : 'min.') . 'css', true, false, [], $version, true);
+        if($this->config->application->debug)
+        {
+            foreach($this->cssFiles as $file){
+            $this->application->assets->collection('header')->addCss($file, true, false, [], $version, true);
+            }
 
-        foreach($this->jsFiles as $collection => $files){
-            if($this->config->application->debug){
-                foreach($files as $file){
+        }
+        else
+        {
+            $this->application->assets->collection('header')->addCss('css/default/bundle.min.css', true, false, [], $version, true);
+        }
+
+        foreach($this->jsFiles as $collection => $files)
+        {
+            if($this->config->application->debug)
+            {
+                foreach($files as $file)
+                {
                     $this->application->assets->collection($collection)->addJs($file, true, false, ['defer' => 'defer'], $version, true);
                 }
             }
-            else {
+            else
+            {
                 $this->application->assets->collection($collection)->addJs('js/' . $collection . '.min.js', true, false, ['defer' => 'defer'], $version, true);
             }
         }
