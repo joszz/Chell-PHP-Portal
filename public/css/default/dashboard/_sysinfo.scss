@@ -26,6 +26,12 @@ div.distro span {
 }
 .panel.processes ul {
     height: 362px;
+    width: 100%;
     overflow-y: auto;
     float: left;
+}
+
+.harddisks ul {
+    height: 180px;
+    width: 100%;
 }

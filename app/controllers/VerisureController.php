@@ -29,6 +29,7 @@ class VerisureController extends BaseController
         $this->view->overflow = true;
         $this->view->overview = Verisure::GetOverview($this->config, false);
         $this->view->log = Verisure::GetLog($this->config);
+        $this->view->firmware = Verisure::GetFirmwareStatus($this->config);
     }
 
     /**

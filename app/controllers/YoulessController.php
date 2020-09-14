@@ -16,7 +16,7 @@ class YoulessController extends BaseController
      */
     public function indexAction()
     {
-        $power = (new Youless())->getCurrentPowerUsage($this->config);
-        die(json_encode(['power' => $power, 'class' => Youless::getTextClass($this->config, $power)]));
+        $stats = (new Youless())->getCurrentStats($this->config);
+        die(json_encode(['power' => $stats->pwr, 'counter' => $stats->cnt, 'class' => Youless::getTextClass($this->config, $stats->pwr)]));
     }
 }

@@ -133,6 +133,17 @@ class Verisure extends Model
     }
 
     /**
+     * Calls the Verisure API to retrieve firmware statistics.
+     *
+     * @param object $config	The config object representing config.ini.
+     * @return object           An object with the JSON encoded output of the API call.
+     */
+    public static function GetFirmwareStatus($config)
+    {
+        return self::executeCommand('firmware_status', $config);
+    }
+
+    /**
      * Executes the vsure python library on the commandline and retrieves the output from the Verisure API.
      *
      * @param string $command   The command to execute on the Verisure API.

@@ -1,7 +1,8 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
 <?php /** @var $signRequest string */ ?>
 
-<script src="<?php echo $this->config->application->baseUri ?>vendor/duo/Duo-Web-v2.min.js"></script>
-<script src="<?php echo $this->config->application->baseUri ?>js/duo.js" id="duojs" data-baseuri="<?php echo $this->config->application->baseUri ?>"></script>
+<script <?php echo 'src="' . $this->config->application->baseUri . 'vendor/duo/Duo-Web-v2.min.js"' ?>></script>
+<script <?php echo 'src="' . $this->config->application->baseUri . 'js/duo.js"' ?> id="duojs" data-baseuri="<?php echo $this->config->application->baseUri ?>"></script>
 
 <div class="vertical-center text-center" >
     <iframe id="duo_iframe" class="hidden_not_important"

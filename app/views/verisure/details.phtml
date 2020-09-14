@@ -1,3 +1,5 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
 <div class="panel panel-success with-nav-tabs" style="max-height:800px;min-height: 400px">
     <div class="panel-heading">
         <h4 class="pull-left hidden-xs">Verisure</h4>
@@ -12,10 +14,16 @@
                     Log
                 </a>
             </li>
+            <li>
+                <a data-toggle="tab" href="#firmware">
+                    Firmware
+                </a>
+            </li>
         </ul>
     </div>
     <div class="tab-content">
         <?php $this->partial('verisure/partials/doorwindow') ?>
         <?php $this->partial('verisure/partials/log') ?>
+        <?php $this->partial('verisure/partials/firmware') ?>
     </div>
 </div>

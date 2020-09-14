@@ -1,3 +1,5 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
 <footer class="navbar navbar-inverse">
     <div class="container text-muted">
         <div class="col-xs-6 col-md-6 col-sm-5">
@@ -15,10 +17,7 @@
             </div>
             <div class="visible-sm visible-md visible-lg execution-time pull-right">
                 Version: <?php echo $this->config->application->version ?> |
-                Execution time - Total: <?php echo round(($executionTime + microtime(true)), 2) ?>s
-                <?php if(isset($phpsysinfoExecutionTime) && is_string($phpsysinfoExecutionTime)) : ?>
-                - PHPSysInfo: <?php echo $phpsysinfoExecutionTime ?>
-                <?php endif ?>
+                Execution time: <?php echo round(($executionTime + microtime(true)), 2) ?>s
             </div>
         </div>
     </div>

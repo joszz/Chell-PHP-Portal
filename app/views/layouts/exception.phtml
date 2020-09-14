@@ -1,3 +1,5 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +67,7 @@
     </style>
 
     <?php foreach($this->js as $js) : ?>
-    <script type="text/javascript" src="<?php echo $js ?>" defer="defer"></script>
+    <script type="text/javascript" <?php echo 'src="' . $js .'"' ?> defer="defer"></script>
     <?php endforeach ?>
 
     <?php if($this->config->application->debug) : ?>

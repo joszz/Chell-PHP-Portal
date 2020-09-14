@@ -6,7 +6,6 @@ use Phalcon\Mvc\View;
 
 use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
-use Chell\Models\PHPSysInfo;
 use Chell\Models\Motion;
 use Chell\Models\Youless;
 use Chell\Models\Kodi\KodiMovies;
@@ -22,8 +21,6 @@ use Chell\Models\Verisure;
  */
 class IndexController extends BaseController
 {
-    private $executionTime;
-
     /**
      * Shows the dashboard view
      */
@@ -51,15 +48,7 @@ class IndexController extends BaseController
 
         if ($this->config->youless->enabled)
         {
-            $this->view->youlessPowerUsage = (new Youless())->getCurrentPowerUsage($this->config);
-        }
-
-        $this->executionTime = -microtime(true);
-
-        if ($this->config->phpsysinfo->enabled)
-        {
-            $this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
-            $this->view->phpsysinfoExecutionTime = round(($this->executionTime + microtime(true)), 2) . 's';
+            $this->view->youlessStats = (new Youless())->getCurrentStats($this->config);
         }
 
         if ($this->config->snmp->enabled)

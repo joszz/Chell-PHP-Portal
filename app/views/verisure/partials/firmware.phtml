@@ -1,0 +1,32 @@
+<div id="firmware" class="tab-pane fade">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <td>
+                        Upgradeable
+                    </td>
+                    <td>
+                        <?php echo ($firmware->upgradeable ? 'Yes' : 'No') ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Current firmware
+                    </td>
+                    <td>
+                        <?php echo $firmware->gateways[0]->reportedRunningFirmware ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Latest firmware
+                    </td>
+                    <td>
+                        <?php echo $firmware->latestFirmware ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

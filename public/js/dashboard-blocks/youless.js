@@ -2,7 +2,7 @@
 
 /**
 * The speedtest block on the dashboard.
-* 
+*
 * @class Speedtest
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -11,7 +11,7 @@
     $.fn.youless = function (options) {
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -24,14 +24,14 @@
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
         var functions = {
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method checkstates
             */
             initialize: function () {
@@ -60,7 +60,8 @@
                     url: "youless/",
                     dataType: "json",
                     success: function (data) {
-                        settings.block.find(".value").text(data.power);
+                        settings.block.find(".counter .value").text(data.counter);
+                        settings.block.find(".power .value").text(data.power);
                         settings.block.find(".power").attr("class", "power " + data.class);
                     },
                     complete: function () {

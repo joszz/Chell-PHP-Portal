@@ -42,12 +42,16 @@
 
                     settings.block.find(".fa-sync").off().on("click", function () {
                         if (settings.block.hasClass("processes")) {
-                            functions.psstatus();
+                            functions.getPsStatus();
                         }
                         else {
                             functions.getAll();
                         }
                     });
+
+                    if (settings.block.hasClass("sysinfo")) {
+                        functions.getAll();
+                    }
                 },
 
                 /**
@@ -57,26 +61,31 @@
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 getAll: function () {
-                    $(".sysinfo, #hardware, .harddisks").isLoading();
+                    $(".sysinfo, #hardware, .harddisks, .processes").isLoading();
 
                     var d = new Date();
 
                     $.ajax({
-                        url: settings.url + "xml.php?json&" + d.getTime(),
+                        url: settings.url + "xml.php?json&plugin=complete&" + d.getTime(),
                         dataType: "json",
                         beforeSend: function (xhr) {
                             xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
                         },
                         success: function (data) {
-                            functions.setSysinfo(data);
-                            functions.setCPUCores(data);
-                            functions.setNetwork(data);
-                            functions.setRAM(data);
-                            functions.setDisks(data);
-                            functions.setUpdateNotifier(data);
+                            var hardwareBlock = $("#hardware");
+                            var sysinfoBlock = $(".sysinfo");
+                            var diskBlock = $(".harddisks");
+
+                            functions.setSysinfo(data, sysinfoBlock);
+                            functions.setCPUCores(data, hardwareBlock);
+                            functions.setNetwork(data, hardwareBlock);
+                            functions.setRAM(data, sysinfoBlock);
+                            functions.setDisks(data, diskBlock);
+                            functions.setUpdateNotifier(data, sysinfoBlock);
+                            functions.setPsStatus(data);
                         },
                         complete: function () {
-                            $(".sysinfo, #hardware, .harddisks").isLoading("hide");
+                            $(".sysinfo, #hardware, .harddisks, .processes").isLoading("hide");
                         }
                     });
                 },
@@ -88,15 +97,11 @@
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
-                setSysinfo: function (data) {
-                    settings.block.find("div.host").html(data.Vitals["@attributes"].Hostname);
-
-                    settings.block.find("div.distro span").html(data.Vitals["@attributes"].Distro);
-                    settings.block.find("div.distro div.icon").css("background-image", "url('" + settings.url + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
-                    settings.block.find
-                    settings.block.find("div.kernel").html(data.Vitals["@attributes"].Kernel);
-                    settings.block.find(".cpu-model-label").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
-                    settings.block.find("div.motherboard").html(data.Hardware["@attributes"].Name);
+                setSysinfo: function (data, block) {
+                    block.find("div.host").html(data.Vitals["@attributes"].Hostname);
+                    block.find("div.distro span").html(data.Vitals["@attributes"].Distro);
+                    block.find("div.distro div.icon").css("background-image", "url('" + settings.url + "gfx/images/" + data.Vitals["@attributes"].Distroicon + "')");
+                    block.find("div.kernel").html(data.Vitals["@attributes"].Kernel);
 
                     var date = new Date();
                     date.setSeconds(date.getSeconds() - Math.floor(data.Vitals["@attributes"].Uptime));
@@ -104,7 +109,7 @@
                     if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
                         clearInterval(settings.block.find("div.time").data("tinyTimer").interval);
                     }
-                    settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
+                    block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                 },
 
                 /**
@@ -113,21 +118,31 @@
                 * @method setCPUCores
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setCPUCores: function (data) {
+                setCPUCores: function(data, block) {
+                    block.find(".cpu-model .value").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
+                    block.find(".motherboard .value").html(data.Hardware["@attributes"].Name);
+
                     $.each(data.Hardware.CPU.CpuCore, function (index, value) {
                         var coreSpeedCurrent = Math.round(value["@attributes"].CpuSpeed / 10) / 100 + " GHz";
                         var coreSpeedMin = Math.round(value["@attributes"].CpuSpeedMin / 10) / 100 + " GHz";
                         var coreSpeedMax = Math.round(value["@attributes"].CpuSpeedMax / 10) / 100 + " GHz";
                         var coreLabel, coreTemp;
 
-                        $.each(data.MBInfo.Temperature.Item, function (indexTemps, valueTemps) {
-                            if ($.trim(valueTemps["@attributes"].Label.toLowerCase()) === "core " + index) {
-                                coreLabel = valueTemps["@attributes"].Label;
+                        $.each(data.MBInfo.Temperature.Item, function (_indexTemps, valueTemps) {
+                            if ($.trim(valueTemps["@attributes"].Label.toLowerCase()).indexOf("core " + index) !== -1) {
+                                coreLabel = "Core " + index;
                                 coreTemp = valueTemps["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase();
                             }
                         });
 
-                        var core = $("li.cpu-cores:eq(" + index + ")");
+                        var core = block.find("li.cpu-cores:not(.clone)").eq(index);
+
+                        if (core.length === 0) {
+                            core = block.find("li.cpu-cores.clone").clone();
+                            core.removeClass("hidden clone");
+                            core.insertAfter(block.find(".motherboard"));
+                        }
+
                         core.find(".cpu-core").html(coreLabel);
                         core.find(".core-temp").html(coreTemp);
                         core.find(".core-current").html(coreSpeedCurrent);
@@ -142,7 +157,7 @@
                 * @method setNetwork
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setNetwork: function (data) {
+                setNetwork: function (data, block) {
                     if (!$.isArray(data.Network.NetDevice)) {
                         data.Network.NetDevice = new Array(data.Network.NetDevice);
                     }
@@ -152,9 +167,15 @@
                             var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
                             var info = value["@attributes"].Info.split(";");
-                            var network = $(".lan-stats div:eq(" + index + ")");
+                            var network = block.find(".lan-stats > div:not(.clone)").eq(index);
 
-                            network.find(".lan-name").html(value.Name);
+                            if (network.length === 0) {
+                                network = block.find(".lan-stats > .clone").clone();
+                                network.removeClass("hidden clone");
+                                network.appendTo(block.find(".lan-stats"));
+                            }
+
+                            network.find(".lan-name").html(value["@attributes"].Name);
                             network.find(".lan-mac").html(info[0]);
                             network.find(".lan-ip").html(info[1]);
                             network.find(".lan-speed").html(info[info.length - 1]);
@@ -170,17 +191,17 @@
                 * @method setRAM
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setRAM: function (data) {
-                    $("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
-                    $("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
+                setRAM: function (data, block) {
+                    block.find("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
+                    block.find("div.ram").find(".percent span").html(data.Memory["@attributes"].Percent);
 
                     //SWAP
                     if (data.Memory.Swap !== undefined) {
-                        $("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
-                        $("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
+                        block.find("div.swap").find(".progress-bar").css("width", data.Memory.Swap["@attributes"].Percent + "%");
+                        block.find("div.swap").find(".percent span").html(data.Memory.Swap["@attributes"].Percent);
                     }
                     else {
-                        $("div.swap").closest("li").hide();
+                        block.find("div.swap").closest("li").hide();
                     }
                 },
 
@@ -190,13 +211,20 @@
                 * @method setDisks
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setDisks: function (data) {
+                setDisks: function (data, block) {
                     data.FileSystem.Mount.sort(function (a, b) {
                         return a["@attributes"].MountPoint < b["@attributes"].MountPoint ? -1 : 1;
                     });
 
                     $.each(data.FileSystem.Mount, function (index, value) {
-                        var disk = $(".harddisks li:eq(" + index + ")");
+                        var disk = block.find("li:not(.clone)").eq(index);
+
+                        if (disk.length === 0) {
+                            disk = block.find("li.clone").clone();
+                            disk.removeClass("hidden clone");
+                            disk.appendTo(block.find("ul"));
+                        }
+
                         var percent = value["@attributes"].Percent + "%";
 
                         disk.find(".name").html(value["@attributes"].MountPoint);
@@ -224,10 +252,10 @@
                 * @method setDisks
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setUpdateNotifier: function (data) {
+                setUpdateNotifier: function (data, block) {
                     if (data.Plugins.Plugin_UpdateNotifier !== undefined) {
-                        settings.block.find("span.packages").html("Packages:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
-                        settings.block.find("span.security").html("Security:" + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+                        block.find(".update .packages .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+                        block.find(".update .security .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
                     }
                 },
 
@@ -237,7 +265,7 @@
                 *
                 * @method psstatus
                 */
-                psstatus: function () {
+                getPsStatus: function () {
                     $(".processes").isLoading();
 
                     settings.block.find(".fa-sync").off().on("click", functions.psstatus);
@@ -251,38 +279,42 @@
                             xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
                         },
                         success: function (data) {
-                            data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
-                                return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
-                            });
-
-                            $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
-                                var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
-                                var name = $("<div />", { class: "col-xs-10" });
-                                var status = $("<div />", { class: "col-xs-2 text-right" });
-                                var label = $("<span />", { class: "label" });
-
-                                name.html(value["@attributes"].Name);
-                                name.appendTo(listItem);
-
-                                if (value["@attributes"].Status === "1") {
-                                    label.html("On");
-                                    label.addClass("label-success");
-                                }
-                                else {
-                                    label.html("Off");
-                                    label.addClass("label-danger");
-                                }
-
-                                label.appendTo(status);
-                                status.appendTo(listItem);
-
-                                $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
-                                listItem.appendTo($("div.processes ul"));
-                            });
+                            functions.setPsStatus(data);
                         },
                         complete: function () {
                             $(".processes").isLoading("hide");
                         }
+                    });
+                },
+
+                setPsStatus: function (data) {
+                    data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
+                        return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
+                    });
+
+                    $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
+                        var listItem = $("<li />", { class: "list-group-item col-xs-12 col-md-12" });
+                        var name = $("<div />", { class: "col-xs-10" });
+                        var status = $("<div />", { class: "col-xs-2 text-right" });
+                        var label = $("<span />", { class: "label" });
+
+                        name.html(value["@attributes"].Name);
+                        name.appendTo(listItem);
+
+                        if (value["@attributes"].Status === "1") {
+                            label.html("On");
+                            label.addClass("label-success");
+                        }
+                        else {
+                            label.html("Off");
+                            label.addClass("label-danger");
+                        }
+
+                        label.appendTo(status);
+                        status.appendTo(listItem);
+
+                        $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
+                        listItem.appendTo($("div.processes ul"));
                     });
                 }
             };

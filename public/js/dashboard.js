@@ -44,7 +44,7 @@ function initializePlugins() {
     snmp = $(".snmp").snmp();
     $(".verisure").verisure();
 
-    $(".time").each(function () {
+    $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));
     });
 }
