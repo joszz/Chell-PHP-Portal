@@ -14,9 +14,7 @@
         </div>
         <div>
             <?php $i = 0; foreach($snmpHosts as $host) :?>
-            <div class="host <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" data-name="<?php echo $host->name ?>" data-id="<?php echo $host->id ?>">
-                <?php $this->partial('snmp/hostcontent') ?>
-            </div>
+            <div class="host pull-left <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important" data-name="<?php echo $host->name ?>" data-id="<?php echo $host->id ?>"></div>
             <?php endforeach ?>
         </div>
     </div>

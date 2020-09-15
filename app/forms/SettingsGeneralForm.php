@@ -246,19 +246,19 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
             $this->_config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
             $this->_config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
-            $this->_config->application->debug = $data['debug'] == 'on' ? '1' : '0';
-            $this->_config->application->demoMode = $data['demo'] == 'on' ? '1' : '0';
+            $this->_config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
+            $this->_config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
 
-            $this->_config->duo->enabled = $data['duo-enabled'] == 'on' ? '1' : '0';
+            $this->_config->duo->enabled = isset($data['duo-enabled']) && $data['duo-enabled'] == 'on' ? '1' : '0';
             $this->_config->duo->apiHostname = $data['duo-apiHostname'];
             $this->_config->duo->ikey = $data['duo-ikey'];
             $this->_config->duo->skey = $data['duo-skey'];
             $this->_config->duo->akey = $data['duo-akey'];
 
-            $this->_config->imageproxy->enabled = $data['imageproxy-enabled'] == 'on' ? '1' : '0';
+            $this->_config->imageproxy->enabled = isset($data['imageproxy-enabled']) && $data['imageproxy-enabled'] == 'on' ? '1' : '0';
             $this->_config->imageproxy->URL = $data['imageproxy-url'];
 
-            $this->_config->redis->enabled = $data['redis-enabled'] == 'on' ? '1' : '0';
+            $this->_config->redis->enabled = isset($data['redis-enabled']) && $data['redis-enabled'] == 'on' ? '1' : '0';
             $this->_config->redis->host = $data['redis-host'];
             $this->_config->redis->port = $data['redis-port'];
             $this->_config->redis->auth = $data['redis-auth'];

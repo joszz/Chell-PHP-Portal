@@ -18,7 +18,6 @@
             * @type Object
             */
             var settings = $.extend({
-                url: $(this).data("phpsysinfo-url"),
                 block: $(this)
             }, options);
 
@@ -63,14 +62,9 @@
                 getAll: function () {
                     $(".sysinfo, #hardware, .harddisks, .processes").isLoading();
 
-                    var d = new Date();
-
                     $.ajax({
-                        url: settings.url + "xml.php?json&plugin=complete&" + d.getTime(),
+                        url: "phpsysinfo/",
                         dataType: "json",
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
-                        },
                         success: function (data) {
                             var hardwareBlock = $("#hardware");
                             var sysinfoBlock = $(".sysinfo");
@@ -268,16 +262,9 @@
                 getPsStatus: function () {
                     $(".processes").isLoading();
 
-                    settings.block.find(".fa-sync").off().on("click", functions.psstatus);
-
-                    var d = new Date();
-
                     $.ajax({
-                        url: settings.url + "xml.php?plugin=psstatus&json&" + d.getTime(),
+                        url: "phpsysinfo/index/psstatus",
                         dataType: "json",
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Basic " + btoa(settings.block.data("phpsysinfo-username") + ":" + settings.block.data("phpsysinfo-password")));
-                        },
                         success: function (data) {
                             functions.setPsStatus(data);
                         },

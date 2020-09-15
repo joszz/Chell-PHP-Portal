@@ -61,6 +61,13 @@
                 settings.block.find(".fa-sync").click(functions.update);
 
                 settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+
+                settings.block.find(".host").each(function (_index, host) {
+                    $.get("snmp/hostcontent/" + $(host).data("id"), function (html) {
+                        $(host).html(html);
+                        initializeTinyTimer($(host).find(".time"));
+                    });
+                });
             },
 
             /**
@@ -68,28 +75,27 @@
             *
             * @method update
             */
-            update: function () {
-                var currentHost = settings.block.find(".host:visible");
-                if (currentHost.find("ul:visible").length === 0) {
-                    return;
-                }
-
+            update: function (hostToUpdate) {
                 settings.block.isLoading();
+
+                if (hostToUpdate === undefined) {
+                    hostToUpdate = settings.block.find(".host:visible");
+                }
                 window.clearInterval(settings.updateIntervalId);
 
-                var time = currentHost.find("div.time");
+                var time = hostToUpdate.find("div.time");
 
                 if (time.data("tinyTimer") !== undefined) {
                     clearInterval(time.data("tinyTimer").interval);
                 }
 
-                $.get("snmp/hostcontent/" + currentHost.data("id"), function (html) {
-                    currentHost.html(html);
-                    initializeTinyTimer(currentHost.find('.time'));
+                $.get("snmp/hostcontent/" + hostToUpdate.data("id"), function (html) {
+                    hostToUpdate.html(html);
+                    initializeTinyTimer(hostToUpdate.find(".time"));
                 });
 
                 settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
-                settings.block.isLoading('hide');
+                settings.block.isLoading("hide");
             }
         };
 
