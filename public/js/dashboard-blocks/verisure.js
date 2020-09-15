@@ -128,9 +128,10 @@
             },
 
             set_arm_state: function (state) {
+                var pin = $("#verisure_set_armstate #verisure_pin").val();
 
                 $.ajax({
-                    url: "verisure/arm/" + state + "/" + $("#verisure_set_armstate #verisure_pin").val(),
+                    url: "verisure/arm/" + state + "/" + (pin !== undefined ? pin : ""),
                     success: function (_data) {
                         showAlert("success", "Alarm state changed");
                         $.fancybox.getInstance().close();
@@ -138,21 +139,33 @@
 
                         switch (state) {
                             default:
-                                settings.block.find("#verisure_set_armstate .fa-verisure-stay").addClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-away").removeClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-disarmed").removeClass("hidden");
+                                $("#verisure_set_armstate #arm_stay").addClass("hidden");
+                                $("#verisure_set_armstate #arm_away").removeClass("hidden");
+                                $("#verisure_set_armstate #disarm").removeClass("hidden");
+
+                                $("#verisure_set_armstate #current_stay").removeClass("hidden");
+                                $("#verisure_set_armstate #current_away").addClass("hidden");
+                                $("#verisure_set_armstate #current_disarmed").addClass("hidden");
                                 break;
 
                             case "DISARMED":
-                                settings.block.find("#verisure_set_armstate .fa-verisure-disarmed").addClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-stay").removeClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-away").removeClass("hidden");
+                                $("#verisure_set_armstate #arm_stay").removeClass("hidden");
+                                $("#verisure_set_armstate #arm_away").removeClass("hidden");
+                                $("#verisure_set_armstate #disarm").addClass("hidden");
+
+                                $("#verisure_set_armstate #current_stay").addClass("hidden");
+                                $("#verisure_set_armstate #current_away").addClass("hidden");
+                                $("#verisure_set_armstate #current_disarmed").removeClass("hidden");
                                 break;
 
                             case "ARMED_AWAY":
-                                settings.block.find("#verisure_set_armstate .fa-verisure-away").addClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-stay").removeClass("hidden");
-                                settings.block.find("#verisure_set_armstate .fa-verisure-disarmed").removeClass("hidden");
+                                $("#verisure_set_armstate #arm_stay").removeClass("hidden");
+                                $("#verisure_set_armstate #arm_away").addClass("hidden");
+                                $("#verisure_set_armstate #disarm").removeClass("hidden");
+
+                                $("#verisure_set_armstate #current_stay").addClass("hidden");
+                                $("#verisure_set_armstate #current_away").removeClass("hidden");
+                                $("#verisure_set_armstate #current_disarmed").addClass("hidden");
                                 break;
                         }
                     },

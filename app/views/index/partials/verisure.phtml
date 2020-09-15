@@ -89,13 +89,9 @@
 
 <div class="hidden_not_important" id="verisure_set_armstate">
     <div class="text-center">
-        <?php if ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode) : ?>
-        <i class="fa fa-verisure-disarmed text-danger" title="Disarmed"></i>
-        <?php elseif ($verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode) : ?>
-        <i class="fa fa-verisure-away text-success" title="Away"></i>
-        <?php else : ?>
-        <i class="fa fa-verisure-stay text-warning" title="Stay"></i>
-        <?php endif ?>
+        <i id="current_disarmed" class="fa fa-verisure-disarmed text-danger <?php echo ($verisure_overview->armState->statusType != Chell\Models\Verisure::$statusDisarmedCode ? 'hidden' : null)  ?>" title="Disarmed"></i>
+        <i id="current_away" class="fa fa-verisure-away text-success <?php echo ($verisure_overview->armState->statusType != Chell\Models\Verisure::$statusArmedAwayCode  ? 'hidden' : null) ?>" title="Away"></i>
+        <i id="current_stay" class="fa fa-verisure-stay text-warning <?php echo ($verisure_overview->armState->statusType != Chell\Models\Verisure::$statusArmedStayCode  ? 'hidden' : null) ?>" title="Stay"></i>
         <h2>Select new arm state </h2>
 
         <?php if(empty($this->config->verisure->securityCode)): ?>
@@ -103,15 +99,15 @@
         <?php endif ?>
 
         <div class="button-wrapper">
-            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode ? 'hidden' : null ?>">
+            <div id="arm_away" class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedAwayCode ? 'hidden' : null ?>">
                 <button class="btn btn-success fa fa-verisure-away" data-state="<?php echo Chell\Models\Verisure::$statusArmedAwayCode ?>"></button>
                 <h3>Arm away</h3>
             </div>
-            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedStayCode ? 'hidden' : null ?>">
+            <div id="arm_stay" class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusArmedStayCode ? 'hidden' : null ?>">
                 <button class="btn btn-warning fa fa-verisure-stay" data-state="<?php echo Chell\Models\Verisure::$statusArmedStayCode ?>"></button>
                 <h3>Arm stay</h3>
             </div>
-            <div class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode ? 'hidden' : null ?>">
+            <div id="disarm" class="pull-left state-change <?php echo $verisure_overview->armState->statusType == Chell\Models\Verisure::$statusDisarmedCode ? 'hidden' : null ?>">
                 <button class="btn btn-danger fa fa-verisure-disarmed" data-state="<?php echo Chell\Models\Verisure::$statusDisarmedCode ?>"></button>
                 <h3>Disarm</h3>
             </div>

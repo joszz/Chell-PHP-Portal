@@ -38,7 +38,7 @@ class VerisureController extends BaseController
      * @param string $state     The state to set the alarm to.
      * @param integer $state    The PIN to use to set the arm state. Only used when not specified in settings
      */
-    public function armAction($state, $pin)
+    public function armAction($state, $pin = '')
     {
         Verisure::SetArmState($this->config, $state, empty($pin) ? $this->config->verisure->securityCode : $pin);
         die("true");
