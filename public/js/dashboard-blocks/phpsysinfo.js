@@ -49,7 +49,8 @@
                     });
 
                     if (settings.block.hasClass("sysinfo")) {
-                        functions.getAll();
+                        //use timeout to prevent isloading from positioning incorrectly on load
+                        window.setTimeout(functions.getAll, 10);
                     }
                 },
 
@@ -60,7 +61,7 @@
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 getAll: function () {
-                    $(".sysinfo, #hardware, .harddisks, .processes").isLoading();
+                    $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading();
 
                     $.ajax({
                         url: "phpsysinfo/",
@@ -79,7 +80,7 @@
                             functions.setPsStatus(data);
                         },
                         complete: function () {
-                            $(".sysinfo, #hardware, .harddisks, .processes").isLoading("hide");
+                            $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading("hide");
                         }
                     });
                 },

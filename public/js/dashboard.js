@@ -17,10 +17,6 @@ var speedtest = false, opcache = false, pihole = false, snmp = false;
 $(function () {
     initializeDashboardEventHandlers();
     initializePlugins();
-
-    if ($("html").hasClass("time")) {
-        getLocation();
-    }
 });
 
 /**

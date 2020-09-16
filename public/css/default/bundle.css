@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&73741") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9158432") format("woff2"), url("../../fonts/icomoon.woff?6303609") format("woff"), url("../../fonts/icomoon.ttf?2360248") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?6603037") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&5175851") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9920469") format("woff2"), url("../../fonts/icomoon.woff?9653967") format("woff"), url("../../fonts/icomoon.ttf?6447414") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7809031") format("svg"); }
 
 .fa,
 .fas {
@@ -7740,14 +7740,10 @@ div.distro span {
   padding: 0; }
 
 .panel.processes ul {
-  height: 362px;
+  max-height: 362px;
   width: 100%;
   overflow-y: auto;
   float: left; }
-
-.harddisks ul {
-  height: 180px;
-  width: 100%; }
 
 div.transmission li div.torrentname,
 div.transmission li div.torrentprogress {

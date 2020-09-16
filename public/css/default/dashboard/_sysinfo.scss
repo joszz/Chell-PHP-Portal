@@ -20,18 +20,14 @@ div.distro span {
     max-width: 800px;
 }
 
-#hardware{
+#hardware {
     margin: 12px;
     padding: 0;
 }
+
 .panel.processes ul {
-    height: 362px;
+    max-height: 362px;
     width: 100%;
     overflow-y: auto;
     float: left;
-}
-
-.harddisks ul {
-    height: 180px;
-    width: 100%;
 }
