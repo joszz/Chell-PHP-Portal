@@ -11,13 +11,14 @@ class SnmpController extends BaseController
     /**
      * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.
      */
-    public function hostcontentAction($id)
+    public function hostcontentAction($id, $hidden = '')
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $this->view->host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],
         ]);
+        $this->view->hidden = $hidden;
     }
 
     /**
