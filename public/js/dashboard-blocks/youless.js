@@ -51,6 +51,9 @@
                 settings.updateIntervalId = setInterval(function () {
                     functions.refresh();
                 }, settings.updateInterval);
+
+                //use timeout to prevent isloading from positioning incorrectly on load
+                window.setTimeout(functions.refresh, 0);
             },
 
             refresh: function () {

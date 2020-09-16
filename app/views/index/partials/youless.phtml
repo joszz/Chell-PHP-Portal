@@ -20,12 +20,12 @@
             </h4>
         </div>
         <ul class="list-group hidden-xs">
-            <li class="list-group-item col-xs-12">
+            <li class="list-group-item col-xs-12 counter">
                 <div class="col-xs-4 col-sm-5 col-lg-4">
                     Counter
                 </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8">
-                    <?php echo $youlessStats->cnt ?>
+                <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                    &hellip;
                 </div>
 
             </li>
@@ -34,8 +34,8 @@
                     Current
                 </div>
                 <div class="col-xs-8 col-sm-7 col-lg-8">
-                    <div class="value <?php echo Chell\Models\Youless::getTextClass($this->config, $youlessStats->pwr) ?>">
-                        <span><?php echo $youlessStats->pwr ?></span>
+                    <div class="value">
+                        <span>&hellip;</span>
                         <i class="fa fa-bolt"></i>
                     </div>
                 </div>

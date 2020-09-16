@@ -50,7 +50,7 @@
 
                     if (settings.block.hasClass("sysinfo")) {
                         //use timeout to prevent isloading from positioning incorrectly on load
-                        window.setTimeout(functions.getAll, 10);
+                        window.setTimeout(functions.getAll, 0);
                     }
                 },
 
