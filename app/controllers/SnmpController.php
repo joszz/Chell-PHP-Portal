@@ -19,6 +19,10 @@ class SnmpController extends BaseController
             'bind'       => [1 => $id],
         ]);
         $this->view->hidden = $hidden;
+
+        if($this->view->host == null){
+            die();
+        }
     }
 
     /**
@@ -34,5 +38,9 @@ class SnmpController extends BaseController
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],
         ]);
+
+        if($this->view->host == null){
+            die();
+        }
     }
 }

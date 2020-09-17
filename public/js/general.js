@@ -34,8 +34,9 @@ var keys = {
 */
 $(function () {
     if ("serviceWorker" in navigator) {
+        var baseUri = $("body").data("baseuri");
         window.addEventListener("load", function () {
-            navigator.serviceWorker.register("/portal/js/worker.min.js?v=2", { scope: $("body").data("baseuri") }).then(function (_registration) {
+            navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {
                 // Registration was successful
             }, function (_err) {
                 // registration failed :(

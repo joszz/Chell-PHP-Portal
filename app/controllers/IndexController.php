@@ -59,6 +59,13 @@ class IndexController extends BaseController
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
+    public function workerAction()
+    {
+        header('Service-Worker-allowed: ../');
+        header('Content-Type: text/javascript');
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+    }
+
     /**
      * Sets the URLs for <link rel="dns-prefetch" />
      *

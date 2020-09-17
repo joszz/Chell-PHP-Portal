@@ -38,6 +38,10 @@
             * @method initialize
             */
             initialize: function () {
+                if (settings.block.length === 0) {
+                    return;
+                }
+
                 settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
                     var offset = $(this).hasClass("fa-chevron-right") ? 1 : -1;
                     var currentHost = settings.block.find(".host:visible");

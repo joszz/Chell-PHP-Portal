@@ -150,6 +150,10 @@ class ErrorController
      */
     private function writeLogAsHTML($content)
     {
+        if (!file_exists($this->logPat)) {
+            mkdir($this->logPat, 0770);
+        }
+
         $gzip = gzopen($this->logPath . $this->logFile, 'w9');
         gzwrite($gzip, $content);
         gzclose($gzip);
