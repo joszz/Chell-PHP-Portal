@@ -2,6 +2,8 @@
 
 namespace Chell\Controllers;
 
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+
 use Chell\Models\Users;
 
 class InstallController extends BaseController
@@ -11,7 +13,11 @@ class InstallController extends BaseController
 
     public function indexAction()
     {
-
+        $this->view->mbstringEnabled = extension_loaded('mbstring');
+        $this->view->psrEnabled = extension_loaded('psr');
+        $this->view->phalconEnabled = extension_loaded('phalcon');
+        $this->view->pdoEnabled = extension_loaded('pdo');
+        $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
     }
 
     public function doInstallAction()
@@ -20,34 +26,42 @@ class InstallController extends BaseController
         $dbName = $this->config->database->name;
         $dbName = 'test';
 
+        $config = $this->config;
+        $this->di->set('db', function() use ($config, $dbName) {
+            return new DbAdapter([
+                'host'     => $config->database->host,
+                'username' => $config->database->username,
+                'password' => $config->database->password,
+                'dbname'   => $dbName,
+                'charset'  => 'utf8'
+            ]);
+        });
+
         $this->createDatabase($data['user'], $data['password'], $dbName);
         $this->createDatabaseStructure($data['user'], $data['password'], $dbName);
+        $this->dbConnection = null;
         $this->createAdminUser();
-        $this->cleanup();
-
-        mysqli_close($this->dbConnection);
+        //$this->cleanup();
     }
 
     private function createDatabase($user, $password, $dbName)
     {
-        $connection = mysqli_connect($this->config->database->host, $user, $password);
-        mysqli_query($connection, 'CREATE DATABASE IF NOT EXISTS ' . $dbName) or die(mysqli_error($connection));
-        mysqli_query($connection, 'GRANT DELETE, SELECT, INSERT, UPDATE on ' . $dbName . '.* TO ' . $this->config->database->username . '@localhost') or die(mysqli_error($connection));
-        mysqli_close($connection);
+        $connection = new \PDO('mysql:host=localhost', $user, $password);
+        $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $dbName);
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $dbName . '.* TO ' . $this->config->database->username . '@localhost');
+        $connection  = null;
     }
 
     private function createDatabaseStructure($user, $password, $dbName)
     {
-        $this->dbConnection = mysqli_connect($this->config->database->host, $user, $password, $dbName);
-        mysqli_multi_query($this->dbConnection, file_get_contents($this->dbStructureFilename)) or die(mysqli_error($this->dbConnection));
+        $this->dbConnection = new \PDO('mysql:dbname=' . $dbName . ';host=localhost', $user, $password);
+        $this->dbConnection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
+        $this->dbConnection->exec(file_get_contents($this->dbStructureFilename));
     }
 
     private function createAdminUser()
     {
-        $user = new Users([
-            'username' => 'admin',
-        ]);
-
+        $user = new Users(['username' => 'admin']);
         $user->password = $this->security->hash('admin');
         $user->save();
     }
