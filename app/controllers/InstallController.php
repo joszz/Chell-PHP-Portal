@@ -69,7 +69,7 @@ class InstallController extends BaseController
 
     private function createDefaultMenu()
     {
-        $menu = new Menus(['name' => 'default']);
+        $menu = new Menus(['id' => 1, 'name' => 'default']);
         $menu->save();
     }
 
