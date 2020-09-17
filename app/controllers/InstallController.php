@@ -5,6 +5,7 @@ namespace Chell\Controllers;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 use Chell\Models\Users;
+use Chell\Models\Menus;
 
 class InstallController extends BaseController
 {
@@ -39,6 +40,7 @@ class InstallController extends BaseController
         $this->createDatabaseStructure($data['user'], $data['password'], $config->database->name);
         $this->dbConnection = null;
         $this->createAdminUser();
+        $this->createDefaultMenu();
         //$this->cleanup();
     }
 
@@ -61,7 +63,14 @@ class InstallController extends BaseController
     {
         $user = new Users(['username' => 'admin']);
         $user->password = $this->security->hash('admin');
+
         $user->save();
+    }
+
+    private function createDefaultMenu()
+    {
+        $menu = new Menu(['name' => 'default']);
+        $menu->save();
     }
 
     private function cleanup()

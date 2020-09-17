@@ -3,7 +3,10 @@
 <?php if($this->config->phpsysinfo->enabled) : ?>
 <?php $this->partial('index/partials/phpsysinfo_sysinfo') ?>
 <?php endif ?>
+
+<?php if(count($devices)) : ?>
 <?php $this->partial('index/partials/devices') ?>
+<?php endif ?>
 
 <div class="clearfix visible-sm"></div>
 
