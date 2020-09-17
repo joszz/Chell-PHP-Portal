@@ -23,22 +23,20 @@ class InstallController extends BaseController
     public function doInstallAction()
     {
         $data = $this->request->getPost();
-        $dbName = $this->config->database->name;
-        $dbName = 'test';
-
         $config = $this->config;
-        $this->di->set('db', function() use ($config, $dbName) {
+
+        $this->di->set('db', function() use ($config) {
             return new DbAdapter([
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
-                'dbname'   => $dbName,
+                'dbname'   => $config->database->name,
                 'charset'  => 'utf8'
             ]);
         });
 
-        $this->createDatabase($data['user'], $data['password'], $dbName);
-        $this->createDatabaseStructure($data['user'], $data['password'], $dbName);
+        $this->createDatabase($data['user'], $data['password'], $config->database->name);
+        $this->createDatabaseStructure($data['user'], $data['password'], $config->database->name);
         $this->dbConnection = null;
         $this->createAdminUser();
         //$this->cleanup();
@@ -47,14 +45,14 @@ class InstallController extends BaseController
     private function createDatabase($user, $password, $dbName)
     {
         $connection = new \PDO('mysql:host=localhost', $user, $password);
-        $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $dbName);
-        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $dbName . '.* TO ' . $this->config->database->username . '@localhost');
+        $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->config->database->name);
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->config->database->name . '.* TO ' . $this->config->database->username . '@localhost');
         $connection  = null;
     }
 
     private function createDatabaseStructure($user, $password, $dbName)
     {
-        $this->dbConnection = new \PDO('mysql:dbname=' . $dbName . ';host=localhost', $user, $password);
+        $this->dbConnection = new \PDO('mysql:dbname=' . $this->config->database->name . ';host=localhost', $user, $password);
         $this->dbConnection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
         $this->dbConnection->exec(file_get_contents($this->dbStructureFilename));
     }
