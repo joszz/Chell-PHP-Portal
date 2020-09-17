@@ -15,6 +15,8 @@ class SecurityPlugin extends Injectable
     private $publiclyAccessible = [
         ['controller' => 'rss', 'action' => '*'],
         ['controller' => 'index', 'action' => 'manifest'],
+        ['controller' => 'index', 'action' => 'worker'],
+        ['controller' => 'install', 'action' => '*'],
         ['controller' => 'speedtest', 'action' => 'share']
     ];
 
