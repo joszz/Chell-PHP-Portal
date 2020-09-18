@@ -52,7 +52,7 @@ class InstallController extends BaseController
         $this->cleanup();
 
         $response = new Response();
-        $response->redirect('');
+        $response->redirect($this->config->application->baseUri);
     }
 
     private function createDatabase()
