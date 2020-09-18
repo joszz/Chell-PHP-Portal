@@ -30,7 +30,7 @@ class InstallController extends BaseController
     public function goAction()
     {
         $this->postedData = $this->request->getPost();
-        $config = $this->config;
+        $config = $this->postedData;
 
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
