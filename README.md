@@ -7,28 +7,29 @@ It aggregates different services and webapplications that I want easily accessib
 The current state of the project is still very much a work in progress. 
 Some functionality might not yet be fully decoupled from my own setup but the goal is to work toward this and have a generic solution for anyone.
 
-Video
------------
+# Video
+
 [![Demo](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/video.jpg)](https://www.youtube.com/watch?v=IzuMtewr6gc)
 
-Screenshots
------------
+# Screenshots
+
 #### Home screenshot
 ![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.jpg "Home")
 #### Menu screenshot
 ![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_menu.jpg "Menu")
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/screenshots)
 
-Prerequisites
--------------
-- [PHP 7.x](http://www.php.net/)
+# Prerequisites
+- [PHP 7.2 or higher](http://www.php.net/)
 - [MySQL 5.x](https://www.mysql.com/)
 - [Phalcon PHP framework 4.x](https://phalconphp.com/)
+- [PSR PHP extension](https://github.com/jbboehr/php-psr)
 - [Apache 2.x](https://httpd.apache.org/)
-- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
+  - The Apache rewrite module needs to be enabled
+  - The Apache headers module needs to be enabled
 
-Optional integrations
--------------
+# Optional integrations
+- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
 - [rCPU](https://github.com/davidsblog/rCPU)
 - [Transmission](https://www.transmissionbt.com/)
 - [Sickrage](https://sickrage.github.io/)
@@ -44,28 +45,36 @@ Optional integrations
 - [WhatIsMyBrowser](https://www.whatismybrowser.com/)
 - [TMDB](https://www.themoviedb.org/)
 
-Installation and configuration
-------------------------------
-First you will need to import the DB structure in MySQL, provided in the root of this project.
-Later in this project's development there will be a GUI provided for installation and also configuration of the portal items. 
-For now this will have to be manually edited in the database. You can find information about the tables and associated columns below.
+# Installation and configuration
 
-Next, copy over the source files to a directory on your server, preferrably (for security considerations) outside of the DocumentRoot directory of your webserver. The "app" directory of this project should NOT be accessible from the web. The "public" directory however, should be. This can be achieved with some Apache configuration, setting up an alias etc. I will not go into detail (for now) on how to achieve this.
+Before continuing, take a look at the prerequisites above. These are required to run this project.
 
-Finally you can edit the config.ini file. You can find this file in "app/config/config.ini", the values to be specified speak for themselves.
+This project comes with an installer. Before you can use this installer, you will need to have basic configuration done.
 
-Documentation
-------------------------------
+## Phalcon
 
-#### Database
+The Phalcon PHP extension is required to run this project. [You can read about installing Phalcon here](https://docs.phalcon.io/4.0/en/installation).
+To have Phalcon work, you will need to add the PSR extension to your php.ini, as described in the Phalcon installation URL. 
 
-In this chapter you will find information about the database tables and associated columns.
+## Apache
+Take a look at the required Apache modules to run this project, and enable these.
 
-##### devices
-A table used to store the various devices in your network. Used for WOL and menu items which should only be active when a device is awake (pingable).
+Since this project relies on .htaccess files to work correctly, you will also need to have this setup in your Apache configuration accordingly 
+(either only for this project or server wide). 
+[You can find how to do so by looking here for example](https://www.linode.com/docs/web-servers/apache/how-to-set-up-htaccess-on-apache/)
 
-##### menu_items
-The different items/links in the collapsable menu. It is associated with a menu by the column parent_id (so multiple menus can be created). A menu_item can be dependent on a device to be disabled in the GUI when that device is not pingable.
+Make sure the user Apache runs under, has write access to the project's location. It will at least need access to the folder "app/logs" (which doesn't exist on install) 
+to write error logs to. And will also need write permissions to the file "app/config/config.ini".
 
-##### menus
-The available menus. For now only one menu will be displayed (ID 1, hardcoded for now).
+## config.ini
+If you decide to run this project outside of the root of the domain, you will need to edit "app/config/config.ini". Adjust the baseUri (in section Application) to match
+the directory you run this project from.
+
+## installer
+
+When all the above steps are taken, you should be able to run the installer.
+The installer will setup some basic stuff, such as the database and some default content.
+
+You can run the installer by going to /install on the domain (and if applicable folder, defined by the baseUri).
+
+When you fill all the details in correctly, you can press install and the site should take care of setting things up.
