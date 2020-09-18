@@ -34,10 +34,10 @@ class InstallController extends BaseController
 
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
-                'host'     => $this->postedData['mysql-host'],
-                'username' => $this->postedData['chell-database-user'],
-                'password' => $this->postedData['chell-database-password'],
-                'dbname'   => $this->postedData['chell-database'],
+                'host'     => $config['mysql-host'],
+                'username' => $config['chell-database-user'],
+                'password' => $config['chell-database-password'],
+                'dbname'   => $config['chell-database'],
                 'charset'  => 'utf8'
             ]);
         });
