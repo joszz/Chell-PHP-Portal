@@ -97,8 +97,9 @@ class InstallController extends BaseController
 
     private function cleanup()
     {
-        unlink($this->dbStructureFilename);
-        unlink(APP_PATH . 'app/controllers/InstallController.php');
-        unlink(APP_PATH . 'app/views/install/');
+        @unlink($this->dbStructureFilename);
+        @unlink(APP_PATH . 'app/controllers/InstallController.php');
+        @array_map('unlink', array_filter(glob(APP_PATH . 'app/views/install/')));
+        @unlink(APP_PATH . 'app/views/install/');
     }
 }
