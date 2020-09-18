@@ -1,7 +1,125 @@
-psrEnabled?: <?php echo $psrEnabled ? 'true' : 'false' ?>
 
-<form method="post" action="install/do_install">
-<input type="text" name="user" />
-<input type="password" name="password" />
-    <input type="submit" />
-</form>
+<div class="vertical-center" id="install">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h4>Install</h4>
+        </div>
+        <div class="panel-body">
+            <h5>Prerequisites</h5>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    MBString enabled?
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $mbstringEnabled ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    PSR enabled?
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $psrEnabled ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    Phalcon enabled?
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $phalconEnabled ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    PDO enabled?
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $pdoEnabled ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    PDO MySQL enabled?
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $pdoMysqlEnabled ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+
+            <h5>Database details</h5>
+            <form method="post" action="install/go">
+                <div class="form-group">
+                    <label for="mysql-host" class="col-xs-5 text-right">MySQL host</label>
+                    <div class="col-xs-7">
+                        <input type="text" id="mysql-host" name="mysql-host" class="form-control" value="localhost" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="root-user" class="col-xs-5 text-right">MySQL root user</label>
+                    <div class="col-xs-7">
+                        <input type="text" id="root-user" name="root-user" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="root-password" class="col-xs-5 text-right">MySQL root password</label>
+                    <div class="col-xs-7">
+                        <div class="input-group ">
+                            <input type="password" id="root-password" name="root-password" class="form-control" />
+                            <a class="btn btn-default input-group-addon toggle-password" title="Toggle password display">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="chell-database" class="col-xs-5 text-right">Chell database</label>
+                    <div class="col-xs-7">
+                        <input type="text" id="chell-database" name="chell-database" class="form-control" value="chell" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chell-database-user" class="col-xs-5 text-right">Chell database user</label>
+                    <div class="col-xs-7">
+                        <input type="text" id="chell-database-user" name="chell-database-user" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chell-database-password" class="col-xs-5 text-right">Chell database password</label>
+                    <div class="col-xs-7">
+                        <div class="input-group">
+                            <input type="password" id="chell-database-password" name="chell-database-password" class="form-control" />
+                            <a class="btn btn-default input-group-addon toggle-password" title="Toggle password display">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="chell-user" class="col-xs-5 text-right">Chell website user</label>
+                    <div class="col-xs-7">
+                        <input type="text" id="chell-user" name="chell-user" class="form-control" value="admin" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chell-password" class="col-xs-5 text-right">Chell website password</label>
+                    <div class="col-xs-7">
+                        <div class="input-group">
+                            <input type="password" id="chell-password" name="chell-password" class="form-control" />
+                            <a class="btn btn-default input-group-addon toggle-password" title="Toggle password display">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Install</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

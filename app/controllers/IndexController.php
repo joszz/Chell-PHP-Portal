@@ -26,6 +26,7 @@ class IndexController extends BaseController
     {
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
+        $this->view->anyWidgetEnabled = $this->getAnyWidgetEnabled();
 
         if ($this->config->kodi->enabled)
         {
@@ -99,5 +100,13 @@ class IndexController extends BaseController
         }
 
         return $dnsPrefetchRecords;
+    }
+
+    private function getAnyWidgetEnabled()
+    {
+        return $this->config->phpsysinfo->enabled || count($this->view->devices) || $this->config->rcpu->enabled || $this->config->transmission->enabled ||
+            $this->config->kodi->enabled || $this->config->subsonic->enabled || $this->config->couchpotato->enabled || $this->config->motion->enabled ||
+            $this->config->speedtest->enabled || $this->config->sickrage->enabled || $this->config->opcache->enabled || $this->config->pihole->enabled ||
+            $this->config->snmp->enabled || $this->config->verisure->enabled || $this->config->youless->enabled;
     }
 }

@@ -280,10 +280,10 @@ class FrontController
 
         if($this->config->application->debug)
         {
-            foreach($this->cssFiles as $file){
-            $this->application->assets->collection('header')->addCss($file, true, false, [], $version, true);
+            foreach($this->cssFiles as $file)
+            {
+                $this->application->assets->collection('header')->addCss($file, true, false, [], $version, true);
             }
-
         }
         else
         {

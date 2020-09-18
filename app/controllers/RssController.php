@@ -28,6 +28,6 @@ class RssController extends BaseController
 
 		$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
 		$this->view->baseURL = $url;
-		$this->view->phpsysinfoData = PHPSysInfo::getData($this->config);
+		$this->view->phpsysinfoData = PHPSysInfo::getData($this->config, 'complete');
 	}
 }

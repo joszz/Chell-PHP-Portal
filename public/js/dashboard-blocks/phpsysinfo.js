@@ -220,7 +220,7 @@
                             disk.appendTo(block.find("ul"));
                         }
 
-                        var percent = value["@attributes"].Percent + "%";
+                        var percent = parseInt(value["@attributes"].Percent) + (value["@attributes"].Buffers !== undefined ? parseInt(value["@attributes"].Buffers) : 0) + "%";
 
                         disk.find(".name").html(value["@attributes"].MountPoint);
                         disk.find(".progress-bar").css("width", percent);

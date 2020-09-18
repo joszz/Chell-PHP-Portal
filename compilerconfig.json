@@ -5,5 +5,22 @@
     "options": {
       "sourceMap": false
     }
+  },
+  {
+    "outputFile": "public/css/default/install.css",
+    "inputFile": "public/css/default/install.scss",
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "public/css/default/install.min.css",
+    "inputFile": "public/css/default/install.scss",
+    "minify": {
+      "enabled": true
+    },
+    "options": {
+      "sourceMap": true
+    }
   }
 ]

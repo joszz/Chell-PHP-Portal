@@ -10,10 +10,16 @@ use Chell\Models\Menus;
 class InstallController extends BaseController
 {
     private $dbStructureFilename = APP_PATH . 'db-structure.sql';
-    private $dbConnection;
+    private $postedData;
+
+    public function initialize()
+    {
+        $this->assets->collection('header')->addCss('css/default/install.css', true, false, [], $this->config->application->version, true);
+    }
 
     public function indexAction()
     {
+        $this->view->containerFullHeight = true;
         $this->view->mbstringEnabled = extension_loaded('mbstring');
         $this->view->psrEnabled = extension_loaded('psr');
         $this->view->phalconEnabled = extension_loaded('phalcon');
@@ -21,49 +27,49 @@ class InstallController extends BaseController
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
     }
 
-    public function doInstallAction()
+    public function goAction()
     {
-        $data = $this->request->getPost();
+        $this->postedData = $this->request->getPost();
         $config = $this->config;
 
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
-                'host'     => $config->database->host,
-                'username' => $config->database->username,
-                'password' => $config->database->password,
-                'dbname'   => $config->database->name,
+                'host'     => $this->postedData['mysql-host'],
+                'username' => $this->postedData['chell-database-user'],
+                'password' => $this->postedData['chell-database-password'],
+                'dbname'   => $this->postedData['chell-database'],
                 'charset'  => 'utf8'
             ]);
         });
 
-        $this->createDatabase($data['user'], $data['password'], $config->database->name);
-        $this->createDatabaseStructure($data['user'], $data['password'], $config->database->name);
-        $this->dbConnection = null;
+        $this->createDatabase();
+        $this->createDatabaseStructure();
         $this->createAdminUser();
         $this->createDefaultMenu();
+        $this->writeConfig();
         //$this->cleanup();
     }
 
-    private function createDatabase($user, $password, $dbName)
+    private function createDatabase()
     {
-        $connection = new \PDO('mysql:host=localhost', $user, $password);
-        $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->config->database->name);
-        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->config->database->name . '.* TO ' . $this->config->database->username . '@localhost');
+        $connection = new \PDO('mysql:host=' . $this->postedData['mysql-host'], $this->postedData['root-user'], $this->postedData['root-password']);
+        $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
     }
 
-    private function createDatabaseStructure($user, $password, $dbName)
+    private function createDatabaseStructure()
     {
-        $this->dbConnection = new \PDO('mysql:dbname=' . $this->config->database->name . ';host=localhost', $user, $password);
-        $this->dbConnection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
-        $this->dbConnection->exec(file_get_contents($this->dbStructureFilename));
+        $connection = new \PDO('mysql:dbname=' . $this->postedData['chell-database'] . ';host=' . $this->postedData['mysql-host'], $this->postedData['root-user'], $this->postedData['root-password']);
+        $connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
+        $connection->exec(file_get_contents($this->dbStructureFilename));
+        $connection = null;
     }
 
     private function createAdminUser()
     {
-        $user = new Users(['username' => 'admin']);
-        $user->password = $this->security->hash('admin');
-
+        $user = new Users(['username' => $this->postedData['chell-user']]);
+        $user->password = $this->security->hash($this->postedData['chell-password']);
         $user->save();
     }
 
@@ -71,6 +77,17 @@ class InstallController extends BaseController
     {
         $menu = new Menus(['id' => 1, 'name' => 'default']);
         $menu->save();
+    }
+
+    private function writeConfig()
+    {
+        $this->config->database->host = $this->postedData['mysql-host'];
+        $this->config->database->name = $this->postedData['chell-database'];
+        $this->config->database->username = $this->postedData['chell-database-user'];
+        $this->config->database->password = $this->postedData['chell-database-password'];
+        $this->config->application->phalconCryptKey = bin2hex(random_bytes(32));
+
+        $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
     }
 
     private function cleanup()

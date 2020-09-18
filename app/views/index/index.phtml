@@ -1,5 +1,11 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
+<?php if(!$anyWidgetEnabled) : ?>
+<h1 class="text-center">
+    <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
+</h1>
+<?php endif ?>
+
 <?php if($this->config->phpsysinfo->enabled) : ?>
 <?php $this->partial('index/partials/phpsysinfo_sysinfo') ?>
 <?php endif ?>
