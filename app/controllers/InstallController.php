@@ -52,7 +52,7 @@ class InstallController extends BaseController
 
     private function createDatabase()
     {
-        $connection = new \PDO('mysql:host=' . $this->postedData['mysql-host'], $this->postedData['root-user'], $this->postedData['root-password']);
+        $connection = new \PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
         $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
@@ -60,7 +60,7 @@ class InstallController extends BaseController
 
     private function createDatabaseStructure()
     {
-        $connection = new \PDO('mysql:dbname=' . $this->postedData['chell-database'] . ';host=' . $this->postedData['mysql-host'], $this->postedData['root-user'], $this->postedData['root-password']);
+        $connection = new \PDO('mysql:dbname=' . $this->postedData['chell-database'] . ';host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, 0);
         $connection->exec(file_get_contents($this->dbStructureFilename));
         $connection = null;
