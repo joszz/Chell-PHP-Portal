@@ -7,17 +7,29 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Chell\Models\Users;
 use Chell\Models\Menus;
 
+/**
+ * The controller responsible for the installation.
+ *
+ * @package Controllers
+ */
 class InstallController extends BaseController
 {
     private $dbStructureFilename = APP_PATH . 'db-structure.sql';
     private $postedData;
 
+    /**
+     * Add the install CSS file to the head.
+     */
     public function initialize()
     {
         parent::initialize();
-        $this->assets->collection('header')->addCss('css/default/install.css', true, false, [], $this->config->application->version, true);
+        $this->assets->collection('header')->addCss('css/default/install.min.css', true, false, [], $this->config->application->version, true);
     }
 
+    /**
+     * Shows the form to setup Chell.
+     * Also shows if the extensions required are enabled.
+     */
     public function indexAction()
     {
         $this->view->containerFullHeight = true;
@@ -28,6 +40,9 @@ class InstallController extends BaseController
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
     }
 
+    /**
+     * Does the actuall install. Redirects back to the root on success.
+     */
     public function goAction()
     {
         $this->postedData = $this->request->getPost();
@@ -53,6 +68,10 @@ class InstallController extends BaseController
         header('Location: ' . $this->config->application->baseUri);
     }
 
+    /**
+     * Creates the DB if it doesn't exist yet using the MySQL root user.
+     * Grants access to the MySQL user, specified in the form to be used with Chell, for the created DB
+     */
     private function createDatabase()
     {
         $connection = new \PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
@@ -61,6 +80,9 @@ class InstallController extends BaseController
         $connection  = null;
     }
 
+    /**
+     * Uses the db structure file to create the DB structure for Chell.
+     */
     private function createDatabaseStructure()
     {
         $connection = new \PDO('mysql:dbname=' . $this->postedData['chell-database'] . ';host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
@@ -69,6 +91,9 @@ class InstallController extends BaseController
         $connection = null;
     }
 
+    /**
+     * Creates the specified user, sets the specified password and hashes the password and then saves the user to the DB.
+     */
     private function createAdminUser()
     {
         $user = new Users(['username' => $this->postedData['chell-user']]);
@@ -76,12 +101,18 @@ class InstallController extends BaseController
         $user->save();
     }
 
+    /**
+     * Cretaes the default menu.
+     */
     private function createDefaultMenu()
     {
         $menu = new Menus(['id' => 1, 'name' => 'default']);
         $menu->save();
     }
 
+    /**
+     * Writes the settings specified in the form to config.ini.
+     */
     private function writeConfig()
     {
         $this->config->database->host = $this->postedData['mysql-host'];
@@ -93,6 +124,9 @@ class InstallController extends BaseController
         $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
     }
 
+    /**
+     * Cleans up the files for install. Silently fails (when for example insufficient privileges.
+     */
     private function cleanup()
     {
         @unlink($this->dbStructureFilename);
