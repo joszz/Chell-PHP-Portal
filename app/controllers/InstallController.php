@@ -3,7 +3,6 @@
 namespace Chell\Controllers;
 
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-use Phalcon\Http\Response;
 
 use Chell\Models\Users;
 use Chell\Models\Menus;
@@ -51,8 +50,7 @@ class InstallController extends BaseController
         $this->writeConfig();
         $this->cleanup();
 
-        $response = new Response();
-        $response->redirect($this->config->application->baseUri);
+        header('Location: ' . $this->config->application->baseUri);
     }
 
     private function createDatabase()
