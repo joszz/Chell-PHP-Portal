@@ -557,7 +557,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
-			'fieldset' => 'Pihole'
+			'fieldset' => 'Pi-hole'
 		]);
 
 		$piholeURL = new Text('pihole-url');
@@ -648,7 +648,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
-			'fieldset' => 'Snmp'
+			'fieldset' => 'SNMP'
 		]);
 
 		$snmpInterval = new Numeric('snmp-update-interval');

@@ -64,11 +64,11 @@ Since this project relies on .htaccess files to work correctly, you will also ne
 Make sure the user Apache runs under, has write access to the project's location. It will at least need access to the folder "app/logs" (which doesn't exist on install) 
 to write error logs to. And will also need write permissions to the file "app/config/config.ini".
 
-## config.ini
+## Config.ini
 If you decide to run this project outside of the root of the domain, you will need to edit "app/config/config.ini". Adjust the baseUri (in section Application) to match
 the directory you run this project from.
 
-## installer
+## Installer
 
 When all the above steps are taken, you should be able to run the installer.
 The installer will setup some basic stuff, such as the database and some default content.
