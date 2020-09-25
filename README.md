@@ -82,5 +82,5 @@ It will try to clean up after itself, but it won't be able to do so if the Apach
 - /app/views/install/
 - /db-structure.sql
 
-It's recommended to check if at least the InstallController is deleted after install (/app/controllers/IndexController.php), since it can be potentially harmfull.
+It's recommended to check if at least the InstallController is deleted after install (/app/controllers/InstallController.php), since it can be potentially harmfull.
 The other files are cleaned up just for the sake of keeping things clean.
