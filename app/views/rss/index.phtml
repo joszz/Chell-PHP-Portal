@@ -1,6 +1,5 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 <?php /** @var $baseURL string */ ?>
-
 <?php echo '<?' ?>xml version="1.0" encoding="UTF-8"<?= "?>\n" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
@@ -46,7 +45,7 @@ Core<?php echo $i++ . ':' . $core->{'@attributes'}->CpuSpeed ?> GHz
         <item>
 <title>
 <?php foreach($phpsysinfoData->FileSystem->Mount as $mount) : ?>
-<?php echo $mount->Name . ': ' . $mount->Percent . '%' ?>
+<?php echo $mount->{'@attributes'}->Name . ': ' . $mount->{'@attributes'}->Percent . '%' ?>
 
 <?php endforeach ?>
 </title>
