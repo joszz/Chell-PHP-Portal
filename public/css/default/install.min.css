@@ -1,1 +1,1 @@
-﻿#install{width:500px;}#install h5{font-size:3rem;border-bottom:1px solid #ccc;padding-bottom:1rem;margin-bottom:2rem;}#install .form-group{float:left;width:100%;}
+﻿#install{display:flex;justify-content:center;align-items:center;height:100%;padding:20px 0;}#install .panel{flex:0 0 500px;overflow:scroll;height:100%;margin-top:20px;}#install h5{font-size:3rem;border-bottom:1px solid #ccc;padding-bottom:1rem;margin-bottom:2rem;}#install .form-group{float:left;width:100%;}.container.full-height{display:block;}

@@ -32,12 +32,21 @@ class InstallController extends BaseController
      */
     public function indexAction()
     {
+        $this->ensureLogDirectory();
         $this->view->containerFullHeight = true;
         $this->view->mbstringEnabled = extension_loaded('mbstring');
         $this->view->psrEnabled = extension_loaded('psr');
         $this->view->phalconEnabled = extension_loaded('phalcon');
         $this->view->pdoEnabled = extension_loaded('pdo');
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
+        $this->view->permissions = array(
+            'Logs directory'            => is_writable(APP_PATH . 'app/logs'),
+            'Image cache directory'     => is_writable(APP_PATH . 'public/img/cache'),
+            'config.ini'                => is_writable(APP_PATH . 'app/config/config.ini'),
+            'Install controller'        => is_writable(APP_PATH . 'app/controllers/InstallController.php'),
+            'Install views'             => is_writable(APP_PATH . 'app/views/install'),
+            'DB structure file'         => is_writable(APP_PATH . 'db-structure.sql')
+        );
     }
 
     /**
@@ -66,6 +75,14 @@ class InstallController extends BaseController
         $this->cleanup();
 
         header('Location: ' . $this->config->application->baseUri);
+    }
+
+    private function ensureLogDirectory()
+    {
+        if(!is_dir(APP_PATH . 'app/logs'))
+        {
+            mkdir(APP_PATH . 'app/logs', 0660);
+        }
     }
 
     /**

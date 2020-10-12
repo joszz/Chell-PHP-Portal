@@ -1,5 +1,16 @@
 ﻿#install {
-    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px 0;
+
+    .panel {
+        flex: 0 0 500px;
+        overflow: scroll;
+        height: 100%;
+        margin-top: 20px;
+    }
 
     h5 {
         font-size: 3rem;
@@ -12,4 +23,8 @@
         float: left;
         width: 100%;
     }
+}
+
+.container.full-height{
+    display: block;
 }

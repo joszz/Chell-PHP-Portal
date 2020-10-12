@@ -47,6 +47,19 @@
                 </div>
             </div>
 
+            <h5>Permissions</h5>
+            <?php foreach($permissions as $permission => $writable) : ?>
+            <div class="form-group">
+                <div class="col-xs-4 col-sm-5 text-right">
+                    <?php echo $permission ?>
+                </div>
+                <div class="col-xs-8 col-sm-7">
+                    <i class="fa fa-<?php echo $writable ? 'star text-success' : 'info-circle text-danger' ?>"></i>
+                </div>
+            </div>
+            <?php endforeach ?>
+
+
             <h5>Database details</h5>
             <form method="post" action="<?php echo $this->config->application->baseUri ?>install/go">
                 <div class="form-group">

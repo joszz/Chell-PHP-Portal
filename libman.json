@@ -15,7 +15,7 @@
       "destination": "public/vendor/fancybox/"
     },
     {
-      "library": "prism@1.21.0",
+      "library": "prism@1.22.0",
       "destination": "public/vendor/prism/"
     },
     {
@@ -61,11 +61,6 @@
     },
     {
       "provider": "filesystem",
-      "library": "https://raw.githubusercontent.com/Illyism/jquery.vibrate.js/master/build/jquery/jquery.vibrate.js.map",
-      "destination": "public/vendor/jquery.vibrate/"
-    },
-    {
-      "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/fians/Waves/master/dist/waves.js",
       "destination": "public/vendor/waves/"
     },
@@ -101,7 +96,7 @@
     },
     {
       "provider": "unpkg",
-      "library": "@fortawesome/fontawesome-free@5.14.0",
+      "library": "@fortawesome/fontawesome-free@5.15.1",
       "destination": "public/vendor/fortawesome/",
       "files": [
         "scss/_variables.scss",
