@@ -61,12 +61,12 @@
     },
     {
       "provider": "filesystem",
-      "library": "https://raw.githubusercontent.com/fians/Waves/master/dist/waves.js",
+      "library": "https://raw.githubusercontent.com/joszz/Waves/master/src/js/waves.js",
       "destination": "public/vendor/waves/"
     },
     {
       "provider": "filesystem",
-      "library": "https://raw.githubusercontent.com/fians/Waves/master/dist/waves.css",
+      "library": "https://raw.githubusercontent.com/joszz/Waves/master/dist/waves.css",
       "destination": "public/vendor/waves/"
     },
     {
