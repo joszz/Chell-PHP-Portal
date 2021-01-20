@@ -102,15 +102,6 @@ class SessionController extends BaseController
 
         if ($user && $this->security->checkHash($password, $user->password))
         {
-            if ($user instanceof Users)
-            {
-                $this->_registerSession($user);
-            }
-            else
-            {
-                throw new \Exception('Expected type Users, got type' . get_class($user));
-            }
-
             //Duo 2 factor login
             if ($this->config->duo->enabled)
             {
