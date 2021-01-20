@@ -4,7 +4,7 @@
     <div class="container no-gutter-xs">
         <div class="col-xs-12">
             <div class="navbar-header">
-                <?php if(isset($menu)) : ?>
+                <?php if (isset($menu)) : ?>
                 <button type="button" id="menu_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -23,10 +23,10 @@
         <div class="col-xs-12 no-gutter-xs">
             <div id="navbar" class="collapse navbar-collapse">
 
-                <?php if(isset($menu)) : ?>
+                <?php if (isset($menu)) : ?>
                 <ul class="nav navbar-nav">
                     <?php foreach($menu->getItems(['order' => 'name ASC']) as $menuItem) : ?>
-                    <?php if(strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
+                    <?php if (strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
 
                     <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">

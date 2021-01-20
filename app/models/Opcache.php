@@ -69,7 +69,7 @@ class Opcache extends Model
         {
             $dirs[dirname($key)]['files'][basename($key)] = $data;
 
-            if(!isset($dirs[dirname($key)]['memory_usage']))
+            if (!isset($dirs[dirname($key)]['memory_usage']))
             {
                 $dirs[dirname($key)]['memory_usage'] = 0;
             }
@@ -95,7 +95,8 @@ class Opcache extends Model
      */
     public function getFormattedData($key, $value)
     {
-        switch($key){
+        switch($key)
+        {
             default:
                 return $value;
 

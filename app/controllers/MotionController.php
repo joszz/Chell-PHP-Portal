@@ -27,7 +27,7 @@ class MotionController extends BaseController
         {
             $resizedPath = getcwd() . '/img/cache/resized/motion/';
 
-            if(!file_exists($resizedPath))
+            if (!file_exists($resizedPath))
             {
                 mkdir($resizedPath);
             }
@@ -55,7 +55,8 @@ class MotionController extends BaseController
     /**
      * Gets the modified time for the newest image.
      */
-    public function modifiedTimeAction(){
+    public function modifiedTimeAction()
+    {
         die(Motion::getModifiedTime($this->config));
     }
 }

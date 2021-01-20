@@ -5202,7 +5202,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&5175851") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9920469") format("woff2"), url("../../fonts/icomoon.woff?9653967") format("woff"), url("../../fonts/icomoon.ttf?6447414") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7809031") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&7470328") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5221477") format("woff2"), url("../../fonts/icomoon.woff?123799") format("woff"), url("../../fonts/icomoon.ttf?3688826") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5916122") format("svg"); }
 
 .fa,
 .fas {
@@ -5337,6 +5337,9 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-image:before {
   content: "\f03e"; }
+
+.fa-fingerprint:before {
+  content: "\f577"; }
 
 .panel-group .panel-heading {
   padding: 0; }
@@ -6541,6 +6544,9 @@ div.login .toggle {
 div.login label:not(.toggle-on):not(.toggle-off) {
   margin-right: 15px;
   float: right; }
+
+div.login h4 {
+  display: inline; }
 
 #rememberme-wrapper {
   width: 100%;

@@ -20,6 +20,38 @@ use Chell\Models\SnmpHosts;
 class IndexController extends BaseController
 {
     /**
+     * Initializes the controller, adding JS being used.
+     */
+    public function initialize()
+    {
+        parent::initialize();
+
+        if ($this->config->application->debug)
+        {
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js' , true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/devices.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/gallery.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/motion.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/nowplaying.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/opcache.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/phpsysinfo.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/pihole.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/sickrage.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/transmission.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/youless.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/snmp.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/verisure.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+        }
+        else
+        {
+            $this->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+        }
+    }
+
+    /**
      * Shows the dashboard view
      */
     public function indexAction()
@@ -60,6 +92,9 @@ class IndexController extends BaseController
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
+    /**
+     * The stub service worker. Setting header for allowing service worker from root.
+     */
     public function workerAction()
     {
         header('Service-Worker-allowed: ../');
@@ -82,12 +117,12 @@ class IndexController extends BaseController
             foreach($configSectionValue as $configKey => $configValue)
             {
                 // Disabled in the config so skip complete section
-                if(strtolower($configKey) == 'enabled' && !$configValue)
+                if (strtolower($configKey) == 'enabled' && !$configValue)
                 {
                     continue 2;
                 }
 
-                if(strtolower($configKey) == 'url')
+                if (strtolower($configKey) == 'url')
                 {
                     $parsedURL = parse_url($configValue);
 
@@ -102,6 +137,10 @@ class IndexController extends BaseController
         return $dnsPrefetchRecords;
     }
 
+    /**
+     * Is any of the widgets enabled?
+     * @return bool     Whether any of the widgets is enabled.
+     */
     private function getAnyWidgetEnabled()
     {
         return $this->config->phpsysinfo->enabled || count($this->view->devices) || $this->config->rcpu->enabled || $this->config->transmission->enabled ||

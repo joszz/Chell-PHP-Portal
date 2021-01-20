@@ -23,7 +23,7 @@
                         <?php echo ucfirst(str_replace('_', ' ', $key)) ?>
                     </td>
                     <td>
-                        <?php if(is_bool($value)) : ?>
+                        <?php if (is_bool($value)) : ?>
                         <i class="fa <?php echo ($value === true ? 'fa-check text-success' : 'fa-times text-danger') ?>"></i>
                         <?php else : ?>
                         <?php echo $opcache->getFormattedData($key, $value) ?>

@@ -18,7 +18,7 @@
                     <?php echo $element ?>
                 </div>
                 <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                    <?php if($hasErrors) : ?>
+                    <?php if ($hasErrors) : ?>
                     <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
                     <?php endif ?>
                 </div>

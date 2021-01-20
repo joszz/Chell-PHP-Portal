@@ -133,6 +133,11 @@
                     success: function (_data) {
                         showAlert("success", "Alarm state changed");
                         functions.set_arm_state_buttons(state);
+
+                        if (state === "ARMED_AWAY") {
+
+                        }
+
                         $.fancybox.getInstance().close();
                     },
                     error: function () {
@@ -186,31 +191,35 @@
                 }
             },
 
-            photos: function () {
-                var photos = [];
-                var imageSeries = $.parseJSON(settings.block.find(".fa-camera").attr("data-photos")).imageSeries;
+            photos: function (data) {
+                $.ajax({
+                    url: "verisure/imageseries/",
+                    success: function (data) {
+                        var photos = [];
 
-                $.each(imageSeries, function (_index, serie) {
-                    var date = new Date(serie.image[0].captureTime);
-                    var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
+                        $.each(data, function (_index, serie) {
+                            var date = new Date(serie.image[0].captureTime);
+                            var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
 
-                    photos.push({
-                        src: "/portal/verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
-                        caption: serie.area + " (" + humanReadableDate +  ")",
-                        deviceLabel: serie.deviceLabel
-                    });
-                });
+                            photos.push({
+                                src: "/portal/verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
+                                caption: serie.area + " (" + humanReadableDate + ")",
+                                deviceLabel: serie.deviceLabel
+                            });
+                        });
 
-                photos.sort(function (a, b) {
-                    return a.caption > b.caption ? -1 : 1;
-                });
+                        photos.sort(function (a, b) {
+                            return a.caption > b.caption ? -1 : 1;
+                        });
 
-                $.fancybox.open(photos, {
-                    buttons: [
-                        settings.block.find("#amstate button").hasClass("fa-verisure-away") ? "take_photo" : null,
-                        "close"
-                    ],
-                    loop: true
+                        $.fancybox.open(photos, {
+                            buttons: [
+                                settings.block.find("#amstate button").hasClass("fa-verisure-away") ? "take_photo" : null,
+                                "close"
+                            ],
+                            loop: true
+                        });
+                    }
                 });
             },
 

@@ -56,7 +56,7 @@ class KodiTVShowEpisodes extends KodiBase
 
         foreach ($episodes as $episode)
         {
-            if(!empty($episode->c06))
+            if (!empty($episode->c06))
             {
                 $xml = self::getXml($episode->c06);
                 $episode->c06 = (string)$xml->thumb[rand(0, count($xml->thumb) - 1)];

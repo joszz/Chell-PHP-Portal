@@ -69,7 +69,7 @@ class VerisureController extends BaseController
     {
         $output = json_encode(Verisure::CaptureImage($this->config, $device_label));
 
-        if(json_last_error() == JSON_ERROR_NONE)
+        if (json_last_error() == JSON_ERROR_NONE)
         {
             die($output);
         }

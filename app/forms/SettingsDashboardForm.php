@@ -21,7 +21,6 @@ use Phalcon\Validation\Validator\Regex;
  */
 class SettingsDashboardForm extends SettingsBaseForm
 {
-
 	/**
      * Add all fields to the form and set form specific attributes.
      */
@@ -729,7 +728,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 	{
 		$valid = parent::IsValid($data, $entity);
 
-		if($valid)
+		if ($valid)
 		{
 			$this->_config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
 

@@ -39,19 +39,19 @@ class Youless extends Model
 	{
 		$class = 'text-';
 
-		if($power <= $config->youless->primaryThreshold)
+		if ($power <= $config->youless->primaryThreshold)
 		{
 			$class .=  'success';
 		}
-		if($power > $config->youless->primaryThreshold && $power <= $config->youless->warnThreshold)
+		if ($power > $config->youless->primaryThreshold && $power <= $config->youless->warnThreshold)
 		{
 			$class .=  'primary';
 		}
-		if($power > $config->youless->warnThreshold && $power <= $config->youless->dangerThreshold)
+		if ($power > $config->youless->warnThreshold && $power <= $config->youless->dangerThreshold)
 		{
 			$class .=  'warning';
 		}
-		if($power > $config->youless->dangerThreshold)
+		if ($power > $config->youless->dangerThreshold)
 		{
 			$class .=  'danger';
 		}

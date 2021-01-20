@@ -91,6 +91,7 @@ class SpeedtestController extends BaseController
      */
     public function statsAction($activeTab = 'records', $requestedPage = 1)
     {
+        $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
 
@@ -148,12 +149,12 @@ class SpeedtestController extends BaseController
         $ispinfo = json_decode($item->ispinfo, true)['processedString'];
         $dash = strrpos($ispinfo, '-');
 
-        if($dash !== false)
+        if ($dash !== false)
         {
             $ispinfo = substr($ispinfo, $dash + 2);
             $par = strrpos($ispinfo, '(');
 
-            if($par !== false)
+            if ($par !== false)
             {
                 $ispinfo = substr($ispinfo,0,$par);
             }
@@ -240,7 +241,7 @@ class SpeedtestController extends BaseController
      */
     private function whatIsMyBrowser($try = 1)
     {
-        if($try > 5)
+        if ($try > 5)
         {
             return 'false';
         }

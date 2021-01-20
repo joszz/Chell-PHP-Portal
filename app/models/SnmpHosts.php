@@ -110,12 +110,12 @@ class SnmpHosts extends Model
                 $value = intval($value);
             }
 
-            if(!empty($record['divisor']))
+            if (!empty($record['divisor']))
             {
                 $value = round($value / $record['divisor'], $record['divisor_decimals']);
             }
 
-            if(!empty($record['value_unit']))
+            if (!empty($record['value_unit']))
             {
                 $value .= ' ' . $record['value_unit'];
             }

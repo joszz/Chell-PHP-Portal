@@ -7,12 +7,16 @@
     <meta name="description" content="Chell PHP Portal - Aggregate all your webserver services" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php echo $this->tag->renderTitle(); ?>
-    <?php $this->assets->outputCss('header') ?>
-    <?php $this->assets->outputJs('general'); ?>
-    <?php //todo: below needed for HyperVAdmin, but not ideal solution.. ?>
-    <?php $this->assets->outputJs('dashboard'); ?>
-    <?php $this->partial('favicons') ?>
+    <?php echo $this->tag->renderTitle();  ?>
+    <?php
+    $this->assets->outputCss('header');
+    $this->assets->outputJs('general');
+    $this->partial('favicons');
+    if ($this->assets->collection('dashboard')->count())
+    {
+        $this->assets->outputJs('dashboard');
+    }
+    ?>
 </head>
 
 <body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?>

@@ -191,3 +191,7 @@ $fa-font-path: "../../fonts";
 .#{$fa-css-prefix}-image:before {
     content: fa-content($fa-var-image);
 }
+
+.#{$fa-css-prefix}-fingerprint:before {
+    content: fa-content($fa-var-fingerprint);
+}

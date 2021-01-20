@@ -18,6 +18,7 @@ class HyperVAdminController extends BaseController
 	 */
 	public function indexAction()
 	{
+		$this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
 		$this->view->setMainView('layouts/empty');
 		$this->view->vms = HyperVAdmin::getVMs($this->config);
 		$this->view->sites = HyperVAdmin::getSites($this->config);

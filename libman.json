@@ -15,7 +15,7 @@
       "destination": "public/vendor/fancybox/"
     },
     {
-      "library": "prism@1.22.0",
+      "library": "prism@1.23.0",
       "destination": "public/vendor/prism/"
     },
     {
@@ -36,17 +36,17 @@
     },
     {
       "provider": "unpkg",
-      "library": "bootstrap-tabcollapse@0.2.6",
+      "library": "bootstrap-tabcollapse@latest",
       "destination": "public/vendor/bootstrap-tabcollapse/"
     },
     {
       "provider": "unpkg",
-      "library": "chartist@0.11.4",
+      "library": "chartist@latest",
       "destination": "public/vendor/chartist/"
     },
     {
       "provider": "unpkg",
-      "library": "chartist-plugin-legend@0.6.2",
+      "library": "chartist-plugin-legend@latest",
       "destination": "public/vendor/chartist-plugin-legend/"
     },
     {
@@ -96,7 +96,7 @@
     },
     {
       "provider": "unpkg",
-      "library": "@fortawesome/fontawesome-free@5.15.1",
+      "library": "@fortawesome/fontawesome-free@latest",
       "destination": "public/vendor/fortawesome/",
       "files": [
         "scss/_variables.scss",
@@ -109,6 +109,16 @@
       "provider": "unpkg",
       "library": "bootstrap-sass@3.4.1",
       "destination": "public/vendor/bootstrap-sass/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "https://raw.githubusercontent.com/davidearl/webauthn/master/src/webauthnauthenticate.js",
+      "destination": "public/vendor/webauthn/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "https://raw.githubusercontent.com/davidearl/webauthn/master/src/webauthnregister.js",
+      "destination": "public/vendor/webauthn/"
     }
   ]
 }

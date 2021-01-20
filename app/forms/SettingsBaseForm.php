@@ -55,7 +55,7 @@ class SettingsBaseForm extends Form
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
 
-        if(get_class($element) == 'Phalcon\Forms\Element\Hidden')
+        if (get_class($element) == 'Phalcon\Forms\Element\Hidden')
         {
             $html = $element;
         }
@@ -65,7 +65,8 @@ class SettingsBaseForm extends Form
             $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(['class' => 'text-bold']) . '</div>';
             $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
 
-            if(get_class($element) == 'Phalcon\Forms\Element\Password'){
+            if (get_class($element) == 'Phalcon\Forms\Element\Password')
+            {
                 $html .= '<a class="btn btn-default input-group-addon toggle-password" title="Toggle password display"><i class="fa fa-eye"></i></a>';
             }
 

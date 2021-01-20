@@ -16,6 +16,8 @@ use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 
+use Davidearl\WebAuthn\WebAuthn;
+
 use Phalcon\Http\Response;
 use Phalcon\Messages\Message;
 
@@ -28,6 +30,24 @@ class SettingsController extends BaseController
 {
     private $generalForm, $dashboarForm;
     private $logsPage = 1;
+
+    /**
+     * Initializes the controller, adding JS being used.
+     */
+    public function initialize()
+    {
+        parent::initialize();
+
+        if ($this->config->application->debug)
+        {
+            $this->assets->collection('settings')->addJs('js/settings.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('settings')->addJs('vendor/webauthn/webauthnregister.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+        }
+        else
+        {
+            $this->assets->collection('settings')->addJs('js/settings.min.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+        }
+    }
 
     /**
      * Shows the settings view
@@ -67,7 +87,7 @@ class SettingsController extends BaseController
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
-            if($form->isValid($data))
+            if ($form->isValid($data))
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
@@ -98,7 +118,7 @@ class SettingsController extends BaseController
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
-            if($form->isValid($data))
+            if ($form->isValid($data))
             {
                 $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
             }
@@ -124,15 +144,16 @@ class SettingsController extends BaseController
      */
     public function deleteAction($which, $id)
     {
-        if(isset($id, $which))
+        if (isset($id, $which))
         {
-            if($which == 'Logs')
+            if ($which == 'Logs')
             {
-                if(is_file(APP_PATH .'app/logs/' . $id))
+                if (is_file(APP_PATH .'app/logs/' . $id))
                 {
                     unlink(APP_PATH . 'app/logs/' . $id);
                 }
-                else if($id == 'all'){
+                else if ($id == 'all')
+                {
                     array_map('unlink', glob(APP_PATH . 'app/logs/*'));
                 }
             }
@@ -160,7 +181,7 @@ class SettingsController extends BaseController
     {
         $device = new Devices();
 
-        if($id != 0)
+        if ($id != 0)
         {
             $device  = Devices::findFirst([
                 'conditions' => 'id = ?1',
@@ -174,9 +195,9 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $device);
 
-            if($form->isValid($data, $device))
+            if ($form->isValid($data, $device))
             {
-                if($id == 0)
+                if ($id == 0)
                 {
                     $device = new Devices($data);
                 }
@@ -200,7 +221,7 @@ class SettingsController extends BaseController
     {
         $item = new MenuItems();
 
-        if($id != 0)
+        if ($id != 0)
         {
             $item  = MenuItems::findFirst([
                 'conditions' => 'id = ?1',
@@ -214,9 +235,9 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $item);
 
-            if($form->isValid($data, $item))
+            if ($form->isValid($data, $item))
             {
-                if($id == 0)
+                if ($id == 0)
                 {
                     $item = new MenuItems($data);
                 }
@@ -240,7 +261,7 @@ class SettingsController extends BaseController
     {
         $user = new Users();
 
-        if($id != 0)
+        if ($id != 0)
         {
             $user  = Users::findFirst([
                 'conditions' => 'id = ?1',
@@ -256,14 +277,14 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $user);
 
-            if($form->isValid($data, $user))
+            if ($form->isValid($data, $user))
             {
-                if($id == 0)
+                if ($id == 0)
                 {
                     $user = new Users($data);
                 }
 
-                if(!empty($user->password) && !empty($data['password_again']) && $user->password == $data['password_again'])
+                if (!empty($user->password) && !empty($data['password_again']) && $user->password == $data['password_again'])
                 {
                     $user->password = $this->security->hash($user->password);
                     $user->save();
@@ -287,7 +308,7 @@ class SettingsController extends BaseController
      */
     public function logAction($file)
     {
-        if(is_file($path = APP_PATH . 'app/logs/' . basename($file)))
+        if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
         {
             header('Content-Encoding: gzip');
             die(file_get_contents($path));
@@ -330,7 +351,7 @@ class SettingsController extends BaseController
     {
         $host = new SnmpHosts();
 
-        if($id != 0)
+        if ($id != 0)
         {
             $host  = SnmpHosts::findFirst([
                 'conditions' => 'id = ?1',
@@ -344,9 +365,9 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $host);
 
-            if($form->isValid($data, $host))
+            if ($form->isValid($data, $host))
             {
-                if($id == 0)
+                if ($id == 0)
                 {
                     $host = new SnmpHosts($data);
                 }
@@ -370,7 +391,7 @@ class SettingsController extends BaseController
     {
         $record = new SnmpRecords();
 
-        if($id != 0)
+        if ($id != 0)
         {
             $record  = SnmpRecords::findFirst([
                 'conditions' => 'id = ?1',
@@ -384,9 +405,9 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $record);
 
-            if($form->isValid($data, $record))
+            if ($form->isValid($data, $record))
             {
-                if($id == 0)
+                if ($id == 0)
                 {
                     $record = new SnmpRecords($data);
                 }
@@ -414,7 +435,7 @@ class SettingsController extends BaseController
 
         foreach ($logs as $log)
         {
-            if($log == '.' || $log == '..')
+            if ($log == '.' || $log == '..')
             {
                 continue;
             }
@@ -427,5 +448,51 @@ class SettingsController extends BaseController
         $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->config->application->itemsPerPage, $this->config->application->itemsPerPage);
 
         return $logsOrdered;
+    }
+
+    /**
+     * Creates a webauthentication registration challenge for the given user.
+     * Called through AJAX in settings.js.
+     *
+     * @param mixed $userId     The Id of the user to create the registration challenge for.
+     */
+    public function webauthchallengeAction($userId)
+    {
+        $user  = Users::findFirst([
+            'conditions' => 'id = ?1',
+            'bind'       => [1 => $userId],
+        ]);
+
+        $webauthn = new WebAuthn($_SERVER['HTTP_HOST']);
+        $challenge = $webauthn->prepareChallengeForRegistration($user->username, $user->id, false);
+        die(json_encode($challenge));
+    }
+
+    /**
+     * Creates a new webauthentication and saves it to the database for the posted user Id.
+     * Called through AJAX post. Outputs 'success'  or 'failure' indicating to the AJAX call if it succeeded.
+     *
+     * @todo Add try catch for success/failure messages sent to the browser.
+     */
+    public function webauthregisterAction()
+    {
+        if ($this->request->isPost())
+        {
+            $userId = $this->request->get('userid');
+            $registrationData = $this->request->get('registrationdata');
+
+            $user  = Users::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $userId],
+            ]);
+
+            $webauthn = new WebAuthn($_SERVER['HTTP_HOST']);
+            $user->webauthn = $webauthn->register($registrationData, $user->webauthn);
+            $user->save();
+
+            die('success');
+        }
+
+        die('failed');
     }
 }

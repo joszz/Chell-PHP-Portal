@@ -12,7 +12,7 @@
     <div class="panel-body">
         <form action="<?php echo $form->getAction() ?>" method="post">
             <?php foreach($form AS $element) : ?>
-            <?php if(strpos(get_class($element), 'Hidden') === false) : ?>
+            <?php if (strpos(get_class($element), 'Hidden') === false) : ?>
             <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
                 <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
                     <?php echo $element->label(['class' => 'text-bold']) ?>
@@ -21,7 +21,7 @@
                     <?php echo $element ?>
                 </div>
                 <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                    <?php if($hasErrors) : ?>
+                    <?php if ($hasErrors) : ?>
                     <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
                     <?php endif ?>
                 </div>

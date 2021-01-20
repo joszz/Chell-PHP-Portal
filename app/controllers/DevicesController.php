@@ -40,7 +40,7 @@ class DevicesController extends BaseController
         {
             $output = Devices::shutdown($ip, $user, $password);
 
-            if(isset($output[1]))
+            if (isset($output[1]))
             {
                 die(strpos($output[1], 'succeeded') !== false ? 'true' : 'false');
             }

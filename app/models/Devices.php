@@ -127,13 +127,13 @@ class Devices extends Model
             // setting a broadcast option to socket:
             $opt_ret = socket_set_option($s, 1, 6, true);
 
-            if($opt_ret <0)
+            if ($opt_ret <0)
             {
                 echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
                 return false;
             }
 
-            if(socket_sendto($s, $msg, strlen($msg), 0, $config->network->broadcast, $socket_number))
+            if (socket_sendto($s, $msg, strlen($msg), 0, $config->network->broadcast, $socket_number))
             {
                 echo 'Magic Packet sent successfully!';
                 socket_close($s);

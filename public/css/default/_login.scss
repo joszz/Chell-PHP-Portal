@@ -38,6 +38,10 @@ div.login label:not(.toggle-on):not(.toggle-off) {
     float: right;
 }
 
+div.login h4 {
+    display: inline;
+}
+
 #rememberme-wrapper {
     width: 100%;
     min-height: 30px;

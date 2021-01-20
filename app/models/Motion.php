@@ -32,7 +32,8 @@ class Motion extends Model
      * @param object $config    The configuration file to use.
      * @return string           A formatted date string.
      */
-    public static function getModifiedTime($config){
+    public static function getModifiedTime($config)
+    {
         $latest_file = self::getLatest($config);
         return date('d-m-Y H:i', current($latest_file));
     }

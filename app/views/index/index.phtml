@@ -1,22 +1,22 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<?php if(!$anyWidgetEnabled) : ?>
+<?php if (!$anyWidgetEnabled) : ?>
 <h1 class="text-center">
     <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
 </h1>
 <?php endif ?>
 
-<?php if($this->config->phpsysinfo->enabled) : ?>
+<?php if ($this->config->phpsysinfo->enabled) : ?>
 <?php $this->partial('index/partials/phpsysinfo_sysinfo') ?>
 <?php endif ?>
 
-<?php if(count($devices)) : ?>
+<?php if (count($devices)) : ?>
 <?php $this->partial('index/partials/devices') ?>
 <?php endif ?>
 
 <div class="clearfix visible-sm"></div>
 
-<?php if($this->config->phpsysinfo->enabled) : ?>
+<?php if ($this->config->phpsysinfo->enabled) : ?>
 <?php $this->partial('index/partials/phpsysinfo_disks') ?>
 
 <div class="clearfix visible-lg visible-md"></div>
@@ -24,58 +24,58 @@
 <?php $this->partial('index/partials/phpsysinfo_processes') ?>
 <?php endif ?>
 
-<?php if($this->config->rcpu->enabled) : ?>
+<?php if ($this->config->rcpu->enabled) : ?>
 <?php $this->partial('index/partials/rcpu') ?>
 <?php endif ?>
 
-<?php if($this->config->transmission->enabled) : ?>
+<?php if ($this->config->transmission->enabled) : ?>
 <?php $this->partial('index/partials/transmission') ?>
 <?php endif ?>
 
 <div class="clearfix"></div>
 
-<?php if($this->config->kodi->enabled) : ?>
+<?php if ($this->config->kodi->enabled) : ?>
 <?php $this->partial('index/partials/kodi_latest_movies') ?>
 <?php $this->partial('index/partials/kodi_latest_episodes') ?>
 <?php $this->partial('index/partials/kodi_latest_albums') ?>
 <?php endif ?>
 
-<?php if($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>
+<?php if ($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>
 <?php $this->partial('index/partials/now_playing') ?>
 <?php endif ?>
 
-<?php if($this->config->couchpotato->enabled) : ?>
+<?php if ($this->config->couchpotato->enabled) : ?>
 <?php $this->partial('index/partials/couchpotato') ?>
 <?php endif ?>
 
-<?php if($this->config->motion->enabled) : ?>
+<?php if ($this->config->motion->enabled) : ?>
 <?php $this->partial('index/partials/motion') ?>
 <?php endif ?>
 
-<?php if($this->config->speedtest->enabled) : ?>
+<?php if ($this->config->speedtest->enabled) : ?>
 <?php $this->partial('index/partials/speedtest') ?>
 <?php endif ?>
 
-<?php if($this->config->sickrage->enabled) : ?>
+<?php if ($this->config->sickrage->enabled) : ?>
 <?php $this->partial('index/partials/sickrage') ?>
 <?php endif ?>
 
-<?php if($this->config->opcache->enabled) : ?>
+<?php if ($this->config->opcache->enabled) : ?>
 <?php $this->partial('index/partials/opcache') ?>
 <?php endif ?>
 
-<?php if($this->config->pihole->enabled) : ?>
+<?php if ($this->config->pihole->enabled) : ?>
 <?php $this->partial('index/partials/pihole') ?>
 <?php endif ?>
 
-<?php if($this->config->snmp->enabled) : ?>
+<?php if ($this->config->snmp->enabled) : ?>
 <?php $this->partial('index/partials/snmp') ?>
 <?php endif ?>
 
-<?php if($this->config->verisure->enabled) : ?>
+<?php if ($this->config->verisure->enabled) : ?>
 <?php $this->partial('index/partials/verisure') ?>
 <?php endif ?>
 
-<?php if($this->config->youless->enabled) : ?>
+<?php if ($this->config->youless->enabled) : ?>
 <?php $this->partial('index/partials/youless') ?>
 <?php endif ?>

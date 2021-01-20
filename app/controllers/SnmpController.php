@@ -20,7 +20,8 @@ class SnmpController extends BaseController
         ]);
         $this->view->hidden = $hidden;
 
-        if($this->view->host == null){
+        if ($this->view->host == null)
+        {
             die();
         }
     }
@@ -39,7 +40,7 @@ class SnmpController extends BaseController
             'bind'       => [1 => $id],
         ]);
 
-        if($this->view->host == null)
+        if ($this->view->host == null)
         {
             die();
         }

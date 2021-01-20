@@ -45,16 +45,20 @@ class Verisure extends Model
 
         foreach($overview->climateValues as $value)
         {
-            if($value->temperature >= 25){
+            if ($value->temperature >= 25)
+            {
                 $value->cssClass = 'text-danger';
             }
-            else if($value->temperature >= 20 && $value->temperature < 25){
+            else if ($value->temperature >= 20 && $value->temperature < 25)
+            {
                 $value->cssClass = 'text-warning';
             }
-            else if($value->temperature >= 10 && $value->temperature < 20){
+            else if ($value->temperature >= 10 && $value->temperature < 20)
+            {
                 $value->cssClass = 'text-success';
             }
-            else {
+            else
+            {
                 $value->cssClass = 'text-primary';
             }
         }
@@ -62,6 +66,13 @@ class Verisure extends Model
         return $encode ? json_encode($overview) : $overview;
     }
 
+    /**
+     * Sets the alarm state to the given state.
+     *
+     * @param object $config	The config object representing config.ini.
+     * @param mixed $state      The alarm state to set.
+     * @param mixed $pin        The user pin to use to authenticate.
+     */
     public static function SetArmState($config, $state, $pin)
     {
         self::executeCommand('set alarm ' . $pin . ' ' . $state, $config);
@@ -113,7 +124,7 @@ class Verisure extends Model
     {
         $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
 
-        if(!file_exists($filename))
+        if (!file_exists($filename))
         {
             self::executeCommand('getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename, $config);
         }

@@ -77,9 +77,12 @@ class InstallController extends BaseController
         header('Location: ' . $this->config->application->baseUri);
     }
 
+    /**
+     * Make sure the logs directory exists, if not create one.
+     */
     private function ensureLogDirectory()
     {
-        if(!is_dir(APP_PATH . 'app/logs'))
+        if (!is_dir(APP_PATH . 'app/logs'))
         {
             mkdir(APP_PATH . 'app/logs', 0660);
         }

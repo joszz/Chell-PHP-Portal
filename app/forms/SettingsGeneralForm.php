@@ -164,7 +164,8 @@ class SettingsGeneralForm extends SettingsBaseForm
     /**
      * Adds ImageProxy fields to the form.
      */
-    private function setImageProxyFields(){
+    private function setImageProxyFields()
+    {
         $imageproxyEnabled = new Check('imageproxy-enabled');
         $imageproxyEnabled->setLabel('Enabled');
         $imageproxyEnabled->setAttributes([
@@ -189,7 +190,8 @@ class SettingsGeneralForm extends SettingsBaseForm
     /**
      * Adds Redis fields to the form.
      */
-    private function setRedisFields(){
+    private function setRedisFields()
+    {
         $redisEnabled = new Check('redis-enabled');
         $redisEnabled->setLabel('Enabled');
         $redisEnabled->setAttributes([
@@ -236,7 +238,7 @@ class SettingsGeneralForm extends SettingsBaseForm
     {
         $valid = parent::IsValid($data, $entity);
 
-        if($valid)
+        if ($valid)
         {
             $this->_config->application->title = $data['title'];
             $this->_config->application->background = $data['bgcolor'];

@@ -20,7 +20,7 @@ class ChellException extends \Exception
      */
     public function __construct(\Throwable $exception)
     {
-        parent::__construct(ucfirst($exception->getMessage()), $exception->getCode(), $exception);
+        parent::__construct(ucfirst($exception->getMessage()), intval($exception->getCode()), $exception);
 
         $this->type = get_class($exception);
         $this->time = time();
@@ -81,6 +81,11 @@ class ChellException extends \Exception
         return date($format, $this->time);
     }
 
+    /**
+     * The starting line number for PrimJS to generate it's linenumbers with.
+     *
+     * @return int  The starting linenumber.
+     */
     private function getLineNumberStart()
     {
         return $this->line - $this->surroundingLines > 0 ? $this->line - $this->surroundingLines : 1;

@@ -11,7 +11,7 @@
 
     <?php echo $this->tag->renderTitle(); ?>
 
-    <?php if(isset($dnsPrefetchRecords)) : foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
+    <?php if (isset($dnsPrefetchRecords)) : foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
     <link rel="preconnect" href="<?php echo $dnsRecord ?>" />
     <?php endforeach; endif ?>
 
@@ -20,15 +20,18 @@
 
     <?php
     $this->assets->outputJs('general');
-    $controller = $this->dispatcher->getControllerName();
 
-    if($controller == 'index')
+    if ($this->assets->collection('dashboard')->count())
     {
         $this->assets->outputJs('dashboard');
     }
-    else if($controller == 'settings')
+    if ($this->assets->collection('settings')->count())
     {
         $this->assets->outputJs('settings');
+    }
+    if ($this->assets->collection('login')->count())
+    {
+        $this->assets->outputJs('login');
     }
     ?>
 </head>

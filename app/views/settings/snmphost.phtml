@@ -9,7 +9,7 @@
             <?php echo ($edit = !empty($host->name)) ? 'Edit' : 'New' ?> SNMP host
         </h4>
 
-        <?php if($edit) : ?>
+        <?php if ($edit) : ?>
         <ul class="nav nav-tabs pull-right hidden-xs">
             <li class="active">
                 <a data-toggle="tab" href="#general">General</a>
@@ -33,7 +33,7 @@
                             <?php echo $element ?>
                         </div>
                         <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                            <?php if($hasErrors) : ?>
+                            <?php if ($hasErrors) : ?>
                             <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
                             <?php endif ?>
                         </div>
@@ -50,7 +50,7 @@
                 </form>
             </div>
 
-            <?php if($edit) : ?>
+            <?php if ($edit) : ?>
             <div id="records" class="tab-pane fade panel panel-square">
                 <div class="table-responsive no-gutter col-lg-12 col-xs-12">
                     <table class="table table-striped table-hover success">

@@ -10,7 +10,7 @@
         data-speedtest-telemetry="<?php echo $this->config->speedtest->telemetry ?>">
         <div class="panel-heading">
             <div class="btn-group pull-right">
-                <?php if($this->config->speedtest->telemetry != 'off') : ?>
+                <?php if ($this->config->speedtest->telemetry != 'off') : ?>
                 <a href="<?php echo $this->config->application->baseUri ?>speedtest/stats" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
                 <?php endif ?>
                 <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>

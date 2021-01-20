@@ -53,25 +53,6 @@ class FrontController
             'js/toggle-passwords.js',
             'js/general.js',
         ],
-        'dashboard' => [
-            'js/dashboard-blocks/couchpotato.js',
-            'js/dashboard-blocks/devices.js',
-            'js/dashboard-blocks/gallery.js',
-            'js/dashboard-blocks/hyperv-admin.js',
-            'js/dashboard-blocks/motion.js',
-            'js/dashboard-blocks/nowplaying.js',
-            'js/dashboard-blocks/opcache.js',
-            'js/dashboard-blocks/phpsysinfo.js',
-            'js/dashboard-blocks/pihole.js',
-            'js/dashboard-blocks/sickrage.js',
-            'js/dashboard-blocks/speedtest.js',
-            'js/dashboard-blocks/transmission.js',
-            'js/dashboard-blocks/youless.js',
-            'js/dashboard-blocks/snmp.js',
-            'js/dashboard-blocks/verisure.js',
-            'js/dashboard.js',
-        ],
-        'settings' => ['js/settings.js']
     ];
 
     private $cssFiles = [
@@ -137,7 +118,7 @@ class FrontController
      */
     public function ExceptionHandler(\Throwable $exception)
     {
-        if(strpos(basename($_SERVER['REQUEST_URI']), '.') !== false) {
+        if (strpos(basename($_SERVER['REQUEST_URI']), '.') !== false) {
             die(header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found'));
         }
 
@@ -169,7 +150,10 @@ class FrontController
             'Chell\Models'                  => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi'             => APP_PATH . $this->config->application->modelsDir . 'kodi/',
             'Chell\Plugins'                 => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/'
+            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/',
+            'Davidearl\WebAuthn'            => APP_PATH . $this->config->application->vendorDir . 'WebAuthn/',
+            'CBOR'                          => APP_PATH . $this->config->application->vendorDir . 'CBOR/',
+            'phpseclib'                     => APP_PATH . $this->config->application->vendorDir . 'phpseclib/'
         ])->register();
     }
 
@@ -250,7 +234,8 @@ class FrontController
             $session = new Manager();
             $adapter = null;
 
-            if($config->redis->enabled){
+            if ($config->redis->enabled)
+            {
                 $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
                    'host'   => $config->redis->host,
                    'port'   => $config->redis->port,
@@ -258,7 +243,8 @@ class FrontController
                    'auth'   => $config->redis->auth
                ]);
             }
-            else {
+            else
+            {
                 $savePath = ini_get('session.save_path');
                 $adapter = new Stream(['savePath' => $savePath]);
             }
@@ -278,7 +264,7 @@ class FrontController
     {
         $version = $this->config->application->version;
 
-        if($this->config->application->debug)
+        if ($this->config->application->debug)
         {
             foreach($this->cssFiles as $file)
             {
@@ -292,7 +278,7 @@ class FrontController
 
         foreach($this->jsFiles as $collection => $files)
         {
-            if($this->config->application->debug)
+            if ($this->config->application->debug)
             {
                 foreach($files as $file)
                 {

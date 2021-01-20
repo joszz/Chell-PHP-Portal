@@ -25,7 +25,7 @@ class BaseController extends Controller
     {
         $this->config = $this->di->get('config');
 
-        if(in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
+        if (in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
             $this->view->menu = Menus::findFirst([
                 'conditions' => 'id = ?1',
@@ -135,7 +135,7 @@ class BaseController extends Controller
 
         switch ($source_image_type) {
             case IMAGETYPE_GIF:
-                $source_gd_image = imagecreatefromgif($sourcePath);
+                $source_gd_image = imagecreatefromgif ($sourcePath);
                 break;
 
             case IMAGETYPE_JPEG:
@@ -191,7 +191,7 @@ class BaseController extends Controller
      */
     public function GetPaginator($currentPage, $totalPages, $baseURI, $paginator = null)
     {
-        if($paginator == null)
+        if ($paginator == null)
         {
             $paginator = new \stdClass();
         }

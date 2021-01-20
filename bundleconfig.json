@@ -60,7 +60,8 @@
   {
     "outputFileName": "public/js/settings.min.js",
     "inputFiles": [
-      "public/js/settings.js"
+      "public/js/settings.js",
+      "public/vendor/webauthn/webauthnregister.js"
     ],
     "minify": {
       "enabled": true,
@@ -87,6 +88,20 @@
     "outputFileName": "public/js/worker.min.js",
     "inputFiles": [
       "public/js/worker.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "commentMode": "none",
+      "preserveImportantComments": false
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "public/js/login.min.js",
+    "inputFiles": [
+      "public/js/login.js",
+      "public/vendor/webauthn/webauthnauthenticate.js"
     ],
     "minify": {
       "enabled": true,

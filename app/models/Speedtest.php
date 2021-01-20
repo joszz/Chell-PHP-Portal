@@ -12,9 +12,6 @@ use Phalcon\Mvc\Model;
 class Speedtest extends Model
 {
 	private static $ipAddress = '', $isp = '', $clientLocaction, $serverLocation, $distance;
-	private static $ipInfoURL = 'https://ipinfo.io/';
-	private static $ipInfoToken = 'https://ipinfo.io/';
-
 	private static $config;
 
 	public $ip;
@@ -127,7 +124,7 @@ class Speedtest extends Model
 		self::$isp .= isset($details->country) ? ', ' . $details->country : '';
 		self::$clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-		$curl = curl_init(self::$ipInfoURL . 'json?token=' . self::$config->speedtest->ipInfoToken);
+		$curl = curl_init($config->speedtest->ipInfoUrl . 'json?token=' . self::$config->speedtest->ipInfoToken);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0

@@ -31,7 +31,7 @@ class KodiBase extends Model
             return $config->application->baseUri . 'img/icons/unknown.jpg';
         }
 
-        if($config->imageproxy->enabled)
+        if ($config->imageproxy->enabled)
         {
             return $config->imageproxy->URL . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }

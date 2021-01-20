@@ -2,14 +2,14 @@
 
 /**
 * Main entry point for settings view.
-* 
+*
 * @class Index
 * @module Settings
 */
 
 /**
 * Document onload, sets up setting view specific eventhandlers.
-* 
+*
 * @method document.onload
 */
 $(function () {
@@ -53,11 +53,45 @@ $(function () {
     });
 
     $("#settings").fadeIn("fast");
+
+    $(".webauth").on("click", function () {
+        var userId = $.trim($(this).parents("tr").find(".id").html());
+
+        $.getJSON("webauthchallenge/" + userId, function (challengeData) {
+            webauthnRegister(challengeData, function (success, registrationData) {
+                if (success) {
+                    $.ajax({
+                        url: "webauthregister",
+                        method: "POST",
+                        data: {
+                            userid: userId,
+                            registrationdata: registrationData
+                        },
+                        success: function (success) {
+                            if (success) {
+                                showAlert("success", "Authentication added");
+                            }
+                            else {
+                                showAlert("danger", "Authentication failed to add");
+                            }
+                        },
+                        error: function () {
+                            showAlert("danger", "Authentication failed to add");
+                        }
+                    });
+                } else {
+                    showAlert("danger", "Authentication failed to add");
+                }
+            });
+        });
+
+        return false;
+    });
 });
 
 /**
  * Collapses/expands all fields that are hidden by default/rendertime in fieldsets.
- * 
+ *
  * @method toggleFieldsInFieldSet
  * @param {Object}  $this   The reference to the checkbox being toggled.
  */
