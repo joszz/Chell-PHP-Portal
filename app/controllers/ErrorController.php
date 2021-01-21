@@ -66,7 +66,19 @@ class ErrorController
      */
     public function dump($dump)
     {
-        return (new Dump())->variable($dump);
+        return (new Dump([
+			"pre" => "",
+			"arr" => "",
+			"bool" => "",
+			"float" => "",
+			"int" => "",
+			"null" => "",
+			"num" => "",
+			"obj" => "",
+			"other" => "",
+			"res" => "",
+			"str" => "",
+		]))->variable($dump);
     }
 
     /**
@@ -79,7 +91,8 @@ class ErrorController
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
             $this->config->application->baseUri . 'vendor/prism/themes/prism.css',
-            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css'
+            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
+            $this->config->application->baseUri . 'css/default/exception.min.css'
         ];
         $this->js = [
             $this->config->application->baseUri . 'vendor/jquery/jquery.min.js',

@@ -22,5 +22,22 @@
     "options": {
       "sourceMap": true
     }
+  },
+  {
+    "outputFile": "public/css/default/exception.css",
+    "inputFile": "public/css/default/exception.scss",
+    "options": {
+      "sourceMap": false
+    }
+  },
+  {
+    "outputFile": "public/css/default/exception.min.css",
+    "inputFile": "public/css/default/exception.scss",
+    "minify": {
+      "enabled": true
+    },
+    "options": {
+      "sourceMap": true
+    }
   }
 ]

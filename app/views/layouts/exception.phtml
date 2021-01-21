@@ -11,61 +11,6 @@
     <link rel="stylesheet" href="<?php echo $css ?>" />
     <?php endforeach ?>
 
-    <style>
-        body {
-            overflow-y: scroll;
-        }
-
-        fieldset {
-            border: 1px solid #c0c0c0;
-            padding: 0.35em 0.625em 0.75em;
-            background-color: #f5f2f0;
-            margin-bottom: 20px;
-        }
-
-        legend {
-            width: auto;
-            padding: 0 10px;
-            border-bottom: none;
-            margin-bottom: 0;
-            cursor: pointer;
-        }
-
-            legend i.glyphicon {
-                top: 4px;
-            }
-
-        pre {
-            border: 0 !important;
-        }
-
-        .label-danger {
-            width: 100%;
-            float: left;
-            font-size: 14px;
-            margin-bottom: 15px;
-            text-align: left;
-            padding: 10px 10px;
-        }
-
-        .row > div {
-            line-height: 38px;
-        }
-
-        h1 {
-            margin: 20px 0;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #CCC;
-
-        }
-
-        .ellipsis {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-    </style>
-
     <?php foreach($this->js as $js) : ?>
     <script type="text/javascript" <?php echo 'src="' . $js .'"' ?> defer="defer"></script>
     <?php endforeach ?>
