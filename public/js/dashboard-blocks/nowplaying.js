@@ -52,9 +52,9 @@
                 * @method initialize
                 */
                 initialize: function () {
-                    settings.block.find(".fa-sync").click(function () {
-                        functions.nowPlaying();
-                    });
+                    settings.block.find(".fa-sync").on("click", functions.nowPlaying);
+
+                    $("body").on("click", ".nowplaying_detail .fa-sync", functions.nowPlaying);
 
                     settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
                         functions.rotate($(this).hasClass("fa-chevron-left") ? "left" : "right");
@@ -108,6 +108,7 @@
                         }
                         else {
                             settings.block.find(".player.nothing-playing").show();
+                            settings.block.find(".player.nothing-playing").find(".image").css("background-image", "url(img/icons/unknown.jpg)");
                         }
 
                         if (playerCount <= 1) {
@@ -190,9 +191,9 @@
                     fancybox.find(".year").html(values.year);
                     fancybox.find(".genre").html(values.genre);
                     fancybox.find(".duration").html(values.duration);
-                    fancybox.find(".bitrate").html(values.bitRate) + " kb/s";
+                    fancybox.find(".bitrate").html(values.bitrate) + " kb/s";
                     fancybox.find(".playcount").html(values.playCount);
-                    fancybox.find(".lastplayed").html(values.lastplayed + " minutes ago");
+                    fancybox.find(".lastplayed").html(values.lastPlayed + " minutes ago");
 
                     if (settings.block.find(".player:not(.nothing-playing):visible").length !== 0) {
                         clone.hide();
@@ -240,6 +241,7 @@
                                             subtitle: $(this).attr("title"),
                                             track: $(this).attr("track"),
                                             album: $(this).attr("album"),
+                                            year: $(this).attr("year"),
                                             genre: $(this).attr("genre"),
                                             duration: duration,
                                             bitrate: $(this).attr("bitRate"),
@@ -247,6 +249,9 @@
                                             lastPlayed: $(this).attr("minutesAgo")
                                         });
                                     });
+                                }
+                                else {
+
                                 }
                             },
                             complete: function () {

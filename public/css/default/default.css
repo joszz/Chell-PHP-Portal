@@ -5202,7 +5202,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&1031185") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5578910") format("woff2"), url("../../fonts/icomoon.woff?5180030") format("woff"), url("../../fonts/icomoon.ttf?8935099") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?9103345") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6417259") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2460840") format("woff2"), url("../../fonts/icomoon.woff?1042090") format("woff"), url("../../fonts/icomoon.ttf?9047119") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?1778106") format("svg"); }
 
 .fa,
 .fas {
@@ -5993,6 +5993,12 @@ div.gallery .panel-heading h4 {
 @media only screen and (max-width: 480px) {
   div.gallery {
     height: auto; } }
+
+.nowplaying_detail {
+  width: 400px;
+  padding: 0; }
+  .nowplaying_detail .panel {
+    margin-bottom: 0; }
 
 div.progress {
   margin: 0;
