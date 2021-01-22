@@ -2,7 +2,7 @@
 
 /**
 * The devices block on the dashboard.
-* 
+*
 * @class HyperVAdmin
 * @module Dashboard
 * @submodule DashboardBlocks
@@ -12,7 +12,7 @@
 
         /**
         * All the settings for this block.
-        * 
+        *
         * @property settings
         * @type Object
         */
@@ -32,7 +32,7 @@
 
         /**
         * All the functions for this block.
-        * 
+        *
         * @property functions
         * @type Object
         */
@@ -40,7 +40,7 @@
 
             /**
             * Initializes the eventhandlers for the various button clicks.
-            * 
+            *
             * @method checkstates
             */
             initialize: function () {
@@ -75,11 +75,15 @@
                             break;
                     }
                 });
+
+                settings.block.find(".load .progress-bar").each(function () {
+                    $(this).css("width", $(this).data("width"));
+                });
             },
 
             /**
              * Toggles the state of a site or VM/site and refreshes the list when the state toggle was successful.
-             * 
+             *
              * @method toggleState
              * @param {String} url          The URL to call to toggle the state.
              * @param {String} name         The name of the item to toggle the state for.
@@ -105,7 +109,7 @@
 
             /**
              * Refreshes the VM table rows.
-             * 
+             *
              * @method refreshVMs
              * @param {Boolean} showIsLoading   Whether to show the isLoading overlay, defaults to false.
              */
@@ -148,7 +152,7 @@
 
             /**
              * Refreshes the site table rows.
-             * 
+             *
              * @method refreshSites
              * @param {Boolean} showIsLoading   Whether to show the isLoading overlay, defaults to false.
              */

@@ -1,4 +1,8 @@
-﻿.speedtest .panel-body {
+﻿.speedtest {
+    max-height: 800px;
+}
+
+.speedtest .panel-body {
     text-align: center;
     height: 320px;
 }

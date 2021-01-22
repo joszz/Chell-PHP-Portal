@@ -53,7 +53,6 @@
                 */
                 initialize: function () {
                     settings.block.find(".fa-sync").on("click", functions.nowPlaying);
-
                     $("body").on("click", ".nowplaying_detail .fa-sync", functions.nowPlaying);
 
                     settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
@@ -177,11 +176,10 @@
                     var clone = settings.block.find(".player.nothing-playing").clone();
                     var fancybox = clone.find("#nowplaying_detail").attr("id", "nowplaying_detail_" + values.index);
 
-                    clone.removeClass("nothing-playing");
-                    clone.addClass(values.type);
+                    clone.removeClass("nothing-playing").addClass(values.type);
+                    clone.find(".item").attr("data-fancybox", "");
                     clone.find(".item .image").css("background-image", "url(" + values.bgImage + ")").parent().
                         attr({ title: $(this).attr("title"), href: "#nowplaying_detail_" + values.index });
-
                     clone.find(".title").html(values.title);
                     clone.find(".subtitle").html(values.subtitle);
 

@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&6417259") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2460840") format("woff2"), url("../../fonts/icomoon.woff?1042090") format("woff"), url("../../fonts/icomoon.ttf?9047119") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?1778106") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&7817508") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3065209") format("woff2"), url("../../fonts/icomoon.woff?4773381") format("woff"), url("../../fonts/icomoon.ttf?1867872") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3409019") format("svg"); }
 
 .fa,
 .fas {
@@ -7791,6 +7791,9 @@ div.motion iframe {
 div.motion .panel-body {
   padding: 0; }
 
+.speedtest {
+  max-height: 800px; }
+
 .speedtest .panel-body {
   text-align: center;
   height: 320px; }
@@ -7993,6 +7996,10 @@ div.motion .panel-body {
         transition: font-size .25s; }
         #verisure_set_armstate .button-wrapper .state-change button:hover {
           font-size: 8rem; }
+
+#verisure-details {
+  max-height: 800px;
+  min-height: 400px; }
 
 canvas,
 div.harddisks,
