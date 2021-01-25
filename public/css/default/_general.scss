@@ -40,6 +40,7 @@ body#bootstrap {
 body#iframe {
     min-height: 0;
     overflow: hidden;
+    background: #FFF no-repeat center center / cover;
 }
 
 body#iframe.overflow {

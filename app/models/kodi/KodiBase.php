@@ -25,7 +25,7 @@ class KodiBase extends Model
     {
         $width = $type == 'fanart' ? 800 : '350';
         $which = str_replace('Kodi', '', strtolower(get_class($this)));
-
+        //die(var_dump($this->{$imageField}));
         if (empty($this->{$imageField}))
         {
             return $config->application->baseUri . 'img/icons/unknown.jpg';

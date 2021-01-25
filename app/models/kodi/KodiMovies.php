@@ -53,7 +53,7 @@ class KodiMovies extends KodiBase
             $movie->c08 = (string)$xml->thumb[rand(0, count($xml->thumb) - 1)]['preview'];
 
             $xml = self::getXml($movie->c20);
-            $movie->c20 = is_array($xml->fanart->thumb) ? (string)$xml->fanart->thumb[rand(0, count($xml->fanart->thumb) - 1)] : '';
+            $movie->c20 = count($xml->fanart->thumb) > 0 ? (string)$xml->fanart->thumb[rand(0, count($xml->fanart->thumb) - 1)] : '';
 
             $return[] = $movie;
         }

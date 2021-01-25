@@ -5202,7 +5202,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&7817508") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3065209") format("woff2"), url("../../fonts/icomoon.woff?4773381") format("woff"), url("../../fonts/icomoon.ttf?1867872") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3409019") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&4407930") format("embedded-opentype"), url("../../fonts/icomoon.woff2?52601") format("woff2"), url("../../fonts/icomoon.woff?1459634") format("woff"), url("../../fonts/icomoon.ttf?2367151") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2772101") format("svg"); }
 
 .fa,
 .fas {
@@ -5700,7 +5700,8 @@ body#bootstrap {
 
 body#iframe {
   min-height: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  background: #FFF no-repeat center center / cover; }
 
 body#iframe.overflow {
   overflow-y: auto; }

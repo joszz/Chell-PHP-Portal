@@ -25,7 +25,7 @@
     ?>
 </head>
 
-<body id="iframe" <?php echo isset($bgImage) ? 'style="background: url(\'' . $bgImage . '\') no-repeat center center / cover"' : null ?>
+<body id="iframe" data-bg-image="<?php echo $bgImage ?>"
     class="<?php echo isset($overflow) && $overflow == true ? 'overflow' : null ?> <?php echo $this->config->application->demoMode ? 'demo-mode' : null ?>">
     <div class="container-fluid no-gutter container-relative">
         <?php echo $this->getContent() ?>
