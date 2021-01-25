@@ -18,6 +18,7 @@
             * @type Object
             */
             var settings = $.extend({
+                url: $(this).data("distro-icon-base"),
                 block: $(this)
             }, options);
 
