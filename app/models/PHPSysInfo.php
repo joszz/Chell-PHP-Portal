@@ -17,7 +17,7 @@ class PHPSysInfo extends Model
      * Main function retrieving PHPSysInfo JSON through cURL.
      *
      * @param object $config    The configuration file to use.
-     * @return object           All PHPSysInfo data in an associative array
+     * @return bool|string      All PHPSysInfo data in an associative array
      */
     public static function getData($config, $plugin)
     {
