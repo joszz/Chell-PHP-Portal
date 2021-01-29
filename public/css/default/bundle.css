@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8208452") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2005367") format("woff2"), url("../../fonts/icomoon.woff?882630") format("woff"), url("../../fonts/icomoon.ttf?4264602") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4257988") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&4269708") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9450428") format("woff2"), url("../../fonts/icomoon.woff?277189") format("woff"), url("../../fonts/icomoon.ttf?3570737") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?147281") format("svg"); }
 
 .fa,
 .fas {
@@ -7508,6 +7508,8 @@ div.vertical-center {
     cursor: pointer; } }
 
 @media only screen and (max-width: 767px) {
+  div.content {
+    padding: 20px 0 0 0; }
   .no-gutter-xs {
     padding: 0; }
   .no-gutter-left-xs {
@@ -8077,10 +8079,6 @@ div.panel.transparent {
 
 .fancybox-slide > div.sickrage-detail {
   padding: 0; }
-
-@media only screen and (max-width: 767px) {
-  body > div.container > div {
-    padding: 0; } }
 
 @media only screen and (min-width: 481px) {
   div.panel .list-group,
