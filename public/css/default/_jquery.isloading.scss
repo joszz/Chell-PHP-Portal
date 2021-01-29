@@ -20,6 +20,20 @@
     display: inline-block;
     margin: 0 auto;
     padding: 10px 20px;
-    top: 10%;
     z-index: 7000;
+}
+
+.isloading-onload {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    width: calc(100% + -30px);
+    border-radius: 3px;
+    height: calc(100% + -20px);
+
+    span {
+        top: calc(50% - 19.5px);
+        position: relative;
+    }
 }

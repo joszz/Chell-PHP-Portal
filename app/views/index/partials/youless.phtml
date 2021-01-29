@@ -7,6 +7,8 @@
         data-primary="<?php echo $this->config->youless->primaryThreshold ?>"
         data-warn="<?php echo $this->config->youless->warnThreshold ?>"
         data-danger="<?php echo $this->config->youless->dangerThreshold ?>">
+        <?php $this->partial('is-loading') ?>
+
         <div class="panel-heading">
             <div class="btn-group pull-right">
                 <a href="<?php echo (!empty($this->config->youless->chartsURL) ? $this->config->youless->chartsURL : $this->config->youless->URL) ?>" target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="Youless"></a>

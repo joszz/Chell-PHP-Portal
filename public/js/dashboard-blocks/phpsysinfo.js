@@ -51,7 +51,7 @@
 
                     if (settings.block.hasClass("sysinfo")) {
                         //use timeout to prevent isloading from positioning incorrectly on load
-                        window.setTimeout(functions.getAll, 0);
+                        functions.getAll(true);
                     }
                 },
 
@@ -61,8 +61,11 @@
                 * @method getAll
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
-                getAll: function () {
-                    $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading();
+                getAll: function (initialize) {
+                    initialize = typeof initialize === "undefined" ? false : initialize;
+                    if (!initialize) {
+                        $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading();
+                    }
 
                     $.ajax({
                         url: "phpsysinfo/",
@@ -114,7 +117,7 @@
                 * @method setCPUCores
                 * @param {Object} data The data retrieved from PHPSysInfo.
                 */
-                setCPUCores: function(data, block) {
+                setCPUCores: function (data, block) {
                     block.find(".cpu-model .value").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
                     block.find(".motherboard .value").html(data.Hardware["@attributes"].Name);
 

@@ -5202,7 +5202,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&4407930") format("embedded-opentype"), url("../../fonts/icomoon.woff2?52601") format("woff2"), url("../../fonts/icomoon.woff?1459634") format("woff"), url("../../fonts/icomoon.ttf?2367151") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2772101") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&8208452") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2005367") format("woff2"), url("../../fonts/icomoon.woff?882630") format("woff"), url("../../fonts/icomoon.ttf?4264602") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4257988") format("svg"); }
 
 .fa,
 .fas {
@@ -5664,8 +5664,19 @@ fieldset[disabled] .btn-danger.active {
   display: inline-block;
   margin: 0 auto;
   padding: 10px 20px;
-  top: 10%;
   z-index: 7000; }
+
+.isloading-onload {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  width: calc(100% + -30px);
+  border-radius: 3px;
+  height: calc(100% + -20px); }
+  .isloading-onload span {
+    top: calc(50% - 19.5px);
+    position: relative; }
 
 * {
   scrollbar-width: thin;

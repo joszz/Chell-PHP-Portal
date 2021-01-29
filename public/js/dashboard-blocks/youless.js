@@ -41,23 +41,19 @@
 
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
-                    settings.updateIntervalId = setInterval(function () {
-                        functions.refresh();
-                    }, settings.updateInterval);
-
+                    settings.updateIntervalId = setInterval(functions.refresh, settings.updateInterval);
                     functions.refresh();
                 });
 
-                settings.updateIntervalId = setInterval(function () {
-                    functions.refresh();
-                }, settings.updateInterval);
-
-                //use timeout to prevent isloading from positioning incorrectly on load
-                window.setTimeout(functions.refresh, 0);
+                settings.updateIntervalId = setInterval(functions.refresh, settings.updateInterval);
+                functions.refresh(true);
             },
 
-            refresh: function () {
-                settings.block.isLoading();
+            refresh: function (initialize) {
+                initialize = typeof initialize === "undefined" ? false : initialize;
+                if (!initialize) {
+                    settings.block.isLoading();
+                }
 
                 $.ajax({
                     url: "youless/",

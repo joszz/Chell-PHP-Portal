@@ -1,7 +1,9 @@
-<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+<?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <div class="panel panel-success verisure" data-update-interval="<?php echo $this->config->verisure->updateInterval ?>">
+        <?php $this->partial('is-loading') ?>
+
         <div class="panel-heading">
             <div class="btn-group pull-right">
                 <a href="<?php echo $this->config->application->baseUri ?>verisure/details/" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>

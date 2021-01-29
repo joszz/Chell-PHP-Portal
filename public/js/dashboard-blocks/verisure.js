@@ -53,7 +53,7 @@
                     functions.set_arm_state($(this).data("state"));
                 });
 
-                settings.block.find(".fa-sync").click(functions.update);
+                settings.block.find(".fa-sync").click(function () { functions.update(false); });
                 settings.block.find(".fa-camera").click(functions.photos);
                 settings.block.find(".fa-image").click(functions.select_device);
                 settings.block.find(".top button").click(function () {
@@ -62,10 +62,7 @@
                     });
                 });
 
-                settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
-
-                //use timeout to prevent isloading from positioning incorrectly on load
-                window.setTimeout(functions.update, 0);
+                functions.update(true);
             },
 
             /**
@@ -74,9 +71,12 @@
             *
             * @method update
             */
-            update: function () {
-                settings.block.isLoading();
-                window.clearInterval(settings.updateIntervalId);
+            update: function (initialize) {
+                initialize = typeof initialize === "undefined" ? false : initialize;
+                if (!initialize) {
+                    settings.block.isLoading();
+                    window.clearInterval(settings.updateIntervalId);
+                }
 
                 $.ajax({
                     url: "verisure",
