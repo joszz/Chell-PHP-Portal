@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&4269708") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9450428") format("woff2"), url("../../fonts/icomoon.woff?277189") format("woff"), url("../../fonts/icomoon.ttf?3570737") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?147281") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&1754146") format("embedded-opentype"), url("../../fonts/icomoon.woff2?886512") format("woff2"), url("../../fonts/icomoon.woff?2063403") format("woff"), url("../../fonts/icomoon.ttf?6814928") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3633945") format("svg"); }
 
 .fa,
 .fas {
@@ -7376,22 +7376,21 @@ fieldset[disabled] .btn-danger.active {
     top: calc(50% - 19.5px);
     position: relative; }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #3c763d #dff0d8; }
-
-*::-webkit-scrollbar {
-  width: 7px;
-  height: 7px; }
-
-*::-webkit-scrollbar-thumb {
-  background-color: #3c763d; }
-
 html {
   min-height: 100%; }
 
 html.full-height {
   height: 100%; }
+
+@media (prefers-color-scheme: dark) {
+  html:not(.whitebg),
+  html:not(.whitebg) body {
+    background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%); } }
+
+@media (prefers-color-scheme: light) {
+  html:not(.blackbg),
+  html:not(.blackbg) body {
+    background: #FFF; } }
 
 html.blackbg,
 html.blackbg body {
@@ -8029,6 +8028,20 @@ div.panel-heading,
 div.panel-body {
   width: 100%;
   float: left; }
+  div.panel *,
+  div.panel-heading *,
+  div.panel-body * {
+    scrollbar-width: thin;
+    scrollbar-color: #3c763d #dff0d8; }
+    div.panel *::-webkit-scrollbar,
+    div.panel-heading *::-webkit-scrollbar,
+    div.panel-body *::-webkit-scrollbar {
+      width: 7px;
+      height: 7px; }
+    div.panel *::-webkit-scrollbar-thumb,
+    div.panel-heading *::-webkit-scrollbar-thumb,
+    div.panel-body *::-webkit-scrollbar-thumb {
+      background-color: #3c763d; }
 
 div.panel-heading h4 {
   font-weight: bold; }

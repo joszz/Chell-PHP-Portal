@@ -26,6 +26,20 @@ div.panel-heading,
 div.panel-body {
     width: 100%;
     float: left;
+
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: $state-success-text $state-success-bg;
+
+        &::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $state-success-text;
+        }
+    }
 }
 
 div.panel-heading h4 {

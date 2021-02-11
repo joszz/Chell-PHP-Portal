@@ -35,13 +35,15 @@ var keys = {
 $(function () {
     if ("serviceWorker" in navigator) {
         var baseUri = $("body").data("baseuri");
-        window.addEventListener("load", function () {
-            navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {
-                // Registration was successful
-            }, function (_err) {
-                // registration failed :(
+        if (baseUri) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {
+                    // Registration was successful
+                }, function (_err) {
+                    // registration failed :(
+                });
             });
-        });
+        }
     }
 
     alertTimeout = $(".alert").data("alert-timeout");

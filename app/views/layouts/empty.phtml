@@ -13,6 +13,8 @@
     <meta name="description" content="Chell PHP Portal - Aggregate all your webserver services" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light">
+
     <?php echo $this->tag->renderTitle();  ?>
     <?php
     $this->assets->outputCss('header');
@@ -25,7 +27,7 @@
     ?>
 </head>
 
-<body id="iframe" data-bg-image="<?php echo $bgImage ?>"
+<body id="iframe" data-bg-image="<?php echo isset($bgImage) ? $bgImage : null ?>"
     class="<?php echo isset($overflow) && $overflow == true ? 'overflow' : null ?> <?php echo $this->config->application->demoMode ? 'demo-mode' : null ?>">
     <div class="container-fluid no-gutter container-relative">
         <?php echo $this->getContent() ?>
