@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&1754146") format("embedded-opentype"), url("../../fonts/icomoon.woff2?886512") format("woff2"), url("../../fonts/icomoon.woff?2063403") format("woff"), url("../../fonts/icomoon.ttf?6814928") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3633945") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&5965678") format("embedded-opentype"), url("../../fonts/icomoon.woff2?7053697") format("woff2"), url("../../fonts/icomoon.woff?1839462") format("woff"), url("../../fonts/icomoon.ttf?8611477") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?523352") format("svg"); }
 
 .fa,
 .fas {
@@ -8227,8 +8227,11 @@ input[type=number] {
 .bootstrap-touchspin-injected button {
   font-weight: bold; }
 
+.input-group .bootstrap-select .dropdown-toggle:focus {
+  outline: 0 !important; }
+
 .input-group .bootstrap-select button {
-  border-radius: 4px 0 0 4px; }
+  border-radius: 4px 0 0 4px !important; }
 
 #settings .panel-body .row {
   width: calc(100% + 30px); }

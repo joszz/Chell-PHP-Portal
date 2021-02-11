@@ -107,8 +107,14 @@ input[type=number] {
     font-weight: bold;
 }
 
-.input-group .bootstrap-select button {
-    border-radius: 4px 0 0 4px;
+.input-group .bootstrap-select {
+    .dropdown-toggle:focus {
+        outline: 0 !important;
+    }
+
+    button {
+        border-radius: 4px 0 0 4px !important;
+    }
 }
 
 #settings .panel-body .row {
