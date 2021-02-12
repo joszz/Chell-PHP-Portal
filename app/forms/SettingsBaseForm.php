@@ -61,7 +61,9 @@ class SettingsBaseForm extends Form
         }
         else
         {
-            if (strpos($class = $element->getAttribute('class'), 'hidden') !== false)
+            $class = $element->getAttribute('class');
+
+            if (strpos($class, 'hidden') !== false)
             {
                 $hidden = true;
                 $element->setAttribute('class', str_replace('hidden', '', $class));
@@ -74,6 +76,10 @@ class SettingsBaseForm extends Form
             if (get_class($element) == 'Phalcon\Forms\Element\Password')
             {
                 $html .= '<a class="btn btn-default input-group-addon toggle-password" title="Toggle password display"><i class="fa fa-eye"></i></a>';
+            }
+            else if (strpos($class, 'location') !== false)
+            {
+                $html .= '<a class="btn btn-default input-group-addon" title="Get location"><i class="fa fa-map-marker-alt"></i></a>';
             }
 
             $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" title="Help" href="';

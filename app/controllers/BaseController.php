@@ -50,7 +50,7 @@ class BaseController extends Controller
             $sunInfo = date_sun_info(time(), $this->config->application->backgroundLatitude, $this->config->application->backgroundLongitude);
             $currentTime = time();
 
-            return $currentTime < $sunInfo['sunrise'] || $currentTime > $sunInfo['sunset'] ? 'blackbg' : 'whitebg';
+            return $currentTime < $sunInfo['sunrise'] || $currentTime > $sunInfo['sunset'] ? 'darkbg' : 'lightbg';
         }
 
         return $this->config->application->background;

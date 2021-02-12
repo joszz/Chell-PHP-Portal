@@ -7,20 +7,20 @@ html.full-height {
 }
 
 @media (prefers-color-scheme: dark) {
-    html:not(.whitebg),
-    html:not(.whitebg) body {
+    html:not(.lightbg),
+    html:not(.lightbg) body {
         background: $darkBackgroundGradient;
     }
 }
 @media (prefers-color-scheme: light) {
-    html:not(.blackbg),
-    html:not(.blackbg) body {
+    html:not(.darkbg),
+    html:not(.darkbg) body {
         background: #FFF;
     }
 }
 
-html.blackbg,
-html.blackbg body {
+html.darkbg,
+html.darkbg body {
     background: $darkBackgroundGradient;
 }
 

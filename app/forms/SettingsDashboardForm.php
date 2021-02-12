@@ -12,6 +12,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\Regex;
 
 /**
@@ -33,7 +34,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->_config->dashboard->checkDeviceStatesInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 		$this->add($devicestateTimeouts);
 
 		$this->setPHPSysInfoFields();
@@ -159,7 +160,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->transmission->updateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$this->add($transmissionEnabled);
 		$this->add($transmissionURL);
@@ -247,21 +248,21 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->rotateMoviesInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$rotateEpisodesInterval = new Numeric('kodi-rotate-episodes-interval');
 		$rotateEpisodesInterval->setLabel('Rotate episode interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->kodi->rotateEpisodesInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$rotateAlbumsInterval = new Numeric('kodi-rotate-albums-interval');
 		$rotateAlbumsInterval->setLabel('Rotate albums interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->kodi->rotateAlbumsInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$this->add($kodiEnabled);
 		$this->add($kodiURL);
@@ -338,7 +339,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->couchpotato->rotateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$this->add($couchpotatoEnabled);
 		$this->add($couchpotatoURL);
@@ -428,7 +429,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->motion->updateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 
 		$this->add($motionEnabled);
@@ -464,14 +465,14 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->time_dl)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$speedtestDownloadTime = new Numeric('speedtest-time-dl');
 		$speedtestDownloadTime->setLabel('Download time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->speedtest->time_dl)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$speedtestGetIP = new Check('speedtest-get-ispip');
 		$speedtestGetIP->setLabel('Get ISP IP');
@@ -602,7 +603,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->updateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$youlessPrimaryThreshold = new Numeric('youless-primary-threshold');
 		$youlessPrimaryThreshold->setLabel('YouLess primary threshold')
@@ -616,14 +617,14 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->youless->warnThreshold)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$youlessDangerThreshold = new Numeric('youless-danger-threshold');
 		$youlessDangerThreshold->setLabel('YouLess danger threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($this->_config->youless->dangerThreshold)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$this->add($youlessEnabled);
 		$this->add($youlessURL);
@@ -655,7 +656,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->snmp->updateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$this->add($snmpEnabled);
 		$this->add($snmpInterval);
@@ -683,7 +684,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->_config->verisure->updateInterval)
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
         $verisureURL = new Text('verisure-url');
 		$verisureURL->setLabel('URL')

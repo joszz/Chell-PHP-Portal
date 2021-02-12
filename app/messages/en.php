@@ -4,6 +4,8 @@ $help = [
     /* General settings */
     'title'                         => 'The title of this website, displayed in the header and the browsers tab.',
     'bgcolor'                       => 'The backgroundcolor for the website, either black or white.',
+    'bgcolor-latitude'              => 'The latitude value to be used to determine the backgroundcolor based on the current time. After sunset and before sunrise the backgroundcolor will be set to light.',
+    'bgcolor-longitude'             => 'The longitude value to be used to determine the backgroundcolor based on the current time. Between sunset and sunrise the backgroundcolor will be set to dark.',
     'alert-timeout'                 => 'The duration to display notifications after performing an action such as using WOL.',
     'items-per-page'                => 'The amount of items shown on paginated tables such as the logs tab in settings.',
     'cryptkey'                      => 'The key used for Phalcon\'s cryptographic functions.',
@@ -115,6 +117,8 @@ $helpTitles = [
     /* General settings */
     'title'                         => 'Title',
     'bgcolor'                       => 'Backgroundcolor',
+    'bgcolor-latitude'              => 'Latitude',
+    'bgcolor-longitude'             => 'Longitude',
     'alert-timeout'                 => 'Notification timeout',
     'items-per-page'                => 'Items per page',
     'cryptkey'                      => 'Phalcon cryptkey',

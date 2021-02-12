@@ -9,7 +9,7 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
 use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Regex;
+use Phalcon\Validation\Validator\Numericality;
 
 /**
  * The form responsible for the general settings.
@@ -34,7 +34,7 @@ class SettingsGeneralForm extends SettingsBaseForm
 
         $bgcolor = new Select(
             'bgcolor',
-            ['autobg' => 'Auto', 'blackbg' => 'Black', 'whitebg' => 'White', 'timebg' => 'Time based'],
+            ['autobg' => 'Auto', 'darkbg' => 'Dark', 'lightbg' => 'Light', 'timebg' => 'Time based'],
             ['useEmpty' => false]
         );
         $bgcolor->setLabel('Background color');
@@ -43,30 +43,30 @@ class SettingsGeneralForm extends SettingsBaseForm
         $bgColorLatitude = new Numeric('bgcolor-latitude');
         $bgColorLatitude->setLabel('Latitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control hidden', 'step' => 'any'])
+            ->setAttributes(['class' => 'form-control location latitude' . ($this->_config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
             ->setDefault($this->_config->application->backgroundLatitude)
-            ->addValidator(new Regex(['pattern' => '/^-?(?:\d+|\d*\.\d+)$/', 'message' => 'Not a number']));
+            ->addValidator(new Numericality(['message' => 'Not a number']));
 
         $bgColorLongitude= new Numeric('bgcolor-longitude');
         $bgColorLongitude->setLabel('Longitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control hidden', 'step' => 'any'])
+            ->setAttributes(['class' => 'form-control location longitude' . ($this->_config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
             ->setDefault($this->_config->application->backgroundLongitude)
-            ->addValidator(new Regex(['pattern' => '/^-?(?:\d+|\d*\.\d+)$/', 'message' => 'Not a number']));
+            ->addValidator(new Numericality(['message' => 'Not a number']));
 
         $alertTimeout = new Numeric('alert-timeout');
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->_config->application->alertTimeout)
-            ->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+            ->addValidator(new Numericality(['message' => 'Not a number']));
 
         $itemsPerPage = new Numeric('items-per-page');
         $itemsPerPage->setLabel('Items per page')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->_config->application->itemsPerPage)
-            ->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+            ->addValidator(new Numericality(['message' => 'Not a number']));
 
         $cryptKey = new Password('cryptkey');
         $cryptKey->setLabel('Cryptkey');
@@ -225,11 +225,12 @@ class SettingsGeneralForm extends SettingsBaseForm
         $redisHost->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $redisHost->setDefault($this->_config->redis->host);
 
-        $redisPort = new Text('redis-port');
+        $redisPort = new Numeric('redis-port');
         $redisPort->setLabel('Port');
         $redisPort->setFilters(['striptags', 'int']);
         $redisPort->setAttributes(['class' => 'form-control', 'fieldset' => true]);
         $redisPort->setDefault($this->_config->redis->port);
+        $redisPort->addValidator(new Numericality(['message' => 'Not a number']));
 
         $redisAuth = new Password('redis-auth');
         $redisAuth->setLabel('Auth');
@@ -253,7 +254,7 @@ class SettingsGeneralForm extends SettingsBaseForm
     public function IsValid($data = null, $entity = null) : bool
     {
         $valid = parent::IsValid($data, $entity);
-
+        //die(var_dump(preg_match('/^-?(?:\d+|\d*\.\d+)$/', $data['bgcolor-longitude'])));
         if ($valid)
         {
             $this->_config->application->title = $data['title'];

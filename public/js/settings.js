@@ -50,7 +50,7 @@ $(function () {
         verticaldownclass: "fa fa-chevron-right",
         buttondown_class: "btn btn-default",
         buttonup_class: "btn btn-default",
-        max: 1000
+        max: 1000000000
     });
 
     $("legend input[type='checkbox']").each(function () {
@@ -60,6 +60,20 @@ $(function () {
             toggleFieldsInFieldSet($(this));
         });
     });
+
+    $(".location").next().on("click", function () {
+        var $this = $(this);
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var input = $this.prev();
+
+            if (input.hasClass("latitude")) {
+                input.val(position.coords.latitude);
+            }
+            else if (input.hasClass("longitude")) {
+                input.val(position.coords.longitude);
+            }
+        });
+    })
 
     $("#settings").fadeIn("fast");
 

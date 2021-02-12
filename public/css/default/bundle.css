@@ -6900,7 +6900,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&5965678") format("embedded-opentype"), url("../../fonts/icomoon.woff2?7053697") format("woff2"), url("../../fonts/icomoon.woff?1839462") format("woff"), url("../../fonts/icomoon.ttf?8611477") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?523352") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&4016314") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2570247") format("woff2"), url("../../fonts/icomoon.woff?2890642") format("woff"), url("../../fonts/icomoon.ttf?7520638") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4738786") format("svg"); }
 
 .fa,
 .fas {
@@ -7038,6 +7038,9 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-fingerprint:before {
   content: "\f577"; }
+
+.fa-map-marker-alt:before {
+  content: "\f3c5"; }
 
 .panel-group .panel-heading {
   padding: 0; }
@@ -7383,17 +7386,17 @@ html.full-height {
   height: 100%; }
 
 @media (prefers-color-scheme: dark) {
-  html:not(.whitebg),
-  html:not(.whitebg) body {
+  html:not(.lightbg),
+  html:not(.lightbg) body {
     background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%); } }
 
 @media (prefers-color-scheme: light) {
-  html:not(.blackbg),
-  html:not(.blackbg) body {
+  html:not(.darkbg),
+  html:not(.darkbg) body {
     background: #FFF; } }
 
-html.blackbg,
-html.blackbg body {
+html.darkbg,
+html.darkbg body {
   background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%); }
 
 body {
@@ -8209,8 +8212,7 @@ input[type=number] {
 #settings legend .toggle {
   margin-right: 15px; }
 
-#settings .fa-question,
-#settings .fa-eye {
+#settings .input-group .fa {
   text-decoration: none;
   color: #3c763d;
   font-size: 14px; }

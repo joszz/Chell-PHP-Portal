@@ -84,8 +84,7 @@ input[type=number] {
     margin-right: 15px;
 }
 
-#settings .fa-question,
-#settings .fa-eye {
+#settings .input-group .fa {
     text-decoration: none;
     color: $state-success-text;
     font-size: 14px;

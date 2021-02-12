@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\Regex;
 
 use Chell\Models\SnmpHosts;
@@ -66,19 +67,19 @@ class SettingsSnmpRecordForm extends Form
 		$position->setLabel('Position')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$divisor = new Numeric('divisor');
 		$divisor->setLabel('Divisor')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$divisor_decimals = new Numeric('divisor_decimals');
 		$divisor_decimals->setLabel('Divisor decimals')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->addValidator(new Regex(['pattern' => '/^[0-9]+$/', 'message' => 'Not a number']));
+			->addValidator(new Numericality(['message' => 'Not a number']));
 
 		$value_unit = new Text('value_oid');
 		$value_unit->setLabel('Value unit')
