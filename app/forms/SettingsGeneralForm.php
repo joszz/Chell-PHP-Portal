@@ -40,6 +40,20 @@ class SettingsGeneralForm extends SettingsBaseForm
         $bgcolor->setLabel('Background color');
         $bgcolor->setDefault($this->_config->application->background);
 
+        $bgColorLatitude = new Numeric('bgcolor-latitude');
+        $bgColorLatitude->setLabel('Latitude')
+            ->setFilters(['striptags', 'float'])
+            ->setAttributes(['class' => 'form-control hidden', 'step' => 'any'])
+            ->setDefault($this->_config->application->backgroundLatitude)
+            ->addValidator(new Regex(['pattern' => '/^-?(?:\d+|\d*\.\d+)$/', 'message' => 'Not a number']));
+
+        $bgColorLongitude= new Numeric('bgcolor-longitude');
+        $bgColorLongitude->setLabel('Longitude')
+            ->setFilters(['striptags', 'float'])
+            ->setAttributes(['class' => 'form-control hidden', 'step' => 'any'])
+            ->setDefault($this->_config->application->backgroundLongitude)
+            ->addValidator(new Regex(['pattern' => '/^-?(?:\d+|\d*\.\d+)$/', 'message' => 'Not a number']));
+
         $alertTimeout = new Numeric('alert-timeout');
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(['striptags', 'int'])
@@ -101,6 +115,8 @@ class SettingsGeneralForm extends SettingsBaseForm
 
         $this->add($title);
         $this->add($bgcolor);
+        $this->add($bgColorLatitude);
+        $this->add($bgColorLongitude);
         $this->add($alertTimeout);
         $this->add($itemsPerPage);
         $this->add($cryptKey);
@@ -242,6 +258,8 @@ class SettingsGeneralForm extends SettingsBaseForm
         {
             $this->_config->application->title = $data['title'];
             $this->_config->application->background = $data['bgcolor'];
+            $this->_config->application->backgroundLatitude = $data['bgcolor-latitude'];
+            $this->_config->application->backgroundLongitude = $data['bgcolor-longitude'];
             $this->_config->application->alertTimeout = $data['alert-timeout'];
             $this->_config->application->itemsPerPage = $data['items-per-page'];
             $this->_config->application->phalconCryptKey = $data['cryptkey'];

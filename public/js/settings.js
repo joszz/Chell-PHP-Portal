@@ -36,7 +36,16 @@ $(function () {
         return false;
     });
 
-    $("input[type='number']").TouchSpin({
+    $("#bgcolor").on("change", function () {
+        if ($(this).val() == "timebg") {
+            $(this).parents('.row').next().removeClass('hidden').next().removeClass('hidden');
+        }
+        else {
+            $(this).parents('.row').next().addClass('hidden').next().addClass('hidden');
+        }
+    });
+
+    $("input[type='number'][step!='any']").TouchSpin({
         verticalupclass: "fa fa-chevron-left",
         verticaldownclass: "fa fa-chevron-right",
         buttondown_class: "btn btn-default",

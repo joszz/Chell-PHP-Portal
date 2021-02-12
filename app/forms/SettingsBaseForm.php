@@ -61,6 +61,12 @@ class SettingsBaseForm extends Form
         }
         else
         {
+            if (strpos($class = $element->getAttribute('class'), 'hidden') !== false)
+            {
+                $hidden = true;
+                $element->setAttribute('class', str_replace('hidden', '', $class));
+            }
+
             $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
             $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(['class' => 'text-bold']) . '</div>';
             $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;

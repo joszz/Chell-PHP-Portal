@@ -33,6 +33,27 @@ class BaseController extends Controller
                 'bind'       => [1 => 1],
             ]);
         }
+
+        $this->view->bgcolor = $this->getBackgroundColor();
+    }
+
+    /**
+     * Retreives the background color class based on the settings.
+     * If set to 'timebg', get the sunrise/sunset infor and compare this to the time in order to decide what color to use.
+     *
+     * @return string   The CSS class used to set the background color.
+     */
+    private function getBackgroundColor()
+    {
+        if ($this->config->application->background == 'timebg')
+        {
+            $sunInfo = date_sun_info(time(), $this->config->application->backgroundLatitude, $this->config->application->backgroundLongitude);
+            $currentTime = time();
+
+            return $currentTime < $sunInfo['sunrise'] || $currentTime > $sunInfo['sunset'] ? 'blackbg' : 'whitebg';
+        }
+
+        return $this->config->application->background;
     }
 
     /**
