@@ -29,7 +29,7 @@ div.panel-body {
 
     * {
         scrollbar-width: thin;
-        scrollbar-color: $state-success-text $state-success-bg;
+        scrollbar-color: $state-success-bg;
 
         &::-webkit-scrollbar {
             width: 7px;
@@ -38,6 +38,12 @@ div.panel-body {
 
         &::-webkit-scrollbar-thumb {
             background-color: $state-success-text;
+            border-radius: $border-radius-base;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: $state-success-bg;
+            border-radius: 0 0 $border-radius-base 0;
         }
     }
 }

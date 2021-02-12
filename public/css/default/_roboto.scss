@@ -1,8 +1,11 @@
-﻿@font-face {
+﻿$font-path: $fa-font-path;
+
+@font-face {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 300;
     font-display: swap;
-    src: local('Roboto Light'), local('Roboto-Light'), url(https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+    src: url('#{$font-path}/roboto-light.eot');
+    src: url('#{$font-path}/roboto-light.eot?#iefix') format('embedded-opentype'), url('#{$font-path}/roboto-light.woff2') format('woff2'), url('#{$font-path}/roboto-light.woff') format('woff'), url('#{$font-path}/roboto-light.ttf') format('truetype'), url('#{$font-path}/roboto-light.svg#fontawesome') format('svg');
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }

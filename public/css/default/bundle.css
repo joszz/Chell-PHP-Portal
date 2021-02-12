@@ -6860,14 +6860,6 @@ fieldset[disabled] .btn-danger.active {
 .btn-dark:hover {
   background-image: linear-gradient(to bottom, #5cb85c 0px, #419641 100%); }
 
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: local("Roboto Light"), local("Roboto-Light"), url(https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfVtXRa8TVwTICgirnJhmVJw.woff2) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
-
 .fa,
 .fas,
 .far,
@@ -6900,7 +6892,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&4016314") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2570247") format("woff2"), url("../../fonts/icomoon.woff?2890642") format("woff"), url("../../fonts/icomoon.ttf?7520638") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4738786") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&8598243") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9192558") format("woff2"), url("../../fonts/icomoon.woff?742192") format("woff"), url("../../fonts/icomoon.ttf?457964") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8834875") format("svg"); }
 
 .fa,
 .fas {
@@ -7041,6 +7033,15 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-map-marker-alt:before {
   content: "\f3c5"; }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../../fonts/roboto-light.eot");
+  src: url("../../fonts/roboto-light.eot?#iefix") format("embedded-opentype"), url("../../fonts/roboto-light.woff2") format("woff2"), url("../../fonts/roboto-light.woff") format("woff"), url("../../fonts/roboto-light.ttf") format("truetype"), url("../../fonts/roboto-light.svg#fontawesome") format("svg");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215; }
 
 .panel-group .panel-heading {
   padding: 0; }
@@ -8035,7 +8036,7 @@ div.panel-body {
   div.panel-heading *,
   div.panel-body * {
     scrollbar-width: thin;
-    scrollbar-color: #3c763d #dff0d8; }
+    scrollbar-color: #dff0d8; }
     div.panel *::-webkit-scrollbar,
     div.panel-heading *::-webkit-scrollbar,
     div.panel-body *::-webkit-scrollbar {
@@ -8044,7 +8045,13 @@ div.panel-body {
     div.panel *::-webkit-scrollbar-thumb,
     div.panel-heading *::-webkit-scrollbar-thumb,
     div.panel-body *::-webkit-scrollbar-thumb {
-      background-color: #3c763d; }
+      background-color: #3c763d;
+      border-radius: 4px; }
+    div.panel *::-webkit-scrollbar-track,
+    div.panel-heading *::-webkit-scrollbar-track,
+    div.panel-body *::-webkit-scrollbar-track {
+      background-color: #dff0d8;
+      border-radius: 0 0 4px 0; }
 
 div.panel-heading h4 {
   font-weight: bold; }
