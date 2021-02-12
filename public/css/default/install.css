@@ -6,7 +6,7 @@
   padding: 20px 0; }
   #install .panel {
     flex: 0 0 500px;
-    overflow: scroll;
+    overflow-y: auto;
     height: 100%;
     margin-top: 20px; }
   #install h5 {
