@@ -254,7 +254,7 @@ class SettingsGeneralForm extends SettingsBaseForm
     public function IsValid($data = null, $entity = null) : bool
     {
         $valid = parent::IsValid($data, $entity);
-        //die(var_dump(preg_match('/^-?(?:\d+|\d*\.\d+)$/', $data['bgcolor-longitude'])));
+
         if ($valid)
         {
             $this->_config->application->title = $data['title'];
