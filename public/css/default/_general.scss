@@ -12,6 +12,7 @@ html.full-height {
         background: $darkBackgroundGradient;
     }
 }
+
 @media (prefers-color-scheme: light) {
     html:not(.darkbg),
     html:not(.darkbg) body {
@@ -120,6 +121,11 @@ div.content {
 input.has-error {
     border-color: $state-danger-text;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+input:-webkit-autofill {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: $input-color;
 }
 
 .table-responsive {

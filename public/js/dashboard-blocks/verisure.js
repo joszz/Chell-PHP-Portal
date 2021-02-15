@@ -54,7 +54,9 @@
                 });
 
                 settings.block.find(".fa-sync").click(function () { functions.update(false); });
-                settings.block.find(".fa-camera").click(functions.photos);
+                settings.block.find(".fa-camera").click(function () {
+                    functions.photos(true)
+                });
                 settings.block.find(".fa-image").click(functions.select_device);
                 settings.block.find(".top button").click(function () {
                     $.fancybox.open({
@@ -62,6 +64,7 @@
                     });
                 });
 
+                functions.photos();
                 functions.update(true);
             },
 
@@ -111,6 +114,16 @@
                             tempBlock.find("i").attr("class", "fa fa-thermometer-half " + value.cssClass);
                         });
 
+                        var devices = $("#verisure_device_select");
+                        devices.find("button:not(.hidden)").remove();
+                        $.each(data.customerImageCameras, function (_index, value) {
+                            var camera = devices.find("button.hidden").clone();
+                            camera.data("device-label", value.deviceLabel);
+                            camera.html(value.area);
+                            camera.removeClass("hidden");
+                            camera.appendTo(devices);
+                        });
+
                     },
                     complete: function (xhr) {
                         var timeout = settings.updateInterval;
@@ -132,13 +145,8 @@
                     url: "verisure/arm/" + state + "/" + (pin !== undefined ? pin : ""),
                     success: function (_data) {
                         showAlert("success", "Alarm state changed");
-                        functions.set_arm_state_buttons(state);
-
-                        if (state === "ARMED_AWAY") {
-
-                        }
-
                         $.fancybox.getInstance().close();
+                        functions.set_arm_state_buttons(state);
                     },
                     error: function () {
                         showAlert("danger", "Something went wrong");
@@ -147,12 +155,12 @@
             },
 
             set_arm_state_buttons: function (state) {
-                var widgetCurrentButton = settings.block.find("#amstate button");
+                var widgetCurrentButton = settings.block.find("#armstate button");
 
                 switch (state) {
                     default:
                         $("#verisure_set_armstate #arm_stay").addClass("hidden");
-                        $("#verisure_set_armstate #arm_away").removeClass("hidden");
+                        $("#verisure_set_armstate #arm_away").addClass("hidden");
                         $("#verisure_set_armstate #disarm").removeClass("hidden");
 
                         $("#verisure_set_armstate #current_stay").removeClass("hidden");
@@ -177,7 +185,7 @@
                         break;
 
                     case "ARMED_AWAY":
-                        $("#verisure_set_armstate #arm_stay").removeClass("hidden");
+                        $("#verisure_set_armstate #arm_stay").addClass("hidden");
                         $("#verisure_set_armstate #arm_away").addClass("hidden");
                         $("#verisure_set_armstate #disarm").removeClass("hidden");
 
@@ -191,18 +199,25 @@
                 }
             },
 
-            photos: function (data) {
+            photos: function (openFancyBox) {
+                openFancyBox = typeof openFancyBox === "undefined" ? false : openFancyBox;
+
                 $.ajax({
                     url: "verisure/imageseries/",
+                    dataType: "json",
                     success: function (data) {
                         var photos = [];
 
-                        $.each(data, function (_index, serie) {
+                        if (data.imageSeries.length) {
+                            settings.block.find(".fa-camera").removeClass("hidden");
+                        }
+
+                        $.each(data.imageSeries, function (_index, serie) {
                             var date = new Date(serie.image[0].captureTime);
                             var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
 
                             photos.push({
-                                src: "/portal/verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
+                                src: "verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
                                 caption: serie.area + " (" + humanReadableDate + ")",
                                 deviceLabel: serie.deviceLabel
                             });
@@ -212,13 +227,15 @@
                             return a.caption > b.caption ? -1 : 1;
                         });
 
-                        $.fancybox.open(photos, {
-                            buttons: [
-                                settings.block.find("#amstate button").hasClass("fa-verisure-away") ? "take_photo" : null,
-                                "close"
-                            ],
-                            loop: true
-                        });
+                        if (openFancyBox) {
+                            $.fancybox.open(photos, {
+                                buttons: [
+                                    settings.block.find("#amstate button").hasClass("fa-verisure-away") ? "take_photo" : null,
+                                    "close"
+                                ],
+                                loop: true
+                            });
+                        }
                     }
                 });
             },
@@ -235,7 +252,7 @@
                                 url: "verisure/imageseries/",
                                 dataType: "json",
                                 success: function (data) {
-                                    settings.block.find(".fa-camera").attr("data-photos", JSON.stringify(data)).removeClass("hidden");
+                                    settings.block.find(".fa-camera").removeClass("hidden");
                                     showAlert("success", "photo taken");
                                 }
                             });

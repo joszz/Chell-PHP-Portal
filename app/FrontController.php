@@ -34,7 +34,6 @@ class FrontController
     private $application;
 
     private $jsFiles = [
-        'general' => [
             'vendor/jquery/jquery.js',
             'vendor/fancybox/jquery.fancybox.js',
             'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
@@ -52,7 +51,6 @@ class FrontController
             'vendor/spark-md5/spark-md5.js',
             'js/toggle-passwords.js',
             'js/general.js',
-        ],
     ];
 
     private $cssFiles = [
@@ -270,25 +268,16 @@ class FrontController
             {
                 $this->application->assets->collection('header')->addCss($file, true, false, [], $version, true);
             }
+
+            foreach($this->jsFiles as $file)
+            {
+                $this->application->assets->collection('general')->addJs($file, true, false, ['defer' => 'defer'], $version, true);
+            }
         }
         else
         {
             $this->application->assets->collection('header')->addCss('css/default/bundle.min.css', true, false, [], $version, true);
-        }
-
-        foreach($this->jsFiles as $collection => $files)
-        {
-            if ($this->config->application->debug)
-            {
-                foreach($files as $file)
-                {
-                    $this->application->assets->collection($collection)->addJs($file, true, false, ['defer' => 'defer'], $version, true);
-                }
-            }
-            else
-            {
-                $this->application->assets->collection($collection)->addJs('js/' . $collection . '.min.js', true, false, ['defer' => 'defer'], $version, true);
-            }
+            $this->application->assets->collection('general')->addJs('js/general.min.js', true, false, ['defer' => 'defer'], $version, true);
         }
     }
 

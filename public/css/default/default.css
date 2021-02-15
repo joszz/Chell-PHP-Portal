@@ -5194,7 +5194,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8598243") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9192558") format("woff2"), url("../../fonts/icomoon.woff?742192") format("woff"), url("../../fonts/icomoon.ttf?457964") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8834875") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&9695965") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2296231") format("woff2"), url("../../fonts/icomoon.woff?4762241") format("woff"), url("../../fonts/icomoon.ttf?7862798") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?221484") format("svg"); }
 
 .fa,
 .fas {
@@ -5778,6 +5778,10 @@ div.content {
 input.has-error {
   border-color: #a94442;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; }
+
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #555555; }
 
 .table-responsive {
   border: 0; }

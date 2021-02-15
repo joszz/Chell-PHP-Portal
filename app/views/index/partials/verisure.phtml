@@ -17,7 +17,7 @@
         </div>
         <div class="panel-body hidden-xs">
             <div class="top">
-                <div class="text-center" id="amstate">
+                <div class="text-center" id="armstate">
                     <button class="fa fa-verisure-disarmed invisible"></button>
                 </div>
                 <div class="temps">
@@ -63,16 +63,15 @@
 <div class="hidden_not_important" id="verisure_device_select">
     <h2>Take photo</h2>
     <div>
-        <button data-device-label="" class="btn btn-primary">
-        </button>
+        <button data-device-label="" class="btn btn-primary hidden"></button>
     </div>
 </div>
 
 <div class="hidden_not_important" id="verisure_set_armstate">
     <div class="text-center">
         <i id="current_disarmed" class="fa fa-verisure-disarmed text-danger hidden" title="Disarmed"></i>
-        <i id="current_away" class="fa fa-verisure-away text-success hidden" title="Away"></i>
-        <i id="current_stay" class="fa fa-verisure-stay text-warning hidden" title="Stay"></i>
+        <i id="current_away" class="btn btn-success fa fa-verisure-away text-success hidden" title="Away"></i>
+        <i id="current_stay" class="btn btn-warning fa fa-verisure-stay text-warning hidden" title="Stay"></i>
         <h2>Select new arm state </h2>
 
         <?php if (empty($this->config->verisure->securityCode)): ?>
