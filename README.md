@@ -1,6 +1,6 @@
 Chell PHP Portal
 ================
-&copy; 2020, Jos Nienhuis
+&copy; 2021, Jos Nienhuis
 
 I created this project to have an easy to use portal for my homeserver. 
 It aggregates different services and webapplications that I want easily accessible from within this portal.
@@ -78,9 +78,9 @@ You can run the installer by going to /install on the domain (and if applicable 
 When you fill all the details in correctly, you can press install and the site should take care of setting things up.
 
 It will try to clean up after itself, but it won't be able to do so if the Apache user doesn't have write access in order to cleanup the following files;
-- /app/controllers/InstallController.php
+- /app/controllers/IndexController.php
 - /app/views/install/
 - /db-structure.sql
 
-It's recommended to check if at least the InstallController is deleted after install (/app/controllers/InstallController.php), since it can be potentially harmfull.
+It's recommended to check if at least the IndexController is deleted after install (/app/controllers/IndexController.php), since it can be potentially harmfull.
 The other files are cleaned up just for the sake of keeping things clean.
