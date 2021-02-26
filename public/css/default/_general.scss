@@ -33,6 +33,12 @@ body {
     min-height: 100vh;
 }
 
+pre {
+    margin: 0;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 300;
+}
+
 body#bootstrap {
     padding: 50px 0 52px;
 }

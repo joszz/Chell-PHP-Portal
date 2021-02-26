@@ -40,6 +40,12 @@
 <?php $this->partial('index/partials/kodi_latest_albums') ?>
 <?php endif ?>
 
+<?php if ($this->config->jellyfin->enabled) : ?>
+<?php $this->partial('index/partials/jellyfin_latest_movies') ?>
+<?php $this->partial('index/partials/jellyfin_latest_episodes') ?>
+<?php $this->partial('index/partials/jellyfin_latest_albums') ?>
+<?php endif ?>
+
 <?php if ($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>
 <?php $this->partial('index/partials/now_playing') ?>
 <?php endif ?>
@@ -78,4 +84,10 @@
 
 <?php if ($this->config->youless->enabled) : ?>
 <?php $this->partial('index/partials/youless') ?>
+<?php endif ?>
+
+<div class="clearfix"></div>
+
+<?php if ($this->config->roborock->enabled) : ?>
+<?php $this->partial('index/partials/roborock') ?>
 <?php endif ?>

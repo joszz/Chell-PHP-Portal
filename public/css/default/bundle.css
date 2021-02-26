@@ -6892,7 +6892,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8598243") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9192558") format("woff2"), url("../../fonts/icomoon.woff?742192") format("woff"), url("../../fonts/icomoon.ttf?457964") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8834875") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6188839") format("embedded-opentype"), url("../../fonts/icomoon.woff2?7962612") format("woff2"), url("../../fonts/icomoon.woff?5118804") format("woff"), url("../../fonts/icomoon.ttf?4930217") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2267942") format("svg"); }
 
 .fa,
 .fas {
@@ -7033,6 +7033,9 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-map-marker-alt:before {
   content: "\f3c5"; }
+
+.fa-vacuum-robot:before {
+  content: "\e04e"; }
 
 @font-face {
   font-family: 'Roboto';
@@ -7407,6 +7410,11 @@ body {
   height: 100%;
   min-height: 100vh; }
 
+pre {
+  margin: 0;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300; }
+
 body#bootstrap {
   padding: 50px 0 52px; }
 
@@ -7476,6 +7484,10 @@ div.content {
 input.has-error {
   border-color: #a94442;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; }
+
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #555555; }
 
 .table-responsive {
   border: 0; }
@@ -8219,7 +8231,8 @@ input[type=number] {
 #settings legend .toggle {
   margin-right: 15px; }
 
-#settings .input-group .fa {
+#settings .input-group .fa,
+#settings legend .fa {
   text-decoration: none;
   color: #3c763d;
   font-size: 14px; }

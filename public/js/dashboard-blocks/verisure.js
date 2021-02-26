@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The gallery blocks on the dashboard.
+* The verisure widget.
 *
-* @class Gallery
+* @class Verisure
 * @module Dashboard
 * @submodule DashboardBlocks
 */
@@ -30,7 +30,7 @@
         var functions = {
 
             /**
-            * Initializes the eventhandlers for button clicks to navigate between SNMP hosts.
+            * Initializes the eventhandlers for various actions on the widget. Calls update to retrieve the content of the widget.
             *
             * @method initialize
             */
@@ -69,11 +69,10 @@
             },
 
             /**
-            * Calls the Verisure controller, Index action, to retrieve up to date information in JSON.
-            * Sets the new values to the associated blocks and formats the data (stripping underscores from values and readable dates).
-            *
-            * @method update
-            */
+             * 
+             * 
+             * @param {boolean} initialize  Whether this function is called on initialize or not.
+             */
             update: function (initialize) {
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {

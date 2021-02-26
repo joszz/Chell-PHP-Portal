@@ -42,6 +42,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->setTransmissionFields();
 		$this->setSubsonicFields();
 		$this->setKodiFields();
+		$this->setJellyfinFields();
 		$this->setSickrageFields();
 		$this->setCouchpotatoFields();
 		$this->setHyperVAdminFields();
@@ -52,6 +53,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->setYoulessFields();
 		$this->setSnmpFields();
 		$this->setVerisureFields();
+		$this->setRoborockFields();
 	}
 
 	/**
@@ -718,6 +720,81 @@ class SettingsDashboardForm extends SettingsBaseForm
 		$this->add($verisurePin);
 	}
 
+	private function setRoborockFields()
+	{
+		$roborockEnabled = new Check('roborock-enabled');
+		$roborockEnabled->setLabel('Enabled');
+		$roborockEnabled->setAttributes([
+			'checked' => $this->_config->roborock->enabled == '1' ? 'checked' : null,
+			'data-toggle' => 'toggle',
+			'data-onstyle' => 'success',
+			'data-offstyle' => 'danger',
+			'data-size' => 'small',
+			'fieldset' => 'Roborock'
+		]);
+
+        $roborockInterval = new Numeric('roborock-update-interval');
+		$roborockInterval->setLabel('Roborock interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->roborock->updateInterval)
+			->addValidator(new Numericality(['message' => 'Not a number']));
+
+        $roborockIp = new Text('roborock-ip');
+		$roborockIp->setLabel('IP')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->_config->roborock->ip);
+
+		$roborockToken = new Text('roborock-token');
+		$roborockToken->setLabel('Token')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->roborock->token);
+
+		$this->add($roborockEnabled);
+		$this->add($roborockInterval);
+		$this->add($roborockIp);
+		$this->add($roborockToken);
+	}
+
+    private function setJellyfinFields()
+	{
+		$jellyfinEnabled = new Check('jellyfin-enabled');
+		$jellyfinEnabled->setLabel('Enabled');
+		$jellyfinEnabled->setAttributes([
+			'checked' => $this->_config->jellyfin->enabled == '1' ? 'checked' : null,
+			'data-toggle' => 'toggle',
+			'data-onstyle' => 'success',
+			'data-offstyle' => 'danger',
+			'data-size' => 'small',
+			'fieldset' => 'Jellyfin'
+		]);
+
+        $jellyfinUrl = new Text('jellyfin-url');
+		$jellyfinUrl->setLabel('URL')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->_config->jellyfin->url);
+
+		$jellyfinToken = new Text('jellyfin-token');
+		$jellyfinToken->setLabel('Token')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->jellyfin->token);
+
+        $jellyfinUserId = new Text('jellyfin-userid');
+		$jellyfinUserId->setLabel('User id')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->_config->jellyfin->userId);
+
+		$this->add($jellyfinEnabled);
+		$this->add($jellyfinUrl);
+		$this->add($jellyfinToken);
+		$this->add($jellyfinUserId);
+	}
+
 	/**
      * Check if form is valid. If so set the values to the config array.
      *
@@ -811,6 +888,16 @@ class SettingsDashboardForm extends SettingsBaseForm
 			$this->_config->verisure->username = $data['verisure-username'];
 			$this->_config->verisure->password = $data['verisure-password'];
 			$this->_config->verisure->securityCode = $data['verisure-pin'];
+
+            $this->_config->roborock->enabled = isset($data['roborock-enabled']) && $data['roborock-enabled'] == 'on' ? '1' : '0';
+			$this->_config->roborock->updateInterval = $data['roborock-update-interval'];
+			$this->_config->roborock->ip = $data['roborock-ip'];
+			$this->_config->roborock->token = $data['roborock-token'];
+
+            $this->_config->jellyfin->enabled = isset($data['jellyfin-enabled']) && $data['jellyfin-enabled'] == 'on' ? '1' : '0';
+			$this->_config->jellyfin->updateInterval = $data['jellyfin-url'];
+			$this->_config->jellyfin->ip = $data['jellyfin-token'];
+			$this->_config->jellyfin->userId = $data['jellyfin-userid'];
 		}
 
 		return $valid;

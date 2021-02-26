@@ -39,6 +39,7 @@ function initializePlugins() {
     pihole = $(".pihole").pihole();
     snmp = $(".snmp").snmp();
     $(".verisure").verisure();
+    $(".roborock").roborock();
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

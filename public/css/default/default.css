@@ -5194,7 +5194,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&9695965") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2296231") format("woff2"), url("../../fonts/icomoon.woff?4762241") format("woff"), url("../../fonts/icomoon.ttf?7862798") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?221484") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6188839") format("embedded-opentype"), url("../../fonts/icomoon.woff2?7962612") format("woff2"), url("../../fonts/icomoon.woff?5118804") format("woff"), url("../../fonts/icomoon.ttf?4930217") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2267942") format("svg"); }
 
 .fa,
 .fas {
@@ -5335,6 +5335,9 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-map-marker-alt:before {
   content: "\f3c5"; }
+
+.fa-vacuum-robot:before {
+  content: "\e04e"; }
 
 @font-face {
   font-family: 'Roboto';
@@ -5708,6 +5711,11 @@ body {
   overflow-y: overlay;
   height: 100%;
   min-height: 100vh; }
+
+pre {
+  margin: 0;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300; }
 
 body#bootstrap {
   padding: 50px 0 52px; }
@@ -6525,7 +6533,8 @@ input[type=number] {
 #settings legend .toggle {
   margin-right: 15px; }
 
-#settings .input-group .fa {
+#settings .input-group .fa,
+#settings legend .fa {
   text-decoration: none;
   color: #3c763d;
   font-size: 14px; }

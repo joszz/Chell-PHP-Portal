@@ -17,6 +17,7 @@
       "public/js/dashboard-blocks/youless.js",
       "public/js/dashboard-blocks/snmp.js",
       "public/js/dashboard-blocks/verisure.js",
+      "public/js/dashboard-blocks/roborock.js",
       "public/js/dashboard.js"
     ],
     "minify": {

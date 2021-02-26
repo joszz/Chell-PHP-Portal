@@ -6,6 +6,7 @@ use Phalcon\Mvc\View;
 
 use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
+use Chell\Models\Jellyfin;
 use Chell\Models\Motion;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
@@ -43,6 +44,7 @@ class IndexController extends BaseController
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/youless.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/snmp.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/verisure.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/roborock.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
         }
         else
@@ -65,6 +67,16 @@ class IndexController extends BaseController
             $this->view->movies = KodiMovies::getLatestMovies();
             $this->view->albums = KodiAlbums::getLatestAlbums();
             $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
+        }
+
+        if ($this->config->jellyfin->enabled)
+        {
+            $views = Jellyfin::GetViews($this->config);
+
+            foreach($views as $view => $viewId)
+            {
+                $this->view->{$view} = Jellyfin::GetLatest($this->config, $viewId);
+            }
         }
 
         if ($this->config->couchpotato->enabled)

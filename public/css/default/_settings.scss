@@ -21,6 +21,7 @@ label {
 .bs-container {
     z-index: 9999;
 }
+
 .table > tbody > tr > td {
     border: 0;
     line-height: 33px;
@@ -84,7 +85,8 @@ input[type=number] {
     margin-right: 15px;
 }
 
-#settings .input-group .fa {
+#settings .input-group .fa,
+#settings legend .fa {
     text-decoration: none;
     color: $state-success-text;
     font-size: 14px;

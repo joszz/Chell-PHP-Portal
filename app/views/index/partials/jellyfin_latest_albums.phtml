@@ -1,0 +1,34 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="panel panel-success kodi albums gallery" data-rotate-interval="<?php echo $this->config->kodi->rotateAlbumsInterval ?>">
+        <div class="panel-heading">
+            <div class="backdrop"></div>
+            <div class="btn-group pull-right">
+                <button class="btn btn-default fa fa-chevron-left" title="Previous album" aria-label="Previous album"></button>
+                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next album" aria-label="Next album"></button>
+                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            </div>
+            <h4>Latest albums</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <?php $i = 0; foreach($artists as $artist) : ?>
+            <a class="album item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
+                data-fancybox="albums"
+                data-type="iframe"
+                href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $artist['id'] . '&serverId=' . $artist['serverId'] ?>"
+                title="<?php echo $artist['title'] ?>">
+                <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $artist['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" />
+                <div class="overlay"></div>
+                <div class="title" title="<?php echo $artist['title'] ?>">
+                    <?php echo $artist['title'] ?>
+                </div>
+                <div class="subtitle">
+                    <?php echo $artist['artist'] ?>
+                </div>
+            </a>
+            <?php $i++;
+                  endforeach ?>
+        </div>
+    </div>
+</div>

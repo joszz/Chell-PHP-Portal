@@ -1,0 +1,36 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="panel panel-success kodi movies gallery" data-rotate-interval="<?php echo $this->config->kodi->rotateMoviesInterval ?>">
+        <div class="panel-heading">
+            <div class="backdrop"></div>
+            <div class="btn-group pull-right">
+                <button class="btn btn-default fa fa-chevron-left" title="Previous movie" aria-label="Previous movie"></button>
+                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next movie" aria-label="Next movie"></button>
+                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            </div>
+            <h4>Latest movies</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <?php $i = 0; foreach($movies as $movie) :?>
+            <a class="movie item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
+                data-fancybox="movies"
+                data-type="iframe"
+                href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $movie['id'] . '&serverId=' . $movie['serverId'] ?>"
+                title="<?php echo $movie['title'] ?>">
+                <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $movie['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" />
+                <div class="overlay"></div>
+                <div class="title" title="<?php echo $movie['title'] ?>">
+                    <?php echo $movie['title'] ?>
+                </div>
+                <div class="subtitle">
+                    <?php echo $movie['year'] ?>
+                </div>
+                <?php if($movie['played']) : ?>
+                <div class="fa fa-eye" title="Watched"></div>
+                <?php endif ?>
+            </a>
+            <?php endforeach ?>
+        </div>
+    </div>
+</div>
