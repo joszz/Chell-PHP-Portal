@@ -5194,7 +5194,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&6188839") format("embedded-opentype"), url("../../fonts/icomoon.woff2?7962612") format("woff2"), url("../../fonts/icomoon.woff?5118804") format("woff"), url("../../fonts/icomoon.ttf?4930217") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2267942") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6788706") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1593474") format("woff2"), url("../../fonts/icomoon.woff?626751") format("woff"), url("../../fonts/icomoon.ttf?1873893") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4408061") format("svg"); }
 
 .fa,
 .fas {
@@ -6667,7 +6667,11 @@ nav.paginator {
 
 .fancybox-slide--iframe .fancybox-content {
   max-height: 90%;
+  width: 90%;
   max-width: 800px; }
+
+.fancybox-slide--iframe.nomaxwidth .fancybox-content {
+  max-width: 90%; }
 
 .fancybox-container {
   backdrop-filter: blur(5px);

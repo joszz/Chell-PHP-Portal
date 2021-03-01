@@ -124,7 +124,7 @@ class Speedtest extends Model
 		self::$isp .= isset($details->country) ? ', ' . $details->country : '';
 		self::$clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-		$curl = curl_init($config->speedtest->ipInfoUrl . 'json?token=' . self::$config->speedtest->ipInfoToken);
+		$curl = curl_init(self::$config->speedtest->ipInfoUrl . 'json?token=' . self::$config->speedtest->ipInfoToken);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0

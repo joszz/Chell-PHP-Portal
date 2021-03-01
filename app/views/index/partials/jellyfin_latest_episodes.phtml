@@ -16,6 +16,7 @@
             <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="tvshows"
                 data-type="iframe"
+                data-nomaxwidth
                 href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $tvshow['id'] . '&serverId=' . $tvshow['serverId'] ?>"
                 title="<?php echo $tvshow['title'] ?>">
                 <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $tvshow['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" />

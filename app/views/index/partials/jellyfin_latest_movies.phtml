@@ -16,6 +16,7 @@
             <a class="movie item <?php echo $i++ > 0 ? 'hidden' : 'show' ?>_not_important"
                 data-fancybox="movies"
                 data-type="iframe"
+                data-nomaxwidth
                 href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $movie['id'] . '&serverId=' . $movie['serverId'] ?>"
                 title="<?php echo $movie['title'] ?>">
                 <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $movie['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" />

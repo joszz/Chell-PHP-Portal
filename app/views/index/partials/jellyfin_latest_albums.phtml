@@ -16,6 +16,7 @@
             <a class="album item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="albums"
                 data-type="iframe"
+                data-nomaxwidth
                 href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $artist['id'] . '&serverId=' . $artist['serverId'] ?>"
                 title="<?php echo $artist['title'] ?>">
                 <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $artist['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" />

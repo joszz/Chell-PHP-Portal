@@ -21,7 +21,12 @@
 
 .fancybox-slide--iframe .fancybox-content {
     max-height: 90%;
+    width: 90%;
     max-width: 800px;
+}
+
+.fancybox-slide--iframe.nomaxwidth .fancybox-content {
+    max-width: 90%;
 }
 
 .fancybox-container {

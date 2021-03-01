@@ -82,10 +82,12 @@ function initializeGlobalPlugins() {
 
     $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
     $.fancybox.defaults.buttons = ["close"];
-    $.fancybox.defaults.iframe.css = {
-        "max-width": "800px",
-        "width": "90%"
-    };
+
+    $("[data-nomaxwidth]").fancybox({
+        beforeLoad: function () {
+            this.opts.slideClass ="nomaxwidth";
+        }
+    });
 
     $(".toggle-password").togglePasswords();
 }
