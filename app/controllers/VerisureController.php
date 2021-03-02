@@ -5,7 +5,7 @@ namespace Chell\Controllers;
 use Chell\Models\Verisure;
 
 /**
- * The controller responsible for showing all Verisure related actions.
+ * The controller responsible for all Verisure related actions.
  *
  * @package Controllers
  */
