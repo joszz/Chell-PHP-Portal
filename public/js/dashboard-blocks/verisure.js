@@ -205,6 +205,10 @@
                     url: "verisure/imageseries/",
                     dataType: "json",
                     success: function (data) {
+                        if (!data) {
+                            return;
+                        }
+
                         var photos = [];
 
                         if (data.imageSeries.length) {

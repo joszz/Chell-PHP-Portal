@@ -71,12 +71,7 @@ class IndexController extends BaseController
 
         if ($this->config->jellyfin->enabled)
         {
-            $views = Jellyfin::GetViews($this->config);
-
-            foreach($views as $view => $viewId)
-            {
-                $this->view->{$view} = Jellyfin::GetLatest($this->config, $viewId);
-            }
+            Jellyfin::GetLatest($this->config, $this->view);
         }
 
         if ($this->config->couchpotato->enabled)

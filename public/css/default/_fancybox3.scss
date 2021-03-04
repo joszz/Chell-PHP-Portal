@@ -19,9 +19,10 @@
     padding: 44px 0;
 }
 
-.fancybox-slide--iframe .fancybox-content {
+ .fancybox-content
+{
     max-height: 90%;
-    width: 90%;
+    width: 90% !important;
     max-width: 800px;
 }
 
