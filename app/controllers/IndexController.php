@@ -29,6 +29,7 @@ class IndexController extends BaseController
 
         if ($this->config->application->debug)
         {
+            //$this->assets->collection('dashboard')->addJs('typescriptjs/dashboard.js' , true, false, ['defer' => 'defer', 'type' => 'module'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js' , true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/devices.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/gallery.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
@@ -45,6 +46,7 @@ class IndexController extends BaseController
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/snmp.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/verisure.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/roborock.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/rcpu.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
         }
         else

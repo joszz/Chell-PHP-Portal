@@ -26,8 +26,13 @@ div.distro span {
 }
 
 .panel.processes ul {
-    max-height: 362px;
     width: 100%;
     overflow-y: auto;
     float: left;
+}
+
+@media only screen and (max-width : $screen-xs) {
+    .panel.processes ul{
+        height: 100% !important;
+    }
 }

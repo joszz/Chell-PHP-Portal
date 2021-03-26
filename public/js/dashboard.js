@@ -40,6 +40,7 @@ function initializePlugins() {
     snmp = $(".snmp").snmp();
     $(".verisure").verisure();
     $(".roborock").roborock();
+    $(".cpu").rcpu();
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

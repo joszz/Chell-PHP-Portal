@@ -6892,7 +6892,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&3813775") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1572379") format("woff2"), url("../../fonts/icomoon.woff?677930") format("woff"), url("../../fonts/icomoon.ttf?3722967") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4133023") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&3865019") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9099834") format("woff2"), url("../../fonts/icomoon.woff?8430540") format("woff"), url("../../fonts/icomoon.ttf?5968940") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4553567") format("svg"); }
 
 .fa,
 .fas {
@@ -7750,7 +7750,8 @@ table div.progress {
 
 div.cpu iframe {
   width: 100%;
-  height: 340px;
+  height: 100%;
+  visibility: hidden;
   border: 0; }
 
 div.cpu .panel-body {
@@ -7778,10 +7779,13 @@ div.distro span {
   padding: 0; }
 
 .panel.processes ul {
-  max-height: 362px;
   width: 100%;
   overflow-y: auto;
   float: left; }
+
+@media only screen and (max-width: 480px) {
+  .panel.processes ul {
+    height: 100% !important; } }
 
 div.transmission li div.torrentname,
 div.transmission li div.torrentprogress {
@@ -8363,7 +8367,7 @@ nav.paginator {
 .fancybox-slide--iframe {
   padding: 44px 0; }
 
-.fancybox-content {
+.fancybox-slide--iframe .fancybox-content {
   max-height: 90%;
   width: 90% !important;
   max-width: 800px; }

@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Phalcon\Http\Response;
 use Chell\Models\Devices;
 
 /**
@@ -60,11 +61,13 @@ class DevicesController extends BaseController
         $device = Devices::findFirst([
            'conditions' => 'ip = ?1',
            'bind'       => [1 => $ip]
-       ]);
+        ]);
 
         $state['state'] = Devices::isDeviceOn($device->ip);
         $state['ip'] = $device->ip;
 
-        die(json_encode($state));
+        $this->view->disable();
+        $response = new Response();
+        $response->setJsonContent($state)->send();
     }
 }
