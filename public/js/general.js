@@ -55,16 +55,6 @@ $(function () {
     if (iframe.length && iframe.data("bgImage").length) {
         iframe.css("background-image", "url('" + iframe.data("bgImage") + "')")
     }
-
-    if ($("#duo_iframe").length) {
-        $(window).on("beforeunload", function (event) {
-            $("body").isLoading();
-        });
-    }
-
-    $("#duo_iframe").on("load", function () {
-        $(this).fadeIn();
-    });
 });
 
 /**

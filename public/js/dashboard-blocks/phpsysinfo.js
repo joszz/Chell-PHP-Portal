@@ -93,7 +93,7 @@
                 * Wrapper function to retrieve all data except psstatus plugin.
                 *
                 * @method getAll
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @param {object} data The data retrieved from PHPSysInfo.
                 * @todo incorporate the psstatus update in this as well, since we retrieve the data anyways.
                 */
                 setSysinfo: function (data, block) {
@@ -115,7 +115,7 @@
                 * Finds .cpu-cores by index, than sets data for cpu cores, retrieved from PHPSysInfo.
                 *
                 * @method setCPUCores
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @param {object} data The data retrieved from PHPSysInfo.
                 */
                 setCPUCores: function (data, block) {
                     block.find(".cpu-model .value").html(data.Hardware.CPU.CpuCore[0]["@attributes"].Model);
@@ -154,7 +154,7 @@
                 * Finds .lan-stats by index, than sets data for network, retrieved from PHPSysInfo.
                 *
                 * @method setNetwork
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @param {object} data The data retrieved from PHPSysInfo.
                 */
                 setNetwork: function (data, block) {
                     if (!$.isArray(data.Network.NetDevice)) {
@@ -188,7 +188,7 @@
                 * Finds .ra, and .swap, than sets data retrieved from PHPSysInfo. If no swap data found in PHPSysInfo data, hide .swap.
                 *
                 * @method setRAM
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @param {object} data The data retrieved from PHPSysInfo.
                 */
                 setRAM: function (data, block) {
                     block.find("div.ram").find(".progress-bar").css("width", data.Memory["@attributes"].Percent + "%");
@@ -208,7 +208,7 @@
                 * Finds .harddisks li by index, than sets data retrieved from PHPSysInfo.
                 *
                 * @method setDisks
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @param {object} data The data retrieved from PHPSysInfo.
                 */
                 setDisks: function (data, block) {
                     data.FileSystem.Mount.sort(function (a, b) {
@@ -248,8 +248,8 @@
                 /**
                 * Finds span.packages and span.security, than sets data retrieved from PHPSysInfo if this data is set.
                 *
-                * @method setDisks
-                * @param {Object} data The data retrieved from PHPSysInfo.
+                * @method setUpdateNotifier
+                * @param {object} data The data retrieved from PHPSysInfo.
                 */
                 setUpdateNotifier: function (data, block) {
                     if (data.Plugins.Plugin_UpdateNotifier !== undefined) {
@@ -259,10 +259,10 @@
                 },
 
                 /**
-                * Retrieves psstatus data from PHPSysInfo using AJAX.<br />
+                * Retrieves psstatus data from PHPSysInfo using AJAX.
                 * Then clears all processess and dynamically create new nodes and appends them to the block.
                 *
-                * @method psstatus
+                * @method getPsStatus
                 */
                 getPsStatus: function () {
                     $(".processes").isLoading();
@@ -279,6 +279,12 @@
                     });
                 },
 
+                /**
+                 * Sets the different statusses of processes retrieved from PHPSysInfo API.
+                 * 
+                 * @method setPsStatus
+                 * @param {object} data The data retrieved from PHPSysInfo.
+                 */
                 setPsStatus: function (data) {
                     data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
                         return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;

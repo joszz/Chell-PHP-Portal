@@ -4,7 +4,7 @@
     $.fn.rcpu = function (options) {
         var settings = $.extend({
             block: $(this),
-            iframe: null
+            iframe: $(this).find("iframe")
         }, options);
 
         /**
@@ -14,28 +14,32 @@
         * @type Object
         */
         var functions = {
+            /**
+            * Initializes the widget and listens for iframe load/resize events to set correct height of the widget.
+            *
+            * @method initialize
+            */
             initialize: function () {
                 settings.iframe = settings.block.find("iframe");
 
-                if (!settings.block.find(".panel-body").is(":hidden")) {
-                    settings.block.isLoading();
-                    settings.iframe.ready(function () {
-                        setTimeout(functions.setHeight, 1000);
-                    });
-                }
-                else {
-                    settings.block.find(".toggle-collapse, .panel-heading h4").click(function () {
-                        functions.setHeight();
-                    });
-                }
+                settings.block.isLoading();
+                settings.iframe.on("load", function () {
+                    new ResizeObserver(functions.setHeight).observe(settings.iframe.contents().find("body")[0]);
+                    settings.block.isLoading("hide");
+                });
             },
 
+            /**
+             * Sets the height of the widget and makes it visible.
+             * If the processes widget is set to the left, adjust it's height to match.
+             * 
+             * @method setHeight
+             */
             setHeight: function () {
+                settings.iframe.css("visibility", "visible");
                 var height = settings.iframe.contents().height();
                 settings.block.find(".panel-body").height(height);
                 settings.block.parent().prev().find(".processes ul").height(height + 15);
-                settings.iframe.css("visibility", "visible");
-                settings.block.isLoading("hide");
             }
         };
 

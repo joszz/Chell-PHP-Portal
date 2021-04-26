@@ -69,7 +69,7 @@
             },
 
             /**
-             * 
+             * Updates the widget by calling the verisure controller.
              * 
              * @param {boolean} initialize  Whether this function is called on initialize or not.
              */

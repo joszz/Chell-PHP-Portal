@@ -48,6 +48,11 @@
                 functions.refresh();
             },
 
+            /**
+             * Calls the Pihole API and reinitializes the chart with the data received.
+             * 
+             * @method refresh
+             */
             refresh: function () {
                 $.getJSON(settings.url + "api.php?summaryRaw", function (data) {
                     settings.charts[0].data = [

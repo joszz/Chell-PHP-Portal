@@ -7,6 +7,16 @@ $(function () {
         webauth = !webauth;
     });
 
+    if ($("#duo_iframe").length) {
+        $(window).on("beforeunload", function (event) {
+            $("body").isLoading();
+        });
+
+        $("#duo_iframe").on("load", function () {
+            $(this).fadeIn();
+        });
+    }
+
     $("button[type=submit]").on("click", function () {
         if (webauth) {
             $.ajax({
