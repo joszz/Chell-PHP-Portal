@@ -35,10 +35,10 @@ class Roborock extends Model
 
         return [
             'state'     => self::getStatusPart($status, 'state='),
-            'battery'   => self::getStatusPart($status, 'bat='),
-            'fan'       => self::getStatusPart($status, 'fan=', ' '),
-            'area'      => self::getStatusPart($status, 'cleaned ', ' '),
-            'time'      => self::getStatusPart($status, 'in ', '>'),
+            'battery'   => self::getStatusPart($status, 'battery='),
+            'fan'       => self::getStatusPart($status, 'fanspeed='),
+            'area'      => self::getStatusPart($status, 'clean_area='),
+            'time'      => self::getStatusPart($status, 'clean_time='),
         ];
     }
 
@@ -73,7 +73,9 @@ class Roborock extends Model
     {
         $command = escapeshellcmd('miiocli vacuum --ip ' . $config->roborock->ip . ' --token ' . $config->roborock->token . ' ' . $command);
         $output = shell_exec($command);
-        return $output;
+        $output = explode("\n", $output);
+
+        return $output[1];
     }
 
     /**
@@ -84,7 +86,7 @@ class Roborock extends Model
      * @param string $seperator     The seperator to indicate next value of the $haystack. Limiting the substring.
      * @return string               The value for the requested statistic ($needle).
      */
-    private static function getStatusPart($haystack, $needle, $seperator = ',')
+    private static function getStatusPart($haystack, $needle, $seperator = ' ')
     {
         $start = strpos($haystack, $needle) + strlen($needle);
         $end = strpos($haystack, $seperator, $start);

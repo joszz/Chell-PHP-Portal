@@ -61,6 +61,7 @@ class Jellyfin extends Model
         if (($output = curl_exec($ch)) !== false && !empty($output))
         {
             $output = json_decode($output);
+            
             foreach($output as $item)
             {
                 $result[] = [

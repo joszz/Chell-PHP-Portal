@@ -17,7 +17,7 @@ class SettingsBaseForm extends Form
      *
      * @var object
      */
-    protected $_config;
+    public $_config;
 
     /**
      * Set the config array (config.ini contents) to private variable.

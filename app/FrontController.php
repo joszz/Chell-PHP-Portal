@@ -116,7 +116,8 @@ class FrontController
      */
     public function ExceptionHandler(\Throwable $exception)
     {
-        if (strpos(basename($_SERVER['REQUEST_URI']), '.') !== false) {
+        if (strpos(basename($_SERVER['REQUEST_URI']), '.') !== false)
+        {
             die(header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found'));
         }
 
@@ -144,6 +145,7 @@ class FrontController
             'Chell\Controllers'             => APP_PATH . $this->config->application->controllersDir,
             'Chell\Exceptions'              => APP_PATH . $this->config->application->exceptionsDir,
             'Chell\Forms'                   => APP_PATH . $this->config->application->formsDir,
+            'Chell\Forms\Dashboard'         => APP_PATH . $this->config->application->formsDir . 'dashboard/',
             'Chell\Messages'                => APP_PATH . $this->config->application->messagesDir,
             'Chell\Models'                  => APP_PATH . $this->config->application->modelsDir,
             'Chell\Models\Kodi'             => APP_PATH . $this->config->application->modelsDir . 'kodi/',

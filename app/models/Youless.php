@@ -11,7 +11,6 @@ use Phalcon\Mvc\Model;
  */
 class Youless extends Model
 {
-
 	/**
 	 * Gets the current power usage from YouLess
 	 *
