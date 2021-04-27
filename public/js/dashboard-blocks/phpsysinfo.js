@@ -125,11 +125,11 @@
                         var coreSpeedCurrent = Math.round(value["@attributes"].CpuSpeed / 10) / 100 + " GHz";
                         var coreSpeedMin = Math.round(value["@attributes"].CpuSpeedMin / 10) / 100 + " GHz";
                         var coreSpeedMax = Math.round(value["@attributes"].CpuSpeedMax / 10) / 100 + " GHz";
-                        var coreLabel, coreTemp;
+                        var coreLabel = "Core " + index;
+                        var coreTemp;
 
                         $.each(data.MBInfo.Temperature.Item, function (_indexTemps, valueTemps) {
                             if ($.trim(valueTemps["@attributes"].Label.toLowerCase()).indexOf("core " + index) !== -1) {
-                                coreLabel = "Core " + index;
                                 coreTemp = valueTemps["@attributes"].Value + " &deg;" + data.Options["@attributes"].tempFormat.toUpperCase();
                             }
                         });
@@ -139,11 +139,17 @@
                         if (core.length === 0) {
                             core = block.find("li.cpu-cores.clone").clone();
                             core.removeClass("hidden clone");
-                            core.insertAfter(block.find(".motherboard"));
+                            core.insertBefore(block.find(".network"));
+                        }
+
+                        if (!coreTemp) {
+                            core.find(".core-temp, .core-temp-label").remove();
+                        }
+                        else {
+                            core.find(".core-temp").html(coreTemp);
                         }
 
                         core.find(".cpu-core").html(coreLabel);
-                        core.find(".core-temp").html(coreTemp);
                         core.find(".core-current").html(coreSpeedCurrent);
                         core.find(".core-min").html(coreSpeedMin);
                         core.find(".core-max").html(coreSpeedMax);
