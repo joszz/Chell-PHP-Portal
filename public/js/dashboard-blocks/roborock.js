@@ -58,9 +58,9 @@
                     url: "roborock",
                     dataType: "json",
                     success: function (data) {
-                        settings.block.find(".state").html(data.state);
-                        settings.block.find(".battery").html(data.battery + "%");
-                        settings.block.find(".fan").html(data.fan + "%");
+                        settings.block.find(".state").text(data.state);
+                        settings.block.find(".battery").text(data.battery + "%");
+                        settings.block.find(".fan").text(data.fan + "%");
                         settings.block.find(".area").html(data.area + " m<sup>2</sup>");
                         var cleaningTime = settings.block.find(".cleaningtime");
 
