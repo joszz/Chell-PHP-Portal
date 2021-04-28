@@ -38,7 +38,10 @@ class Jellyfin extends Model
             $output = json_decode($output);
             foreach($output->Items as $item)
             {
-                $result[str_replace(' ', '', strtolower($item->Name))] = $item->Id;
+                if(isset($item->CollectionType))
+                {
+                    $result[str_replace(' ', '', strtolower($item->CollectionType))] = $item->Id;
+                }
             }
         }
 
@@ -61,7 +64,7 @@ class Jellyfin extends Model
         if (($output = curl_exec($ch)) !== false && !empty($output))
         {
             $output = json_decode($output);
-            
+
             foreach($output as $item)
             {
                 $result[] = [
@@ -69,8 +72,8 @@ class Jellyfin extends Model
                     'serverId' => $item->ServerId,
                     'title' => $item->Name,
                     'played' => isset($item->PlayCount) ? $item->PlayCount > 0 : false,
-                    'year' => $item->ProductionYear,
-                    'artist' => isset($item->Artists) ? $item->Artists[0] : ''
+                    'year' => isset($item->ProductionYear) ? $item->ProductionYear : false,
+                    'artist' => isset($item->Artists) && count($item->Artists) ? $item->Artists[0] : ''
                 ];
             }
         }
