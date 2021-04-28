@@ -5,11 +5,12 @@ namespace Chell\Forms\Dashboard;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 
-class OpcacheFormFields {
+class OpcacheFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$opcacheEnabled = new Check('opcache-enabled');
 		$opcacheEnabled->setLabel('Enabled');
@@ -30,7 +31,7 @@ class OpcacheFormFields {
 		$form->add($opcacheHidden);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
     }

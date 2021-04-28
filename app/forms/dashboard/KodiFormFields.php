@@ -8,11 +8,12 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class KodiFormFields {
+class KodiFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$kodiEnabled = new Check('kodi-enabled');
 		$kodiEnabled->setLabel('Enabled');
@@ -73,7 +74,7 @@ class KodiFormFields {
 		$form->add($rotateAlbumsInterval);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->kodi->enabled = isset($data['kodi-enabled']) && $data['kodi-enabled'] == 'on' ? '1' : '0';
         $config->kodi->URL = $data['kodi-url'];

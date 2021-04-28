@@ -8,11 +8,12 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class TransmissionFormFields {
+class TransmissionFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$transmissionEnabled = new Check('transmission-enabled');
 		$transmissionEnabled->setLabel('Enabled');
@@ -57,7 +58,7 @@ class TransmissionFormFields {
 		$form->add($transmissionInterval);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->transmission->enabled = isset($data['transmission-enabled']) && $data['transmission-enabled'] == 'on' ? '1' : '0';
         $config->transmission->URL = $data['transmission-url'];

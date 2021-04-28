@@ -8,11 +8,12 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class VerisureFormFields {
+class VerisureFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$verisureEnabled = new Check('verisure-enabled');
 		$verisureEnabled->setLabel('Enabled');
@@ -64,7 +65,7 @@ class VerisureFormFields {
 		$form->add($verisurePin);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->verisure->enabled = isset($data['verisure-enabled']) && $data['verisure-enabled'] == 'on' ? '1' : '0';
         $config->verisure->updateInterval = $data['verisure-update-interval'];

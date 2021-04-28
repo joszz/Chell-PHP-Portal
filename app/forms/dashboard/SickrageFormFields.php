@@ -6,11 +6,12 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
-class SickrageFormFields {
+class SickrageFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$sickrageEnabled = new Check('sickrage-enabled');
 		$sickrageEnabled->setLabel('Enabled');
@@ -40,7 +41,7 @@ class SickrageFormFields {
 		$form->add($sickrageAPIKey);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
         $config->sickrage->URL = $data['sickrage-url'];

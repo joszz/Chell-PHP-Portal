@@ -9,11 +9,12 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 
-class HyperVAdminFormFields {
+class HyperVAdminFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$hyperVAdminEnabled = new Check('hypervadmin-enabled');
 		$hyperVAdminEnabled->setLabel('Enabled');
@@ -59,7 +60,7 @@ class HyperVAdminFormFields {
 		$form->add($hyperVAdminDevice);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->hypervadmin->enabled = isset($data['hypervadmin-enabled']) && $data['hypervadmin-enabled'] == 'on' ? '1' : '0';
         $config->hypervadmin->URL = $data['hypervadmin-url'];

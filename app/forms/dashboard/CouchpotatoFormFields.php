@@ -8,11 +8,12 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class CouchpotatoFormFields {
+class CouchpotatoFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$couchpotatoEnabled = new Check('couchpotato-enabled');
 		$couchpotatoEnabled->setLabel('Enabled');
@@ -50,7 +51,7 @@ class CouchpotatoFormFields {
 		$form->add($rotateInterval);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->couchpotato->enabled = isset($data['couchpotato-enabled']) && $data['couchpotato-enabled'] == 'on' ? '1' : '0';
         $config->couchpotato->URL = $data['couchpotato-url'];

@@ -7,11 +7,12 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 
-class PhpSysInfoFormFields {
+class PhpSysInfoFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
 		$phpSysInfoEnabled->setLabel('Enabled');
@@ -49,7 +50,7 @@ class PhpSysInfoFormFields {
 		$form->add($phpSysInfoPassword);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->phpsysinfo->enabled = isset($data['phpsysinfo-enabled']) && $data['phpsysinfo-enabled'] == 'on' ? '1' : '0';
         $config->phpsysinfo->URL = $data['phpsysinfo-url'];

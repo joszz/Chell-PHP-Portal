@@ -9,11 +9,12 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\Regex;
 
-class YoulessFormFields {
+class YoulessFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$youlessEnabled = new Check('youless-enabled');
 		$youlessEnabled->setLabel('Enabled');
@@ -75,7 +76,7 @@ class YoulessFormFields {
 		$form->add($youlessDangerThreshold);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
         $config->youless->URL = $data['youless-url'];

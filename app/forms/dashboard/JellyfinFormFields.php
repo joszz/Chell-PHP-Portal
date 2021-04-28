@@ -5,11 +5,12 @@ namespace Chell\Forms\Dashboard;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 
-class JellyfinFormFields {
+class JellyfinFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$jellyfinEnabled = new Check('jellyfin-enabled');
 		$jellyfinEnabled->setLabel('Enabled');
@@ -46,7 +47,7 @@ class JellyfinFormFields {
 		$form->add($jellyfinUserId);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->jellyfin->enabled = isset($data['jellyfin-enabled']) && $data['jellyfin-enabled'] == 'on' ? '1' : '0';
         $config->jellyfin->url = $data['jellyfin-url'];

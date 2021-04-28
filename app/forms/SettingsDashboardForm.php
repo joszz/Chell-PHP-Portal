@@ -29,15 +29,16 @@ class SettingsDashboardForm extends SettingsBaseForm
 			->addValidator(new Numericality(['message' => 'Not a number']));
 		$this->add($devicestateTimeouts);
 
-		$formFieldFiles = array_diff(scandir(APP_PATH . $this->config->application->formsDir . 'dashboard/'), array('..', '.'));
+		$formFieldFiles = array_diff(scandir(APP_PATH . $this->config->application->formsDir . 'dashboard/'), array('..', '.', 'IDashboardFormFields.php'));
 		foreach($formFieldFiles as $file)
         {
-			$this->formFieldClasses[] = 'Chell\Forms\Dashboard\\' . basename($file, '.php');
+			$class =  'Chell\Forms\Dashboard\\' . basename($file, '.php');
+			$this->formFieldClasses[] = new $class;
         }
-		
+
 		foreach($this->formFieldClasses as $class)
         {
-			$class::setFields($this);
+			$class->setFields($this);
         }
 	}
 
@@ -58,7 +59,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 
             foreach($this->formFieldClasses as $class)
             {
-                $class::setPostData($this->_config, $data);
+                $class->setPostData($this->_config, $data);
             }
 		}
 

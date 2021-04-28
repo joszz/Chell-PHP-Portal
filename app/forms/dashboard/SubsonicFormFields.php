@@ -6,11 +6,12 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
-class SubsonicFormFields {
+class SubsonicFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$subsonicEnabled = new Check('subsonic-enabled');
 		$subsonicEnabled->setLabel('Enabled');
@@ -47,7 +48,7 @@ class SubsonicFormFields {
 		$form->add($subsonicPassword);
 	}
 
-	public static function setPostData(&$config, $data)
+	public function setPostData(&$config, $data)
     {
         $config->subsonic->enabled = isset($data['subsonic-enabled']) && $data['subsonic-enabled'] == 'on' ? '1' : '0';
         $config->subsonic->URL = $data['subsonic-url'];

@@ -6,11 +6,12 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Validation\Validator\Numericality;
 
-class SnmpFormFields {
+class SnmpFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$snmpEnabled = new Check('snmp-enabled');
 		$snmpEnabled->setLabel('Enabled');
@@ -34,7 +35,7 @@ class SnmpFormFields {
 		$form->add($snmpInterval);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->snmp->enabled = isset($data['snmp-enabled']) && $data['snmp-enabled'] == 'on' ? '1' : '0';
         $config->snmp->updateInterval = $data['snmp-update-interval'];

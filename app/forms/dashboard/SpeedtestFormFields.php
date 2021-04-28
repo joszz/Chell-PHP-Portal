@@ -9,11 +9,12 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class SpeedtestFormFields {
+class SpeedtestFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$speedtestEnabled = new Check('speedtest-enabled');
 		$speedtestEnabled->setLabel('Enabled');
@@ -92,7 +93,7 @@ class SpeedtestFormFields {
 		$form->add($speedtestIpInfoToken);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
 		$config->speedtest->enabled = isset($data['speedtest-enabled']) && $data['speedtest-enabled'] == 'on' ? '1' : '0';
 		$config->speedtest->test_order = $data['speedtest-test-order'];

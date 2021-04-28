@@ -5,11 +5,12 @@ namespace Chell\Forms\Dashboard;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 
-class RCpuFormFields {
+class RCpuFormFields implements IDashboardFormFields
+{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$rCpuEnabled = new Check('rcpu-enabled');
 		$rCpuEnabled->setLabel('Enabled');
@@ -32,7 +33,7 @@ class RCpuFormFields {
 		$form->add($rCpuURL);
 	}
 
-	public static function setPostData(&$config, $data)
+	public function setPostData(&$config, $data)
     {
         $config->rcpu->enabled = isset($data['rcpu-enabled']) && $data['rcpu-enabled'] == 'on' ? '1' : '0';
         $config->rcpu->URL = $data['rcpu-url'];

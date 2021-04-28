@@ -7,11 +7,12 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class MotionFormFields {
+class MotionFormFields implements IDashboardFormFields
+	{
 	/**
      * Adds fields to the form.
      */
-	public static function setFields($form)
+	public function setFields($form)
 	{
 		$motionEnabled = new Check('motion-enabled');
 		$motionEnabled->setLabel('Enabled');
@@ -50,7 +51,7 @@ class MotionFormFields {
 		$form->add($motionInterval);
 	}
 
-    public static function setPostData(&$config, $data)
+    public function setPostData(&$config, $data)
     {
         $config->motion->enabled = isset($data['motion-enabled']) && $data['motion-enabled'] == 'on' ? '1' : '0';
         $config->motion->URL = $data['motion-url'];
