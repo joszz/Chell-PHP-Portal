@@ -167,7 +167,6 @@
                         $("#verisure_set_armstate #current_disarmed").addClass("hidden");
 
                         widgetCurrentButton.attr("class", "fa fa-verisure-stay text-warning");
-                        settings.block.find(".fa-image").addClass("hidden");
                         break;
 
                     case "DISARMED":
@@ -180,7 +179,6 @@
                         $("#verisure_set_armstate #current_disarmed").removeClass("hidden");
 
                         widgetCurrentButton.attr("class", "fa fa-verisure-disarmed text-danger");
-                        settings.block.find(".fa-image").addClass("hidden");
                         break;
 
                     case "ARMED_AWAY":
@@ -193,7 +191,6 @@
                         $("#verisure_set_armstate #current_disarmed").addClass("hidden");
 
                         widgetCurrentButton.attr("class", "fa fa-verisure-away text-success");
-                        settings.block.find(".fa-image").removeClass("hidden");
                         break;
                 }
             },
@@ -233,7 +230,7 @@
                         if (openFancyBox) {
                             $.fancybox.open(photos, {
                                 buttons: [
-                                    settings.block.find("#amstate button").hasClass("fa-verisure-away") ? "take_photo" : null,
+                                    "take_photo",
                                     "close"
                                 ],
                                 loop: true
@@ -259,7 +256,7 @@
                                     showAlert("success", "photo taken");
                                 }
                             });
-                        }, 30000);
+                        }, 10000);
                     },
                     error: function () {
                         showAlert("danger", "Something went wrong");

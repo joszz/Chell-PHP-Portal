@@ -5,6 +5,7 @@ namespace Chell\Forms;
 use Chell\Models\Devices;
 
 use Phalcon\Forms\Form;
+use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
@@ -34,9 +35,9 @@ class SettingsMenuItemForm extends Form
             ->setLabel('URL')
             ->addValidator(new PresenceOf(['message' => 'Required']));
 
-        $icon = new Text('icon');
+        $icon = new File('icon');
         $icon->setFilters(['striptags', 'string'])
-             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
+             ->setAttributes(['class' => 'form-control'])
              ->setLabel('Icon');
 
         $device = new Select(

@@ -29,4 +29,9 @@ class MenuItems extends Model
             ['alias' => 'device']
         );
     }
+
+    public function getIconFileName()
+    {
+        return $this->id . '.' . $this->extension;
+    }
 }

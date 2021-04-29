@@ -35,7 +35,7 @@
 
                     <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">
-                            <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo (!empty($menuItem->icon) ? $menuItem->icon : 'unknown.ico') ?>" width="16"
+                            <img src="<?php echo $this->config->application->baseUri ?>img/icons/menu/<?php echo $menuItem->getIconFileName() ?>" width="16"
                                 alt="<?php echo $menuItem->name ?>" loading="lazy" />
                             <?php echo $menuItem->name ?>
                         </a>

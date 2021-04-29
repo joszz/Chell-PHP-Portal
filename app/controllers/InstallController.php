@@ -22,6 +22,7 @@ class InstallController extends BaseController
      */
     public function initialize()
     {
+        die;
         parent::initialize();
         $this->assets->collection('header')->addCss('css/default/install.min.css', true, false, [], $this->config->application->version, true);
     }

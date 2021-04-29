@@ -164,6 +164,11 @@ class SettingsController extends BaseController
                     'bind'       => [1 => intval($id)]
                 ]);
 
+                if($which == 'MenuItems')
+                {
+                    unlink(APP_PATH . 'public/img/icons/menu/' . $entity->id . '.' . $entity->extension);
+                }
+
                 $entity->delete();
             }
         }
@@ -220,6 +225,7 @@ class SettingsController extends BaseController
     public function menuAction($id = 0)
     {
         $item = new MenuItems();
+        $file = false;
 
         if ($id != 0)
         {
@@ -242,7 +248,18 @@ class SettingsController extends BaseController
                     $item = new MenuItems($data);
                 }
 
+                if ($this->request->hasFiles())
+                {
+                    $file = current($this->request->getUploadedFiles());
+                    $item->extension = $file->getExtension();
+                }
+
                 $item->save();
+
+                if ($file)
+                {
+                    $file->moveTo(APP_PATH . 'public/img/icons/menu/' . $item->id . '.' . $item->extension);
+                }
 
                 return (new Response())->redirect('settings/index#menuitems');
             }

@@ -10,7 +10,7 @@
         </h4>
     </div>
     <div class="panel-body">
-        <form action="<?php echo $form->getAction() ?>" method="post">
+        <form action="<?php echo $form->getAction() ?>" method="post" enctype="multipart/form-data">
             <?php foreach($form AS $element) : ?>
             <?php if (strpos(get_class($element), 'Hidden') === false) : ?>
             <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
