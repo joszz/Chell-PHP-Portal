@@ -40,11 +40,13 @@ It aggregates different services and webapplications that I want easily accessib
 - [Redis](https://redis.io/)
 - [Roborock](https://github.com/rytilahti/python-miio)
 - [Sickrage](https://sickrage.github.io/)
+- SNMP
 - [Subsonic](http://www.subsonic.org/pages/index.jsp)
 - [TMDB](https://www.themoviedb.org/)
 - [Transmission](https://www.transmissionbt.com/)
+- [Verisure](https://github.com/persandstrom/python-verisure)
 - [WhatIsMyBrowser](https://www.whatismybrowser.com/)
-- 
+- [Youless](https://www.youless.nl/)
 
 # Installation and configuration
 
