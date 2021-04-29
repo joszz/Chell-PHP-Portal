@@ -105,12 +105,22 @@ $help = [
     'snmp-enabled'                  => 'Enables the SNMP widget.',
     'snmp-update-interval'          => 'The poll interval used to update the SNMP values for the currently active host.',
 
-    'verisure-enabled'              => 'Enables the Verisure widget.',
+    'verisure-enabled'              => 'Enables the Verisure widget. Requires installation of <a href="https://github.com/persandstrom/python-verisure" target="_blank">python-verisure API</a>.',
     'verisure-update-interval'      => 'The poll interval used to update the Verisure values. <br />Requests are being throttled when too many are made. Recommended to not go below 120 seconds.',
     'verisure-url'                  => 'The URL for the Verisure MyPages website (or any other URL you would like the button in the header to link to).',
     'verisure-username'             => 'The Verisure MyPages username to authenticate to the API with.',
     'verisure-password'             => 'The Verisure MyPages password to authenticate to the API with.',
     'verisure-pin'                  => 'The Verisure PIN to set the alarm with.',
+
+    'roborock-enabled'              => 'Enables the Roborock widget. Requires installation of <a href="https://github.com/rytilahti/python-miio" target="_blank">python-miio API</a>.',
+    'roborock-update-interval'      => 'The poll interval used to update the Roborock values.',
+    'roborock-ip'                   => 'The IP address uses by python-miio to contact the Roborock API. Recommended to assign a static IP.',
+    'roborock-token'                => 'The Roborock API token. Find this token by following <a href="https://community.home-assistant.io/t/guide-to-retrieve-xiaomi-roborock-and-other-tokens/120174" target="_blank">this guide</a>, for example.',
+
+    'jellyfin-enabled'              => 'Enables the Jellyfin widget.',
+    'jellyfin-url'                  => 'The Jellyfin URL',
+    'jellyfin-userid'               => 'The Jellyfin user id. This can be retrieved by looking at the XHR requests when opening Jellyfin\'s homepage.<br />Look in the network tab, filter by XHR type and search for "user".',
+    'jellyfin-token'                => 'The Jellyfin API token, specified in Jellyfin settings.',
 ];
 
 $helpTitles = [
@@ -224,4 +234,14 @@ $helpTitles = [
     'verisure-username'             => 'Verisure username.',
     'verisure-password'             => 'Verisure password',
     'verisure-pin'                  => 'Verisure PIN',
+
+    'roborock-enabled'              => 'Roborock',
+    'roborock-update-interval'      => 'Roborock update interval',
+    'roborock-ip'                   => 'Roborock IP',
+    'roborock-token'                => 'Roborock API token',
+
+    'jellyfin-enabled'              => 'Jellyfin',
+    'jellyfin-url'                  => 'Jellyfin URL',
+    'jellyfin-userid'               => 'Jellyfin user id',
+    'jellyfin-token'                => 'Jellyfin API token',
 ];

@@ -11,14 +11,6 @@ use Phalcon\Mvc\Model;
  */
 class Devices extends Model
 {
-    public $id;
-    public $name;
-    public $ip;
-    public $mac;
-    public $webtemp;
-    public $shutdown_method;
-    public $show_on_dashboard;
-
     /**
      * Sets the database relations
      */

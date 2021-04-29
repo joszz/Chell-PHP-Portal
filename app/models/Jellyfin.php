@@ -11,6 +11,12 @@ use Phalcon\Mvc\Model;
  */
 class Jellyfin extends Model
 {
+    /**
+     * Retrieves all views from Jellyfin and gets the latest items for each view.
+     *
+     * @param object $config	                The config object representing config.ini.
+     * @param \Phalcon\Mvc\View $phalconView    The Phalcon view. Used to set the retrieved Jellyfin views as Phalcon view variable, gaving the contents populated by the latest items.
+     */
     public static function GetLatest($config, $phalconView)
     {
         $views = self::GetViews($config);
@@ -55,7 +61,7 @@ class Jellyfin extends Model
      * @param object $config	The config object representing config.ini.
      * @param mixed $viewId     The channel/library id to retrieve the latest items to.
      * @param mixed $limit      The limit of items to retrieve. This seems to not always be honored by the API?
-     * @return array[]          An array of latest items with some information about this item, such as the title.
+     * @return array          An array of latest items with some information about this item, such as the title.
      */
     public static function GetLatestForView($config, $viewId, $limit = 10)
     {

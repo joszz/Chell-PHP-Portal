@@ -11,8 +11,6 @@ use Phalcon\Mvc\Model;
  */
 class PHPSysInfo extends Model
 {
-    private $data;
-
     /**
      * Main function retrieving PHPSysInfo JSON through cURL.
      *

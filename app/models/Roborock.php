@@ -20,7 +20,7 @@ class Roborock extends Model
      */
     public static function GetInfo($config)
     {
-        return self::executeCommand('info', $config);
+        return self::executeCommand('info', $config, false);
     }
 
     /**
@@ -63,19 +63,36 @@ class Roborock extends Model
     }
 
     /**
+     * Stops the Roborock's cleaning and returns home.
+     *
+     * @param object $config    The configuration file to use.
+     */
+    public static function Home($config)
+    {
+        self::executeCommand('home', $config);
+    }
+
+    /**
      * Calls the miiocli python API with ip and token arguments as well as the command to run (see --help for more).
      *
-     * @param string $command   The command to run on the Roborock.
-     * @param object $config    The configuration file to use.
-     * @return string           The output of the run command.
+     * @param string  $command            The command to run on the Roborock.
+     * @param object  $config             The configuration file to use.
+     * @param boolean $removeFirstLine    Whether to trim the first line from the output. Defaults to true.
+     * @return string                     The output of the run command.
      */
-    private static function executeCommand($command, $config)
+    private static function executeCommand($command, $config, $removeFirstLine = true)
     {
         $command = escapeshellcmd('miiocli vacuum --ip ' . $config->roborock->ip . ' --token ' . $config->roborock->token . ' ' . $command);
         $output = shell_exec($command);
-        $output = explode("\n", $output);
 
-        return $output[1];
+        if ($removeFirstLine)
+        {
+            $output = explode("\n", $output);
+            array_shift($output);
+            return implode($output, "\n");
+        }
+
+        return $output;
     }
 
     /**

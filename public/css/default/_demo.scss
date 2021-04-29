@@ -5,9 +5,12 @@
 
 body.demo-mode {
     form input[type='text'],
+    form input[type='number'],
     form input[type='email'],
+    .bootstrap-select .filter-option-inner-inner,
     #settings #devices td:nth-child(3),
     #settings #devices td:nth-child(4),
+    #settings #devices td:nth-child(5),
     #settings #snmphosts td:nth-child(3),
     #settings #snmphosts td:nth-child(4),
     #settings #menuitems td:nth-child(4) a,
@@ -27,11 +30,19 @@ body.demo-mode {
     .panel.hw-panel .lan-ip,
     .panel.hw-panel .lan-mac,
     .panel.snmp-details li div:last-child,
+    .panel.sysinfo .col-xs-9,
+    .panel.devices .col-sm-5,
+    .panel.harddisks .name,
     #doorwindow td:nth-child(2),
     #doorwindow td:nth-child(3),
     #log td:nth-child(2),
     #log td:nth-child(3) {
-        color: transparent;
+        color: transparent !important;
         text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .panel.sysinfo .distro,
+    .panel.sysinfo .col-xs-9 .label{
+        display: none;
     }
 }

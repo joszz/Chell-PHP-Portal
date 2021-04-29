@@ -1,11 +1,11 @@
 ﻿.navbar {
     background-image: $darkBackgroundGradient;
+    background-color: transparent;
     backdrop-filter: blur($backdropBlur);
 }
 
 nav.navbar-fixed-top {
     top: 0;
-    opacity: 0.9;
     z-index: 7500;
 }
 

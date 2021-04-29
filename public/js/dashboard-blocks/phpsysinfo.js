@@ -19,7 +19,8 @@
             */
             var settings = $.extend({
                 url: $(this).data("distro-icon-base"),
-                block: $(this)
+                block: $(this),
+                diskspaceunits: ["B", "KB", "MB", "GB", "TB"]
             }, options);
 
             /**
@@ -169,8 +170,8 @@
 
                     $.each(data.Network.NetDevice, function (index, value) {
                         if (typeof value["@attributes"] !== "undefined") {
-                            var rx = Math.round(value["@attributes"].RxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
-                            var tx = Math.round(value["@attributes"].TxBytes / 1024 / 1024 / 1024 * 100) / 100 + " GB";
+                            var rx = functions.getFormattedSize(value["@attributes"].RxBytes);
+                            var tx = functions.getFormattedSize(value["@attributes"].TxBytes);
                             var info = value["@attributes"].Info.split(";");
                             var network = block.find(".lan-stats > div:not(.clone)").eq(index);
 
@@ -231,10 +232,14 @@
                         }
 
                         var percent = parseInt(value["@attributes"].Percent) + (value["@attributes"].Buffers !== undefined ? parseInt(value["@attributes"].Buffers) : 0) + "%";
+                        var total = functions.getFormattedSize(value["@attributes"].Total);
+                        var free = functions.getFormattedSize(value["@attributes"].Free);
+                        var used = functions.getFormattedSize(value["@attributes"].Used);
 
                         disk.find(".name").html(value["@attributes"].MountPoint);
                         disk.find(".progress-bar").css("width", percent);
                         disk.find(".percent").html(percent);
+                        disk.attr("title", "Total: " + total + ", Free: " + free + ", Used: " + used);
 
                         if (value["@attributes"].Percent > 90) {
                             disk.find(".progress-bar").addClass("progress-bar-danger");
@@ -249,6 +254,23 @@
                             disk.find(".progress-bar").addClass("progress-bar-success");
                         }
                     });
+                },
+
+                /**
+                * Given a number representing a memory size, format it to a more readable size (MB/GB/TB depending on the size of the number).
+                *
+                * @method getFormattedSize
+                * @param {number} number    The number to format.
+                */
+                getFormattedSize: function (number) {
+                    var iteration = 0;
+
+                    while (number > 1024) {
+                        number /= 1024;
+                        iteration++;
+                    }
+
+                    return (Math.round(number * 100) / 100) + " " + settings.diskspaceunits[iteration];
                 },
 
                 /**
@@ -293,7 +315,7 @@
                  */
                 setPsStatus: function (data) {
                     data.Plugins.Plugin_PSStatus.Process.sort(function (a, b) {
-                        return a["@attributes"].Name < b["@attributes"].Name ? -1 : 1;
+                        return a["@attributes"].Name.toLowerCase() < b["@attributes"].Name.toLowerCase() ? -1 : 1;
                     });
 
                     $.each(data.Plugins.Plugin_PSStatus.Process, function (index, value) {
@@ -302,7 +324,7 @@
                         var status = $("<div />", { class: "col-xs-2 text-right" });
                         var label = $("<span />", { class: "label" });
 
-                        name.html(value["@attributes"].Name);
+                        name.html(value["@attributes"].Name.replace(".*", ""));
                         name.appendTo(listItem);
 
                         if (value["@attributes"].Status === "1") {

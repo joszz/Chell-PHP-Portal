@@ -138,10 +138,10 @@ class Speedtest extends Model
 	/**
      * Retrieves the distance to the ISP.
      *
-     * @param mixed $latitudeFrom       Client's latitude
-     * @param mixed $longitudeFrom      Client's longitude
-     * @param mixed $latitudeTo         ISP latitude
-     * @param mixed $longitudeTo        ISP longitude
+     * @param string $latitudeFrom       Client's latitude
+     * @param string $longitudeFrom      Client's longitude
+     * @param string $latitudeTo         ISP latitude
+     * @param string $longitudeTo        ISP longitude
      */
 	private static function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
 	{

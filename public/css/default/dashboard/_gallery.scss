@@ -4,11 +4,10 @@
 }
 
 div.backdrop {
-    opacity: 0.8;
     height: 100%;
     width: 100%;
     position: absolute;
-    background-color: $state-success-bg;
+    background-color: rgba(223, 240, 216, 0.8);
     border-color: $state-success-bg;
     z-index: 1;
     top: 0;
@@ -64,9 +63,8 @@ div.gallery .panel-heading h4 {
     width: 100%;
     height: 70px;
     bottom: 0;
-    background-image: linear-gradient(to bottom, $state-success-bg 0%, #d0e9c6 100%);
+    background-image: linear-gradient(to bottom, rgba(223, 240, 216, 0.8) 0%, rgba(208, 233, 198, 0.8) 100%);
     backdrop-filter: blur($backdropBlur);
-    opacity: 0.8;
     z-index: 1;
 }
 

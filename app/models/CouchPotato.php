@@ -11,7 +11,6 @@ use Phalcon\Mvc\Model;
  */
 class Couchpotato extends Model
 {
-
 	/**
      * Retrieves all wanted movies from CouchPotat API.
      *

@@ -5194,7 +5194,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&4242565") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3990439") format("woff2"), url("../../fonts/icomoon.woff?7391863") format("woff"), url("../../fonts/icomoon.ttf?614323") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7738593") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&5193658") format("embedded-opentype"), url("../../fonts/icomoon.woff2?6610788") format("woff2"), url("../../fonts/icomoon.woff?3845600") format("woff"), url("../../fonts/icomoon.ttf?7947462") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?4163125") format("svg"); }
 
 .fa,
 .fas {
@@ -5694,7 +5694,7 @@ html.full-height {
 @media (prefers-color-scheme: dark) {
   html:not(.lightbg),
   html:not(.lightbg) body {
-    background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%); } }
+    background: linear-gradient(to bottom, rgba(60, 60, 60, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%); } }
 
 @media (prefers-color-scheme: light) {
   html:not(.darkbg),
@@ -5703,7 +5703,7 @@ html.full-height {
 
 html.darkbg,
 html.darkbg body {
-  background: linear-gradient(to bottom, #3c3c3c 0%, #222 100%); }
+  background: linear-gradient(to bottom, rgba(60, 60, 60, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%); }
 
 body {
   font-family: "Roboto", sans-serif !important;
@@ -5840,12 +5840,12 @@ div.vertical-center {
   width: 100%; }
 
 .navbar {
-  background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+  background-image: linear-gradient(to bottom, rgba(60, 60, 60, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%);
+  background-color: transparent;
   backdrop-filter: blur(5px); }
 
 nav.navbar-fixed-top {
   top: 0;
-  opacity: 0.9;
   z-index: 7500; }
 
 div#navbar {
@@ -5929,11 +5929,10 @@ div.gallery {
   height: 379px; }
 
 div.backdrop {
-  opacity: 0.8;
   height: 100%;
   width: 100%;
   position: absolute;
-  background-color: #dff0d8;
+  background-color: rgba(223, 240, 216, 0.8);
   border-color: #dff0d8;
   z-index: 1;
   top: 0;
@@ -5981,9 +5980,8 @@ div.gallery .panel-heading h4 {
   width: 100%;
   height: 70px;
   bottom: 0;
-  background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
+  background-image: linear-gradient(to bottom, rgba(223, 240, 216, 0.8) 0%, rgba(208, 233, 198, 0.8) 100%);
   backdrop-filter: blur(5px);
-  opacity: 0.8;
   z-index: 1; }
 
 .item .title,
@@ -6436,7 +6434,6 @@ footer.navbar {
   margin: 0;
   padding: 5px 0;
   border-radius: 0;
-  opacity: 0.9;
   z-index: 7500; }
 
 footer .execution-time {
@@ -6689,9 +6686,12 @@ nav.paginator {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
 
 body.demo-mode form input[type='text'],
+body.demo-mode form input[type='number'],
 body.demo-mode form input[type='email'],
+body.demo-mode .bootstrap-select .filter-option-inner-inner,
 body.demo-mode #settings #devices td:nth-child(3),
 body.demo-mode #settings #devices td:nth-child(4),
+body.demo-mode #settings #devices td:nth-child(5),
 body.demo-mode #settings #snmphosts td:nth-child(3),
 body.demo-mode #settings #snmphosts td:nth-child(4),
 body.demo-mode #settings #menuitems td:nth-child(4) a,
@@ -6711,9 +6711,16 @@ body.demo-mode .panel.hypervadmin td:nth-child(6),
 body.demo-mode .panel.hw-panel .lan-ip,
 body.demo-mode .panel.hw-panel .lan-mac,
 body.demo-mode .panel.snmp-details li div:last-child,
+body.demo-mode .panel.sysinfo .col-xs-9,
+body.demo-mode .panel.devices .col-sm-5,
+body.demo-mode .panel.harddisks .name,
 body.demo-mode #doorwindow td:nth-child(2),
 body.demo-mode #doorwindow td:nth-child(3),
 body.demo-mode #log td:nth-child(2),
 body.demo-mode #log td:nth-child(3) {
-  color: transparent;
+  color: transparent !important;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
+body.demo-mode .panel.sysinfo .distro,
+body.demo-mode .panel.sysinfo .col-xs-9 .label {
+  display: none; }
