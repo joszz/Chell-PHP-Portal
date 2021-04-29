@@ -33,6 +33,12 @@ class PiholeFormFields implements IDashboardFormFields
 		$form->add($piholeURL);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->pihole->enabled = isset($data['pihole-enabled']) && $data['pihole-enabled'] == 'on' ? '1' : '0';

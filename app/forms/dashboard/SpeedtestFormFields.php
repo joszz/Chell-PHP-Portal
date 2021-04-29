@@ -93,6 +93,12 @@ class SpeedtestFormFields implements IDashboardFormFields
 		$form->add($speedtestIpInfoToken);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
 		$config->speedtest->enabled = isset($data['speedtest-enabled']) && $data['speedtest-enabled'] == 'on' ? '1' : '0';

@@ -58,6 +58,12 @@ class TransmissionFormFields implements IDashboardFormFields
 		$form->add($transmissionInterval);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->transmission->enabled = isset($data['transmission-enabled']) && $data['transmission-enabled'] == 'on' ? '1' : '0';

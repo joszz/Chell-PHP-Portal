@@ -37,7 +37,7 @@ class SettingsMenuItemForm extends Form
 
         $icon = new File('icon');
         $icon->setFilters(['striptags', 'string'])
-             ->setAttributes(['class' => 'form-control'])
+             ->setAttributes(['class' => 'form-control', 'accept' => '.jpg,.png,.gif,.bmp'])
              ->setLabel('Icon');
 
         $device = new Select(

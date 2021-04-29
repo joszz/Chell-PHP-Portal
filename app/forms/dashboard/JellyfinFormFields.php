@@ -3,6 +3,7 @@
 namespace Chell\Forms\Dashboard;
 
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
 class JellyfinFormFields implements IDashboardFormFields
@@ -29,7 +30,7 @@ class JellyfinFormFields implements IDashboardFormFields
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($form->_config->jellyfin->url);
 
-		$jellyfinToken = new Text('jellyfin-token');
+		$jellyfinToken = new Password('jellyfin-token');
 		$jellyfinToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
@@ -47,6 +48,12 @@ class JellyfinFormFields implements IDashboardFormFields
 		$form->add($jellyfinUserId);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     * 
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->jellyfin->enabled = isset($data['jellyfin-enabled']) && $data['jellyfin-enabled'] == 'on' ? '1' : '0';

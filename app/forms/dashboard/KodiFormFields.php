@@ -74,6 +74,12 @@ class KodiFormFields implements IDashboardFormFields
 		$form->add($rotateAlbumsInterval);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->kodi->enabled = isset($data['kodi-enabled']) && $data['kodi-enabled'] == 'on' ? '1' : '0';

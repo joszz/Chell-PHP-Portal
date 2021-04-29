@@ -65,6 +65,12 @@ class VerisureFormFields implements IDashboardFormFields
 		$form->add($verisurePin);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->verisure->enabled = isset($data['verisure-enabled']) && $data['verisure-enabled'] == 'on' ? '1' : '0';

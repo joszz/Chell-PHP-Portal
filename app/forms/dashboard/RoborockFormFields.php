@@ -4,6 +4,7 @@ namespace Chell\Forms\Dashboard;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
@@ -38,7 +39,7 @@ class RoborockFormFields implements IDashboardFormFields
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($form->_config->roborock->ip);
 
-		$roborockToken = new Text('roborock-token');
+		$roborockToken = new Password('roborock-token');
 		$roborockToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
@@ -50,6 +51,12 @@ class RoborockFormFields implements IDashboardFormFields
 		$form->add($roborockToken);
 	}
 
+    /**
+     * Sets the post data to the config variables
+     *
+     * @param object $config	The config object, representing config.ini
+     * @param array $data		The posted data
+     */
     public function setPostData(&$config, $data)
     {
         $config->roborock->enabled = isset($data['roborock-enabled']) && $data['roborock-enabled'] == 'on' ? '1' : '0';

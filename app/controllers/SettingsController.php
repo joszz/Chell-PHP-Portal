@@ -166,7 +166,7 @@ class SettingsController extends BaseController
 
                 if($which == 'MenuItems')
                 {
-                    unlink(APP_PATH . 'public/img/icons/menu/' . $entity->id . '.' . $entity->extension);
+                    unlink($entity->getIconFilePath(APP_PATH . 'public/'));
                 }
 
                 $entity->delete();
@@ -251,6 +251,7 @@ class SettingsController extends BaseController
                 if ($this->request->hasFiles())
                 {
                     $file = current($this->request->getUploadedFiles());
+
                     $item->extension = $file->getExtension();
                 }
 
@@ -258,7 +259,9 @@ class SettingsController extends BaseController
 
                 if ($file)
                 {
-                    $file->moveTo(APP_PATH . 'public/img/icons/menu/' . $item->id . '.' . $item->extension);
+                    $filename = $item->getIconFilePath(APP_PATH . 'public/');
+                    $file->moveTo($filename);
+                    $item->resizeIcon($filename);
                 }
 
                 return (new Response())->redirect('settings/index#menuitems');
