@@ -27,21 +27,24 @@ It aggregates different services and webapplications that I want easily accessib
   - The Apache headers module needs to be enabled
 
 # Optional integrations
-- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
-- [rCPU](https://github.com/davidsblog/rCPU)
-- [Transmission](https://www.transmissionbt.com/)
-- [Sickrage](https://sickrage.github.io/)
 - [Couchpotato](https://couchpota.to//)
-- [Subsonic](http://www.subsonic.org/pages/index.jsp)
-- [Kodi](https://kodi.tv/)
-- [HyperVAdmin](https://github.com/joszz/HyperVAdmin)
-- [Motion](https://motion-project.github.io/)
-- [Pihole](https://pi-hole.net/)
-- [ImageProxy](https://github.com/willnorris/imageproxy)
 - [Duo](https://duo.com/)
+- [HyperVAdmin](https://github.com/joszz/HyperVAdmin)
+- [ImageProxy](https://github.com/willnorris/imageproxy)
+- [Jellyfin](https://jellyfin.org/)
+- [Kodi](https://kodi.tv/)
+- [Motion](https://motion-project.github.io/)
+- [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
+- [Pihole](https://pi-hole.net/)
+- [rCPU](https://github.com/davidsblog/rCPU)
 - [Redis](https://redis.io/)
-- [WhatIsMyBrowser](https://www.whatismybrowser.com/)
+- [Roborock](https://github.com/rytilahti/python-miio)
+- [Sickrage](https://sickrage.github.io/)
+- [Subsonic](http://www.subsonic.org/pages/index.jsp)
 - [TMDB](https://www.themoviedb.org/)
+- [Transmission](https://www.transmissionbt.com/)
+- [WhatIsMyBrowser](https://www.whatismybrowser.com/)
+- 
 
 # Installation and configuration
 
