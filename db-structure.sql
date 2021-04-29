@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
 --
--- Host: 192.168.1.30    Database: HomeServerPortal
+-- Host: 192.168.1.30    Database: homeserverportal
 -- ------------------------------------------------------
--- Server version	5.7.31-0ubuntu0.18.04.1
+-- Server version	8.0.23-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,14 +23,14 @@ DROP TABLE IF EXISTS `devices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `devices` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `ip` varchar(15) NOT NULL,
   `mac` varchar(18) DEFAULT NULL,
   `shutdown_method` enum('none','rpc') DEFAULT 'none',
   `shutdown_user` varchar(255) DEFAULT NULL,
   `shutdown_password` varchar(255) DEFAULT NULL,
-  `show_on_dashboard` tinyint(3) unsigned DEFAULT '1',
+  `show_on_dashboard` tinyint unsigned DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -43,17 +43,17 @@ DROP TABLE IF EXISTS `menu_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menu_items` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `menu_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `menu_id` int unsigned NOT NULL,
+  `parent_id` int unsigned NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `icon` varchar(255) DEFAULT NULL,
-  `device_id` int(10) unsigned DEFAULT NULL,
+  `device_id` int unsigned DEFAULT NULL,
+  `extension` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Device` (`device_id`),
   KEY `Menu` (`menu_id`,`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ DROP TABLE IF EXISTS `menus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menus` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `snmp_hosts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snmp_hosts` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `ip` varchar(15) NOT NULL,
   `name` varchar(255) NOT NULL,
   `version` varchar(5) NOT NULL,
@@ -99,16 +99,16 @@ DROP TABLE IF EXISTS `snmp_records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snmp_records` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `snmp_host_id` int(11) NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `snmp_host_id` int NOT NULL,
   `label` varchar(255) DEFAULT NULL,
   `label_oid` varchar(255) DEFAULT NULL,
   `value_oid` varchar(255) DEFAULT NULL,
-  `show_dashboard` tinyint(3) unsigned DEFAULT '1',
-  `group_value` int(10) unsigned DEFAULT NULL,
-  `position` int(10) unsigned DEFAULT NULL,
-  `divisor` int(10) unsigned DEFAULT NULL,
-  `divisor_decimals` tinyint(3) unsigned DEFAULT NULL,
+  `show_dashboard` tinyint unsigned DEFAULT '1',
+  `group_value` int unsigned DEFAULT NULL,
+  `position` int unsigned DEFAULT NULL,
+  `divisor` int unsigned DEFAULT NULL,
+  `divisor_decimals` tinyint unsigned DEFAULT NULL,
   `value_unit` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `speedtest`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `speedtest` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ip` text NOT NULL,
   `ispinfo` text,
@@ -136,7 +136,7 @@ CREATE TABLE `speedtest` (
   `jitter` text,
   `log` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,15 +147,16 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `last_login` datetime DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
+  `webauthn` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -167,4 +168,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-18 16:01:44
+-- Dump completed on 2021-04-29  9:29:27
