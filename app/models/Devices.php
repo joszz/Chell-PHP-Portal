@@ -2,20 +2,19 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to devices.
  *
  * @package Models
  */
-class Devices extends Model
+class Devices extends BaseModel
 {
     /**
      * Sets the database relations
      */
     public function initialize()
     {
+        parent::initialize();
         $this->hasMany(
             'id',
             'MenuItems',
@@ -26,26 +25,24 @@ class Devices extends Model
     /**
      * Calls pingExec with IP and returns the state of the device.
      *
-     * @param string $ip    Which device to ping
      * @return bool         Whether the device is on (true) or off (false)
      */
-    public static function isDeviceOn($ip)
+    public function isDeviceOn()
     {
-        return self::pingExec($ip) !== false;
+        return $this->pingExec() !== false;
     }
 
     /**
      * Pings a device and returns the response time.
      *
-     * @param string        $host   Which host to ping
      * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double          The time it took for the device to respond or false if failed.
      */
-    private static function pingExec($host, $ttl = 10)
+    private function pingExec($ttl = 10)
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);
-        $host    = escapeshellcmd($host);
+        $host    = escapeshellcmd($this->ip);
 
         // Exec string for Windows-based systems.
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
@@ -84,14 +81,13 @@ class Devices extends Model
     /**
      * Wakes up a device by MAC address.
      *
-     * @param string    $mac            The device to wake.
      * @param int       $socket_number  The port to send the magic packet to.
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public static function wakeOnLan($mac, $config, $socket_number = 7, $repetition = 16)
+    public function wakeOnLan($socket_number = 7, $repetition = 16)
     {
-        $addr_byte = explode(':', $mac);
+        $addr_byte = explode(':', $this->mac);
         $hw_addr = '';
         $msg = chr(255).chr(255).chr(255).chr(255).chr(255).chr(255);
 
@@ -125,7 +121,7 @@ class Devices extends Model
                 return false;
             }
 
-            if (socket_sendto($s, $msg, strlen($msg), 0, $config->network->broadcast, $socket_number))
+            if (socket_sendto($s, $msg, strlen($msg), 0, $this->_config->network->broadcast, $socket_number))
             {
                 echo 'Magic Packet sent successfully!';
                 socket_close($s);
@@ -143,16 +139,13 @@ class Devices extends Model
      * Executes a RPC command to shutdown Windows based devices.
      *
      * @see                     https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
-     * @param string $ip        The device to shutdown
-     * @param string $user      A valid Windows account to authenticate with.
-     * @param string $password  A valid Windows password to authenticate with.
      * @return array            The output of the RPC command on the shell.
      */
-    public static function shutdown($ip, $user, $password)
+    public function shutdown()
     {
-        $ip = escapeshellcmd($ip);
-        $user = trim(escapeshellcmd($user));
-        $password = trim(escapeshellcmd($password));
+        $ip = escapeshellcmd($this->ip);
+        $user = trim(escapeshellcmd($this->shutdown_user));
+        $password = trim(escapeshellcmd($this->shutdown_password));
         $output = [];
 
         exec('net rpc shutdown -I ' . $ip . ' -U ' . $user . '%' . $password, $output);

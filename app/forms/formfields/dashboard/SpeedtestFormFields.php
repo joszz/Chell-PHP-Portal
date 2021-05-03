@@ -1,6 +1,8 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -9,7 +11,7 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class SpeedtestFormFields implements IDashboardFormFields
+class SpeedtestFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -19,7 +21,7 @@ class SpeedtestFormFields implements IDashboardFormFields
 		$speedtestEnabled = new Check('speedtest-enabled');
 		$speedtestEnabled->setLabel('Enabled');
 		$speedtestEnabled->setAttributes([
-			'checked' => $form->_config->speedtest->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->speedtest->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -31,26 +33,26 @@ class SpeedtestFormFields implements IDashboardFormFields
 		$speedtestTestOrder->setLabel('Test order')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->speedtest->test_order);
+			->setDefault($form->config->speedtest->test_order);
 
 		$speedtestUpTime = new Numeric('speedtest-time-ul');
 		$speedtestUpTime->setLabel('Upload time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->speedtest->time_dl)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->speedtest->time_dl)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]));
 
 		$speedtestDownloadTime = new Numeric('speedtest-time-dl');
 		$speedtestDownloadTime->setLabel('Download time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->speedtest->time_dl)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->speedtest->time_dl)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]));
 
 		$speedtestGetIP = new Check('speedtest-get-ispip');
 		$speedtestGetIP->setLabel('Get ISP IP');
 		$speedtestGetIP->setAttributes([
-			'checked' => $form->_config->speedtest->getIp_ispInfo == '1' ? 'checked' : null,
+			'checked' => $form->config->speedtest->getIp_ispInfo == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -62,25 +64,25 @@ class SpeedtestFormFields implements IDashboardFormFields
 		$speedtestISPInfo->setLabel('Distance units')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->speedtest->getIp_ispInfo_distance);
+			->setDefault($form->config->speedtest->getIp_ispInfo_distance);
 
 		$speedtestTelemetry = new Select('speedtest-telemetry', ['off' => 'Off', 'basic' => 'Basic', 'full' => 'Full']);
 		$speedtestTelemetry->setLabel('Telemetry')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->_config->speedtest->telemetry);
+			->setDefault($form->config->speedtest->telemetry);
 
 		$speedtestIpInfoURL = new Text('speedtest-ipinfo-url');
 		$speedtestIpInfoURL->setLabel('IPInfo URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->_config->speedtest->ipInfoUrl);
+			->setDefault($form->config->speedtest->ipInfoUrl);
 
 		$speedtestIpInfoToken = new Password('speedtest-ipinfo-token');
 		$speedtestIpInfoToken->setLabel('IPInfo token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->speedtest->ipInfoToken);
+			->setDefault($form->config->speedtest->ipInfoToken);
 
 		$form->add($speedtestEnabled);
 		$form->add($speedtestTestOrder);

@@ -11,13 +11,22 @@ use Chell\Models\Roborock;
  */
 class RoborockController extends BaseController
 {
+    private $_model;
+
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Roborock();
+    }
+
     /**
      * Called by AJAX to refresh the dashboard widget.
      * Returns a JSON encoded string and dies.
      */
     public function indexAction()
     {
-        die(json_encode(Roborock::GetStatus($this->config)));
+        die(json_encode($this->_model->getStatus()));
     }
 
     /**
@@ -26,7 +35,7 @@ class RoborockController extends BaseController
     public function infoAction()
     {
         $this->view->setMainView('layouts/empty');
-        $this->view->info = Roborock::GetInfo($this->config);
+        $this->view->info = $this->_model->getInfo();
     }
 
     /**
@@ -34,7 +43,7 @@ class RoborockController extends BaseController
      */
     public function startAction()
     {
-        die(Roborock::Start($this->config));
+        die($this->_model->start());
     }
 
     /**
@@ -42,6 +51,6 @@ class RoborockController extends BaseController
      */
     public function stopAction()
     {
-        die(Roborock::Stop($this->config));
+        die($this->_model->stop());
     }
 }

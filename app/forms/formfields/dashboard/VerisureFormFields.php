@@ -1,6 +1,9 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -8,7 +11,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class VerisureFormFields implements IDashboardFormFields
+class VerisureFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,46 +19,50 @@ class VerisureFormFields implements IDashboardFormFields
 	public function setFields($form)
 	{
 		$verisureEnabled = new Check('verisure-enabled');
-		$verisureEnabled->setLabel('Enabled');
-		$verisureEnabled->setAttributes([
-			'checked' => $form->_config->verisure->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Verisure'
+		$verisureEnabled->setLabel('Enabled')
+			->setAttributes([
+				'checked' => $form->config->verisure->enabled == '1' ? 'checked' : null,
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'Verisure'
 		]);
 
 		$verisureInterval = new Numeric('verisure-update-interval');
 		$verisureInterval->setLabel('Verisure interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->verisure->updateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->verisure->updateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
         $verisureURL = new Text('verisure-url');
 		$verisureURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->_config->verisure->URL);
+			->setDefault($form->config->verisure->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Verisure username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->verisure->username);
+			->setDefault($form->config->verisure->username)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$verisurePassword = new Password('verisure-password');
 		$verisurePassword->setLabel('Verisure password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
-			->setDefault($form->_config->verisure->password);
+			->setDefault($form->config->verisure->password)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
         $verisurePin = new Password('verisure-pin');
 		$verisurePin->setLabel('Verisure pin')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->verisure->securityCode);
+			->setDefault($form->config->verisure->securityCode);
 
 		$form->add($verisureEnabled);
 		$form->add($verisureInterval);

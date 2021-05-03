@@ -23,19 +23,19 @@ class SettingsSnmpHostForm extends Form
         $name->setLabel('Name')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => 'Required']));
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => 'Required']));
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $community = new Text('community');
         $community->setLabel('Community')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => 'Required']));
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $version = new Select(
             'version',

@@ -2,41 +2,22 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to Jellyfin.
  *
  * @package Modelsz
  */
-class Jellyfin extends Model
+class Jellyfin extends BaseModel
 {
-    /**
-     * Retrieves all views from Jellyfin and gets the latest items for each view.
-     *
-     * @param object $config	                The config object representing config.ini.
-     * @param \Phalcon\Mvc\View $phalconView    The Phalcon view. Used to set the retrieved Jellyfin views as Phalcon view variable, gaving the contents populated by the latest items.
-     */
-    public static function GetLatest($config, $phalconView)
-    {
-        $views = self::GetViews($config);
-
-        foreach($views as $view => $viewId)
-        {
-            $phalconView->{$view} = self::GetLatestForView($config, $viewId);
-        }
-    }
-
     /**
      * Retrieves the different channels/libraries defined for a user.
      *
-     * @param object $config	The config object representing config.ini.
      * @return array            The array of channels/libraries. The key holds the name lowercase, and removed from <spaces>.
      *                          The value holds the channel's Id.
      */
-    public static function GetViews($config)
+    public function getViews()
     {
-        $ch = self::getCurl($config, '/Users/' . $config->jellyfin->userid . '/Views');
+        $ch = $this->getCurl('/Users/' . $this->_config->jellyfin->userid . '/Views');
         $result = [];
 
         if (($output = curl_exec($ch)) !== false && !empty($output))
@@ -44,13 +25,11 @@ class Jellyfin extends Model
             $output = json_decode($output);
             foreach($output->Items as $item)
             {
-                if(isset($item->CollectionType))
-                {
-                    $result[str_replace(' ', '', strtolower($item->CollectionType))] = $item->Id;
-                }
+                $result[$item->Name] = $item->Id;
             }
         }
 
+        ksort($result);
         curl_close($ch);
         return $result;
     }
@@ -58,14 +37,13 @@ class Jellyfin extends Model
     /**
      * Retrieves the latest items for the fiven $viewId, limiting to $limit.
      *
-     * @param object $config	The config object representing config.ini.
      * @param mixed $viewId     The channel/library id to retrieve the latest items to.
      * @param mixed $limit      The limit of items to retrieve. This seems to not always be honored by the API?
      * @return array          An array of latest items with some information about this item, such as the title.
      */
-    public static function GetLatestForView($config, $viewId, $limit = 10)
+    public function getLatestForView($viewId, $limit = 10)
     {
-        $ch = self::getCurl($config, '/Users/' . $config->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+        $ch = self::getCurl('/Users/' . $this->_config->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         $result = [];
         if (($output = curl_exec($ch)) !== false && !empty($output))
         {
@@ -91,17 +69,16 @@ class Jellyfin extends Model
     /**
      * Gets the CurlHandle to be used to invoke the Jellyfin API.
      *
-     * @param object $config	            The config object representing config.ini.
      * @param string $url                   The Jellyfin endpoint to call.
      * @return \CurlHandle|bool|resource    The handle to use to call the Jellyfin API with.
      */
-    private static function getCurl($config, $url)
+    private function getCurl($url)
     {
-        $ch = curl_init($config->jellyfin->url . $url);
+        $ch = curl_init($this->_config->jellyfin->url . $url);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTPHEADER => ['X-MediaBrowser-Token:' .$config->jellyfin->token],
+            CURLOPT_HTTPHEADER => ['X-MediaBrowser-Token:' .$this->_config->jellyfin->token],
             CURLOPT_TIMEOUT => 3
         ]);
         return $ch;

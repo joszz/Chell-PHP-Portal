@@ -2,24 +2,21 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to YouLess.
  *
  * @package Models
  */
-class Youless extends Model
+class Youless extends BaseModel
 {
 	/**
 	 * Gets the current power usage from YouLess
 	 *
-	 * @param object $config The config object to get the YouLess URL from.
      * @return object        The current statss.
 	 */
-	public function getCurrentStats($config)
+	public function getCurrentStats()
 	{
-		$ch = curl_init($config->youless->URL . 'a&f=j');
+		$ch = curl_init($this->_config->youless->URL . 'a&f=j');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$content = json_decode(curl_exec($ch));
 		curl_close($ch);

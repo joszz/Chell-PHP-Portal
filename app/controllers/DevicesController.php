@@ -17,11 +17,16 @@ class DevicesController extends BaseController
      *
      * @param string $mac   The MAC address to use to send the WOL packet.
      */
-    public function wolAction($mac)
+    public function wolAction($id)
     {
-        if (isset($mac))
+        $device = Devices::findFirst([
+           'conditions' => 'id = ?1',
+           'bind'       => [1 => $id]
+        ]);
+
+        if (isset($device))
         {
-            Devices::wakeOnLan($mac, $this->config);
+            $device->wakeOnLan();
         }
 
         die;
@@ -35,11 +40,16 @@ class DevicesController extends BaseController
      * @param string $password   The password to use to send the RPC command.
      * @return string            A boolean as string indicating success or failure.
      */
-    public function shutdownAction($ip, $user, $password)
+    public function shutdownAction($id)
     {
-        if (isset($ip, $user, $password))
+        $device = Devices::findFirst([
+           'conditions' => 'id = ?1',
+           'bind'       => [1 => $id]
+        ]);
+
+        if (isset($device))
         {
-            $output = Devices::shutdown($ip, $user, $password);
+            $output = $device->shutdown();
 
             if (isset($output[1]))
             {
@@ -55,14 +65,14 @@ class DevicesController extends BaseController
      *
      * @param string $ip     The IP address to get the on/off state for.
      */
-    public function stateAction($ip)
+    public function stateAction($id)
     {
         $device = Devices::findFirst([
-           'conditions' => 'ip = ?1',
-           'bind'       => [1 => $ip]
+           'conditions' => 'id = ?1',
+           'bind'       => [1 => $id]
         ]);
 
-        $state['state'] = Devices::isDeviceOn($device->ip);
+        $state['state'] = $device->isDeviceOn();
         $state['ip'] = $device->ip;
 
         $this->view->disable();

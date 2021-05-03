@@ -11,12 +11,21 @@ use Chell\Models\Motion;
  */
 class MotionController extends BaseController
 {
+    private $_model;
+
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Motion();
+    }
+
     /**
      * Outputs the latest Motion image, based on filemtime.
      */
     public function indexAction()
     {
-        $latest_file = Motion::getLatest($this->config);
+        $latest_file = $this->_model->getLatest();
         $file = key($latest_file);
         $ntct = ['1' => 'image/gif',
                  '2' => 'image/jpeg',
@@ -57,6 +66,6 @@ class MotionController extends BaseController
      */
     public function modifiedTimeAction()
     {
-        die(Motion::getModifiedTime($this->config));
+        die($this->_model->getModifiedTime());
     }
 }

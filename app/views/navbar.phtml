@@ -32,7 +32,7 @@
                     <?php foreach($menu->getItems(['order' => 'name ASC']) as $menuItem) : ?>
                     <?php if (strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
 
-                    <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-ip="' . $menuItem->device->ip : '' ?>">
+                    <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-id="' . $menuItem->device->id : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">
                             <img src="<?php echo $menuItem->getIconFilePath($this->config->application->baseUri) ?>" width="16"
                                 alt="<?php echo $menuItem->name ?>" loading="lazy" />

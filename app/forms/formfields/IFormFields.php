@@ -1,8 +1,8 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields;
 
-interface IDashboardFormFields
+interface IFormFields
 {
     /**
      * Adds fields to the form.

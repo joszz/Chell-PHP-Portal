@@ -68,7 +68,7 @@ class SessionController extends BaseController
         }
 
         $this->view->containerFullHeight = true;
-        $this->view->form = new LoginForm($this->config, $this->loginFailed);
+        $this->view->form = new LoginForm($this->loginFailed);
     }
 
     /**
@@ -261,7 +261,7 @@ class SessionController extends BaseController
         $this->session->destroy();
 
         $this->view->containerFullHeight = true;
-        $this->view->form = new LoginForm($this->config, $this->loginFailed);
+        $this->view->form = new LoginForm($this->loginFailed);
         $this->view->pick('session/index');
     }
 }

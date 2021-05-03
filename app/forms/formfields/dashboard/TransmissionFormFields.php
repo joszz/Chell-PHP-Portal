@@ -1,6 +1,9 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -8,7 +11,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class TransmissionFormFields implements IDashboardFormFields
+class TransmissionFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,40 +19,44 @@ class TransmissionFormFields implements IDashboardFormFields
 	public function setFields($form)
 	{
 		$transmissionEnabled = new Check('transmission-enabled');
-		$transmissionEnabled->setLabel('Enabled');
-		$transmissionEnabled->setAttributes([
-			'checked' => $form->_config->transmission->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Transmission'
+		$transmissionEnabled->setLabel('Enabled')
+			->setAttributes([
+				'checked' => $form->config->transmission->enabled == '1' ? 'checked' : null,
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'Transmission'
 		]);
 
 		$transmissionURL = new Text('transmission-url');
 		$transmissionURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->transmission->URL);
+			->setDefault($form->config->transmission->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$transmissionUsername = new Text('transmission-username');
 		$transmissionUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->transmission->username);
+			->setDefault($form->config->transmission->username)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$transmissionPassword = new Password('transmission-password');
 		$transmissionPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
-			->setDefault($form->_config->transmission->password);
+			->setDefault($form->config->transmission->password)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$transmissionInterval = new Numeric('transmission-update-interval');
 		$transmissionInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->transmission->updateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->transmission->updateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$form->add($transmissionEnabled);
 		$form->add($transmissionURL);

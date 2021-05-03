@@ -18,7 +18,7 @@
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/album/' . $album->idAlbum ?>"
                 title="<?php echo $album->strAlbum ?>">
-                <img src="<?php echo $album->getImageUrl($this->config, 'thumb', 'strImage', 'idAlbum') ?>" loading="lazy" width="348" height="377" alt="<?php echo $album->strAlbum ?>" />
+                <img src="<?php echo $album->getImageUrl('thumb', 'strImage', 'idAlbum') ?>" loading="lazy" width="348" height="377" alt="<?php echo $album->strAlbum ?>" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $album->strArtists ?>">
                     <?php echo $album->strArtists ?>

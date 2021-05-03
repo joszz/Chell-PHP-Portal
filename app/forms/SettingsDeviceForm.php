@@ -2,7 +2,6 @@
 
 namespace Chell\Forms;
 
-use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
@@ -14,7 +13,7 @@ use Phalcon\Validation\Validator\PresenceOf;
  *
  * @package Forms
  */
-class SettingsDeviceForm extends Form
+class SettingsDeviceForm extends SettingsBaseForm
 {
     /**
      * Add all fields to the form and set form specific attributes.
@@ -25,13 +24,13 @@ class SettingsDeviceForm extends Form
         $name->setLabel('Name')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => 'Required']));
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $ip = new Text('ip');
         $ip->setLabel('IP')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => 'Required']));
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')

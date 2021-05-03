@@ -13,6 +13,17 @@
 * @method document.onload
 */
 $(function () {
+    //override tabCollapse checkstate since we use 2 differen tabs for mobile and desktop view
+    $.fn.tabCollapse.Constructor.prototype.checkState = function () {
+        if (this._accordionVisible) {
+            this.showTabs();
+            this._accordionVisible = false;
+        } else if (this.$accordion.is(':visible') && !this._accordionVisible) {
+            this.showAccordion();
+            this._accordionVisible = true;
+        }
+    };
+
     $(".nav-tabs.visible-xs").tabCollapse();
 
     //Set focus to correct tab when URL navigated to with location.hash

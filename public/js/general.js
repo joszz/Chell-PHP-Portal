@@ -80,6 +80,8 @@ function initializeGlobalPlugins() {
     });
 
     $(".toggle-password").togglePasswords();
+
+    $("body").tooltip({ selector: ".bs-tooltip", trigger: "click hover"});
 }
 
 /**

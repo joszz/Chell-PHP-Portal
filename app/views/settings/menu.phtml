@@ -12,23 +12,7 @@
     <div class="panel-body">
         <form action="<?php echo $form->getAction() ?>" method="post" enctype="multipart/form-data">
             <?php foreach($form AS $element) : ?>
-            <?php if (strpos(get_class($element), 'Hidden') === false) : ?>
-            <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
-                <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
-                    <?php echo $element->label(['class' => 'text-bold']) ?>
-                </div>
-                <div class="col-lg-4 col-sm-5 col-xs-12">
-                    <?php echo $element ?>
-                </div>
-                <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                    <?php if ($hasErrors) : ?>
-                    <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
-                    <?php endif ?>
-                </div>
-            </div>
-            <?php else : ?>
-            <?php echo $element ?>
-            <?php endif ?>
+            <?php echo $form->renderDecorated($element) ?>
             <?php endforeach ?>
 
             <div class="row">

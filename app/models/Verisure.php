@@ -2,15 +2,13 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to Verisure.
  *
  * @see https://github.com/persandstrom/python-verisure
  * @package Models
  */
-class Verisure extends Model
+class Verisure extends BaseModel
 {
     public static $eventToReadableName = [
         'DOORWINDOW_STATE_CLOSED' => 'Closed',
@@ -24,24 +22,22 @@ class Verisure extends Model
     /**
      * Gets the current arm state of the alarm.
      *
-     * @param object $config	The config object representing config.ini.
      * @return string           JSON ecnoded output of the command.
      */
-    public static function GetArmState($config)
+    public function getArmState()
     {
-        return self::executeCommand('armstate', $config);
+        return $this->executeCommand('armstate');
     }
 
     /**
      * Gets the overview of the system with the most general information.
      *
-     * @param object $config	The config object representing config.ini.
      * @param boolean $encode   Whether or not to JSON encode the output of the overview command.
      * @return object|string    Either an JSON encoded string when $encode == true, or an object.
      */
-    public static function GetOverview($config, $encode)
+    public function getOverview($encode)
     {
-        $overview = self::executeCommand('overview', $config);
+        $overview = $this->executeCommand('overview');
 
         foreach($overview->climateValues as $value)
         {
@@ -69,24 +65,22 @@ class Verisure extends Model
     /**
      * Sets the alarm state to the given state.
      *
-     * @param object $config	The config object representing config.ini.
      * @param mixed $state      The alarm state to set.
      * @param mixed $pin        The user pin to use to authenticate.
      */
-    public static function SetArmState($config, $state, $pin)
+    public function setArmState( $state, $pin)
     {
-        self::executeCommand('set alarm ' . $pin . ' ' . $state, $config);
+        $this->executeCommand('set alarm ' . $pin . ' ' . $state);
     }
 
     /**
      * Retrieves the current log records.
      *
-     * @param object $config	The config object representing config.ini.
      * @return object           An object with all eventLogItems in it.
      */
-    public static function GetLog($config)
+    public function getLog()
     {
-        $log = self::executeCommand('eventlog', $config);
+        $log = $this->executeCommand('eventlog');
 
         foreach ($log->eventLogItems as $logItem)
         {
@@ -106,27 +100,25 @@ class Verisure extends Model
     /**
      * Retrieves all the recorded images for the configured account.
      *
-     * @param object $config	The config object representing config.ini.
      * @return object           An objectwith all the imageseries in it.
      */
-    public static function GetImageSeries($config)
+    public function getImageSeries()
     {
-        return self::executeCommand('imageseries', $config);
+        return $this->executeCommand('imageseries');
     }
 
     /**
      * Calls the Verisure API to retrieve an image and write it to disk. If the file already exists, than return the filename directly.
      *
-     * @param object $config	The config object representing config.ini.
      * @return string           The full filepath for the image cached on disk.
      */
-    public static function GetImage($config, $device_label, $image_id, $capture_time)
+    public function getImage($device_label, $image_id, $capture_time)
     {
         $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
 
         if (!file_exists($filename))
         {
-            self::executeCommand('getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename, $config);
+            $this->executeCommand('getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename);
         }
 
         return $filename;
@@ -135,35 +127,32 @@ class Verisure extends Model
     /**
      * Calls the Verisure API to capture an image for the device with $device_label.
      *
-     * @param object $config	The config object representing config.ini.
      * @return object           An object with the JSON encoded output of the API call.
      */
-    public static function CaptureImage($config, $device_label)
+    public function captureImage($device_label)
     {
-        return self::executeCommand('capture ' . $device_label, $config);
+        return $this->executeCommand('capture ' . $device_label);
     }
 
     /**
      * Calls the Verisure API to retrieve firmware statistics.
      *
-     * @param object $config	The config object representing config.ini.
      * @return object           An object with the JSON encoded output of the API call.
      */
-    public static function GetFirmwareStatus($config)
+    public function getFirmwareStatus()
     {
-        return self::executeCommand('firmware_status', $config);
+        return $this->executeCommand('firmware_status');
     }
 
     /**
      * Executes the vsure python library on the commandline and retrieves the output from the Verisure API.
      *
      * @param string $command   The command to execute on the Verisure API.
-     * @param object $config	The config object representing config.ini.
      * @return object           An object JSON decoded from the output of the Verisure API.
      */
-    private static function executeCommand($command, $config)
+    private function executeCommand($command)
     {
-        $command = escapeshellcmd('vsure ' . $config->verisure->username . ' ' . $config->verisure->password . ' ' . $command);
+        $command = escapeshellcmd('vsure ' . $this->_config->verisure->username . ' ' . $this->_config->verisure->password . ' ' . $command);
         $output = shell_exec($command);
         return json_decode($output);
     }

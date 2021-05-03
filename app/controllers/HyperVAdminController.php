@@ -13,6 +13,15 @@ use Chell\Models\HyperVAdmin;
  */
 class HyperVAdminController extends BaseController
 {
+	private $_model;
+
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new HyperVAdmin();
+    }
+
 	/**
 	 * Shows a view which displays all VMs in a table.
 	 */
@@ -20,8 +29,8 @@ class HyperVAdminController extends BaseController
 	{
 		$this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
 		$this->view->setMainView('layouts/empty');
-		$this->view->vms = HyperVAdmin::getVMs($this->config);
-		$this->view->sites = HyperVAdmin::getSites($this->config);
+		$this->view->vms = $this->_model->getVMs();
+		$this->view->sites = $this->_model->getSites();
 	}
 
 	/**
@@ -33,7 +42,7 @@ class HyperVAdminController extends BaseController
 	 */
 	public function vmToggleStateAction($vm, $state)
 	{
-		HyperVAdmin::toggleVMState($vm, $state, $this->config);
+		$this->_model->toggleVMState($vm, $state);
 
 		return (new Response())->redirect('hyper_v_admin/');
 	}
@@ -47,7 +56,7 @@ class HyperVAdminController extends BaseController
 	 */
 	public function siteToggleStateAction($site, $state)
 	{
-		HyperVAdmin::toggleSiteState($site, $state, $this->config);
+		$this->_model->toggleSiteState($site, $state);
 
 		return (new Response())->redirect('hyper_v_admin/');
 	}
@@ -57,7 +66,7 @@ class HyperVAdminController extends BaseController
 	 */
 	public function getVMsAction()
 	{
-		die(HyperVAdmin::getVMs($this->config, false));
+		die($this->_model->getVMs(false));
 	}
 
 	/**
@@ -65,6 +74,6 @@ class HyperVAdminController extends BaseController
 	 */
 	public function getSitesAction()
 	{
-		die(HyperVAdmin::getSites($this->config, false));
+		die($this->_model->getSites(false));
 	}
 }

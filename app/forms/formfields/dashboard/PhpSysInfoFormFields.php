@@ -1,13 +1,16 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 
-class PhpSysInfoFormFields implements IDashboardFormFields
+class PhpSysInfoFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -17,7 +20,7 @@ class PhpSysInfoFormFields implements IDashboardFormFields
 		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
 		$phpSysInfoEnabled->setLabel('Enabled');
 		$phpSysInfoEnabled->setAttributes([
-			'checked' => $form->_config->phpsysinfo->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->phpsysinfo->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -29,20 +32,21 @@ class PhpSysInfoFormFields implements IDashboardFormFields
 		$phpSysInfoURL->setLabel('PHPSysInfo URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->phpsysinfo->URL)
-			->addValidators([new PresenceOf([])]);
+			->setDefault($form->config->phpsysinfo->URL)
+			->addValidators([new PresenceOf(['message' => $form->translator->validation['required']])])
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']));
 
 		$phpSysInfoUsername = new Text('phpsysinfo-username');
 		$phpSysInfoUsername->setLabel('PHPSysInfo username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->phpsysinfo->username);
+			->setDefault($form->config->phpsysinfo->username);
 
 		$phpSysInfoPassword = new Password('phpsysinfo-password');
 		$phpSysInfoPassword->setLabel('PHPSysInfo password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
-			->setDefault($form->_config->phpsysinfo->password);
+			->setDefault($form->config->phpsysinfo->password);
 
 		$form->add($phpSysInfoEnabled);
 		$form->add($phpSysInfoURL);

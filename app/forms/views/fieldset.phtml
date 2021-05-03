@@ -1,0 +1,12 @@
+<?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
+
+<fieldset>
+    <legend class="row">
+        <div class="col-lg-offset-2 col-sm-offset-1 col-lg-4 col-sm-4 col-xs-10 text-right-not-xs">
+            <?php echo $element ?> 
+            <span><?php echo $fieldset ?></span>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-2">
+            <a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="<?php echo $this->config->application->baseUri . 'settings/help/' . $name ?>" title="help"></a>
+        </div>
+    </legend>

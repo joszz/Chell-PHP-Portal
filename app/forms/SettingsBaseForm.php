@@ -12,23 +12,27 @@ use Phalcon\Forms\Form;
  */
 class SettingsBaseForm extends Form
 {
+    protected $formFieldClasses = [];
+
     /**
      * The configuration object containing all the info from config.ini.
      *
      * @var object
      */
-    public $_config;
+    public $config;
+    public $translator;
 
     /**
      * Set the config array (config.ini contents) to private variable.
      *
      * @param object $config The config array.
      */
-    public function __construct($config)
+    public function __construct($entity = null)
     {
-        $this->_config = $config;
+        $this->config = $this->di->get('config');
+        $this->translator = $this->di->get('translator');
 
-        parent::__construct();
+        parent::__construct($entity);
     }
 
     /**
@@ -61,6 +65,7 @@ class SettingsBaseForm extends Form
         }
         else
         {
+            ob_start();
             $class = $element->getAttribute('class');
 
             if (strpos($class, 'hidden') !== false)
@@ -69,31 +74,8 @@ class SettingsBaseForm extends Form
                 $element->setAttribute('class', str_replace('hidden', '', $class));
             }
 
-            $html = '<div class="form-group row' . ($hasErrors ? ' has-error' : null) . ($hidden ? ' hidden' : null) . '">';
-            $html .= '<div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">' . $element->label(['class' => 'text-bold']) . '</div>';
-            $html .= '<div class="col-lg-4 col-sm-5 col-xs-12"><div class="input-group">' . $element;
-
-            if (get_class($element) == 'Phalcon\Forms\Element\Password')
-            {
-                $html .= '<a class="btn btn-default input-group-addon toggle-password" title="Toggle password display"><i class="fa fa-eye"></i></a>';
-            }
-            else if (strpos($class, 'location') !== false)
-            {
-                $html .= '<a class="btn btn-default input-group-addon" title="Get location"><i class="fa fa-map-marker-alt"></i></a>';
-            }
-
-            $html .= '<a class="' . (get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right') . ' btn btn-default" data-fancybox data-type="iframe" title="Help" href="';
-            $html .=  $this->_config->application->baseUri . 'settings/help/' . $name . '">';
-            $html .= '<i class="fa fa-question"></i></a>';
-
-            $html .= '</div></div><div class="col-lg-5 col-sm-3 col-xs-12">';
-
-            if ($hasErrors)
-            {
-                $html .= '<div class="error pull-left">' . $this->getMessagesFor($name)[0]->getMessage() .'</div>';
-            }
-
-            $html .= '</div></div>';
+            require(APP_PATH . 'app/forms/views/element.phtml');
+            $html = ob_get_clean();
         }
 
         return $html;
@@ -125,13 +107,31 @@ class SettingsBaseForm extends Form
         }
         else
         {
-            $html = '<fieldset><legend class="row"><div class="col-lg-3 col-sm-4 col-xs-10 text-right-not-xs">';
-            $html .=  $element . '<span>'. $fieldset .  '</span>';
-            $html .= '</div><div class="col-lg-4 col-sm-5 col-xs-2">';
-            $html .= '<a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="' . $this->_config->application->baseUri . 'settings/help/' . $name . '" title="help"></a>';
-            $html .= '</div></legend>';
+            ob_start();
+            require(APP_PATH . 'app/forms/views/fieldset.phtml');
+            $html = ob_get_clean();
         }
 
         return $html;
+    }
+
+    public function hasHelp($name)
+    {
+        return isset($this->translator->helpContent[$name]);
+    }
+
+    protected function setFormFieldClasses($namespace)
+    {
+		$formFieldFiles = array_diff(scandir(APP_PATH . $this->config->application->formsDir . 'formfields/' . strtolower($namespace)), array('..', '.'));
+		foreach ($formFieldFiles as $file)
+        {
+			$class =  'Chell\Forms\FormFields\\' . $namespace . '\\' . basename($file, '.php');
+			$this->formFieldClasses[] = new $class;
+        }
+
+		foreach ($this->formFieldClasses as $class)
+        {
+			$class->setFields($this);
+        }
     }
 }

@@ -2,41 +2,40 @@
 
 namespace Chell\Models\Kodi;
 
-use Phalcon\Mvc\Model;
+use Chell\Models\BaseModel;
 
 /**
  * The model responsible for all Kodi movies.
  *
  * @package Models\Kodi
  */
-class KodiBase extends Model
+class KodiBase extends BaseModel
 {
     /**
      * Retrieves the image URL, used in the src attrbute, to retrieve the image from.
      * The URL provided will call the Kodi controller, action getImage.
      *
-     * @param object $config	    The config object representing config.ini.
      * @param mixed $type           The type of image to fetch. Either fanart or poster.
      * @param mixed $imageField     The database field to retrieve the image from.
      * @param mixed $idField        The database field to retrieve the record Id from.
      * @return string               The URL to the Kodi Controller, action getImage to retrieve the image from.
      */
-    public function getImageUrl($config, $type, $imageField, $idField)
+    public function getImageUrl($type, $imageField, $idField)
     {
         $width = $type == 'fanart' ? 800 : '350';
         $which = str_replace('Kodi', '', strtolower(get_class($this)));
 
         if (empty($this->{$imageField}))
         {
-            return $config->application->baseUri . 'img/icons/unknown.jpg';
+            return $this->_config->application->baseUri . 'img/icons/unknown.jpg';
         }
 
-        if ($config->imageproxy->enabled)
+        if ($this->_config->imageproxy->enabled)
         {
-            return $config->imageproxy->URL . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
+            return $this->_config->imageproxy->URL . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }
 
-        return $config->application->baseUri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);
+        return $this->_config->application->baseUri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);
     }
 
     /**

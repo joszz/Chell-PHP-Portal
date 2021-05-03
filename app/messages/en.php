@@ -1,6 +1,13 @@
 <?php
+$validation = [
+    'required'                      => 'Required',
+    'not-a-number'                  => 'Not a number',
+    'password-not-match'            => 'Password fields should match',
+];
 
 $help = [
+    /* Validation messages */
+
     /* General settings */
     'title'                         => 'The title of this website, displayed in the header and the browsers tab.',
     'bgcolor'                       => 'The backgroundcolor for the website, either black or white.',
@@ -121,6 +128,9 @@ $help = [
     'jellyfin-url'                  => 'The Jellyfin URL',
     'jellyfin-userid'               => 'The Jellyfin user id. This can be retrieved by looking at the XHR requests when opening Jellyfin\'s homepage.<br />Look in the network tab, filter by XHR type and search for "user".',
     'jellyfin-token'                => 'The Jellyfin API token, specified in Jellyfin settings.',
+    'jellyfin-movieview'            => 'The Jellyfin library to use to show the latest movies.',
+    'jellyfin-musicview'            => 'The Jellyfin library to use to show the latest albums.',
+    'jellyfin-showview'             => 'The Jellyfin library to use to show the latest TV shows.',
 ];
 
 $helpTitles = [
@@ -244,4 +254,7 @@ $helpTitles = [
     'jellyfin-url'                  => 'Jellyfin URL',
     'jellyfin-userid'               => 'Jellyfin user id',
     'jellyfin-token'                => 'Jellyfin API token',
+    'jellyfin-movieview'            => 'Jellyfin movie library',
+    'jellyfin-musicview'            => 'The Jellyfin music library',
+    'jellyfin-showview'             => 'The Jellyfin TV show library',
 ];

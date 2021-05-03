@@ -12,13 +12,22 @@ use Phalcon\Paginator\Adapter\Model as PaginatorModel;
  */
 class SpeedtestController extends BaseController
 {
+    private $_model;
+
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Speedtest();
+    }
+
     /**
      * Called by the JavaScript to get the ISP IP and other info.
      */
     public function getIPAction()
     {
         header('Content-Type: text/plain; charset=utf-8');
-        die(Speedtest::getIPAddress($this->config));
+        die($this->_model->getIPAddress());
     }
 
     /**
@@ -96,8 +105,8 @@ class SpeedtestController extends BaseController
         $this->view->overflow = true;
 
         $paginator = new PaginatorModel([
-            'model' => Speedtest::class,
-            'data'  => Speedtest::find(),
+            'model' => $this->_model,
+            'data'  => $this->_model->find(),
             'parameters' => ['order' => 'timestamp DESC'],
             'limit' => $this->config->application->itemsPerPage,
             'page'  => $requestedPage
@@ -141,7 +150,7 @@ class SpeedtestController extends BaseController
     {
         putenv('GDFONTPATH=' . APP_PATH . 'public/fonts/');
 
-        $item = Speedtest::findFirst([
+        $item = $this->_model->findFirst([
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],
         ]);

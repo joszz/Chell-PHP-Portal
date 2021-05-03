@@ -18,7 +18,7 @@
                 data-type="iframe"
                 href="<?php echo $this->config->application->baseUri .'kodi/movie/' . $movie->idMovie ?>"
                 title="<?php echo $movie->c00 ?>">
-                <img src="<?php echo $movie->getImageUrl($this->config, 'thumb', 'c08', 'idMovie') ?>" loading="lazy" width="348" height="377" alt="<?php echo $movie->c00 ?>" />
+                <img src="<?php echo $movie->getImageUrl('thumb', 'c08', 'idMovie') ?>" loading="lazy" width="348" height="377" alt="<?php echo $movie->c00 ?>" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $movie->c00 ?>">
                     <?php echo $movie->c00 ?>

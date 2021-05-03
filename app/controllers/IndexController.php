@@ -66,24 +66,27 @@ class IndexController extends BaseController
 
         if ($this->config->kodi->enabled)
         {
-            $this->view->movies = KodiMovies::getLatestMovies();
-            $this->view->albums = KodiAlbums::getLatestAlbums();
-            $this->view->episodes = KodiTVShowEpisodes::getLatestEpisodes();
+            $this->view->movies = (new KodiMovies())->getLatestMovies();
+            $this->view->albums = (new KodiAlbums())->getLatestAlbums();
+            $this->view->episodes = (new KodiTVShowEpisodes())->getLatestEpisodes();
         }
 
         if ($this->config->jellyfin->enabled)
         {
-            Jellyfin::GetLatest($this->config, $this->view);
+            $jellyfin = new Jellyfin();
+            $this->view->movies = $jellyfin->getLatestForView($this->config->jellyfin->movieview);
+            $this->view->music = $jellyfin->getLatestForView($this->config->jellyfin->musicview);
+            $this->view->shows = $jellyfin->getLatestForView($this->config->jellyfin->showview);
         }
 
         if ($this->config->couchpotato->enabled)
         {
-            $this->view->couchpotato = Couchpotato::getAllMovies($this->config);
+            $this->view->couchpotato = (new Couchpotato())->getAllMovies($this->config);
         }
 
         if ($this->config->motion->enabled)
         {
-            $this->view->motionModifiedTime = Motion::getModifiedTime($this->config);
+            $this->view->motionModifiedTime = (new Motion())->getModifiedTime();
         }
 
         if ($this->config->snmp->enabled)

@@ -51,7 +51,7 @@
                 settings.block.on("click", ".togglestate:visible", function () {
                     var whichTab = $(this).closest(".panel").attr("id");
                     var url = $(this).attr("href");
-                    var name = $(this).closest("tr").find("td:eq(1)").html();
+                    var name = $(this).closest("tr").find("td:eq(1)").text();
 
                     openConfirmDialog("Are you sure?", [], function () {
                         $.fancybox.close();

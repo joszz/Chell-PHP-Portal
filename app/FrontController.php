@@ -142,18 +142,21 @@ class FrontController
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Chell\Controllers'             => APP_PATH . $this->config->application->controllersDir,
-            'Chell\Exceptions'              => APP_PATH . $this->config->application->exceptionsDir,
-            'Chell\Forms'                   => APP_PATH . $this->config->application->formsDir,
-            'Chell\Forms\Dashboard'         => APP_PATH . $this->config->application->formsDir . 'dashboard/',
-            'Chell\Messages'                => APP_PATH . $this->config->application->messagesDir,
-            'Chell\Models'                  => APP_PATH . $this->config->application->modelsDir,
-            'Chell\Models\Kodi'             => APP_PATH . $this->config->application->modelsDir . 'kodi/',
-            'Chell\Plugins'                 => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'                           => APP_PATH . $this->config->application->vendorDir . 'duo/',
-            'Davidearl\WebAuthn'            => APP_PATH . $this->config->application->vendorDir . 'WebAuthn/',
-            'CBOR'                          => APP_PATH . $this->config->application->vendorDir . 'CBOR/',
-            'phpseclib'                     => APP_PATH . $this->config->application->vendorDir . 'phpseclib/'
+            'Chell\Controllers'                 => APP_PATH . $this->config->application->controllersDir,
+            'Chell\Exceptions'                  => APP_PATH . $this->config->application->exceptionsDir,
+            'Chell\Forms'                       => APP_PATH . $this->config->application->formsDir,
+            'Chell\Forms\FormFields'            => APP_PATH . $this->config->application->formsDir . 'formfields/',
+            'Chell\Forms\FormFields\Dashboard'  => APP_PATH . $this->config->application->formsDir . 'formfields/dashboard/',
+            'Chell\Forms\FormFields\General'    => APP_PATH . $this->config->application->formsDir . 'formfields/general/',
+            'Chell\Forms\Validators'            => APP_PATH . $this->config->application->formsDir . 'validators/',
+            'Chell\Messages'                    => APP_PATH . $this->config->application->messagesDir,
+            'Chell\Models'                      => APP_PATH . $this->config->application->modelsDir,
+            'Chell\Models\Kodi'                 => APP_PATH . $this->config->application->modelsDir . 'kodi/',
+            'Chell\Plugins'                     => APP_PATH . $this->config->application->pluginsDir,
+            'Duo'                               => APP_PATH . $this->config->application->vendorDir . 'duo/',
+            'Davidearl\WebAuthn'                => APP_PATH . $this->config->application->vendorDir . 'WebAuthn/',
+            'CBOR'                              => APP_PATH . $this->config->application->vendorDir . 'CBOR/',
+            'phpseclib'                         => APP_PATH . $this->config->application->vendorDir . 'phpseclib/'
         ])->register();
     }
 
@@ -298,6 +301,7 @@ class FrontController
     {
         $language = $this->application->request->getBestLanguage();
         $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language . '.php');
+        $this->di->set('translator', $this->application->view->trans);
     }
 
     /**

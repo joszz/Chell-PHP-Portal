@@ -4,7 +4,6 @@ namespace Chell\Controllers;
 
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
-use Chell\Models\Kodi\KodiTVShow;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 
 /**
@@ -35,10 +34,10 @@ class KodiController extends BaseController
 			'conditions' => 'idMovie = ?1',
 			'bind'       => [1 => $id],
 		]);
-		$movie = current(KodiMovies::extractMovieImagesFromXML([$movie]));
+		$movie = current($movie->extractMovieImagesFromXML([$movie]));
 		$movie->trailer = substr($movie->c19, strpos($movie->c19, 'videoid=') + 8);
 
-		$this->view->bgImage = $movie->getImageUrl($this->config, 'fanart',  'c20', 'idMovie');
+		$this->view->bgImage = $movie->getImageUrl('fanart',  'c20', 'idMovie');
 		$this->view->movie = $movie;
 	}
 
@@ -54,8 +53,8 @@ class KodiController extends BaseController
 			'bind'       => [1 => $id],
 		]);
 
-		$episode->show = current(KodiTVShow::extractMovieImagesFromXML([$episode->show]));
-		$this->view->bgImage = $episode->show->getImageUrl($this->config, 'fanart',  'c06', 'idShow');
+		$episode->show = current($episode->extractMovieImagesFromXML([$episode->show]));
+		$this->view->bgImage = $episode->show->getImageUrl('fanart',  'c06', 'idShow');
 		$this->view->episode = $episode;
 	}
 
@@ -85,7 +84,7 @@ class KodiController extends BaseController
 					'conditions' => 'idMovie = ?1',
 					'bind'       => [1 => $id],
 				]);
-				$movie = current(KodiMovies::extractMovieImagesFromXML([$item]));
+				$movie = current($item->extractMovieImagesFromXML([$item]));
 				$url = $type == 'thumb' ? $movie->c08 : $movie->c20;
 				break;
 
@@ -94,7 +93,7 @@ class KodiController extends BaseController
 					'conditions' => 'idAlbum = ?1',
 					'bind'       => [1 => $id],
 				]);
-				$url = current(KodiAlbums::extractAlbumImagesFromXML([$item]))->strImage;
+				$url = current($item->extractAlbumImagesFromXML([$item]))->strImage;
 				break;
 
 			case 'episodes':
@@ -102,7 +101,7 @@ class KodiController extends BaseController
 					'conditions' => 'idEpisode = ?1',
 					'bind'       => [1 => $id],
 				]);
-				$url = current(KodiTVShow::extractMovieImagesFromXML([$item->show]))->c06;
+				$url = current($item->extractMovieImagesFromXML([$item->show]))->c06;
 				break;
 		}
 

@@ -1,6 +1,9 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
@@ -8,7 +11,7 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class CouchpotatoFormFields implements IDashboardFormFields
+class CouchpotatoFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,34 +19,37 @@ class CouchpotatoFormFields implements IDashboardFormFields
 	public function setFields($form)
 	{
 		$couchpotatoEnabled = new Check('couchpotato-enabled');
-		$couchpotatoEnabled->setLabel('Enabled');
-		$couchpotatoEnabled->setAttributes([
-			'checked' => $form->_config->couchpotato->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Couchpotato'
+		$couchpotatoEnabled->setLabel('Enabled')
+			->setAttributes([
+				'checked' => $form->config->couchpotato->enabled == '1' ? 'checked' : null,
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'Couchpotato'
 		]);
 
 		$couchpotatoURL = new Text('couchpotato-url');
 		$couchpotatoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->couchpotato->URL);
+			->setDefault($form->config->couchpotato->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
 
 		$couchpotatoAPIKey = new Password('couchpotato-apikey');
 		$couchpotatoAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->couchpotato->APIKey);
+			->setDefault($form->config->couchpotato->APIKey)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
 
 		$rotateInterval = new Numeric('couchpotato-rotate-interval');
 		$rotateInterval->setLabel('Rotate interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->couchpotato->rotateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->couchpotato->rotateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
 
 		$form->add($couchpotatoEnabled);
 		$form->add($couchpotatoURL);

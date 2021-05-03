@@ -2,14 +2,12 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to PHPSysinfo.
  *
  * @package Models
  */
-class Motion extends Model
+class Motion extends BaseModel
 {
     /**
      * Main function retrieving PHPSysInfo JSON through cURL.
@@ -17,9 +15,9 @@ class Motion extends Model
      * @param object $config    The configuration file to use.
      * @return array            All PHPSysInfo data in an associative array
      */
-    public static function getLatest($config)
+    public function getLatest()
     {
-        $files = glob($config->motion->picturePath . '*.jpg');
+        $files = glob($this->_config->motion->picturePath . '*.jpg');
         $files = array_combine($files, array_map("filemtime", $files));
         arsort($files);
 
@@ -32,9 +30,9 @@ class Motion extends Model
      * @param object $config    The configuration file to use.
      * @return string           A formatted date string.
      */
-    public static function getModifiedTime($config)
+    public function getModifiedTime()
     {
-        $latest_file = self::getLatest($config);
+        $latest_file = $this->getLatest($this->_config);
         return date('d-m-Y H:i', current($latest_file));
     }
 }

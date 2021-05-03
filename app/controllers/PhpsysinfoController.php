@@ -16,6 +16,6 @@ class PhpsysinfoController extends BaseController
      */
     public function indexAction($plugin = 'complete')
     {
-        die(PHPSysInfo::getData($this->config, $plugin));
+        die((new PHPSysInfo())->getData($plugin));
     }
 }

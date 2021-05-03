@@ -85,7 +85,7 @@ input[type=number] {
     margin-right: 15px;
 }
 
-#settings .input-group .fa,
+#settings .input-group .fa:not(.error),
 #settings legend .fa {
     text-decoration: none;
     color: $state-success-text;
@@ -140,4 +140,9 @@ input[type=number] {
         line-height: initial;
         margin-bottom: 0;
     }
+}
+
+.error.fa-info-circle {
+    font-size: 2rem;
+    float: left;
 }

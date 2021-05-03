@@ -9,7 +9,7 @@ namespace Chell\Messages;
  */
 class TranslatorWrapper
 {
-    public $helpContent, $helpTitles;
+    public $helpContent, $helpTitles, $validation;
 
     /**
      * Given the translationFile, set the translation messages.
@@ -20,7 +20,8 @@ class TranslatorWrapper
     {
         require file_exists($translationFile) ? $translationFile :  APP_PATH . 'app/messages/en.php';
 
-        $this->helpContent =  $help ;
+        $this->helpContent =  $help;
         $this->helpTitles =  $helpTitles;
+        $this->validation =  $validation;
     }
 }

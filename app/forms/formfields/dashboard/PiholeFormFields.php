@@ -1,11 +1,14 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 
-class PiholeFormFields implements IDashboardFormFields
+class PiholeFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -15,7 +18,7 @@ class PiholeFormFields implements IDashboardFormFields
 		$piholeEnabled = new Check('pihole-enabled');
 		$piholeEnabled->setLabel('Enabled');
 		$piholeEnabled->setAttributes([
-			'checked' => $form->_config->pihole->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->pihole->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -27,7 +30,8 @@ class PiholeFormFields implements IDashboardFormFields
 		$piholeURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->pihole->URL);
+			->setDefault($form->config->pihole->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pihole-enabled']));
 
 		$form->add($piholeEnabled);
 		$form->add($piholeURL);

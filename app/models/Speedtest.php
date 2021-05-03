@@ -2,17 +2,14 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to devices.
  *
  * @package Models
  */
-class Speedtest extends Model
+class Speedtest extends BaseModel
 {
-	private static $ipAddress = '', $isp = '', $clientLocaction, $serverLocation, $distance;
-	private static $config;
+	private $ipAddress = '', $isp = '', $clientLocaction, $serverLocation, $distance;
 
 	public $ip;
 	public $ispinfo;
@@ -31,86 +28,85 @@ class Speedtest extends Model
      * @param object $config	The config object representing config.ini.
      * @return string			The ISP IP and name as a concatenated string.
      */
-	public static function getIPAddress($config)
+	public function getIPAddress()
 	{
-		self::$config = $config;
-		self::setIPAddress();
+		$this->setIPAddress();
 
-		if (self::$ipAddress == '::1') {
-			return self::$ipAddress . ' - localhost IPv6 access';
+		if ($this->ipAddress == '::1') {
+			return $this->ipAddress . ' - localhost IPv6 access';
 		}
-		if (stripos(self::$ipAddress, 'fe80:') === 0) {
-			return self::$ipAddress . ' - link-local IPv6 access';
+		if (stripos($this->ipAddress, 'fe80:') === 0) {
+			return $this->ipAddress . ' - link-local IPv6 access';
 		}
-		if (strpos(self::$ipAddress, '127.') === 0) {
-			return self::$ipAddress . ' - localhost IPv4 access';
+		if (strpos($this->ipAddress, '127.') === 0) {
+			return $this->ipAddress . ' - localhost IPv4 access';
 		}
-		if (strpos(self::$ipAddress, '10.') === 0 || strpos(self::$ipAddress, '192.168.') === 0) {
-			return self::$ipAddress . ' - private IPv4 access';
+		if (strpos($this->ipAddress, '10.') === 0 || strpos($this->ipAddress, '192.168.') === 0) {
+			return $this->ipAddress . ' - private IPv4 access';
 		}
-		if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', self::$ipAddress) === 1) {
-			return self::$ipAddress . ' - private IPv4 access';
+		if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $this->ipAddress) === 1) {
+			return $this->ipAddress . ' - private IPv4 access';
 		}
-		if (strpos(self::$ipAddress, '169.254.') === 0) {
-			return self::$ipAddress . ' - link-local IPv4 access';
+		if (strpos($this->ipAddress, '169.254.') === 0) {
+			return $this->ipAddress . ' - link-local IPv4 access';
 		}
 
 		if (isset($_GET['isp']))
 		{
-			self::setISPDetails();
+			$this->setISPDetails();
 
-			if (isset($_GET['distance']) && self::$clientLocaction && self::$serverLocation)
+			if (isset($_GET['distance']) && $this->clientLocaction && $this->serverLocation)
 			{
-				self::distance(self::$clientLocaction[0], self::$clientLocaction[1], self::$serverLocation[0], self::$serverLocation[1]);
+				$this->distance($this->clientLocaction[0], $this->clientLocaction[1], $this->serverLocation[0], $this->serverLocation[1]);
 
 				if ($_GET['distance'] == 'mi')
 				{
-					self::$distance /= 1.609344;
-					self::$distance = round(self::$distance, 2) . ' mi';
+					$this->distance /= 1.609344;
+					$this->distance = round($this->distance, 2) . ' mi';
 				}
 				else if ($_GET['distance'] == 'km')
 				{
-					self::$distance = round(self::$distance, 2) .' km';
+					$this->distance = round($this->distance, 2) .' km';
 				}
 			}
 
-			return self::$ipAddress . ' - ' . self::$isp . ' (' . self::$distance . ')';
+			return $this->ipAddress . ' - ' . $this->isp . ' (' . $this->distance . ')';
 		}
 
-		return self::$ipAddress;
+		return $this->ipAddress;
 	}
 
 	/**
-     * Set's the client's IP from the $_SERVER global into self::$ip.
+     * Set's the client's IP from the $_SERVER global into $this->$ip.
      */
-	private static function setIPAddress()
+	private function setIPAddress()
 	{
 		if (!empty($_SERVER['HTTP_CLIENT_IP']))
 		{
-			self::$ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+			$this->ipAddress = $_SERVER['HTTP_CLIENT_IP'];
 		}
 		elseif (!empty($_SERVER['X-Real-IP']))
 		{
-			self::$ipAddress = $_SERVER['X-Real-IP'];
+			$this->ipAddress = $_SERVER['X-Real-IP'];
 		}
 		elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
 		{
-			self::$ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$this->ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
 		else
 		{
-			self::$ipAddress = $_SERVER['REMOTE_ADDR'];
+			$this->ipAddress = $_SERVER['REMOTE_ADDR'];
 		}
 
-		self::$ipAddress = preg_replace('/^::ffff:/', '', self::$ipAddress);
+		$this->ipAddress = preg_replace('/^::ffff:/', '', $this->ipAddress);
 	}
 
 	/**
      * Uses CURL to call ipinfo.io and get ISP details.
      */
-	private static function setISPDetails()
+	private function setISPDetails()
 	{
-		$curl = curl_init(self::$config->speedtest->ipInfoUrl . self::$ipAddress . '/json?token=' . self::$config->speedtest->ipInfoToken);
+		$curl = curl_init($this->_config->speedtest->ipInfoUrl . $this->ipAddress . '/json?token=' . $this->_config->speedtest->ipInfoToken);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0,
@@ -120,11 +116,11 @@ class Speedtest extends Model
 		$details = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		self::$isp .= isset($details->org) ? $details->org : 'Unknown ISP';
-		self::$isp .= isset($details->country) ? ', ' . $details->country : '';
-		self::$clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
+		$this->isp .= isset($details->org) ? $details->org : 'Unknown ISP';
+		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
+		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-		$curl = curl_init(self::$config->speedtest->ipInfoUrl . 'json?token=' . self::$config->speedtest->ipInfoToken);
+		$curl = curl_init($this->_config->speedtest->ipInfoUrl . 'json?token=' . $this->_config->speedtest->ipInfoToken);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
@@ -132,7 +128,7 @@ class Speedtest extends Model
 		$details = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		self::$serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;
+		$this->serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;
 	}
 
 	/**
@@ -143,11 +139,11 @@ class Speedtest extends Model
      * @param string $latitudeTo         ISP latitude
      * @param string $longitudeTo        ISP longitude
      */
-	private static function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
+	private function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
 	{
 		$rad = M_PI / 180;
 		$theta = $longitudeFrom - $longitudeTo;
 		$dist = sin($latitudeFrom * $rad) * sin($latitudeTo * $rad) +  cos($latitudeFrom * $rad) * cos($latitudeTo * $rad) * cos($theta * $rad);
-		self::$distance = acos($dist) / $rad * 60 * 1.853;
+		$this->distance = acos($dist) / $rad * 60 * 1.853;
 	}
 }

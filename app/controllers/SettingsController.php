@@ -58,8 +58,8 @@ class SettingsController extends BaseController
     {
         $this->view->activeTab = $activeTab;
         $this->view->forms = [
-            'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm($this->config),
-            'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm($this->config),
+            'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm(),
+            'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm(),
         ];
 
         $logsTotal = 0;
@@ -83,7 +83,7 @@ class SettingsController extends BaseController
     {
         $this->view->activeTab = 'General';
         $data = $this->request->getPost();
-        $form = new SettingsGeneralForm($this->config);
+        $form = new SettingsGeneralForm();
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
@@ -114,7 +114,7 @@ class SettingsController extends BaseController
     {
         $this->view->activeTab = 'Dashboard';
         $data = $this->request->getPost();
-        $form = new SettingsDashboardForm($this->config);
+        $form = new SettingsDashboardForm();
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
@@ -304,17 +304,9 @@ class SettingsController extends BaseController
                     $user = new Users($data);
                 }
 
-                if (!empty($user->password) && !empty($data['password_again']) && $user->password == $data['password_again'])
-                {
-                    $user->password = $this->security->hash($user->password);
-                    $user->save();
-                    return (new Response())->redirect('settings/index#users');
-                }
-                else
-                {
-                    $messages = $form->getMessagesFor('password');
-                    $messages->appendMessage(new Message('Password fields should match!') );
-                }
+                $user->password = $this->security->hash($user->password);
+                $user->save();
+                return (new Response())->redirect('settings/index#users');
             }
         }
 

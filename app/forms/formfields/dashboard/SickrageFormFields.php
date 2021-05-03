@@ -1,12 +1,15 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
-class SickrageFormFields implements IDashboardFormFields
+class SickrageFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,7 +19,7 @@ class SickrageFormFields implements IDashboardFormFields
 		$sickrageEnabled = new Check('sickrage-enabled');
 		$sickrageEnabled->setLabel('Enabled');
 		$sickrageEnabled->setAttributes([
-			'checked' => $form->_config->sickrage->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->sickrage->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -28,13 +31,15 @@ class SickrageFormFields implements IDashboardFormFields
 		$sickrageURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->sickrage->URL);
+			->setDefault($form->config->sickrage->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']));
 
 		$sickrageAPIKey = new Password('sickrage-apikey');
 		$sickrageAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->sickrage->APIKey);
+			->setDefault($form->config->sickrage->APIKey)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']));
 
 		$form->add($sickrageEnabled);
 		$form->add($sickrageURL);

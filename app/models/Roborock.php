@@ -2,87 +2,76 @@
 
 namespace Chell\Models;
 
-use Phalcon\Mvc\Model;
-
 /**
  * The model responsible for all actions related to Jellyfin.
  *
  * @see https://github.com/rytilahti/python-miio
  * @package Models
  */
-class Roborock extends Model
+class Roborock extends BaseModel
 {
     /**
      * Gets the info stats for the configured Roborock.
      *
-     * @param object $config    The configuration file to use.
      * @return string           The pre-formatted info of Roborock.
      */
-    public static function GetInfo($config)
+    public function getInfo()
     {
-        return self::executeCommand('info', $config, false);
+        return $this->executeCommand('info', false);
     }
 
     /**
      * Gets the different stats for the Roborock. Weirdly formatted string provided, so pick the string apart with substrings.
      *
-     * @param object $config    The configuration file to use.
      * @return string[]         The various Roborock stats in an associative array.
      */
-    public static function GetStatus($config)
+    public function getStatus()
     {
-        $status = self::executeCommand('status', $config);
+        $status = $this->executeCommand('status');
 
         return [
-            'state'     => self::getStatusPart($status, 'state='),
-            'battery'   => self::getStatusPart($status, 'battery='),
-            'fan'       => self::getStatusPart($status, 'fanspeed='),
-            'area'      => self::getStatusPart($status, 'clean_area='),
-            'time'      => self::getStatusPart($status, 'clean_time='),
+            'state'     => $this->getStatusPart($status, 'state='),
+            'battery'   => $this->getStatusPart($status, 'battery='),
+            'fan'       => $this->getStatusPart($status, 'fanspeed='),
+            'area'      => $this->getStatusPart($status, 'clean_area='),
+            'time'      => $this->getStatusPart($status, 'clean_time='),
         ];
     }
 
     /**
      * Starts the Roborock's cleaning.
-     *
-     * @param object $config    The configuration file to use.
      */
-    public static function Start($config)
+    public function start()
     {
-        self::executeCommand('start', $config);
+        $this->executeCommand('start');
     }
 
     /**
      * Stops the Roborock's cleaning.
-     *
-     * @param object $config    The configuration file to use.
      */
-    public static function Stop($config)
+    public function stop()
     {
-        self::executeCommand('stop', $config);
+        $this->executeCommand('stop');
     }
 
     /**
      * Stops the Roborock's cleaning and returns home.
-     *
-     * @param object $config    The configuration file to use.
      */
-    public static function Home($config)
+    public function home()
     {
-        self::executeCommand('home', $config);
+        $this->executeCommand('home');
     }
 
     /**
      * Calls the miiocli python API with ip and token arguments as well as the command to run (see --help for more).
      *
      * @param string  $command            The command to run on the Roborock.
-     * @param object  $config             The configuration file to use.
      * @param boolean $removeFirstLine    Whether to trim the first line from the output. Defaults to true.
      * @return string                     The output of the run command.
      */
-    private static function executeCommand($command, $config, $removeFirstLine = true)
+    private function executeCommand($command, $removeFirstLine = true)
     {
-        $command = escapeshellcmd('miiocli vacuum --ip ' . $config->roborock->ip . ' --token ' . $config->roborock->token . ' ' . $command);
+        $command = escapeshellcmd('miiocli vacuum --ip ' . $this->_config->roborock->ip . ' --token ' . $this->_config->roborock->token . ' ' . $command);
         $output = shell_exec($command);
 
         if ($removeFirstLine)
@@ -103,7 +92,7 @@ class Roborock extends Model
      * @param string $seperator     The seperator to indicate next value of the $haystack. Limiting the substring.
      * @return string               The value for the requested statistic ($needle).
      */
-    private static function getStatusPart($haystack, $needle, $seperator = ' ')
+    private function getStatusPart($haystack, $needle, $seperator = ' ')
     {
         $start = strpos($haystack, $needle) + strlen($needle);
         $end = strpos($haystack, $seperator, $start);

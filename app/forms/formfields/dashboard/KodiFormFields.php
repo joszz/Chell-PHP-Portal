@@ -1,6 +1,9 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -8,7 +11,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class KodiFormFields implements IDashboardFormFields
+class KodiFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,54 +19,60 @@ class KodiFormFields implements IDashboardFormFields
 	public function setFields($form)
 	{
 		$kodiEnabled = new Check('kodi-enabled');
-		$kodiEnabled->setLabel('Enabled');
-		$kodiEnabled->setAttributes([
-			'checked' => $form->_config->kodi->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Kodi'
+		$kodiEnabled->setLabel('Enabled')
+			->setAttributes([
+				'checked' => $form->config->kodi->enabled == '1' ? 'checked' : null,
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'Kodi'
 		]);
 
 		$kodiURL = new Text('kodi-url');
 		$kodiURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->kodi->URL);
+			->setDefault($form->config->kodi->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$kodiUsername = new Text('kodi-username');
 		$kodiUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->kodi->username);
+			->setDefault($form->config->kodi->username)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$kodiPassword = new Password('kodi-password');
 		$kodiPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
-			->setDefault($form->_config->kodi->password);
+			->setDefault($form->config->kodi->password)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$rotateMoviesInterval = new Numeric('kodi-rotate-movies-interval');
 		$rotateMoviesInterval->setLabel('Rotate movies interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->kodi->rotateMoviesInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->kodi->rotateMoviesInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$rotateEpisodesInterval = new Numeric('kodi-rotate-episodes-interval');
 		$rotateEpisodesInterval->setLabel('Rotate episode interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->kodi->rotateEpisodesInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->kodi->rotateEpisodesInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$rotateAlbumsInterval = new Numeric('kodi-rotate-albums-interval');
 		$rotateAlbumsInterval->setLabel('Rotate albums interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->kodi->rotateAlbumsInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->kodi->rotateAlbumsInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
 		$form->add($kodiEnabled);
 		$form->add($kodiURL);

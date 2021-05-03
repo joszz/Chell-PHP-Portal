@@ -60,9 +60,7 @@
                     var title = "Shutdown <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
 
                     openConfirmDialog(title, [{
-                        "shutdown-user": $(this).data("shutdown-user"),
-                        "shutdown-password": $(this).data("shutdown-password"),
-                        "ip": $(this).data("ip")
+                        "id": $(this).data("id")
                     }], function () {
                         functions.doShutdown($(this));
                     });
@@ -89,8 +87,8 @@
                 settings.block.find(".devicestate").each(function () {
                     var device = $(this);
                     var icon = $(this).find("span.fa");
-                    var ip = $(this).data("ip");
-                    var dependentMenuItems = $("ul.nav li[data-ip='" + ip + "'");
+                    var id = $(this).data("id");
+                    var dependentMenuItems = $("ul.nav li[data-id='" + id + "'");
 
                     dependentMenuItems.find("a").bind("click", false);
 
@@ -100,8 +98,8 @@
                     icon.removeClass("fa-power-off");
                     icon.addClass("fa-sync fa-spin");
 
-                    (function (device, dependentMenuItems, icon, ip) {
-                        $.getJSON("devices/state/" + ip + "/" + d.getTime(), "", function (data) {
+                    (function (device, dependentMenuItems, icon, id) {
+                        $.getJSON("devices/state/" + id + "/" + d.getTime(), "", function (data) {
                             icon.removeClass("fa-sync fa-spin");
                             icon.addClass("fa-power-off");
 
@@ -123,7 +121,7 @@
 
                             device.addClass("btn-" + (data["state"] ? "success" : "danger"));
                         });
-                    }(device, dependentMenuItems, icon, ip));
+                    }(device, dependentMenuItems, icon, id));
                 });
             },
 
@@ -139,7 +137,7 @@
                 if (btn.attr("id") === "confirm-yes") {
                     var name = btn.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/wol/" + btn.closest("div").data("mac"), function (name) {
+                    $.get("devices/wol/" + btn.closest("div").data("id"), function (name) {
                         showAlert("success", "Magic packet send to: " + name);
                     }(name));
                 }
@@ -156,12 +154,10 @@
 
                 if (btn.attr("id") === "confirm-yes") {
                     var parentDiv = btn.closest("div");
-                    var user = parentDiv.data("shutdown-user");
-                    var password = parentDiv.data("shutdown-password");
-                    var ip = parentDiv.data("ip");
+                    var id = parentDiv.data("id");
                     var name = parentDiv.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/shutdown/" + ip + "/" + user + "/" + password, function (data) {
+                    $.get("devices/shutdown/" + id, function (data) {
                         var alertType = "danger";
                         var alertMessage = "Shutdown command failed for: " + name;
 

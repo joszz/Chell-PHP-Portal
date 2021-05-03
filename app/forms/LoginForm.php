@@ -24,12 +24,10 @@ class LoginForm extends Form
      * Set the config array (config.ini contents) to private variable.
      * Set bool if login already failed on last request.
      *
-     * @param array $config         The config array.
      * @param bool  $loginFailed    Whether login failed on last POST.
      */
-    public function __construct($config, $loginFailed)
+    public function __construct($loginFailed)
     {
-        $this->_config = $config;
         $this->_loginFailed = $loginFailed;
 
         parent::__construct();

@@ -239,7 +239,7 @@
                         disk.find(".name").html(value["@attributes"].MountPoint);
                         disk.find(".progress-bar").css("width", percent);
                         disk.find(".percent").html(percent);
-                        disk.attr("title", "Total: " + total + ", Free: " + free + ", Used: " + used);
+                        disk.find(".progress").addClass("bs-tooltip").attr("title", "Total: " + total + "\nFree: " + free + "\nUsed: " + used);
 
                         if (value["@attributes"].Percent > 90) {
                             disk.find(".progress-bar").addClass("progress-bar-danger");
@@ -339,7 +339,7 @@
                         label.appendTo(status);
                         status.appendTo(listItem);
 
-                        $("div.processes li div:contains('" + value["@attributes"].Name + "')").parent().remove();
+                        $("div.processes li div:contains('" + value["@attributes"].Name.replace(".*", "") + "')").parent().remove();
                         listItem.appendTo($("div.processes ul"));
                     });
                 }

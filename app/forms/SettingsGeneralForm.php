@@ -23,94 +23,96 @@ class SettingsGeneralForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->setAction($this->_config->application->baseUri . 'settings/general');
+        $this->setAction($this->config->application->baseUri . 'settings/general');
 
         $title = new Text('title');
-        $title->setLabel('Title');
-        $title->setFilters(['striptags', 'string']);
-        $title->setAttributes(['class' => 'form-control']);
-        $title->setDefault($this->_config->application->title);
-        $title->addValidators([new PresenceOf([])]);
+        $title->setLabel('Title')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->application->title)
+            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
 
         $bgcolor = new Select(
             'bgcolor',
             ['autobg' => 'Auto', 'darkbg' => 'Dark', 'lightbg' => 'Light', 'timebg' => 'Time based'],
             ['useEmpty' => false]
         );
-        $bgcolor->setLabel('Background color');
-        $bgcolor->setDefault($this->_config->application->background);
+        $bgcolor->setLabel('Background color')
+            ->setDefault($this->config->application->background);
 
         $bgColorLatitude = new Numeric('bgcolor-latitude');
         $bgColorLatitude->setLabel('Latitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location latitude' . ($this->_config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->_config->application->backgroundLatitude)
-            ->addValidator(new Numericality(['message' => 'Not a number']));
+            ->setAttributes(['class' => 'form-control location latitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->config->application->backgroundLatitude)
+            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
         $bgColorLongitude= new Numeric('bgcolor-longitude');
         $bgColorLongitude->setLabel('Longitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location longitude' . ($this->_config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->_config->application->backgroundLongitude)
-            ->addValidator(new Numericality(['message' => 'Not a number']));
+            ->setAttributes(['class' => 'form-control location longitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->config->application->backgroundLongitude)
+            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
         $alertTimeout = new Numeric('alert-timeout');
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->_config->application->alertTimeout)
-            ->addValidator(new Numericality(['message' => 'Not a number']));
+            ->setDefault($this->config->application->alertTimeout)
+            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]))
+            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
 
         $itemsPerPage = new Numeric('items-per-page');
         $itemsPerPage->setLabel('Items per page')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->_config->application->itemsPerPage)
-            ->addValidator(new Numericality(['message' => 'Not a number']));
+            ->setDefault($this->config->application->itemsPerPage)
+            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]))
+            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
 
         $cryptKey = new Password('cryptkey');
-        $cryptKey->setLabel('Cryptkey');
-        $cryptKey->setFilters(['striptags', 'string']);
-        $cryptKey->setAttributes(['class' => 'form-control']);
-        $cryptKey->setDefault($this->_config->application->phalconCryptKey);
-        $cryptKey->addValidators([new PresenceOf([])]);
+        $cryptKey->setLabel('Cryptkey')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->application->phalconCryptKey)
+            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
 
         $tmdbAPIKey = new Password('tmdb-apikey');
-        $tmdbAPIKey->setLabel('TMDB API key');
-        $tmdbAPIKey->setFilters(['striptags', 'string']);
-        $tmdbAPIKey->setAttributes(['class' => 'form-control']);
-        $tmdbAPIKey->setDefault($this->_config->application->tmdbAPIKey);
+        $tmdbAPIKey->setLabel('TMDB API key')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->application->tmdbAPIKey);
 
         $whatIsMyBrowserAPIKey = new Password('whatismybrowser-apikey');
-        $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key');
-        $whatIsMyBrowserAPIKey->setFilters(['striptags', 'string']);
-        $whatIsMyBrowserAPIKey->setAttributes(['class' => 'form-control']);
-        $whatIsMyBrowserAPIKey->setDefault($this->_config->application->whatIsMyBrowserAPIKey);
+        $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->application->whatIsMyBrowserAPIKey);
 
         $whatIsMyBrowserAPIURL = new Text('whatismybrowser-apiurl');
-        $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL');
-        $whatIsMyBrowserAPIURL->setFilters(['striptags', 'string']);
-        $whatIsMyBrowserAPIURL->setAttributes(['class' => 'form-control']);
-        $whatIsMyBrowserAPIURL->setDefault($this->_config->application->whatIsMyBrowserAPIURL);
+        $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->application->whatIsMyBrowserAPIURL);
 
         $debug = new Check('debug');
-        $debug->setLabel('Debug');
-        $debug->setAttributes([
-            'checked' => $this->_config->application->debug == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small'
+        $debug->setLabel('Debug')
+            ->setAttributes([
+                'checked' => $this->config->application->debug == '1' ? 'checked' : null,
+                'data-toggle' => 'toggle',
+                'data-onstyle' => 'success',
+                'data-offstyle' => 'danger',
+                'data-size' => 'small'
         ]);
 
         $demo = new Check('demo');
-        $demo->setLabel('Demo mode');
-        $demo->setAttributes([
-            'checked' => $this->_config->application->demoMode == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small'
+        $demo->setLabel('Demo mode')
+            ->setAttributes([
+                'checked' => $this->config->application->demoMode == '1' ? 'checked' : null,
+                'data-toggle' => 'toggle',
+                'data-onstyle' => 'success',
+                'data-offstyle' => 'danger',
+                'data-size' => 'small'
         ]);
 
         $this->add($title);
@@ -125,123 +127,8 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($whatIsMyBrowserAPIURL);
         $this->add($debug);
         $this->add($demo);
-        $this->setDuoFields();
-        $this->setImageProxyFields();
-        $this->setRedisFields();
-    }
 
-    /**
-     * Adds Duo fields to the form.
-     */
-    private function setDuoFields()
-    {
-        $duoEnabled = new Check('duo-enabled');
-        $duoEnabled->setLabel('Enabled');
-        $duoEnabled->setAttributes([
-            'checked' => $this->_config->duo->enabled == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small',
-            'fieldset' => 'Duo'
-        ]);
-
-        $duoAPIHostname = new Text('duo-apiHostname');
-        $duoAPIHostname->setLabel('API hostname');
-        $duoAPIHostname->setFilters(['striptags', 'string']);
-        $duoAPIHostname->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $duoAPIHostname->setDefault($this->_config->duo->apiHostname);
-
-        $duoIKey = new Password('duo-ikey');
-        $duoIKey->setLabel('Integration key');
-        $duoIKey->setFilters(['striptags', 'string']);
-        $duoIKey->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $duoIKey->setDefault($this->_config->duo->ikey);
-
-        $duoSKey = new Password('duo-skey');
-        $duoSKey->setLabel('Secret key');
-        $duoSKey->setFilters(['striptags', 'string']);
-        $duoSKey->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $duoSKey->setDefault($this->_config->duo->skey);
-
-        $duoAKey = new Password('duo-akey');
-        $duoAKey->setLabel('Akey');
-        $duoAKey->setFilters(['striptags', 'string']);
-        $duoAKey->setAttributes(['class' => 'form-control', 'fieldset' => 'end']);
-        $duoAKey->setDefault($this->_config->duo->akey);
-
-        $this->add($duoEnabled);
-        $this->add($duoAPIHostname);
-        $this->add($duoIKey);
-        $this->add($duoSKey);
-        $this->add($duoAKey);
-    }
-
-    /**
-     * Adds ImageProxy fields to the form.
-     */
-    private function setImageProxyFields()
-    {
-        $imageproxyEnabled = new Check('imageproxy-enabled');
-        $imageproxyEnabled->setLabel('Enabled');
-        $imageproxyEnabled->setAttributes([
-            'checked' => $this->_config->imageproxy->enabled == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small',
-            'fieldset' => 'Imageproxy'
-        ]);
-
-        $imageproxyUrl = new Text('imageproxy-url');
-        $imageproxyUrl->setLabel('URL');
-        $imageproxyUrl->setFilters(['striptags', 'string']);
-        $imageproxyUrl->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $imageproxyUrl->setDefault($this->_config->imageproxy->URL);
-
-        $this->add($imageproxyEnabled);
-        $this->add($imageproxyUrl);
-    }
-
-    /**
-     * Adds Redis fields to the form.
-     */
-    private function setRedisFields()
-    {
-        $redisEnabled = new Check('redis-enabled');
-        $redisEnabled->setLabel('Enabled');
-        $redisEnabled->setAttributes([
-            'checked' => $this->_config->redis->enabled == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small',
-            'fieldset' => 'Redis'
-        ]);
-
-        $redisHost = new Text('redis-host');
-        $redisHost->setLabel('Host');
-        $redisHost->setFilters(['striptags', 'string']);
-        $redisHost->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $redisHost->setDefault($this->_config->redis->host);
-
-        $redisPort = new Numeric('redis-port');
-        $redisPort->setLabel('Port');
-        $redisPort->setFilters(['striptags', 'int']);
-        $redisPort->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $redisPort->setDefault($this->_config->redis->port);
-        $redisPort->addValidator(new Numericality(['message' => 'Not a number']));
-
-        $redisAuth = new Password('redis-auth');
-        $redisAuth->setLabel('Auth');
-        $redisAuth->setFilters(['striptags', 'string']);
-        $redisAuth->setAttributes(['class' => 'form-control', 'fieldset' => true]);
-        $redisAuth->setDefault($this->_config->redis->auth);
-
-        $this->add($redisEnabled);
-        $this->add($redisHost);
-        $this->add($redisPort);
-        $this->add($redisAuth);
+        $this->setFormFieldClasses('General');
     }
 
     /**
@@ -251,38 +138,29 @@ class SettingsGeneralForm extends SettingsBaseForm
      * @param   object    $entity   The entity to validate.
      * @return  bool                Whether or not form is valid.
      */
-    public function IsValid($data = null, $entity = null) : bool
+    public function isValid($data = null, $entity = null) : bool
     {
-        $valid = parent::IsValid($data, $entity);
+        $valid = parent::isValid($data, $entity);
 
         if ($valid)
         {
-            $this->_config->application->title = $data['title'];
-            $this->_config->application->background = $data['bgcolor'];
-            $this->_config->application->backgroundLatitude = $data['bgcolor-latitude'];
-            $this->_config->application->backgroundLongitude = $data['bgcolor-longitude'];
-            $this->_config->application->alertTimeout = $data['alert-timeout'];
-            $this->_config->application->itemsPerPage = $data['items-per-page'];
-            $this->_config->application->phalconCryptKey = $data['cryptkey'];
-            $this->_config->application->tmdbAPIKey = $data['tmdb-apikey'];
-            $this->_config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
-            $this->_config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
-            $this->_config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
-            $this->_config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
+            $this->config->application->title = $data['title'];
+            $this->config->application->background = $data['bgcolor'];
+            $this->config->application->backgroundLatitude = $data['bgcolor-latitude'];
+            $this->config->application->backgroundLongitude = $data['bgcolor-longitude'];
+            $this->config->application->alertTimeout = $data['alert-timeout'];
+            $this->config->application->itemsPerPage = $data['items-per-page'];
+            $this->config->application->phalconCryptKey = $data['cryptkey'];
+            $this->config->application->tmdbAPIKey = $data['tmdb-apikey'];
+            $this->config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
+            $this->config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
+            $this->config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
+            $this->config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
 
-            $this->_config->duo->enabled = isset($data['duo-enabled']) && $data['duo-enabled'] == 'on' ? '1' : '0';
-            $this->_config->duo->apiHostname = $data['duo-apiHostname'];
-            $this->_config->duo->ikey = $data['duo-ikey'];
-            $this->_config->duo->skey = $data['duo-skey'];
-            $this->_config->duo->akey = $data['duo-akey'];
-
-            $this->_config->imageproxy->enabled = isset($data['imageproxy-enabled']) && $data['imageproxy-enabled'] == 'on' ? '1' : '0';
-            $this->_config->imageproxy->URL = $data['imageproxy-url'];
-
-            $this->_config->redis->enabled = isset($data['redis-enabled']) && $data['redis-enabled'] == 'on' ? '1' : '0';
-            $this->_config->redis->host = $data['redis-host'];
-            $this->_config->redis->port = $data['redis-port'];
-            $this->_config->redis->auth = $data['redis-auth'];
+            foreach($this->formFieldClasses as $class)
+            {
+                $class->setPostData($this->config, $data);
+            }
         }
 
         return $valid;

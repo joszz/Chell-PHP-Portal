@@ -1,12 +1,15 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Validation\Validator\Numericality;
 
-class SnmpFormFields implements IDashboardFormFields
+class SnmpFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -16,7 +19,7 @@ class SnmpFormFields implements IDashboardFormFields
 		$snmpEnabled = new Check('snmp-enabled');
 		$snmpEnabled->setLabel('Enabled');
 		$snmpEnabled->setAttributes([
-			'checked' => $form->_config->snmp->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->snmp->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -28,8 +31,9 @@ class SnmpFormFields implements IDashboardFormFields
 		$snmpInterval->setLabel('SNMP interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->snmp->updateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->snmp->updateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'snmp-enabled']));
 
 		$form->add($snmpEnabled);
 		$form->add($snmpInterval);

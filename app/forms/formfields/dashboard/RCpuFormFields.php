@@ -1,11 +1,14 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 
-class RCpuFormFields implements IDashboardFormFields
+class RCpuFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -15,7 +18,7 @@ class RCpuFormFields implements IDashboardFormFields
 		$rCpuEnabled = new Check('rcpu-enabled');
 		$rCpuEnabled->setLabel('Enabled');
 		$rCpuEnabled->setAttributes([
-			'checked' => $form->_config->rcpu->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->rcpu->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -27,7 +30,8 @@ class RCpuFormFields implements IDashboardFormFields
 		$rCpuURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->rcpu->URL);
+			->setDefault($form->config->rcpu->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'rcpu-enabled']));
 
 		$form->add($rCpuEnabled);
 		$form->add($rCpuURL);

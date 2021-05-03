@@ -1,6 +1,9 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -8,7 +11,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class RoborockFormFields implements IDashboardFormFields
+class RoborockFormFields implements IFormFields
 {
 	/**
      * Adds fields to the form.
@@ -18,7 +21,7 @@ class RoborockFormFields implements IDashboardFormFields
 		$roborockEnabled = new Check('roborock-enabled');
 		$roborockEnabled->setLabel('Enabled');
 		$roborockEnabled->setAttributes([
-			'checked' => $form->_config->roborock->enabled == '1' ? 'checked' : null,
+			'checked' => $form->config->roborock->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -30,20 +33,23 @@ class RoborockFormFields implements IDashboardFormFields
 		$roborockInterval->setLabel('Roborock interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->roborock->updateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->roborock->updateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
 
         $roborockIp = new Text('roborock-ip');
 		$roborockIp->setLabel('IP')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->_config->roborock->ip);
+			->setDefault($form->config->roborock->ip)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
 
 		$roborockToken = new Password('roborock-token');
 		$roborockToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->roborock->token);
+			->setDefault($form->config->roborock->token)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
 
 		$form->add($roborockEnabled);
 		$form->add($roborockInterval);

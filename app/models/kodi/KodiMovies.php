@@ -2,7 +2,6 @@
 
 namespace Chell\Models\Kodi;
 
-
 /**
  * The model responsible for all Kodi movies.
  *
@@ -32,9 +31,9 @@ class KodiMovies extends KodiBase
      * @param int $limit    Amount of movies to retrieve, defaults to 10
      * @return array        The array of Kodi movies
      */
-    public static function getLatestMovies($limit = 10)
+    public function getLatestMovies($limit = 10)
     {
-        return self::extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
+        return $this->extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
 
     /**
@@ -43,7 +42,7 @@ class KodiMovies extends KodiBase
      * @param array|\Phalcon\Mvc\Model\ResultsetInterface $movies   The array of Kodi movies.
      * @return array                                                The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
-    public static function extractMovieImagesFromXML($movies)
+    public function extractMovieImagesFromXML($movies)
     {
         $return = [];
 

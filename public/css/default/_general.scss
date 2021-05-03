@@ -200,3 +200,12 @@ div.vertical-center {
     float: left;
     width: 100%;
 }
+
+.tooltip.top {
+    padding: 5px 0 !important;
+
+    .tooltip-inner {
+        white-space: pre-wrap;
+        padding: 5px;
+    }
+}

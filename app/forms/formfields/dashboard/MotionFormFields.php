@@ -1,13 +1,16 @@
 <?php
 
-namespace Chell\Forms\Dashboard;
+namespace Chell\Forms\FormFields\Dashboard;
+
+use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 
-class MotionFormFields implements IDashboardFormFields
+class MotionFormFields implements IFormFields
 	{
 	/**
      * Adds fields to the form.
@@ -15,34 +18,37 @@ class MotionFormFields implements IDashboardFormFields
 	public function setFields($form)
 	{
 		$motionEnabled = new Check('motion-enabled');
-		$motionEnabled->setLabel('Enabled');
-		$motionEnabled->setAttributes([
-			'checked' => $form->_config->motion->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Motion'
+		$motionEnabled->setLabel('Enabled')
+			->setAttributes([
+				'checked' => $form->config->motion->enabled == '1' ? 'checked' : null,
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'Motion'
 		]);
 
 		$motionURL = new Text('motion-url');
 		$motionURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->motion->URL);
+			->setDefault($form->config->motion->URL)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']));
 
 		$motionPicturePath = new Text('motion-picturepath');
 		$motionPicturePath->setLabel('Picture path')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->_config->motion->picturePath);
+			->setDefault($form->config->motion->picturePath)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']));
 
 		$motionInterval = new Numeric('motion-update-interval');
 		$motionInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->_config->motion->updateInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
+			->setDefault($form->config->motion->updateInterval)
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']));
 
 
 		$form->add($motionEnabled);
