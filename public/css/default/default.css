@@ -5295,7 +5295,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&7509368") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5177214") format("woff2"), url("../../fonts/icomoon.woff?9154030") format("woff"), url("../../fonts/icomoon.ttf?4908369") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2721571") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&2763901") format("embedded-opentype"), url("../../fonts/icomoon.woff2?6294171") format("woff2"), url("../../fonts/icomoon.woff?5323149") format("woff"), url("../../fonts/icomoon.ttf?577034") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8966593") format("svg"); }
 
 .fa,
 .fas {
@@ -5940,7 +5940,8 @@ div.vertical-center {
   width: 100%; }
 
 .tooltip.top {
-  padding: 5px 0 !important; }
+  padding: 5px 0 !important;
+  z-index: 7501; }
   .tooltip.top .tooltip-inner {
     white-space: pre-wrap;
     padding: 5px; }
@@ -6651,6 +6652,8 @@ input[type=number] {
 
 #settings .input-group {
   width: 100%; }
+  #settings .input-group input:only-child {
+    border-radius: 4px; }
 
 #settings .input-group .bootstrap-touchspin-up {
   border-radius: 0; }

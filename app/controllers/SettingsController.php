@@ -28,7 +28,7 @@ use Phalcon\Messages\Message;
  */
 class SettingsController extends BaseController
 {
-    private $generalForm, $dashboarForm;
+    private $generalForm, $dashboardForm;
     private $logsPage = 1;
 
     /**
@@ -59,11 +59,13 @@ class SettingsController extends BaseController
         $this->view->activeTab = $activeTab;
         $this->view->forms = [
             'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm(),
-            'Dashboard' => isset($this->dashboarForm) ? $this-> dashboarForm: new SettingsDashboardForm(),
+            'Dashboard' => isset($this->dashboardForm) ? $this-> dashboardForm: new SettingsDashboardForm(),
         ];
 
         $logsTotal = 0;
         $logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
+
+        $this->setScrollToInputErrorElement([$this->generalForm, $this->dashboardForm]);
 
         $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
         $this->view->users = Users::Find();
@@ -124,7 +126,7 @@ class SettingsController extends BaseController
             }
             else
             {
-                $this->dashboarForm = $form;
+                $this->dashboardForm = $form;
                 return $this->dispatcher->forward([
                     'controller' => 'settings',
                     'action'     => 'index'
@@ -399,7 +401,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, SNMPRecord ID to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
-    public function snmprecordAction($id = 0)
+    public function snmprecordAction($hostId, $id = 0)
     {
         $record = new SnmpRecords();
 
@@ -409,6 +411,9 @@ class SettingsController extends BaseController
                 'conditions' => 'id = ?1',
                 'bind'       => [1 => $id],
             ]);
+        }
+        else {
+            $record->snmp_host_id = $hostId;
         }
 
         $form = $this->view->form = new SettingsSnmpRecordForm($record);
@@ -506,5 +511,19 @@ class SettingsController extends BaseController
         }
 
         die('failed');
+    }
+
+    private function setScrollToInputErrorElement($forms)
+    {
+        $this->view->scrollto = '';
+
+        foreach ($forms as $form)
+        {
+            if ($form)
+            {
+                $this->view->scrollto = $form->getMessages()[0]->getField();
+                break;
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Chell\Forms;
 
-use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
@@ -12,7 +11,7 @@ use Phalcon\Validation\Validator\PresenceOf;
  *
  * @package Forms
  */
-class SettingsSnmpHostForm extends Form
+class SettingsSnmpHostForm extends SettingsBaseForm
 {
     /**
      * Add all fields to the form and set form specific attributes.

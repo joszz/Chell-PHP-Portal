@@ -1,6 +1,6 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="panel panel-success with-nav-tabs">
+<div class="panel panel-success with-nav-tabs" id="settings">
     <div class="panel-heading">
         <div class="btn-group pull-left back-btn">
             <a href="<?php echo $this->config->application->baseUri ?>settings/index#snmphosts" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
@@ -24,21 +24,9 @@
         <div class="tab-content">
             <div id="general" class="tab-pane fade panel panel-square in active">
                 <form action="<?php echo $form->getAction() ?>" method="post">
-                    <?php foreach($form AS $element) : ?>
-                    <div class="form-group row<?php echo ($hasErrors = $form->hasMessagesFor($element->getName())) ? ' has-error' : null ?>">
-                        <div class="col-lg-3 col-sm-4 col-xs-12 text-right-not-xs">
-                            <?php echo $element->label(['class' => 'text-bold']) ?>
-                        </div>
-                        <div class="col-lg-4 col-sm-5 col-xs-12">
-                            <?php echo $element ?>
-                        </div>
-                        <div class="col-lg-5 col-sm-3 col-xs-12 error">
-                            <?php if ($hasErrors) : ?>
-                            <?php echo $form->getMessagesFor($element->getName())[0]->getMessage() ?>
-                            <?php endif ?>
-                        </div>
-                    </div>
-                    <?php endforeach ?>
+            <?php foreach($form AS $element) : ?>
+            <?php echo $form->renderDecorated($element) ?>
+            <?php endforeach ?>
 
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-3 col-xs-12">
@@ -67,12 +55,12 @@
                             </tr>
                             <tr>
                                 <td class="visible-xs">
-                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
+                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri  . 'settings/snmprecord/' . $host->id . '/0' ?>" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
                                 <td colspan="7" class="text-right hidden-xs">
-                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
+                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri  . 'settings/snmprecord/' . $host->id . '/0' ?>" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
@@ -84,8 +72,8 @@
                             <tr>
                                 <td class="visible-xs">
                                     <div class="btn-group">
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $host->id . '/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $host->id . '/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                                     </div>
                                 </td>
                                 <td>
@@ -108,8 +96,8 @@
                                 </td>
                                 <td class="hidden-xs">
                                     <div class="btn-group pull-right">
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/snmprecord/' . $host->id . '/' . $record->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                                        <a href="<?php echo $this->config->application->baseUri . 'settings/delete/SnmpRecords/' . $host->id . '/' . $record->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                                     </div>
                                 </td>
                             </tr>
@@ -118,14 +106,14 @@
                         <tfoot>
                             <tr class="visible-xs">
                                 <td colspan="7">
-                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
+                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri  . 'settings/snmprecord/' . $host->id . '/0' ?>" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>
                             </tr>
                             <tr class="hidden-xs">
                                 <td colspan="7" class="text-right">
-                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/snmprecord/" title="Add record">
+                                    <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri  . 'settings/snmprecord/' . $host->id . '/0' ?>" title="Add record">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </td>

@@ -83,17 +83,18 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control']);
 
-		$groupValue = new Select(
-			'group_value' ,
-			$entity->host->getRecords(['columns' => 'id, CONCAT(id, " - ", label) AS id_label']),
-			[
-				'using'         => ['id', 'id_label'],
-				'useEmpty'      => true,
-				'emptyText'     => 'None',
-				'emptyValue'    => 0
-			]
-		);
-		$groupValue->setLabel('Group value');
+        $groupValue = new Select(
+            'group_value',
+			SnmpHosts::findFirst(['conditions' => 'id = ?1', 'bind'=> [1 => $entity->snmp_host_id]])
+				->getRecords(['columns' => 'id, CONCAT(id, " - ", label) AS id_label']),
+            [
+                'using'         => ['id', 'id_label'],
+                'useEmpty'      => true,
+                'emptyText'     => 'None',
+                'emptyValue'    => 0
+            ]
+        );
+        $groupValue->setLabel('Group value');
 
 		$this->add($label);
 		$this->add($host);

@@ -203,6 +203,7 @@ div.vertical-center {
 
 .tooltip.top {
     padding: 5px 0 !important;
+    z-index: 7501;
 
     .tooltip-inner {
         white-space: pre-wrap;

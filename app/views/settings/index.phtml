@@ -1,7 +1,7 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="col-xs-12">
-    <div id="settings" class="panel panel-success hidden_not_important with-nav-tabs">
+    <div id="settings" class="panel panel-success hidden_not_important with-nav-tabs" data-scrollto="<?php echo $scrollto ?>">
         <div class="panel-heading">
             <h4 class="pull-left">Settings</h4>
 
@@ -58,7 +58,7 @@
                     <a data-toggle="tab" href="#logs" class="pull-left">Logs</a>
                 </li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content" style="float: left; width: 100%">
                 <?php foreach ($forms AS $formId => $formContent) : ?>
                 <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeTab == $formId ? ' in active' : null ?> panel panel-square">
                     <form action="<?php echo $formContent->getAction() ?>" method="post">
@@ -67,7 +67,7 @@
                         <?php endforeach ?>
 
                         <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2 col-xs-12">
+                            <div class="col-lg-4 col-lg-offset-2 col-sm-offset-1 col-xs-12">
                                 <button type="submit" class="btn btn-success fa fa-save" title="Save" aria-label="Save"></button>
                             </div>
                         </div>

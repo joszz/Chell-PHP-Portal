@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\Validators\PresenceOfConfirmation;
 
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -33,21 +34,24 @@ class SpeedtestFormFields implements IFormFields
 		$speedtestTestOrder->setLabel('Test order')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->speedtest->test_order);
+			->setDefault($form->config->speedtest->test_order)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestUpTime = new Numeric('speedtest-time-ul');
 		$speedtestUpTime->setLabel('Upload time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->speedtest->time_dl)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]));
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestDownloadTime = new Numeric('speedtest-time-dl');
 		$speedtestDownloadTime->setLabel('Download time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->speedtest->time_dl)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]));
+			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestGetIP = new Check('speedtest-get-ispip');
 		$speedtestGetIP->setLabel('Get ISP IP');
@@ -58,31 +62,36 @@ class SpeedtestFormFields implements IFormFields
 			'data-offstyle' => 'danger',
 			'data-size' => 'small',
 			'fieldset' => true
-		]);
+		])
+		->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestISPInfo = new Select('speedtest-isp-info-distance', ['km' => 'Kilometers', 'mi' => 'Miles']);
 		$speedtestISPInfo->setLabel('Distance units')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->speedtest->getIp_ispInfo_distance);
+			->setDefault($form->config->speedtest->getIp_ispInfo_distance)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestTelemetry = new Select('speedtest-telemetry', ['off' => 'Off', 'basic' => 'Basic', 'full' => 'Full']);
 		$speedtestTelemetry->setLabel('Telemetry')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->config->speedtest->telemetry);
+			->setDefault($form->config->speedtest->telemetry)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestIpInfoURL = new Text('speedtest-ipinfo-url');
 		$speedtestIpInfoURL->setLabel('IPInfo URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->config->speedtest->ipInfoUrl);
+			->setDefault($form->config->speedtest->ipInfoUrl)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$speedtestIpInfoToken = new Password('speedtest-ipinfo-token');
 		$speedtestIpInfoToken->setLabel('IPInfo token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->speedtest->ipInfoToken);
+			->setDefault($form->config->speedtest->ipInfoToken)
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$form->add($speedtestEnabled);
 		$form->add($speedtestTestOrder);

@@ -98,6 +98,10 @@ input[type=number] {
 
 #settings .input-group {
     width: 100%;
+
+    input:only-child {
+        border-radius: 4px;
+    }
 }
 
 #settings .input-group .bootstrap-touchspin-up {

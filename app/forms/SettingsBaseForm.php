@@ -134,4 +134,16 @@ class SettingsBaseForm extends Form
 			$class->setFields($this);
         }
     }
+
+    public function getAllErrorMessagesForElement($name, $seperator = "\n")
+    {
+        $messages = $this->getMessagesFor($name);
+        $errorMessages = '';
+        foreach ($messages as $message)
+        {
+            $errorMessages .= $message->getMessage() . $seperator;
+        }
+
+        return $errorMessages;
+    }
 }

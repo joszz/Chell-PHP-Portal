@@ -1,11 +1,13 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="panel panel-success">
+<div class="panel panel-success" id="settings">
     <div class="panel-heading">
         <div class="btn-group pull-left back-btn">
             <a href="<?php echo $this->config->application->baseUri ?>settings/snmphost/<?php echo $record->snmp_host_id ?>#records" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
         </div>
-        <h4 class="pull-left"><?php echo !empty($record->snmp_host_id) ? 'Edit' : 'New' ?> SNMP record</h4>
+        <h4 class="pull-left">
+            <?php echo !empty($record->snmp_host_id) ? 'Edit' : 'New' ?> SNMP record
+        </h4>
     </div>
     <div class="panel-body">
         <form action="<?php echo $form->getAction() ?>" method="post">

@@ -15,7 +15,7 @@
 $(function () {
     //override tabCollapse checkstate since we use 2 differen tabs for mobile and desktop view
     $.fn.tabCollapse.Constructor.prototype.checkState = function () {
-        if (this._accordionVisible) {
+        if ($(".nav-tabs.hidden-xs").is(':visible') && this._accordionVisible) {
             this.showTabs();
             this._accordionVisible = false;
         } else if (this.$accordion.is(':visible') && !this._accordionVisible) {
@@ -29,6 +29,10 @@ $(function () {
     //Set focus to correct tab when URL navigated to with location.hash
     if (location.hash) {
         $("a[href='" + location.hash + "']").tab("show");
+        $("#settings .nav-tabs").find("a").on("shown.bs.tab", scrollToError);
+    }
+    else {
+        scrollToError(0);
     }
 
     $(".nav-tabs a").click(function () {
@@ -137,5 +141,17 @@ function toggleFieldsInFieldSet($this) {
     }
     else {
         elements.addClass("hidden");
+    }
+}
+
+function scrollToError() {
+    var scrollTo = $("#settings").data("scrollto");
+
+    if (scrollTo) {
+        setTimeout(function () {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("input[name='" + scrollTo + "']").offset().top - 60
+            });
+        }, 0)
     }
 }

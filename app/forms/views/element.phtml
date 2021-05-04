@@ -4,16 +4,9 @@
     <div class="col-lg-offset-2 col-sm-offset-1 col-lg-4 col-sm-4 col-xs-12 text-right-not-xs">
         <?php echo $element->label(['class' => 'text-bold']) ?>
 
-        <?php if ($hasErrors) :
-            $messages = $this->getMessagesFor($name);
-            $errorMessage = '';
-            foreach ($messages as $message)
-            {
-                $errorMessage .= $message->getMessage() ."\n";
-            }
-        ?>
+        <?php if ($hasErrors) : ?>
         <div class="pull-right">
-            <i class="error fa fa-info-circle bs-tooltip" title="<?php echo $errorMessage ?>"></i>
+            <i class="error fa fa-info-circle bs-tooltip" title="<?php echo $this->getAllErrorMessagesForElement($name) ?>"></i>
         </div>
         <?php endif ?>
     </div>
