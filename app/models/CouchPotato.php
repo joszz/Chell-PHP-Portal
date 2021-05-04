@@ -12,7 +12,7 @@ class Couchpotato extends BaseModel
 	/**
      * Retrieves all wanted movies from CouchPotat API.
      *
-     * @return array            The movies objects as an array.
+     * @return array|bool            The movies objects as an array or false on failure.
      */
 	public function getAllMovies()
 	{

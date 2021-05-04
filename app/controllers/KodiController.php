@@ -75,7 +75,12 @@ class KodiController extends BaseController
 
 	/**
 	 * Gets an external image and caches it locally before it is outputted to the browser.
-	 */
+     *
+     * @param string $which		For which library to get the image for.
+     * @param string $type		The type of iamge to retrieve (fanart or thumb).
+     * @param int $id			The Id of the media record.
+     * @param mixed $maxWidth	Whether to resize to image to specified width.
+     */
 	public function getImageAction($which, $type, $id, $maxWidth = 'disabled')
 	{
 		switch($which) {

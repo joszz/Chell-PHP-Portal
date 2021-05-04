@@ -17,6 +17,7 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Retrieves all VMs using cURL and settings defined in config.ini.
 	 *
+     * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return array            List of VMs as anonymous objects.
 	 */
 	public function getVMs($jsonDecode = true)
@@ -31,6 +32,7 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Retrieves all sites using cURL and settings defined in config.ini.
 	 *
+     * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return object           List of sites as anonymous objects.
 	 */
 	public function getSites($jsonDecode = true)

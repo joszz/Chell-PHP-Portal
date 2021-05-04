@@ -48,7 +48,7 @@ class SettingsController extends BaseController
     /**
      * Shows the settings view
      *
-     * @param string Which tab to be active on load, defaults to General.
+     * @param string $activeTab     Which tab to be active on load, defaults to General.
      */
     public function indexAction($activeTab = 'General')
     {
@@ -75,7 +75,7 @@ class SettingsController extends BaseController
      * Handles SettingsGeneralForm post and writes back to config.ini if valid.
      * Forwards to index.
      *
-     * @todo Review comments
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#general when successful, or forwards to indexAction when failed.
      */
     public function generalAction()
     {
@@ -106,7 +106,7 @@ class SettingsController extends BaseController
      * Handles SettingsDashboardForm post and writes back to config.ini if valid.
      * Forwards to index.
      *
-     * @todo Review comments
+     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#dashboard when successful, or forwards to indexAction when failed.
      */
     public function dashboardAction()
     {
@@ -139,6 +139,7 @@ class SettingsController extends BaseController
      *
      * @param string    $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
      * @param int       $id        The ID of the entity you want to delete.
+     * @return \Phalcon\Http\ResponseInterface     Will forward to settings/index#$which when successful, or will show the form again when failed.
      */
     public function deleteAction($which, $id) : \Phalcon\Http\ResponseInterface
     {
@@ -343,7 +344,7 @@ class SettingsController extends BaseController
     /**
      * Shows help content for an input in settings.
      *
-     * @param string $which     The input name to show the help for.
+     * @param string $id     The input name to show the help for.
      */
     public function helpAction($id)
     {
@@ -394,6 +395,7 @@ class SettingsController extends BaseController
     /**
      * Shows a form to add/edit a SNMP record. If $id is set will edit that record, otherwise it will create a new record.
      *
+     * @param int $hostId                               The SNMPHost to add/edit a SNMPRecord for.
      * @param int $id                                   Optional, SNMPRecord ID to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
@@ -437,9 +439,9 @@ class SettingsController extends BaseController
     /**
      * Retrieves all log files from the logs directory and sorting them by filemtime descending.
      *
-     * @param mixed $totalItems     The total amount of log items passed by reference, calculated form all logs.
-     * @param mixed $currentPage    The page to display, defaults to the first page.
-     * @return array                The array of logfiles as key and formated datetime as value.
+     * @param int $totalItems     The total amount of log items passed by reference, calculated form all logs.
+     * @param int $currentPage    The page to display, defaults to the first page.
+     * @return array              The array of logfiles as key and formated datetime as value.
      */
     private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1) : array
     {
@@ -467,7 +469,7 @@ class SettingsController extends BaseController
      * Creates a webauthentication registration challenge for the given user.
      * Called through AJAX in settings.js.
      *
-     * @param mixed $userId     The Id of the user to create the registration challenge for.
+     * @param int $userId     The Id of the user to create the registration challenge for.
      */
     public function webauthchallengeAction($userId)
     {
@@ -509,6 +511,11 @@ class SettingsController extends BaseController
         die('failed');
     }
 
+    /**
+     * Loops through the forms and returns the first input that contains an error message.
+     * 
+     * @param array $forms      The array of forms to loop through.
+     */
     private function setScrollToInputErrorElement($forms)
     {
         $this->view->scrollto = '';

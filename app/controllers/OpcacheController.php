@@ -11,6 +11,18 @@ use Chell\Models\Opcache;
  */
 class OpcacheController extends BaseController
 {
+    private $_model;
+
+    /**
+     * Initializes the controller, creating a new Opcache model.
+     */
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Opcache();
+    }
+
     /**
      * Called through AJAX to retrieve the opache data.
      *
@@ -18,8 +30,7 @@ class OpcacheController extends BaseController
      */
     public function datasetAction()
     {
-        $opcache = new Opcache();
-        die($opcache->getGraphDataSetJson());
+        die($this->_model->getGraphDataSetJson());
     }
 
     /**
@@ -30,13 +41,12 @@ class OpcacheController extends BaseController
      */
     public function detailsAction($tab = 'status', $currentPage = 1)
     {
-        $opcache = new Opcache();
         $totalPages = 0;
-        $scripts = $opcache->getScriptStatusRows($currentPage, $totalPages, $this->config->application->itemsPerPage);
+        $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->config->application->itemsPerPage);
 
         $this->view->scripts = $scripts;
         $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/scripts/');
-        $this->view->opcache = $opcache;
+        $this->view->opcache = $this->_model;
         $this->view->activeTab = $tab;
         $this->view->overflow = true;
         $this->view->setMainView('layouts/empty');

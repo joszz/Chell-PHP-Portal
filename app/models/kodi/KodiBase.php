@@ -15,9 +15,9 @@ class KodiBase extends BaseModel
      * Retrieves the image URL, used in the src attrbute, to retrieve the image from.
      * The URL provided will call the Kodi controller, action getImage.
      *
-     * @param mixed $type           The type of image to fetch. Either fanart or poster.
-     * @param mixed $imageField     The database field to retrieve the image from.
-     * @param mixed $idField        The database field to retrieve the record Id from.
+     * @param string $type           The type of image to fetch. Either fanart or poster.
+     * @param string $imageField     The database field to retrieve the image from.
+     * @param string $idField        The database field to retrieve the record Id from.
      * @return string               The URL to the Kodi Controller, action getImage to retrieve the image from.
      */
     public function getImageUrl($type, $imageField, $idField) : string

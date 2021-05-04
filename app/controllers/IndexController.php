@@ -150,6 +150,7 @@ class IndexController extends BaseController
 
     /**
      * Is any of the widgets enabled?
+     * 
      * @return bool     Whether any of the widgets is enabled.
      */
     private function getAnyWidgetEnabled() : bool

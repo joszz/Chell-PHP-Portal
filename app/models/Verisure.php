@@ -65,10 +65,10 @@ class Verisure extends BaseModel
     /**
      * Sets the alarm state to the given state.
      *
-     * @param mixed $state      The alarm state to set.
-     * @param mixed $pin        The user pin to use to authenticate.
+     * @param string $state      The alarm state to set.
+     * @param int $pin           The user pin to use to authenticate.
      */
-    public function setArmState( $state, $pin)
+    public function setArmState($state, $pin)
     {
         $this->executeCommand('set alarm ' . $pin . ' ' . $state);
     }
@@ -110,7 +110,10 @@ class Verisure extends BaseModel
     /**
      * Calls the Verisure API to retrieve an image and write it to disk. If the file already exists, than return the filename directly.
      *
-     * @return string           The full filepath for the image cached on disk.
+     * @param string $device_label      The device label.
+     * @param string $image_id          The image Id.
+     * @param string $capture_time      The capture time.
+     * @return string                   The full filepath for the image cached on disk.
      */
     public function getImage($device_label, $image_id, $capture_time) : string
     {
@@ -127,6 +130,7 @@ class Verisure extends BaseModel
     /**
      * Calls the Verisure API to capture an image for the device with $device_label.
      *
+     * @param string $device_label      The device label.
      * @return object           An object with the JSON encoded output of the API call.
      */
     public function captureImage($device_label)

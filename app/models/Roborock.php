@@ -43,7 +43,7 @@ class Roborock extends BaseModel
      */
     public function start() : string
     {
-        $this->executeCommand('start');
+        return $this->executeCommand('start');
     }
 
     /**
@@ -51,7 +51,7 @@ class Roborock extends BaseModel
      */
     public function stop() : string
     {
-        $this->executeCommand('stop');
+        return $this->executeCommand('stop');
     }
 
     /**
@@ -59,7 +59,7 @@ class Roborock extends BaseModel
      */
     public function home() : string
     {
-        $this->executeCommand('home');
+        return $this->executeCommand('home');
     }
 
     /**

@@ -13,6 +13,9 @@ class VerisureController extends BaseController
 {
     private $_model;
 
+    /**
+     * Initializes the controller, creating a new Verisure model.
+     */
 	public function initialize()
     {
 		parent::initialize();
@@ -26,7 +29,7 @@ class VerisureController extends BaseController
      */
     public function indexAction()
     {
-        die($this->_model->getOverview($this->config, true));
+        die($this->_model->getOverview(true));
     }
 
     /**
@@ -45,7 +48,7 @@ class VerisureController extends BaseController
      * Sets the alarm to the requested $state.
      *
      * @param string $state     The state to set the alarm to.
-     * @param integer $state    The PIN to use to set the arm state. Only used when not specified in settings
+     * @param string $pint      The PIN to use to set the arm state. Only used when not specified in settings
      */
     public function armAction($state, $pin = '')
     {

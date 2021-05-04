@@ -6,10 +6,10 @@ use Phalcon\Validation\ValidatorInterface;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Messages\Message;
 
-class PresenceOfConfirmation extends Confirmation implements ValidatorInterface {
-
-    public function validate(\Phalcon\Validation $validation, $field) : bool {
-
+class PresenceOfConfirmation extends Confirmation implements ValidatorInterface 
+{
+    public function validate(\Phalcon\Validation $validation, $field) : bool
+    {
         $with = $this->getOption("with");
         $with_value = $validation->getValue($with);
         $value = $validation->getValue($field);

@@ -13,6 +13,9 @@ class RoborockController extends BaseController
 {
     private $_model;
 
+    /**
+     * Initializes the controller, creating a new Roborock model.
+     */
 	public function initialize()
     {
 		parent::initialize();

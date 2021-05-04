@@ -33,7 +33,8 @@ class MenuItems extends Model
     /**
      * Returns the absolute path to the menuitem's icon,
      * 
-     * @return string   The path to the icon
+     * @param string $baseUri   The base URI to start the icon file path with.
+     * @return string           The path to the icon.
      */
     public function getIconFilePath($baseUri) : string
     {

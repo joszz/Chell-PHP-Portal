@@ -15,10 +15,8 @@ use Phalcon\Validation\Validator\Confirmation;
  */
 class SettingsUserForm extends SettingsBaseForm
 {
-    /**
-     * Loops over all users and sets fields for each user
-     *
-     * @param array $users All users currently stored in the database.
+	/**
+     * Add all fields to the form and set form specific attributes.
      */
     public function initialize($user)
     {

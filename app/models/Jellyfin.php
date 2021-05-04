@@ -37,9 +37,9 @@ class Jellyfin extends BaseModel
     /**
      * Retrieves the latest items for the fiven $viewId, limiting to $limit.
      *
-     * @param mixed $viewId     The channel/library id to retrieve the latest items to.
-     * @param mixed $limit      The limit of items to retrieve. This seems to not always be honored by the API?
-     * @return array          An array of latest items with some information about this item, such as the title.
+     * @param string $viewId     The channel/library id to retrieve the latest items to.
+     * @param int $limit         The limit of items to retrieve. This seems to not always be honored by the API?
+     * @return array             An array of latest items with some information about this item, such as the title.
      */
     public function getLatestForView($viewId, $limit = 10) : array
     {

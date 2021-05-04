@@ -56,10 +56,10 @@ class Opcache extends Model
     /**
      * Formats the scripts in opcache status and applies the paging to it.
      *
-     * @param mixed $page           The page to be displayed, defaults to 1.
-     * @param mixed $totalPages     The total amount of pages. Calculated from the data, passed in by reference to be used in the Controller.
-     * @param mixed $itemsPerPage   The amount of items to show per page.
-     * @return array                A paginated array of scripts in Opcache.
+     * @param int $page           The page to be displayed, defaults to 1.
+     * @param int $totalPages     The total amount of pages. Calculated from the data, passed in by reference to be used in the Controller.
+     * @param int $itemsPerPage   The amount of items to show per page.
+     * @return array              A paginated array of scripts in Opcache.
      */
     public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage) : array
     {
@@ -89,8 +89,8 @@ class Opcache extends Model
     /**
      * Formats different Opcache data fields.
      *
-     * @param mixed $key    The Opcache field to format.
-     * @param mixed $value  The Opcache data to format.
+     * @param string $key    The Opcache field to format.
+     * @param string $value  The Opcache data to format.
      * @return mixed        The formatted data.
      */
     public function getFormattedData($key, $value) : string

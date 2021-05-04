@@ -14,6 +14,9 @@ class HyperVAdminController extends BaseController
 {
 	private $_model;
 
+	/**
+	 * Initializes the controller, creating a new HyperVAdmin model.
+	 */
 	public function initialize()
     {
 		parent::initialize();

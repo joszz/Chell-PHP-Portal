@@ -5,14 +5,16 @@ namespace Chell\Controllers;
 use Chell\Models\PHPSysInfo;
 
 /**
- * The controller responsible for showing about information of this project.
+ * The controller responsible for all PHPSysInfo related actions.
  *
  * @package Controllers
  */
 class PhpsysinfoController extends BaseController
 {
     /**
-     * Shows version information and has link to code documentation.
+     * Calls the PHPSysInfo API, with specified plugins.
+     * 
+     * @param string $plugin    Which PHPSysInfo plugin details to retrieve. Defaults to all/complete.
      */
     public function indexAction($plugin = 'complete')
     {

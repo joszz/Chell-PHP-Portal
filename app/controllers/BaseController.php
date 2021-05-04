@@ -141,12 +141,12 @@ class BaseController extends Controller
     /**
      * Resize an image based on $sourcePath and writes it back to $resizedPath.
      *
-     * @param mixed $sourcePath     The source image path to resize
-     * @param mixed $resizedPath    The destination path to save the resized image in.
-     * @param mixed $maxWidth       The maximum width of the resized image, defaults to 800.
-     * @param mixed $maxHeight      The maximum height of the resized image, defaults to 2000.
-     * @param mixed $imageQuality   The image quality used for the JPEG compression of the resized image, defaults to 70.
-     * @return boolean              Whether or not resized succeeded.
+     * @param string $sourcePath     The source image path to resize
+     * @param string $resizedPath    The destination path to save the resized image in.
+     * @param int $maxWidth          The maximum width of the resized image, defaults to 800.
+     * @param int $maxHeight         The maximum height of the resized image, defaults to 2000.
+     * @param int $imageQuality      The image quality used for the JPEG compression of the resized image, defaults to 70.
+     * @return boolean               Whether or not resized succeeded.
      */
     protected function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70) : bool
     {
@@ -203,9 +203,9 @@ class BaseController extends Controller
     /**
      * Does some basic math to calculate the different values used for building paginators.
      *
-     * @param mixed $currentPage    The current page requested.
-     * @param mixed $totalPages     The total amount of pages in the dataset.
-     * @param mixed $baseURI        The baseURI to create pagination URLs with.
+     * @param int $currentPage      The current page requested.
+     * @param int $totalPages       The total amount of pages in the dataset.
+     * @param string $baseURI       The baseURI to create pagination URLs with.
      * @param mixed $paginator      The pagination object, defaults to null (which will make a new stdClass).
      * @return object               An object with all pagination data.
      */

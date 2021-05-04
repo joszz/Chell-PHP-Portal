@@ -12,7 +12,6 @@ class PHPSysInfo extends BaseModel
     /**
      * Main function retrieving PHPSysInfo JSON through cURL.
      *
-     * @param object $config    The configuration file to use.
      * @return bool|string      All PHPSysInfo data in an associative array
      */
     public function getData($plugin)

@@ -9,6 +9,9 @@ class SnmpController extends BaseController
 {
     /**
      * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.
+     * 
+     * @param int $id           The Id of the SNMP host.
+     * @param string $hidden    Optional, whether to set a Bootstrap hidden class on the main div.
      */
     public function hostcontentAction($id, $hidden = '')
     {

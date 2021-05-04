@@ -14,6 +14,9 @@ class SpeedtestController extends BaseController
 {
     private $_model;
 
+    /**
+     * Initializes the controller, creating a new Speedtest model.
+     */
 	public function initialize()
     {
 		parent::initialize();
@@ -96,7 +99,8 @@ class SpeedtestController extends BaseController
     /**
      * Used to display the telemetry gathered in a fancybox. Showing both a table and a chartist chart.
      *
-     * @param int $requestedPage The requested page for the paginator to display, defaults to 1.
+     * @param string $activeTab     Which Bootstrap tab to set as active.
+     * @param int $requestedPage    The requested page for the paginator to display, defaults to 1.
      */
     public function statsAction($activeTab = 'records', $requestedPage = 1)
     {
