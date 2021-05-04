@@ -24,7 +24,7 @@ class KodiAlbums extends KodiBase
      * @param int $limit    Amount of albums to retrieve, defaults to 10
      * @return array        The array of Kodi albums
      */
-    public function getLatestAlbums($limit = 10)
+    public function getLatestAlbums($limit = 10) : array
     {
         return $this->extractAlbumImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
@@ -35,7 +35,7 @@ class KodiAlbums extends KodiBase
      * @param array $movies The array of Kodi albums.
      * @return array        The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
-    public function extractAlbumImagesFromXML($albums)
+    public function extractAlbumImagesFromXML($albums) : array
     {
         $return = [];
 

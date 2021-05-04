@@ -48,7 +48,7 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state     The VM state represented as a number.
 	 * @return string           The VM state represented as a string.
 	 */
-	public function getVMState($state)
+	public function getVMState($state) : string
 	{
 		return $state == self::vmStateEnabed ? 'enabled' : 'disabled';
 	}
@@ -59,7 +59,7 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state	The site state represented as a number.
 	 * @return string		The site state represented as a string.
 	 */
-	public function getSiteState($state)
+	public function getSiteState($state) : string
 	{
 		return $state == self::siteStateEnabed ? 'enabled' : 'disabled';
 	}
@@ -106,7 +106,7 @@ class HyperVAdmin extends BaseModel
 	private function getCurl($url)
 	{
 		$curl = curl_init($this->_config->hypervadmin->URL . $url);
-		
+
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 10,

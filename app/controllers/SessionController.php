@@ -4,9 +4,8 @@ namespace Chell\Controllers;
 
 use Chell\Models\Users;
 use Chell\Forms\LoginForm;
-use Duo\Web;
 use Davidearl\WebAuthn\WebAuthn;
-
+use Duo\Web;
 use Phalcon\Http\Response;
 
 /**
@@ -140,7 +139,7 @@ class SessionController extends BaseController
             $this->loginFailed = true;
         }
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'session',
             'action'     => 'index'
         ]);
@@ -202,7 +201,7 @@ class SessionController extends BaseController
         }
 
         $this->loginFailed = true;
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'session',
             'action'     => 'index'
         ]);
@@ -223,7 +222,7 @@ class SessionController extends BaseController
     /**
      * Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.
      */
-    public function duoVerifyAction()
+    public function duoVerifyAction() : \Phalcon\Http\ResponseInterface
     {
         $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
 

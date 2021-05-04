@@ -61,7 +61,7 @@ class Opcache extends Model
      * @param mixed $itemsPerPage   The amount of items to show per page.
      * @return array                A paginated array of scripts in Opcache.
      */
-    public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage)
+    public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage) : array
     {
         $dirs = [];
 
@@ -93,7 +93,7 @@ class Opcache extends Model
      * @param mixed $value  The Opcache data to format.
      * @return mixed        The formatted data.
      */
-    public function getFormattedData($key, $value)
+    public function getFormattedData($key, $value) : string
     {
         switch($key)
         {

@@ -5,7 +5,6 @@ namespace Chell\Forms\FormFields\Dashboard;
 use Chell\Models\Devices;
 use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;

@@ -38,7 +38,7 @@ class KodiTVShowEpisodes extends KodiBase
      * @param int $limit    Amount of episodes to retrieve, defaults to 10
      * @return array        The array of Kodi episode
      */
-    public function getLatestEpisodes($limit = 10)
+    public function getLatestEpisodes($limit = 10) : array
     {
         return $this->extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
@@ -49,7 +49,7 @@ class KodiTVShowEpisodes extends KodiBase
      * @param array $movies The array of Kodi episodes.
      * @return array        The array of Kodi episodes with the XML field transformed to string holding only image URL.
      */
-    public function extractMovieImagesFromXML($episodes)
+    public function extractMovieImagesFromXML($episodes) : array
     {
         $return = [];
 

@@ -9,17 +9,13 @@ use Chell\Forms\SettingsMenuItemForm;
 use Chell\Forms\SettingsUserForm;
 use Chell\Forms\SettingsSnmpHostForm;
 use Chell\Forms\SettingsSnmpRecordForm;
-
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
-
 use Davidearl\WebAuthn\WebAuthn;
-
 use Phalcon\Http\Response;
-use Phalcon\Messages\Message;
 
 /**
  * The controller responsible for all setting related actions.
@@ -144,7 +140,7 @@ class SettingsController extends BaseController
      * @param string    $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
      * @param int       $id        The ID of the entity you want to delete.
      */
-    public function deleteAction($which, $id)
+    public function deleteAction($which, $id) : \Phalcon\Http\ResponseInterface
     {
         if (isset($id, $which))
         {
@@ -445,7 +441,7 @@ class SettingsController extends BaseController
      * @param mixed $currentPage    The page to display, defaults to the first page.
      * @return array                The array of logfiles as key and formated datetime as value.
      */
-    private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1)
+    private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1) : array
     {
         $logs = scandir(APP_PATH . 'app/logs/');
         $logsOrdered = [];

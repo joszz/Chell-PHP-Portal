@@ -2,9 +2,8 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Http\Response;
-
 use Chell\Models\HyperVAdmin;
+use Phalcon\Http\Response;
 
 /**
  * The controller responsible for all HyperVAdmin related actions.
@@ -54,7 +53,7 @@ class HyperVAdminController extends BaseController
 	 * @param number $state     The state to set the site to.
 	 * @return mixed            Redirect back to indexAction().
 	 */
-	public function siteToggleStateAction($site, $state)
+	public function siteToggleStateAction($site, $state) : \Phalcon\Http\ResponseInterface
 	{
 		$this->_model->toggleSiteState($site, $state);
 

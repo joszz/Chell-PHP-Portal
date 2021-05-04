@@ -59,7 +59,7 @@ class Couchpotato extends BaseModel
      * @param int $id           The TMDB ID to call the API by.
      * @return string           The YouTube ID to be used for iFrame src.
      */
-	private function getRandomTrailerFormTMDB($id)
+	private function getRandomTrailerFormTMDB($id) : string
 	{
 		$curl = curl_init($this->_config->application->tmdbAPIURL . 'movie/' . $id . '/videos?api_key=' . $this->_config->application->tmdbAPIKey);
 		curl_setopt_array($curl, [

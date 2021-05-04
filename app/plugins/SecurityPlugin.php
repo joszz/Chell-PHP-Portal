@@ -28,7 +28,7 @@ class SecurityPlugin extends Injectable
      * @param Dispatcher $dispatcher        The Phalcon Dispatcher.
      * @return bool                         Whether or not to allow access to the current requested action.
      */
-    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
+    public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher) : bool
     {
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();

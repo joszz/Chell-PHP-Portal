@@ -2,9 +2,8 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Mvc\View;
-
 use Chell\Models\PHPSysInfo;
+use Phalcon\Mvc\View;
 
 /**
  * The controller responsible for RSS functionality.

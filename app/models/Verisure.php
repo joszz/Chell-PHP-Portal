@@ -112,7 +112,7 @@ class Verisure extends BaseModel
      *
      * @return string           The full filepath for the image cached on disk.
      */
-    public function getImage($device_label, $image_id, $capture_time)
+    public function getImage($device_label, $image_id, $capture_time) : string
     {
         $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
 

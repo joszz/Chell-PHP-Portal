@@ -28,7 +28,7 @@ class Speedtest extends BaseModel
      * @param object $config	The config object representing config.ini.
      * @return string			The ISP IP and name as a concatenated string.
      */
-	public function getIPAddress()
+	public function getIPAddress() : string
 	{
 		$this->setIPAddress();
 

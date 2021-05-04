@@ -3,10 +3,10 @@
 namespace Chell\Forms\Validators;
 
 use Phalcon\Validation\ValidatorInterface;
-use Phalcon\Validation\Validator\Confirmation as ConfirmationValidator;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Messages\Message;
 
-class PresenceOfConfirmation extends ConfirmationValidator implements ValidatorInterface {
+class PresenceOfConfirmation extends Confirmation implements ValidatorInterface {
 
     public function validate(\Phalcon\Validation $validation, $field) : bool {
 

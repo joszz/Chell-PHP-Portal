@@ -15,7 +15,7 @@ class Roborock extends BaseModel
      *
      * @return string           The pre-formatted info of Roborock.
      */
-    public function getInfo()
+    public function getInfo() : string
     {
         return $this->executeCommand('info', false);
     }
@@ -25,7 +25,7 @@ class Roborock extends BaseModel
      *
      * @return string[]         The various Roborock stats in an associative array.
      */
-    public function getStatus()
+    public function getStatus() : array
     {
         $status = $this->executeCommand('status');
 
@@ -41,7 +41,7 @@ class Roborock extends BaseModel
     /**
      * Starts the Roborock's cleaning.
      */
-    public function start()
+    public function start() : string
     {
         $this->executeCommand('start');
     }
@@ -49,7 +49,7 @@ class Roborock extends BaseModel
     /**
      * Stops the Roborock's cleaning.
      */
-    public function stop()
+    public function stop() : string
     {
         $this->executeCommand('stop');
     }
@@ -57,7 +57,7 @@ class Roborock extends BaseModel
     /**
      * Stops the Roborock's cleaning and returns home.
      */
-    public function home()
+    public function home() : string
     {
         $this->executeCommand('home');
     }
@@ -69,7 +69,7 @@ class Roborock extends BaseModel
      * @param boolean $removeFirstLine    Whether to trim the first line from the output. Defaults to true.
      * @return string                     The output of the run command.
      */
-    private function executeCommand($command, $removeFirstLine = true)
+    private function executeCommand($command, $removeFirstLine = true) : string
     {
         $command = escapeshellcmd('miiocli vacuum --ip ' . $this->_config->roborock->ip . ' --token ' . $this->_config->roborock->token . ' ' . $command);
         $output = shell_exec($command);
@@ -92,7 +92,7 @@ class Roborock extends BaseModel
      * @param string $seperator     The seperator to indicate next value of the $haystack. Limiting the substring.
      * @return string               The value for the requested statistic ($needle).
      */
-    private function getStatusPart($haystack, $needle, $seperator = ' ')
+    private function getStatusPart($haystack, $needle, $seperator = ' ') : string
     {
         $start = strpos($haystack, $needle) + strlen($needle);
         $end = strpos($haystack, $seperator, $start);

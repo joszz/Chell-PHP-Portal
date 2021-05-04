@@ -31,7 +31,7 @@ class KodiMovies extends KodiBase
      * @param int $limit    Amount of movies to retrieve, defaults to 10
      * @return array        The array of Kodi movies
      */
-    public function getLatestMovies($limit = 10)
+    public function getLatestMovies($limit = 10) : array
     {
         return $this->extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
@@ -42,7 +42,7 @@ class KodiMovies extends KodiBase
      * @param array|\Phalcon\Mvc\Model\ResultsetInterface $movies   The array of Kodi movies.
      * @return array                                                The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
-    public function extractMovieImagesFromXML($movies)
+    public function extractMovieImagesFromXML($movies) : array
     {
         $return = [];
 

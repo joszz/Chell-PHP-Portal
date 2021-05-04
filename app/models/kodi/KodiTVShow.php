@@ -31,7 +31,7 @@ class KodiTVShow extends KodiBase
      * @param array $movies The array of Kodi episodes.
      * @return array        The array of Kodi episodes with the XML field transformed to string holding only image URL.
      */
-    public static function extractMovieImagesFromXML($shows)
+    public static function extractMovieImagesFromXML($shows) : array
     {
         $return = [];
 

@@ -20,7 +20,7 @@ class KodiBase extends BaseModel
      * @param mixed $idField        The database field to retrieve the record Id from.
      * @return string               The URL to the Kodi Controller, action getImage to retrieve the image from.
      */
-    public function getImageUrl($type, $imageField, $idField)
+    public function getImageUrl($type, $imageField, $idField) : string
     {
         $width = $type == 'fanart' ? 800 : '350';
         $which = str_replace('Kodi', '', strtolower(get_class($this)));
@@ -46,7 +46,7 @@ class KodiBase extends BaseModel
      * @param string $kodiXml       The XML stored in the Kodi database.
      * @return \SimpleXMLElement    The Simple XML object created from the XML stored in the Kodi database.
      */
-    public function getXml($kodiXml)
+    public function getXml($kodiXml) : \SimpleXMLElement
     {
         return new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><root>' . $kodiXml . '</root>');
     }

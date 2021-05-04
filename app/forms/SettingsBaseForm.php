@@ -135,7 +135,7 @@ class SettingsBaseForm extends Form
         }
     }
 
-    public function getAllErrorMessagesForElement($name, $seperator = "\n")
+    public function getAllErrorMessagesForElement($name, $seperator = "\n") : string
     {
         $messages = $this->getMessagesFor($name);
         $errorMessages = '';

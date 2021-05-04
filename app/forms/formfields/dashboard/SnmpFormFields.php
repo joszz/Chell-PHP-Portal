@@ -4,7 +4,6 @@ namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Validation\Validator\Numericality;

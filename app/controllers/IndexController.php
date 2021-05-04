@@ -2,8 +2,6 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Mvc\View;
-
 use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\Jellyfin;
@@ -12,6 +10,7 @@ use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\SnmpHosts;
+use Phalcon\Mvc\View;
 
 /**
  * The controller responsible for all dashboard related actions.
@@ -119,7 +118,7 @@ class IndexController extends BaseController
      *
      * @return array An array with strings for the DNS prefetch URLs
      */
-    private function setDNSPrefetchRecords()
+    private function setDNSPrefetchRecords() : array
     {
         $hostname = getenv('HTTP_HOST');
         $dnsPrefetchRecords = [$this->config->application->tmdbAPIURL];
@@ -153,7 +152,7 @@ class IndexController extends BaseController
      * Is any of the widgets enabled?
      * @return bool     Whether any of the widgets is enabled.
      */
-    private function getAnyWidgetEnabled()
+    private function getAnyWidgetEnabled() : bool
     {
         return $this->config->phpsysinfo->enabled || count($this->view->devices) || $this->config->rcpu->enabled || $this->config->transmission->enabled ||
             $this->config->kodi->enabled || $this->config->subsonic->enabled || $this->config->couchpotato->enabled || $this->config->motion->enabled ||

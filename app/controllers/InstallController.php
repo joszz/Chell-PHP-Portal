@@ -2,10 +2,9 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
-
 use Chell\Models\Users;
 use Chell\Models\Menus;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 /**
  * The controller responsible for the installation.

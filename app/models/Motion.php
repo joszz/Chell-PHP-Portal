@@ -15,7 +15,7 @@ class Motion extends BaseModel
      * @param object $config    The configuration file to use.
      * @return array            All PHPSysInfo data in an associative array
      */
-    public function getLatest()
+    public function getLatest() : array
     {
         $files = glob($this->_config->motion->picturePath . '*.jpg');
         $files = array_combine($files, array_map("filemtime", $files));
@@ -30,7 +30,7 @@ class Motion extends BaseModel
      * @param object $config    The configuration file to use.
      * @return string           A formatted date string.
      */
-    public function getModifiedTime()
+    public function getModifiedTime() : string
     {
         $latest_file = $this->getLatest($this->_config);
         return date('d-m-Y H:i', current($latest_file));

@@ -15,7 +15,7 @@ class Jellyfin extends BaseModel
      * @return array            The array of channels/libraries. The key holds the name lowercase, and removed from <spaces>.
      *                          The value holds the channel's Id.
      */
-    public function getViews()
+    public function getViews() : array
     {
         $ch = $this->getCurl('/Users/' . $this->_config->jellyfin->userid . '/Views');
         $result = [];
@@ -41,7 +41,7 @@ class Jellyfin extends BaseModel
      * @param mixed $limit      The limit of items to retrieve. This seems to not always be honored by the API?
      * @return array          An array of latest items with some information about this item, such as the title.
      */
-    public function getLatestForView($viewId, $limit = 10)
+    public function getLatestForView($viewId, $limit = 10) : array
     {
         $ch = self::getCurl('/Users/' . $this->_config->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         $result = [];

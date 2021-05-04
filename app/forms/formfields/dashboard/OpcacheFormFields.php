@@ -3,7 +3,6 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\IFormFields;
-
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 

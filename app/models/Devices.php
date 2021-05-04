@@ -27,7 +27,7 @@ class Devices extends BaseModel
      *
      * @return bool         Whether the device is on (true) or off (false)
      */
-    public function isDeviceOn()
+    public function isDeviceOn() : bool
     {
         return $this->pingExec() !== false;
     }
@@ -85,7 +85,7 @@ class Devices extends BaseModel
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public function wakeOnLan($socket_number = 7, $repetition = 16)
+    public function wakeOnLan($socket_number = 7, $repetition = 16) : bool
     {
         $addr_byte = explode(':', $this->mac);
         $hw_addr = '';

@@ -34,7 +34,7 @@ class ChellException extends \Exception
      *
      * @return array The original exceptions trace.
      */
-    public function getStacktrace()
+    public function getStacktrace() : array
     {
         return $this->getPrevious()->getTrace();
     }
@@ -45,7 +45,7 @@ class ChellException extends \Exception
      *
      * @return string The partial contents of the file where the exception occurred.
      */
-    private function getFileContents()
+    private function getFileContents() : string
     {
         if (is_file($file = $this->getFile()))
         {
@@ -65,7 +65,7 @@ class ChellException extends \Exception
      *
      * @return string PrismJS compatible HTML.
      */
-    public function getFileHighlight()
+    public function getFileHighlight() : string
     {
         return '<pre data-line="' . $this->surroundingLines . '" data-start="' . $this->getLineNumberStart() . '"><code class="language-php">'. $this->getFileContents() . '</code></pre>';
     }
@@ -76,7 +76,7 @@ class ChellException extends \Exception
      * @param mixed     $format The format to use for PHP's date function. Defaults to 'd-m-Y H:i:s'.
      * @return string           The formatted date string the exception occurred.
      */
-    public function getDate($format = 'd-m-Y H:i:s')
+    public function getDate($format = 'd-m-Y H:i:s') : string
     {
         return date($format, $this->time);
     }
@@ -86,7 +86,7 @@ class ChellException extends \Exception
      *
      * @return int  The starting linenumber.
      */
-    private function getLineNumberStart()
+    private function getLineNumberStart() : int
     {
         return $this->line - $this->surroundingLines > 0 ? $this->line - $this->surroundingLines : 1;
     }

@@ -31,7 +31,7 @@ class Youless extends BaseModel
 	 * @param mixed $power      The current power usage.
 	 * @return string           A bootstrap class indicating which threshold is passed.
 	 */
-	public static function getTextClass($config, $power)
+	public static function getTextClass($config, $power) : string
 	{
 		$class = 'text-';
 

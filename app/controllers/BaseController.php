@@ -2,10 +2,9 @@
 
 namespace Chell\Controllers;
 
+use Chell\Models\Menus;
 use Phalcon\Mvc\Controller;
 use Phalcon\Debug\Dump;
-
-use Chell\Models\Menus;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
@@ -43,7 +42,7 @@ class BaseController extends Controller
      *
      * @return string   The CSS class used to set the background color.
      */
-    private function getBackgroundColor()
+    private function getBackgroundColor() : string
     {
         if ($this->config->application->background == 'timebg')
         {
@@ -75,7 +74,7 @@ class BaseController extends Controller
      * @param bool      $has_sections   If the ini file has sections (in the form of [section])
      * @return bool                     If the write was successful
      */
-    protected function writeIniFile($assoc_arr, $path, $has_sections = false)
+    protected function writeIniFile($assoc_arr, $path, $has_sections = false) : bool
     {
         $content = '';
 
@@ -149,7 +148,7 @@ class BaseController extends Controller
      * @param mixed $imageQuality   The image quality used for the JPEG compression of the resized image, defaults to 70.
      * @return boolean              Whether or not resized succeeded.
      */
-    protected function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70)
+    protected function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70) : bool
     {
         list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);
         $source_gd_image = false;

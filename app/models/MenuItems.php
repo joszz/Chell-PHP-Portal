@@ -35,7 +35,7 @@ class MenuItems extends Model
      * 
      * @return string   The path to the icon
      */
-    public function getIconFilePath($baseUri)
+    public function getIconFilePath($baseUri) : string
     {
         return $baseUri . 'img/icons/menu/' . $this->id . '.png';
     }

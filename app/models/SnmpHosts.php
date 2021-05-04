@@ -30,7 +30,7 @@ class SnmpHosts extends Model
      * @param boolean $showDashboard    Whether or not to retrieve only the values marked as show_dashboard.
      * @return array                    The structured value array, ordered by position ASC and after that the null values.
      */
-    public function getValues($showDashboard)
+    public function getValues($showDashboard) : array
     {
         $values = [];
         $oidLabelCache = [];
@@ -91,7 +91,7 @@ class SnmpHosts extends Model
      * @param array $record The SNMP record array item (provided by $this->getValues()) to format the value(s) for.
      * @return array        The formatted value(s) and the corresponding type of the value(s).
      */
-    public function formatOidValues($record)
+    public function formatOidValues($record) : array
     {
         $formattedValues = [];
 

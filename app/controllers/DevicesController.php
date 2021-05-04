@@ -2,8 +2,8 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Http\Response;
 use Chell\Models\Devices;
+use Phalcon\Http\Response;
 
 /**
  * The controller responsible for handling all actions that have to do with the devices in your network.

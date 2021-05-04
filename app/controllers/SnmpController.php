@@ -2,9 +2,8 @@
 
 namespace Chell\Controllers;
 
-use Phalcon\Mvc\View;
-
 use Chell\Models\SnmpHosts;
+use Phalcon\Mvc\View;
 
 class SnmpController extends BaseController
 {
