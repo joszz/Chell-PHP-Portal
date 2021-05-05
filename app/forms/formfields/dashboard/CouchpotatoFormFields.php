@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class CouchpotatoFormFields implements IFormFields
 {
@@ -33,7 +34,10 @@ class CouchpotatoFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->couchpotato->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$couchpotatoAPIKey = new Password('couchpotato-apikey');
 		$couchpotatoAPIKey->setLabel('API key')
@@ -47,8 +51,10 @@ class CouchpotatoFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->couchpotato->rotateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
+			]);
 
 		$form->add($couchpotatoEnabled);
 		$form->add($couchpotatoURL);

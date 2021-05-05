@@ -2,11 +2,10 @@
 
 namespace Chell\Forms\Validators;
 
-use Phalcon\Validation\ValidatorInterface;
-use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Messages\Message;
+use Phalcon\Validation\Validator\Confirmation;
 
-class PresenceOfConfirmation extends Confirmation implements ValidatorInterface 
+class PresenceOfConfirmation extends Confirmation
 {
     public function validate(\Phalcon\Validation $validation, $field) : bool
     {
@@ -17,8 +16,13 @@ class PresenceOfConfirmation extends Confirmation implements ValidatorInterface
         if ($with_value == 'on' && empty($value))
         {
             $message = $this->getOption('message');
-            $validation->appendMessage(new Message($message, $field, 'StrictConfirmation'));
 
+            if (!$message)
+            {
+                $message = 'Required';
+            }
+
+            $validation->appendMessage(new Message($message, $field, 'PresenceOfConfirmation'));
             return false;
         }
 

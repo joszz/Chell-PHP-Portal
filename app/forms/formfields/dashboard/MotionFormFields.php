@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class MotionFormFields implements IFormFields
 	{
@@ -32,7 +33,10 @@ class MotionFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->motion->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$motionPicturePath = new Text('motion-picturepath');
 		$motionPicturePath->setLabel('Picture path')
@@ -46,9 +50,10 @@ class MotionFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->motion->updateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled']));
-
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'motion-enabled'])
+			]);
 
 		$form->add($motionEnabled);
 		$form->add($motionURL);

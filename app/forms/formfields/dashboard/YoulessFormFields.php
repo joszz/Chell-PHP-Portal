@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class YoulessFormFields implements IFormFields
 {
@@ -33,7 +34,10 @@ class YoulessFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$youlessPassword = new Password('youless-password');
 		$youlessPassword->setLabel('YouLess password')
@@ -47,32 +51,40 @@ class YoulessFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->updateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 
 		$youlessPrimaryThreshold = new Numeric('youless-primary-threshold');
 		$youlessPrimaryThreshold->setLabel('YouLess primary threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->primaryThreshold)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 
 		$youlessWarnThreshold = new Numeric('youless-warn-threshold');
 		$youlessWarnThreshold->setLabel('YouLess warn threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->warnThreshold)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 
 		$youlessDangerThreshold = new Numeric('youless-danger-threshold');
 		$youlessDangerThreshold->setLabel('YouLess danger threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->youless->dangerThreshold)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 
 		$form->add($youlessEnabled);
 		$form->add($youlessURL);

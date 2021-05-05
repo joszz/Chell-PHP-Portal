@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class HyperVAdminFormFields implements IFormFields
 {
@@ -30,10 +31,13 @@ class HyperVAdminFormFields implements IFormFields
 
 		$hyperVAdminURL = new Text('hypervadmin-url');
 		$hyperVAdminURL->setLabel('URL')
-					   ->setFilters(['striptags', 'string'])
-					   ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-					   ->setDefault($form->config->hypervadmin->URL)
-					   ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'hypervadmin-enabled']));
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($form->config->hypervadmin->URL)
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'hypervadmin-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$hyperVAdminUsername = new Text('hypervadmin-username');
 		$hyperVAdminUsername->setLabel('Username')

@@ -7,6 +7,7 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class SickrageFormFields implements IFormFields
 {
@@ -31,7 +32,10 @@ class SickrageFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->sickrage->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$sickrageAPIKey = new Password('sickrage-apikey');
 		$sickrageAPIKey->setLabel('API key')

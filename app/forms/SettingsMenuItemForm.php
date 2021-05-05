@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for adding new MenuItems.
@@ -32,7 +33,10 @@ class SettingsMenuItemForm extends SettingsBaseForm
         $url->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
             ->setLabel('URL')
-            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new UrlValidator(['message' => $this->translator->validation['url']])
+            ]);
 
         $icon = new File('icon');
         $icon->setFilters(['striptags', 'string'])

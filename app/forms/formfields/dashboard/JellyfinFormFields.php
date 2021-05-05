@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class JellyfinFormFields implements IFormFields
 {
@@ -33,7 +34,10 @@ class JellyfinFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($form->config->jellyfin->url)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$jellyfinToken = new Password('jellyfin-token');
 		$jellyfinToken->setLabel('Token')

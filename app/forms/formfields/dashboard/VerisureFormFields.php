@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class VerisureFormFields implements IFormFields
 {
@@ -33,15 +34,20 @@ class VerisureFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->verisure->updateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 
         $verisureURL = new Text('verisure-url');
 		$verisureURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($form->config->verisure->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Verisure username')

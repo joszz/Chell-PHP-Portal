@@ -2,11 +2,13 @@
 
 namespace Chell\Forms;
 
+use Chell\Forms\Validators\Mac;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for adding new devices.
@@ -30,17 +32,21 @@ class SettingsDeviceForm extends SettingsBaseForm
         $ip->setLabel('IP')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new UrlValidator(['message' => $this->translator->validation['url']])
+            ]);
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control']);
+            ->setAttributes(['class' => 'form-control'])
+            ->addValidator(new Mac(['message' => $this->translator->validation['mac']]));
 
         $shutdownUser = new Text('shutdown_user');
         $shutdownUser->setLabel('Shutdown user')
-                ->setFilters(['striptags', 'string'])
-                ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-user']);
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-user']);
 
         $shutdownPassword = new Password('shutdown_password');
         $shutdownPassword->setLabel('Shutdown password')

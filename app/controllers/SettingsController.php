@@ -513,7 +513,7 @@ class SettingsController extends BaseController
 
     /**
      * Loops through the forms and returns the first input that contains an error message.
-     * 
+     *
      * @param array $forms      The array of forms to loop through.
      */
     private function setScrollToInputErrorElement($forms)

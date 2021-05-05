@@ -7,6 +7,7 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Confirmation;
+use Phalcon\Validation\Validator\Email as EmailValidator;
 
 /**
  * The form responsible for updating existing Users.
@@ -34,19 +35,26 @@ class SettingsUserForm extends SettingsBaseForm
         $email = new Email('email');
         $email->setLabel('Email')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off']);
+            ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off'])
+            ->addValidator(new EmailValidator(['message' => $this->translator->validation['email']]));
 
         $password = new Password('password');
         $password->setLabel('Password')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-            ->addValidator(new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again']));
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
+            ]);
 
         $passwordAgain = new Password('password_again');
         $passwordAgain->setLabel('Password again')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-            ->addValidator(new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password']));
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
+            ]);
 
         $this->add($username);
         $this->add($email);

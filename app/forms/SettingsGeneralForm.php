@@ -7,9 +7,9 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
-
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for the general settings.
@@ -59,23 +59,27 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->config->application->alertTimeout)
-            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]))
-            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new Numericality(['message' => $this->translator->validation['not-a-number']])
+            ]);
 
         $itemsPerPage = new Numeric('items-per-page');
         $itemsPerPage->setLabel('Items per page')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->config->application->itemsPerPage)
-            ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]))
-            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
+            ->addValidators([
+                new PresenceOf(['message' => $this->translator->validation['required']]),
+                new Numericality(['message' => $this->translator->validation['not-a-number']])
+            ]);
 
         $cryptKey = new Password('cryptkey');
         $cryptKey->setLabel('Cryptkey')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->config->application->phalconCryptKey)
-            ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
+            ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
         $tmdbAPIKey = new Password('tmdb-apikey');
         $tmdbAPIKey->setLabel('TMDB API key')
@@ -93,7 +97,8 @@ class SettingsGeneralForm extends SettingsBaseForm
         $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->whatIsMyBrowserAPIURL);
+            ->setDefault($this->config->application->whatIsMyBrowserAPIURL)
+            ->addValidator(new UrlValidator(['message' => $this->translator->validation['url']]));
 
         $debug = new Check('debug');
         $debug->setLabel('Debug')

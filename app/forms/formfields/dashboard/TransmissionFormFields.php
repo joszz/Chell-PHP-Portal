@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class TransmissionFormFields implements IFormFields
 {
@@ -33,7 +34,10 @@ class TransmissionFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->transmission->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$transmissionUsername = new Text('transmission-username');
 		$transmissionUsername->setLabel('Username')
@@ -54,8 +58,10 @@ class TransmissionFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->transmission->updateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled'])
+			]);
 
 		$form->add($transmissionEnabled);
 		$form->add($transmissionURL);

@@ -27,7 +27,7 @@
                     <td>
                         <?php echo $opcache->getFormattedData('opcache.memory_consumption', $data['memory_consumption']) ?>
                     </td>
-                    <td title="<?php echo ($path = $count > 1 ? $file : $dir . $file ) ?>">
+                    <td title="<?php echo ($path = $count > 1 ? $file : $dir . $file ) ?>" class="text-nowrap">
                         <?php echo $path ?>
                     </td>
                 </tr>

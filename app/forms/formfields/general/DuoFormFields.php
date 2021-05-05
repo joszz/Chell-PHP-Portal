@@ -28,10 +28,10 @@ class DuoFormFields implements IFormFields
 
         $duoAPIHostname = new Text('duo-apiHostname');
         $duoAPIHostname->setLabel('API hostname')
-                       ->setFilters(['striptags', 'string'])
-                       ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                       ->setDefault($form->config->duo->apiHostname)
-                       ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+            ->setDefault($form->config->duo->apiHostname)
+            ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
 
         $duoIKey = new Password('duo-ikey');
         $duoIKey->setLabel('Integration key')

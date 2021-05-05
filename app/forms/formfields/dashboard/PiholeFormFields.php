@@ -6,6 +6,7 @@ use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class PiholeFormFields implements IFormFields
 {
@@ -30,7 +31,10 @@ class PiholeFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->pihole->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pihole-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pihole-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$form->add($piholeEnabled);
 		$form->add($piholeURL);

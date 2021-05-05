@@ -6993,7 +6993,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&2763901") format("embedded-opentype"), url("../../fonts/icomoon.woff2?6294171") format("woff2"), url("../../fonts/icomoon.woff?5323149") format("woff"), url("../../fonts/icomoon.ttf?577034") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?8966593") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&9321449") format("embedded-opentype"), url("../../fonts/icomoon.woff2?4165812") format("woff2"), url("../../fonts/icomoon.woff?9753602") format("woff"), url("../../fonts/icomoon.ttf?8656146") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3304848") format("svg"); }
 
 .fa,
 .fas {
@@ -7490,8 +7490,8 @@ html.full-height {
   height: 100%; }
 
 @media (prefers-color-scheme: dark) {
-  html:not(.lightbg),
-  html:not(.lightbg) body {
+  html:not(.lightbg):not(#iframe),
+  html:not(.lightbg):not(#iframe) body {
     background: linear-gradient(to bottom, rgba(60, 60, 60, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%); } }
 
 @media (prefers-color-scheme: light) {
@@ -7518,15 +7518,15 @@ pre {
 body#bootstrap {
   padding: 50px 0 52px; }
 
-body#iframe {
+#iframe body {
   min-height: 0;
   overflow: hidden;
   background: #FFF no-repeat center center / cover; }
 
-body#iframe.overflow {
+#iframe body.overflow {
   overflow-y: auto; }
 
-body#iframe .panel {
+#iframe .panel {
   margin-bottom: 0; }
 
 *:active,
@@ -8057,6 +8057,9 @@ div.motion .panel-body {
 @media only screen and (max-width: 480px) {
   .panel.chartist.with-nav-tabs {
     max-height: 500px; } }
+
+#opcache-details {
+  max-height: 672px; }
 
 .youless .power {
   display: flex;

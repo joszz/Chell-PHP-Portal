@@ -2,14 +2,13 @@
 
 namespace Chell\Forms;
 
+use Chell\Models\SnmpHosts;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Numericality;
-
-use Chell\Models\SnmpHosts;
 
 /**
  * The form responsible for adding new SNMP records.

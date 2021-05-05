@@ -9,6 +9,7 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Validation\Validator\Ip;
 
 class RoborockFormFields implements IFormFields
 {
@@ -33,15 +34,20 @@ class RoborockFormFields implements IFormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->roborock->updateInterval)
-			->addValidator(new Numericality(['message' => $form->translator->validation['not-a-number']]))
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
+			->addValidators([
+				new Numericality(['message' => $form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled'])
+			]);
 
-        $roborockIp = new Text('roborock-ip');
+		$roborockIp = new Text('roborock-ip');
 		$roborockIp->setLabel('IP')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($form->config->roborock->ip)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']),
+				new Ip(['message' => $form->translator->validation['ip'], 'allowPrivate' => true]),
+			]);
 
 		$roborockToken = new Password('roborock-token');
 		$roborockToken->setLabel('Token')

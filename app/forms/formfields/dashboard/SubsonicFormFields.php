@@ -7,6 +7,7 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class SubsonicFormFields implements IFormFields
 {
@@ -31,7 +32,10 @@ class SubsonicFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->subsonic->URL)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']));
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$subsonicUsername = new Text('subsonic-username');
 		$subsonicUsername->setLabel('Username')

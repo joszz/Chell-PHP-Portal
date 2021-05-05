@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class PhpSysInfoFormFields implements IFormFields
 {
@@ -32,8 +33,11 @@ class PhpSysInfoFormFields implements IFormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->phpsysinfo->URL)
-			->addValidators([new PresenceOf(['message' => $form->translator->validation['required']])])
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']));
+			->addValidators([
+				new PresenceOf(['message' => $form->translator->validation['required']]),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
+				new UrlValidator(['message' => $form->translator->validation['url']])
+			]);
 
 		$phpSysInfoUsername = new Text('phpsysinfo-username');
 		$phpSysInfoUsername->setLabel('PHPSysInfo username')

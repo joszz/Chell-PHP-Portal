@@ -7,8 +7,8 @@ html.full-height {
 }
 
 @media (prefers-color-scheme: dark) {
-    html:not(.lightbg),
-    html:not(.lightbg) body {
+    html:not(.lightbg):not(#iframe),
+    html:not(.lightbg):not(#iframe) body {
         background: $darkBackgroundGradient;
     }
 }
@@ -43,17 +43,17 @@ body#bootstrap {
     padding: 50px 0 52px;
 }
 
-body#iframe {
+#iframe body {
     min-height: 0;
     overflow: hidden;
     background: #FFF no-repeat center center / cover;
 }
 
-body#iframe.overflow {
+#iframe body.overflow {
     overflow-y: auto;
 }
 
-body#iframe .panel {
+#iframe .panel {
     margin-bottom: 0;
 }
 
