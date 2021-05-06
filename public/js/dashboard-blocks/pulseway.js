@@ -36,9 +36,9 @@
             * @method initialize
             */
             initialize: function () {
-                settings.block.find(".fa-sync").click(functions.update);
+                settings.block.find(".fa-sync").click(function () { functions.update(false) });
                 settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
-                functions.update();
+                functions.update(true);
             },
                 
             /**
@@ -47,8 +47,12 @@
              * @method update
              * @param {boolean} initialize  Whether called on initialization or not.
              */
-            update: function () {
-                settings.block.isLoading();
+            update: function (initialize) {
+                initialize = typeof initialize === "undefined" ? false : initialize;
+                if (!initialize) {
+                    settings.block.isLoading();
+                    window.clearInterval(settings.updateIntervalId);
+                }
 
                 $.ajax({
                     url: "pulseway",
@@ -68,6 +72,7 @@
                         });
                     },
                     complete: function () {
+                        settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });
