@@ -36,6 +36,7 @@ It aggregates different services and webapplications that I want easily accessib
 - [Motion](https://motion-project.github.io/)
 - [PHPSysInfo](http://phpsysinfo.github.io/phpsysinfo/)
 - [Pihole](https://pi-hole.net/)
+- [Pulseway](https://www.pulseway.com/)
 - [rCPU](https://github.com/davidsblog/rCPU)
 - [Redis](https://redis.io/)
 - [Roborock](https://github.com/rytilahti/python-miio)
@@ -50,9 +51,9 @@ It aggregates different services and webapplications that I want easily accessib
 
 # Installation and configuration
 
-Before continuing, take a look at the prerequisites above. These are required to run this project.
+Before continuing, take a look at the prerequisites above. Those are required to run this project.
 
-This project comes with an installer. Before you can use this installer, you will need to have basic configuration done.
+This project comes with an installer. Before you can use this installer, you will need to have some basic configuration done.
 
 ## Phalcon
 
@@ -60,7 +61,7 @@ The Phalcon PHP extension is required to run this project. [You can read about i
 To have Phalcon work, you will need to add the PSR extension to your php.ini, as described in the Phalcon installation URL. 
 
 ## Apache
-Take a look at the required Apache modules to run this project, and enable these.
+Take a look at the required Apache modules to run this project, and enable those.
 
 Since this project relies on .htaccess files to work correctly, you will also need to have this setup in your Apache configuration accordingly 
 (either only for this project or server wide). 
@@ -83,9 +84,9 @@ You can run the installer by going to /install on the domain (and if applicable 
 When you fill all the details in correctly, you can press install and the site should take care of setting things up.
 
 It will try to clean up after itself, but it won't be able to do so if the Apache user doesn't have write access in order to cleanup the following files;
-- /app/controllers/IndexController.php
+- /app/controllers/InstallController.php
 - /app/views/install/
 - /db-structure.sql
 
-It's recommended to check if at least the IndexController is deleted after install (/app/controllers/IndexController.php), since it can be potentially harmfull.
+It's recommended to check if at least the InstallController is deleted after install (/app/controllers/InstallController.php), since it can be potentially harmfull.
 The other files are cleaned up just for the sake of keeping things clean.
