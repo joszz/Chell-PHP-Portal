@@ -12,6 +12,7 @@ use Chell\Forms\SettingsSnmpRecordForm;
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
+use Chell\Models\Pulseway;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 use Davidearl\WebAuthn\WebAuthn;
@@ -509,6 +510,11 @@ class SettingsController extends BaseController
         }
 
         die('failed');
+    }
+
+    public function pulsewaysystemsAction()
+    {
+        die(json_encode((new Pulseway())->getSystems()));
     }
 
     /**

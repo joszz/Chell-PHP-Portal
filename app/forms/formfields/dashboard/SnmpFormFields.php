@@ -27,7 +27,7 @@ class SnmpFormFields implements IFormFields
 		]);
 
 		$snmpInterval = new Numeric('snmp-update-interval');
-		$snmpInterval->setLabel('SNMP interval')
+		$snmpInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->snmp->updateInterval)

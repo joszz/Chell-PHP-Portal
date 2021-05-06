@@ -66,19 +66,19 @@ class JellyfinFormFields implements IFormFields
 		$jellyfinMovieView->setLabel('Movie library')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault(explode(',',$form->config->jellyfin->movieview));
+			->setDefault($form->config->jellyfin->movieview);
 
 		$jellyfinMusicView = new Select('jellyfin-musicview', $views);
 		$jellyfinMusicView->setLabel('Music library')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault(explode(',',$form->config->jellyfin->musicview));
+			->setDefault($form->config->jellyfin->musicview);
 
         $jellyfinShowView = new Select('jellyfin-showview', $views);
 		$jellyfinShowView->setLabel('TV Shows library')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault(explode(',',$form->config->jellyfin->showview));
+			->setDefault($form->config->jellyfin->showview);
 
 		$form->add($jellyfinEnabled);
 		$form->add($jellyfinUrl);

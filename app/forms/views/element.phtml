@@ -12,23 +12,25 @@
     </div>
     <div class="col-lg-4 col-sm-6 col-xs-12">
         <div class="input-group">
-            <?php echo $element ?>
-            <?php if (get_class($element) == 'Phalcon\Forms\Element\Password') : ?>
-            <a class="btn btn-default input-group-addon toggle-password" title="Toggle password display">
-                <i class="fa fa-eye"></i>
-            </a>
-            <?php elseif (strpos($class, 'location') !== false) : ?>
-            <a class="btn btn-default input-group-addon" title="Get location">
-                <i class="fa fa-map-marker-alt"></i>
-            </a>
-            <?php endif ?>
+            <?php
+            echo $element;
 
-            <?php if($this->hasHelp($name)) : ?>
-            <a class="btn btn-default <?php echo get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right' ?> " data-fancybox data-type="iframe" title="Help"
-                href="<?php echo $this->config->application->baseUri . 'settings/help/' . $name ?>">
-                <i class="fa fa-question"></i>
-            </a>
-            <?php endif ?>
+            if (get_class($element) == 'Phalcon\Forms\Element\Password')
+            {
+                $this->includeButton('toggle_password');
+            }
+
+            $options = $element->getUserOptions();
+            if (isset($options['buttons']))
+            {
+                foreach ($options['buttons'] as $button)
+                {
+                    $this->includeButton($button);
+                }
+            }
+
+            $this->includeButton('help', $name, $element);
+            ?>
         </div>
     </div>
 </div>

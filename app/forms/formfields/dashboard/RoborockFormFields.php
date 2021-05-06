@@ -30,7 +30,7 @@ class RoborockFormFields implements IFormFields
 		]);
 
         $roborockInterval = new Numeric('roborock-update-interval');
-		$roborockInterval->setLabel('Roborock interval')
+		$roborockInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->roborock->updateInterval)

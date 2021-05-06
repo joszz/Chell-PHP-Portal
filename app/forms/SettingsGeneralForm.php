@@ -45,6 +45,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setFilters(['striptags', 'float'])
             ->setAttributes(['class' => 'form-control location latitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
             ->setDefault($this->config->application->backgroundLatitude)
+            ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
         $bgColorLongitude= new Numeric('bgcolor-longitude');
@@ -52,6 +53,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setFilters(['striptags', 'float'])
             ->setAttributes(['class' => 'form-control location longitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
             ->setDefault($this->config->application->backgroundLongitude)
+            ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
         $alertTimeout = new Numeric('alert-timeout');

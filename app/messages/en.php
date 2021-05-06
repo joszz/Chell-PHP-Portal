@@ -135,6 +135,13 @@ $help = [
     'jellyfin-movieview'            => 'The Jellyfin library to use to show the latest movies.',
     'jellyfin-musicview'            => 'The Jellyfin library to use to show the latest albums.',
     'jellyfin-showview'             => 'The Jellyfin library to use to show the latest TV shows.',
+
+    'pulseway-enabled'              => 'Enables the Pulseway widget.',
+    'pulseway-url'                  => 'The Pulseway API base URL. See <a href="https://api.pulseway.com/" target="_blank">the documentation</a> for details',
+    'pulseway-username'             => 'The Pulseway API username.',
+    'pulseway-password'             => 'The Pulseway API password.',
+    'pulseway-update-interval'      => 'The poll interval used to update the Pulseway values.',
+    'pulseway-systems[]'            => 'The Pulseway systems to show in the widget. <br />Click the button with the PC screen icon to contact the API to retrieve the systems.<br />Make sure to save the URL, username and password first.',
 ];
 
 $helpTitles = [
@@ -261,4 +268,11 @@ $helpTitles = [
     'jellyfin-movieview'            => 'Jellyfin movie library',
     'jellyfin-musicview'            => 'The Jellyfin music library',
     'jellyfin-showview'             => 'The Jellyfin TV show library',
+
+    'pulseway-enabled'              => 'Pulseway',
+    'pulseway-url'                  => 'Pulseway URL',
+    'pulseway-username'             => 'Pulseway username',
+    'pulseway-password'             => 'Pulseway password',
+    'pulseway-update-interval'      => 'Pulseway update interval',
+    'pulseway-systems[]'            => 'Pulseway systems',
 ];

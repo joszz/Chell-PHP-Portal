@@ -195,9 +195,19 @@ $fa-font-path: "../../fonts";
 .#{$fa-css-prefix}-fingerprint:before {
     content: fa-content($fa-var-fingerprint);
 }
+
 .#{$fa-css-prefix}-map-marker-alt:before {
     content: fa-content($fa-var-map-marker-alt);
 }
+
 .#{$fa-css-prefix}-vacuum-robot:before {
     content: fa-content(\e04e);
+}
+
+.#{$fa-css-prefix}-check:before {
+    content: fa-content($fa-var-check);
+}
+
+.#{$fa-css-prefix}-desktop:before {
+    content: fa-content($fa-var-desktop);
 }

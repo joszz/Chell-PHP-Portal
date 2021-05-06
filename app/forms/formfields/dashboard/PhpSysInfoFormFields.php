@@ -29,7 +29,7 @@ class PhpSysInfoFormFields implements IFormFields
 		]);
 
 		$phpSysInfoURL = new Text('phpsysinfo-url');
-		$phpSysInfoURL->setLabel('PHPSysInfo URL')
+		$phpSysInfoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->phpsysinfo->URL)
@@ -40,13 +40,13 @@ class PhpSysInfoFormFields implements IFormFields
 			]);
 
 		$phpSysInfoUsername = new Text('phpsysinfo-username');
-		$phpSysInfoUsername->setLabel('PHPSysInfo username')
+		$phpSysInfoUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->phpsysinfo->username);
 
 		$phpSysInfoPassword = new Password('phpsysinfo-password');
-		$phpSysInfoPassword->setLabel('PHPSysInfo password')
+		$phpSysInfoPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
 			->setDefault($form->config->phpsysinfo->password);

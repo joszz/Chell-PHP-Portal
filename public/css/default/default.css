@@ -5295,7 +5295,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&9321449") format("embedded-opentype"), url("../../fonts/icomoon.woff2?4165812") format("woff2"), url("../../fonts/icomoon.woff?9753602") format("woff"), url("../../fonts/icomoon.ttf?8656146") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3304848") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&8744309") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5721462") format("woff2"), url("../../fonts/icomoon.woff?5915638") format("woff"), url("../../fonts/icomoon.ttf?7385845") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?6971276") format("svg"); }
 
 .fa,
 .fas {
@@ -5439,6 +5439,12 @@ fieldset[disabled] .btn-danger.active {
 
 .fa-vacuum-robot:before {
   content: "\e04e"; }
+
+.fa-check:before {
+  content: "\f00c"; }
+
+.fa-desktop:before {
+  content: "\f108"; }
 
 @font-face {
   font-family: 'Roboto';

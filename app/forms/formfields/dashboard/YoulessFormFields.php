@@ -35,55 +35,55 @@ class YoulessFormFields implements IFormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->URL)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']),
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
 			]);
 
 		$youlessPassword = new Password('youless-password');
-		$youlessPassword->setLabel('YouLess password')
+		$youlessPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($form->config->youless->password)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
+			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled']));
 
 		$youlessInterval = new Numeric('youless-update-interval');
-		$youlessInterval->setLabel('YouLess interval')
+		$youlessInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->updateInterval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled'])
 			]);
 
 		$youlessPrimaryThreshold = new Numeric('youless-primary-threshold');
-		$youlessPrimaryThreshold->setLabel('YouLess primary threshold')
+		$youlessPrimaryThreshold->setLabel('Primary threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->primaryThreshold)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled'])
 			]);
 
 		$youlessWarnThreshold = new Numeric('youless-warn-threshold');
-		$youlessWarnThreshold->setLabel('YouLess warn threshold')
+		$youlessWarnThreshold->setLabel('Warn threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->youless->warnThreshold)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled'])
 			]);
 
 		$youlessDangerThreshold = new Numeric('youless-danger-threshold');
-		$youlessDangerThreshold->setLabel('YouLess danger threshold')
+		$youlessDangerThreshold->setLabel('Danger threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->youless->dangerThreshold)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
+				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'youless-enabled'])
 			]);
 
 		$form->add($youlessEnabled);

@@ -41,6 +41,7 @@ function initializePlugins() {
     $(".verisure").verisure();
     $(".roborock").roborock();
     $(".cpu").rcpu();
+    $(".pulseway").pulseway();
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

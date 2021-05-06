@@ -43,7 +43,7 @@ class Jellyfin extends BaseModel
      */
     public function getLatestForView($viewId, $limit = 10) : array
     {
-        $ch = self::getCurl('/Users/' . $this->_config->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+        $ch = $this->getCurl('/Users/' . $this->_config->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         $result = [];
         if (($output = curl_exec($ch)) !== false && !empty($output))
         {

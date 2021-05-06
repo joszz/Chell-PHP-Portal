@@ -30,7 +30,7 @@ class VerisureFormFields implements IFormFields
 		]);
 
 		$verisureInterval = new Numeric('verisure-update-interval');
-		$verisureInterval->setLabel('Verisure interval')
+		$verisureInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->verisure->updateInterval)
@@ -50,21 +50,21 @@ class VerisureFormFields implements IFormFields
 			]);
 
 		$verisureUsername = new Text('verisure-username');
-		$verisureUsername->setLabel('Verisure username')
+		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($form->config->verisure->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$verisurePassword = new Password('verisure-password');
-		$verisurePassword->setLabel('Verisure password')
+		$verisurePassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($form->config->verisure->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
         $verisurePin = new Password('verisure-pin');
-		$verisurePin->setLabel('Verisure pin')
+		$verisurePin->setLabel('Pin')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
 			->setDefault($form->config->verisure->securityCode);

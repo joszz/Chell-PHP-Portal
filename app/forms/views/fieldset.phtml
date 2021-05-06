@@ -7,6 +7,6 @@
             <span><?php echo $fieldset ?></span>
         </div>
         <div class="col-lg-4 col-sm-6 col-xs-2">
-            <a class="fa fa-question pull-right btn btn-default" data-fancybox data-type="iframe" href="<?php echo $this->config->application->baseUri . 'settings/help/' . $name ?>" title="help"></a>
+            <?php $this->includeButton('help', $name, $element); ?>
         </div>
     </legend>

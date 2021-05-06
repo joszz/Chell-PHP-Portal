@@ -117,7 +117,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Whether the element with $name has any help content.
-     * 
+     *
      * @param string $name  The name of the formelement.
      * @return bool         Has help?
      */
@@ -128,7 +128,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Creates all the FormField classes in the given namespace.
-     * 
+     *
      * @param string $namespace     Which FormFields namespace to create FormField instances for.
      */
     protected function setFormFieldClasses($namespace)
@@ -147,8 +147,8 @@ class SettingsBaseForm extends Form
     }
 
     /**
-     * Retrieves all error messages of a form element with the given name. 
-     * 
+     * Retrieves all error messages of a form element with the given name.
+     *
      * @param mixed $name       The form element's name
      * @param mixed $seperator  The seperator to use to create the string. Defaults to newline.
      * @return string           All the error messages concatenated, using the seperator.
@@ -163,5 +163,10 @@ class SettingsBaseForm extends Form
         }
 
         return $errorMessages;
+    }
+
+    public function includeButton($button, $name = '', $element = '')
+    {
+        require APP_PATH . 'app/forms/views/buttons/' . $button . '.phtml';
     }
 }

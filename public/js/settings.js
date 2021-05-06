@@ -88,7 +88,30 @@ $(function () {
                 input.val(position.coords.longitude);
             }
         });
-    })
+    });
+
+    $(".pulseway-systems").on("click", function () {
+        var select = $(this).parent().find("select");
+        var selected = $(this).data("selected").split(",");
+        select.find("option").remove();
+        select.attr('disabled', true);
+        select.selectpicker("refresh");
+        
+        $.ajax({
+            url: "pulsewaysystems",
+            dataType: "json",
+            success: function (data) {
+                $.each(data, function (index, system) {
+                    select.append("<option value='" + index + "' " + (selected.indexOf(index) !== -1 ? "selected" : "") + ">" + system + "</option>");
+                });
+
+                select.attr('disabled', false);
+                select.selectpicker("refresh");
+            }
+        });
+
+        return false;
+    });
 
     $("#settings").fadeIn("fast");
 

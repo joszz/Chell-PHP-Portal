@@ -46,6 +46,7 @@ class IndexController extends BaseController
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/verisure.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/roborock.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/rcpu.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/pulseway.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
             $this->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
         }
         else
@@ -150,7 +151,7 @@ class IndexController extends BaseController
 
     /**
      * Is any of the widgets enabled?
-     * 
+     *
      * @return bool     Whether any of the widgets is enabled.
      */
     private function getAnyWidgetEnabled() : bool
