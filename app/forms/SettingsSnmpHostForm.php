@@ -5,7 +5,7 @@ namespace Chell\Forms;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Validation\Validator\Ip;
 
 /**
  * The form responsible for adding new SNMP hosts.
@@ -31,7 +31,7 @@ class SettingsSnmpHostForm extends SettingsBaseForm
             ->setAttributes(['class' => 'form-control'])
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
-                new UrlValidator(['message' => $this->translator->validation['url']])
+                new Ip(['message' => $this->translator->validation['ip'], 'allowPrivate' => true])
             ]);
 
         $community = new Text('community');

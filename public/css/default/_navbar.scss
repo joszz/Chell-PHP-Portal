@@ -100,8 +100,6 @@ div#navbar div.btn-group {
     }
 }
 
-@supports (overflow: overlay) {
-    .navbar {
-        width: calc(100% + 7px);
-    }
+body.compensate-for-scrollbar .navbar {
+    margin-right: 17px;
 }

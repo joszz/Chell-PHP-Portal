@@ -61,18 +61,8 @@
             <div class="tab-content" style="float: left; width: 100%">
                 <?php foreach ($forms AS $formId => $formContent) : ?>
                 <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeTab == $formId ? ' in active' : null ?> panel panel-square">
-                    <form action="<?php echo $formContent->getAction() ?>" method="post">
-                        <?php foreach($formContent AS $element) : ?>
-                        <?php echo $formContent->renderDecorated($element) ?>
-                        <?php endforeach ?>
+                    <?php echo $formContent->renderForm($formId) ?>
 
-                        <div class="row">
-                            <div class="col-lg-4 col-lg-offset-2 col-sm-offset-1 col-xs-12">
-                                <button type="submit" class="btn btn-success fa fa-save" title="Save" aria-label="Save"></button>
-                            </div>
-                        </div>
-                        <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
-                    </form>
                 </div>
                 <?php endforeach ?>
 

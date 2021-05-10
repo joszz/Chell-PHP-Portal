@@ -10,18 +10,6 @@
         </h4>
     </div>
     <div class="panel-body">
-        <form action="<?php echo $form->getAction() ?>" method="post" enctype="multipart/form-data">
-            <?php foreach($form AS $element) : ?>
-            <?php echo $form->renderDecorated($element) ?>
-            <?php endforeach ?>
-
-            <div class="row">
-                <div class="col-lg-4 col-lg-offset-3 col-xs-12">
-                    <button type="submit" class="btn btn-success fa fa-save" title="Save" aria-label="Save"></button>
-                </div>
-            </div>
-
-            <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
-        </form>
+        <?php echo $form->renderForm('menu') ?>
     </div>
 </div>

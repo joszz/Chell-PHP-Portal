@@ -130,7 +130,7 @@ class ErrorController
     private function layout()
     {
         ob_start();
-        require(APP_PATH . 'app/views/layouts/exception.phtml');
+        require APP_PATH . 'app/views/layouts/exception.phtml';
         return ob_get_clean();
     }
 

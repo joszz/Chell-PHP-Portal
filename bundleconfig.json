@@ -19,6 +19,7 @@
       "public/js/dashboard-blocks/verisure.js",
       "public/js/dashboard-blocks/roborock.js",
       "public/js/dashboard-blocks/rcpu.js",
+      "public/js/dashboard-blocks/pulseway.js",
       "public/js/dashboard.js"
     ],
     "minify": {

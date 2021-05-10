@@ -5,7 +5,7 @@
  */
 ?>
 
-<nav class="navbar navbar-inverse navbar-fixed-top compensate-for-scrollbar">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container no-gutter-xs">
         <div class="col-xs-12">
             <div class="navbar-header">
@@ -17,6 +17,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <?php endif ?>
+
+                <button type="submit" class="btn btn-success fa fa-save hidden_not_important" title="Save" aria-label="Save" form="form_general"></button>
+
                 <a class="navbar-brand" href="<?php echo $this->config->application->baseUri ?>">
                     <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/favicon-32x32.png" alt="Logo" />
                     <span>

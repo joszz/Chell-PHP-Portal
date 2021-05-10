@@ -17,7 +17,7 @@
 
             if (get_class($element) == 'Phalcon\Forms\Element\Password')
             {
-                $this->includeButton('toggle_password');
+                $this->renderButton('toggle_password');
             }
 
             $options = $element->getUserOptions();
@@ -25,11 +25,11 @@
             {
                 foreach ($options['buttons'] as $button)
                 {
-                    $this->includeButton($button);
+                    $this->renderButton($button);
                 }
             }
 
-            $this->includeButton('help', $name, $element);
+            $this->renderButton('help', $name, $element);
             ?>
         </div>
     </div>

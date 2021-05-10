@@ -24,10 +24,8 @@ footer a.copyright:focus {
     line-height: 36px;
 }
 
-@supports (overflow: overlay) {
-    footer.navbar {
-        width: calc(100% + 7px);
-    }
+body.compensate-for-scrollbar footer {
+    width: calc(100% - 17px);
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {

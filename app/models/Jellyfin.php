@@ -56,8 +56,7 @@ class Jellyfin extends BaseModel
                     'serverId' => $item->ServerId,
                     'title' => $item->Name,
                     'played' => isset($item->PlayCount) ? $item->PlayCount > 0 : false,
-                    'year' => isset($item->ProductionYear) ? $item->ProductionYear : false,
-                    'artist' => isset($item->Artists) && count($item->Artists) ? $item->Artists[0] : ''
+                    'subtitle' => isset($item->Artists) && count($item->Artists) ? $item->Artists[0] : (isset($item->ProductionYear) ? $item->ProductionYear : false)
                 ];
             }
         }

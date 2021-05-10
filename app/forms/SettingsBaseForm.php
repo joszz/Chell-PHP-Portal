@@ -25,7 +25,7 @@ class SettingsBaseForm extends Form
     /**
      * Set the config array (config.ini contents) to private variable.
      *
-     * @param object $config The config array.
+     * @param object $entity    The Phalcon entity to populate the form with.
      */
     public function __construct($entity = null)
     {
@@ -42,9 +42,9 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    public function renderDecorated($element)
+    public function renderElement($element)
     {
-        return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderGeneric($element);
+        return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element);
     }
 
     /**
@@ -54,7 +54,7 @@ class SettingsBaseForm extends Form
      * @param bool              $hidden     Whether the entire form-group should be hidden on load.
      * @return string                       The generated HTML string.
      */
-    protected function renderGeneric($element, $hidden = false)
+    private function renderElementInternal($element, $hidden = false)
     {
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
@@ -74,11 +74,21 @@ class SettingsBaseForm extends Form
                 $element->setAttribute('class', str_replace('hidden', '', $class));
             }
 
-            require(APP_PATH . 'app/forms/views/element.phtml');
+            require APP_PATH . 'app/views/forms/element.phtml';
             $html = ob_get_clean();
         }
 
         return $html;
+    }
+
+    public function renderForm($id)
+    {
+        require APP_PATH . 'app/views/forms/form.phtml';
+    }
+
+    public function renderButton($button, $name = '', $element = '')
+    {
+        require APP_PATH . 'app/views/forms/buttons/' . $button . '.phtml';
     }
 
     /**
@@ -87,7 +97,7 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    protected function renderFieldset($element)
+    private function renderFieldset($element)
     {
         $attributes = $element->getAttributes();
         $fieldset = $attributes['fieldset'];
@@ -99,16 +109,16 @@ class SettingsBaseForm extends Form
 
         if ($fieldset === true)
         {
-            $html = $this->renderGeneric($element, true);
+            $html = $this->renderElementInternal($element, true);
         }
         else if ($fieldset == 'end')
         {
-            $html = $this->renderGeneric($element, true) . '</fieldset>';
+            $html = $this->renderElementInternal($element, true) . '</fieldset>';
         }
         else
         {
             ob_start();
-            require(APP_PATH . 'app/forms/views/fieldset.phtml');
+            require APP_PATH . 'app/views/forms/fieldset.phtml';
             $html = ob_get_clean();
         }
 
@@ -157,16 +167,12 @@ class SettingsBaseForm extends Form
     {
         $messages = $this->getMessagesFor($name);
         $errorMessages = '';
+
         foreach ($messages as $message)
         {
             $errorMessages .= $message->getMessage() . $seperator;
         }
 
         return $errorMessages;
-    }
-
-    public function includeButton($button, $name = '', $element = '')
-    {
-        require APP_PATH . 'app/forms/views/buttons/' . $button . '.phtml';
     }
 }

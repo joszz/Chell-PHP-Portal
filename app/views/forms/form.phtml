@@ -1,0 +1,9 @@
+<?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
+
+<form id="form_<?php echo strtolower($id) ?>" action="<?php echo $this->getAction() ?>" method="post">
+    <?php foreach($this AS $element) : ?>
+    <?php echo $this->renderElement($element) ?>
+    <?php endforeach ?>
+
+    <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
+</form>
