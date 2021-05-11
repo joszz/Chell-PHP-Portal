@@ -56,16 +56,26 @@ class MenuItems extends Model
         $source = imagecreatefromstring(file_get_contents($filename));
         $thumb = imagecreatetruecolor(16, 16);
         imagealphablending($thumb, false);
-        imagesavealpha($thumb, true);
+        imagesavealpha($thumb, true );
         imagecopyresampled($thumb, $source, 0, 0, 0, 0, 16, 16, $width, $height);
         imagepng($thumb, $filename);
     }
 
+    /**
+     * Adds and deletes MenuItems associated to the user.
+     * 
+     * @param array $userIds    The Ids of users to add or remove the MenuItem link for.
+     */
     public function handlePost($userIds){
         $this->addToUsers($userIds);
         $this->deleteFromUsers($userIds);
     }
 
+    /**
+     * Given an array of user Ids, add a menu_items_user record linking this MenuItem to the users.
+     *
+     * @param array $userIds    The Ids of users to link to this MenuItem.
+     */
     private function addToUsers($userIds)
     {
         $users = Users::find([
@@ -90,6 +100,11 @@ class MenuItems extends Model
         }
     }
 
+    /**
+     * Given an array of user Ids, removes menu_items_user records linking this MenuItem that are not equal to provided user Ids.
+     *
+     * @param array $userIds    The Ids of users to remove the link to this MenuItem for.
+     */
     private function deleteFromUsers($userIds)
     {
         MenuItemsUsers::find([

@@ -116,7 +116,7 @@ class Speedtest extends BaseModel
 		$details = json_decode(curl_exec($curl));
 		curl_close($curl);
 
-		$this->isp .= isset($details->org) ? $details->org : 'Unknown ISP';
+		$this->isp .= $details->org ?? 'Unknown ISP';
 		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
 		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 

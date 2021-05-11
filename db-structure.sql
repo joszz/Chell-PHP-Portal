@@ -52,7 +52,7 @@ CREATE TABLE `menu_items` (
   `device_id` int unsigned DEFAULT NULL,
   `extension` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `Device` (`device_id`)
+  KEY `device_id` (`device_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `snmp_records`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `snmp_records` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `snmp_host_id` int NOT NULL,
+  `snmp_host_id` int unsigned NOT NULL,
   `label` varchar(255) DEFAULT NULL,
   `label_oid` varchar(255) DEFAULT NULL,
   `value_oid` varchar(255) DEFAULT NULL,
@@ -115,7 +115,9 @@ CREATE TABLE `snmp_records` (
   `divisor_decimals` tinyint unsigned DEFAULT NULL,
   `value_unit` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `snmp_host_id_idx` (`snmp_host_id`),
+  CONSTRAINT `snmp_host_id` FOREIGN KEY (`snmp_host_id`) REFERENCES `snmp_hosts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -160,7 +162,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -172,4 +174,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-11 14:03:53
+-- Dump completed on 2021-05-11 16:08:26

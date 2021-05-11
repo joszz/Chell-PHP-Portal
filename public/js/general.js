@@ -108,12 +108,20 @@ function initializeGlobalEventHandlers() {
         }
     });
 
-    $("footer .fa-arrows-alt").click(function () {
-        $(document).fullScreen(!$(document).fullScreen());
-    });
-
     $("body").on(".disabled", "click", function () {
         return false;
+    });
+
+    $("body").on("click", function (e) {
+        var menu_opened = $('#navbar').is(':visible');
+
+        if (!$(e.target).closest("nav.navbar").length && !$(e.target).is("nav.navbar") && menu_opened) {
+            $(".navbar-collapse").slideUp("fast");
+        }
+    });
+
+    $("footer .fa-arrows-alt").click(function () {
+        $(document).fullScreen(!$(document).fullScreen());
     });
 }
 

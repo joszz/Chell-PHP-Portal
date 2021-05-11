@@ -81,11 +81,23 @@ class SettingsBaseForm extends Form
         return $html;
     }
 
+    /**
+     * Renders the form
+     * 
+     * @param string $id    The HTML id attribute to set on the form.
+     */
     public function renderForm($id)
     {
         require APP_PATH . 'app/views/forms/form.phtml';
     }
 
+    /**
+     * Summary of renderButton
+     * 
+     * @param string $button 
+     * @param string $name 
+     * @param mixed $element 
+     */
     public function renderButton($button, $name = '', $element = '')
     {
         require APP_PATH . 'app/views/forms/buttons/' . $button . '.phtml';

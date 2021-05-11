@@ -5294,7 +5294,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8345704") format("embedded-opentype"), url("../../fonts/icomoon.woff2?70487") format("woff2"), url("../../fonts/icomoon.woff?5737173") format("woff"), url("../../fonts/icomoon.ttf?1038929") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?1716653") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&2172109") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3581287") format("woff2"), url("../../fonts/icomoon.woff?2702090") format("woff"), url("../../fonts/icomoon.ttf?1433459") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5183381") format("svg"); }
 
 .fa,
 .fas {
@@ -5956,7 +5956,8 @@ div#navbar {
   margin: 0; }
 
 .navbar-toggle {
-  margin-right: 0; }
+  margin-right: 0;
+  float: none; }
 
 a.navbar-brand {
   padding: 10px 15px 15px 0;
@@ -6498,7 +6499,7 @@ footer.navbar {
   bottom: 0;
   width: 100%;
   margin: 0;
-  padding: 5px 0;
+  padding: 6px 0;
   border-radius: 0;
   z-index: 7500; }
 

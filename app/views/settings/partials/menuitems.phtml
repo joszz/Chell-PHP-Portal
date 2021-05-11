@@ -46,7 +46,7 @@
                         </a>
                     </td>
                     <td>
-                        <?php echo (isset($item->device->name) ? $item->device->name : null) ?>
+                        <?php echo $item->device->name ?? null ?>
                     </td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">

@@ -12,7 +12,6 @@ use Chell\Forms\SettingsSnmpRecordForm;
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
-use Chell\Models\MenuItemsUsers;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 use Davidearl\WebAuthn\WebAuthn;
@@ -55,8 +54,8 @@ class SettingsController extends BaseController
     {
         $this->view->activeTab = $activeTab;
         $this->view->forms = [
-            'General'   => isset($this->generalForm) ? $this->generalForm : new SettingsGeneralForm(),
-            'Dashboard' => isset($this->dashboardForm) ? $this-> dashboardForm: new SettingsDashboardForm(),
+            'General'   => $this->generalForm ?? new SettingsGeneralForm(),
+            'Dashboard' => $this->dashboardForm ?? new SettingsDashboardForm(),
         ];
 
         $logsTotal = 0;
@@ -255,7 +254,7 @@ class SettingsController extends BaseController
                 }
 
                 $item->save();
-                $item->handlePost(isset($data['user_id']) ? $data['user_id'] : [-1]);
+                $item->handlePost($data['user_id'] ?? [-1]);
 
                 if ($file)
                 {

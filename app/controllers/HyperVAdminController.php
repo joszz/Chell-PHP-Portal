@@ -82,6 +82,12 @@ class HyperVAdminController extends BaseController
 		die($this->_model->getSites($this->getDevice($id), false));
 	}
 
+	/**
+	 * Retrieves a Device by id, or null when not found.
+     * 
+	 * @param int $id			The Device Id to look for.
+     * @return Devices|null		The Device when found, otherwise null.
+	 */
 	private function getDevice($id)
     {
         return Devices::findFirst([

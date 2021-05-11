@@ -52,20 +52,21 @@ class SettingsMenuItemForm extends SettingsBaseForm
                 'using'         => ['id', 'name'],
                 'useEmpty'      => true,
                 'emptyText'     => 'None',
-                'emptyValue'    => 0
+                'emptyValue'    => null
             ]
         );
         $device->setLabel('Device');
 
+        $allUsers = Users::find();
         $users = new Select(
             'user_id[]' ,
-            Users::find(),
+            $allUsers,
             [
                 'using'     => ['id', 'username'],
 				'multiple'  => 'multiple'
             ],
         );
-        $users->setLabel('Users')->setDefault($this->getSelectedUsers($entity));
+        $users->setLabel('Users')->setDefault($this->getSelectedUsers($entity, $allUsers));
 
         $this->add($name);
         $this->add($url);
@@ -74,7 +75,13 @@ class SettingsMenuItemForm extends SettingsBaseForm
         $this->add($users);
     }
 
-    private function getSelectedUsers($entity)
+    /**
+     * Given the MenuItem entity, get the selected users.
+     *
+     * @param \Chell\Models\MenuItems $entity   The MenuItem to get the selected users for.
+     * @return array    An array of User Ids.
+     */
+    private function getSelectedUsers($entity, $allUsers)
     {
         $selectedUsers = [];
 
@@ -85,6 +92,11 @@ class SettingsMenuItemForm extends SettingsBaseForm
             {
                 $selectedUsers[] = $user->id;
             }
+        }
+
+        if (!count($selectedUsers) && $allUsers->count() === 1)
+        {
+            $selectedUsers = [$allUsers[0]->id];
         }
 
         return $selectedUsers;

@@ -39,6 +39,9 @@ class PulsewayController extends BaseController
         die(json_encode($result));
     }
 
+    /**
+     * Retrieves all systems defined in the associated Pulseway account.
+     */
     public function systemsAction()
     {
         die(json_encode($this->_model->getSystems()));

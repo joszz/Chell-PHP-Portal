@@ -31,8 +31,6 @@ class SettingsDashboardForm extends SettingsBaseForm
 
 		if ($valid)
 		{
-			$this->config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
-
             foreach($this->formFieldClasses as $class)
             {
                 $class->setPostData($this->config, $data);

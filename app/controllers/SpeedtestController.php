@@ -87,9 +87,9 @@ class SpeedtestController extends BaseController
         if ($this->request->isPost())
         {
             $item = new Speedtest($this->request->getPost());
-            $item->ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
-            $item->ua = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-            $item->lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+            $item->ip = $_SERVER['REMOTE_ADDR'] ?? '';
+            $item->ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
+            $item->lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '';
             $item->extra = $this->whatIsMyBrowser();
 
             die(var_dump($item->save()));

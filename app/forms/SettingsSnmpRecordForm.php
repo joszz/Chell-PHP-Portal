@@ -30,12 +30,7 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
 		$host = new Select(
 			'snmp_host_id' ,
 			SnmpHosts::find(),
-			[
-				'using'         => ['id', 'name'],
-				'useEmpty'      => true,
-				'emptyText'     => 'None',
-				'emptyValue'    => 0
-			]
+			['using' => ['id', 'name']]
 		);
 		$host->setLabel('Host');
 

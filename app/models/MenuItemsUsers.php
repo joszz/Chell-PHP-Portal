@@ -5,7 +5,7 @@ namespace Chell\Models;
 use Phalcon\Mvc\Model;
 
 /**
- * The model responsible for all actions related to menu items.
+ * The model responsible for all actions related to menu_items_users.
  *
  * @package Models
  */

@@ -173,7 +173,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
             $this->config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
 
-            foreach($this->formFieldClasses as $class)
+            foreach ($this->formFieldClasses as $class)
             {
                 $class->setPostData($this->config, $data);
             }

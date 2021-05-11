@@ -2,6 +2,7 @@
 /**
  * @var Phalcon\Mvc\Controller          $this
  * @var Phalcon\Paginator\Repository    $menu
+ * @var Chell\Models\Users              $user
  */
 ?>
 
@@ -9,16 +10,18 @@
     <div class="container no-gutter-xs">
         <div class="col-xs-12">
             <div class="navbar-header">
-                <?php if (isset($user)) : ?>
-                <button type="button" id="menu_btn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <?php endif ?>
+                <div class="btn-group pull-right">
+                    <button type="submit" class="btn btn-success fa fa-save hidden_not_important pull-left" title="Save" aria-label="Save" form="form_general"></button>
 
-                <button type="submit" class="btn btn-success fa fa-save hidden_not_important" title="Save" aria-label="Save" form="form_general"></button>
+                    <?php if (isset($user)) : ?>
+                    <button type="button" id="menu_btn" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <?php endif ?>
+                </div>
 
                 <a class="navbar-brand" href="<?php echo $this->config->application->baseUri ?>">
                     <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/android-chrome-72x72.png" alt="Logo" width="32" height="32" />
