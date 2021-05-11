@@ -193,6 +193,9 @@
                         widgetCurrentButton.attr("class", "fa fa-verisure-away text-success");
                         break;
                 }
+
+                var regexUnderscore = new RegExp("_", "g");
+                widgetCurrentButton.attr("title", state.toLowerCase().capitalize().replace(regexUnderscore, " "));
             },
 
             photos: function (openFancyBox) {

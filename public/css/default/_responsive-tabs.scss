@@ -1,29 +1,33 @@
-﻿.panel-group .panel-heading {
-    padding: 0;
+﻿.panel-group {
+    .panel-heading {
+        padding: 0;
+
+        a {
+            display: block;
+            padding: 5px 10px;
+            width: 100%;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
 }
 
-.panel-group .panel-heading a {
-    display: block;
-    padding: 5px 10px;
-    width: 100%;
-}
+.nav.nav-tabs li {
+    a,
+    &.active > a:hover,
+    &.active > a:active,
+    &.active > a:focus {
+        border-bottom-width: 0px;
+        outline: none;
+        text-decoration: none;
+    }
 
-.panel-heading a:hover {
-    text-decoration: none;
-}
-
-.nav.nav-tabs li a,
-.nav.nav-tabs li.active > a:hover,
-.nav.nav-tabs li.active > a:active,
-.nav.nav-tabs li.active > a:focus {
-    border-bottom-width: 0px;
-    outline: none;
-    text-decoration: none;
-}
-
-.nav.nav-tabs li a {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    a {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }
 
 .tab-pane {

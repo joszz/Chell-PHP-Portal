@@ -7,19 +7,19 @@
     text-align: center;
     border-radius: 3px;
     z-index: 7001 !important;
-}
 
-.isloading-overlay .isloading-wrapper {
-    background: #FFF;
-    border-radius: 7px;
-    background-clip: padding-box;
-    -moz-background-clip: padding;
-    border-radius: 7px;
-    background-clip: padding-box;
-    display: inline-block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    z-index: 7000;
+    .isloading-wrapper {
+        background: #FFF;
+        border-radius: 7px;
+        background-clip: padding-box;
+        -moz-background-clip: padding;
+        border-radius: 7px;
+        background-clip: padding-box;
+        display: inline-block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        z-index: 7000;
+    }
 }
 
 .isloading-onload {

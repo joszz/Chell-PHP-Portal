@@ -1,6 +1,8 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
-<form id="form_<?php echo strtolower($id) ?>" action="<?php echo $this->getAction() ?>" method="post">
+<?php $attributes = $this->getAttributes() ?>
+
+<form id="form_<?php echo strtolower($id) ?>" action="<?php echo $this->getAction() ?>" method="post" <?php echo isset($attributes['enctype']) ? $attributes['enctype'] : null ?>>
     <?php foreach($this AS $element) : ?>
     <?php echo $this->renderElement($element) ?>
     <?php endforeach ?>

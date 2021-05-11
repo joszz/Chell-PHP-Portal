@@ -1,40 +1,42 @@
-﻿.verisure .panel-body {
-    padding: 0;
-}
-
-.verisure .top {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-
-    > div {
-        flex: 1;
+﻿.verisure {
+    .panel-body {
+        padding: 0;
     }
 
-    .temp {
-        margin-bottom: 1rem;
-        font-size: 1.75rem;
-    }
+    .top {
+        display: flex;
+        align-items: center;
+        padding: 15px;
 
-    button {
-        border: 0;
-        background: transparent;
-        font-size: 10rem;
-        line-height: 12rem;
-        transition: font-size .25s;
+        > div {
+            flex: 1;
+        }
 
-        &:hover {
-            font-size: 12rem;
+        .temp {
+            margin-bottom: 1rem;
+            font-size: 1.75rem;
+        }
+
+        button {
+            border: 0;
+            background: transparent;
+            font-size: 10rem;
+            line-height: 12rem;
+            transition: font-size .25s;
+
+            &:hover {
+                font-size: 12rem;
+            }
         }
     }
-}
 
-.verisure .panel-body li:first-child {
-    border-radius: 0;
-}
+    .panel-body li .panel-body li {
+        border-width: 1px;
 
-.verisure .panel-body li {
-    border-width: 1px;
+        &:first-child {
+            border-radius: 0;
+        }
+    }
 }
 
 #verisure_device_select button {

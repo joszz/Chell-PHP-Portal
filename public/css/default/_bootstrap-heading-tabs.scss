@@ -1,77 +1,71 @@
-﻿.panel.with-nav-tabs .panel-heading {
-    position: relative;
-}
+﻿.panel.with-nav-tabs {
+    .panel-heading {
+        position: relative;
 
-.panel.with-nav-tabs .panel-heading .nav-tabs {
-    border-bottom: none;
-}
+        .nav {
+            margin-bottom: -1rem;
 
-.panel.with-nav-tabs .panel-heading .nav-justified {
-    margin-bottom: -1px;
-}
+            li a {
+                padding: 8px 10px;
+                font-size: 18px;
+                line-height: 36px;
+            }
+        }
 
-.panel.with-nav-tabs .tab-pane {
-    border-width: 0;
-    padding: 0;
-}
+        .nav-tabs {
+            border-bottom: none;
+        }
 
-.panel.with-nav-tabs .panel-heading .nav {
-    margin-bottom: -1rem;
-}
+        .nav-justified {
+            margin-bottom: -1px;
+        }
+    }
 
-.panel.with-nav-tabs .panel-heading .nav li a {
-    padding: 8px 10px;
-    font-size: 18px;
-    line-height: 36px;
+    .tab-pane {
+        border-width: 0;
+        padding: 0;
+    }
 }
 
 /********************************************************************/
 /*** PANEL DEFAULT ***/
-.with-nav-tabs.panel-default .nav-tabs > li > a,
-.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-    color: $gray-light;
+.with-nav-tabs.panel-default .nav-tabs {
+    > li a {
+        color: $gray-light;
+    }
+
+    > .open > a,
+    > .open > a:hover,
+    > .open > a:focus,
+    > li > a:hover,
+    > li > a:focus {
+        color: $gray-light;
+        background-color: $nav-tabs-border-color;
+        border-color: transparent;
+    }
+
+    > li.active > a,
+    > li.active > a:hover,
+    > li.active > a:focus {
+        color: $gray;
+        background-color: $btn-default-bg;
+        border-color: $nav-tabs-border-color;
+        border-bottom-color: transparent;
+    }
+
+    > li.dropdown .dropdown-menu {
+        background-color: $panel-default-heading-bg;
+        border-color: $nav-tabs-border-color;
+
+        > li > a,
+        > li > a:hover,
+        > li > a::after focus {
+            color: $btn-default-bg;
+            background-color: $gray;
+        }
+    }
 }
 
-.with-nav-tabs.panel-default .nav-tabs > .open > a,
-.with-nav-tabs.panel-default .nav-tabs > .open > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > .open > a:focus,
-.with-nav-tabs.panel-default .nav-tabs > li > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > li > a:focus {
-    color: $gray-light;
-    background-color: $nav-tabs-border-color;
-    border-color: transparent;
-}
-
-.with-nav-tabs.panel-default .nav-tabs > li.active > a,
-.with-nav-tabs.panel-default .nav-tabs > li.active > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > li.active > a:focus {
-    color: $gray;
-    background-color: $btn-default-bg;
-    border-color: $nav-tabs-border-color;
-    border-bottom-color: transparent;
-}
-
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu {
-    background-color: $panel-default-heading-bg;
-    border-color: $nav-tabs-border-color;
-}
-
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a {
-    color: $gray-light;
-}
-
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > li > a:focus {
-    background-color: $nav-tabs-border-color;
-}
-
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a,
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:hover,
-.with-nav-tabs.panel-default .nav-tabs > li.dropdown .dropdown-menu > .active > a:focus {
-    color: $btn-default-bg;
-    background-color: $gray;
-}
 /********************************************************************/
 /*** PANEL PRIMARY ***/
 .with-nav-tabs.panel-primary .nav-tabs > li > a,

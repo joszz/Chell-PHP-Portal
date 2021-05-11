@@ -7,24 +7,28 @@
 .pagination {
     margin: 0;
     display: inline-block;
-}
 
-.pagination > .active > a,
-.pagination > .active > a:hover,
-.pagination > .active > a:focus {
-    background-image: linear-gradient(to bottom, $state-success-bg 0%, #d0e9c6 100%);
-    background-color: transparent;
-    border-color: $state-success-bg;
-    color: $state-success-text;
-    margin: 0;
-}
+    > .active {
+        > a,
+        > a:hover,
+        > a:focus {
+            background-image: linear-gradient(to bottom, $state-success-bg 0%, #d0e9c6 100%);
+            background-color: transparent;
+            border-color: $state-success-bg;
+            color: $state-success-text;
+            margin: 0;
+        }
+    }
 
-.pagination > li > a {
-    color: $gray-dark;
-}
+    > li {
+        > a {
+            color: $gray-dark;
+        }
 
-.pagination > li > a:hover,
-.pagination > li > a:active,
-.pagination > li > a:focus {
-    color: $state-success-text;
+        a:hover,
+        a:active,
+        a:focus {
+            color: $state-success-text;
+        }
+    }
 }

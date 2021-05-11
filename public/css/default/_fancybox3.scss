@@ -10,9 +10,14 @@
     }
 }
 
-.fancybox-container .panel,
-.fancybox-container .panel-heading {
-    border-radius: 0;
+.fancybox-container {
+    backdrop-filter: blur($backdropBlur);
+    transition: backdrop-filter 1.5s ease-out;
+
+    .panel,
+    .panel-heading {
+        border-radius: 0;
+    }
 }
 
 .fancybox-slide--iframe {
@@ -29,7 +34,12 @@
     max-width: 90%;
 }
 
-.fancybox-container {
-    backdrop-filter: blur($backdropBlur);
-    transition: backdrop-filter 1.5s ease-out;
+body.compensate-for-scrollbar {
+    .navbar {
+        margin-right: 17px;
+    }
+
+    footer {
+        width: calc(100% - 17px);
+    }
 }

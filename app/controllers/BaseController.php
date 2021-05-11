@@ -2,7 +2,7 @@
 
 namespace Chell\Controllers;
 
-use Chell\Models\Menus;
+use Chell\Models\Users;
 use Phalcon\Mvc\Controller;
 use Phalcon\Debug\Dump;
 
@@ -26,11 +26,11 @@ class BaseController extends Controller
 
         if (in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
-            $this->view->menu = Menus::findFirst([
+            $user = Users::findFirst([
                 'conditions' => 'id = ?1',
-                'order'      => 'name',
-                'bind'       => [1 => 1],
+                'bind'       => [1 => $this->session->get('auth')['id']],
             ]);
+            $this->view->user = $user;
         }
 
         $this->view->bgcolor = $this->getBackgroundColor();

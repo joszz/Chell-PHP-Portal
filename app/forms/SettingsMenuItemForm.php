@@ -3,9 +3,8 @@
 namespace Chell\Forms;
 
 use Chell\Models\Devices;
-
+use Chell\Models\Users;
 use Phalcon\Forms\Element\File;
-use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
@@ -21,8 +20,9 @@ class SettingsMenuItemForm extends SettingsBaseForm
     /**
      * Add all fields to the form and set form specific attributes.
      */
-    public function initialize()
+    public function initialize($entity = null)
     {
+        $this->setAttributes(new \Phalcon\Html\Attributes(['enctype' => 'enctype="multipart/form-data"']));
         $name = new Text('name');
         $name->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'off', 'id' => 'menuitem_name'])
@@ -41,7 +41,9 @@ class SettingsMenuItemForm extends SettingsBaseForm
         $icon = new File('icon');
         $icon->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'accept' => '.jpg,.png,.gif,.bmp'])
-            ->setLabel('Icon');
+            ->setLabel('Icon')
+            ->setDefault(isset($entity) ? $entity->id . '.png' : '')
+            ->setUserOptions(['buttons' => ['menuitem_icon']]);
 
         $device = new Select(
             'device_id' ,
@@ -55,17 +57,36 @@ class SettingsMenuItemForm extends SettingsBaseForm
         );
         $device->setLabel('Device');
 
-        $menuId = new Hidden('menu_id');
-        $menuId->setDefault(1);
-
-        $parentId = new Hidden('parent_id');
-        $parentId->setDefault(0);
+        $users = new Select(
+            'user_id[]' ,
+            Users::find(),
+            [
+                'using'     => ['id', 'username'],
+				'multiple'  => 'multiple'
+            ],
+        );
+        $users->setLabel('Users')->setDefault($this->getSelectedUsers($entity));
 
         $this->add($name);
         $this->add($url);
         $this->add($icon);
         $this->add($device);
-        $this->add($menuId);
-        $this->add($parentId);
+        $this->add($users);
+    }
+
+    private function getSelectedUsers($entity)
+    {
+        $selectedUsers = [];
+
+        if(isset($entity))
+        {
+            $users = $entity->getUsers();
+            foreach ($users as $user)
+            {
+                $selectedUsers[] = $user->id;
+            }
+        }
+
+        return $selectedUsers;
     }
 }

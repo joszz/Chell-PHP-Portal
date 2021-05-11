@@ -1,31 +1,29 @@
-﻿footer.navbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin: 0;
-    padding: 5px 0;
-    border-radius: 0;
-    z-index: 7500;
-}
+﻿footer {
+    &.navbar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        margin: 0;
+        padding: 5px 0;
+        border-radius: 0;
+        z-index: 7500;
+    }
 
-footer .execution-time {
-    line-height: 36px;
-}
+    .execution-time {
+        line-height: 36px;
+    }
 
-footer .actions {
-    margin-left: 15px;
-}
+    .actions {
+        margin-left: 15px;
+    }
 
-footer a.copyright,
-footer a.copyright:hover,
-footer a.copyright:active,
-footer a.copyright:focus {
-    color: $gray-light;
-    line-height: 36px;
-}
-
-body.compensate-for-scrollbar footer {
-    width: calc(100% - 17px);
+    a.copyright,
+    a.copyright:hover,
+    a.copyright:active,
+    a.copyright:focus {
+        color: $gray-light;
+        line-height: 36px;
+    }
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {
@@ -35,11 +33,13 @@ body.compensate-for-scrollbar footer {
 }
 
 @media only screen and (max-width : $screen-xs) {
-    footer div:not(.container) {
-        padding: 0;
-    }
+    footer {
+        div:not(.container) {
+            padding: 0;
+        }
 
-    footer .actions {
-        margin-left: 0;
+        .actions {
+            margin-left: 0;
+        }
     }
 }

@@ -2,9 +2,6 @@
 
 namespace Chell\Forms;
 
-use Phalcon\Forms\Element\Numeric;
-use Phalcon\Validation\Validator\Numericality;
-
 /**
  * The form responsible for the dashboard settings.
  *
@@ -18,15 +15,6 @@ class SettingsDashboardForm extends SettingsBaseForm
 	public function initialize()
 	{
 		$this->setAction($this->config->application->baseUri . 'settings/dashboard#dashboard');
-
-		$devicestateTimeouts = new Numeric('check-devicestate-interval');
-		$devicestateTimeouts->setLabel('Check device state interval')
-			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->config->dashboard->checkDeviceStatesInterval)
-			->addValidator(new Numericality(['message' => 'Not a number']));
-		$this->add($devicestateTimeouts);
-
 		$this->setFormFieldClasses('Dashboard');
 	}
 

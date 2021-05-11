@@ -102,6 +102,13 @@ class SettingsGeneralForm extends SettingsBaseForm
             ->setDefault($this->config->application->whatIsMyBrowserAPIURL)
             ->addValidator(new UrlValidator(['message' => $this->translator->validation['url']]));
 
+        $devicestateTimeouts = new Numeric('check-devicestate-interval');
+        $devicestateTimeouts->setLabel('Check device state interval')
+            ->setFilters(['striptags', 'int'])
+            ->setAttributes(['class' => 'form-control'])
+            ->setDefault($this->config->dashboard->checkDeviceStatesInterval)
+            ->addValidator(new Numericality(['message' => 'Not a number']));
+
         $debug = new Check('debug');
         $debug->setLabel('Debug')
             ->setAttributes([
@@ -132,6 +139,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($tmdbAPIKey);
         $this->add($whatIsMyBrowserAPIKey);
         $this->add($whatIsMyBrowserAPIURL);
+        $this->add($devicestateTimeouts);
         $this->add($debug);
         $this->add($demo);
 
@@ -161,6 +169,7 @@ class SettingsGeneralForm extends SettingsBaseForm
             $this->config->application->tmdbAPIKey = $data['tmdb-apikey'];
             $this->config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
             $this->config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
+            $this->config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
             $this->config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
             $this->config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
 

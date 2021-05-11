@@ -66,7 +66,12 @@
                                 class: "fa fa-power-off text-" + (system.is_online ? "success" : "danger"),
                                 title: system.is_online ? "Online" : "Offline"
                             });
-                            clone.find(".value span").text(system.uptime);
+                            clone.find(".value span.uptime").text(system.uptime);
+
+                            if (system.uptime.indexOf("Offline") !== -1) {
+                                clone.find(".value span.uptimelabel").hide();
+                            }
+
                             clone.removeClass("hidden");
                             clone.appendTo(settings.block.find("ul"));
                         });

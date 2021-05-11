@@ -5,6 +5,7 @@
     float: left;
     padding: 20px;
     width: 100%;
+    box-shadow: none;
 }
 
 label {
@@ -22,15 +23,17 @@ label {
     z-index: 9999;
 }
 
-.table > tbody > tr > td {
-    border: 0;
-    line-height: 33px;
-}
+.table > tbody > tr {
+    > td {
+        border: 0;
+        line-height: 33px;
+    }
 
-.table > thead > tr > th {
-    line-height: 34px;
-    font-weight: 300;
-    font-size: 24px;
+    > th {
+        line-height: 34px;
+        font-weight: 300;
+        font-size: 24px;
+    }
 }
 
 span.input-group-addon label {
@@ -39,27 +42,22 @@ span.input-group-addon label {
 
 .actions {
     margin-left: 7px;
-}
 
-.actions a.add {
-    margin-left: 10px;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0;
+    a.add {
+        margin-left: 10px;
+    }
 }
 
 input[type=number] {
     -moz-appearance: textfield;
-}
 
-#menu,
-#devices {
-    padding-bottom: 0;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+    }
 }
 
 .tab-pane {
@@ -67,45 +65,77 @@ input[type=number] {
     border-width: 0 1px 1px 1px;
 }
 
-#settings legend span {
-    color: $state-success-text;
-    border-bottom-color: $state-success-bg;
-    line-height: 50px;
-    font-weight: bold;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-#settings legend div.info {
-    font-size: 14px;
-    line-height: 50px;
-}
-
-#settings legend .toggle {
-    margin-right: 15px;
-}
-
-#settings .input-group .fa:not(.error),
-#settings legend .fa {
-    text-decoration: none;
-    color: $state-success-text;
-    font-size: 14px;
-}
-
-#settings legend .fa-question {
-    margin-top: 5px;
-}
-
-#settings .input-group {
-    width: 100%;
-
-    input:only-child {
-        border-radius: 4px;
+#settings {
+    #menu,
+    #devices {
+        padding-bottom: 0;
     }
-}
 
-#settings .input-group .bootstrap-touchspin-up {
-    border-radius: 0;
+    legend span {
+        color: $state-success-text;
+        border-bottom-color: $state-success-bg;
+        line-height: 50px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    legend div.info {
+        font-size: 14px;
+        line-height: 50px;
+    }
+
+    legend .toggle {
+        margin-right: 15px;
+    }
+
+    .input-group .fa:not(.error),
+    legend .fa {
+        text-decoration: none;
+        color: $state-success-text;
+        font-size: 14px;
+    }
+
+    .input-group {
+        width: 100%;
+
+        input:only-child {
+            border-radius: 4px;
+        }
+    }
+
+    .input-group .bootstrap-touchspin-up {
+        border-radius: 0;
+    }
+
+    .panel-body .row {
+        width: calc(100% + 30px);
+        padding: 5px 0;
+        margin-bottom: 0;
+    }
+
+    .panel-body .row:hover {
+        background-color: $table-bg-hover;
+    }
+
+    .btn-group {
+        display: flex;
+
+        a {
+            float: none;
+        }
+    }
+
+    legend .help {
+        margin: 8px 0;
+    }
+
+    fieldset .row:last-child {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    fieldset:last-of-type .row:last-child {
+        border: 0;
+    }
 }
 
 .bootstrap-touchspin-injected button {
@@ -119,18 +149,6 @@ input[type=number] {
 
     button {
         border-radius: 4px 0 0 4px !important;
-    }
-}
-
-#settings .panel-body .row {
-    width: calc(100% + 30px);
-}
-
-#settings .btn-group {
-    display: flex;
-
-    a {
-        float: none;
     }
 }
 
@@ -155,4 +173,8 @@ input[type=number] {
 .navbar .fa-save {
     float: right;
     margin-top: 8px;
+}
+
+.menuitem_icon img {
+    max-width: none;
 }

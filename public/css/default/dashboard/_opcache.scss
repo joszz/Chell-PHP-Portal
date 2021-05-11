@@ -1,77 +1,83 @@
-﻿.panel.chartist .ct-legend {
-    padding-left: 0;
-    width: 100%;
-    text-align: center;
-    position: initial;
+﻿.panel.chartist {
+    .ct-legend {
+        padding-left: 0;
+        width: 100%;
+        text-align: center;
+        position: initial;
+
+        li {
+            display: inline-block;
+            float: none;
+            width: auto;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    .ct-label {
+        font-weight: bold;
+        font-size: 16px;
+        fill: #FFF;
+        opacity: 0;
+        text-shadow: 1px 1px 1px #333 !important;
+    }
+
+    &.with-nav-tabs {
+        max-height: 800px;
+
+        .tab-content {
+            height: calc(100% - 57px);
+            float: left;
+            width: 100%;
+        }
+    }
+
+    .panel-body {
+        position: relative;
+        padding-bottom: 30px;
+        height: 320px;
+
+        h4 {
+            text-align: center;
+        }
+    }
+
+    #scripts table {
+        th:last-child,
+        td:last-child {
+            max-width: 300px;
+        }
+
+        td {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    .graph {
+        height: calc(100% - 45px);
+        width: calc(100% - 30px);
+        position: absolute;
+
+        svg {
+            height: calc(100% - 45px) !important;
+        }
+    }
 }
 
-.panel.chartist .ct-legend li {
-    display: inline-block;
-    float: none;
-    width: auto;
-    margin-right: 10px;
-}
+.panel.opcache {
+    .panel-body {
+        padding: 0;
+    }
 
-.panel.chartist .ct-legend li:last-child {
-    margin-right: 0;
-}
-
-.panel.chartist .ct-label {
-    font-weight: bold;
-    font-size: 16px;
-    fill: #FFF;
-    opacity: 0;
-    text-shadow: 1px 1px 1px #333 !important;
-}
-
-.panel.chartist.with-nav-tabs {
-    max-height: 800px;
-}
-
-.panel.chartist.with-nav-tabs .tab-content {
-    height: calc(100% - 57px);
-    float: left;
-    width: 100%;
-}
-
-.panel.chartist .panel-body h4 {
-    text-align: center;
-}
-
-.panel.chartist .panel-body {
-    position: relative;
-    padding-bottom: 30px;
-    height: 320px;
-}
-
-.panel.chartist #scripts table th:last-child,
-.panel.chartist #scripts table td:last-child {
-    max-width: 300px;
-}
-
-.panel.chartist #scripts table td {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.panel.chartist .graph {
-    height: calc(100% - 45px);
-    width: calc(100% - 30px);
-    position: absolute;
-}
-
-.panel.chartist .graph svg {
-    height: calc(100% - 45px) !important;
-}
-
-.panel.opcache .panel-body {
-    padding: 0;
-}
-
-.panel.opcache .table-responsive {
-    float: left;
-    width: 100%;
+    .table-responsive {
+        float: left;
+        width: 100%;
+    }
 }
 
 @media only screen and (max-width : $screen-xs) {
@@ -79,7 +85,6 @@
         max-height: 500px;
     }
 }
-
 
 #opcache-details {
     max-height: 672px;

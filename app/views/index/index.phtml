@@ -41,9 +41,9 @@
 <?php endif ?>
 
 <?php if ($this->config->jellyfin->enabled) : ?>
-<?php $this->partial('index/partials/jellyfin_latest_movies') ?>
-<?php $this->partial('index/partials/jellyfin_latest_episodes') ?>
-<?php $this->partial('index/partials/jellyfin_latest_albums') ?>
+<?php foreach ($jellyfinviews as $title => $view) : ?>
+<?php $this->partial('index/partials/jellyfin') ?>
+<?php endforeach ?>
 <?php endif ?>
 
 <?php if ($this->config->kodi->enabled || $this->config->subsonic->enabled) : ?>

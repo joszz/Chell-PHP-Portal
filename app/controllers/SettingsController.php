@@ -12,7 +12,7 @@ use Chell\Forms\SettingsSnmpRecordForm;
 use Chell\Models\Users;
 use Chell\Models\Devices;
 use Chell\Models\MenuItems;
-use Chell\Models\Pulseway;
+use Chell\Models\MenuItemsUsers;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 use Davidearl\WebAuthn\WebAuthn;
@@ -142,7 +142,7 @@ class SettingsController extends BaseController
      * @param int       $id        The ID of the entity you want to delete.
      * @return \Phalcon\Http\ResponseInterface     Will forward to settings/index#$which when successful, or will show the form again when failed.
      */
-    public function deleteAction($which, $id) : \Phalcon\Http\ResponseInterface
+    public function deleteAction($which, $id, $subItem = 'index', $subItemId = false) : \Phalcon\Http\ResponseInterface
     {
         if (isset($id, $which))
         {
@@ -173,7 +173,7 @@ class SettingsController extends BaseController
             }
         }
 
-        return (new Response())->redirect('settings/index#' . strtolower($which));
+        return (new Response())->redirect('settings/' . $subItem . ($subItemId ? '/' . $subItemId : null) . '#' . strtolower($which));
     }
 
     /**
@@ -251,11 +251,11 @@ class SettingsController extends BaseController
                 if ($this->request->hasFiles())
                 {
                     $file = current($this->request->getUploadedFiles());
-
                     $item->extension = $file->getExtension();
                 }
 
                 $item->save();
+                $item->handlePost(isset($data['user_id']) ? $data['user_id'] : [-1]);
 
                 if ($file)
                 {
@@ -421,7 +421,7 @@ class SettingsController extends BaseController
         {
             $form->bind($data = $this->request->getPost(), $record);
 
-            if ($form->isValid($data, $record))
+            if ($form->isValid())
             {
                 if ($id == 0)
                 {
@@ -430,7 +430,7 @@ class SettingsController extends BaseController
 
                 $record->save();
 
-                return (new Response())->redirect('settings/snmphost/' . $record->snmp_host_id . '#records');
+                return (new Response())->redirect('settings/snmphost/' . $record->snmp_host_id . '#snmprecords');
             }
         }
 
@@ -510,11 +510,6 @@ class SettingsController extends BaseController
         }
 
         die('failed');
-    }
-
-    public function pulsewaysystemsAction()
-    {
-        die(json_encode((new Pulseway())->getSystems()));
     }
 
     /**

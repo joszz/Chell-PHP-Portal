@@ -1,21 +1,23 @@
-﻿.sickrage .tab-pane,
-.sickrage .panel-body {
-    padding: 0;
-}
+﻿.sickrage {
+    .tab-pane,
+    .panel-body {
+        padding: 0;
+    }
 
-.sickrage .nav-tabs li:first-child a {
-    border-top-left-radius: 0;
-}
+    .nav-tabs li:first-child a {
+        border-top-left-radius: 0;
+    }
 
-.sickrage .nav.nav-tabs li a {
-    padding: 10px;
+    .nav.nav-tabs li a {
+        padding: 10px;
+    }
 }
 
 .sickrage-detail {
     padding: 0;
     margin: 0;
-}
 
-.sickrage-detail .panel {
-    margin: 0;
+    .panel {
+        margin: 0;
+    }
 }

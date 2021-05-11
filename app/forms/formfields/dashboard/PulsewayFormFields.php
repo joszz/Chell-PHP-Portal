@@ -71,10 +71,11 @@ class PulsewayFormFields implements IFormFields
 				'class' => 'form-control',
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
-				'disabled' => true
+				'disabled' => true,
+				'data-selected' => $form->config->pulseway->systems,
+				'data-apiurl' => '../pulseway/systems'
 			])
-			->setUserOptions(['buttons' => ['pulseway_systems']])
-			->setDefault(explode(',', $form->config->pulseway->systems));
+			->setUserOptions(['buttons' => ['refresh_api_data']]);
 
 		$form->add($pulsewayEnabled);
 		$form->add($pulsewayURL);

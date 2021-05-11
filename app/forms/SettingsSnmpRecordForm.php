@@ -77,7 +77,7 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
 			->setAttributes(['class' => 'form-control'])
 			->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
-		$value_unit = new Text('value_oid');
+		$value_unit = new Text('value_unit');
 		$value_unit->setLabel('Value unit')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control']);
@@ -94,7 +94,7 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
             ]
         );
         $groupValue->setLabel('Group value');
-
+		
 		$this->add($label);
 		$this->add($host);
 		$this->add($labelOID);

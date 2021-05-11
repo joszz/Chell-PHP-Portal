@@ -1,9 +1,11 @@
-﻿div.motion iframe {
-    border: 0;
-    width: 100%;
-    height: 100%;
-}
+﻿div.motion {
+    iframe {
+        border: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-div.motion .panel-body {
-    padding: 0;
+    .panel-body {
+        padding: 0;
+    }
 }

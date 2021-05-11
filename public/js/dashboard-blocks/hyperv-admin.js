@@ -18,15 +18,16 @@
         */
         var settings = $.extend({
             block: this,
+            device_id: this.data("deviceid"),
             vm: {
                 stateEnabed: 2,
                 stateDisabed: 3,
-                toggleStateBaseURL: this.find("#vms").data("togglestate-baseurl")
+                toggleStateBaseURL: this.find("#vms").data("togglestate-baseurl") + this.data("deviceid") + "/"
             },
             sites: {
                 stateEnabed: 1,
                 stateDisabed: 3,
-                toggleStateBaseURL: this.find("#sites").data("togglestate-baseurl")
+                toggleStateBaseURL: this.find("#sites").data("togglestate-baseurl") + this.data("deviceid") + "/"
             }
         }, options);
 
@@ -120,7 +121,7 @@
                     settings.block.isLoading();
                 }
 
-                $.getJSON("getVMs", function (data) {
+                $.getJSON("../getVMs/" + settings.device_id, function (data) {
                     var content = settings.block.find("#vms tbody");
                     content.find("tr:not(.hidden)").remove();
 
@@ -163,7 +164,7 @@
                     settings.block.isLoading();
                 }
 
-                $.getJSON("getSites", function (data) {
+                $.getJSON("../getSites/" + settings.device_id, function (data) {
                     var content = settings.block.find("#sites tbody");
                     content.find("tr:not(.hidden)").remove();
 

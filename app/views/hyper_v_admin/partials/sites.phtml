@@ -13,7 +13,7 @@
             <tbody>
                 <?php foreach($sites as $site) :
                         $state = \Chell\Models\HyperVAdmin::getSiteState($site->State);
-                        $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/siteToggleState/' . $site->Name . '/';
+                        $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/siteToggleState/' . $device->id .'/' . $site->Name . '/';
                         $toggleStateURL .= $site->State == \Chell\Models\HyperVAdmin::siteStateEnabed ? \Chell\Models\HyperVAdmin::siteStateDisabed : \Chell\Models\HyperVAdmin::siteStateEnabed;
                 ?>
                 <tr>

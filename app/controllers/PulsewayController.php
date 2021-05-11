@@ -25,7 +25,6 @@ class PulsewayController extends BaseController
 
     /**
      * Contacts the Pulseway API for each specified system in the config.
-     * Formats the uptime and sents back the data as a JSON encoded string.
      */
     public function indexAction()
     {
@@ -34,24 +33,14 @@ class PulsewayController extends BaseController
 
         foreach ($systems as $system)
         {
-            $data = $this->_model->getSystem($system);
-            list($days, $hours, $minutes) = explode(', ', $data->uptime);
-            $hours = $this->formatTimePart($hours);
-            $minutes = $this->formatTimePart($minutes);
-            $data->uptime = $days . ' ' . $hours . ':' . $minutes;
-            $result[] = $data;
+            $result[] = $this->_model->getSystem($system);
         }
 
         die(json_encode($result));
     }
 
-    /**
-     * Formats a time part (hours, minutes etc) removing the words (seperated by the first space encountered) and only leaving the zero padded values.
-     * @param mixed $timePart 
-     * @return string
-     */
-    private function formatTimePart($timePart)
+    public function systemsAction()
     {
-        return str_pad(substr($timePart, 0, strpos($timePart, ' ')), 2, '0', STR_PAD_LEFT);
+        die(json_encode($this->_model->getSystems()));
     }
 }

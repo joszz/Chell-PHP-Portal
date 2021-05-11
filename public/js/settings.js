@@ -15,8 +15,9 @@
 $(function () {
     initializePlugins()
     setEventHandlers();
-    getPulsewaySystems();
-
+    setSelectData($("select[name='pulseway-systems[]']"));
+    setSelectData($("select[name='jellyfin-views[]']"));
+    
     $("legend input[type='checkbox']").each(function () {
         toggleFieldsInFieldSet($(this));
 
@@ -69,7 +70,7 @@ function initializePlugins() {
 }
 
 function setEventHandlers() {
-    $(".nav-tabs:not(.hidden-xs) a").click(function () {
+    $(".nav-tabs.hidden-xs a").click(function () {
         var anchor = $(this).attr("href");
         location.hash = anchor;
     });
@@ -115,9 +116,8 @@ function setEventHandlers() {
         });
     });
 
-
-    $(".pulseway-systems").on("click", function () {
-        getPulsewaySystems();
+    $(".refresh-api").on("click", function () {
+        setSelectData($(this).parents(".input-group").find("select"));
         return false;
     });
 
@@ -156,21 +156,19 @@ function setEventHandlers() {
     });
 }
 
-function getPulsewaySystems() {
-    var select = $(".pulseway-systems").parent().find("select");
-
+function setSelectData(select) {
     if (select.length) {
-        var selected = $(".pulseway-systems").data("selected").split(",");
+        var selected = select.data("selected").split(",");
         select.find("option").remove();
         select.attr('disabled', true);
         select.selectpicker("refresh");
 
         $.ajax({
-            url: "pulsewaysystems",
+            url: select.data("apiurl"),
             dataType: "json",
             success: function (data) {
-                $.each(data, function (index, system) {
-                    select.append("<option value='" + index + "' " + (selected.indexOf(index) !== -1 ? "selected" : "") + ">" + system + "</option>");
+                $.each(data, function (index, value) {
+                    select.append("<option value='" + index + "' " + (selected.indexOf(index) !== -1 ? "selected" : "") + ">" + value + "</option>");
                 });
 
                 select.attr('disabled', false);

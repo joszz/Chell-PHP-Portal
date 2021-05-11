@@ -2,6 +2,11 @@
     background-image: $darkBackgroundGradient;
     background-color: transparent;
     backdrop-filter: blur($backdropBlur);
+
+    ul.nav > li {
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid #101010;
+    }
 }
 
 nav.navbar-fixed-top {
@@ -14,6 +19,10 @@ div#navbar {
     padding: 0;
     max-height: 340px;
     display: none;
+
+    div.btn-group {
+        margin: 8px 0;
+    }
 }
 
 .navbar-nav {
@@ -28,16 +37,16 @@ a.navbar-brand {
     padding: 10px 15px 15px 0;
     line-height: 34px;
     text-shadow: 1px 1px 1px rgb(80, 80, 80) !important;
-}
 
-a.navbar-brand img {
-    float: left;
-    margin: 0 7px 0 0;
-}
+    img {
+        float: left;
+        margin: 0 7px 0 0;
+    }
 
-a.navbar-brand span {
-    float: left;
-    white-space: nowrap;
+    span {
+        float: left;
+        white-space: nowrap;
+    }
 }
 
 nav div.navbar-collapse ul {
@@ -51,12 +60,30 @@ nav div.navbar-collapse ul::-webkit-scrollbar {
     display: none;
 }
 
-nav div.navbar-collapse ul a {
-    color: #FFF;
-    padding: 5px 10px;
-    text-decoration: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+nav div.navbar-collapse {
+    a:active,
+    a:hover,
+    li:hover a {
+        background-image: linear-gradient(to bottom, $brand-success 0px, #419641 100%);
+        color: #FFF;
+    }
+
+    ul a {
+        color: #FFF;
+        padding: 5px 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        img {
+            float: left;
+            margin: 2px 15px 0 0;
+        }
+    }
+
+    li.disabled:hover a {
+        background: none;
+    }
 }
 
 @media only screen and (max-width : ($screen-sm - 1)) {
@@ -65,41 +92,12 @@ nav div.navbar-collapse ul a {
     }
 }
 
-nav div.navbar-collapse ul a img {
-    float: left;
-    margin: 2px 15px 0 0;
-}
-
-nav div.navbar-collapse a:active,
-nav div.navbar-collapse a:hover,
-nav div.navbar-collapse li:hover a {
-    background-image: linear-gradient(to bottom, $brand-success 0px, #419641 100%);
-    color: #FFF;
-}
-
-nav div.navbar-collapse li.disabled:hover a {
-    background: none;
-}
-
 .nav {
     margin-top: 0;
-}
-
-nav.navbar ul.nav > li {
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid #101010;
-}
-
-div#navbar div.btn-group {
-    margin: 8px 0;
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {
     #navbar > div {
         padding: 0;
     }
-}
-
-body.compensate-for-scrollbar .navbar {
-    margin-right: 17px;
 }

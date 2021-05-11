@@ -1,7 +1,7 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
 <?php if($this->hasHelp($name)) : ?>
-<a class="btn btn-default <?php echo get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right' ?> " data-fancybox data-type="iframe" title="Help"
+<a class="btn btn-default help <?php echo get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right' ?> " data-fancybox data-type="iframe" title="Help"
     href="<?php echo $this->config->application->baseUri . 'settings/help/' . $name ?>">
     <i class="fa fa-question"></i>
 </a>

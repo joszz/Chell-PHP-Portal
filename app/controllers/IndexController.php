@@ -74,9 +74,16 @@ class IndexController extends BaseController
         if ($this->config->jellyfin->enabled)
         {
             $jellyfin = new Jellyfin();
-            $this->view->movies = $jellyfin->getLatestForView($this->config->jellyfin->movieview);
-            $this->view->music = $jellyfin->getLatestForView($this->config->jellyfin->musicview);
-            $this->view->shows = $jellyfin->getLatestForView($this->config->jellyfin->showview);
+            $views = explode(',', $this->config->jellyfin->views);
+            $jellyfinviews = [];
+
+            foreach ($views as $view)
+            {
+                list($title, $viewId) = explode(':', $view);
+                $jellyfinviews[strtolower($title)] = $jellyfin->getLatestForView($viewId);
+            }
+
+            $this->view->jellyfinviews = $jellyfinviews;
         }
 
         if ($this->config->couchpotato->enabled)

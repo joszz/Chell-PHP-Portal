@@ -18,7 +18,7 @@
             <tbody>
                 <?php foreach($vms as $vm) :
                     $state = \Chell\Models\HyperVAdmin::getVMState($vm->State);
-                    $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $vm->Name . '/';
+                    $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $device->id .'/' . $vm->Name . '/';
                     $toggleStateURL .= $vm->State == \Chell\Models\HyperVAdmin::vmStateEnabed ? \Chell\Models\HyperVAdmin::vmStateDisabed : \Chell\Models\HyperVAdmin::vmStateEnabed;
                 ?>
                 <tr>

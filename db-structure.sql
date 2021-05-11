@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 192.168.1.30    Database: homeserverportal
 -- ------------------------------------------------------
@@ -31,8 +31,11 @@ CREATE TABLE `devices` (
   `shutdown_user` varchar(255) DEFAULT NULL,
   `shutdown_password` varchar(255) DEFAULT NULL,
   `show_on_dashboard` tinyint unsigned DEFAULT '1',
+  `hypervadmin_url` varchar(255) DEFAULT NULL,
+  `hypervadmin_user` varchar(255) DEFAULT NULL,
+  `hypervadmin_password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,31 +47,32 @@ DROP TABLE IF EXISTS `menu_items`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `menu_items` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `menu_id` int unsigned NOT NULL,
-  `parent_id` int unsigned NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
   `device_id` int unsigned DEFAULT NULL,
   `extension` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `Device` (`device_id`),
-  KEY `Menu` (`menu_id`,`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+  KEY `Device` (`device_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `menus`
+-- Table structure for table `menu_items_users`
 --
 
-DROP TABLE IF EXISTS `menus`;
+DROP TABLE IF EXISTS `menu_items_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `menus` (
+CREATE TABLE `menu_items_users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `user_id` int unsigned NOT NULL,
+  `menu_item_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `user_id_idx` (`user_id`),
+  KEY `menu_item_id_idx` (`menu_item_id`),
+  CONSTRAINT `menu_item_id` FOREIGN KEY (`menu_item_id`) REFERENCES `menu_items` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +116,7 @@ CREATE TABLE `snmp_records` (
   `value_unit` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +140,7 @@ CREATE TABLE `speedtest` (
   `jitter` text,
   `log` longtext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=225 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +160,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -168,4 +172,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-29  9:29:27
+-- Dump completed on 2021-05-11 14:03:53

@@ -20,9 +20,9 @@ class HyperVAdmin extends BaseModel
      * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return array            List of VMs as anonymous objects.
 	 */
-	public function getVMs($jsonDecode = true)
+	public function getVMs($device, $jsonDecode = true)
 	{
-		$curl = $this->getCurl('VMs/GetVMs');
+		$curl = $this->getCurl($device, 'VMs/GetVMs');
 		$content = curl_exec($curl);
 		curl_close($curl);
 
@@ -35,9 +35,9 @@ class HyperVAdmin extends BaseModel
      * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return object           List of sites as anonymous objects.
 	 */
-	public function getSites($jsonDecode = true)
+	public function getSites($device, $jsonDecode = true)
 	{
-		$curl = $this->getCurl('Sites/GetSites');
+		$curl = $this->getCurl($device, 'Sites/GetSites');
 		$content = curl_exec($curl);
 		curl_close($curl);
 
@@ -73,9 +73,9 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state     The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
-	public function toggleVMState($vmName, $state)
+	public function toggleVMState($device, $vmName, $state)
 	{
-		$curl = $this->getCurl('VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state);
+		$curl = $this->getCurl($device, 'VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state);
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -89,10 +89,10 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state     The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
-	public function toggleSiteState($siteName, $state)
+	public function toggleSiteState($device, $siteName, $state)
 	{
 		$url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
-		$curl = $this->getCurl($url);
+		$curl = $this->getCurl($device, $url);
 		$content = json_decode(curl_exec($curl));
 		curl_close($curl);
 
@@ -105,14 +105,14 @@ class HyperVAdmin extends BaseModel
 	 * @param string $url       The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
 	 * @return \CurlHandle|bool	The cURL object to be used to query HyperVAdmin.
 	 */
-	private function getCurl($url)
+	private function getCurl($device, $url)
 	{
-		$curl = curl_init($this->_config->hypervadmin->URL . $url);
+		$curl = curl_init($device->hypervadmin_url . $url);
 
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_USERPWD => $this->_config->hypervadmin->username . ':' . $this->_config->hypervadmin->password,
+			CURLOPT_USERPWD => $device->hypervadmin_user . ':' . $device->hypervadmin_password,
 		]);
 
 		return $curl;

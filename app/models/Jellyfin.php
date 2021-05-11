@@ -25,7 +25,7 @@ class Jellyfin extends BaseModel
             $output = json_decode($output);
             foreach($output->Items as $item)
             {
-                $result[$item->Name] = $item->Id;
+                $result[$item->Name] = strtolower($item->Name) . ':' . $item->Id;
             }
         }
 

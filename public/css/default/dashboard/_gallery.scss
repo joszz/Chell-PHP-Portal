@@ -15,94 +15,98 @@ div.backdrop {
     backdrop-filter: blur($backdropBlur);
 }
 
-div.gallery .panel-body {
-    padding: 0;
-}
+div.gallery {
+    .panel-body {
+        padding: 0;
+    }
 
-div.gallery .panel-heading {
-    background: none;
-    position: relative;
-}
+    .panel-heading {
+        background: none;
+        position: relative;
 
-div.gallery .panel-heading .btn-group {
-    position: relative;
-    z-index: 3;
-}
+        .btn-group {
+            position: relative;
+            z-index: 3;
+        }
 
-div.gallery .panel-heading h4 {
-    position: relative;
-    z-index: 2;
-}
+        h4 {
+            position: relative;
+            z-index: 2;
+        }
+    }
 
-.gallery .item,
-.gallery .panel-body {
-    height: 377px;
-    position: absolute;
-    border-radius: 0 0 4px 4px;
-    color: $gray-dark;
-    float: left;
-    clear: left;
-    width: 100%;
-    top: 0;
-}
+    .item,
+    .panel-body {
+        height: 377px;
+        position: absolute;
+        border-radius: 0 0 4px 4px;
+        color: $gray-dark;
+        float: left;
+        clear: left;
+        width: 100%;
+        top: 0;
+    }
 
-.gallery .item > img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
+    .item {
+        > img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
 
-.gallery .item .image {
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-}
+        .image {
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+        }
 
-.item div.overlay {
-    position: absolute;
-    width: 100%;
-    height: 70px;
-    bottom: 0;
-    background-image: linear-gradient(to bottom, rgba(223, 240, 216, 0.8) 0%, rgba(208, 233, 198, 0.8) 100%);
-    backdrop-filter: blur($backdropBlur);
-    z-index: 1;
-}
+        div.overlay {
+            position: absolute;
+            width: 100%;
+            height: 70px;
+            bottom: 0;
+            background-image: linear-gradient(to bottom, rgba(223, 240, 216, 0.8) 0%, rgba(208, 233, 198, 0.8) 100%);
+            backdrop-filter: blur($backdropBlur);
+            z-index: 1;
+        }
 
-.item .title,
-.item .subtitle {
-    width: 100%;
-    height: 20px;
-    bottom: 10px;
-    position: absolute;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    z-index: 2;
-    padding: 0 10px;
-    overflow: hidden;
-}
+        .title,
+        .subtitle {
+            width: 100%;
+            height: 20px;
+            bottom: 10px;
+            position: absolute;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            z-index: 2;
+            padding: 0 10px;
+            overflow: hidden;
+        }
 
-.item div.title {
-    bottom: 22px;
-    font-size: 26px;
-    height: 45px;
+        .title {
+            bottom: 22px;
+            font-size: 26px;
+            height: 45px;
+        }
+    }
+
+    .fa-eye {
+        position: absolute;
+        z-index: 5;
+        font-size: 38px;
+        bottom: 80px;
+        right: 15px;
+        text-shadow: 2px 2px 2px #505050 !important;
+        color: #FFF;
+        opacity: 0.6;
+    }
 }
 
 .kodi-movies h4 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-}
-
-.gallery .fa-eye {
-    position: absolute;
-    z-index: 5;
-    font-size: 38px;
-    bottom: 80px;
-    right: 15px;
-    text-shadow: 2px 2px 2px #505050 !important;
-    color: #FFF;
-    opacity: 0.6;
 }
 
 @media only screen and (max-width : 480px) {
