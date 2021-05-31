@@ -19,7 +19,7 @@ class SickrageFormFields implements IFormFields
 		$sickrageEnabled = new Check('sickrage-enabled');
 		$sickrageEnabled->setLabel('Enabled');
 		$sickrageEnabled->setAttributes([
-			'checked' => $form->config->sickrage->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->sickrage->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -31,7 +31,7 @@ class SickrageFormFields implements IFormFields
 		$sickrageURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->sickrage->URL)
+			->setDefault($form->settings->sickrage->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -41,7 +41,7 @@ class SickrageFormFields implements IFormFields
 		$sickrageAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->sickrage->APIKey)
+			->setDefault($form->settings->sickrage->api_key)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'sickrage-enabled']));
 
 		$form->add($sickrageEnabled);
@@ -55,10 +55,10 @@ class SickrageFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
-        $config->sickrage->URL = $data['sickrage-url'];
-        $config->sickrage->APIKey = $data['sickrage-apikey'];
+        $settings->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
+        $settings->sickrage->url = $data['sickrage-url'];
+        $settings->sickrage->api_key = $data['sickrage-apikey'];
     }
 }

@@ -4,8 +4,11 @@ namespace Chell;
 
 use Chell\Controllers\ErrorController;
 use Chell\Exceptions\ChellException;
-use Chell\Plugins\SecurityPlugin;
 use Chell\Messages\TranslatorWrapper;
+use Chell\Models\Settings;
+use Chell\Models\SettingsCategory;
+use Chell\Models\SettingsContainer;
+use Chell\Plugins\SecurityPlugin;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
@@ -29,7 +32,7 @@ use Phalcon\Http\Request;
  */
 class FrontController
 {
-    private $config;
+    private $settings;
     private $di;
     private $application;
 
@@ -71,11 +74,13 @@ class FrontController
         $executionTime = -microtime(true);
         define('APP_PATH', realpath('..') . '/');
 
-        set_exception_handler([&$this, 'ExceptionHandler']);
-
-        $this->config = $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         $this->di = new FactoryDefault();
-        $this->di->set('config', $config);
+        $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
+        define('DEBUG', $config->debug);
+        $this->registerNamespaces();
+        $this->setDB($config);
+        $this->settings = $settings = $this->setSettings();
+        set_exception_handler([&$this, 'ExceptionHandler']);
 
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
@@ -88,18 +93,16 @@ class FrontController
             return $dispatcher;
         });
 
-        $this->di->set('crypt', function() use ($config) {
+        $this->di->set('crypt', function() use ($settings) {
             $crypt = new Crypt();
-            $crypt->setKey($config->application->phalconCryptKey);
+            $crypt->setKey($settings->application->phalcon_crypt_key);
             return $crypt;
         });
 
-        $this->registerNamespaces();
         $this->setDisplayErrors();
-        $this->setDB($config);
-        $this->setViewProvider($config);
-        $this->setURLProvider($config);
-        $this->setSession($config);
+        $this->setViewProvider();
+        $this->setURLProvider($settings);
+        $this->setSession($settings);
 
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
@@ -123,7 +126,7 @@ class FrontController
 
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
-        new ErrorController(new ChellException($exception), $this->config);
+        new ErrorController(new ChellException($exception), $this->settings);
     }
 
     /**
@@ -131,7 +134,7 @@ class FrontController
      */
     private function setDisplayErrors()
     {
-        ini_set('display_errors', $this->config->application->debug ? 'on' : 'off');
+        ini_set('display_errors', DEBUG ? 'on' : 'off');
     }
 
     /**
@@ -142,21 +145,21 @@ class FrontController
         $loader = new Loader();
 
         $loader->registerNamespaces([
-            'Chell\Controllers'                 => APP_PATH . $this->config->application->controllersDir,
-            'Chell\Exceptions'                  => APP_PATH . $this->config->application->exceptionsDir,
-            'Chell\Forms'                       => APP_PATH . $this->config->application->formsDir,
-            'Chell\Forms\FormFields'            => APP_PATH . $this->config->application->formsDir . 'formfields/',
-            'Chell\Forms\FormFields\Dashboard'  => APP_PATH . $this->config->application->formsDir . 'formfields/dashboard/',
-            'Chell\Forms\FormFields\General'    => APP_PATH . $this->config->application->formsDir . 'formfields/general/',
-            'Chell\Forms\Validators'            => APP_PATH . $this->config->application->formsDir . 'validators/',
-            'Chell\Messages'                    => APP_PATH . $this->config->application->messagesDir,
-            'Chell\Models'                      => APP_PATH . $this->config->application->modelsDir,
-            'Chell\Models\Kodi'                 => APP_PATH . $this->config->application->modelsDir . 'kodi/',
-            'Chell\Plugins'                     => APP_PATH . $this->config->application->pluginsDir,
-            'Duo'                               => APP_PATH . $this->config->application->vendorDir . 'duo/',
-            'Davidearl\WebAuthn'                => APP_PATH . $this->config->application->vendorDir . 'WebAuthn/',
-            'CBOR'                              => APP_PATH . $this->config->application->vendorDir . 'CBOR/',
-            'phpseclib'                         => APP_PATH . $this->config->application->vendorDir . 'phpseclib/'
+            'Chell\Controllers'                 => APP_PATH . 'app/controllers/',
+            'Chell\Exceptions'                  => APP_PATH . 'app/exceptions/',
+            'Chell\Forms'                       => APP_PATH . 'app/forms/',
+            'Chell\Forms\FormFields'            => APP_PATH . 'app/forms/formfields/',
+            'Chell\Forms\FormFields\Dashboard'  => APP_PATH . 'app/forms/formfields/dashboard/',
+            'Chell\Forms\FormFields\General'    => APP_PATH . 'app/forms/formfields/general/',
+            'Chell\Forms\Validators'            => APP_PATH . 'app/forms/validators/',
+            'Chell\Messages'                    => APP_PATH . 'app/messages/',
+            'Chell\Models'                      => APP_PATH . 'app/models/',
+            'Chell\Models\Kodi'                 => APP_PATH . 'app/models/kodi/',
+            'Chell\Plugins'                     => APP_PATH . 'app/plugins/',
+            'Duo'                               => APP_PATH . 'app/vendor/duo/',
+            'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/WebAuthn/',
+            'CBOR'                              => APP_PATH . 'app/vendor/CBOR/',
+            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/'
         ])->register();
     }
 
@@ -200,28 +203,24 @@ class FrontController
 
     /**
      * Setup Phalcon view provider.
-     *
-     * @param object $config	The config object representing config.ini.
      */
-    private function setViewProvider($config)
+    private function setViewProvider()
     {
-        $this->di->set('view', function () use ($config) {
+        $this->di->set('view', function () {
             $view = new View();
-            $view->setViewsDir(APP_PATH . $config->application->viewsDir);
+            $view->setViewsDir(APP_PATH . 'app/views/');
             return $view;
         });
     }
 
     /**
      * Setup Phalcon URL provider.
-     *
-     * @param object $config	The config object representing config.ini.
      */
-    private function setURLProvider($config)
+    private function setURLProvider($settings)
     {
-        $this->di->set('url', function () use ($config) {
+        $this->di->set('url', function () use ($settings) {
             $url = new UrlProvider();
-            $url->setBaseUri($config->application->baseUri);
+            $url->setBaseUri($settings->application->base_uri);
             return $url;
         });
     }
@@ -231,19 +230,19 @@ class FrontController
      *
      * @param object $config    The config object representing config.ini.
      */
-    private function setSession($config)
+    private function setSession($settings)
     {
-        $this->di->setShared('session', function () use ($config) {
+        $this->di->setShared('session', function () use ($settings) {
             $session = new Manager();
             $adapter = null;
 
-            if ($config->redis->enabled)
+            if ($settings->redis->enabled)
             {
                 $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
-                   'host'   => $config->redis->host,
-                   'port'   => $config->redis->port,
+                   'host'   => $settings->redis->host,
+                   'port'   => $settings->redis->port,
                    'index'  => '1',
-                   'auth'   => $config->redis->auth
+                   'auth'   => $settings->redis->auth
                ]);
             }
             else
@@ -253,7 +252,7 @@ class FrontController
             }
 
             $session->setAdapter($adapter);
-            $session->setName(ini_get('session.name') . '_' . str_replace(' ', '_', $config->application->title));
+            $session->setName(ini_get('session.name') . '_' . str_replace(' ', '_', $settings->application->title));
             $session->start();
 
             return $session;
@@ -265,9 +264,9 @@ class FrontController
      */
     private function setAssets()
     {
-        $version = $this->config->application->version;
+        $version = $this->settings->application->version;
 
-        if ($this->config->application->debug)
+        if (DEBUG)
         {
             foreach($this->cssFiles as $file)
             {
@@ -291,7 +290,7 @@ class FrontController
      */
     private function setTitle()
     {
-        $this->application->tag->setTitle($this->config->application->title);
+        $this->application->tag->setTitle($this->settings->application->title);
     }
 
     /**
@@ -304,6 +303,25 @@ class FrontController
         $this->di->set('translator', $this->application->view->trans);
     }
 
+    private function setSettings()
+    {
+        $settings = Settings::find(['order' => 'category']);
+        $structuredSettings = new SettingsContainer();
+
+        foreach ($settings as $setting)
+        {
+            if (!isset($structuredSettings->{$setting->category}))
+            {
+                $structuredSettings->addCategory(new SettingsCategory($setting->section, $setting->category));
+            }
+
+            $structuredSettings->{$setting->category}->addSetting($setting);
+        }
+
+        $this->di->set('settings', $structuredSettings);
+        return $structuredSettings;
+    }
+
     /**
      * Echoes the HTML to the browser.
      *
@@ -312,6 +330,6 @@ class FrontController
     public function ToString() : string
     {
         $request = new Request();
-        return $this->application->handle(str_replace($this->config->application->baseUri, '', '/' . $request->getURI()))->getContent();
+        return $this->application->handle(str_replace($this->settings->application->base_uri, '', '/' . $request->getURI()))->getContent();
     }
 }

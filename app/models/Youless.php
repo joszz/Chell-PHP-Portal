@@ -16,7 +16,7 @@ class Youless extends BaseModel
 	 */
 	public function getCurrentStats()
 	{
-		$ch = curl_init($this->_config->youless->URL . 'a&f=j');
+		$ch = curl_init($this->_settings->youless->url . 'a&f=j');
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$content = json_decode(curl_exec($ch));
 		curl_close($ch);
@@ -31,23 +31,23 @@ class Youless extends BaseModel
 	 * @param int $power		The current power usage.
 	 * @return string           A bootstrap class indicating which threshold is passed.
 	 */
-	public static function getTextClass($config, $power) : string
+	public function getTextClass($power) : string
 	{
 		$class = 'text-';
 
-		if ($power <= $config->youless->primaryThreshold)
+		if ($power <= $this->_settings->youless->threshold_primary)
 		{
 			$class .=  'success';
 		}
-		if ($power > $config->youless->primaryThreshold && $power <= $config->youless->warnThreshold)
+		if ($power > $this->_settings->youless->threshold_primary && $power <= $this->_settings->youless->threshold_warning)
 		{
 			$class .=  'primary';
 		}
-		if ($power > $config->youless->warnThreshold && $power <= $config->youless->dangerThreshold)
+		if ($power > $this->_settings->youless->threshold_warning && $power <= $this->_settings->youless->threshold_danger)
 		{
 			$class .=  'warning';
 		}
-		if ($power > $config->youless->dangerThreshold)
+		if ($power > $this->_settings->youless->threshold_danger)
 		{
 			$class .=  'danger';
 		}

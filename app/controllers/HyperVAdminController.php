@@ -32,7 +32,7 @@ class HyperVAdminController extends BaseController
 	{
         $device = $this->view->device = $this->getDevice($id);
 
-		$this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+		$this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
 		$this->view->setMainView('layouts/empty');
 		$this->view->vms = $this->_model->getVMs($device);
 		$this->view->sites = $this->_model->getSites($device);

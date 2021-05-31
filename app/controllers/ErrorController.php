@@ -18,7 +18,7 @@ class ErrorController
     private $js = [];
     private $logPath = APP_PATH . 'app/logs/';
 
-    public $config;
+    public $settings;
     public $logFile;
 
     /**
@@ -28,19 +28,19 @@ class ErrorController
      * @param ChellException $exception The exception being thrown.
      * @param object $config            The config object with all the values of config.ini.
      */
-    public function __construct(ChellException $exception, $config)
+    public function __construct(ChellException $exception, $settings)
     {
         ob_clean();
 
-        $this->config = $config;
+        $this->settings = $settings;
 
         $this->exception = $exception;
         $this->setLogFile();
 
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
-
-        if ($this->config->application->debug)
+        
+        if (DEBUG)
         {
             $this->content = $exceptionContent;
         }
@@ -91,18 +91,18 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            $this->config->application->baseUri . 'vendor/prism/themes/prism.css',
-            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
-            $this->config->application->baseUri . 'css/default/exception.min.css'
+            $this->settings->application->base_uri . 'vendor/prism/themes/prism.css',
+            $this->settings->application->base_uri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
+            $this->settings->application->base_uri . 'css/default/exception.min.css'
         ];
         $this->js = [
-            $this->config->application->baseUri . 'vendor/jquery/jquery.min.js',
-            $this->config->application->baseUri . 'vendor/prism/prism.min.js',
-            $this->config->application->baseUri . 'vendor/prism/components/prism-markup-templating.min.js',
-            $this->config->application->baseUri . 'vendor/prism/components/prism-php.min.js',
-            $this->config->application->baseUri . 'vendor/prism/components/prism-php-extras.min.js',
-            $this->config->application->baseUri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
-            $this->config->application->baseUri . 'js/exception.js'
+            $this->settings->application->base_uri . 'vendor/jquery/jquery.min.js',
+            $this->settings->application->base_uri . 'vendor/prism/prism.min.js',
+            $this->settings->application->base_uri . 'vendor/prism/components/prism-markup-templating.min.js',
+            $this->settings->application->base_uri . 'vendor/prism/components/prism-php.min.js',
+            $this->settings->application->base_uri . 'vendor/prism/components/prism-php-extras.min.js',
+            $this->settings->application->base_uri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
+            $this->settings->application->base_uri . 'js/exception.js'
         ];
 
         ob_start();

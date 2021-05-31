@@ -19,7 +19,7 @@ class Pulseway extends BaseModel
         $result = [];
 
         $content = $this->callApi('systems');
-
+        //die(var_dump($content));
         if ($content)
         {
             foreach($content->data as $system)
@@ -64,16 +64,16 @@ class Pulseway extends BaseModel
      */
     private function callApi($url, $decode = true)
     {
-        if (empty($this->_config->pulseway->username) || empty($this->_config->pulseway->password) || empty($this->_config->pulseway->URL))
+        if (empty($this->_settings->pulseway->username) || empty($this->_settings->pulseway->password) || empty($this->_settings->pulseway->url))
         {
             return false;
         }
 
-        $ch = curl_init($this->_config->pulseway->URL . $url);
+        $ch = curl_init($this->_settings->pulseway->url . $url);
         curl_setopt_array($ch, [
 			CURLOPT_SSL_VERIFYPEER => false,
 			CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_USERPWD => $this->_config->pulseway->username . ":" . $this->_config->pulseway->password
+            CURLOPT_USERPWD => $this->_settings->pulseway->username . ":" . $this->_settings->pulseway->password
         ]);
         $content = curl_exec($ch);
         curl_close($ch);

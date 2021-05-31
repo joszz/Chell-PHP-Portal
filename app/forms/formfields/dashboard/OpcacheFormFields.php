@@ -16,7 +16,7 @@ class OpcacheFormFields implements IFormFields
 		$opcacheEnabled = new Check('opcache-enabled');
 		$opcacheEnabled->setLabel('Enabled');
 		$opcacheEnabled->setAttributes([
-			'checked' => $form->config->opcache->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->opcache->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -38,8 +38,8 @@ class OpcacheFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
+        $settings->opcache->enabled = isset($data['opcache-enabled']) && $data['opcache-enabled'] == 'on' ? '1' : '0';
     }
 }

@@ -8,7 +8,7 @@ $(function () {
     });
 
     if ($("#duo_iframe").length) {
-        $(window).on("beforeunload", function (event) {
+        $(window).on("beforeunload", function (_event) {
             $("body").isLoading();
         });
 

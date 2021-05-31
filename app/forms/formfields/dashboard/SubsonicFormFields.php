@@ -19,7 +19,7 @@ class SubsonicFormFields implements IFormFields
 		$subsonicEnabled = new Check('subsonic-enabled');
 		$subsonicEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->subsonic->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->subsonic->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -31,7 +31,7 @@ class SubsonicFormFields implements IFormFields
 		$subsonicURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->subsonic->URL)
+			->setDefault($form->settings->subsonic->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -41,14 +41,14 @@ class SubsonicFormFields implements IFormFields
 		$subsonicUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->subsonic->username)
+			->setDefault($form->settings->subsonic->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$subsonicPassword = new Password('subsonic-password');
 		$subsonicPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'])
-			->setDefault($form->config->subsonic->password)
+			->setDefault($form->settings->subsonic->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$form->add($subsonicEnabled);
@@ -63,11 +63,11 @@ class SubsonicFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-	public function setPostData(&$config, $data)
+	public function setPostData(&$settings, $data)
     {
-        $config->subsonic->enabled = isset($data['subsonic-enabled']) && $data['subsonic-enabled'] == 'on' ? '1' : '0';
-        $config->subsonic->URL = $data['subsonic-url'];
-        $config->subsonic->username = $data['subsonic-username'];
-        $config->subsonic->password = $data['subsonic-password'];
+        $settings->subsonic->enabled = isset($data['subsonic-enabled']) && $data['subsonic-enabled'] == 'on' ? '1' : '0';
+        $settings->subsonic->url = $data['subsonic-url'];
+        $settings->subsonic->username = $data['subsonic-username'];
+        $settings->subsonic->password = $data['subsonic-password'];
     }
 }

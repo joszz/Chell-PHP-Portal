@@ -23,8 +23,8 @@
                     <?php endif ?>
                 </div>
 
-                <a class="navbar-brand" href="<?php echo $this->config->application->baseUri ?>">
-                    <img src="<?php echo $this->config->application->baseUri ?>img/icons/favicons/android-chrome-72x72.png" alt="Logo" width="32" height="32" />
+                <a class="navbar-brand" href="<?php echo $this->settings->application->base_uri ?>">
+                    <img src="<?php echo $this->settings->application->base_uri ?>img/icons/favicons/android-chrome-72x72.png" alt="Logo" width="32" height="32" />
                     <span>
                         <?php echo $this->tag->getTitle(); ?>
                     </span>
@@ -36,11 +36,11 @@
                 <?php if (isset($user)) : ?>
                 <ul class="nav navbar-nav">
                     <?php foreach($user->getMenuItems(['order' => 'name ASC']) as $menuItem) : ?>
-                    <?php if (strpos($menuItem->url, $this->config->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->config->network->broadcast) === false) continue ?>
+                    <?php if (strpos($menuItem->url, $this->settings->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->settings->network->broadcast) === false) continue ?>
 
                     <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-id="' . $menuItem->device->id : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">
-                            <img src="<?php echo $menuItem->getIconFilePath($this->config->application->baseUri) ?>" width="16"
+                            <img src="<?php echo $menuItem->getIconFilePath($this->settings->application->base_uri) ?>" width="16"
                                 alt="<?php echo $menuItem->name ?>" loading="lazy" />
                             <?php echo $menuItem->name ?>
                         </a>
@@ -49,13 +49,13 @@
                 </ul>
                 <div class="col-xs-12">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>settings/">
+                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>settings/">
                             <span class="fa fa-cog"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>about/">
+                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>about/">
                             <span class="fa fa-info-circle"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->config->application->baseUri ?>session/logout/">
+                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>session/logout/">
                             <span class="fa fa-sign-out-alt" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
                         </a>
                     </div>

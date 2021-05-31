@@ -14,7 +14,7 @@ class SettingsDashboardForm extends SettingsBaseForm
      */
 	public function initialize()
 	{
-		$this->setAction($this->config->application->baseUri . 'settings/dashboard#dashboard');
+		$this->setAction($this->settings->application->base_uri . 'settings/dashboard#dashboard');
 		$this->setFormFieldClasses('Dashboard');
 	}
 
@@ -28,12 +28,12 @@ class SettingsDashboardForm extends SettingsBaseForm
 	public function isValid($data = null, $entity = null) : bool
 	{
 		$valid = parent::isValid($data, $entity);
-
+		//die(var_dump($data));
 		if ($valid)
 		{
             foreach($this->formFieldClasses as $class)
             {
-                $class->setPostData($this->config, $data);
+                $class->setPostData($this->settings, $data);
             }
 		}
 

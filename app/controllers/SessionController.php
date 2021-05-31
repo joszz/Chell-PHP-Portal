@@ -24,14 +24,14 @@ class SessionController extends BaseController
     {
         parent::initialize();
 
-        if ($this->config->application->debug)
+        if (DEBUG)
         {
-            $this->assets->collection('login')->addJs('js/login.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
-            $this->assets->collection('login')->addJs('vendor/webauthn/webauthnauthenticate.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('login')->addJs('js/login.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->assets->collection('login')->addJs('vendor/webauthn/webauthnauthenticate.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         }
         else
         {
-            $this->assets->collection('login')->addJs('js/login.min.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('login')->addJs('js/login.min.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         }
     }
 
@@ -100,12 +100,12 @@ class SessionController extends BaseController
         if ($user && $this->security->checkHash($password, $user->password))
         {
             //Duo 2 factor login
-            if ($this->config->duo->enabled)
+            if ($this->settings->duo->enabled)
             {
                 if ($rememberMe)
                 {
-                    $this->cookies->set('username', $username, strtotime('+1 year'), $this->config->application->baseUri, true);
-                    $this->cookies->set('password', $password, strtotime('+1 year'), $this->config->application->baseUri, true);
+                    $this->cookies->set('username', $username, strtotime('+1 year'), $this->settings->application->base_uri, true);
+                    $this->cookies->set('password', $password, strtotime('+1 year'), $this->settings->application->base_uri, true);
                 }
 
                 return $this->dispatcher->forward([
@@ -121,8 +121,8 @@ class SessionController extends BaseController
 
                 if ($rememberMe)
                 {
-                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->config->application->baseUri, true)));
-                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->config->application->baseUri, true)));
+                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->settings->application->base_uri, true)));
+                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->settings->application->base_uri, true)));
                 }
 
                 $this->_registerSession($user);
@@ -178,7 +178,7 @@ class SessionController extends BaseController
 
             if ($webauthn->authenticate($this->request->get('webauth'), $user->webauthn))
             {
-                if ($this->config->duo->enabled)
+                if ($this->settings->duo->enabled)
                 {
                     return $this->dispatcher->forward([
                         'controller' => 'session',
@@ -213,8 +213,8 @@ class SessionController extends BaseController
     public function duoAction($user)
     {
         $this->view->containerFullHeight = true;
-        $this->view->dnsPrefetchRecords = ['https://' . $this->config->duo->apiHostname];
-        $this->view->signRequest = Web::signRequest($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $user->username);
+        $this->view->dnsPrefetchRecords = ['https://' . $this->settings->duo->api_hostname];
+        $this->view->signRequest = Web::signRequest($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $user->username);
     }
 
     /**
@@ -222,7 +222,7 @@ class SessionController extends BaseController
      */
     public function duoVerifyAction() : \Phalcon\Http\ResponseInterface
     {
-        $username = Web::verifyResponse($this->config->duo->ikey, $this->config->duo->skey, $this->config->duo->akey, $_POST['sig_response']);
+        $username = Web::verifyResponse($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $_POST['sig_response']);
 
         $user = Users::findFirst([
             'username = :username:',
@@ -253,8 +253,8 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
-        $this->cookies->set('username', 'username', strtotime('-1 year'), $this->config->application->baseUri, true);
-        $this->cookies->set('password', 'password', strtotime('-1 year'), $this->config->application->baseUri, true);
+        $this->cookies->set('username', 'username', strtotime('-1 year'), $this->settings->application->base_uri, true);
+        $this->cookies->set('password', 'password', strtotime('-1 year'), $this->settings->application->base_uri, true);
         $this->session->destroy();
 
         $this->view->containerFullHeight = true;

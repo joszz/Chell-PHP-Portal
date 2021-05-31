@@ -13,7 +13,7 @@ use Phalcon\Debug\Dump;
  */
 class BaseController extends Controller
 {
-    protected $config;
+    protected $settings;
 
     private $controllersToLoadMenu = ['index', 'about', 'settings'];
 
@@ -22,15 +22,19 @@ class BaseController extends Controller
      */
     public function initialize()
     {
-        $this->config = $this->di->get('config');
+
+        $this->settings = $this->di->get('settings');
 
         if (in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
-            $user = Users::findFirst([
-                'conditions' => 'id = ?1',
-                'bind'       => [1 => $this->session->get('auth')['id']],
-            ]);
-            $this->view->user = $user;
+            if ($this->session->get('auth'))
+            {
+                $user = Users::findFirst([
+                    'conditions' => 'id = ?1',
+                    'bind'       => [1 => $this->session->get('auth')['id']],
+                ]);
+                $this->view->user = $user;
+            }
         }
 
         $this->view->bgcolor = $this->getBackgroundColor();
@@ -44,15 +48,15 @@ class BaseController extends Controller
      */
     private function getBackgroundColor() : string
     {
-        if ($this->config->application->background == 'timebg')
+        if ($this->settings->application->background == 'timebg')
         {
-            $sunInfo = date_sun_info(time(), $this->config->application->backgroundLatitude, $this->config->application->backgroundLongitude);
+            $sunInfo = date_sun_info(time(), $this->settings->application->background_latitude, $this->settings->application->background_longitude);
             $currentTime = time();
 
             return $currentTime < $sunInfo['sunrise'] || $currentTime > $sunInfo['sunset'] ? 'darkbg' : 'lightbg';
         }
 
-        return $this->config->application->background;
+        return $this->settings->application->background;
     }
 
     /**

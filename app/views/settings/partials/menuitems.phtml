@@ -14,12 +14,12 @@
                 </tr>
                 <tr>
                     <td class="visible-xs">
-                        <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/menu/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/menu/" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
                     <td colspan="5" class="text-right hidden-xs">
-                        <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/menu/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/menu/" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
@@ -30,12 +30,12 @@
                 <tr>
                     <td class="visible-xs">
                         <div class="btn-group">
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/menu/' . $item->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/delete/MenuItems/' . $item->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                            <a href="<?php echo $this->settings->application->base_uri . 'settings/menu/' . $item->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                            <a href="<?php echo $this->settings->application->base_uri . 'settings/delete/MenuItems/' . $item->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                         </div>
                     </td>
                     <td class="text-center">
-                        <img src="<?php echo $item->getIconFilePath($this->config->application->baseUri) ?>" width="16" alt="<?php echo $item->name ?>" />
+                        <img src="<?php echo $item->getIconFilePath($this->settings->application->base_uri) ?>" width="16" alt="<?php echo $item->name ?>" />
                     </td>
                     <td>
                         <?php echo $item->name ?>
@@ -50,8 +50,8 @@
                     </td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/menu/' . $item->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                            <a href="<?php echo $this->config->application->baseUri . 'settings/delete/MenuItems/' . $item->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                            <a href="<?php echo $this->settings->application->base_uri . 'settings/menu/' . $item->id  ?>" class="btn btn-warning fa fa-edit"></a>
+                            <a href="<?php echo $this->settings->application->base_uri . 'settings/delete/MenuItems/' . $item->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
                         </div>
                     </td>
                 </tr>
@@ -60,14 +60,14 @@
             <tfoot>
                 <tr class="visible-xs">
                     <td colspan="6">
-                        <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/menu/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/menu/" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
                 </tr>
                 <tr class="hidden-xs">
                     <td colspan="6" class="text-right">
-                        <a class="btn btn-primary" href="<?php echo $this->config->application->baseUri ?>settings/menu/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/menu/" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>

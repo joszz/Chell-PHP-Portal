@@ -42,7 +42,7 @@ class OpcacheController extends BaseController
     public function detailsAction($tab = 'status', $currentPage = 1)
     {
         $totalPages = 0;
-        $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->config->application->itemsPerPage);
+        $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->settings->application->items_per_page);
 
         $this->view->scripts = $scripts;
         $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/scripts/');

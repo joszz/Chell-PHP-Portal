@@ -2,6 +2,6 @@
 
 <?php if(file_exists(APP_PATH . 'public/img/icons/menu/' . $element->getValue())) : ?>
 <a class="btn btn-default input-group-addon menuitem_icon disabled" href="#">
-    <img src="<?php echo $this->config->application->baseUri .'img/icons/menu/' . $element->getValue() ?>" title="Current icon" />
+    <img src="<?php echo $this->settings->application->base_uri .'img/icons/menu/' . $element->getValue() ?>" title="Current icon" />
 </a>
 <?php endif ?>

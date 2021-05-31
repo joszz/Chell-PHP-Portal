@@ -1,0 +1,33 @@
+{
+	"version": "1.2.0",
+	"name": "chell-php-portal",
+	"private": true,
+	"dependencies": {
+		"jquery": "^3.6.0",
+		"bootstrap-select": "^1.13.18",
+		"@fancyapps/fancybox": "^3.5.7",
+		"prismjs": "^1.23.0",
+		"jquery-fullscreen-plugin": "^1.1.5",
+		"bootstrap-touchspin": "^4.3.0",
+		"bootstrap-toggle": "^2.2.2",
+		"spark-md5": "^3.0.1",
+		"bootstrap-tabcollapse": "^0.2.6",
+		"chartist": "0.11.4",
+		"chartist-plugin-legend": "0.6.2",
+		"jquery.isloading": "joszz/is-loading",
+		"waves": "joszz/waves",
+		"jquery-tinytimer": "0.1.4",
+		"jquery.vibrate": "Illyism/jquery.vibrate.js",
+		"jquery.shorten": "joszz/jquery-shorten",
+		"@duosecurity/duo_web": "1.0.5",
+		"responsive-paginate": "joszz/rpage",
+		"speedtest": "joszz/speedtest",
+		"webauthn": "joszz/webauthn",
+		"@fortawesome/fontawesome-free": "^5.15.2",
+		"bootstrap-sass": "3.4.1"
+	},
+	"devDependencies": {
+		"@types/jquery": "3.5.5",
+		"@types/fancybox": "3.5.2"
+	}
+}

@@ -15,7 +15,7 @@
     <script type="text/javascript" <?php echo 'src="' . $js .'"' ?> defer="defer"></script>
     <?php endforeach ?>
 
-    <?php if ($this->config->application->debug) : ?>
+    <?php if (DEBUG) : ?>
     <title>ChellException: "<?php echo $this->exception->getMessage() ?>"</title>
     <?php else : ?>
     <title>Oops! An error occurred</title>

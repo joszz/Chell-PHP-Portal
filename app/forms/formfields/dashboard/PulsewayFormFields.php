@@ -22,7 +22,7 @@ class PulsewayFormFields implements IFormFields
 		$pulsewayEnabled = new Check('pulseway-enabled');
 		$pulsewayEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->pulseway->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->pulseway->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -34,7 +34,7 @@ class PulsewayFormFields implements IFormFields
 		$pulsewayURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->pulseway->URL)
+			->setDefault($form->settings->pulseway->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -44,26 +44,26 @@ class PulsewayFormFields implements IFormFields
 		$pulsewayUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->pulseway->username)
+			->setDefault($form->settings->pulseway->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
 		$pulsewayPassword = new Password('pulseway-password');
 		$pulsewayPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
-			->setDefault($form->config->pulseway->password)
+			->setDefault($form->settings->pulseway->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
         $pulsewayInterval = new Numeric('pulseway-update-interval');
 		$pulsewayInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->pulseway->updateInterval)
+			->setDefault($form->settings->pulseway->update_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled'])
 			]);
-
+		
         $pulsewaySystems = new Select('pulseway-systems[]');
 		$pulsewaySystems->setLabel('Systems')
 			->setFilters(['striptags', 'string'])
@@ -72,7 +72,7 @@ class PulsewayFormFields implements IFormFields
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
 				'disabled' => true,
-				'data-selected' => $form->config->pulseway->systems,
+				'data-selected' => $form->settings->pulseway->systems,
 				'data-apiurl' => '../pulseway/systems'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -91,13 +91,13 @@ class PulsewayFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->pulseway->enabled = isset($data['pulseway-enabled']) && $data['pulseway-enabled'] == 'on' ? '1' : '0';
-        $config->pulseway->URL = $data['pulseway-url'];
-        $config->pulseway->username = $data['pulseway-username'];
-		$config->pulseway->password = $data['pulseway-password'];
-		$config->pulseway->updateInterval = $data['pulseway-update-interval'];
-		$config->pulseway->systems = implode($data['pulseway-systems'], ',');
+        $settings->pulseway->enabled = isset($data['pulseway-enabled']) && $data['pulseway-enabled'] == 'on' ? '1' : '0';
+        $settings->pulseway->url = $data['pulseway-url'];
+        $settings->pulseway->username = $data['pulseway-username'];
+		$settings->pulseway->password = $data['pulseway-password'];
+		$settings->pulseway->update_interval = $data['pulseway-update-interval'];
+		$settings->pulseway->systems = implode($data['pulseway-systems'], ',');
     }
 }

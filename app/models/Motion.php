@@ -16,7 +16,7 @@ class Motion extends BaseModel
      */
     public function getLatest() : array
     {
-        $files = glob($this->_config->motion->picturePath . '*.jpg');
+        $files = glob($this->_settings->motion->picture_path . '*.jpg');
         $files = array_combine($files, array_map("filemtime", $files));
         arsort($files);
 
@@ -30,7 +30,7 @@ class Motion extends BaseModel
      */
     public function getModifiedTime() : string
     {
-        $latest_file = $this->getLatest($this->_config);
+        $latest_file = $this->getLatest();
         return date('d-m-Y H:i', current($latest_file));
     }
 }

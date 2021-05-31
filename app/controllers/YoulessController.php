@@ -11,12 +11,24 @@ use Chell\Models\Youless;
  */
 class YoulessController extends BaseController
 {
+    private $_model;
+
+    /**
+     * Initializes the controller, creating a new Roborock model.
+     */
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Youless();
+    }
+
     /**
      * Returns a json array with both the current power usage and the class associated with the value.
      */
     public function indexAction()
     {
-        $stats = (new Youless())->getCurrentStats();
-        die(json_encode(['power' => $stats->pwr, 'counter' => $stats->cnt, 'class' => Youless::getTextClass($this->config, $stats->pwr)]));
+        $stats = $this->_model->getCurrentStats();
+        die(json_encode(['power' => $stats->pwr, 'counter' => $stats->cnt, 'class' => $this->_model->getTextClass($stats->pwr)]));
     }
 }

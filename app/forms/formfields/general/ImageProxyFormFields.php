@@ -18,7 +18,7 @@ class ImageProxyFormFields implements IFormFields
         $imageproxyEnabled = new Check('imageproxy-enabled');
         $imageproxyEnabled->setLabel('Enabled')
             ->setAttributes([
-                'checked' => $form->config->imageproxy->enabled == '1' ? 'checked' : null,
+                'checked' => $form->settings->imageproxy->enabled == '1' ? 'checked' : null,
                 'data-toggle' => 'toggle',
                 'data-onstyle' => 'success',
                 'data-offstyle' => 'danger',
@@ -30,7 +30,7 @@ class ImageProxyFormFields implements IFormFields
         $imageproxyUrl->setLabel('URL')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-            ->setDefault($form->config->imageproxy->URL)
+            ->setDefault($form->settings->imageproxy->url)
             ->addValidators([
                 new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'imageproxy-enabled']),
                 new UrlValidator(['message' => $form->translator->validation['url']])
@@ -46,9 +46,9 @@ class ImageProxyFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->imageproxy->enabled = isset($data['imageproxy-enabled']) && $data['imageproxy-enabled'] == 'on' ? '1' : '0';
-        $config->imageproxy->URL = $data['imageproxy-url'];
+        $settings->imageproxy->enabled = isset($data['imageproxy-enabled']) && $data['imageproxy-enabled'] == 'on' ? '1' : '0';
+        $settings->imageproxy->url = $data['imageproxy-url'];
     }
 }

@@ -1,6 +1,6 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div id="sites" class="tab-pane panel fade" data-togglestate-baseurl="<?php echo $this->config->application->baseUri . 'hyper_v_admin/siteToggleState/' ?>">
+<div id="sites" class="tab-pane panel fade" data-togglestate-baseurl="<?php echo $this->settings->application->base_uri . 'hyper_v_admin/siteToggleState/' ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -13,7 +13,7 @@
             <tbody>
                 <?php foreach($sites as $site) :
                         $state = \Chell\Models\HyperVAdmin::getSiteState($site->State);
-                        $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/siteToggleState/' . $device->id .'/' . $site->Name . '/';
+                        $toggleStateURL = $this->settings->application->base_uri . 'hyper_v_admin/siteToggleState/' . $device->id .'/' . $site->Name . '/';
                         $toggleStateURL .= $site->State == \Chell\Models\HyperVAdmin::siteStateEnabed ? \Chell\Models\HyperVAdmin::siteStateDisabed : \Chell\Models\HyperVAdmin::siteStateEnabed;
                 ?>
                 <tr>
@@ -24,7 +24,9 @@
                             </a>
                         </div>
                     </td>
-                    <td class="name"><?php echo $site->Name ?></td>
+                    <td class="name">
+                        <?php echo $site->Name ?>
+                    </td>
                     <td class="hidden-xs actions">
                         <div class="btn-group pull-right">
                             <a href="<?php echo $toggleStateURL ?>" class="togglestate btn btn-default btn-<?php echo $state == 'enabled' ? 'success' : 'danger'  ?>">

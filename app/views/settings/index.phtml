@@ -16,7 +16,7 @@
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>
                 </li>
-                <?php if ($this->config->snmp->enabled) : ?>
+                <?php if ($this->settings->snmp->enabled) : ?>
                 <li <?php echo $activeTab == 'SNMP' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#snmphosts">SNMP</a>
                 </li>
@@ -43,7 +43,7 @@
                 <li <?php echo $activeTab == 'Devices' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#devices">Devices</a>
                 </li>
-                <?php if ($this->config->snmp->enabled) : ?>
+                <?php if ($this->settings->snmp->enabled) : ?>
                 <li <?php echo $activeTab == 'SNMP' ? 'class="active"' : null ?>>
                     <a data-toggle="tab" href="#snmphosts" class="pull-left">SNMP</a>
                 </li>

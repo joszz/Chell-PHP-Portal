@@ -21,7 +21,7 @@ class TransmissionFormFields implements IFormFields
 		$transmissionEnabled = new Check('transmission-enabled');
 		$transmissionEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->transmission->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->transmission->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -33,7 +33,7 @@ class TransmissionFormFields implements IFormFields
 		$transmissionURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->transmission->URL)
+			->setDefault($form->settings->transmission->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -43,21 +43,21 @@ class TransmissionFormFields implements IFormFields
 		$transmissionUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->transmission->username)
+			->setDefault($form->settings->transmission->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$transmissionPassword = new Password('transmission-password');
 		$transmissionPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
-			->setDefault($form->config->transmission->password)
+			->setDefault($form->settings->transmission->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled']));
 
 		$transmissionInterval = new Numeric('transmission-update-interval');
 		$transmissionInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->transmission->updateInterval)
+			->setDefault($form->settings->transmission->update_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'transmission-enabled'])
@@ -76,12 +76,12 @@ class TransmissionFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->transmission->enabled = isset($data['transmission-enabled']) && $data['transmission-enabled'] == 'on' ? '1' : '0';
-        $config->transmission->URL = $data['transmission-url'];
-        $config->transmission->username = $data['transmission-username'];
-        $config->transmission->password = $data['transmission-password'];
-        $config->transmission->updateInterval = $data['transmission-update-interval'];
+        $settings->transmission->enabled = isset($data['transmission-enabled']) && $data['transmission-enabled'] == 'on' ? '1' : '0';
+        $settings->transmission->url = $data['transmission-url'];
+        $settings->transmission->username = $data['transmission-username'];
+        $settings->transmission->password = $data['transmission-password'];
+        $settings->transmission->update_interval = $data['transmission-update-interval'];
     }
 }

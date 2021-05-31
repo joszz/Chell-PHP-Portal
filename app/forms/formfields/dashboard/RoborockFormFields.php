@@ -21,7 +21,7 @@ class RoborockFormFields implements IFormFields
 		$roborockEnabled = new Check('roborock-enabled');
 		$roborockEnabled->setLabel('Enabled');
 		$roborockEnabled->setAttributes([
-			'checked' => $form->config->roborock->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->roborock->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -33,7 +33,7 @@ class RoborockFormFields implements IFormFields
 		$roborockInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->roborock->updateInterval)
+			->setDefault($form->settings->roborock->update_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled'])
@@ -43,7 +43,7 @@ class RoborockFormFields implements IFormFields
 		$roborockIp->setLabel('IP')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->config->roborock->ip)
+			->setDefault($form->settings->roborock->ip)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']),
 				new Ip(['message' => $form->translator->validation['ip'], 'allowPrivate' => true]),
@@ -53,7 +53,7 @@ class RoborockFormFields implements IFormFields
 		$roborockToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->roborock->token)
+			->setDefault($form->settings->roborock->token)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'roborock-enabled']));
 
 		$form->add($roborockEnabled);
@@ -68,11 +68,11 @@ class RoborockFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->roborock->enabled = isset($data['roborock-enabled']) && $data['roborock-enabled'] == 'on' ? '1' : '0';
-        $config->roborock->updateInterval = $data['roborock-update-interval'];
-        $config->roborock->ip = $data['roborock-ip'];
-        $config->roborock->token = $data['roborock-token'];
+        $settings->roborock->enabled = isset($data['roborock-enabled']) && $data['roborock-enabled'] == 'on' ? '1' : '0';
+        $settings->roborock->update_interval = $data['roborock-update-interval'];
+        $settings->roborock->ip = $data['roborock-ip'];
+        $settings->roborock->token = $data['roborock-token'];
     }
 }

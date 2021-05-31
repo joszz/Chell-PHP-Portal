@@ -1,7 +1,7 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success kodi episodes gallery" data-rotate-interval="<?php echo $this->config->kodi->rotateEpisodesInterval ?>">
+    <div class="panel panel-success kodi episodes gallery" data-rotate-interval="<?php echo $this->settings->kodi->rotate_episodes_interval ?>">
         <div class="panel-heading">
             <div class="backdrop"></div>
             <div class="btn-group pull-right">
@@ -16,7 +16,7 @@
             <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="episodes"
                 data-type="iframe"
-                href="<?php echo $this->config->application->baseUri .'kodi/episode/' . $episode->idEpisode ?>"
+                href="<?php echo $this->settings->application->base_uri .'kodi/episode/' . $episode->idEpisode ?>"
                 title="<?php echo $episode->c00 ?>">
                 <img src="<?php echo $episode->getImageUrl('thumb', 'c06', 'idEpisode') ?>" loading="lazy" width="348" height="377" alt="<?php echo $episode->c00 ?>" />
                 <div class="overlay"></div>

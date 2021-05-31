@@ -1,7 +1,7 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success kodi albums gallery" data-rotate-interval="<?php echo $this->config->jellyfin->rotateInterval ?>">
+    <div class="panel panel-success kodi albums gallery" data-rotate-interval="<?php echo $this->settings->jellyfin->rotate_interval ?>">
         <div class="panel-heading">
             <div class="backdrop"></div>
             <div class="btn-group pull-right">
@@ -19,9 +19,9 @@
                 data-fancybox="jellyfin_<?php echo $title ?>"
                 data-type="iframe"
                 data-nomaxwidth
-                href="<?php echo $this->config->jellyfin->url .'/web/index.html#!/details?id=' . $item['id'] . '&serverId=' . $item['serverId'] ?>"
+                href="<?php echo $this->settings->jellyfin->url .'/web/index.html#!/details?id=' . $item['id'] . '&serverId=' . $item['serverId'] ?>"
                 title="<?php echo $item['title'] ?>">
-                <img src="<?php echo $this->config->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" alt="<?php echo $item['title'] ?>" />
+                <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" alt="<?php echo $item['title'] ?>" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $item['title'] ?>">
                     <?php echo $item['title'] ?>

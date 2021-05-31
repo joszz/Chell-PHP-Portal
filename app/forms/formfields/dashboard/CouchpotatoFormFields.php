@@ -21,7 +21,7 @@ class CouchpotatoFormFields implements IFormFields
 		$couchpotatoEnabled = new Check('couchpotato-enabled');
 		$couchpotatoEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->couchpotato->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->couchpotato->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -33,7 +33,7 @@ class CouchpotatoFormFields implements IFormFields
 		$couchpotatoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->couchpotato->URL)
+			->setDefault($form->settings->couchpotato->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -43,23 +43,38 @@ class CouchpotatoFormFields implements IFormFields
 		$couchpotatoAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->couchpotato->APIKey)
+			->setDefault($form->settings->couchpotato->api_key)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
 
 		$rotateInterval = new Numeric('couchpotato-rotate-interval');
 		$rotateInterval->setLabel('Rotate interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->couchpotato->rotateInterval)
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($form->settings->couchpotato->rotate_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
 			]);
 
+        $tmdbAPIURL = new Text('couchpotato-tmdb-apiurl');
+        $tmdbAPIURL->setLabel('TMDB API URL')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+            ->setDefault($form->settings->couchpotato->tmdb_api_url)
+            ->addValidator(new UrlValidator(['message' => $form->translator->validation['url']]));
+
+        $tmdbAPIKey = new Password('couchpotato-tmdb-apikey');
+        $tmdbAPIKey->setLabel('TMDB API key')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+            ->setDefault($form->settings->couchpotato->tmdb_api_key);
+
 		$form->add($couchpotatoEnabled);
 		$form->add($couchpotatoURL);
 		$form->add($couchpotatoAPIKey);
 		$form->add($rotateInterval);
+        $form->add($tmdbAPIURL);
+        $form->add($tmdbAPIKey);
 	}
 
     /**
@@ -68,11 +83,13 @@ class CouchpotatoFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->couchpotato->enabled = isset($data['couchpotato-enabled']) && $data['couchpotato-enabled'] == 'on' ? '1' : '0';
-        $config->couchpotato->URL = $data['couchpotato-url'];
-        $config->couchpotato->APIKey = $data['couchpotato-apikey'];
-        $config->couchpotato->rotateInterval = $data['couchpotato-rotate-interval'];
+        $settings->couchpotato->enabled = isset($data['couchpotato-enabled']) && $data['couchpotato-enabled'] == 'on' ? '1' : '0';
+        $settings->couchpotato->url = $data['couchpotato-url'];
+        $settings->couchpotato->api_key = $data['couchpotato-apikey'];
+        $settings->couchpotato->rotate_interval = $data['couchpotato-rotate-interval'];
+        $settings->couchpotato->tmdb_api_url = $data['couchpotato-tmdb-apiurl'];
+        $settings->couchpotato->tmdb_api_key = $data['couchpotato-tmdb-apikey'];
     }
 }

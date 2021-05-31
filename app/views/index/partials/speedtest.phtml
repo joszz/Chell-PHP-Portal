@@ -2,16 +2,16 @@
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
     <div class="panel panel-success pull-left speedtest"
-        data-speedtest-testorder="<?php echo $this->config->speedtest->test_order ?>"
-        data-speedtest-uploadtime="<?php echo $this->config->speedtest->time_ul ?>"
-        data-speedtest-downloadtime="<?php echo $this->config->speedtest->time_dl ?>"
-        data-speedtest-getispip="<?php echo $this->config->speedtest->getIp_ispInfo ?>"
-        data-speedtest-distance="<?php echo $this->config->speedtest->getIp_ispInfo_distance ?>"
-        data-speedtest-telemetry="<?php echo $this->config->speedtest->telemetry ?>">
+        data-speedtest-testorder="<?php echo $this->settings->speedtest->test_order ?>"
+        data-speedtest-uploadtime="<?php echo $this->settings->speedtest->time_upload ?>"
+        data-speedtest-downloadtime="<?php echo $this->settings->speedtest->time_download ?>"
+        data-speedtest-getispip="<?php echo $this->settings->speedtest->get_isp_info ?>"
+        data-speedtest-distance="<?php echo $this->settings->speedtest->get_isp_distance ?>"
+        data-speedtest-telemetry="<?php echo $this->settings->speedtest->telemetry ?>">
         <div class="panel-heading">
             <div class="btn-group pull-right">
-                <?php if ($this->config->speedtest->telemetry != 'off') : ?>
-                <a href="<?php echo $this->config->application->baseUri ?>speedtest/stats" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
+                <?php if ($this->settings->speedtest->telemetry != 'off') : ?>
+                <a href="<?php echo $this->settings->application->base_uri ?>speedtest/stats" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
                 <?php endif ?>
                 <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>
                 <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>

@@ -21,7 +21,7 @@ class VerisureFormFields implements IFormFields
 		$verisureEnabled = new Check('verisure-enabled');
 		$verisureEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->verisure->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->verisure->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -33,7 +33,7 @@ class VerisureFormFields implements IFormFields
 		$verisureInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->verisure->updateInterval)
+			->setDefault($form->settings->verisure->update_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled'])
@@ -43,7 +43,7 @@ class VerisureFormFields implements IFormFields
 		$verisureURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->config->verisure->URL)
+			->setDefault($form->settings->verisure->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -53,21 +53,21 @@ class VerisureFormFields implements IFormFields
 		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->verisure->username)
+			->setDefault($form->settings->verisure->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$verisurePassword = new Password('verisure-password');
 		$verisurePassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
-			->setDefault($form->config->verisure->password)
+			->setDefault($form->settings->verisure->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
         $verisurePin = new Password('verisure-pin');
 		$verisurePin->setLabel('Pin')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->verisure->securityCode);
+			->setDefault($form->settings->verisure->securitycode);
 
 		$form->add($verisureEnabled);
 		$form->add($verisureInterval);
@@ -83,13 +83,13 @@ class VerisureFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->verisure->enabled = isset($data['verisure-enabled']) && $data['verisure-enabled'] == 'on' ? '1' : '0';
-        $config->verisure->updateInterval = $data['verisure-update-interval'];
-        $config->verisure->URL = $data['verisure-url'];
-        $config->verisure->username = $data['verisure-username'];
-        $config->verisure->password = $data['verisure-password'];
-        $config->verisure->securityCode = $data['verisure-pin'];
+        $settings->verisure->enabled = isset($data['verisure-enabled']) && $data['verisure-enabled'] == 'on' ? '1' : '0';
+        $settings->verisure->update_interval = $data['verisure-update-interval'];
+        $settings->verisure->url = $data['verisure-url'];
+        $settings->verisure->username = $data['verisure-username'];
+        $settings->verisure->password = $data['verisure-password'];
+        $settings->verisure->securitycode = $data['verisure-pin'];
     }
 }

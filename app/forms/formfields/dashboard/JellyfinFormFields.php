@@ -22,7 +22,7 @@ class JellyfinFormFields implements IFormFields
 		$jellyfinEnabled = new Check('jellyfin-enabled');
 		$jellyfinEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->config->jellyfin->enabled == '1' ? 'checked' : null,
+				'checked' => $form->settings->jellyfin->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -34,7 +34,7 @@ class JellyfinFormFields implements IFormFields
 		$jellyfinUrl->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($form->config->jellyfin->url)
+			->setDefault($form->settings->jellyfin->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -44,28 +44,21 @@ class JellyfinFormFields implements IFormFields
 		$jellyfinToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->jellyfin->token)
+			->setDefault($form->settings->jellyfin->token)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
 
         $jellyfinUserId = new Text('jellyfin-userid');
 		$jellyfinUserId->setLabel('User id')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->jellyfin->userId)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
-
-        $jellyfinUserId = new Text('jellyfin-userid');
-		$jellyfinUserId->setLabel('User id')
-			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->jellyfin->userId)
+			->setDefault($form->settings->jellyfin->userid)
 			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
 
 		$jellyfinRotateInterval = new Numeric('jellyfin-rotate-interval');
 		$jellyfinRotateInterval->setLabel('Rotate interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->jellyfin->rotateInterval)
+			->setDefault($form->settings->jellyfin->rotate_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'jellyfin-enabled'])
@@ -78,7 +71,7 @@ class JellyfinFormFields implements IFormFields
 				'class' => 'form-control',
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
-				'data-selected' => $form->config->jellyfin->views,
+				'data-selected' => $form->settings->jellyfin->views,
 				'data-apiurl' => '../jellyfin/views'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -97,13 +90,13 @@ class JellyfinFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->jellyfin->enabled = isset($data['jellyfin-enabled']) && $data['jellyfin-enabled'] == 'on' ? '1' : '0';
-        $config->jellyfin->url = $data['jellyfin-url'];
-        $config->jellyfin->token = $data['jellyfin-token'];
-        $config->jellyfin->userId = $data['jellyfin-userid'];
-		$config->jellyfin->rotateInterval = $data['jellyfin-rotate-interval'];
-		$config->jellyfin->views = implode($data['jellyfin-views'], ',');
+        $settings->jellyfin->enabled = isset($data['jellyfin-enabled']) && $data['jellyfin-enabled'] == 'on' ? '1' : '0';
+        $settings->jellyfin->url = $data['jellyfin-url'];
+        $settings->jellyfin->token = $data['jellyfin-token'];
+        $settings->jellyfin->userid = $data['jellyfin-userid'];
+		$settings->jellyfin->rotate_interval = $data['jellyfin-rotate-interval'];
+		$settings->jellyfin->views = implode($data['jellyfin-views'], ',');
     }
 }

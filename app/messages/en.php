@@ -18,7 +18,6 @@ $help = [
     'alert-timeout'                 => 'The duration to display notifications after performing an action such as using WOL.',
     'items-per-page'                => 'The amount of items shown on paginated tables such as the logs tab in settings.',
     'cryptkey'                      => 'The key used for Phalcon\'s cryptographic functions.',
-    'tmdb-apikey'                   => 'The API key used to access TMDB information, used by the Couchpotato plugin.',
     'debug'                         => 'Whether debug mode is enabled; <ul><li>Sets PHP\'s display_error mode to on</li><li>Disables minification of JS and CSS</li><li>Outputs error information to the browser</li>',
     'demo'                          => 'Whether the demo mode is enabled. Will blur all sensitive information when enabled.',
     'check-devicestate-interval'    => 'The interval of refreshing the devices block on the dashboard.',
@@ -42,6 +41,8 @@ $help = [
     'couchpotato-url'               => 'The URL where Couchpotato can be found.',
     'couchpotato-apikey'            => 'The API key used to access the Couchpotato data.',
     'couchpotato-rotate-interval'   => 'The interval used to cycle through the Couchpotato widget.',
+    'couchpotato-tmdb-apiurl'       => 'The URL used to access TMDB API.',
+    'couchpotato-tmdb-apikey'       => 'The API key used to access TMDB information.',
 
     'hypervadmin-enabled'           => 'Enables the <a href="https://github.com/joszz/HyperVAdmin" target="_blank">HyperVAdmin</a> plugin.',
     'hypervadmin-url'               => 'The URL where HyperVAdmin can be found.',
@@ -173,6 +174,8 @@ $helpTitles = [
     'couchpotato-url'               => 'Couchpotato URL',
     'couchpotato-apikey'            => 'Couchpotato API key',
     'couchpotato-rotate-interval'   => 'Rotate Couchpotato widget interval',
+    'couchpotato-tmdb-apiurl'       => 'TMDB API URL',
+    'couchpotato-tmdb-apikey'       => 'TMDB API key',
 
     'hypervadmin-enabled'           => 'HyperVAdmin',
     'hypervadmin-url'               => 'HyperVAdmin URL',

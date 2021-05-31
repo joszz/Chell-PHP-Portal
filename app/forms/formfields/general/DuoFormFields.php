@@ -18,7 +18,7 @@ class DuoFormFields implements IFormFields
         $duoEnabled = new Check('duo-enabled');
         $duoEnabled->setLabel('Enabled');
         $duoEnabled->setAttributes([
-            'checked' => $form->config->duo->enabled == '1' ? 'checked' : null,
+            'checked' => $form->settings->duo->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
@@ -30,28 +30,28 @@ class DuoFormFields implements IFormFields
         $duoAPIHostname->setLabel('API hostname')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-            ->setDefault($form->config->duo->apiHostname)
+            ->setDefault($form->settings->duo->api_hostname)
             ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
 
         $duoIKey = new Password('duo-ikey');
         $duoIKey->setLabel('Integration key')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($form->config->duo->ikey)
+                ->setDefault($form->settings->duo->ikey)
                 ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
 
         $duoSKey = new Password('duo-skey');
         $duoSKey->setLabel('Secret key')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($form->config->duo->skey)
+                ->setDefault($form->settings->duo->skey)
                 ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
 
         $duoAKey = new Password('duo-akey');
         $duoAKey->setLabel('Akey')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-                ->setDefault($form->config->duo->akey)
+                ->setDefault($form->settings->duo->akey)
                 ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
 
         $form->add($duoEnabled);
@@ -67,12 +67,12 @@ class DuoFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->duo->enabled = isset($data['duo-enabled']) && $data['duo-enabled'] == 'on' ? '1' : '0';
-        $config->duo->apiHostname = $data['duo-apiHostname'];
-        $config->duo->ikey = $data['duo-ikey'];
-        $config->duo->skey = $data['duo-skey'];
-        $config->duo->akey = $data['duo-akey'];
+        $settings->duo->enabled = isset($data['duo-enabled']) && $data['duo-enabled'] == 'on' ? '1' : '0';
+        $settings->duo->api_hostname = $data['duo-apiHostname'];
+        $settings->duo->ikey = $data['duo-ikey'];
+        $settings->duo->skey = $data['duo-skey'];
+        $settings->duo->akey = $data['duo-akey'];
     }
 }

@@ -19,7 +19,7 @@ class SettingsBaseForm extends Form
      *
      * @var object
      */
-    public $config;
+    public $settings;
     public $translator;
 
     /**
@@ -29,7 +29,7 @@ class SettingsBaseForm extends Form
      */
     public function __construct($entity = null)
     {
-        $this->config = $this->di->get('config');
+        $this->settings = $this->di->get('settings');
         $this->translator = $this->di->get('translator');
 
         parent::__construct($entity);
@@ -83,7 +83,7 @@ class SettingsBaseForm extends Form
 
     /**
      * Renders the form
-     * 
+     *
      * @param string $id    The HTML id attribute to set on the form.
      */
     public function renderForm($id)
@@ -93,10 +93,10 @@ class SettingsBaseForm extends Form
 
     /**
      * Summary of renderButton
-     * 
-     * @param string $button 
-     * @param string $name 
-     * @param mixed $element 
+     *
+     * @param string $button
+     * @param string $name
+     * @param mixed $element
      */
     public function renderButton($button, $name = '', $element = '')
     {
@@ -155,7 +155,7 @@ class SettingsBaseForm extends Form
      */
     protected function setFormFieldClasses($namespace)
     {
-		$formFieldFiles = array_diff(scandir(APP_PATH . $this->config->application->formsDir . 'formfields/' . strtolower($namespace)), array('..', '.'));
+		$formFieldFiles = array_diff(scandir(APP_PATH . 'app/forms/formfields/' . strtolower($namespace)), array('..', '.'));
 		foreach ($formFieldFiles as $file)
         {
 			$class =  'Chell\Forms\FormFields\\' . $namespace . '\\' . basename($file, '.php');

@@ -18,7 +18,7 @@ class SnmpFormFields implements IFormFields
 		$snmpEnabled = new Check('snmp-enabled');
 		$snmpEnabled->setLabel('Enabled');
 		$snmpEnabled->setAttributes([
-			'checked' => $form->config->snmp->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->snmp->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -30,7 +30,7 @@ class SnmpFormFields implements IFormFields
 		$snmpInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->snmp->updateInterval)
+			->setDefault($form->settings->snmp->update_interval)
 			->addValidators([
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'snmp-enabled'])
@@ -46,9 +46,9 @@ class SnmpFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->snmp->enabled = isset($data['snmp-enabled']) && $data['snmp-enabled'] == 'on' ? '1' : '0';
-        $config->snmp->updateInterval = $data['snmp-update-interval'];
+        $settings->snmp->enabled = isset($data['snmp-enabled']) && $data['snmp-enabled'] == 'on' ? '1' : '0';
+        $settings->snmp->update_interval = $data['snmp-update-interval'];
     }
 }

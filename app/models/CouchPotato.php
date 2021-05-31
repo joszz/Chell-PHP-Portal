@@ -16,7 +16,7 @@ class Couchpotato extends BaseModel
      */
 	public function getAllMovies()
 	{
-		$curl = curl_init($this->_config->couchpotato->URL . 'api/' . $this->_config->couchpotato->APIKey . '/media.list');
+		$curl = curl_init($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.list');
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
@@ -36,7 +36,7 @@ class Couchpotato extends BaseModel
 	public function getMovie($id)
 	{
 		$movie = false;
-		$curl = curl_init($this->_config->couchpotato->URL . 'api/' . $this->_config->couchpotato->APIKey . '/media.get/?id=' . $id);
+		$curl = curl_init($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.get/?id=' . $id);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0
@@ -61,7 +61,7 @@ class Couchpotato extends BaseModel
      */
 	private function getRandomTrailerFormTMDB($id) : string
 	{
-		$curl = curl_init($this->_config->application->tmdbAPIURL . 'movie/' . $id . '/videos?api_key=' . $this->_config->application->tmdbAPIKey);
+		$curl = curl_init($this->_settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->_settings->application->tmdb_api_key);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0

@@ -34,14 +34,14 @@ class SettingsController extends BaseController
     {
         parent::initialize();
 
-        if ($this->config->application->debug)
+        if (DEBUG)
         {
-            $this->assets->collection('settings')->addJs('js/settings.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
-            $this->assets->collection('settings')->addJs('vendor/webauthn/webauthnregister.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('settings')->addJs('js/settings.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->assets->collection('settings')->addJs('vendor/webauthn/webauthnregister.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         }
         else
         {
-            $this->assets->collection('settings')->addJs('js/settings.min.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+            $this->assets->collection('settings')->addJs('js/settings.min.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         }
     }
 
@@ -63,7 +63,7 @@ class SettingsController extends BaseController
 
         $this->setScrollToInputErrorElement([$this->generalForm, $this->dashboardForm]);
 
-        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->config->application->itemsPerPage), 'settings/logs/');
+        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
         $this->view->users = Users::Find();
         $this->view->devices = Devices::Find();
         $this->view->snmpHosts = SnmpHosts::Find(['order' => 'name']);
@@ -87,7 +87,7 @@ class SettingsController extends BaseController
         {
             if ($form->isValid($data))
             {
-                $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
+                $this->settings->save('general');
             }
             else
             {
@@ -118,7 +118,7 @@ class SettingsController extends BaseController
         {
             if ($form->isValid($data))
             {
-                $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
+                $this->settings->save('dashboard');
             }
             else
             {
@@ -460,7 +460,7 @@ class SettingsController extends BaseController
 
         asort($logsOrdered);
         $totalItems = count($logsOrdered);
-        $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->config->application->itemsPerPage, $this->config->application->itemsPerPage);
+        $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->settings->application->items_per_page, $this->settings->application->items_per_page);
 
         return $logsOrdered;
     }

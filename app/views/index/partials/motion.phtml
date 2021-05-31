@@ -2,7 +2,7 @@
 <?php /** @var $motionModifiedTime string */ ?>
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success motion gallery" data-baseuri="<?php echo $this->config->application->baseUri ?>" data-motion-interval="<?php echo $this->config->motion->updateInterval ?>">
+    <div class="panel panel-success motion gallery" data-baseuri="<?php echo $this->settings->application->base_uri ?>" data-motion-interval="<?php echo $this->settings->motion->update_interval ?>">
         <div class="panel-heading">
             <div class="backdrop"></div>
             <div class="btn-group pull-right">
@@ -12,8 +12,8 @@
             <h4>Motion</h4>
         </div>
         <div class="panel-body hidden-xs">
-            <a class="item" href="<?php echo $this->config->motion->URL ?>" target="_blank"
-                style="background-image: url('<?php echo $this->config->application->baseUri ?>motion/?t=<?php echo time() ?>')">
+            <a class="item" href="<?php echo $this->settings->motion->url ?>" target="_blank"
+                style="background-image: url('<?php echo $this->settings->application->base_uri ?>motion/?t=<?php echo time() ?>')">
                 <div class="overlay"></div>
                 <div class="title">Modified on</div>
                 <div class="subtitle">

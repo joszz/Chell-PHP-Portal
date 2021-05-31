@@ -23,13 +23,13 @@ class SettingsGeneralForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->setAction($this->config->application->baseUri . 'settings/general');
+        $this->setAction($this->settings->application->base_uri . 'settings/general');
 
         $title = new Text('title');
         $title->setLabel('Title')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->title)
+            ->setDefault($this->settings->application->title)
             ->addValidators([new PresenceOf(['message' => $this->translator->validation['required']])]);
 
         $bgcolor = new Select(
@@ -38,21 +38,21 @@ class SettingsGeneralForm extends SettingsBaseForm
             ['useEmpty' => false]
         );
         $bgcolor->setLabel('Background color')
-            ->setDefault($this->config->application->background);
+            ->setDefault($this->settings->application->background);
 
         $bgColorLatitude = new Numeric('bgcolor-latitude');
         $bgColorLatitude->setLabel('Latitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location latitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->config->application->backgroundLatitude)
+            ->setAttributes(['class' => 'form-control location latitude' . ($this->settings->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->settings->application->background_latitude)
             ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
         $bgColorLongitude= new Numeric('bgcolor-longitude');
         $bgColorLongitude->setLabel('Longitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location longitude' . ($this->config->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->config->application->backgroundLongitude)
+            ->setAttributes(['class' => 'form-control location longitude' . ($this->settings->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->settings->application->background_longitude)
             ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->translator->validation['not-a-number']]));
 
@@ -60,7 +60,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->alertTimeout)
+            ->setDefault($this->settings->application->alert_timeout)
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
                 new Numericality(['message' => $this->translator->validation['not-a-number']])
@@ -70,7 +70,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $itemsPerPage->setLabel('Items per page')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->itemsPerPage)
+            ->setDefault($this->settings->application->items_per_page)
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
                 new Numericality(['message' => $this->translator->validation['not-a-number']])
@@ -80,49 +80,20 @@ class SettingsGeneralForm extends SettingsBaseForm
         $cryptKey->setLabel('Cryptkey')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->phalconCryptKey)
+            ->setDefault($this->settings->application->phalcon_crypt_key)
             ->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
-
-        $tmdbAPIKey = new Password('tmdb-apikey');
-        $tmdbAPIKey->setLabel('TMDB API key')
-            ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->tmdbAPIKey);
-
-        $whatIsMyBrowserAPIKey = new Password('whatismybrowser-apikey');
-        $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key')
-            ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->whatIsMyBrowserAPIKey);
-
-        $whatIsMyBrowserAPIURL = new Text('whatismybrowser-apiurl');
-        $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL')
-            ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->application->whatIsMyBrowserAPIURL)
-            ->addValidator(new UrlValidator(['message' => $this->translator->validation['url']]));
 
         $devicestateTimeouts = new Numeric('check-devicestate-interval');
         $devicestateTimeouts->setLabel('Check device state interval')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->config->dashboard->checkDeviceStatesInterval)
+            ->setDefault($this->settings->dashboard->check_device_states_interval)
             ->addValidator(new Numericality(['message' => 'Not a number']));
-
-        $debug = new Check('debug');
-        $debug->setLabel('Debug')
-            ->setAttributes([
-                'checked' => $this->config->application->debug == '1' ? 'checked' : null,
-                'data-toggle' => 'toggle',
-                'data-onstyle' => 'success',
-                'data-offstyle' => 'danger',
-                'data-size' => 'small'
-        ]);
 
         $demo = new Check('demo');
         $demo->setLabel('Demo mode')
             ->setAttributes([
-                'checked' => $this->config->application->demoMode == '1' ? 'checked' : null,
+                'checked' => $this->settings->application->demo_mode == '1' ? 'checked' : null,
                 'data-toggle' => 'toggle',
                 'data-onstyle' => 'success',
                 'data-offstyle' => 'danger',
@@ -136,11 +107,7 @@ class SettingsGeneralForm extends SettingsBaseForm
         $this->add($alertTimeout);
         $this->add($itemsPerPage);
         $this->add($cryptKey);
-        $this->add($tmdbAPIKey);
-        $this->add($whatIsMyBrowserAPIKey);
-        $this->add($whatIsMyBrowserAPIURL);
         $this->add($devicestateTimeouts);
-        $this->add($debug);
         $this->add($demo);
 
         $this->setFormFieldClasses('General');
@@ -159,23 +126,19 @@ class SettingsGeneralForm extends SettingsBaseForm
 
         if ($valid)
         {
-            $this->config->application->title = $data['title'];
-            $this->config->application->background = $data['bgcolor'];
-            $this->config->application->backgroundLatitude = $data['bgcolor-latitude'];
-            $this->config->application->backgroundLongitude = $data['bgcolor-longitude'];
-            $this->config->application->alertTimeout = $data['alert-timeout'];
-            $this->config->application->itemsPerPage = $data['items-per-page'];
-            $this->config->application->phalconCryptKey = $data['cryptkey'];
-            $this->config->application->tmdbAPIKey = $data['tmdb-apikey'];
-            $this->config->application->whatIsMyBrowserAPIKey = $data['whatismybrowser-apikey'];
-            $this->config->application->whatIsMyBrowserAPIURL = $data['whatismybrowser-apiurl'];
-            $this->config->dashboard->checkDeviceStatesInterval = $data['check-devicestate-interval'];
-            $this->config->application->debug = isset($data['debug']) && $data['debug']== 'on' ? '1' : '0';
-            $this->config->application->demoMode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
+            $this->settings->application->title = $data['title'];
+            $this->settings->application->background = $data['bgcolor'];
+            $this->settings->application->background_latitude = $data['bgcolor-latitude'];
+            $this->settings->application->background_longitude = $data['bgcolor-longitude'];
+            $this->settings->application->alert_timeout = $data['alert-timeout'];
+            $this->settings->application->items_per_page = $data['items-per-page'];
+            $this->settings->application->phalcon_crypt_key = $data['cryptkey'];
+            $this->settings->dashboard->check_device_states_interval = $data['check-devicestate-interval'];
+            $this->settings->application->demo_mode = isset($data['demo']) && $data['demo'] == 'on' ? '1' : '0';
 
             foreach ($this->formFieldClasses as $class)
             {
-                $class->setPostData($this->config, $data);
+                $class->setPostData($this->settings, $data);
             }
         }
 

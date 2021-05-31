@@ -18,7 +18,7 @@ class PiholeFormFields implements IFormFields
 		$piholeEnabled = new Check('pihole-enabled');
 		$piholeEnabled->setLabel('Enabled');
 		$piholeEnabled->setAttributes([
-			'checked' => $form->config->pihole->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->pihole->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -30,7 +30,7 @@ class PiholeFormFields implements IFormFields
 		$piholeURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->pihole->URL)
+			->setDefault($form->settings->pihole->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pihole-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -46,9 +46,9 @@ class PiholeFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->pihole->enabled = isset($data['pihole-enabled']) && $data['pihole-enabled'] == 'on' ? '1' : '0';
-        $config->pihole->URL = $data['pihole-url'];
+        $settings->pihole->enabled = isset($data['pihole-enabled']) && $data['pihole-enabled'] == 'on' ? '1' : '0';
+        $settings->pihole->url = $data['pihole-url'];
     }
 }

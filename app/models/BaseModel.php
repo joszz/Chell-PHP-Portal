@@ -11,13 +11,13 @@ use Phalcon\Mvc\Model;
  */
 class BaseModel extends Model
 {
-    protected $_config;
+    protected $_settings;
 
     /**
      * Sets the database relations
      */
     public function initialize()
     {
-        $this->_config = $this->di->get('config');
+        $this->_settings = $this->di->get('settings');
     }
 }

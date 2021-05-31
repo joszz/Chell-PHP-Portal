@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="color-scheme" content="dark light">
-    <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->config->application->baseUri ?>rss" />
+    <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->settings->application->base_uri ?>rss" />
 
     <?php echo $this->tag->renderTitle(); ?>
 
@@ -42,14 +42,14 @@
     ?>
 </head>
 
-<body id="bootstrap" data-baseuri="<?php echo $this->config->application->baseUri ?>" class="<?php echo $this->config->application->demoMode ? 'demo-mode' : null ?>">
+<body id="bootstrap" data-baseuri="<?php echo $this->settings->application->base_uri ?>" class="<?php echo $this->settings->application->demo_mode ? 'demo-mode' : null ?>">
     <?php $this->partial('navbar') ?>
 
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">
         <?php echo $this->getContent() ?>
     </div>
 
-    <div class="alert" role="alert" data-alert-timeout="<?php echo $this->config->application->alertTimeout ?>"></div>
+    <div class="alert" role="alert" data-alert-timeout="<?php echo $this->settings->application->alert_timeout ?>"></div>
 
     <?php
     $this->partial('dialog-confirm');

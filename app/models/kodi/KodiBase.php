@@ -27,15 +27,15 @@ class KodiBase extends BaseModel
 
         if (empty($this->{$imageField}))
         {
-            return $this->_config->application->baseUri . 'img/icons/unknown.jpg';
+            return $this->_settings->application->base_uri . 'img/icons/unknown.jpg';
         }
 
-        if ($this->_config->imageproxy->enabled)
+        if ($this->_settings->imageproxy->enabled)
         {
-            return $this->_config->imageproxy->URL . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
+            return $this->_settings->imageproxy->url . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }
 
-        return $this->_config->application->baseUri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);
+        return $this->_settings->application->base_uri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);
     }
 
     /**

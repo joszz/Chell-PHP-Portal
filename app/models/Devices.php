@@ -121,7 +121,7 @@ class Devices extends BaseModel
                 return false;
             }
 
-            if (socket_sendto($s, $msg, strlen($msg), 0, $this->_config->network->broadcast, $socket_number))
+            if (socket_sendto($s, $msg, strlen($msg), 0, $this->broadcast, $socket_number))
             {
                 echo 'Magic Packet sent successfully!';
                 socket_close($s);

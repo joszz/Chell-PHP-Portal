@@ -1,33 +1,33 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-	<div class="panel panel-success nowplaying gallery"
-		data-nowplaying-intveral="<?php echo $this->config->dashboard->checkNowPlayingInterval ?>"
-		data-kodi-url="<?php echo $this->config->kodi->URL ?>"
-		data-kodi-username="<?php echo $this->config->kodi->username ?>"
-		data-kodi-password="<?php echo $this->config->kodi->password ?>"
-		data-subsonic-url="<?php echo $this->config->subsonic->URL ?>"
-		data-subsonic-username="<?php echo $this->config->subsonic->username ?>"
-		data-subsonic-password="<?php echo $this->config->subsonic->password ?>">
+    <div class="panel panel-success nowplaying gallery"
+        data-nowplaying-intveral="<?php echo $this->settings->dashboard->check_now_playing_interval ?>"
+        data-kodi-url="<?php echo $this->settings->kodi->url ?>"
+        data-kodi-username="<?php echo $this->settings->kodi->username ?>"
+        data-kodi-password="<?php echo $this->settings->kodi->password ?>"
+        data-subsonic-url="<?php echo $this->settings->subsonic->url ?>"
+        data-subsonic-username="<?php echo $this->settings->subsonic->username ?>"
+        data-subsonic-password="<?php echo $this->settings->subsonic->password ?>">
 
-		<div class="panel-heading">
-			<div class="backdrop"></div>
-			<div class="btn-group pull-right">
+        <div class="panel-heading">
+            <div class="backdrop"></div>
+            <div class="btn-group pull-right">
                 <button class="btn btn-default fa fa-chevron-left" title="Previous player" aria-label="Previous player"></button>
                 <button class="btn btn-default fa fa-chevron-right" title="Next player" aria-label="Next player"></button>
                 <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
                 <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-			</div>
-			<h4>Now playing</h4>
-		</div>
-		<div class="panel-body hidden-xs">
-			<div class="player nothing-playing">
-				<a class="item show_not_important">
+            </div>
+            <h4>Now playing</h4>
+        </div>
+        <div class="panel-body hidden-xs">
+            <div class="player nothing-playing">
+                <a class="item show_not_important">
                     <div class="image"></div>
-					<div class="overlay"></div>
-					<div class="title">Nothing playing</div>
-					<div class="subtitle"></div>
-				</a>
+                    <div class="overlay"></div>
+                    <div class="title">Nothing playing</div>
+                    <div class="subtitle"></div>
+                </a>
 
                 <div class="hidden_not_important nowplaying_detail" id="nowplaying_detail">
                     <div class="panel panel-success pull-left">
@@ -78,7 +78,7 @@
                         </ul>
                     </div>
                 </div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </div>

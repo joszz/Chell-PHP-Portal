@@ -16,9 +16,9 @@ class PHPSysInfo extends BaseModel
      */
     public function getData($plugin)
     {
-        $curl = curl_init($this->_config->phpsysinfo->URL . 'xml.php?json&plugin=' . $plugin . '&t=' . time());
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_USERPWD, $this->_config->phpsysinfo->username . ':' . $this->_config->phpsysinfo->password);
+        $curl = curl_init($this->_settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time());
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_USERPWD, $this->_settings->phpsysinfo->username . ':' . $this->_settings->phpsysinfo->password);
         $data = curl_exec($curl);
         curl_close($curl);
 

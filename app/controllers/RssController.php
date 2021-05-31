@@ -23,7 +23,7 @@ class RssController extends BaseController
 		header('Content-Type: application/xml; charset=UTF-8');
 
 		$url  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
-		$url .= $this->config->application->baseUri;
+		$url .= $this->settings->application->base_uri;
 
 		$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
 		$this->view->baseURL = $url;

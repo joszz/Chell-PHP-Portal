@@ -106,7 +106,7 @@ class Speedtest extends BaseModel
      */
 	private function setISPDetails()
 	{
-		$curl = curl_init($this->_config->speedtest->ipInfoUrl . $this->ipAddress . '/json?token=' . $this->_config->speedtest->ipInfoToken);
+		$curl = curl_init($this->_settings->speedtest->ip_info_url . $this->ipAddress . '/json?token=' . $this->_settings->speedtest->ip_info_token);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0,
@@ -120,7 +120,7 @@ class Speedtest extends BaseModel
 		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
 		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-		$curl = curl_init($this->_config->speedtest->ipInfoUrl . 'json?token=' . $this->_config->speedtest->ipInfoToken);
+		$curl = curl_init($this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token);
 		curl_setopt_array($curl, [
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_CONNECTTIMEOUT => 0

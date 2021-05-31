@@ -104,7 +104,7 @@ class SpeedtestController extends BaseController
      */
     public function statsAction($activeTab = 'records', $requestedPage = 1)
     {
-        $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->config->application->version, true);
+        $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
 
@@ -112,7 +112,7 @@ class SpeedtestController extends BaseController
             'model' => $this->_model,
             'data'  => $this->_model->find(),
             'parameters' => ['order' => 'timestamp DESC'],
-            'limit' => $this->config->application->itemsPerPage,
+            'limit' => $this->settings->items_per_page,
             'page'  => $requestedPage
         ]);
 
@@ -259,10 +259,10 @@ class SpeedtestController extends BaseController
             return 'false';
         }
 
-        $ch = curl_init($this->config->application->whatIsMyBrowserAPIURL . 'user_agent_parse');
+        $ch = curl_init($this->settings->application->what_is_my_browser_api_url . 'user_agent_parse');
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->config->application->whatIsMyBrowserAPIKey],
+            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->settings->application->what_is_my_browser_api_key],
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}',
             CURLOPT_TIMEOUT => 10

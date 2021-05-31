@@ -18,7 +18,7 @@ class RCpuFormFields implements IFormFields
 		$rCpuEnabled = new Check('rcpu-enabled');
 		$rCpuEnabled->setLabel('Enabled');
 		$rCpuEnabled->setAttributes([
-			'checked' => $form->config->rcpu->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->rcpu->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -30,7 +30,7 @@ class RCpuFormFields implements IFormFields
 		$rCpuURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-			->setDefault($form->config->rcpu->URL)
+			->setDefault($form->settings->rcpu->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'rcpu-enabled']),
 				new UrlValidator(['message' => $form->translator->validation['url']])
@@ -46,9 +46,9 @@ class RCpuFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-	public function setPostData(&$config, $data)
+	public function setPostData(&$settings, $data)
     {
-        $config->rcpu->enabled = isset($data['rcpu-enabled']) && $data['rcpu-enabled'] == 'on' ? '1' : '0';
-        $config->rcpu->URL = $data['rcpu-url'];
+        $settings->rcpu->enabled = isset($data['rcpu-enabled']) && $data['rcpu-enabled'] == 'on' ? '1' : '0';
+        $settings->rcpu->url = $data['rcpu-url'];
     }
 }

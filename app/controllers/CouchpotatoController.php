@@ -11,13 +11,17 @@ use Chell\Models\Couchpotato;
  */
 class CouchpotatoController extends BaseController
 {
+	private $_model;
+
 	/**
 	 * Set the default layout to empty.
 	 */
 	public function initialize()
 	{
-		$this->view->setMainView('layouts/empty');
 		parent::initialize();
+
+		$this->view->setMainView('layouts/empty');
+		$this->_model = new Couchpotato();
 	}
 
 	/**
@@ -27,7 +31,7 @@ class CouchpotatoController extends BaseController
 	 */
 	public function movieAction($id)
 	{
-		$this->view->movie = $movie = Couchpotato::getMovie($id, $this->config);
+		$this->view->movie = $movie = $this->_model->getMovie($id);
 		$this->view->bgImage = current($movie->info->images->backdrop_original);
 	}
 }

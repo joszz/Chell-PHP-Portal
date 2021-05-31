@@ -28,7 +28,7 @@ class PulsewayController extends BaseController
      */
     public function indexAction()
     {
-        $systems = explode(',', $this->config->pulseway->systems);
+        $systems = explode(',', $this->settings->pulseway->systems);
         $result = [];
 
         foreach ($systems as $system)

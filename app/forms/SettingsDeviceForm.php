@@ -38,6 +38,11 @@ class SettingsDeviceForm extends SettingsBaseForm
                 new IP(['message' => $this->translator->validation['ip'], 'allowPrivate' => true])
             ]);
 
+        $broadcastSubnet = new Text('broadcast');
+        $broadcastSubnet->setLabel('Broadcast subnet')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control']);
+
         $mac = new Text('mac');
         $mac->setLabel('MAC')
             ->setFilters(['striptags', 'string'])
@@ -88,6 +93,7 @@ class SettingsDeviceForm extends SettingsBaseForm
 
         $this->add($name);
         $this->add($ip);
+        $this->add($broadcastSubnet);
         $this->add($mac);
         $this->add($shutdownUser);
         $this->add($shutdownPassword);

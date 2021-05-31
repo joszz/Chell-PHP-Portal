@@ -4,20 +4,20 @@
 <nav class="paginator">
     <ul class="pagination">
         <li>
-            <a href="<?php echo ($paginator->current == 1 ? '#' : $this->config->application->baseUri . $paginator->baseURI . ($paginator->current - 1)) ?>"
+            <a href="<?php echo ($paginator->current == 1 ? '#' : $this->settings->application->base_uri . $paginator->baseURI . ($paginator->current - 1)) ?>"
                 class="fa fa-backward <?php echo $paginator->current == 1 ? 'disabled': null ?>" title="Backward"></a>
         </li>
 
         <?php for($i = $paginator->start; $i <= $paginator->end; $i++ ) : ?>
         <li class="hidden-xs <?php echo $paginator->current == $i ? 'active' : null ?>">
-            <a href="<?php echo $this->config->application->baseUri . $paginator->baseURI . $i ?>">
+            <a href="<?php echo $this->settings->application->base_uri . $paginator->baseURI . $i ?>">
                 <?php echo $i ?>
             </a>
         </li>
         <?php endfor ?>
 
         <li>
-            <a href="<?php echo ($paginator->current == $paginator->total_items ? '#' : $this->config->application->baseUri . $paginator->baseURI . ($paginator->current + 1)) ?>"
+            <a href="<?php echo ($paginator->current == $paginator->total_items ? '#' : $this->settings->application->base_uri . $paginator->baseURI . ($paginator->current + 1)) ?>"
                 class="fa fa-forward <?php echo ($paginator->current == $paginator->total_items ? 'disabled': null) ?>" title="Forward"></a>
         </li>
     </ul>

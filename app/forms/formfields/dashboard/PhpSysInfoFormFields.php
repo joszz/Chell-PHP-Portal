@@ -20,7 +20,7 @@ class PhpSysInfoFormFields implements IFormFields
 		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
 		$phpSysInfoEnabled->setLabel('Enabled');
 		$phpSysInfoEnabled->setAttributes([
-			'checked' => $form->config->phpsysinfo->enabled == '1' ? 'checked' : null,
+			'checked' => $form->settings->phpsysinfo->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -32,7 +32,7 @@ class PhpSysInfoFormFields implements IFormFields
 		$phpSysInfoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->phpsysinfo->URL)
+			->setDefault($form->settings->phpsysinfo->url)
 			->addValidators([
 				new PresenceOf(['message' => $form->translator->validation['required']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
@@ -43,13 +43,13 @@ class PhpSysInfoFormFields implements IFormFields
 		$phpSysInfoUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->config->phpsysinfo->username);
+			->setDefault($form->settings->phpsysinfo->username);
 
 		$phpSysInfoPassword = new Password('phpsysinfo-password');
 		$phpSysInfoPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
-			->setDefault($form->config->phpsysinfo->password);
+			->setDefault($form->settings->phpsysinfo->password);
 
 		$form->add($phpSysInfoEnabled);
 		$form->add($phpSysInfoURL);
@@ -63,11 +63,11 @@ class PhpSysInfoFormFields implements IFormFields
      * @param object $config	The config object, representing config.ini
      * @param array $data		The posted data
      */
-    public function setPostData(&$config, $data)
+    public function setPostData(&$settings, $data)
     {
-        $config->phpsysinfo->enabled = isset($data['phpsysinfo-enabled']) && $data['phpsysinfo-enabled'] == 'on' ? '1' : '0';
-        $config->phpsysinfo->URL = $data['phpsysinfo-url'];
-        $config->phpsysinfo->username = $data['phpsysinfo-username'];
-        $config->phpsysinfo->password = $data['phpsysinfo-password'];
+        $settings->phpsysinfo->enabled = isset($data['phpsysinfo-enabled']) && $data['phpsysinfo-enabled'] == 'on' ? '1' : '0';
+        $settings->phpsysinfo->url = $data['phpsysinfo-url'];
+        $settings->phpsysinfo->username = $data['phpsysinfo-username'];
+        $settings->phpsysinfo->password = $data['phpsysinfo-password'];
     }
 }

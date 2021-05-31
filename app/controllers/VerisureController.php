@@ -52,7 +52,7 @@ class VerisureController extends BaseController
      */
     public function armAction($state, $pin = '')
     {
-        $this->_model->setArmState($state, empty($pin) ? $this->config->verisure->securityCode : $pin);
+        $this->_model->setArmState($state, empty($pin) ? $this->settings->verisure->securitycode : $pin);
         die("true");
     }
 

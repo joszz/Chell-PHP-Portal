@@ -1,6 +1,6 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div id="vms" class="tab-pane in active panel fade" data-togglestate-baseurl="<?php echo $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' ?>">
+<div id="vms" class="tab-pane in active panel fade" data-togglestate-baseurl="<?php echo $this->settings->application->base_uri . 'hyper_v_admin/vmToggleState/' ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -18,7 +18,7 @@
             <tbody>
                 <?php foreach($vms as $vm) :
                     $state = \Chell\Models\HyperVAdmin::getVMState($vm->State);
-                    $toggleStateURL = $this->config->application->baseUri . 'hyper_v_admin/vmToggleState/' . $device->id .'/' . $vm->Name . '/';
+                    $toggleStateURL = $this->settings->application->base_uri . 'hyper_v_admin/vmToggleState/' . $device->id .'/' . $vm->Name . '/';
                     $toggleStateURL .= $vm->State == \Chell\Models\HyperVAdmin::vmStateEnabed ? \Chell\Models\HyperVAdmin::vmStateDisabed : \Chell\Models\HyperVAdmin::vmStateEnabed;
                 ?>
                 <tr>

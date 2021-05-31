@@ -38,7 +38,7 @@ class LoginForm extends Form
      */
     public function initialize()
     {
-        $this->setAction( $this->config->application->baseUri . 'session/login');
+        $this->setAction( $this->settings->application->base_uri . 'session/login');
 
         $username = new Text('username');
         $username->setLabel('Username');

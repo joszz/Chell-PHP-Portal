@@ -23,7 +23,7 @@ class InstallController extends BaseController
     {
         die;
         parent::initialize();
-        $this->assets->collection('header')->addCss('css/default/install.min.css', true, false, [], $this->config->application->version, true);
+        $this->assets->collection('header')->addCss('css/default/install.min.css', true, false, [], $this->settings->application->version, true);
     }
 
     /**
@@ -74,7 +74,7 @@ class InstallController extends BaseController
         $this->writeConfig();
         $this->cleanup();
 
-        header('Location: ' . $this->config->application->baseUri);
+        header('Location: ' . $this->settings->application->base_uri);
     }
 
     /**
