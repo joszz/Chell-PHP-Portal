@@ -37,8 +37,19 @@ class RoborockController extends BaseController
      */
     public function infoAction()
     {
+        if ($this->request->isPost())
+        {
+            $data = $this->request->getPost();
+            $this->_model->setFanSpeed($data['fanspeed']);
+            $this->_model->setSoundVolume($data['volume']);
+            $this->_model->setWaterflow($data['waterflow']);
+        }
+
         $this->view->setMainView('layouts/empty');
         $this->view->info = $this->_model->getInfo();
+        $this->view->fanspeed = $this->_model->getFanSpeed();
+        $this->view->volume = $this->_model->getSoundVolume();
+        $this->view->waterflow = $this->_model->getWaterflow();
     }
 
     /**

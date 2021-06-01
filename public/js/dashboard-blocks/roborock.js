@@ -60,8 +60,9 @@
                     success: function (data) {
                         settings.block.find(".state").text(data.state);
                         settings.block.find(".battery").text(data.battery + "%");
-                        settings.block.find(".fan").text(data.fan + "%");
+                        settings.block.find(".fan").text(data.fan);
                         settings.block.find(".area").html(data.area + " m<sup>2</sup>");
+                        settings.block.find(".waterbox").html("<i class='fa fa-power-off " + (data.waterbox_attached !== "false" ? "text-success" : "text-danger") + "'></i>");
                         var cleaningTime = settings.block.find(".cleaningtime");
 
                         if (data.state == "Cleaning") {

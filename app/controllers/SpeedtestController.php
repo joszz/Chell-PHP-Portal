@@ -112,7 +112,7 @@ class SpeedtestController extends BaseController
             'model' => $this->_model,
             'data'  => $this->_model->find(),
             'parameters' => ['order' => 'timestamp DESC'],
-            'limit' => $this->settings->items_per_page,
+            'limit' => $this->settings->application->items_per_page,
             'page'  => $requestedPage
         ]);
 
@@ -259,10 +259,10 @@ class SpeedtestController extends BaseController
             return 'false';
         }
 
-        $ch = curl_init($this->settings->application->what_is_my_browser_api_url . 'user_agent_parse');
+        $ch = curl_init($this->settings->speedtest->what_is_my_browser_api_url . 'user_agent_parse');
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->settings->application->what_is_my_browser_api_key],
+            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->settings->speedtest->what_is_my_browser_api_key],
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}',
             CURLOPT_TIMEOUT => 10

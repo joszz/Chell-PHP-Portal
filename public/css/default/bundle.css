@@ -6992,7 +6992,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&2172109") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3581287") format("woff2"), url("../../fonts/icomoon.woff?2702090") format("woff"), url("../../fonts/icomoon.ttf?1433459") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5183381") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&5023047") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9795920") format("woff2"), url("../../fonts/icomoon.woff?3283230") format("woff"), url("../../fonts/icomoon.ttf?9477660") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5166346") format("svg"); }
 
 .fa,
 .fas {
@@ -7514,7 +7514,9 @@ body#bootstrap {
   overflow-y: auto; }
 
 #iframe .panel {
-  margin-bottom: 0; }
+  margin-bottom: 0;
+  border: 0;
+  box-shadow: none; }
 
 #iframe .tab-pane,
 #iframe .tab-content {
@@ -7654,8 +7656,7 @@ div#navbar {
   margin: 0; }
 
 .navbar-toggle {
-  margin-right: 0;
-  float: none; }
+  margin-right: 0; }
 
 a.navbar-brand {
   padding: 10px 15px 15px 0;
@@ -8099,6 +8100,9 @@ div.motion .panel-body {
   max-height: 800px;
   min-height: 400px; }
 
+#roborock-details {
+  min-height: 265px; }
+
 canvas,
 div.harddisks,
 div.harddisks div.progress,
@@ -8443,7 +8447,9 @@ nav.paginator {
   transition: backdrop-filter 1.5s ease-out; }
   .fancybox-container .panel,
   .fancybox-container .panel-heading {
-    border-radius: 0; }
+    border-radius: 0;
+    border: 0;
+    box-shadow: none; }
 
 .fancybox-slide--iframe {
   padding: 44px 0; }

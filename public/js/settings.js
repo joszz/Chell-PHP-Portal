@@ -59,14 +59,6 @@ function initializePlugins() {
         var currentForm = $("form:visible");
         $("nav.navbar .fa-save").fadeIn().attr("form", currentForm.attr("id"));
     }
-
-    $("input[type='number'][step!='any']").TouchSpin({
-        verticalupclass: "fa fa-chevron-left",
-        verticaldownclass: "fa fa-chevron-right",
-        buttondown_class: "btn btn-default",
-        buttonup_class: "btn btn-default",
-        max: 1000000000
-    });
 }
 
 function setEventHandlers() {

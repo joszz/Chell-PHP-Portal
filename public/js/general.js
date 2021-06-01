@@ -81,7 +81,15 @@ function initializeGlobalPlugins() {
 
     $(".toggle-password").togglePasswords();
 
-    $("body").tooltip({ selector: ".bs-tooltip"});
+    $("body").tooltip({ selector: ".bs-tooltip" });
+
+    $("input[type='number'][step!='any']").TouchSpin({
+        verticalupclass: "fa fa-chevron-left",
+        verticaldownclass: "fa fa-chevron-right",
+        buttondown_class: "btn btn-default",
+        buttonup_class: "btn btn-default",
+        max: 1000000000
+    });
 }
 
 /**

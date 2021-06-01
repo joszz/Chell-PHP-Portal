@@ -15,6 +15,12 @@ class SettingsCategory
     public $section;
     public $category;
 
+    /**
+     * Initializes a settings category.
+     * 
+     * @param mixed $section    The section, such as general or dashboard
+     * @param mixed $category   The category, such as application wide or plugin specific.
+     */
     public function __construct($section, $category){
         $this->section = $section;
         $this->category = $category;
