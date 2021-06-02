@@ -26,6 +26,7 @@ use Phalcon\Session\Adapter\Stream;
 use Phalcon\Storage\SerializerFactory;
 use Phalcon\Storage\AdapterFactory;
 use Phalcon\Http\Request;
+use Phalcon\Debug\Dump;
 
 /**
  * Frontcontroller sets up Phalcon to run the application.
@@ -110,6 +111,14 @@ class FrontController
         $this->setAssets();
         $this->setTitle();
         $this->setTranslator();
+
+        function dump($dump)
+        {
+            if (DEBUG)
+            {
+                die((new Dump())->variable($dump));
+            }
+        }
     }
 
     /**
@@ -333,3 +342,4 @@ class FrontController
         return $this->application->handle(str_replace($this->settings->application->base_uri, '', '/' . $request->getURI()))->getContent();
     }
 }
+

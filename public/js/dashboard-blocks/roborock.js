@@ -77,6 +77,7 @@
                             settings.block.find(".start-stop").removeClass("fa-play").addClass("fa-stop");
                         }
                         else {
+                            clearInterval(cleaningTime.data("tinyTimer")?.interval);
                             cleaningTime.html(data.time);
                             settings.block.find(".start-stop").removeClass("fa-stop").addClass("fa-play");
                         }

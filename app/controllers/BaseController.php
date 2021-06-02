@@ -4,7 +4,6 @@ namespace Chell\Controllers;
 
 use Chell\Models\Users;
 use Phalcon\Mvc\Controller;
-use Phalcon\Debug\Dump;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
@@ -57,17 +56,6 @@ class BaseController extends Controller
         }
 
         return $this->settings->application->background;
-    }
-
-    /**
-     * Wrapper for Phalcon Debug.
-     *
-     * @param mixed $dump   The variable to dump.
-     * @return string       The dumped variable as string.
-     */
-    public function dump($dump)
-    {
-        return (new Dump())->variable($dump);
     }
 
     /**

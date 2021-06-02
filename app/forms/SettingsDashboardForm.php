@@ -28,7 +28,7 @@ class SettingsDashboardForm extends SettingsBaseForm
 	public function isValid($data = null, $entity = null) : bool
 	{
 		$valid = parent::isValid($data, $entity);
-		//die(var_dump($data));
+		
 		if ($valid)
 		{
             foreach($this->formFieldClasses as $class)

@@ -17,9 +17,8 @@ class Pulseway extends BaseModel
     public function getSystems()
     {
         $result = [];
-
         $content = $this->callApi('systems');
-        //die(var_dump($content));
+        
         if ($content)
         {
             foreach($content->data as $system)
