@@ -40,7 +40,7 @@
                 settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                 functions.update(true);
             },
-                
+
             /**
              * Updates the current statistics by calling the Roborock controller.
              * 
@@ -60,20 +60,22 @@
                     success: function (data) {
                         settings.block.find(".system:not(.hidden)").remove();
                         $.each(data, function (_index, system) {
-                            var clone = settings.block.find(".system.hidden").clone();
-                            clone.find(".name span").text(system.name).attr("title", system.description);
-                            clone.find(".icon i").attr({
-                                class: "fa fa-power-off text-" + (system.is_online ? "success" : "danger"),
-                                title: system.is_online ? "Online" : "Offline"
-                            });
-                            clone.find(".value span.uptime").text(system.uptime);
+                            if (system) {
+                                var clone = settings.block.find(".system.hidden").clone();
+                                clone.find(".name span").text(system.name).attr("title", system.description);
+                                clone.find(".icon i").attr({
+                                    class: "fa fa-power-off text-" + (system.is_online ? "success" : "danger"),
+                                    title: system.is_online ? "Online" : "Offline"
+                                });
+                                clone.find(".value span.uptime").text(system.uptime);
 
-                            if (system.uptime.indexOf("Offline") !== -1) {
-                                clone.find(".value span.uptimelabel").hide();
+                                if (system.uptime.indexOf("Offline") !== -1) {
+                                    clone.find(".value span.uptimelabel").hide();
+                                }
+
+                                clone.removeClass("hidden");
+                                clone.appendTo(settings.block.find("ul"));
                             }
-
-                            clone.removeClass("hidden");
-                            clone.appendTo(settings.block.find("ul"));
                         });
                     },
                     complete: function () {

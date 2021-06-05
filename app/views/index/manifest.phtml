@@ -39,6 +39,21 @@ $screenshotDir = 'img/screenshots/';
             "type": "image/png"
         }
     ],
+    "shortcuts": [
+        {
+            "name": "Settings",
+            "Description": "The settings of <?php echo $this->settings->application->title ?>",
+            "url": "<?php echo $this->settings->application->base_uri ?>settings/",
+            "icons": [
+                {
+                    "type": "image/png",
+                    "sizes": "96x96",
+                    "src": "<?php echo $this->settings->application->base_uri ?>img/icons/settings.png",
+                    "purpose": "any"
+                }
+            ]
+        }
+    ],
     "theme_color": "<?php echo $themeColor ?>",
     "background_color": "<?php echo $themeColor ?>",
     "display": "standalone"
