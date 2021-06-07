@@ -12,7 +12,7 @@ use Phalcon\Mvc\Dispatcher;
  */
 class SecurityPlugin extends Injectable
 {
-    private $publiclyAccessible = [
+    private array $publiclyAccessible = [
         ['controller' => 'rss', 'action' => '*'],
         ['controller' => 'index', 'action' => 'manifest'],
         ['controller' => 'index', 'action' => 'worker'],
@@ -43,6 +43,7 @@ class SecurityPlugin extends Injectable
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
+            $this->session->set('auth_redirect_url', $_SERVER['REQUEST_URI']);
             $dispatcher->forward(['controller' => 'session', 'action' => 'index']);
             return false;
         }

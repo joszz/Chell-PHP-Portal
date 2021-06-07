@@ -2,6 +2,7 @@
 
 namespace Chell\Models;
 
+use Chell\Models\SettingsContainer;
 use Phalcon\Mvc\Model;
 
 /**
@@ -11,7 +12,7 @@ use Phalcon\Mvc\Model;
  */
 class BaseModel extends Model
 {
-    protected $_settings;
+    protected SettingsContainer $_settings;
 
     /**
      * Sets the database relations

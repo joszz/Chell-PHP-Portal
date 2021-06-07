@@ -2,6 +2,8 @@
 
 namespace Chell\Models\Kodi;
 
+use Phalcon\Mvc\Model\ResultsetInterface;
+
 /**
  * The model responsible for all Kodi episodes.
  *
@@ -28,10 +30,10 @@ class KodiTVShow extends KodiBase
     /**
      * Extracts thumbs from the XML stored in the DB.
      *
-     * @param array $movies The array of Kodi episodes.
-     * @return array        The array of Kodi episodes with the XML field transformed to string holding only image URL.
+     * @param ResultsetInterface $movies    The array of Kodi episodes.
+     * @return array                        The array of Kodi episodes with the XML field transformed to string holding only image URL.
      */
-    public static function extractMovieImagesFromXML($shows) : array
+    public static function extractMovieImagesFromXML(ResultsetInterface $shows) : array
     {
         $return = [];
 

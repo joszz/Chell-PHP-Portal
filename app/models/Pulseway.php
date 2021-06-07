@@ -18,7 +18,7 @@ class Pulseway extends BaseModel
     {
         $result = [];
         $content = $this->callApi('systems');
-        
+
         if ($content)
         {
             foreach($content->data as $system)
@@ -36,7 +36,7 @@ class Pulseway extends BaseModel
      * @param string $id    The System identifier.
      * @return mixed        Either the data retrieved or false on failure.
      */
-    public function getSystem($id)
+    public function getSystem(string $id)
     {
         $data = $this->callApi('systems/' . $id);
         return $data ? $data->data : false;
@@ -48,7 +48,7 @@ class Pulseway extends BaseModel
      * @param string $id    The System identifier.
      * @return mixed        Either the data retrieved or false on failure.
      */
-    public function getAssets($id)
+    public function getAssets(string $id)
     {
         $data = $this->callApi('assets/' . $id);
         return $data ? $data->data : false;
@@ -61,7 +61,7 @@ class Pulseway extends BaseModel
      * @param bool $decode                  Whether or not to JSON decode the requested data.
      * @return string|object                The Pulseway data, either in object or string form.
      */
-    private function callApi($url, $decode = true)
+    private function callApi(string $url, bool $decode = true)
     {
         if (empty($this->_settings->pulseway->username) || empty($this->_settings->pulseway->password) || empty($this->_settings->pulseway->url))
         {

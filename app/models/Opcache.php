@@ -11,7 +11,7 @@ use Phalcon\Mvc\Model;
  */
 class Opcache extends Model
 {
-    public $status;
+    public array $status;
 
     /**
      * Retrieves the Opcache status.
@@ -61,7 +61,7 @@ class Opcache extends Model
      * @param int $itemsPerPage   The amount of items to show per page.
      * @return array              A paginated array of scripts in Opcache.
      */
-    public function getScriptStatusRows($page = 1, &$totalPages, $itemsPerPage) : array
+    public function getScriptStatusRows(int $page = 1, int &$totalPages, int $itemsPerPage) : array
     {
         $dirs = [];
 
@@ -93,7 +93,7 @@ class Opcache extends Model
      * @param string $value  The Opcache data to format.
      * @return mixed        The formatted data.
      */
-    public function getFormattedData($key, $value) : string
+    public function getFormattedData(string $key, string $value) : string
     {
         switch($key)
         {

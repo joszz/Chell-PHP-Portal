@@ -14,7 +14,7 @@ class PHPSysInfo extends BaseModel
      *
      * @return bool|string      All PHPSysInfo data in an associative array
      */
-    public function getData($plugin)
+    public function getData(string $plugin)
     {
         $curl = curl_init($this->_settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time());
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

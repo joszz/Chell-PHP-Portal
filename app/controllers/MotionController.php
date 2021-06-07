@@ -11,7 +11,7 @@ use Chell\Models\Motion;
  */
 class MotionController extends BaseController
 {
-    private $_model;
+    private Motion $_model;
 
     /**
      * Initializes the controller, creating a new Motion model.

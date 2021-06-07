@@ -17,7 +17,7 @@ class DevicesController extends BaseController
      *
      * @param int $id   The device Id to WOL.
      */
-    public function wolAction($id)
+    public function wolAction(int $id)
     {
         $device = Devices::findFirst([
            'conditions' => 'id = ?1',
@@ -38,7 +38,7 @@ class DevicesController extends BaseController
      * @param int $id       The device Id to shutdown.
      * @return string       A boolean as string indicating success or failure.
      */
-    public function shutdownAction($id)
+    public function shutdownAction(int $id)
     {
         $device = Devices::findFirst([
            'conditions' => 'id = ?1',
@@ -63,7 +63,7 @@ class DevicesController extends BaseController
      *
      * @param int $id       The device Id to get the on/off state for.
      */
-    public function stateAction($id)
+    public function stateAction(int $id)
     {
         $device = Devices::findFirst([
            'conditions' => 'id = ?1',

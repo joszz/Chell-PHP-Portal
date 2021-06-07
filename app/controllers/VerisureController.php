@@ -11,7 +11,7 @@ use Chell\Models\Verisure;
  */
 class VerisureController extends BaseController
 {
-    private $_model;
+    private Verisure $_model;
 
     /**
      * Initializes the controller, creating a new Verisure model.
@@ -50,7 +50,7 @@ class VerisureController extends BaseController
      * @param string $state     The state to set the alarm to.
      * @param string $pint      The PIN to use to set the arm state. Only used when not specified in settings
      */
-    public function armAction($state, $pin = '')
+    public function armAction(string $state, string $pin = '')
     {
         $this->_model->setArmState($state, empty($pin) ? $this->settings->verisure->securitycode : $pin);
         die("true");
@@ -63,7 +63,7 @@ class VerisureController extends BaseController
      * @param string $image_id      The image Id to retrieve.
      * @param string $capture_time  The capture time, used as the filename.
      */
-    public function imageAction($device_label, $image_id, $capture_time)
+    public function imageAction(string $device_label, string $image_id, string $capture_time)
     {
         $filename = $this->_model->getImage($device_label, $image_id, $capture_time);
         header('Content-Type: image/jpeg');
@@ -77,7 +77,7 @@ class VerisureController extends BaseController
      *
      * @param string $device_label  The device label to capture an image for.
      */
-    public function captureimageAction($device_label)
+    public function captureimageAction(string $device_label)
     {
         $output = json_encode($this->_model->captureImage($device_label));
 

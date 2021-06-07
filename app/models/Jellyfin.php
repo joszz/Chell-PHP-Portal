@@ -41,7 +41,7 @@ class Jellyfin extends BaseModel
      * @param int $limit         The limit of items to retrieve. This seems to not always be honored by the API?
      * @return array             An array of latest items with some information about this item, such as the title.
      */
-    public function getLatestForView($viewId, $limit = 10) : array
+    public function getLatestForView(string $viewId, int $limit = 10) : array
     {
         $ch = $this->getCurl('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         $result = [];
@@ -88,7 +88,7 @@ class Jellyfin extends BaseModel
      * @param string $url                   The Jellyfin endpoint to call.
      * @return \CurlHandle|bool|resource    The handle to use to call the Jellyfin API with.
      */
-    private function getCurl($url)
+    private function getCurl(string $url)
     {
         $ch = curl_init($this->_settings->jellyfin->url . $url);
         curl_setopt_array($ch, [

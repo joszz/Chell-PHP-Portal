@@ -12,7 +12,7 @@ use Phalcon\Paginator\Adapter\Model as PaginatorModel;
  */
 class SpeedtestController extends BaseController
 {
-    private $_model;
+    private Speedtest $_model;
 
     /**
      * Initializes the controller, creating a new Speedtest model.
@@ -102,7 +102,7 @@ class SpeedtestController extends BaseController
      * @param string $activeTab     Which Bootstrap tab to set as active.
      * @param int $requestedPage    The requested page for the paginator to display, defaults to 1.
      */
-    public function statsAction($activeTab = 'records', $requestedPage = 1)
+    public function statsAction(string $activeTab = 'records', int $requestedPage = 1)
     {
         $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
         $this->view->setMainView('layouts/empty');
@@ -150,7 +150,7 @@ class SpeedtestController extends BaseController
      *
      * @param int $id The ID of the Speedtest run.
      */
-    public function shareAction($id)
+    public function shareAction(int $id)
     {
         putenv('GDFONTPATH=' . APP_PATH . 'public/fonts/');
 
@@ -252,7 +252,7 @@ class SpeedtestController extends BaseController
      * @param int       $try    The amount of tries done, if more than 5 it will stop trying
      * @return boolean|string   Either 'false' on failure or a JSON string when succesfull.
      */
-    private function whatIsMyBrowser($try = 1)
+    private function whatIsMyBrowser(int $try = 1)
     {
         if ($try > 5)
         {

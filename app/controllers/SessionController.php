@@ -15,7 +15,7 @@ use Phalcon\Http\Response;
  */
 class SessionController extends BaseController
 {
-    private $loginFailed = false;
+    private bool $loginFailed = false;
 
     /**
      * Initializes the controller, adding JS being used.
@@ -26,12 +26,12 @@ class SessionController extends BaseController
 
         if (DEBUG)
         {
-            $this->assets->collection('login')->addJs('js/login.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('login')->addJs('vendor/webauthn/webauthnauthenticate.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('login', 'js/login.js');
+            $this->addJs('login', 'vendor/webauthn/webauthnauthenticate.js');
         }
         else
         {
-            $this->assets->collection('login')->addJs('js/login.min.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('login', 'js/login.min.js');
         }
     }
 
@@ -40,7 +40,7 @@ class SessionController extends BaseController
      *
      * @param \Phalcon\Mvc\ModelInterface $user The user object to populate the session with.
      */
-    private function _registerSession($user)
+    private function _registerSession(Users $user)
     {
         $this->session->set(
             'auth',
@@ -129,7 +129,7 @@ class SessionController extends BaseController
                 $user->last_login = date('Y-m-d H:i:s');
                 $user->save();
 
-                return $response->redirect('');
+                return $response->redirect($this->getRedirectUrlFromSession());
             }
         }
         else
@@ -210,7 +210,7 @@ class SessionController extends BaseController
      *
      * @param Users $user The user that tries to login.
      */
-    public function duoAction($user)
+    public function duoAction(Users $user)
     {
         $this->view->containerFullHeight = true;
         $this->view->dnsPrefetchRecords = ['https://' . $this->settings->duo->api_hostname];
@@ -245,7 +245,7 @@ class SessionController extends BaseController
         }
 
         $response = new Response();
-        return $response->redirect('/');
+        return $response->redirect($this->getRedirectUrlFromSession());
     }
 
     /**
@@ -260,5 +260,16 @@ class SessionController extends BaseController
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->loginFailed);
         $this->view->pick('session/index');
+    }
+
+    /**
+     * Gets the requested URL before redirected to login (which was saved in the session). 
+     * Replace the base uri to not have it being injected twice in the resuling redirect.
+     * 
+     * @return string   The URL to redirect to.
+     */
+    private function getRedirectUrlFromSession()
+    {
+        return str_replace($this->settings->application->base_uri, '', $this->session->get('auth_redirect_url'));
     }
 }

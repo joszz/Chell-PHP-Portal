@@ -5,7 +5,6 @@
         var settings = $.extend({
             block: $(this),
             iframe: $(this).find("iframe"),
-            timeoutId: -1
         }, options);
 
         /**
@@ -37,12 +36,11 @@
              * @method setHeight
              */
             setHeight: function () {
-                clearTimeout(settings.timeoutId);
                 var height = settings.iframe.contents().height();
                 settings.block.find(".panel-body").height(height);
                 settings.block.parent().prev().find(".processes ul").height(height + 15);
 
-                settings.timeoutId = window.setTimeout(functions.setVisibility, 0);
+                window.setTimeout(functions.setVisibility, 0);
             },
 
             setVisibility: function () {

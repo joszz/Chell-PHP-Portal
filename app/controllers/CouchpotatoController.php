@@ -11,7 +11,7 @@ use Chell\Models\Couchpotato;
  */
 class CouchpotatoController extends BaseController
 {
-	private $_model;
+	private Couchpotato $_model;
 
 	/**
 	 * Set the default layout to empty.
@@ -29,7 +29,7 @@ class CouchpotatoController extends BaseController
 	 *
 	 * @param string $id The CouchPotate ID to use to call the API with.
 	 */
-	public function movieAction($id)
+	public function movieAction(int $id)
 	{
 		$this->view->movie = $movie = $this->_model->getMovie($id);
 		$this->view->bgImage = current($movie->info->images->backdrop_original);

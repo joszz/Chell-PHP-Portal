@@ -9,9 +9,9 @@ namespace Chell\Exceptions;
  */
 class ChellException extends \Exception
 {
-    public $type;
-    public $time;
-    private $surroundingLines = 10;
+    public string $type;
+    public int $time;
+    private int $surroundingLines = 10;
 
     /**
      * Receives the original exception and sets the variables.
@@ -76,7 +76,7 @@ class ChellException extends \Exception
      * @param mixed     $format The format to use for PHP's date function. Defaults to 'd-m-Y H:i:s'.
      * @return string           The formatted date string the exception occurred.
      */
-    public function getDate($format = 'd-m-Y H:i:s') : string
+    public function getDate(string $format = 'd-m-Y H:i:s') : string
     {
         return date($format, $this->time);
     }

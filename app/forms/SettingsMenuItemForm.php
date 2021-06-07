@@ -4,9 +4,11 @@ namespace Chell\Forms;
 
 use Chell\Models\Devices;
 use Chell\Models\Users;
+use Chell\Models\MenuItems;
 use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Mvc\Model\ResultsetInterface;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
@@ -20,7 +22,7 @@ class SettingsMenuItemForm extends SettingsBaseForm
     /**
      * Add all fields to the form and set form specific attributes.
      */
-    public function initialize($entity = null)
+    public function initialize(MenuItems $entity = null)
     {
         $this->setAttributes(new \Phalcon\Html\Attributes(['enctype' => 'enctype="multipart/form-data"']));
         $name = new Text('name');
@@ -78,10 +80,10 @@ class SettingsMenuItemForm extends SettingsBaseForm
     /**
      * Given the MenuItem entity, get the selected users.
      *
-     * @param \Chell\Models\MenuItems $entity   The MenuItem to get the selected users for.
+     * @param MenuItems $entity   The MenuItem to get the selected users for.
      * @return array    An array of User Ids.
      */
-    private function getSelectedUsers($entity, $allUsers)
+    private function getSelectedUsers(MenuItems $entity, ResultsetInterface $allUsers)
     {
         $selectedUsers = [];
 

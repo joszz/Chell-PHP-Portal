@@ -3,6 +3,7 @@
 namespace Chell\Forms;
 
 use Chell\Models\SnmpHosts;
+use Chell\Models\SnmpRecords;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Select;
@@ -20,7 +21,7 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
 	/**
 	 * Add all fields to the form and set form specific attributes.
 	 */
-	public function initialize($entity)
+	public function initialize(SnmpRecords $entity)
 	{
 		$label = new Text('label');
 		$label->setLabel('Label')
@@ -89,7 +90,7 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
             ]
         );
         $groupValue->setLabel('Group value');
-		
+
 		$this->add($label);
 		$this->add($host);
 		$this->add($labelOID);

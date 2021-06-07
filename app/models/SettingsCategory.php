@@ -2,7 +2,7 @@
 
 namespace Chell\Models;
 
-
+use Chell\Models\Settings;
 /**
  * The model responsible for all actions related to setting categories.
  *
@@ -10,33 +10,33 @@ namespace Chell\Models;
  */
 class SettingsCategory
 {
-    private $_settings;
+    private array $_settings;
 
-    public $section;
-    public $category;
+    public string $section;
+    public string $category;
 
     /**
      * Initializes a settings category.
-     * 
-     * @param mixed $section    The section, such as general or dashboard
-     * @param mixed $category   The category, such as application wide or plugin specific.
+     *
+     * @param string $section    The section, such as general or dashboard.
+     * @param string $category   The category, such as application wide or plugin specific.
      */
-    public function __construct($section, $category){
+    public function __construct(string $section, string $category){
         $this->section = $section;
         $this->category = $category;
     }
 
-    public function __set($name, $value)
+    public function __set(string $name, string $value)
     {
         $this->_settings[$name]->value = $value;
     }
 
-    public function __get($name)
+    public function __get(string $name)
     {
         return $this->_settings[$name]->value;
     }
 
-    public function __isset($name)
+    public function __isset(string $name)
     {
         return isset($this->_settings[$name]);
     }
@@ -49,7 +49,7 @@ class SettingsCategory
         }
     }
 
-    public function addSetting($setting)
+    public function addSetting(Settings $setting)
     {
         $this->_settings[$setting->name] = $setting;
     }

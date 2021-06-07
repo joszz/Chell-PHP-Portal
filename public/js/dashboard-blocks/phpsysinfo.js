@@ -20,7 +20,8 @@
             var settings = $.extend({
                 url: $(this).data("distro-icon-base"),
                 block: $(this),
-                diskspaceunits: ["B", "KB", "MB", "GB", "TB"]
+                diskspaceunits: ["B", "KB", "MB", "GB", "TB"],
+                setBadges: false
             }, options);
 
             /**
@@ -39,6 +40,10 @@
                 initialize: function () {
                     if (settings.block.length === 0) {
                         return;
+                    }
+
+                    if ("setAppBadge" in navigator && "clearAppBadge" in navigator) {
+                        settings.setBadges = true;
                     }
 
                     settings.block.find(".fa-sync").off().on("click", function () {
@@ -283,7 +288,17 @@
                     if (data.Plugins.Plugin_UpdateNotifier !== undefined) {
                         block.find(".update .packages .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
                         block.find(".update .security .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+
+                        var count = data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security;
+                        if (count > 0) {
+                            //todo: handle the error with .catch((error)
+                            navigator.setAppBadge(count);
+                            return;
+                        }
                     }
+
+                    //todo: handle the error with .catch((error)
+                    navigator.clearAppBadge();
                 },
 
                 /**

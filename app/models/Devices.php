@@ -38,7 +38,7 @@ class Devices extends BaseModel
      * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double          The time it took for the device to respond or false if failed.
      */
-    private function pingExec($ttl = 10)
+    private function pingExec(int $ttl = 10)
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);
@@ -85,7 +85,7 @@ class Devices extends BaseModel
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public function wakeOnLan($socket_number = 7, $repetition = 16) : bool
+    public function wakeOnLan(int $socket_number = 7, int $repetition = 16) : bool
     {
         $addr_byte = explode(':', $this->mac);
         $hw_addr = '';

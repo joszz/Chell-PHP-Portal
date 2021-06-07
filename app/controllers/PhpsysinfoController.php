@@ -16,7 +16,7 @@ class PhpsysinfoController extends BaseController
      * 
      * @param string $plugin    Which PHPSysInfo plugin details to retrieve. Defaults to all/complete.
      */
-    public function indexAction($plugin = 'complete')
+    public function indexAction(string $plugin = 'complete')
     {
         die((new PHPSysInfo())->getData($plugin));
     }

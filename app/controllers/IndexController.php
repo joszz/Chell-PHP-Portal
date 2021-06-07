@@ -9,6 +9,7 @@ use Chell\Models\Motion;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
+use Chell\Models\Settings;
 use Chell\Models\SnmpHosts;
 use Phalcon\Mvc\View;
 
@@ -29,29 +30,29 @@ class IndexController extends BaseController
         if (DEBUG)
         {
             //$this->assets->collection('dashboard')->addJs('typescriptjs/dashboard.js' , true, false, ['defer' => 'defer', 'type' => 'module'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/couchpotato.js' , true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/devices.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/gallery.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/motion.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/nowplaying.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/opcache.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/phpsysinfo.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/pihole.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/sickrage.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/transmission.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/youless.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/snmp.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/verisure.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/roborock.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/rcpu.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/pulseway.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('dashboard')->addJs('js/dashboard.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('dashboard', 'js/dashboard-blocks/couchpotato.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/devices.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/gallery.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/hyperv-admin.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/motion.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/nowplaying.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/opcache.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/phpsysinfo.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/pihole.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/sickrage.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/speedtest.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/transmission.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/youless.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/snmp.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/verisure.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/roborock.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/rcpu.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/pulseway.js');
+            $this->addJs('dashboard', 'js/dashboard.js');
         }
         else
         {
-            $this->assets->collection('dashboard')->addJs('js/dashboard.min.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('dashboard', 'js/dashboard.min.js');
         }
     }
 
@@ -163,9 +164,6 @@ class IndexController extends BaseController
      */
     private function getAnyWidgetEnabled() : bool
     {
-        return $this->settings->phpsysinfo->enabled || count($this->view->devices) || $this->settings->rcpu->enabled || $this->settings->transmission->enabled ||
-            $this->settings->kodi->enabled || $this->settings->subsonic->enabled || $this->settings->couchpotato->enabled || $this->settings->motion->enabled ||
-            $this->settings->speedtest->enabled || $this->settings->sickrage->enabled || $this->settings->opcache->enabled || $this->settings->pihole->enabled ||
-            $this->settings->snmp->enabled || $this->settings->verisure->enabled || $this->settings->youless->enabled;
+        return Settings::count('name = "enabled" AND value = "1"') > 0;
     }
 }

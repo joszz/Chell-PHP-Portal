@@ -2,8 +2,11 @@
 
 namespace Chell\Forms;
 
+use Chell\Models\SettingsContainer;
+use Chell\Messages\TranslatorWrapper;
 use Phalcon\Forms\Element\ElementInterface;
 use Phalcon\Forms\Form;
+use Phalcon\Mvc\Model;
 
 /**
  * The base form class used in SettingsGeneralForm and SettingsDashboardForm.
@@ -19,15 +22,15 @@ class SettingsBaseForm extends Form
      *
      * @var object
      */
-    public $settings;
-    public $translator;
+    public SettingsContainer $settings;
+    public TranslatorWrapper $translator;
 
     /**
      * Set the config array (config.ini contents) to private variable.
      *
-     * @param object $entity    The Phalcon entity to populate the form with.
+     * @param Model $entity    The Phalcon entity to populate the form with.
      */
-    public function __construct($entity = null)
+    public function __construct(Model $entity = null)
     {
         $this->settings = $this->di->get('settings');
         $this->translator = $this->di->get('translator');
@@ -42,7 +45,7 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    public function renderElement($element)
+    public function renderElement(ElementInterface $element)
     {
         return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element);
     }
@@ -54,7 +57,7 @@ class SettingsBaseForm extends Form
      * @param bool              $hidden     Whether the entire form-group should be hidden on load.
      * @return string                       The generated HTML string.
      */
-    private function renderElementInternal($element, $hidden = false)
+    private function renderElementInternal(ElementInterface $element, bool $hidden = false)
     {
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
@@ -86,7 +89,7 @@ class SettingsBaseForm extends Form
      *
      * @param string $id    The HTML id attribute to set on the form.
      */
-    public function renderForm($id)
+    public function renderForm(string $id)
     {
         require APP_PATH . 'app/views/forms/form.phtml';
     }
@@ -96,9 +99,10 @@ class SettingsBaseForm extends Form
      *
      * @param string $button
      * @param string $name
+     * @param ElementInterface  $element    The element to render ther button for.
      * @param mixed $element
      */
-    public function renderButton($button, $name = '', $element = '')
+    public function renderButton(string $button, string $name = '', ElementInterface $element = null)
     {
         require APP_PATH . 'app/views/forms/buttons/' . $button . '.phtml';
     }
@@ -109,7 +113,7 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    private function renderFieldset($element)
+    private function renderFieldset(ElementInterface $element)
     {
         $attributes = $element->getAttributes();
         $fieldset = $attributes['fieldset'];
@@ -143,7 +147,7 @@ class SettingsBaseForm extends Form
      * @param string $name  The name of the formelement.
      * @return bool         Has help?
      */
-    public function hasHelp($name)
+    public function hasHelp(string $name)
     {
         return isset($this->translator->helpContent[$name]);
     }
@@ -153,7 +157,7 @@ class SettingsBaseForm extends Form
      *
      * @param string $namespace     Which FormFields namespace to create FormField instances for.
      */
-    protected function setFormFieldClasses($namespace)
+    protected function setFormFieldClasses(string $namespace)
     {
 		$formFieldFiles = array_diff(scandir(APP_PATH . 'app/forms/formfields/' . strtolower($namespace)), array('..', '.'));
 		foreach ($formFieldFiles as $file)
@@ -171,11 +175,11 @@ class SettingsBaseForm extends Form
     /**
      * Retrieves all error messages of a form element with the given name.
      *
-     * @param mixed $name       The form element's name
-     * @param mixed $seperator  The seperator to use to create the string. Defaults to newline.
-     * @return string           All the error messages concatenated, using the seperator.
+     * @param string $name       The form element's name
+     * @param string $seperator  The seperator to use to create the string. Defaults to newline.
+     * @return string            All the error messages concatenated, using the seperator.
      */
-    public function getAllErrorMessagesForElement($name, $seperator = "\n") : string
+    public function getAllErrorMessagesForElement(string $name, string $seperator = "\n") : string
     {
         $messages = $this->getMessagesFor($name);
         $errorMessages = '';

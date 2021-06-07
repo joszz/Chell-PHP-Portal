@@ -28,7 +28,7 @@ function initializePlugins() {
     $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     $(".devices").devices();
     $(".transmission").transmission();
-    $(".movies, .episodes, .albums, .couchpotato").gallery();
+    $(".movies, .episodes, .albums, .couchpotato, .jellyfin").gallery();
     $(".nowplaying").nowplaying();
     $(".sickrage").sickrage();
     $(".couchpotato").couchpotato();

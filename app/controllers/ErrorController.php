@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Models\SettingsContainer;
 use Chell\Exceptions\ChellException;
 use Phalcon\Debug\Dump;
 
@@ -12,14 +13,14 @@ use Phalcon\Debug\Dump;
  */
 class ErrorController
 {
-    private $exception;
-    private $content;
-    private $css = [];
-    private $js = [];
-    private $logPath = APP_PATH . 'app/logs/';
+    private ChellException $exception;
+    private string $content;
+    private array $css = [];
+    private array $js = [];
+    private string $logPath = APP_PATH . 'app/logs/';
 
-    public $settings;
-    public $logFile;
+    public SettingsContainer $settings;
+    public string $logFile;
 
     /**
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
@@ -28,7 +29,7 @@ class ErrorController
      * @param ChellException $exception The exception being thrown.
      * @param object $config            The config object with all the values of config.ini.
      */
-    public function __construct(ChellException $exception, $settings)
+    public function __construct(ChellException $exception, SettingsContainer $settings)
     {
         ob_clean();
 
@@ -39,7 +40,7 @@ class ErrorController
 
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
-        
+
         if (DEBUG)
         {
             $this->content = $exceptionContent;
@@ -162,7 +163,7 @@ class ErrorController
     /**
      * This will write the rendered HTML in $this->content to the logs folder GZipped.
      */
-    private function writeLogAsHTML($content)
+    private function writeLogAsHTML(string $content)
     {
         if (!file_exists($this->logPath)) {
             mkdir($this->logPath, 0770);

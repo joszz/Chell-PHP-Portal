@@ -7,9 +7,9 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Mvc\Model;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for the general settings.
@@ -117,10 +117,10 @@ class SettingsGeneralForm extends SettingsBaseForm
      * Check if form is valid. If so set the values to the config array.
      *
      * @param   array     $data     The form data posted.
-     * @param   object    $entity   The entity to validate.
+     * @param   Model     $entity   The entity to validate.
      * @return  bool                Whether or not form is valid.
      */
-    public function isValid($data = null, $entity = null) : bool
+    public function isValid( $data = null, $entity = null) : bool
     {
         $valid = parent::isValid($data, $entity);
 

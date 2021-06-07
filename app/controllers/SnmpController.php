@@ -9,11 +9,11 @@ class SnmpController extends BaseController
 {
     /**
      * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.
-     * 
+     *
      * @param int $id           The Id of the SNMP host.
      * @param string $hidden    Optional, whether to set a Bootstrap hidden class on the main div.
      */
-    public function hostcontentAction($id, $hidden = '')
+    public function hostcontentAction(int $id, string $hidden = '')
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
         $this->view->host = SnmpHosts::findFirst([
@@ -33,7 +33,7 @@ class SnmpController extends BaseController
      *
      * @param int $id The SNMP Host ID.
      */
-    public function detailsAction($id)
+    public function detailsAction(int $id)
     {
         $this->view->overflow = true;
         $this->view->setMainView('layouts/empty');

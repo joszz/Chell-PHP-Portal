@@ -526,7 +526,7 @@ dd {
 .dl-horizontal dd:after {
   clear: both; }
 
-@media (min-width: 768px) {
+@media (min-width: 999999999px) {
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -2885,7 +2885,7 @@ tbody.collapse.in {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 20px; }
-  @media (max-width: 767px) {
+  @media (max-width: 999999998px) {
     .navbar-nav .open .dropdown-menu {
       position: static;
       float: none;
@@ -2959,7 +2959,7 @@ tbody.collapse.in {
       margin-left: 0; }
     .navbar-form .has-feedback .form-control-feedback {
       top: 0; } }
-  @media (max-width: 767px) {
+  @media (max-width: 999999998px) {
     .navbar-form .form-group {
       margin-bottom: 5px; }
       .navbar-form .form-group:last-child {
@@ -3039,7 +3039,7 @@ tbody.collapse.in {
   .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     color: #555;
     background-color: #e7e7e7; }
-  @media (max-width: 767px) {
+  @media (max-width: 999999998px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
       color: #777; }
       .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -3097,7 +3097,7 @@ tbody.collapse.in {
   .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
     color: #fff;
     background-color: #090909; }
-  @media (max-width: 767px) {
+  @media (max-width: 999999998px) {
     .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
       border-color: #090909; }
     .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
@@ -3246,9 +3246,9 @@ a.label:hover, a.label:focus {
   cursor: pointer; }
 
 .label-default {
-  background-color: #777777; }
+  background-color: #4f4f4f; }
   .label-default[href]:hover, .label-default[href]:focus {
-    background-color: #5e5e5e; }
+    background-color: #363636; }
 
 .label-primary {
   background-color: #337ab7; }
@@ -5294,7 +5294,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&5023047") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9795920") format("woff2"), url("../../fonts/icomoon.woff?3283230") format("woff"), url("../../fonts/icomoon.ttf?9477660") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5166346") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&1918403") format("embedded-opentype"), url("../../fonts/icomoon.woff2?9275944") format("woff2"), url("../../fonts/icomoon.woff?4376466") format("woff"), url("../../fonts/icomoon.ttf?7408984") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?9806857") format("svg"); }
 
 .fa,
 .fas {
@@ -6052,7 +6052,11 @@ div.gallery .panel-body {
 div.gallery .item > img {
   object-fit: cover;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  position: relative; }
+  div.gallery .item > img.blur {
+    position: absolute;
+    filter: blur(10px); }
 
 div.gallery .item .image {
   background-size: cover;
@@ -6793,7 +6797,7 @@ body.demo-mode .panel.sysinfo .kernel.value,
 body.demo-mode .panel.processes li div:first-child,
 body.demo-mode .panel.snmp li div:last-child,
 body.demo-mode .panel.verisure li div:last-child,
-body.demo-mode .panel.speedtest #records td:nth-child(3),
+body.demo-mode .panel.speedtest #records td:nth-child(2),
 body.demo-mode .panel #scripts td:nth-child(3),
 body.demo-mode .panel #config td:nth-child(2),
 body.demo-mode .panel.hypervadmin td:nth-child(6),
@@ -6806,10 +6810,22 @@ body.demo-mode .panel.harddisks .name,
 body.demo-mode #doorwindow td:nth-child(2),
 body.demo-mode #doorwindow td:nth-child(3),
 body.demo-mode #log td:nth-child(2),
-body.demo-mode #log td:nth-child(3) {
+body.demo-mode #log td:nth-child(3),
+body.demo-mode .jellyfin .title,
+body.demo-mode .jellyfin .subtitle,
+body.demo-mode #roborock-details #info {
   color: transparent !important;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
+body.demo-mode form input::placeholder {
+  text-shadow: none; }
+
+body.demo-mode .panel #config .fa-check {
+  display: none; }
 
 body.demo-mode .panel.sysinfo .distro,
 body.demo-mode .panel.sysinfo .col-xs-9 .label {
   display: none; }
+
+body.demo-mode .jellyfin img {
+  filter: blur(20px); }

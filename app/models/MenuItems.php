@@ -40,7 +40,7 @@ class MenuItems extends Model
      * @param string $baseUri   The base URI to start the icon file path with.
      * @return string           The path to the icon.
      */
-    public function getIconFilePath($baseUri) : string
+    public function getIconFilePath(string $baseUri) : string
     {
         return $baseUri . 'img/icons/menu/' . $this->id . '.png';
     }
@@ -50,7 +50,7 @@ class MenuItems extends Model
      *
      * @param string $filename  The full filename to the image.
      */
-    public function resizeIcon($filename)
+    public function resizeIcon(string $filename)
     {
         list($width, $height) = getimagesize($filename);
         $source = imagecreatefromstring(file_get_contents($filename));
@@ -63,10 +63,10 @@ class MenuItems extends Model
 
     /**
      * Adds and deletes MenuItems associated to the user.
-     * 
+     *
      * @param array $userIds    The Ids of users to add or remove the MenuItem link for.
      */
-    public function handlePost($userIds){
+    public function handlePost(array $userIds){
         $this->addToUsers($userIds);
         $this->deleteFromUsers($userIds);
     }
@@ -76,7 +76,7 @@ class MenuItems extends Model
      *
      * @param array $userIds    The Ids of users to link to this MenuItem.
      */
-    private function addToUsers($userIds)
+    private function addToUsers(array $userIds)
     {
         $users = Users::find([
             'id IN ({userids:array})',
@@ -105,7 +105,7 @@ class MenuItems extends Model
      *
      * @param array $userIds    The Ids of users to remove the link to this MenuItem for.
      */
-    private function deleteFromUsers($userIds)
+    private function deleteFromUsers(array $userIds)
     {
         MenuItemsUsers::find([
             'user_id NOT IN ({userids:array}) AND menu_item_id = {menuitemid:int}',

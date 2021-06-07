@@ -2,18 +2,21 @@
 
 namespace Chell\Forms\FormFields;
 
+use Chell\Forms\SettingsBaseForm;
+use Chell\Models\SettingsContainer;
+
 interface IFormFields
 {
     /**
      * Adds fields to the form.
      */
-    function setFields($form);
+    function setFields(SettingsBaseForm $form);
 
     /**
      * Sets the post data to the config variables
      *
-     * @param object $config	The config object, representing config.ini
+     * @param object $settings	The settings object
      * @param array $data		The posted data
      */
-    function setPostData(&$config, $data);
+    function setPostData(SettingsContainer &$settings, array $data);
 }

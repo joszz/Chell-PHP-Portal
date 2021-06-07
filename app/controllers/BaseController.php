@@ -14,7 +14,7 @@ class BaseController extends Controller
 {
     protected $settings;
 
-    private $controllersToLoadMenu = ['index', 'about', 'settings'];
+    private array $controllersToLoadMenu = ['index', 'about', 'settings'];
 
     /**
      * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.
@@ -66,7 +66,7 @@ class BaseController extends Controller
      * @param bool      $has_sections   If the ini file has sections (in the form of [section])
      * @return bool                     If the write was successful
      */
-    protected function writeIniFile($assoc_arr, $path, $has_sections = false) : bool
+    protected function writeIniFile(array $assoc_arr, string $path, bool $has_sections = false) : bool
     {
         $content = '';
 
@@ -140,7 +140,7 @@ class BaseController extends Controller
      * @param int $imageQuality      The image quality used for the JPEG compression of the resized image, defaults to 70.
      * @return boolean               Whether or not resized succeeded.
      */
-    protected function resizeImage($sourcePath, $resizedPath, $maxWidth = 800, $maxHeight = 2000, $imageQuality = 70) : bool
+    protected function resizeImage(string $sourcePath, string $resizedPath, int $maxWidth = 800, int $maxHeight = 2000, int $imageQuality = 70) : bool
     {
         list($source_image_width, $source_image_height, $source_image_type) = getimagesize($sourcePath);
         $source_gd_image = false;
@@ -201,7 +201,7 @@ class BaseController extends Controller
      * @param mixed $paginator      The pagination object, defaults to null (which will make a new stdClass).
      * @return object               An object with all pagination data.
      */
-    public function GetPaginator($currentPage, $totalPages, $baseURI, $paginator = null)
+    public function GetPaginator(int $currentPage, int $totalPages, string $baseURI, $paginator = null)
     {
         if ($paginator == null)
         {
@@ -226,5 +226,16 @@ class BaseController extends Controller
         }
 
         return $paginator;
+    }
+
+    /**
+     * Adds javascript file to collection. Sets defaults for all JS files.
+     *
+     * @param mixed $collection     The collection to add the JS file to
+     * @param mixed $file           The file to add to the collection
+     */
+    protected function addJs(string $collection, string $file)
+    {
+        $this->assets->collection($collection)->addJs($file, true, false, ['defer' => 'defer'], $this->settings->application->version, true);
     }
 }

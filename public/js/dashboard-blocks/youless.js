@@ -18,7 +18,8 @@
         var settings = $.extend({
             block: this,
             updateInterval: this.data("updateinterval") * 1000,
-            updateIntervalId: -1
+            updateIntervalId: -1,
+            refreshing: false
         }, options);
 
 
@@ -50,6 +51,11 @@
             },
 
             refresh: function (initialize) {
+                if (settings.refreshing) {
+                    return;
+                }
+
+                settings.refreshing = true;
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
@@ -65,6 +71,7 @@
                     },
                     complete: function () {
                         settings.block.isLoading("hide");
+                        settings.refreshing = false;
                     }
                 });
             }

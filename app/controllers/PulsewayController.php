@@ -11,7 +11,7 @@ use Chell\Models\Pulseway;
  */
 class PulsewayController extends BaseController
 {
-    private $_model;
+    private Pulseway $_model;
 
     /**
      * Initializes the controller, creating a new Pulseway model.

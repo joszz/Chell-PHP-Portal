@@ -2,6 +2,8 @@
 
 namespace Chell\Forms;
 
+use Phalcon\Mvc\Model;
+
 /**
  * The form responsible for the dashboard settings.
  *
@@ -22,13 +24,13 @@ class SettingsDashboardForm extends SettingsBaseForm
      * Check if form is valid. If so set the values to the config array.
      *
      * @param   array     $data     The form data posted.
-     * @param   object    $entity   The entity to validate.
+     * @param   Model    $entity    The entity to validate.
      * @return  bool                Whether or not form is valid.
      */
-	public function isValid($data = null, $entity = null) : bool
+	public function isValid(array $data = null, Model $entity = null) : bool
 	{
 		$valid = parent::isValid($data, $entity);
-		
+
 		if ($valid)
 		{
             foreach($this->formFieldClasses as $class)

@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use Chell\Models\Devices;
+
 /**
  * The model responsible for all actions related to HyperVAdmin.
  *
@@ -17,10 +19,11 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Retrieves all VMs using cURL and settings defined in config.ini.
 	 *
+     * @param Devices $device	The device to do the action for.
      * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return array            List of VMs as anonymous objects.
 	 */
-	public function getVMs($device, $jsonDecode = true)
+	public function getVMs(Devices $device, bool $jsonDecode = true)
 	{
 		$curl = $this->getCurl($device, 'VMs/GetVMs');
 		$content = curl_exec($curl);
@@ -32,10 +35,11 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Retrieves all sites using cURL and settings defined in config.ini.
 	 *
+     * @param Devices $device	The device to do the action for.
      * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
 	 * @return object           List of sites as anonymous objects.
 	 */
-	public function getSites($device, $jsonDecode = true)
+	public function getSites(Devices $device, bool $jsonDecode = true)
 	{
 		$curl = $this->getCurl($device, 'Sites/GetSites');
 		$content = curl_exec($curl);
@@ -50,7 +54,7 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state     The VM state represented as a number.
 	 * @return string           The VM state represented as a string.
 	 */
-	public function getVMState($state) : string
+	public function getVMState(int $state) : string
 	{
 		return $state == self::vmStateEnabed ? 'enabled' : 'disabled';
 	}
@@ -61,7 +65,7 @@ class HyperVAdmin extends BaseModel
 	 * @param number $state	The site state represented as a number.
 	 * @return string		The site state represented as a string.
 	 */
-	public function getSiteState($state) : string
+	public function getSiteState(int $state) : string
 	{
 		return $state == self::siteStateEnabed ? 'enabled' : 'disabled';
 	}
@@ -69,11 +73,12 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * For the given VM with the name of $vmName, set the state to $state.
 	 *
+     * @param Devices $device	The device to do the action for.
 	 * @param string $vmName    The name of the VM to set the state for.
 	 * @param number $state     The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
-	public function toggleVMState($device, $vmName, $state)
+	public function toggleVMState(Devices $device, string $vmName, int $state)
 	{
 		$curl = $this->getCurl($device, 'VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state);
 		$content = json_decode(curl_exec($curl));
@@ -85,11 +90,12 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * For the given site with the name of $siteName, set the state to $state.
 	 *
+     * @param Devices $device	The device to do the action for.
 	 * @param string $siteName  The name of the site to set the state for.
 	 * @param number $state     The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
-	public function toggleSiteState($device, $siteName, $state)
+	public function toggleSiteState(Devices $device, string $siteName, int $state)
 	{
 		$url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
 		$curl = $this->getCurl($device, $url);
@@ -102,10 +108,11 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Retrieves the default cURL object to be used in this model, setting some defaults.
 	 *
+     * @param Devices $device	The device to do the action for.
 	 * @param string $url       The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
 	 * @return \CurlHandle|bool	The cURL object to be used to query HyperVAdmin.
 	 */
-	private function getCurl($device, $url)
+	private function getCurl(Devices $device, string $url)
 	{
 		$curl = curl_init($device->hypervadmin_url . $url);
 

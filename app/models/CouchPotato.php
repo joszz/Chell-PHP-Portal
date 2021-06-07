@@ -33,7 +33,7 @@ class Couchpotato extends BaseModel
      * @param string $id        The CouchPotate ID to use to call the API with.
      * @return mixed            The movie object or false when API call is unsuccessful.
      */
-	public function getMovie($id)
+	public function getMovie(string $id)
 	{
 		$movie = false;
 		$curl = curl_init($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.get/?id=' . $id);
@@ -59,7 +59,7 @@ class Couchpotato extends BaseModel
      * @param int $id           The TMDB ID to call the API by.
      * @return string           The YouTube ID to be used for iFrame src.
      */
-	private function getRandomTrailerFormTMDB($id) : string
+	private function getRandomTrailerFormTMDB(int $id) : string
 	{
 		$curl = curl_init($this->_settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->_settings->application->tmdb_api_key);
 		curl_setopt_array($curl, [

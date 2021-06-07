@@ -28,7 +28,7 @@ class KodiController extends BaseController
 	 *
 	 * @param int $id The ID of the movie.
 	 */
-	public function movieAction($id)
+	public function movieAction(int $id)
 	{
 		$movie = KodiMovies::findFirst([
 			'conditions' => 'idMovie = ?1',
@@ -46,7 +46,7 @@ class KodiController extends BaseController
 	 *
 	 * @param int $id The ID of the episode.
 	 */
-	public function episodeAction($id)
+	public function episodeAction(int $id)
 	{
 		$episode = KodiTVShowEpisodes::findFirst([
 			'conditions' => 'idEpisode = ?1',
@@ -63,7 +63,7 @@ class KodiController extends BaseController
 	 *
 	 * @param int $id The ID of the album.
 	 */
-	public function albumAction($id)
+	public function albumAction(int $id)
 	{
 		$album = KodiAlbums::findFirst([
 			'conditions' => 'idAlbum = ?1',
@@ -81,7 +81,7 @@ class KodiController extends BaseController
      * @param int $id			The Id of the media record.
      * @param mixed $maxWidth	Whether to resize to image to specified width.
      */
-	public function getImageAction($which, $type, $id, $maxWidth = 'disabled')
+	public function getImageAction(string $which, string $type, int $id, $maxWidth = 'disabled')
 	{
 		switch($which) {
 			case 'movies':

@@ -2,6 +2,7 @@
 
 namespace Chell\Forms;
 
+use Chell\Models\Users;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Email;
@@ -19,7 +20,7 @@ class SettingsUserForm extends SettingsBaseForm
 	/**
      * Add all fields to the form and set form specific attributes.
      */
-    public function initialize($user)
+    public function initialize(Users $user)
     {
         $username = new Text('username');
         $username->setLabel('Username')

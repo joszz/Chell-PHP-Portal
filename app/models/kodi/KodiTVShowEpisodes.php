@@ -2,6 +2,8 @@
 
 namespace Chell\Models\Kodi;
 
+use Phalcon\Mvc\Model\ResultsetInterface;
+
 /**
  * The model responsible for all Kodi episodes.
  *
@@ -38,7 +40,7 @@ class KodiTVShowEpisodes extends KodiBase
      * @param int $limit    Amount of episodes to retrieve, defaults to 10
      * @return array        The array of Kodi episode
      */
-    public function getLatestEpisodes($limit = 10) : array
+    public function getLatestEpisodes(int $limit = 10) : array
     {
         return $this->extractMovieImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
@@ -46,10 +48,10 @@ class KodiTVShowEpisodes extends KodiBase
     /**
      * Extracts thumbs from the XML stored in the DB.
      *
-     * @param array $movies The array of Kodi episodes.
-     * @return array        The array of Kodi episodes with the XML field transformed to string holding only image URL.
+     * @param ResultsetInterface $movies    The array of Kodi episodes.
+     * @return array                        The array of Kodi episodes with the XML field transformed to string holding only image URL.
      */
-    public function extractMovieImagesFromXML($episodes) : array
+    public function extractMovieImagesFromXML(ResultsetInterface $episodes) : array
     {
         $return = [];
 

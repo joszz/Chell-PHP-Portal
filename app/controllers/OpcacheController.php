@@ -11,7 +11,7 @@ use Chell\Models\Opcache;
  */
 class OpcacheController extends BaseController
 {
-    private $_model;
+    private Opcache $_model;
 
     /**
      * Initializes the controller, creating a new Opcache model.
@@ -39,7 +39,7 @@ class OpcacheController extends BaseController
      * @param int    $currentPage       The page to display, defaults to 1
      * @param string $tab               The active tab to display, defaults to 'status'. Will be set to 'scripts' when paging the scripts tab.
      */
-    public function detailsAction($tab = 'status', $currentPage = 1)
+    public function detailsAction(string $tab = 'status', int $currentPage = 1)
     {
         $totalPages = 0;
         $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->settings->application->items_per_page);

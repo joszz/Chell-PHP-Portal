@@ -9,18 +9,11 @@ namespace Chell\Models;
  */
 class Speedtest extends BaseModel
 {
-	private $ipAddress = '', $isp = '', $clientLocaction, $serverLocation, $distance;
-
-	public $ip;
-	public $ispinfo;
-	public $extra;
-	public $ua;
-	public $lang;
-	public $dl;
-	public $ul;
-	public $ping;
-	public $jitter;
-	public $log;
+	private string $ipAddress = '';
+	private string $isp = '';
+	private string $clientLocaction;
+	private string $serverLocation;
+	private string $distance;
 
 	/**
      * Get's ISP IP and name
@@ -139,7 +132,7 @@ class Speedtest extends BaseModel
      * @param string $latitudeTo         ISP latitude
      * @param string $longitudeTo        ISP longitude
      */
-	private function distance($latitudeFrom, $longitudeFrom, $latitudeTo, $longitudeTo)
+	private function distance(string $latitudeFrom, string $longitudeFrom, string $latitudeTo, string $longitudeTo)
 	{
 		$rad = M_PI / 180;
 		$theta = $longitudeFrom - $longitudeTo;

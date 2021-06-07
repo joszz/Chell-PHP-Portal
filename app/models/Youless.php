@@ -27,11 +27,10 @@ class Youless extends BaseModel
 	/**
 	 * Gets a bootstrap text- class to be used to indicate powerusage thresholds.
 	 *
-	 * @param object $config    The config object to get the different threshold levels for.
 	 * @param int $power		The current power usage.
 	 * @return string           A bootstrap class indicating which threshold is passed.
 	 */
-	public function getTextClass($power) : string
+	public function getTextClass(int $power) : string
 	{
 		$class = 'text-';
 

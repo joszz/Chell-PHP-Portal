@@ -23,7 +23,7 @@ body.demo-mode {
     .panel.processes li div:first-child,
     .panel.snmp li div:last-child,
     .panel.verisure li div:last-child,
-    .panel.speedtest #records td:nth-child(3),
+    .panel.speedtest #records td:nth-child(2),
     .panel #scripts td:nth-child(3),
     .panel #config td:nth-child(2),
     .panel.hypervadmin td:nth-child(6),
@@ -36,13 +36,29 @@ body.demo-mode {
     #doorwindow td:nth-child(2),
     #doorwindow td:nth-child(3),
     #log td:nth-child(2),
-    #log td:nth-child(3) {
+    #log td:nth-child(3),
+    .jellyfin .title,
+    .jellyfin .subtitle,
+    #roborock-details #info {
         color: transparent !important;
         text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    .panel.sysinfo .distro,
-    .panel.sysinfo .col-xs-9 .label{
+    form input::placeholder {
+        text-shadow: none;
+
+    }
+
+    .panel #config .fa-check {
         display: none;
+    }
+
+    .panel.sysinfo .distro,
+    .panel.sysinfo .col-xs-9 .label {
+        display: none;
+    }
+
+    .jellyfin img {
+        filter: blur(20px);
     }
 }

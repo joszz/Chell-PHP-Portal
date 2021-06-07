@@ -2,6 +2,7 @@
 
 namespace Chell\Models\Kodi;
 
+use Phalcon\Mvc\Model\ResultsetInterface;
 /**
  * The model responsible for all Kodi albums.
  *
@@ -24,7 +25,7 @@ class KodiAlbums extends KodiBase
      * @param int $limit    Amount of albums to retrieve, defaults to 10
      * @return array        The array of Kodi albums
      */
-    public function getLatestAlbums($limit = 10) : array
+    public function getLatestAlbums(int $limit = 10) : array
     {
         return $this->extractAlbumImagesFromXML(self::find(['order' => 'dateAdded DESC', 'limit' => $limit]));
     }
@@ -32,10 +33,10 @@ class KodiAlbums extends KodiBase
     /**
      * Extracts thumbs from the XML stored in the DB.
      *
-     * @param array $movies The array of Kodi albums.
-     * @return array        The array of Kodi albums with the XML field transformed to string holding only image URL.
+     * @param ResultsetInterface $albums The array of Kodi albums.
+     * @return array                     The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
-    public function extractAlbumImagesFromXML($albums) : array
+    public function extractAlbumImagesFromXML(ResultsetInterface $albums) : array
     {
         $return = [];
 

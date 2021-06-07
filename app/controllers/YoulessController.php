@@ -11,7 +11,7 @@ use Chell\Models\Youless;
  */
 class YoulessController extends BaseController
 {
-    private $_model;
+    private Youless $_model;
 
     /**
      * Initializes the controller, creating a new Roborock model.

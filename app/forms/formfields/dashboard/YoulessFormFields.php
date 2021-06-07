@@ -2,8 +2,10 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
+use Chell\Forms\SettingsBaseForm;
 use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
+use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
@@ -16,7 +18,7 @@ class YoulessFormFields implements IFormFields
 	/**
      * Adds fields to the form.
      */
-	public function setFields($form)
+	public function setFields(SettingsBaseForm $form)
 	{
 		$youlessEnabled = new Check('youless-enabled');
 		$youlessEnabled->setLabel('Enabled')
@@ -107,12 +109,12 @@ class YoulessFormFields implements IFormFields
 	}
 
     /**
-     * Sets the post data to the config variables
+     * Sets the post data to the settings variables
      *
-     * @param object $config	The config object, representing config.ini
-     * @param array $data		The posted data
+     * @param SettingsContainer $settings	The settings object
+     * @param array $data					The posted data
      */
-    public function setPostData(&$settings, $data)
+    public function setPostData(SettingsContainer &$settings, array $data)
     {
         $settings->youless->enabled = isset($data['youless-enabled']) && $data['youless-enabled'] == 'on' ? '1' : '0';
         $settings->youless->url = $data['youless-url'];

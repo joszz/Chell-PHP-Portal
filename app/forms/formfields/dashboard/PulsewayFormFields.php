@@ -2,8 +2,10 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
+use Chell\Forms\SettingsBaseForm;
 use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
+use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
@@ -17,7 +19,7 @@ class PulsewayFormFields implements IFormFields
 	/**
      * Adds fields to the form.
      */
-	public function setFields($form)
+	public function setFields(SettingsBaseForm $form)
 	{
 		$pulsewayEnabled = new Check('pulseway-enabled');
 		$pulsewayEnabled->setLabel('Enabled')
@@ -63,7 +65,7 @@ class PulsewayFormFields implements IFormFields
 				new Numericality(['message' => $form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled'])
 			]);
-		
+
         $pulsewaySystems = new Select('pulseway-systems[]');
 		$pulsewaySystems->setLabel('Systems')
 			->setFilters(['striptags', 'string'])
@@ -86,12 +88,12 @@ class PulsewayFormFields implements IFormFields
 	}
 
     /**
-     * Sets the post data to the config variables
+     * Sets the post data to the settings variables
      *
-     * @param object $config	The config object, representing config.ini
-     * @param array $data		The posted data
+     * @param SettingsContainer $settings	The settings object
+     * @param array $data					The posted data
      */
-    public function setPostData(&$settings, $data)
+    public function setPostData(SettingsContainer &$settings, array $data)
     {
         $settings->pulseway->enabled = isset($data['pulseway-enabled']) && $data['pulseway-enabled'] == 'on' ? '1' : '0';
         $settings->pulseway->url = $data['pulseway-url'];

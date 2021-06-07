@@ -2,8 +2,10 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
+use Chell\Forms\SettingsBaseForm;
 use Chell\Forms\FormFields\IFormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
+use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
@@ -14,7 +16,7 @@ class SickrageFormFields implements IFormFields
 	/**
      * Adds fields to the form.
      */
-	public function setFields($form)
+	public function setFields(SettingsBaseForm $form)
 	{
 		$sickrageEnabled = new Check('sickrage-enabled');
 		$sickrageEnabled->setLabel('Enabled');
@@ -50,12 +52,12 @@ class SickrageFormFields implements IFormFields
 	}
 
     /**
-     * Sets the post data to the config variables
+     * Sets the post data to the settings variables
      *
-     * @param object $config	The config object, representing config.ini
-     * @param array $data		The posted data
+     * @param SettingsContainer $settings	The settings object
+     * @param array $data					The posted data
      */
-    public function setPostData(&$settings, $data)
+    public function setPostData(SettingsContainer &$settings, array $data)
     {
         $settings->sickrage->enabled = isset($data['sickrage-enabled']) && $data['sickrage-enabled'] == 'on' ? '1' : '0';
         $settings->sickrage->url = $data['sickrage-url'];

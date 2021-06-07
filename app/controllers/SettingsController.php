@@ -24,8 +24,9 @@ use Phalcon\Http\Response;
  */
 class SettingsController extends BaseController
 {
-    private $generalForm, $dashboardForm;
-    private $logsPage = 1;
+    private ?SettingsGeneralForm $generalForm = null;
+    private ?SettingsDashboardForm $dashboardForm = null;
+    private int $logsPage = 1;
 
     /**
      * Initializes the controller, adding JS being used.
@@ -36,12 +37,12 @@ class SettingsController extends BaseController
 
         if (DEBUG)
         {
-            $this->assets->collection('settings')->addJs('js/settings.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
-            $this->assets->collection('settings')->addJs('vendor/webauthn/webauthnregister.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('dashboard', 'js/settings.js');
+            $this->addJs('dashboard', 'vendor/webauthn/webauthnregister.js');
         }
         else
         {
-            $this->assets->collection('settings')->addJs('js/settings.min.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+            $this->addJs('dashboard', 'js/settings.min.js');
         }
     }
 
@@ -50,7 +51,7 @@ class SettingsController extends BaseController
      *
      * @param string $activeTab     Which tab to be active on load, defaults to General.
      */
-    public function indexAction($activeTab = 'General')
+    public function indexAction(string $activeTab = 'General')
     {
         $this->view->activeTab = $activeTab;
         $this->view->forms = [
@@ -137,11 +138,13 @@ class SettingsController extends BaseController
      * Deletes a $entity with $id if found. Or deletes a log if $which == 'Log'
      * Redirects back to index#devices.
      *
-     * @param string    $which     The type of the entity to be deleted. Used with call_user_func to get the right object reference.
-     * @param int       $id        The ID of the entity you want to delete.
+     * @param string    $which      The type of the entity to be deleted. Used with call_user_func to get the right object reference.
+     * @param string       $id      The ID of the entity you want to delete.
+     * @param string    $subItem    Used to redirect to the correct page when having nested settings, such as SNMPHost -> SNMPRecord. Defaults to index (top most settings page).
+     * @param int|bool  $subItemId  The ID of the subentity you want to delete. Used to redirect to correct parent page.
      * @return \Phalcon\Http\ResponseInterface     Will forward to settings/index#$which when successful, or will show the form again when failed.
      */
-    public function deleteAction($which, $id, $subItem = 'index', $subItemId = false) : \Phalcon\Http\ResponseInterface
+    public function deleteAction(string $which, string $id, string $subItem = 'index', $subItemId = false) : \Phalcon\Http\ResponseInterface
     {
         if (isset($id, $which))
         {
@@ -181,7 +184,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, the device to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#devices when successful, or will show the form again when failed.
      */
-    public function deviceAction($id = 0)
+    public function deviceAction(int $id = 0)
     {
         $device = new Devices();
 
@@ -221,7 +224,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, the menuitem to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
      */
-    public function menuAction($id = 0)
+    public function menuAction(int $id = 0)
     {
         $item = new MenuItems();
         $file = false;
@@ -276,7 +279,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, the user ID to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
      */
-    public function userAction($id = 0)
+    public function userAction(int $id = 0)
     {
         $user = new Users();
 
@@ -317,7 +320,7 @@ class SettingsController extends BaseController
      *
      * @param string $file The log filename to display.
      */
-    public function logAction($file)
+    public function logAction(string $file)
     {
         if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
         {
@@ -334,7 +337,7 @@ class SettingsController extends BaseController
      *
      * @param int $page The page requested
      */
-    public function logsAction($page)
+    public function logsAction(int $page)
     {
         $this->logsPage = $page;
         $this->view->pick('settings/index');
@@ -346,7 +349,7 @@ class SettingsController extends BaseController
      *
      * @param string $id     The input name to show the help for.
      */
-    public function helpAction($id)
+    public function helpAction(string $id)
     {
         $this->view->setMainView('layouts/empty');
         $this->view->which = $id;
@@ -358,7 +361,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, SNMPHost ID to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#snmphosts when successful, or will show the form again when failed.
      */
-    public function snmphostAction($id = 0)
+    public function snmphostAction(int $id = 0)
     {
         $host = new SnmpHosts();
 
@@ -399,7 +402,7 @@ class SettingsController extends BaseController
      * @param int $id                                   Optional, SNMPRecord ID to edit.
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
-    public function snmprecordAction($hostId, $id = 0)
+    public function snmprecordAction(int $hostId, int $id = 0)
     {
         $record = new SnmpRecords();
 
@@ -443,7 +446,7 @@ class SettingsController extends BaseController
      * @param int $currentPage    The page to display, defaults to the first page.
      * @return array              The array of logfiles as key and formated datetime as value.
      */
-    private function getLogsOrderedByFilemtime(&$totalItems, $currentPage = 1) : array
+    private function getLogsOrderedByFilemtime(int &$totalItems, int $currentPage = 1) : array
     {
         $logs = scandir(APP_PATH . 'app/logs/');
         $logsOrdered = [];
@@ -471,7 +474,7 @@ class SettingsController extends BaseController
      *
      * @param int $userId     The Id of the user to create the registration challenge for.
      */
-    public function webauthchallengeAction($userId)
+    public function webauthchallengeAction(int $userId)
     {
         $user  = Users::findFirst([
             'conditions' => 'id = ?1',
@@ -516,7 +519,7 @@ class SettingsController extends BaseController
      *
      * @param array $forms      The array of forms to loop through.
      */
-    private function setScrollToInputErrorElement($forms)
+    private function setScrollToInputErrorElement(array $forms)
     {
         $this->view->scrollto = '';
 

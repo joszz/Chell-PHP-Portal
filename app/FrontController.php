@@ -33,31 +33,31 @@ use Phalcon\Debug\Dump;
  */
 class FrontController
 {
-    private $settings;
-    private $di;
-    private $application;
+    private SettingsContainer $settings;
+    private FactoryDefault $di;
+    private Application $application;
 
-    private $jsFiles = [
-            'vendor/jquery/jquery.js',
-            'vendor/fancybox/jquery.fancybox.js',
-            'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
-            'vendor/bootstrap-select/js/bootstrap-select.js',
-            'vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
-            'vendor/bootstrap-toggle/js/bootstrap-toggle.js',
-            'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js',
-            'vendor/jquery.vibrate/jquery.vibrate.js',
-            'vendor/tinytimer/jquery.tinytimer.js',
-            'vendor/jquery.isloading/jquery.isloading.js',
-            'vendor/jquery-fullscreen-plugin/jquery.fullscreen.js',
-            'vendor/chartist/dist/chartist.js',
-            'vendor/chartist-plugin-legend/chartist-plugin-legend.js',
-            'vendor/waves/waves.js',
-            'vendor/spark-md5/spark-md5.js',
-            'js/toggle-passwords.js',
-            'js/general.js',
+    private array $jsFiles = [
+        'vendor/jquery/jquery.js',
+        'vendor/fancybox/jquery.fancybox.js',
+        'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
+        'vendor/bootstrap-select/js/bootstrap-select.js',
+        'vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
+        'vendor/bootstrap-toggle/js/bootstrap-toggle.js',
+        'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js',
+        'vendor/jquery.vibrate/jquery.vibrate.js',
+        'vendor/tinytimer/jquery.tinytimer.js',
+        'vendor/jquery.isloading/jquery.isloading.js',
+        'vendor/jquery-fullscreen-plugin/jquery.fullscreen.js',
+        'vendor/chartist/dist/chartist.js',
+        'vendor/chartist-plugin-legend/chartist-plugin-legend.js',
+        'vendor/waves/waves.js',
+        'vendor/spark-md5/spark-md5.js',
+        'js/toggle-passwords.js',
+        'js/general.js',
     ];
 
-    private $cssFiles = [
+    private array $cssFiles = [
         'vendor/fancybox/jquery.fancybox.css',
         'vendor/waves/waves.css',
         'vendor/bootstrap-select/css/bootstrap-select.css',
@@ -78,6 +78,7 @@ class FrontController
         $this->di = new FactoryDefault();
         $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         define('DEBUG', $config->debug);
+
         $this->registerNamespaces();
         $this->setDB($config);
         $this->settings = $settings = $this->setSettings();

@@ -54,10 +54,10 @@
                 });
 
                 settings.block.find(".fa-sync").click(function () { functions.update(false); });
-                settings.block.find(".fa-camera").click(function () {
+                settings.block.find(".fa-image").click(function () {
                     functions.photos(true)
                 });
-                settings.block.find(".fa-image").click(functions.select_device);
+                settings.block.find(".fa-camera").click(functions.select_device);
                 settings.block.find(".top button").click(function () {
                     $.fancybox.open({
                         src: "#verisure_set_armstate"

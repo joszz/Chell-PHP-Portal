@@ -12,14 +12,14 @@ It aggregates different services and webapplications that I want easily accessib
 # Screenshots
 
 #### Home screenshot
-![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_home.jpg "Home")
+![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/public/img/screenshots/desktop_home.png "Home")
 #### Menu screenshot
-![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/screenshots/desktop_menu.jpg "Menu")
-[More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/screenshots)
+![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/public/img/screenshots/desktop_menu.png "Menu")
+[More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/public/img/screenshots)
 
 # Prerequisites
-- [PHP 7.2 or higher](http://www.php.net/)
-- [MySQL 5.x](https://www.mysql.com/)
+- [PHP 7.4 or higher](http://www.php.net/)
+- [MySQL 5.x or higher](https://www.mysql.com/)
 - [Phalcon PHP framework 4.x](https://phalconphp.com/)
 - [PSR PHP extension](https://github.com/jbboehr/php-psr)
 - [Apache 2.x](https://httpd.apache.org/)
