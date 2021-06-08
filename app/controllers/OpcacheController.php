@@ -36,8 +36,8 @@ class OpcacheController extends BaseController
     /**
      * Called by fancybox as iFrame when clicking the stats button.
      *
-     * @param int    $currentPage       The page to display, defaults to 1
      * @param string $tab               The active tab to display, defaults to 'status'. Will be set to 'scripts' when paging the scripts tab.
+     * @param int    $currentPage       The page to display, defaults to 1
      */
     public function detailsAction(string $tab = 'status', int $currentPage = 1)
     {

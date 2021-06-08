@@ -2,6 +2,7 @@
 
 namespace Chell\Models\Kodi;
 
+use SimpleXMLElement;
 use Chell\Models\BaseModel;
 
 /**
@@ -44,10 +45,10 @@ class KodiBase extends BaseModel
      * we need to add the XML tag and a root element before trying to create an SimpleXMLElement from it.
      *
      * @param string $kodiXml       The XML stored in the Kodi database.
-     * @return \SimpleXMLElement    The Simple XML object created from the XML stored in the Kodi database.
+     * @return SimpleXMLElement    The Simple XML object created from the XML stored in the Kodi database.
      */
-    public function getXml(string $kodiXml) : \SimpleXMLElement
+    public function getXml(string $kodiXml) : SimpleXMLElement
     {
-        return new \SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><root>' . $kodiXml . '</root>');
+        return new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><root>' . $kodiXml . '</root>');
     }
 }

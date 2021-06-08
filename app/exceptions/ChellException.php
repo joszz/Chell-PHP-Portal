@@ -2,6 +2,8 @@
 
 namespace Chell\Exceptions;
 
+use Throwable;
+
 /**
  * The custom exception for this project, used to handle errors caught by PHP's set_exception_handler.
  *
@@ -16,9 +18,9 @@ class ChellException extends \Exception
     /**
      * Receives the original exception and sets the variables.
      *
-     * @param \Throwable $exception The original exception.
+     * @param Throwable $exception The original exception.
      */
-    public function __construct(\Throwable $exception)
+    public function __construct(Throwable $exception)
     {
         parent::__construct(ucfirst($exception->getMessage()), intval($exception->getCode()), $exception);
 

@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Models\SettingsContainer;
 use Chell\Models\Users;
 use Phalcon\Mvc\Controller;
 
@@ -12,7 +13,7 @@ use Phalcon\Mvc\Controller;
  */
 class BaseController extends Controller
 {
-    protected $settings;
+    protected SettingsContainer $settings;
 
     private array $controllersToLoadMenu = ['index', 'about', 'settings'];
 
@@ -21,7 +22,6 @@ class BaseController extends Controller
      */
     public function initialize()
     {
-
         $this->settings = $this->di->get('settings');
 
         if (in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
@@ -231,8 +231,8 @@ class BaseController extends Controller
     /**
      * Adds javascript file to collection. Sets defaults for all JS files.
      *
-     * @param mixed $collection     The collection to add the JS file to
-     * @param mixed $file           The file to add to the collection
+     * @param string $collection     The collection to add the JS file to
+     * @param string $file           The file to add to the collection
      */
     protected function addJs(string $collection, string $file)
     {

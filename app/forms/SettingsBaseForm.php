@@ -17,11 +17,6 @@ class SettingsBaseForm extends Form
 {
     protected $formFieldClasses = [];
 
-    /**
-     * The configuration object containing all the info from config.ini.
-     *
-     * @var object
-     */
     public SettingsContainer $settings;
     public TranslatorWrapper $translator;
 
@@ -45,7 +40,7 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    public function renderElement(ElementInterface $element)
+    public function renderElement(ElementInterface $element) : string
     {
         return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element);
     }
@@ -57,7 +52,7 @@ class SettingsBaseForm extends Form
      * @param bool              $hidden     Whether the entire form-group should be hidden on load.
      * @return string                       The generated HTML string.
      */
-    private function renderElementInternal(ElementInterface $element, bool $hidden = false)
+    private function renderElementInternal(ElementInterface $element, bool $hidden = false) : string
     {
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
@@ -113,7 +108,7 @@ class SettingsBaseForm extends Form
      * @param ElementInterface  $element    The element to render.
      * @return string                       The generated HTML string.
      */
-    private function renderFieldset(ElementInterface $element)
+    private function renderFieldset(ElementInterface $element) : string
     {
         $attributes = $element->getAttributes();
         $fieldset = $attributes['fieldset'];
@@ -147,7 +142,7 @@ class SettingsBaseForm extends Form
      * @param string $name  The name of the formelement.
      * @return bool         Has help?
      */
-    public function hasHelp(string $name)
+    public function hasHelp(string $name) : bool
     {
         return isset($this->translator->helpContent[$name]);
     }

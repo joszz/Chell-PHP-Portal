@@ -83,7 +83,7 @@ class SettingsMenuItemForm extends SettingsBaseForm
      * @param MenuItems $entity   The MenuItem to get the selected users for.
      * @return array    An array of User Ids.
      */
-    private function getSelectedUsers(MenuItems $entity, ResultsetInterface $allUsers)
+    private function getSelectedUsers(MenuItems $entity, ResultsetInterface $allUsers) : array
     {
         $selectedUsers = [];
 

@@ -141,7 +141,7 @@ class Devices extends BaseModel
      * @see                     https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
      * @return array            The output of the RPC command on the shell.
      */
-    public function shutdown()
+    public function shutdown() : array
     {
         $ip = escapeshellcmd($this->ip);
         $user = trim(escapeshellcmd($this->shutdown_user));

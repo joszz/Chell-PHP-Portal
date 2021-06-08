@@ -14,7 +14,7 @@ class Pulseway extends BaseModel
      * Retrieves all the systems defined in Pulseway
      * @return array    The systems, where key is the identifier and value is the name.
      */
-    public function getSystems()
+    public function getSystems() : array
     {
         $result = [];
         $content = $this->callApi('systems');

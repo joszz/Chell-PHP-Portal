@@ -7,6 +7,7 @@ use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
 use Duo\Web;
 use Phalcon\Http\Response;
+use Phalcon\Http\ResponseInterface;
 
 /**
  * The controller responsible for handling the session.
@@ -38,7 +39,7 @@ class SessionController extends BaseController
     /**
      * Sets session cookie with user id and username.
      *
-     * @param \Phalcon\Mvc\ModelInterface $user The user object to populate the session with.
+     * @param Users $user The user object to populate the session with.
      */
     private function _registerSession(Users $user)
     {
@@ -220,7 +221,7 @@ class SessionController extends BaseController
     /**
      * Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.
      */
-    public function duoVerifyAction() : \Phalcon\Http\ResponseInterface
+    public function duoVerifyAction() : ResponseInterface
     {
         $username = Web::verifyResponse($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $_POST['sig_response']);
 
@@ -263,12 +264,12 @@ class SessionController extends BaseController
     }
 
     /**
-     * Gets the requested URL before redirected to login (which was saved in the session). 
+     * Gets the requested URL before redirected to login (which was saved in the session).
      * Replace the base uri to not have it being injected twice in the resuling redirect.
-     * 
+     *
      * @return string   The URL to redirect to.
      */
-    private function getRedirectUrlFromSession()
+    private function getRedirectUrlFromSession() : string
     {
         return str_replace($this->settings->application->base_uri, '', $this->session->get('auth_redirect_url'));
     }

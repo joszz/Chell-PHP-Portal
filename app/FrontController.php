@@ -2,6 +2,8 @@
 
 namespace Chell;
 
+use Throwable;
+
 use Chell\Controllers\ErrorController;
 use Chell\Exceptions\ChellException;
 use Chell\Messages\TranslatorWrapper;
@@ -125,9 +127,9 @@ class FrontController
     /**
      * function defined for PHP's set_exception_handler.
      *
-     * @param \Throwable $exception  The exception being thrown.
+     * @param Throwable $exception  The exception being thrown.
      */
-    public function ExceptionHandler(\Throwable $exception)
+    public function ExceptionHandler(Throwable $exception)
     {
         if (strpos(basename($_SERVER['REQUEST_URI']), '.') !== false)
         {
@@ -153,7 +155,6 @@ class FrontController
     private function registerNamespaces()
     {
         $loader = new Loader();
-
         $loader->registerNamespaces([
             'Chell\Controllers'                 => APP_PATH . 'app/controllers/',
             'Chell\Exceptions'                  => APP_PATH . 'app/exceptions/',
@@ -176,9 +177,9 @@ class FrontController
     /**
      * Setup the database services.
      *
-     * @param object $config	The config object representing config.ini.
+     * @param ConfigIni $config	The config object representing config.ini.
      */
-    private function setDB($config)
+    private function setDB(ConfigIni $config)
     {
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([

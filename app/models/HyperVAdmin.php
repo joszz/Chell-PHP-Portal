@@ -2,6 +2,7 @@
 
 namespace Chell\Models;
 
+use CurlHandle;
 use Chell\Models\Devices;
 
 /**
@@ -51,7 +52,7 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Gets a string representing the VM state given an int.
 	 *
-	 * @param number $state     The VM state represented as a number.
+     * @param int $state		The VM state represented as a number.
 	 * @return string           The VM state represented as a string.
 	 */
 	public function getVMState(int $state) : string
@@ -62,7 +63,7 @@ class HyperVAdmin extends BaseModel
 	/**
 	 * Gets a string representing the site state given an int.
 	 *
-	 * @param number $state	The site state represented as a number.
+     * @param int $state	The site state represented as a number.
 	 * @return string		The site state represented as a string.
 	 */
 	public function getSiteState(int $state) : string
@@ -75,7 +76,7 @@ class HyperVAdmin extends BaseModel
 	 *
      * @param Devices $device	The device to do the action for.
 	 * @param string $vmName    The name of the VM to set the state for.
-	 * @param number $state     The state to set the VM to.
+     * @param int $state		The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
 	public function toggleVMState(Devices $device, string $vmName, int $state)
@@ -92,7 +93,7 @@ class HyperVAdmin extends BaseModel
 	 *
      * @param Devices $device	The device to do the action for.
 	 * @param string $siteName  The name of the site to set the state for.
-	 * @param number $state     The state to set the VM to.
+     * @param int $state		The state to set the VM to.
 	 * @return object           The response returned as an anonymous object.
 	 */
 	public function toggleSiteState(Devices $device, string $siteName, int $state)
@@ -110,7 +111,7 @@ class HyperVAdmin extends BaseModel
 	 *
      * @param Devices $device	The device to do the action for.
 	 * @param string $url       The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
-	 * @return \CurlHandle|bool	The cURL object to be used to query HyperVAdmin.
+	 * @return CurlHandle|bool	The cURL object to be used to query HyperVAdmin.
 	 */
 	private function getCurl(Devices $device, string $url)
 	{

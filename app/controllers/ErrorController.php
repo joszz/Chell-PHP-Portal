@@ -34,7 +34,6 @@ class ErrorController
         ob_clean();
 
         $this->settings = $settings;
-
         $this->exception = $exception;
         $this->setLogFile();
 
@@ -66,7 +65,7 @@ class ErrorController
      * @param mixed $dump   The variable to dump.
      * @return string       The dumped variable as string.
      */
-    public function dump($dump)
+    public function dump($dump) : string
     {
         return (new Dump([
 			"pre" => "",
@@ -88,7 +87,7 @@ class ErrorController
      *
      * @return string   The rendered HTML as a string
      */
-    private function exception()
+    private function exception() : string
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
@@ -116,7 +115,7 @@ class ErrorController
      *
      * @return string The rendered HTML as a string
      */
-    private function error()
+    private function error() : string
     {
         ob_start();
         require_once(APP_PATH . 'app/views/error/error.phtml');
@@ -128,7 +127,7 @@ class ErrorController
      *
      * @return string   The rendered HTML as a string
      */
-    private function layout()
+    private function layout() : string
     {
         ob_start();
         require APP_PATH . 'app/views/layouts/exception.phtml';

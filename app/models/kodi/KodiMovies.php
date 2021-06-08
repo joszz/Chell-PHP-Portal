@@ -44,7 +44,7 @@ class KodiMovies extends KodiBase
      * @param ResultsetInterface $movies   The array of Kodi movies.
      * @return array                       The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
-    public function extractMovieImagesFromXML(ResultsetInterface$movies) : array
+    public function extractMovieImagesFromXML(ResultsetInterface $movies) : array
     {
         $return = [];
 

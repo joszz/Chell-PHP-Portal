@@ -91,7 +91,7 @@ class Opcache extends Model
      *
      * @param string $key    The Opcache field to format.
      * @param string $value  The Opcache data to format.
-     * @return mixed        The formatted data.
+     * @return string        The formatted data.
      */
     public function getFormattedData(string $key, string $value) : string
     {

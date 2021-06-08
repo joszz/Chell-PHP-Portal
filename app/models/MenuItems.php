@@ -104,10 +104,11 @@ class MenuItems extends Model
      * Given an array of user Ids, removes menu_items_user records linking this MenuItem that are not equal to provided user Ids.
      *
      * @param array $userIds    The Ids of users to remove the link to this MenuItem for.
+     * @return bool             A boolean indicating success or failure.
      */
-    private function deleteFromUsers(array $userIds)
+    private function deleteFromUsers(array $userIds) : bool
     {
-        MenuItemsUsers::find([
+        return MenuItemsUsers::find([
             'user_id NOT IN ({userids:array}) AND menu_item_id = {menuitemid:int}',
             'bind' => [
                 'userids' => $userIds,

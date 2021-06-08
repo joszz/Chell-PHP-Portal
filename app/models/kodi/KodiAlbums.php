@@ -3,6 +3,7 @@
 namespace Chell\Models\Kodi;
 
 use Phalcon\Mvc\Model\ResultsetInterface;
+
 /**
  * The model responsible for all Kodi albums.
  *

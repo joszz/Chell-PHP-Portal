@@ -91,7 +91,7 @@ class SnmpHosts extends Model
      * @param array $record The SNMP record array item (provided by $this->getValues()) to format the value(s) for.
      * @return array        The formatted value(s) and the corresponding type of the value(s).
      */
-    public function formatOidValues($record) : array
+    public function formatOidValues(array $record) : array
     {
         $formattedValues = [];
 

@@ -139,6 +139,7 @@ class InstallController extends BaseController
         $this->config->database->name = $this->postedData['chell-database'];
         $this->config->database->username = $this->postedData['chell-database-user'];
         $this->config->database->password = $this->postedData['chell-database-password'];
+        //todo: no longer in config but defined in settings/DB
         $this->config->application->phalconCryptKey = bin2hex(random_bytes(32));
 
         $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);

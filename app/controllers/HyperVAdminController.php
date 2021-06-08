@@ -43,7 +43,7 @@ class HyperVAdminController extends BaseController
 	 *
      * @param int $id			The device Id to do this action for.
 	 * @param string $vm        The name of the VM to set state for.
-	 * @param number $state     The state to set the VM to.
+     * @param int $state		The state to set the VM to.
 	 * @return mixed            Redirect back to indexAction().
 	 */
 	public function vmToggleStateAction(int $id, string $vm, int $state)
@@ -58,7 +58,7 @@ class HyperVAdminController extends BaseController
 	 *
      * @param int $id			The device Id to do this action for.
 	 * @param string $site      The name of the site to set state for.
-	 * @param number $state     The state to set the site to.
+     * @param int $state		The state to set the site to.
 	 * @return mixed            Redirect back to indexAction().
 	 */
 	public function siteToggleStateAction(int $id, string $site, int $state) : \Phalcon\Http\ResponseInterface

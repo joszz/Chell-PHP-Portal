@@ -2,10 +2,12 @@
 
 namespace Chell\Models;
 
+use CurlHandle;
+
 /**
  * The model responsible for all actions related to Jellyfin.
  *
- * @package Modelsz
+ * @package Models
  */
 class Jellyfin extends BaseModel
 {
@@ -86,7 +88,7 @@ class Jellyfin extends BaseModel
      * Gets the CurlHandle to be used to invoke the Jellyfin API.
      *
      * @param string $url                   The Jellyfin endpoint to call.
-     * @return \CurlHandle|bool|resource    The handle to use to call the Jellyfin API with.
+     * @return CurlHandle|bool|resource     The handle to use to call the Jellyfin API with.
      */
     private function getCurl(string $url)
     {

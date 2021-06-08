@@ -286,10 +286,15 @@
                 */
                 setUpdateNotifier: function (data, block) {
                     if (data.Plugins.Plugin_UpdateNotifier !== undefined) {
-                        block.find(".update .packages .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
-                        block.find(".update .security .value").html(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+                        var packages = parseInt(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages);
+                        var security = parseInt(data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security);
+                        packages = isNaN(packages) ? 0 : packages;
+                        security = isNaN(security) ? 0 : security;
+                        var count = packages + security;
 
-                        var count = data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.packages + data.Plugins.Plugin_UpdateNotifier.UpdateNotifier.security;
+                        block.find(".update .packages .value").html(packages);
+                        block.find(".update .security .value").html(security);
+
                         if (count > 0) {
                             //todo: handle the error with .catch((error)
                             navigator.setAppBadge(count);
