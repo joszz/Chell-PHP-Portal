@@ -239,9 +239,9 @@ class FrontController
     /**
      * Instantiate session.
      *
-     * @param object $config    The config object representing config.ini.
+     * @param SettingsContainer $settings    The settings object representing all settings in the database.
      */
-    private function setSession($settings)
+    private function setSession(SettingsContainer $settings)
     {
         $this->di->setShared('session', function () use ($settings) {
             $session = new Manager();
