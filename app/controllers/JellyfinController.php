@@ -11,6 +11,7 @@ class JellyfinController extends BaseController
      */
     public function viewsAction()
     {
-        die(json_encode(array_flip((new Jellyfin())->getViews())));
+        $this->view->disable();
+        $this->response->setJsonContent(array_flip((new Jellyfin())->getViews()))->send();
     }
 }

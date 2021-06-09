@@ -29,7 +29,8 @@ class VerisureController extends BaseController
      */
     public function indexAction()
     {
-        die($this->_model->getOverview(true));
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->getOverview(false))->send();
     }
 
     /**
@@ -53,7 +54,8 @@ class VerisureController extends BaseController
     public function armAction(string $state, string $pin = '')
     {
         $this->_model->setArmState($state, empty($pin) ? $this->settings->verisure->securitycode : $pin);
-        die("true");
+        $this->view->disable();
+        $this->response->setJsonContent('true')->send();
     }
 
     /**
@@ -66,9 +68,11 @@ class VerisureController extends BaseController
     public function imageAction(string $device_label, string $image_id, string $capture_time)
     {
         $filename = $this->_model->getImage($device_label, $image_id, $capture_time);
-        header('Content-Type: image/jpeg');
-        header('Content-Length: ' . filesize($filename));
-        die(readfile($filename));
+
+        $this->view->disable();
+        $this->response->setContentType('image/jpeg');
+        $this->response->setContentLength(filesize($filename));
+        $this->response->setContent(readfile($filename))->send();
     }
 
     /**
@@ -79,14 +83,15 @@ class VerisureController extends BaseController
      */
     public function captureimageAction(string $device_label)
     {
-        $output = json_encode($this->_model->captureImage($device_label));
+        $this->view->disable();
+        $output = $this->_model->captureImage($device_label);
 
         if (json_last_error() == JSON_ERROR_NONE)
         {
-            die($output);
+            return $this->response->setJsonContent($output)->send();
         }
 
-        http_response_code(500);
+        $this->response->setStatusCode(500);
     }
 
     /**
@@ -94,6 +99,7 @@ class VerisureController extends BaseController
      */
     public function imageseriesAction()
     {
-        die(json_encode($this->_model->getImageSeries()));
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->getImageSeries())->send();
     }
 }

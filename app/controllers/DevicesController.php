@@ -3,7 +3,6 @@
 namespace Chell\Controllers;
 
 use Chell\Models\Devices;
-use Phalcon\Http\Response;
 
 /**
  * The controller responsible for handling all actions that have to do with the devices in your network.
@@ -12,6 +11,13 @@ use Phalcon\Http\Response;
  */
 class DevicesController extends BaseController
 {
+    public function initialize()
+	{
+		parent::initialize();
+
+		$this->view->disable();
+	}
+
     /**
      * This action will try to send a WOL package to the device that is specified $mac.
      *
@@ -28,15 +34,12 @@ class DevicesController extends BaseController
         {
             $device->wakeOnLan();
         }
-
-        die;
     }
 
     /**
      * This action will try to send a shutdown message (RPC) to the device specified by $ip.
      *
      * @param int $id       The device Id to shutdown.
-     * @return string       A boolean as string indicating success or failure.
      */
     public function shutdownAction(int $id)
     {
@@ -51,11 +54,11 @@ class DevicesController extends BaseController
 
             if (isset($output[1]))
             {
-                die(strpos($output[1], 'succeeded') !== false ? 'true' : 'false');
+                return $this->response->setContent(strpos($output[1], 'succeeded') !== false ? 'true' : 'false')->send();
             }
         }
 
-        die('false');
+        $this->response->setContent('false')->send();
     }
 
     /**
@@ -73,8 +76,6 @@ class DevicesController extends BaseController
         $state['state'] = $device->isDeviceOn();
         $state['ip'] = $device->ip;
 
-        $this->view->disable();
-        $response = new Response();
-        $response->setJsonContent($state)->send();
+        $this->response->setJsonContent($state)->send();
     }
 }

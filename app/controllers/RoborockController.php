@@ -25,11 +25,12 @@ class RoborockController extends BaseController
 
     /**
      * Called by AJAX to refresh the dashboard widget.
-     * Returns a JSON encoded string and dies.
+     * Returns a JSON encoded string to the browser.
      */
     public function indexAction()
     {
-        die(json_encode($this->_model->getStatus()));
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->getStatus())->send();
     }
 
     /**
@@ -57,7 +58,8 @@ class RoborockController extends BaseController
      */
     public function startAction()
     {
-        die($this->_model->start());
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->start())->send();
     }
 
     /**
@@ -65,6 +67,7 @@ class RoborockController extends BaseController
      */
     public function stopAction()
     {
-        die($this->_model->stop());
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->stop())->send();
     }
 }

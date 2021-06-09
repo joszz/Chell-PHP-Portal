@@ -29,6 +29,12 @@ class YoulessController extends BaseController
     public function indexAction()
     {
         $stats = $this->_model->getCurrentStats();
-        die(json_encode(['power' => $stats->pwr, 'counter' => $stats->cnt, 'class' => $this->_model->getTextClass($stats->pwr)]));
+
+        $this->view->disable();
+        $this->response->setJsonContent([
+            'power' => $stats->pwr, 
+            'counter' => $stats->cnt, 
+            'class' => $this->_model->getTextClass($stats->pwr)
+        ])->send();
     }
 }

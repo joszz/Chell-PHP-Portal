@@ -24,7 +24,7 @@ class SnmpController extends BaseController
 
         if ($this->view->host == null)
         {
-            die();
+            die;
         }
     }
 
@@ -44,7 +44,7 @@ class SnmpController extends BaseController
 
         if ($this->view->host == null)
         {
-            die();
+            die;
         }
     }
 }

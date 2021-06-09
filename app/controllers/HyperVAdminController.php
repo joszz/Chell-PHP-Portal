@@ -4,7 +4,6 @@ namespace Chell\Controllers;
 
 use Chell\Models\Devices;
 use Chell\Models\HyperVAdmin;
-use Phalcon\Http\Response;
 
 /**
  * The controller responsible for all HyperVAdmin related actions.
@@ -50,7 +49,7 @@ class HyperVAdminController extends BaseController
 	{
 		$this->_model->toggleVMState($this->getDevice($id), $vm, $state);
 
-		return (new Response())->redirect('hyper_v_admin/');
+		return $this->response->redirect('hyper_v_admin/');
 	}
 
 	/**
@@ -65,7 +64,7 @@ class HyperVAdminController extends BaseController
 	{
 		$this->_model->toggleSiteState($this->getDevice($id), $site, $state);
 
-		return (new Response())->redirect('hyper_v_admin/');
+		return $this->response->redirect('hyper_v_admin/');
 	}
 
 	/**
@@ -75,7 +74,8 @@ class HyperVAdminController extends BaseController
 	 */
 	public function getVMsAction(int $id)
 	{
-		die($this->_model->getVMs($this->getDevice($id), false));
+		$this->view->disable();
+		$this->response->setContent($this->_model->getVMs($this->getDevice($id), false))->send();
 	}
 
 	/**
@@ -85,7 +85,8 @@ class HyperVAdminController extends BaseController
 	 */
 	public function getSitesAction(int $id)
 	{
-		die($this->_model->getSites($this->getDevice($id), false));
+		$this->view->disable();
+		$this->response->setContent($this->_model->getSites($this->getDevice($id), false))->send();
 	}
 
 	/**

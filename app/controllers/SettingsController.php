@@ -101,7 +101,7 @@ class SettingsController extends BaseController
             }
         }
 
-        return (new Response())->redirect('settings/index#general');
+        return $this->response->redirect('settings/index#general');
     }
 
     /**
@@ -132,7 +132,7 @@ class SettingsController extends BaseController
             }
         }
 
-        return (new Response())->redirect('settings/index#dashboard');
+        return $this->response->redirect('settings/index#dashboard');
     }
 
     /**
@@ -176,7 +176,7 @@ class SettingsController extends BaseController
             }
         }
 
-        return (new Response())->redirect('settings/' . $subItem . ($subItemId ? '/' . $subItemId : null) . '#' . strtolower($which));
+        return $this->response->redirect('settings/' . $subItem . ($subItemId ? '/' . $subItemId : null) . '#' . strtolower($which));
     }
 
     /**
@@ -212,7 +212,7 @@ class SettingsController extends BaseController
 
                 $device->save();
 
-                return (new Response())->redirect('settings/index#devices');
+                return $this->response->redirect('settings/index#devices');
             }
         }
 
@@ -267,7 +267,7 @@ class SettingsController extends BaseController
                     $item->resizeIcon($filename);
                 }
 
-                return (new Response())->redirect('settings/index#menuitems');
+                return $this->response->redirect('settings/index#menuitems');
             }
         }
 
@@ -309,7 +309,7 @@ class SettingsController extends BaseController
 
                 $user->password = $this->security->hash($user->password);
                 $user->save();
-                return (new Response())->redirect('settings/index#users');
+                return $this->response->redirect('settings/index#users');
             }
         }
 
@@ -326,10 +326,11 @@ class SettingsController extends BaseController
         if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
         {
             header('Content-Encoding: gzip');
-            die(file_get_contents($path));
+            $this->response->setHeader('Content-Encoding', 'gzip');
+            return $this->response->setContent(file_get_contents($path))->send();
         }
 
-        die('Log file not found!');
+        $this->response->setContent('Log file not found!')->send();
     }
 
     /**
@@ -389,7 +390,7 @@ class SettingsController extends BaseController
 
                 $host->save();
 
-                return (new Response())->redirect('settings/index#snmphosts');
+                return $this->response->redirect('settings/index#snmphosts');
             }
         }
 
@@ -433,7 +434,7 @@ class SettingsController extends BaseController
 
                 $record->save();
 
-                return (new Response())->redirect('settings/snmphost/' . $record->snmp_host_id . '#snmprecords');
+                return $this->response->redirect('settings/snmphost/' . $record->snmp_host_id . '#snmprecords');
             }
         }
 
@@ -484,7 +485,9 @@ class SettingsController extends BaseController
 
         $webauthn = new WebAuthn($_SERVER['HTTP_HOST']);
         $challenge = $webauthn->prepareChallengeForRegistration($user->username, $user->id, false);
-        die(json_encode($challenge));
+
+        $this->view->disable();
+        $this->response->setJsonContent($challenge)->send();
     }
 
     /**
@@ -495,6 +498,8 @@ class SettingsController extends BaseController
      */
     public function webauthregisterAction()
     {
+        $this->view->disable();
+
         if ($this->request->isPost())
         {
             $userId = $this->request->get('userid');
@@ -509,10 +514,10 @@ class SettingsController extends BaseController
             $user->webauthn = $webauthn->register($registrationData, $user->webauthn);
             $user->save();
 
-            die('success');
+            return $this->response->setJsonContent('success')->send();
         }
 
-        die('failed');
+        $this->response->setJsonContent('failed')->send();
     }
 
     /**

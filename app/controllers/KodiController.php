@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use DateTime;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
@@ -83,6 +84,8 @@ class KodiController extends BaseController
      */
 	public function getImageAction(string $which, string $type, int $id, $maxWidth = 'disabled')
 	{
+		$this->view->disable();
+
 		switch($which) {
 			case 'movies':
 				$item = KodiMovies::findFirst([
@@ -165,18 +168,23 @@ class KodiController extends BaseController
 				$filename = $resizedPath;
 			}
 
-			header('Cache-control: max-age='.(60 * 60 * 24 * 365));
-			header('Expires: '.gmdate(DATE_RFC1123 ,time()+ 60 * 60 * 24 * 365));
-			header('Last-Modified: '.gmdate(DATE_RFC1123, filemtime($filename)));
-			header('Content-type: ' . $filetype);
-			header("Pragma: cache");
+			$expiryDate = new DateTime();
+			$expiryDate->modify('+1 year');
+			$modifiedDate = new DateTime();
+			$modifiedDate->setTimestamp(filemtime($filename));
+
+			$this->response->setCache(60 * 60 * 24 * 365);
+			$this->response->setExpires($expiryDate);
+			$this->response->setLastModified($modifiedDate);
+			$this->response->setContentType($filetype);
+			$this->response->setHeader('Pragma', 'cache');
 
 			if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
 			{
-				header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+				$this->response->setNotModified();
 			}
 
-			die(readfile($filename));
+			$this->response->setContent(readfile($filename))->send();
 		}
 	}
 }

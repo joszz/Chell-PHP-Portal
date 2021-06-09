@@ -108,7 +108,7 @@ class IndexController extends BaseController
      */
     public function manifestAction()
     {
-        header('Content-Type: application/json; charset=UTF-8');
+        $this->response->setContentType('application/json', 'charset=UTF-8');
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
@@ -117,8 +117,8 @@ class IndexController extends BaseController
      */
     public function workerAction()
     {
-        header('Service-Worker-allowed: ../');
-        header('Content-Type: text/javascript');
+        $this->response->setHeader('Service-Worker-allowed', '../');
+        $this->response->setContentType('text/javascript');
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 

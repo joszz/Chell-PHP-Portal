@@ -21,6 +21,7 @@ class PulsewayController extends BaseController
 		parent::initialize();
 
         $this->_model = new Pulseway();
+        $this->view->disable();
     }
 
     /**
@@ -36,7 +37,7 @@ class PulsewayController extends BaseController
             $result[] = $this->_model->getSystem($system);
         }
 
-        die(json_encode($result));
+        $this->response->setJsonContent($result)->send();
     }
 
     /**
@@ -44,6 +45,6 @@ class PulsewayController extends BaseController
      */
     public function systemsAction()
     {
-        die(json_encode($this->_model->getSystems()));
+        $this->response->setJsonContent($this->_model->getSystems())->send();
     }
 }

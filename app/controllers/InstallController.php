@@ -13,7 +13,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
  */
 class InstallController extends BaseController
 {
-    private string $dbStructureFilename = APP_PATH . 'db-structure.sql';
+    private string $dbStructureFilename = APP_PATH . 'sql\db-structure.sql';
     private $postedData;
 
     /**
@@ -74,7 +74,7 @@ class InstallController extends BaseController
         $this->writeConfig();
         $this->cleanup();
 
-        header('Location: ' . $this->settings->application->base_uri);
+        $this->response->redirect($this->settings->application->base_uri);
     }
 
     /**

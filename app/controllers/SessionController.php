@@ -5,8 +5,8 @@ namespace Chell\Controllers;
 use Chell\Models\Users;
 use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
+use Exception;
 use Duo\Web;
-use Phalcon\Http\Response;
 use Phalcon\Http\ResponseInterface;
 
 /**
@@ -118,19 +118,17 @@ class SessionController extends BaseController
             //Normal login
             else
             {
-                $response = new Response();
-
                 if ($rememberMe)
                 {
-                    $response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->settings->application->base_uri, true)));
-                    $response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->settings->application->base_uri, true)));
+                    $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->settings->application->base_uri, true)));
+                    $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->settings->application->base_uri, true)));
                 }
 
                 $this->_registerSession($user);
                 $user->last_login = date('Y-m-d H:i:s');
                 $user->save();
 
-                return $response->redirect($this->getRedirectUrlFromSession());
+                return $this->response->redirect($this->getRedirectUrlFromSession());
             }
         }
         else
@@ -149,6 +147,8 @@ class SessionController extends BaseController
      */
     public function webauthchallengeAction()
     {
+        $this->view->disable();
+
         if ($this->request->isPost())
         {
             $user = Users::findFirst([
@@ -158,7 +158,7 @@ class SessionController extends BaseController
 
             $webauthn = new WebAuthn($_SERVER['HTTP_HOST']);
 
-            die(json_encode($webauthn->prepareForLogin($user->webauthn)));
+            $this->response->setJsonContent($webauthn->prepareForLogin($user->webauthn))->send();
         }
     }
 
@@ -193,8 +193,7 @@ class SessionController extends BaseController
                     $user->last_login = date('Y-m-d H:i:s');
                     $user->save();
 
-                    $response = new Response();
-                    return $response->redirect('');
+                    return $this->response->redirect('');
                 }
             }
         }
@@ -238,15 +237,14 @@ class SessionController extends BaseController
             }
             else
             {
-                throw new \Exception('Expected type Users, got type' . get_class($user));
+                throw new Exception('Expected type Users, got type' . get_class($user));
             }
 
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
         }
 
-        $response = new Response();
-        return $response->redirect($this->getRedirectUrlFromSession());
+        return $this->response->redirect($this->getRedirectUrlFromSession());
     }
 
     /**

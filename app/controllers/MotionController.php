@@ -21,6 +21,7 @@ class MotionController extends BaseController
 		parent::initialize();
 
         $this->_model = new Motion();
+        $this->view->disable();
     }
 
     /**
@@ -48,20 +49,17 @@ class MotionController extends BaseController
 
             $this->resizeImage($file, $resizedPath, 800, 377);
 
-            header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-            header('Cache-Control: post-check=0, pre-check=0', false);
-            header('Pragma: no-cache');
-            header('Content-type: ' . $ntct[exif_imagetype($file)]);
+			$this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+			$this->response->setContentType($ntct[exif_imagetype($file)]);
+			$this->response->setHeader('Pragma', 'no-cache');
 
             if (isset($_SERVER['HTTP_IF_MODIFIED_SINCE']))
             {
-                header($_SERVER['SERVER_PROTOCOL'] . ' 304 Not Modified');
+                $this->response->setNotModified();
             }
 
-            echo readfile($resizedPath);
+            $this->response->setContent(readfile($resizedPath))->send();
         }
-
-        die;
     }
 
     /**
@@ -69,6 +67,6 @@ class MotionController extends BaseController
      */
     public function modifiedTimeAction()
     {
-        die($this->_model->getModifiedTime());
+        $this->response->setJsonContent($this->_model->getModifiedTime())->send();
     }
 }

@@ -20,7 +20,7 @@ class RssController extends BaseController
 	*/
 	public function indexAction()
 	{
-		header('Content-Type: application/xml; charset=UTF-8');
+		$this->response->setContentType('application/xml', 'charset=UTF-8');
 
 		$url  = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'];
 		$url .= $this->settings->application->base_uri;

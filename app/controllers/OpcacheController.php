@@ -25,12 +25,11 @@ class OpcacheController extends BaseController
 
     /**
      * Called through AJAX to retrieve the opache data.
-     *
-     * @return string A JSON encoded array.
      */
     public function datasetAction()
     {
-        die($this->_model->getGraphDataSetJson());
+        $this->view->disable();
+        $this->response->setJsonContent($this->_model->getGraphDataSetJson())->send();
     }
 
     /**
