@@ -19,6 +19,7 @@ class PhpsysinfoController extends BaseController
     public function indexAction(string $plugin = 'complete')
     {
         $this->view->disable();
-        $this->response->setJsonContent((new PHPSysInfo())->getData($plugin))->send();
+        $this->response->setContentType('application/json');
+        $this->response->setContent((new PHPSysInfo())->getData($plugin))->send();
     }
 }

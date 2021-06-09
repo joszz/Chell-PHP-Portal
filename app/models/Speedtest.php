@@ -11,9 +11,9 @@ class Speedtest extends BaseModel
 {
 	private string $ipAddress = '';
 	private string $isp = '';
-	private string $clientLocaction;
-	private string $serverLocation;
-	private string $distance;
+	private $clientLocaction;
+	private $serverLocation;
+	private $distance;
 
 	/**
      * Get's ISP IP and name
@@ -26,22 +26,22 @@ class Speedtest extends BaseModel
 		$this->setIPAddress();
 
 		if ($this->ipAddress == '::1') {
-			return $this->ipAddress . ' - localhost IPv6 access';
+			$this->ipAddress  .= ' - localhost IPv6 access';
 		}
 		if (stripos($this->ipAddress, 'fe80:') === 0) {
-			return $this->ipAddress . ' - link-local IPv6 access';
+			$this->ipAddress  .= ' - link-local IPv6 access';
 		}
 		if (strpos($this->ipAddress, '127.') === 0) {
-			return $this->ipAddress . ' - localhost IPv4 access';
+			$this->ipAddress  .= ' - localhost IPv4 access';
 		}
 		if (strpos($this->ipAddress, '10.') === 0 || strpos($this->ipAddress, '192.168.') === 0) {
-			return $this->ipAddress . ' - private IPv4 access';
+			$this->ipAddress .= ' - private IPv4 access';
 		}
 		if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $this->ipAddress) === 1) {
-			return $this->ipAddress . ' - private IPv4 access';
+			$this->ipAddress  .= ' - private IPv4 access';
 		}
 		if (strpos($this->ipAddress, '169.254.') === 0) {
-			return $this->ipAddress . ' - link-local IPv4 access';
+			$this->ipAddress  .= ' - link-local IPv4 access';
 		}
 
 		if (isset($_GET['isp']))
@@ -62,7 +62,7 @@ class Speedtest extends BaseModel
 					$this->distance = round($this->distance, 2) .' km';
 				}
 			}
-
+			
 			return $this->ipAddress . ' - ' . $this->isp . ' (' . $this->distance . ')';
 		}
 

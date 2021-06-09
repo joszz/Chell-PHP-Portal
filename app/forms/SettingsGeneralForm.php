@@ -120,7 +120,7 @@ class SettingsGeneralForm extends SettingsBaseForm
      * @param   Model     $entity   The entity to validate.
      * @return  bool                Whether or not form is valid.
      */
-    public function isValid( $data = null, $entity = null) : bool
+    public function isValid($data = null, $entity = null) : bool
     {
         $valid = parent::isValid($data, $entity);
 
