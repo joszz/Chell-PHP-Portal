@@ -42,6 +42,7 @@ function initializePlugins() {
     $(".roborock").roborock();
     $(".cpu").rcpu();
     $(".pulseway").pulseway();
+    $(".database-stats").database_stats();
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

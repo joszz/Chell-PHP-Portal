@@ -29,7 +29,8 @@ class OpcacheController extends BaseController
     public function datasetAction()
     {
         $this->view->disable();
-        $this->response->setJsonContent($this->_model->getGraphDataSetJson())->send();
+        $this->response->setContentType('application/json');
+        $this->response->setContent($this->_model->getGraphDataSetJson())->send();
     }
 
     /**

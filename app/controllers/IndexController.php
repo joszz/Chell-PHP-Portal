@@ -48,6 +48,7 @@ class IndexController extends BaseController
             $this->addJs('dashboard', 'js/dashboard-blocks/roborock.js');
             $this->addJs('dashboard', 'js/dashboard-blocks/rcpu.js');
             $this->addJs('dashboard', 'js/dashboard-blocks/pulseway.js');
+            $this->addJs('dashboard', 'js/dashboard-blocks/database-stats.js');
             $this->addJs('dashboard', 'js/dashboard.js');
         }
         else

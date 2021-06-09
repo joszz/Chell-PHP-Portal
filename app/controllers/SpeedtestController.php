@@ -22,6 +22,7 @@ class SpeedtestController extends BaseController
 		parent::initialize();
 
         $this->_model = new Speedtest();
+        $this->view->disable();
     }
 
     /**
@@ -29,8 +30,8 @@ class SpeedtestController extends BaseController
      */
     public function getIPAction()
     {
-        header('Content-Type: text/plain; charset=utf-8');
-        die($this->_model->getIPAddress());
+        $this->response->setContentType('text/plain', 'charset=utf-8');
+        $this->response->setContent($this->_model->getIPAddress())->send();
     }
 
     /**
@@ -38,13 +39,11 @@ class SpeedtestController extends BaseController
      */
     public function emptyAction()
     {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
-        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, s-maxage=0');
-        header('Cache-Control: post-check=0, pre-check=0', false);
-        header('Pragma: no-cache');
-        header('Connection: keep-alive');
-
-        die();
+        $this->response->setStatusCode(200);
+        $this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, post-check=0, pre-check=0');
+        $this->response->setHeader('Pragma', 'no-cache');
+        $this->response->setHeader('Connection', 'keep-alive');
+        $this->response->send();
     }
 
     /**
@@ -56,14 +55,13 @@ class SpeedtestController extends BaseController
         ini_set('output_buffering', 'Off');
         ini_set('output_handler', '');
 
-        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename=random.dat');
-        header('Content-Transfer-Encoding: binary');
-        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
-        header('Cache-Control: post-check=0, pre-check=0', false);
-        header('Pragma: no-cache');
+        $this->response->setStatusCode(200);
+        $this->response->setContentType('application/octet-stream');
+        $this->response->setHeader('Content-Description', 'File Transfer');
+        $this->response->setHeader('Content-Disposition', 'attachment; filename=random.dat');
+        $this->response->setHeader('Content-Transfer-Encoding', 'binary');
+        $this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, post-check=0, pre-check=0');
+        $this->response->setHeader('Pragma', 'no-cache');
 
         // Generate data
         $data = openssl_random_pseudo_bytes(1048576);
@@ -92,7 +90,7 @@ class SpeedtestController extends BaseController
             $item->lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? '';
             $item->extra = $this->whatIsMyBrowser();
 
-            die(var_dump($item->save()));
+            $this->response->setContent(var_dump($item->save()))->send();
         }
     }
 
@@ -104,7 +102,8 @@ class SpeedtestController extends BaseController
      */
     public function statsAction(string $activeTab = 'records', int $requestedPage = 1)
     {
-        $this->assets->collection('dashboard')->addJs('js/dashboard-blocks/speedtest.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+        $this->view->enable();
+        $this->addJs('dashboard', 'js/dashboard-blocks/speedtest.js');
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
 
@@ -240,10 +239,9 @@ class SpeedtestController extends BaseController
         imagefttext($im, $fonts['size4']['size'], 0, $positionXISP, $fonts['size4']['position-y'], $fonts['size4']['color'], $fonts['size4']['font'], $ispinfo);
         imagefttext($im, $fonts['watermark']['size'], 0, $watermarkPositionX, $fonts['watermark']['position-y'], $fonts['watermark']['color'], $fonts['watermark']['font'], $watermarkText);
 
-        header('Content-Type: image/png');
+        $this->response->setContentType('image/png');
         imagepng($im);
         imagedestroy($im);
-        die;
     }
 
     /**

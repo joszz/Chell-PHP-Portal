@@ -66,7 +66,7 @@ $help = [
     'motion-picturepath'            => 'The folder where the Motion pictures are stored in. Will retrieve the latest picture taken to show in the dashboard',
     'motion-update-interval'        => 'The poll interval used to update the latest picture taken by Motion.',
 
-    'opcache-enabled'               => 'Enables Opcache widget.',
+    'opcache-enabled'               => 'Enables the Opcache widget.',
 
     'phpsysinfo-enabled'            => 'Enables <a href="https://github.com/phpsysinfo/phpsysinfo" target="_blank">PHPSysInfo</a>.',
     'phpsysinfo-url'                => 'The base URL of your <a href="http://phpsysinfo.github.io/phpsysinfo/" target="_blank">PHPSysinfo installation</a>',
@@ -139,6 +139,8 @@ $help = [
     'pulseway-password'             => 'The Pulseway API password.',
     'pulseway-update-interval'      => 'The poll interval used to update the Pulseway values.',
     'pulseway-systems[]'            => 'The Pulseway systems to show in the widget. <br />Click the button with the PC screen icon to contact the API to retrieve the systems.<br />Make sure to save the URL, username and password first.',
+
+    'database-stats-enabled'        => 'Enables the database status widget.',
 ];
 
 $helpTitles = [
@@ -272,4 +274,6 @@ $helpTitles = [
     'pulseway-password'             => 'Pulseway password',
     'pulseway-update-interval'      => 'Pulseway update interval',
     'pulseway-systems[]'            => 'Pulseway systems',
+
+    'database-stats-enabled'        => 'Database status',
 ];

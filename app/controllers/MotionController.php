@@ -49,7 +49,7 @@ class MotionController extends BaseController
 
             $this->resizeImage($file, $resizedPath, 800, 377);
 
-			$this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+			$this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0, post-check=0, pre-check=0');
 			$this->response->setContentType($ntct[exif_imagetype($file)]);
 			$this->response->setHeader('Pragma', 'no-cache');
 
