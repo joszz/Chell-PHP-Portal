@@ -85,13 +85,7 @@ class VerisureController extends BaseController
     {
         $this->view->disable();
         $output = $this->_model->captureImage($device_label);
-
-        if (json_last_error() == JSON_ERROR_NONE)
-        {
-            return $this->response->setJsonContent($output)->send();
-        }
-
-        $this->response->setStatusCode(500);
+        return $this->response->setJsonContent($output)->send();
     }
 
     /**

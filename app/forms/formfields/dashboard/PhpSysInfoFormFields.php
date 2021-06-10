@@ -2,27 +2,23 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
-class PhpSysInfoFormFields implements IFormFields
+class PhpSysInfoFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-		$phpSysInfoEnabled = new Check('phpsysinfo-enabled');
+		$this->fields[] = $phpSysInfoEnabled = new Check('phpsysinfo-enabled');
 		$phpSysInfoEnabled->setLabel('Enabled');
 		$phpSysInfoEnabled->setAttributes([
-			'checked' => $form->settings->phpsysinfo->enabled == '1' ? 'checked' : null,
+			'value' => '1',
+			'checked' => $this->form->settings->phpsysinfo->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -30,46 +26,27 @@ class PhpSysInfoFormFields implements IFormFields
 			'fieldset' => 'PHPSysInfo'
 		]);
 
-		$phpSysInfoURL = new Text('phpsysinfo-url');
+		$this->fields[] = $phpSysInfoURL = new Text('phpsysinfo-url');
 		$phpSysInfoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->phpsysinfo->url)
+			->setDefault($this->form->settings->phpsysinfo->url)
 			->addValidators([
-				new PresenceOf(['message' => $form->translator->validation['required']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
-				new UrlValidator(['message' => $form->translator->validation['url']])
+				new PresenceOf(['message' => $this->form->translator->validation['required']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
+				new UrlValidator(['message' => $this->form->translator->validation['url']])
 			]);
 
-		$phpSysInfoUsername = new Text('phpsysinfo-username');
+		$this->fields[] = $phpSysInfoUsername = new Text('phpsysinfo-username');
 		$phpSysInfoUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->phpsysinfo->username);
+			->setDefault($this->form->settings->phpsysinfo->username);
 
-		$phpSysInfoPassword = new Password('phpsysinfo-password');
+		$this->fields[] = $phpSysInfoPassword = new Password('phpsysinfo-password');
 		$phpSysInfoPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
-			->setDefault($form->settings->phpsysinfo->password);
-
-		$form->add($phpSysInfoEnabled);
-		$form->add($phpSysInfoURL);
-		$form->add($phpSysInfoUsername);
-		$form->add($phpSysInfoPassword);
+			->setDefault($this->form->settings->phpsysinfo->password);
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-    public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->phpsysinfo->enabled = isset($data['phpsysinfo-enabled']) && $data['phpsysinfo-enabled'] == 'on' ? '1' : '0';
-        $settings->phpsysinfo->url = $data['phpsysinfo-url'];
-        $settings->phpsysinfo->username = $data['phpsysinfo-username'];
-        $settings->phpsysinfo->password = $data['phpsysinfo-password'];
-    }
 }

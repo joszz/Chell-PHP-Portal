@@ -2,23 +2,19 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
-use Chell\Models\SettingsContainer;
+use Chell\Forms\FormFields\FormFields;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 
-class DatabaseStatsFormFields implements IFormFields
+class DatabaseStatsFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-		$dbStatsEnabled = new Check('database-stats-enabled');
+		$this->fields[] = $dbStatsEnabled = new Check('databasestats-enabled');
 		$dbStatsEnabled->setLabel('Enabled');
 		$dbStatsEnabled->setAttributes([
-			'checked' => $form->settings->database_stats->enabled == '1' ? 'checked' : null,
+			'value' => '1',
+			'checked' => $this->form->settings->databasestats->enabled == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
@@ -26,22 +22,8 @@ class DatabaseStatsFormFields implements IFormFields
 			'fieldset' => 'Database'
 		]);
 
-		$dbStatsHidden = new Hidden('database-stats-hidden');
+		$this->fields[] = $dbStatsHidden = new Hidden('databasestats-hidden');
 		$dbStatsHidden->setLabel('');
 		$dbStatsHidden->setAttributes(['fieldset' => 'end']);
-
-		$form->add($dbStatsEnabled);
-		$form->add($dbStatsHidden);
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-    public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->database_stats->enabled = isset($data['database-stats-enabled']) && $data['database-stats-enabled'] == 'on' ? '1' : '0';
-    }
 }

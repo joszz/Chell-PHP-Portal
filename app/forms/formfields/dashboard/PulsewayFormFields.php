@@ -2,10 +2,8 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
@@ -14,17 +12,15 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
-class PulsewayFormFields implements IFormFields
+class PulsewayFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-		$pulsewayEnabled = new Check('pulseway-enabled');
+		$this->fields[] = $pulsewayEnabled = new Check('pulseway-enabled');
 		$pulsewayEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->settings->pulseway->enabled == '1' ? 'checked' : null,
+				'value' => '1',
+				'checked' => $this->form->settings->pulseway->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -32,41 +28,41 @@ class PulsewayFormFields implements IFormFields
 				'fieldset' => 'Pulseway'
 		]);
 
-		$pulsewayURL = new Text('pulseway-url');
+		$this->fields[] = $pulsewayURL = new Text('pulseway-url');
 		$pulsewayURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->pulseway->url)
+			->setDefault($this->form->settings->pulseway->url)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']),
-				new UrlValidator(['message' => $form->translator->validation['url']])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']),
+				new UrlValidator(['message' => $this->form->translator->validation['url']])
 			]);
 
-        $pulsewayUsername = new Text('pulseway-username');
+        $this->fields[] = $pulsewayUsername = new Text('pulseway-username');
 		$pulsewayUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->pulseway->username)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']));
+			->setDefault($this->form->settings->pulseway->username)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
-		$pulsewayPassword = new Password('pulseway-password');
+		$this->fields[] = $pulsewayPassword = new Password('pulseway-password');
 		$pulsewayPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
-			->setDefault($form->settings->pulseway->password)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled']));
+			->setDefault($this->form->settings->pulseway->password)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
-        $pulsewayInterval = new Numeric('pulseway-update-interval');
+        $this->fields[] = $pulsewayInterval = new Numeric('pulseway-update_interval');
 		$pulsewayInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->pulseway->update_interval)
+			->setDefault($this->form->settings->pulseway->update_interval)
 			->addValidators([
-				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'pulseway-enabled'])
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled'])
 			]);
 
-        $pulsewaySystems = new Select('pulseway-systems[]');
+        $this->fields[] = $pulsewaySystems = new Select('pulseway-systems[]');
 		$pulsewaySystems->setLabel('Systems')
 			->setFilters(['striptags', 'string'])
 			->setAttributes([
@@ -74,32 +70,9 @@ class PulsewayFormFields implements IFormFields
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
 				'disabled' => true,
-				'data-selected' => $form->settings->pulseway->systems,
+				'data-selected' => $this->form->settings->pulseway->systems,
 				'data-apiurl' => '../pulseway/systems'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
-
-		$form->add($pulsewayEnabled);
-		$form->add($pulsewayURL);
-		$form->add($pulsewayUsername);
-		$form->add($pulsewayPassword);
-		$form->add($pulsewayInterval);
-		$form->add($pulsewaySystems);
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-    public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->pulseway->enabled = isset($data['pulseway-enabled']) && $data['pulseway-enabled'] == 'on' ? '1' : '0';
-        $settings->pulseway->url = $data['pulseway-url'];
-        $settings->pulseway->username = $data['pulseway-username'];
-		$settings->pulseway->password = $data['pulseway-password'];
-		$settings->pulseway->update_interval = $data['pulseway-update-interval'];
-		$settings->pulseway->systems = implode($data['pulseway-systems'], ',');
-    }
 }

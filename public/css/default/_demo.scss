@@ -46,7 +46,6 @@ body.demo-mode {
 
     form input::placeholder {
         text-shadow: none;
-
     }
 
     .panel #config .fa-check {
@@ -54,11 +53,12 @@ body.demo-mode {
     }
 
     .panel.sysinfo .distro,
-    .panel.sysinfo .col-xs-9 .label {
+    .panel.sysinfo .col-xs-9 .label,
+    .jellyfin img:not(.blur) {
         display: none;
     }
 
-    .jellyfin img {
+    .fancybox-slide.verisure .fancybox-image {
         filter: blur(20px);
     }
 }

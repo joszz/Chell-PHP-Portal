@@ -2,25 +2,21 @@
 
 namespace Chell\Forms\FormFields\General;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
-class DuoFormFields implements IFormFields
+class DuoFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-        $duoEnabled = new Check('duo-enabled');
+        $this->fields[] = $duoEnabled = new Check('duo-enabled');
         $duoEnabled->setLabel('Enabled');
         $duoEnabled->setAttributes([
-            'checked' => $form->settings->duo->enabled == '1' ? 'checked' : null,
+            'value' => '1',
+            'checked' => $this->form->settings->duo->enabled == '1' ? 'checked' : null,
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',
@@ -28,53 +24,32 @@ class DuoFormFields implements IFormFields
             'fieldset' => 'Duo'
         ]);
 
-        $duoAPIHostname = new Text('duo-apiHostname');
+        $this->fields[] = $duoAPIHostname = new Text('duo-api_hostname');
         $duoAPIHostname->setLabel('API hostname')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-            ->setDefault($form->settings->duo->api_hostname)
-            ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
+            ->setDefault($this->form->settings->duo->api_hostname)
+            ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 
-        $duoIKey = new Password('duo-ikey');
+        $this->fields[] = $duoIKey = new Password('duo-ikey');
         $duoIKey->setLabel('Integration key')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($form->settings->duo->ikey)
-                ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
+                ->setDefault($this->form->settings->duo->ikey)
+                ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 
-        $duoSKey = new Password('duo-skey');
+        $this->fields[] = $duoSKey = new Password('duo-skey');
         $duoSKey->setLabel('Secret key')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($form->settings->duo->skey)
-                ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
+                ->setDefault($this->form->settings->duo->skey)
+                ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 
-        $duoAKey = new Password('duo-akey');
+        $this->fields[] = $duoAKey = new Password('duo-akey');
         $duoAKey->setLabel('Akey')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-                ->setDefault($form->settings->duo->akey)
-                ->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'duo-enabled']));
-
-        $form->add($duoEnabled);
-        $form->add($duoAPIHostname);
-        $form->add($duoIKey);
-        $form->add($duoSKey);
-        $form->add($duoAKey);
+                ->setDefault($this->form->settings->duo->akey)
+                ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-    public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->duo->enabled = isset($data['duo-enabled']) && $data['duo-enabled'] == 'on' ? '1' : '0';
-        $settings->duo->api_hostname = $data['duo-apiHostname'];
-        $settings->duo->ikey = $data['duo-ikey'];
-        $settings->duo->skey = $data['duo-skey'];
-        $settings->duo->akey = $data['duo-akey'];
-    }
 }

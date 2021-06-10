@@ -6992,7 +6992,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8366667") format("embedded-opentype"), url("../../fonts/icomoon.woff2?2691927") format("woff2"), url("../../fonts/icomoon.woff?5777259") format("woff"), url("../../fonts/icomoon.ttf?110710") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?5208838") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6414775") format("embedded-opentype"), url("../../fonts/icomoon.woff2?5910613") format("woff2"), url("../../fonts/icomoon.woff?2534550") format("woff"), url("../../fonts/icomoon.ttf?7848244") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?6982538") format("svg"); }
 
 .fa,
 .fas {
@@ -8522,8 +8522,9 @@ body.demo-mode .panel #config .fa-check {
   display: none; }
 
 body.demo-mode .panel.sysinfo .distro,
-body.demo-mode .panel.sysinfo .col-xs-9 .label {
+body.demo-mode .panel.sysinfo .col-xs-9 .label,
+body.demo-mode .jellyfin img:not(.blur) {
   display: none; }
 
-body.demo-mode .jellyfin img {
+body.demo-mode .fancybox-slide.verisure .fancybox-image {
   filter: blur(20px); }

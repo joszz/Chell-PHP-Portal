@@ -2,26 +2,22 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
-class SubsonicFormFields implements IFormFields
+class SubsonicFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-		$subsonicEnabled = new Check('subsonic-enabled');
+		$this->fields[] = $subsonicEnabled = new Check('subsonic-enabled');
 		$subsonicEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->settings->subsonic->enabled == '1' ? 'checked' : null,
+				'value' => '1',
+				'checked' => $this->form->settings->subsonic->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -29,47 +25,28 @@ class SubsonicFormFields implements IFormFields
 				'fieldset' => 'Subsonic'
 		]);
 
-		$subsonicURL = new Text('subsonic-url');
+		$this->fields[] = $subsonicURL = new Text('subsonic-url');
 		$subsonicURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->subsonic->url)
+			->setDefault($this->form->settings->subsonic->url)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']),
-				new UrlValidator(['message' => $form->translator->validation['url']])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']),
+				new UrlValidator(['message' => $this->form->translator->validation['url']])
 			]);
 
-		$subsonicUsername = new Text('subsonic-username');
+		$this->fields[] = $subsonicUsername = new Text('subsonic-username');
 		$subsonicUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->subsonic->username)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']));
+			->setDefault($this->form->settings->subsonic->username)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
-		$subsonicPassword = new Password('subsonic-password');
+		$this->fields[] = $subsonicPassword = new Password('subsonic-password');
 		$subsonicPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'])
-			->setDefault($form->settings->subsonic->password)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'subsonic-enabled']));
-
-		$form->add($subsonicEnabled);
-		$form->add($subsonicURL);
-		$form->add($subsonicUsername);
-		$form->add($subsonicPassword);
+			->setDefault($this->form->settings->subsonic->password)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-	public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->subsonic->enabled = isset($data['subsonic-enabled']) && $data['subsonic-enabled'] == 'on' ? '1' : '0';
-        $settings->subsonic->url = $data['subsonic-url'];
-        $settings->subsonic->username = $data['subsonic-username'];
-        $settings->subsonic->password = $data['subsonic-password'];
-    }
 }

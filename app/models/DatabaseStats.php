@@ -22,15 +22,6 @@ class DatabaseStats extends BaseModel
         {
             list($key, $value) = explode(':', $stat);
             $key = str_replace(' ', '_', strtolower($key));
-
-            if($key == 'uptime')
-            {
-                $now = new DateTime();
-                $uptime = new DateTime();
-                $uptime->modify(-$value . ' seconds');
-                $value = $now->diff($uptime)->format('%a days, %h hours, %i minutes and %s seconds');
-            }
-
             $result[$key] = $value;
         }
 

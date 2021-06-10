@@ -236,6 +236,7 @@
                                     "take_photo",
                                     "close"
                                 ],
+                                slideClass: "verisure",
                                 loop: true
                             });
                         }

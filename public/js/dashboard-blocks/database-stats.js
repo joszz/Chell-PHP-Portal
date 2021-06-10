@@ -65,6 +65,14 @@
                         settings.block.find(".flush-tables").text(data.flush_tables);
                         settings.block.find(".open-tables").text(data.open_tables);
                         settings.block.find(".queries-per-second").text(data.queries_per_second_avg);
+
+                        var date = new Date();
+                        date.setSeconds(date.getSeconds() - Math.floor(data.uptime));
+
+                        if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
+                            clearInterval(settings.block.find("div.time").data("tinyTimer").interval);
+                        }
+                        settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                     },
                     complete: function () {
                         settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);

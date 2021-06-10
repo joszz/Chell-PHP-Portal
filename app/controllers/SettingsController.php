@@ -15,7 +15,6 @@ use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
 use Davidearl\WebAuthn\WebAuthn;
-use Phalcon\Http\Response;
 use Phalcon\Http\ResponseInterface;
 
 /**
@@ -87,6 +86,8 @@ class SettingsController extends BaseController
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
+            $form->customBind($data);
+
             if ($form->isValid($data))
             {
                 $this->settings->save('general');
@@ -118,6 +119,8 @@ class SettingsController extends BaseController
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
+            $form->customBind($data);
+
             if ($form->isValid($data))
             {
                 $this->settings->save('dashboard');

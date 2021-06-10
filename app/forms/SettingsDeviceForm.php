@@ -3,6 +3,7 @@
 namespace Chell\Forms;
 
 use Chell\Forms\Validators\Mac;
+use Chell\Models\Devices;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
@@ -21,7 +22,7 @@ class SettingsDeviceForm extends SettingsBaseForm
     /**
      * Add all fields to the form and set form specific attributes.
      */
-    public function initialize()
+    public function initialize(Devices $entity)
     {
         $name = new Text('name');
         $name->setLabel('Name')
@@ -66,13 +67,15 @@ class SettingsDeviceForm extends SettingsBaseForm
         );
         $shutdownMethod->setLabel('Shutdown method');
 
-        $showDasboard = new Check('show_on_dashboard', ['value' => '1']);
+        $showDasboard = new Check('show_on_dashboard');
         $showDasboard->setLabel('Show on dashboard')
-                     ->setAttributes([
-                        'data-toggle' => 'toggle',
-                        'data-onstyle' => 'success',
-                        'data-offstyle' => 'danger',
-                        'data-size' => 'small'
+            ->setAttributes([
+                'value' => '1',
+                'checked' => $entity->show_on_dashboard == '1' ? 'checked' : null,
+                'data-toggle' => 'toggle',
+                'data-onstyle' => 'success',
+                'data-offstyle' => 'danger',
+                'data-size' => 'small'
         ]);
 
         $hypervadminUrl = new Text('hypervadmin_url');

@@ -2,9 +2,12 @@
 
 namespace Chell\Forms;
 
+use Exception;
 use Chell\Models\SettingsContainer;
 use Chell\Messages\TranslatorWrapper;
+use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\ElementInterface;
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
 
@@ -15,13 +18,11 @@ use Phalcon\Mvc\Model;
  */
 class SettingsBaseForm extends Form
 {
-    protected $formFieldClasses = [];
-
     public SettingsContainer $settings;
     public TranslatorWrapper $translator;
 
     /**
-     * Set the config array (config.ini contents) to private variable.
+     * Gets the settings and translator from DI.
      *
      * @param Model $entity    The Phalcon entity to populate the form with.
      */
@@ -155,15 +156,11 @@ class SettingsBaseForm extends Form
     protected function setFormFieldClasses(string $namespace)
     {
 		$formFieldFiles = array_diff(scandir(APP_PATH . 'app/forms/formfields/' . strtolower($namespace)), array('..', '.'));
+
 		foreach ($formFieldFiles as $file)
         {
 			$class =  'Chell\Forms\FormFields\\' . $namespace . '\\' . basename($file, '.php');
-			$this->formFieldClasses[] = new $class;
-        }
-
-		foreach ($this->formFieldClasses as $class)
-        {
-			$class->setFields($this);
+			(new $class($this))->setFields();
         }
     }
 
@@ -185,5 +182,69 @@ class SettingsBaseForm extends Form
         }
 
         return $errorMessages;
+    }
+
+    /**
+     * Fixes broken Phalcon checkbox behaviour.
+     *
+     * @param array $data           The posted data
+     * @param mixed $entity         The entity/model to set the values for
+     * @param mixed $whitelist
+     * @return SettingsBaseForm     Returns this class
+     */
+    public function bind(array $data, $entity, $whitelist = null): SettingsBaseForm
+    {
+        parent::bind($data, $entity, $whitelist);
+
+        foreach ($this->elements as $field => $element)
+        {
+            if (is_a($element, Check::class))
+            {
+                $entity->$field = $data[$field] ?? '0';
+            }
+        }
+
+		return $this;
+    }
+
+    /**
+     * Used by SettingsDashboardForm and SettingsGeneralForm to save the posted data to multiple settings entities.
+     * Uses a convention for naming the elements; $category-$settingname
+     *
+     * @param array $data           The posted data
+     * @return SettingsBaseForm     Returns this class
+     */
+    public function customBind(array $data) : SettingsBaseForm
+    {
+        $elements = $this->getElements();
+
+        foreach ($elements as $field => $element)
+        {
+            $isArray = strpos($field, '[]') !== false;
+            $field = str_replace('[]', '', $field);
+            $category = substr($field, 0, $categoryEnd = strpos($field, '-'));
+            $setting = substr($field, $categoryEnd + 1);
+
+            if (empty($category))
+            {
+                throw new Exception('Settings category can not be determined from field "' . $field . '"');
+            }
+
+            if (is_a($element, Hidden::class))
+            {
+                continue;
+            }
+
+            if (is_a($element, Check::class))
+            {
+                $this->settings->$category->$setting = $data[$field] ?? '0';
+            }
+            else
+            {
+                $this->settings->$category->$setting = $isArray ? implode($data[$field], ',') : $data[$field];
+            }
+        }
+
+		return $this;
     }
 }

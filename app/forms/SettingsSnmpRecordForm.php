@@ -8,6 +8,7 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Mvc\Model;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Numericality;
 
@@ -18,6 +19,13 @@ use Phalcon\Validation\Validator\Numericality;
  */
 class SettingsSnmpRecordForm extends SettingsBaseForm
 {
+	private bool $showDashboard;
+
+    public function __construct(Model $entity = null)
+    {
+        parent::__construct($entity);
+    }
+
 	/**
 	 * Add all fields to the form and set form specific attributes.
 	 */
@@ -46,9 +54,11 @@ class SettingsSnmpRecordForm extends SettingsBaseForm
 			->setAttributes(['class' => 'form-control'])
 			->addValidator(new PresenceOf(['message' => $this->translator->validation['required']]));
 
-		$showDasboard = new Check('show_dashboard', ['value' => '1']);
+		$showDasboard = new Check('show_dashboard');
 		$showDasboard->setLabel('Show on dashboard')
 			->setAttributes([
+				'value' =>  '1',
+				'checked' => $entity->show_dashboard == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',

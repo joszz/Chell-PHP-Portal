@@ -314,6 +314,11 @@ class FrontController
         $this->di->set('translator', $this->application->view->trans);
     }
 
+    /**
+     * Retrieves al settings from the database and structures then in a hierarchical structur.
+     * 
+     * @return SettingsContainer    The main settings object to be used throughout the application
+     */
     private function setSettings()
     {
         $settings = Settings::find(['order' => 'category']);

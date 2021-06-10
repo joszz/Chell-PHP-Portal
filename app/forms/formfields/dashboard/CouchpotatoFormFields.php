@@ -2,10 +2,8 @@
 
 namespace Chell\Forms\FormFields\Dashboard;
 
-use Chell\Forms\SettingsBaseForm;
-use Chell\Forms\FormFields\IFormFields;
+use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
-use Chell\Models\SettingsContainer;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Numeric;
@@ -13,17 +11,15 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
-class CouchpotatoFormFields implements IFormFields
+class CouchpotatoFormFields extends FormFields
 {
-	/**
-     * Adds fields to the form.
-     */
-	public function setFields(SettingsBaseForm $form)
+	protected function initializeFields()
 	{
-		$couchpotatoEnabled = new Check('couchpotato-enabled');
+		$this->fields[] = $couchpotatoEnabled = new Check('couchpotato-enabled');
 		$couchpotatoEnabled->setLabel('Enabled')
 			->setAttributes([
-				'checked' => $form->settings->couchpotato->enabled == '1' ? 'checked' : null,
+				'value' => '1',
+				'checked' => $this->form->settings->couchpotato->enabled == '1' ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -31,67 +27,44 @@ class CouchpotatoFormFields implements IFormFields
 				'fieldset' => 'Couchpotato'
 		]);
 
-		$couchpotatoURL = new Text('couchpotato-url');
+		$this->fields[] = $couchpotatoURL = new Text('couchpotato-url');
 		$couchpotatoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->couchpotato->url)
+			->setDefault($this->form->settings->couchpotato->url)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']),
-				new UrlValidator(['message' => $form->translator->validation['url']])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled']),
+				new UrlValidator(['message' => $this->form->translator->validation['url']])
 			]);
 
-		$couchpotatoAPIKey = new Password('couchpotato-apikey');
+		$this->fields[] = $couchpotatoAPIKey = new Password('couchpotato-api_key');
 		$couchpotatoAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->couchpotato->api_key)
-			->addValidator(new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
+			->setDefault($this->form->settings->couchpotato->api_key)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled']));
 
-		$rotateInterval = new Numeric('couchpotato-rotate-interval');
+		$this->fields[] = $rotateInterval = new Numeric('couchpotato-rotate_interval');
 		$rotateInterval->setLabel('Rotate interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
-			->setDefault($form->settings->couchpotato->rotate_interval)
+			->setDefault($this->form->settings->couchpotato->rotate_interval)
 			->addValidators([
-				new Numericality(['message' => $form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
 			]);
 
-        $tmdbAPIURL = new Text('couchpotato-tmdb-apiurl');
+        $this->fields[] = $tmdbAPIURL = new Text('couchpotato-tmdb_api_url');
         $tmdbAPIURL->setLabel('TMDB API URL')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-            ->setDefault($form->settings->couchpotato->tmdb_api_url)
-            ->addValidator(new UrlValidator(['message' => $form->translator->validation['url']]));
+            ->setDefault($this->form->settings->couchpotato->tmdb_api_url)
+            ->addValidator(new UrlValidator(['message' => $this->form->translator->validation['url']]));
 
-        $tmdbAPIKey = new Password('couchpotato-tmdb-apikey');
+        $this->fields[] = $tmdbAPIKey = new Password('couchpotato-tmdb_api_key');
         $tmdbAPIKey->setLabel('TMDB API key')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-            ->setDefault($form->settings->couchpotato->tmdb_api_key);
-
-		$form->add($couchpotatoEnabled);
-		$form->add($couchpotatoURL);
-		$form->add($couchpotatoAPIKey);
-		$form->add($rotateInterval);
-        $form->add($tmdbAPIURL);
-        $form->add($tmdbAPIKey);
+            ->setDefault($this->form->settings->couchpotato->tmdb_api_key);
 	}
-
-    /**
-     * Sets the post data to the settings variables
-     *
-     * @param SettingsContainer $settings	The settings object
-     * @param array $data					The posted data
-     */
-    public function setPostData(SettingsContainer &$settings, array $data)
-    {
-        $settings->couchpotato->enabled = isset($data['couchpotato-enabled']) && $data['couchpotato-enabled'] == 'on' ? '1' : '0';
-        $settings->couchpotato->url = $data['couchpotato-url'];
-        $settings->couchpotato->api_key = $data['couchpotato-apikey'];
-        $settings->couchpotato->rotate_interval = $data['couchpotato-rotate-interval'];
-        $settings->couchpotato->tmdb_api_url = $data['couchpotato-tmdb-apiurl'];
-        $settings->couchpotato->tmdb_api_key = $data['couchpotato-tmdb-apikey'];
-    }
 }
