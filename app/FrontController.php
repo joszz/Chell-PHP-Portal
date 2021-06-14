@@ -14,7 +14,7 @@ use Chell\Plugins\SecurityPlugin;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
-use Phalcon\Url as UrlProvider;
+use Phalcon\Url;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Dispatcher;
@@ -38,6 +38,7 @@ class FrontController
     private SettingsContainer $settings;
     private FactoryDefault $di;
     private Application $application;
+    private bool $dbSet;
 
     private array $jsFiles = [
         'vendor/jquery/jquery.js',
@@ -75,15 +76,20 @@ class FrontController
     public function __construct()
     {
         $executionTime = -microtime(true);
-        define('APP_PATH', realpath('..') . '/');
+        define('APP_PATH', realpath('./') . '/');
 
         $this->di = new FactoryDefault();
         $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
         define('DEBUG', $config->debug);
 
         $this->registerNamespaces();
-        $this->setDB($config);
+        $this->dbSet = $this->setDB($config);
+
         $this->settings = $settings = $this->setSettings();
+        $this->settings->application->base_uri = (new Url())->getBaseUri();
+        $this->settings->application->version ??= '';
+        $this->settings->application->title ??= '';
+
         set_exception_handler([&$this, 'ExceptionHandler']);
 
         $this->di->set('dispatcher', function () {
@@ -105,7 +111,6 @@ class FrontController
 
         $this->setDisplayErrors();
         $this->setViewProvider();
-        $this->setURLProvider($settings);
         $this->setSession($settings);
 
         $this->application = new Application($this->di);
@@ -181,6 +186,11 @@ class FrontController
      */
     private function setDB(ConfigIni $config)
     {
+        if (empty($config->database->host) || empty($config->database->username) || empty($config->database->password) || empty($config->database->name))
+        {
+            return false;
+        }
+
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
                 'host'     => $config->database->host,
@@ -210,6 +220,8 @@ class FrontController
                 'charset'  => 'utf8'
             ]);
         });
+
+        return true;
     }
 
     /**
@@ -225,29 +237,19 @@ class FrontController
     }
 
     /**
-     * Setup Phalcon URL provider.
-     */
-    private function setURLProvider($settings)
-    {
-        $this->di->set('url', function () use ($settings) {
-            $url = new UrlProvider();
-            $url->setBaseUri($settings->application->base_uri);
-            return $url;
-        });
-    }
-
-    /**
      * Instantiate session.
      *
      * @param SettingsContainer $settings    The settings object representing all settings in the database.
      */
     private function setSession(SettingsContainer $settings)
     {
-        $this->di->setShared('session', function () use ($settings) {
+        $dbSet = $this->dbSet;
+
+        $this->di->setShared('session', function () use ($settings, $dbSet) {
             $session = new Manager();
             $adapter = null;
 
-            if ($settings->redis->enabled)
+            if ($dbSet && $settings->redis->enabled)
             {
                 $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
                    'host'   => $settings->redis->host,
@@ -316,25 +318,30 @@ class FrontController
 
     /**
      * Retrieves al settings from the database and structures then in a hierarchical structur.
-     * 
+     *
      * @return SettingsContainer    The main settings object to be used throughout the application
      */
     private function setSettings()
     {
-        $settings = Settings::find(['order' => 'category']);
         $structuredSettings = new SettingsContainer();
 
-        foreach ($settings as $setting)
+        if ($this->dbSet)
         {
-            if (!isset($structuredSettings->{$setting->category}))
+            $settings = Settings::find(['order' => 'category']);
+
+            foreach ($settings as $setting)
             {
-                $structuredSettings->addCategory(new SettingsCategory($setting->section, $setting->category));
+                if (!isset($structuredSettings->{$setting->category}))
+                {
+                    $structuredSettings->addCategory(new SettingsCategory($setting->section, $setting->category));
+                }
+
+                $structuredSettings->{$setting->category}->addSetting($setting);
             }
 
-            $structuredSettings->{$setting->category}->addSetting($setting);
+            $this->di->set('settings', $structuredSettings);
         }
 
-        $this->di->set('settings', $structuredSettings);
         return $structuredSettings;
     }
 
@@ -346,7 +353,8 @@ class FrontController
     public function ToString() : string
     {
         $request = new Request();
-        return $this->application->handle(str_replace($this->settings->application->base_uri, '', '/' . $request->getURI()))->getContent();
+        $uri = str_replace($this->settings->application->base_uri, '', '/' . $request->getURI());
+
+        return $this->application->handle($uri)->getContent();
     }
 }
-

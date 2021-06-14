@@ -4,100 +4,100 @@
   "libraries": [
     {
       "library": "jquery@3.6.0",
-      "destination": "public/vendor/jquery/"
+      "destination": "vendor/jquery/"
     },
     {
       "library": "bootstrap-select@1.13.18",
-      "destination": "public/vendor/bootstrap-select/"
+      "destination": "vendor/bootstrap-select/"
     },
     {
       "library": "fancybox@3.5.7",
-      "destination": "public/vendor/fancybox/"
+      "destination": "vendor/fancybox/"
     },
     {
       "library": "prism@1.23.0",
-      "destination": "public/vendor/prism/"
+      "destination": "vendor/prism/"
     },
     {
       "library": "jquery-fullscreen-plugin@1.1.5",
-      "destination": "public/vendor/jquery-fullscreen-plugin/"
+      "destination": "vendor/jquery-fullscreen-plugin/"
     },
     {
       "library": "bootstrap-touchspin@4.3.0",
-      "destination": "public/vendor/bootstrap-touchspin/"
+      "destination": "vendor/bootstrap-touchspin/"
     },
     {
       "library": "bootstrap-toggle@2.2.2",
-      "destination": "public/vendor/bootstrap-toggle/"
+      "destination": "vendor/bootstrap-toggle/"
     },
     {
       "library": "spark-md5@3.0.0",
-      "destination": "public/vendor/spark-md5/"
+      "destination": "vendor/spark-md5/"
     },
     {
       "provider": "unpkg",
       "library": "bootstrap-tabcollapse@latest",
-      "destination": "public/vendor/bootstrap-tabcollapse/"
+      "destination": "vendor/bootstrap-tabcollapse/"
     },
     {
       "provider": "unpkg",
       "library": "chartist@latest",
-      "destination": "public/vendor/chartist/"
+      "destination": "vendor/chartist/"
     },
     {
       "provider": "unpkg",
       "library": "chartist-plugin-legend@latest",
-      "destination": "public/vendor/chartist-plugin-legend/"
+      "destination": "vendor/chartist-plugin-legend/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/joszz/is-loading/master/jquery.isloading.js",
-      "destination": "public/vendor/jquery.isloading/"
+      "destination": "vendor/jquery.isloading/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/Illyism/jquery.vibrate.js/master/build/jquery/jquery.vibrate.js",
-      "destination": "public/vendor/jquery.vibrate/"
+      "destination": "vendor/jquery.vibrate/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/joszz/Waves/master/src/js/waves.js",
-      "destination": "public/vendor/waves/"
+      "destination": "vendor/waves/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/joszz/Waves/master/dist/waves.css",
-      "destination": "public/vendor/waves/"
+      "destination": "vendor/waves/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/odyniec/jQuery-tinyTimer/master/jquery.tinytimer.js",
-      "destination": "public/vendor/tinytimer/"
+      "destination": "vendor/tinytimer/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/MarcDiethelm/jQuery-Shorten/master/jquery.shorten.js",
-      "destination": "public/vendor/shorten/"
+      "destination": "vendor/shorten/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/duosecurity/duo_php/master/js/Duo-Web-v2.min.js",
-      "destination": "public/vendor/duo/"
+      "destination": "vendor/duo/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/auxiliary/rpage/master/responsive-paginate.js",
-      "destination": "public/vendor/responsive-paginate/"
+      "destination": "vendor/responsive-paginate/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/librespeed/speedtest/master/speedtest_worker.js",
-      "destination": "public/vendor/speedtest/"
+      "destination": "vendor/speedtest/"
     },
     {
       "provider": "unpkg",
       "library": "@fortawesome/fontawesome-free@latest",
-      "destination": "public/vendor/fortawesome/",
+      "destination": "vendor/fortawesome/",
       "files": [
         "scss/_variables.scss",
         "scss/_mixins.scss",
@@ -108,17 +108,17 @@
     {
       "provider": "unpkg",
       "library": "bootstrap-sass@3.4.1",
-      "destination": "public/vendor/bootstrap-sass/"
+      "destination": "vendor/bootstrap-sass/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/davidearl/webauthn/master/src/webauthnauthenticate.js",
-      "destination": "public/vendor/webauthn/"
+      "destination": "vendor/webauthn/"
     },
     {
       "provider": "filesystem",
       "library": "https://raw.githubusercontent.com/davidearl/webauthn/master/src/webauthnregister.js",
-      "destination": "public/vendor/webauthn/"
+      "destination": "vendor/webauthn/"
     }
   ]
 }

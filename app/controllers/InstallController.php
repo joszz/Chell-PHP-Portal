@@ -42,11 +42,11 @@ class InstallController extends BaseController
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
         $this->view->permissions = array(
             'Logs directory'            => is_writable(APP_PATH . 'app/logs'),
-            'Image cache directory'     => is_writable(APP_PATH . 'public/img/cache'),
+            'Image cache directory'     => is_writable(APP_PATH . 'img/cache'),
             'config.ini'                => is_writable(APP_PATH . 'app/config/config.ini'),
             'Install controller'        => is_writable(APP_PATH . 'app/controllers/InstallController.php'),
             'Install views'             => is_writable(APP_PATH . 'app/views/install'),
-            'DB structure file'         => is_writable(APP_PATH . 'db-structure.sql')
+            'DB structure file'         => is_writable(APP_PATH . 'sql/db-structure.sql')
         );
     }
 

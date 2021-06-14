@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Phalcon\Mvc\Model;
+use Phalcon\Url;
 
 /**
  * The model responsible for all actions related to menu items.
@@ -37,12 +38,11 @@ class MenuItems extends Model
     /**
      * Returns the absolute path to the menuitem's icon,
      *
-     * @param string $baseUri   The base URI to start the icon file path with.
      * @return string           The path to the icon.
      */
-    public function getIconFilePath(string $baseUri) : string
+    public function getIconFilePath() : string
     {
-        return $baseUri . 'img/icons/menu/' . $this->id . '.png';
+        return (new Url())->getBaseUri() . 'img/icons/menu/' . $this->id . '.png';
     }
 
     /**

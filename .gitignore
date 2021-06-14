@@ -54,9 +54,12 @@ SyncToy_*.dat
 *.v12.suo
 generate-doc.*
 .vs/
-documentation/
 app/config/config.ini
-apigen.neon
 logs/
 phalcon-stubs/
-public/img/icons/menu
+node_modules/
+img/cache
+img/icons/menu
+vendor/
+typescriptjs/
+scripts/

@@ -12,7 +12,7 @@ use Chell\Models\SettingsCategory;
  */
 class SettingsContainer
 {
-    private array $_categories;
+    private array $_categories = [];
 
     /**
      * Retrieves a setting category.

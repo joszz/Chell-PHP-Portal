@@ -154,7 +154,7 @@ class SettingsController extends BaseController
         {
             if ($which == 'Logs')
             {
-                if (is_file(APP_PATH .'app/logs/' . $id))
+                if (is_file(APP_PATH . 'app/logs/' . $id))
                 {
                     unlink(APP_PATH . 'app/logs/' . $id);
                 }
@@ -172,7 +172,7 @@ class SettingsController extends BaseController
 
                 if($which == 'MenuItems')
                 {
-                    unlink($entity->getIconFilePath(APP_PATH . 'public/'));
+                    unlink($entity->getIconFilePath());
                 }
 
                 $entity->delete();
@@ -265,7 +265,7 @@ class SettingsController extends BaseController
 
                 if ($file)
                 {
-                    $filename = $item->getIconFilePath(APP_PATH . 'public/');
+                    $filename = $item->getIconFilePath();
                     $file->moveTo($filename);
                     $item->resizeIcon($filename);
                 }

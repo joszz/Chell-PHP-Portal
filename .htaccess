@@ -1,5 +1,6 @@
 <IfModule mod_rewrite.c>
-  RewriteEngine on
-  RewriteRule  ^$ public/ [L]
-  RewriteRule  ((?s).*) public/$1 [L]
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^((?s).*)$ index.php [QSA,L]
 </IfModule>
