@@ -14,7 +14,7 @@ use Chell\Models\Settings;
  */
 class SettingsCategory
 {
-    private array $_settings;
+    private array $_settings = [];
 
     public string $section;
     public string $category;
@@ -34,32 +34,20 @@ class SettingsCategory
 
     private function initialize()
     {
-        $settingBaseUri = new stdClass();
-        $settingBaseUri->value = (new Url())->getBaseUri();
+        $this->addDefaultSetting('base_uri', (new Url())->getBaseUri());
+        $this->addDefaultSetting('title', 'Chell PHP Portal');
+        $this->addDefaultSetting('version', '0');
+        $this->addDefaultSetting('background', 'autobg');
+        $this->addDefaultSetting('demo_mode', '0');
+        $this->addDefaultSetting('alert_timeout', '5');
+    }
 
-        $settingTitle = new stdClass();
-        $settingTitle->value = '';
+    private function addDefaultSetting($name, $value)
+    {
+        $setting = new stdClass();
+        $setting->value = $value;
 
-        $settingVersion = new stdClass();
-        $settingVersion->value = '';
-
-        $settingBg = new stdClass();
-        $settingBg->value = 'autobg';
-
-        $settingDemo = new stdClass();
-        $settingDemo->value = '0';
-
-        $settingAlertTimeout = new stdClass();
-        $settingAlertTimeout->value = '5';
-
-        $this->_settings = [
-            'base_uri' => $settingBaseUri,
-            'title' => $settingTitle,
-            'version' => $settingVersion,
-            'background' => $settingBg,
-            'demo_mode' => $settingDemo,
-            'alert_timeout' => $settingAlertTimeout
-        ];
+        $this->_settings[$name] = $setting;
     }
 
     /**
