@@ -344,7 +344,7 @@ class FrontController
      *
      * @return string   The complete HTML of the request.
      */
-    public function ToString() : string
+    public function __toString() : string
     {
         $request = new Request();
         $uri = str_replace($this->settings->application->base_uri, '', '/' . $request->getURI());

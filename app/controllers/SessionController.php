@@ -269,6 +269,6 @@ class SessionController extends BaseController
      */
     private function getRedirectUrlFromSession() : string
     {
-        return str_replace($this->settings->application->base_uri, '', $this->session->get('auth_redirect_url'));
+        return $this->session->get('auth_redirect_url');
     }
 }
