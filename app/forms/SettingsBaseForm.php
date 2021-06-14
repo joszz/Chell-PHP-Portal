@@ -230,6 +230,7 @@ class SettingsBaseForm extends Form
                 throw new Exception('Settings category can not be determined from field "' . $field . '"');
             }
 
+            //todo: not the best way of dealing with this
             if (is_a($element, Hidden::class))
             {
                 continue;

@@ -110,7 +110,7 @@
                             }
 
                             torrent.find('.torrentactions .status').off().on('click', function () {
-                                self.startStopTorrents($(this).closest('li').data('id'), self);
+                                functions.startStopTorrents($(this).closest('li').data('id'));
                             });
 
                             torrent.find('.torrentactions .fa-trash-alt').off().on('click', function () {

@@ -20,7 +20,8 @@ abstract class FormFields
     /**
      * Adds fields to the form.
      */
-    public function setFields(){
+    public function setFields()
+    {
         $this->initializeFields();
 
         foreach($this->fields as $field)

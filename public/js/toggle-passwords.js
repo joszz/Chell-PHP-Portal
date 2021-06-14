@@ -11,7 +11,8 @@
         this.on("click", function () {
             var input = $(this).parent().find("input");
             var currentType = input.attr("type");
-
+            $(this).toggleClass("active");
+            
             if (currentType == "password") {
                 input.attr("type", "text");
             }

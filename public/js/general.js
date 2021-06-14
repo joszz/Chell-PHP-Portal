@@ -88,7 +88,7 @@ function initializeGlobalPlugins() {
         verticaldownclass: "fa fa-chevron-right",
         buttondown_class: "btn btn-default",
         buttonup_class: "btn btn-default",
-        max: 1000000000
+        max: Number.MAX_SAFE_INTEGER
     });
 }
 
