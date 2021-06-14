@@ -23,8 +23,8 @@
                     <?php endif ?>
                 </div>
 
-                <a class="navbar-brand" href="<?php echo $this->settings->application->base_uri ?>">
-                    <img src="<?php echo $this->settings->application->base_uri ?>img/icons/favicons/android-chrome-192x192.png" alt="Logo" width="32" height="32" />
+                <a class="navbar-brand" href="<?php echo $this->url->get() ?>">
+                    <img src="<?php echo $this->url->get('img/icons/favicons/android-chrome-192x192.png') ?>" alt="Logo" width="32" height="32" />
                     <span>
                         <?php echo $this->tag->getTitle(); ?>
                     </span>
@@ -49,13 +49,13 @@
                 </ul>
                 <div class="col-xs-12">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>settings/">
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('settings/') ?>">
                             <span class="fa fa-cog"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>about/">
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('about/') ?>">
                             <span class="fa fa-info-circle"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->settings->application->base_uri ?>session/logout/">
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('session/logout/') ?>">
                             <span class="fa fa-sign-out-alt" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
                         </a>
                     </div>

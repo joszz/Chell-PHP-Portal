@@ -33,7 +33,7 @@ class InstallController extends BaseController
      */
     public function indexAction()
     {
-        $this->ensureLogDirectory();
+        $this->ensureDirectories();
         $this->view->containerFullHeight = true;
         $this->view->mbstringEnabled = extension_loaded('mbstring');
         $this->view->psrEnabled = extension_loaded('psr');
@@ -79,13 +79,18 @@ class InstallController extends BaseController
     }
 
     /**
-     * Make sure the logs directory exists, if not create one.
+     * Make sure the essential directories exits, if not create them.
      */
-    private function ensureLogDirectory()
+    private function ensureDirectories()
     {
         if (!is_dir(APP_PATH . 'app/logs'))
         {
             mkdir(APP_PATH . 'app/logs', 0660);
+        }
+
+        if (!is_dir(APP_PATH . 'img/cache'))
+        {
+            mkdir(APP_PATH . 'app/cache', 0660);
         }
     }
 
@@ -123,7 +128,7 @@ class InstallController extends BaseController
     }
 
     /**
-     * Cretaes the default menu.
+     * Creates the default menu.
      */
     private function createDefaultMenu()
     {

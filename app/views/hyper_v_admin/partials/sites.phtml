@@ -1,6 +1,6 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div id="sites" class="tab-pane panel fade" data-togglestate-baseurl="<?php echo $this->settings->application->base_uri . 'hyper_v_admin/siteToggleState/' ?>">
+<div id="sites" class="tab-pane panel fade" data-togglestate-baseurl="<?php echo $this->url->get('hyper_v_admin/siteToggleState/') ?>">
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
@@ -13,7 +13,7 @@
             <tbody>
                 <?php foreach($sites as $site) :
                         $state = \Chell\Models\HyperVAdmin::getSiteState($site->State);
-                        $toggleStateURL = $this->settings->application->base_uri . 'hyper_v_admin/siteToggleState/' . $device->id .'/' . $site->Name . '/';
+                        $toggleStateURL = $this->url->get('hyper_v_admin/siteToggleState/' . $device->id .'/' . $site->Name . '/');
                         $toggleStateURL .= $site->State == \Chell\Models\HyperVAdmin::siteStateEnabed ? \Chell\Models\HyperVAdmin::siteStateDisabed : \Chell\Models\HyperVAdmin::siteStateEnabed;
                 ?>
                 <tr>

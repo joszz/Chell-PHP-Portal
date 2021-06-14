@@ -3,7 +3,7 @@
 <div class="panel panel-success" id="settings">
     <div class="panel-heading">
         <div class="btn-group pull-left back-btn">
-            <a href="<?php echo $this->settings->application->base_uri ?>settings/index#menuitems" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
+            <a href="<?php echo $this->url->get('settings/index#menuitems') ?>" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
         </div>
         <h4 class="pull-left">
             <?php echo !empty($item->name) ? 'Edit' : 'New' ?> menuitem

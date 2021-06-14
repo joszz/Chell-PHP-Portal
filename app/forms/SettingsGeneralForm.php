@@ -14,7 +14,7 @@ class SettingsGeneralForm extends SettingsBaseForm
      */
     public function initialize()
     {
-        $this->setAction($this->settings->application->base_uri . 'settings/general');
+        $this->setAction($this->url->get('settings/general'));
         $this->setFormFieldClasses('General');
     }
 }

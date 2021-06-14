@@ -15,12 +15,13 @@
                 </tr>
                 <tr>
                     <td class="visible-xs">
-                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/device/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->url->get('settings/device/') ?>" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
                     <td colspan="7" class="text-right hidden-xs">
-                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/device/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->url->get('settings/device/') ?>"
+                            title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
@@ -31,8 +32,8 @@
                 <tr>
                     <td class="visible-xs">
                         <div class="btn-group">
-                            <a href="<?php echo $this->settings->application->base_uri . 'settings/device/' . $device->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                            <a href="<?php echo $this->settings->application->base_uri . 'settings/delete/Devices/' . $device->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                            <a href="<?php echo $this->url->get('settings/device/' . $device->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                            <a href="<?php echo $this->url->get('settings/delete/Devices/' . $device->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
                         </div>
                     </td>
                     <td>
@@ -52,8 +53,8 @@
                     </td>
                     <td class="hidden-xs">
                         <div class="btn-group pull-right">
-                            <a href="<?php echo $this->settings->application->base_uri . 'settings/device/' . $device->id  ?>" class="btn btn-warning fa fa-edit"></a>
-                            <a href="<?php echo $this->settings->application->base_uri . 'settings/delete/Devices/' . $device->id  ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                            <a href="<?php echo $this->url->get('settings/device/' . $device->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                            <a href="<?php echo $this->url->get('settings/delete/Devices/' . $device->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
                         </div>
                     </td>
                 </tr>
@@ -62,14 +63,14 @@
             <tfoot>
                 <tr class="visible-xs">
                     <td colspan="7">
-                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/device/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->url->get('settings/device/') ?>" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
                 </tr>
                 <tr class="hidden-xs">
                     <td colspan="7" class="text-right">
-                        <a class="btn btn-primary" href="<?php echo $this->settings->application->base_uri ?>settings/device/" title="Add device">
+                        <a class="btn btn-primary" href="<?php echo $this->url->get('settings/device/') ?>" title="Add device">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>

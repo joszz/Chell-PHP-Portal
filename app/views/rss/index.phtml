@@ -5,7 +5,7 @@
     <channel>
         <copyright>Copyright 2015 - <?= date('Y') ?> | Jos Nienhuis</copyright>
         <language>en</language>
-        <atom:link href="<?php echo $baseURL ?>rss" rel="self" type="application/rss+xml" />
+        <atom:link href="<?php echo $this->url->get('rss') ?>" rel="self" type="application/rss+xml" />
         <title><?php echo $this->settings->application->title ?></title>
         <description></description>
         <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>

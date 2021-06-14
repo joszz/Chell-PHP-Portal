@@ -8,20 +8,20 @@ $screenshotDir = 'img/screenshots/';
     "name": "<?php echo $this->settings->application->title ?>",
     "description": "A PHP portal to aggregate all your server services.",
     "short_name": "Server Portal",
-    "start_url": "<?php echo $this->settings->application->base_uri ?>",
+    "start_url": "<?php echo $this->url->get() ?>",
     "icons": [
         {
-            "src": "<?php echo $this->settings->application->base_uri . $faviconDir ?>android-chrome-192x192.png",
+            "src": "<?php echo $this->url->get($faviconDir . 'android-chrome-192x192.png') ?>",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "<?php echo $this->settings->application->base_uri . $faviconDir ?>android-chrome-512x512.png",
+            "src": "<?php echo $this->url->get($faviconDir . 'android-chrome-512x512.png') ?>",
             "sizes": "512x512",
             "type": "image/png"
         },
         {
-            "src": "<?php echo $this->settings->application->base_uri . $faviconDir ?>android-chrome-maskable-512x512.png",
+            "src": "<?php echo $this->url->get($faviconDir . 'android-chrome-maskable-512x512.png') ?>",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
@@ -29,12 +29,12 @@ $screenshotDir = 'img/screenshots/';
     ],
     "screenshots": [
         {
-            "src": "<?php echo $this->settings->application->base_uri . $screenshotDir ?>mobile_home.png",
+            "src": "<?php echo $this->url->get($screenshotDir. 'mobile_home.png') ?>",
             "sizes": "360x640",
             "type": "image/png"
         },
         {
-            "src": "<?php echo $this->settings->application->base_uri . $screenshotDir ?>mobile_menu.png",
+            "src": "<?php echo $this->url->get($screenshotDir . 'mobile_menu.png') ?>",
             "sizes": "360x640",
             "type": "image/png"
         }
@@ -43,12 +43,12 @@ $screenshotDir = 'img/screenshots/';
         {
             "name": "Settings",
             "Description": "The settings of <?php echo $this->settings->application->title ?>",
-            "url": "<?php echo $this->settings->application->base_uri ?>settings/",
+            "url": "<?php echo $this->url->get('settings') ?>",
             "icons": [
                 {
                     "type": "image/png",
                     "sizes": "96x96",
-                    "src": "<?php echo $this->settings->application->base_uri ?>img/icons/settings.png",
+                    "src": "<?php echo $this->url->get('img/icons/settings.png') ?>",
                     "purpose": "any"
                 }
             ]

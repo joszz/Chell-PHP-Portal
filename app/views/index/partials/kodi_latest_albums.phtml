@@ -16,7 +16,7 @@
             <a class="album item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
                 data-fancybox="albums"
                 data-type="iframe"
-                href="<?php echo $this->settings->application->base_uri .'kodi/album/' . $album->idAlbum ?>"
+                href="<?php echo $this->url->get('kodi/album/' . $album->idAlbum) ?>"
                 title="<?php echo $album->strAlbum ?>">
                 <img src="<?php echo $album->getImageUrl('thumb', 'strImage', 'idAlbum') ?>" loading="lazy" width="348" height="377" alt="<?php echo $album->strAlbum ?>" />
                 <div class="overlay"></div>

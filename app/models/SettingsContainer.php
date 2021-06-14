@@ -14,6 +14,11 @@ class SettingsContainer
 {
     private array $_categories = [];
 
+    public function __construct()
+    {
+        $this->_categories = ['application' => new SettingsCategory('general', 'application')];
+    }
+
     /**
      * Retrieves a setting category.
      *
@@ -43,7 +48,7 @@ class SettingsContainer
 
     /**
      * Adds a new SettingCategory to the array of categoreis.
-     * 
+     *
      * @param SettingsCategory $category    The category to add.
      */
     public function addCategory(SettingsCategory $category)
@@ -53,7 +58,7 @@ class SettingsContainer
 
     /**
      * Calls save on all SettingsCategories that match the provided $secion.
-     * 
+     *
      * @param string $section   The categories with matching section to save.
      */
     public function save(string $section)

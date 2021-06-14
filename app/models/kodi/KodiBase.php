@@ -28,7 +28,7 @@ class KodiBase extends BaseModel
 
         if (empty($this->{$imageField}))
         {
-            return $this->_settings->application->base_uri . 'img/icons/unknown.jpg';
+            return $this->url->get('img/icons/unknown.jpg');
         }
 
         if ($this->_settings->imageproxy->enabled)
@@ -36,7 +36,7 @@ class KodiBase extends BaseModel
             return $this->_settings->imageproxy->url . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }
 
-        return $this->_settings->application->base_uri . 'kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null);
+        return $this->url->get('kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null));
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
-<?php if(file_exists(APP_PATH . 'public/img/icons/menu/' . $element->getValue())) : ?>
+<?php if(file_exists(APP_PATH . 'img/icons/menu/' . $element->getValue())) : ?>
 <a class="btn btn-default input-group-addon menuitem_icon disabled" href="#">
-    <img src="<?php echo $this->settings->application->base_uri .'img/icons/menu/' . $element->getValue() ?>" title="Current icon" />
+    <img src="<?php echo $this->url->get('img/icons/menu/' . $element->getValue()) ?>" title="Current icon" />
 </a>
 <?php endif ?>

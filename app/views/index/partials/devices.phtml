@@ -18,7 +18,7 @@
                 <div class="col-xs-6 col-sm-7">
                     <div class="btn-group pull-right">
                         <?php if (!empty($device->hypervadmin_url)) : ?>
-                        <a href="<?php echo $this->settings->application->base_uri . 'hyper_v_admin/index/' . $device->id ?>" class="btn btn-default disabled hypervadmin" data-fancybox data-type="iframe" title="HyperVAdmin">
+                        <a href="<?php echo $this->url->get('hyper_v_admin/index/' . $device->id) ?>" class="btn btn-default disabled hypervadmin" data-fancybox data-type="iframe" title="HyperVAdmin">
                             <span class="fa fa-server"></span>
                         </a>
                         <?php endif ?>

@@ -10,6 +10,7 @@ use Phalcon\Forms\Element\ElementInterface;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
+use Phalcon\Url;
 
 /**
  * The base form class used in SettingsGeneralForm and SettingsDashboardForm.
@@ -20,6 +21,7 @@ class SettingsBaseForm extends Form
 {
     public SettingsContainer $settings;
     public TranslatorWrapper $translator;
+    public Url $url;
 
     /**
      * Gets the settings and translator from DI.
@@ -28,6 +30,7 @@ class SettingsBaseForm extends Form
      */
     public function __construct(Model $entity = null)
     {
+        $this->url = new Url();
         $this->settings = $this->di->get('settings');
         $this->translator = $this->di->get('translator');
 

@@ -14,7 +14,6 @@ use Chell\Plugins\SecurityPlugin;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
-use Phalcon\Url;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Dispatcher;
@@ -84,11 +83,7 @@ class FrontController
 
         $this->registerNamespaces();
         $this->dbSet = $this->setDB($config);
-
         $this->settings = $settings = $this->setSettings();
-        $this->settings->application->base_uri = (new Url())->getBaseUri();
-        $this->settings->application->version ??= '';
-        $this->settings->application->title ??= '';
 
         set_exception_handler([&$this, 'ExceptionHandler']);
 
@@ -338,10 +333,9 @@ class FrontController
 
                 $structuredSettings->{$setting->category}->addSetting($setting);
             }
-
-            $this->di->set('settings', $structuredSettings);
         }
 
+        $this->di->set('settings', $structuredSettings);
         return $structuredSettings;
     }
 

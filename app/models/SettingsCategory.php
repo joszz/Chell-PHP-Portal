@@ -3,6 +3,8 @@
 namespace Chell\Models;
 
 use Exception;
+use stdClass;
+use Phalcon\Url;
 use Chell\Models\Settings;
 
 /**
@@ -23,9 +25,41 @@ class SettingsCategory
      * @param string $section    The section, such as general or dashboard.
      * @param string $category   The category, such as application wide or plugin specific.
      */
-    public function __construct(string $section, string $category){
+    public function __construct(string $section, string $category)
+    {
         $this->section = $section;
         $this->category = $category;
+        $this->initialize();
+    }
+
+    private function initialize()
+    {
+        $settingBaseUri = new stdClass();
+        $settingBaseUri->value = (new Url())->getBaseUri();
+
+        $settingTitle = new stdClass();
+        $settingTitle->value = '';
+
+        $settingVersion = new stdClass();
+        $settingVersion->value = '';
+
+        $settingBg = new stdClass();
+        $settingBg->value = 'autobg';
+
+        $settingDemo = new stdClass();
+        $settingDemo->value = '0';
+
+        $settingAlertTimeout = new stdClass();
+        $settingAlertTimeout->value = '5';
+
+        $this->_settings = [
+            'base_uri' => $settingBaseUri,
+            'title' => $settingTitle,
+            'version' => $settingVersion,
+            'background' => $settingBg,
+            'demo_mode' => $settingDemo,
+            'alert_timeout' => $settingAlertTimeout
+        ];
     }
 
     /**
@@ -84,7 +118,7 @@ class SettingsCategory
 
     /**
      * Adds a setting to the array of settings.
-     * 
+     *
      * @param Settings $setting     The setting to add.
      */
     public function addSetting(Settings $setting)
