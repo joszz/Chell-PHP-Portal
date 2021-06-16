@@ -12,7 +12,7 @@ It aggregates different services and webapplications that I want easily accessib
 # Screenshots
 
 #### Home screenshot
-![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/public/img/screenshots/desktop_home.png "Home")
+![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/img/screenshots/desktop_home.png "Home")
 #### Menu screenshot
 ![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/img/screenshots/desktop_menu.png "Menu")
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/img/screenshots)
@@ -67,12 +67,8 @@ Since this project relies on .htaccess files to work correctly, you will also ne
 (either only for this project or server wide). 
 [You can find how to do so by looking here for example](https://www.linode.com/docs/web-servers/apache/how-to-set-up-htaccess-on-apache/)
 
-Make sure the user Apache runs under, has write access to the project's location. It will at least need access to the folder "app/logs" (which doesn't exist on install) 
-to write error logs to. And will also need write permissions to the file "app/config/config.ini".
-
-## Config.ini
-If you decide to run this project outside of the root of the domain, you will need to edit "app/config/config.ini". Adjust the baseUri (in section Application) to match
-the directory you run this project from.
+Make sure the user Apache runs under, has write access to the project's location. It will at least need access to the folder "app/logs" 
+to write error logs to.
 
 ## Installer
 

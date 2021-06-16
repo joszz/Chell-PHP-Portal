@@ -36,8 +36,6 @@
                 <?php if (isset($user)) : ?>
                 <ul class="nav navbar-nav">
                     <?php foreach($user->getMenuItems(['order' => 'name ASC']) as $menuItem) : ?>
-                    <?php if (strpos($menuItem->url, $this->settings->network->broadcast) !== false && strpos($_SERVER['REMOTE_ADDR'], $this->settings->network->broadcast) === false) continue ?>
-
                     <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-id="' . $menuItem->device->id : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">
                             <img src="<?php echo $this->url->get('img/icons/menu/' . $menuItem->id . '.png') ?>" width="16"
