@@ -35,7 +35,7 @@ class JellyfinFormFields extends FormFields
 			->setDefault($this->form->settings->jellyfin->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $jellyfinToken = new Password('jellyfin-token');

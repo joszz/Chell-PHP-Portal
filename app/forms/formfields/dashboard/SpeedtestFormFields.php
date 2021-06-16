@@ -87,7 +87,7 @@ class SpeedtestFormFields extends FormFields
 			->setDefault($this->form->settings->speedtest->ip_info_url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $speedtestIpInfoToken = new Password('speedtest-ip_info_token');
@@ -102,7 +102,7 @@ class SpeedtestFormFields extends FormFields
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
             ->setDefault($this->form->settings->speedtest->what_is_my_browser_api_url)
-            ->addValidator(new UrlValidator(['message' => $this->form->translator->validation['url']]));
+            ->addValidator(new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true]));
 
         $this->fields[] = $whatIsMyBrowserAPIKey = new Password('speedtest-what_is_my_browser_api_key');
         $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key')

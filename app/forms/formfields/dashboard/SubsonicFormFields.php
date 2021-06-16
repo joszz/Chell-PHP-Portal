@@ -32,7 +32,7 @@ class SubsonicFormFields extends FormFields
 			->setDefault($this->form->settings->subsonic->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $subsonicUsername = new Text('subsonic-username');

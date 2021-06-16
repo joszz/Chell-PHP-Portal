@@ -34,7 +34,7 @@ class CouchpotatoFormFields extends FormFields
 			->setDefault($this->form->settings->couchpotato->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $couchpotatoAPIKey = new Password('couchpotato-api_key');

@@ -44,7 +44,7 @@ class RoborockFormFields extends FormFields
 			->setDefault($this->form->settings->roborock->ip)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'roborock-enabled']),
-				new Ip(['message' => $this->form->translator->validation['ip'], 'allowPrivate' => true]),
+				new Ip(['message' => $this->form->translator->validation['ip'], 'allowPrivate' => true, 'allowEmpty' => true]),
 			]);
 
 		$this->fields[] = $roborockToken = new Password('roborock-token');

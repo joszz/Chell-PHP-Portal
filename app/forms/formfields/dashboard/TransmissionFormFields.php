@@ -34,7 +34,7 @@ class TransmissionFormFields extends FormFields
 			->setDefault($this->form->settings->transmission->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'transmission-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $transmissionUsername = new Text('transmission-username');

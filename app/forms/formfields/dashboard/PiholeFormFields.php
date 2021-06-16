@@ -31,7 +31,7 @@ class PiholeFormFields extends FormFields
 			->setDefault($this->form->settings->pihole->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pihole-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 	}
 }

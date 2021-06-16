@@ -31,7 +31,7 @@ class RCpuFormFields extends FormFields
 			->setDefault($this->form->settings->rcpu->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'rcpu-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 	}
 }

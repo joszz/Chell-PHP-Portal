@@ -32,7 +32,7 @@ class SickrageFormFields extends FormFields
 			->setDefault($this->form->settings->sickrage->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sickrage-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $sickrageAPIKey = new Password('sickrage-api_key');

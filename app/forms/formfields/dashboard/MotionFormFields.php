@@ -33,7 +33,7 @@ class MotionFormFields extends FormFields
 			->setDefault($this->form->settings->motion->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'motion-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $motionPicturePath = new Text('motion-picture_path');

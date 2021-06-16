@@ -35,7 +35,7 @@ class PulsewayFormFields extends FormFields
 			->setDefault($this->form->settings->pulseway->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
         $this->fields[] = $pulsewayUsername = new Text('pulseway-username');

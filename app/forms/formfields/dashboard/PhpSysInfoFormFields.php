@@ -7,7 +7,6 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Url as UrlValidator;
 
 class PhpSysInfoFormFields extends FormFields
@@ -32,9 +31,8 @@ class PhpSysInfoFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->form->settings->phpsysinfo->url)
 			->addValidators([
-				new PresenceOf(['message' => $this->form->translator->validation['required']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url']])
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 
 		$this->fields[] = $phpSysInfoUsername = new Text('phpsysinfo-username');
