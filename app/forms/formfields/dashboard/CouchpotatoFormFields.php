@@ -59,12 +59,18 @@ class CouchpotatoFormFields extends FormFields
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => true])
             ->setDefault($this->form->settings->couchpotato->tmdb_api_url)
-            ->addValidator(new UrlValidator(['message' => $this->form->translator->validation['url']]));
+            ->addValidators([
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
+			]);
 
         $this->fields[] = $tmdbAPIKey = new Password('couchpotato-tmdb_api_key');
         $tmdbAPIKey->setLabel('TMDB API key')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-            ->setDefault($this->form->settings->couchpotato->tmdb_api_key);
+            ->setDefault($this->form->settings->couchpotato->tmdb_api_key)
+            ->addValidators([
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'couchpotato-enabled'])
+			]);
 	}
 }

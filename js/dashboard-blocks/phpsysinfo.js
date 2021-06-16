@@ -295,7 +295,7 @@
                         block.find(".update .packages .value").html(packages);
                         block.find(".update .security .value").html(security);
 
-                        if (count > 0) {
+                        if (count > 0 && settings.setBadges) {
                             //todo: handle the error with .catch((error)
                             navigator.setAppBadge(count);
                             return;
@@ -303,7 +303,9 @@
                     }
 
                     //todo: handle the error with .catch((error)
-                    navigator.clearAppBadge();
+                    if (settings.setBadges) {
+                        navigator.clearAppBadge();
+                    }
                 },
 
                 /**

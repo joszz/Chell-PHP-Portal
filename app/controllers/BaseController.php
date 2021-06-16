@@ -25,7 +25,7 @@ class BaseController extends Controller
     {
         $this->settings = $this->di->get('settings');
 
-        if (in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
+        if ($this->di->has('db') && in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
             if ($this->session->get('auth'))
             {

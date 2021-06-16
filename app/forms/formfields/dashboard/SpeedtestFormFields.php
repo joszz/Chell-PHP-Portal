@@ -58,6 +58,7 @@ class SpeedtestFormFields extends FormFields
 		$this->fields[] = $speedtestGetIP = new Check('speedtest-get_isp_info');
 		$speedtestGetIP->setLabel('Get ISP IP');
 		$speedtestGetIP->setAttributes([
+			'value' => '1',
 			'checked' => $this->form->settings->speedtest->get_isp_info == '1' ? 'checked' : null,
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',

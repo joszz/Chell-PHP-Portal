@@ -69,7 +69,7 @@ class JellyfinFormFields extends FormFields
 				'class' => 'form-control',
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
-				'data-selected' => $this->form->settings->jellyfin->views,
+				'data-selected' => $this->form->settings->jellyfin->views ?? '',
 				'data-apiurl' => '../jellyfin/views'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);

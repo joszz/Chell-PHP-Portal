@@ -70,7 +70,7 @@ class PulsewayFormFields extends FormFields
 				'multiple' => 'multiple',
 				'fieldset' => 'end',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->pulseway->systems,
+				'data-selected' => $this->form->settings->pulseway->systems ?? '',
 				'data-apiurl' => '../pulseway/systems'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
