@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use stdClass;
 use Chell\Models\SettingsContainer;
 use Chell\Models\Users;
 use Phalcon\Mvc\Controller;
@@ -133,7 +134,7 @@ class BaseController extends Controller
     {
         if ($paginator == null)
         {
-            $paginator = new \stdClass();
+            $paginator = new stdClass();
         }
 
         $paginator->baseURI = $baseURI;

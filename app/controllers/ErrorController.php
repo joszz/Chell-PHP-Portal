@@ -117,7 +117,7 @@ class ErrorController
     private function error() : string
     {
         ob_start();
-        require_once(APP_PATH . 'app/views/error/error.phtml');
+        require_once APP_PATH . 'app/views/error/error.phtml';
         return ob_get_clean();
     }
 
@@ -142,6 +142,7 @@ class ErrorController
 
         while (is_file($this->logPath . $filename))
         {
+            $this->guid = $this->getGUID();
             $filename = $this->guid . '.htm';
         }
 

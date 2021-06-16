@@ -3,7 +3,6 @@
 namespace Chell\Models;
 
 use Exception;
-use stdClass;
 use Chell\Models\Settings;
 
 /**
@@ -87,9 +86,9 @@ class SettingsCategory
     /**
      * Adds a setting to the array of settings.
      *
-     * @param Settings $setting     The setting to add.
+     * @param $setting     The setting to add.
      */
-    public function addSetting(Settings $setting)
+    public function addSetting($setting)
     {
         $this->_settings[$setting->name] = $setting;
     }

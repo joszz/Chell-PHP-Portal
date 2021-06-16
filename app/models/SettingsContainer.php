@@ -46,9 +46,10 @@ class SettingsContainer
     private function addDefaultSetting($name, $value)
     {
         $setting = new stdClass();
+        $setting->name = $name;
         $setting->value = $value;
 
-        $this->application->$name = $setting;
+        $this->application->addSetting($setting);
     }
 
     /**
