@@ -31,7 +31,7 @@ class ImageProxyFormFields extends FormFields
             ->setDefault($this->form->settings->imageproxy->url)
             ->addValidators([
                 new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'imageproxy-enabled']),
-                new UrlValidator(['message' => $this->form->translator->validation['url']])
+                new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
             ]);
     }
 }

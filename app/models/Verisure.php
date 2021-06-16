@@ -117,6 +117,7 @@ class Verisure extends BaseModel
      */
     public function getImage(string $device_label, string $image_id, string $capture_time) : string
     {
+        $capture_time = str_replace(':', '_', $capture_time);
         $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
 
         if (!file_exists($filename))

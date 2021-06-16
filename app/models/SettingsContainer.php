@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Exception;
+use stdClass;
 use Chell\Models\SettingsCategory;
 
 /**
@@ -14,9 +15,40 @@ class SettingsContainer
 {
     private array $_categories = [];
 
-    public function __construct()
+    public function __construct($dbSet)
     {
         $this->_categories = ['application' => new SettingsCategory('general', 'application')];
+
+        if ($dbSet)
+        {
+            $settings = Settings::find(['order' => 'category']);
+
+            foreach ($settings as $setting)
+            {
+                if (!isset($this->{$setting->category}))
+                {
+                    $this->addCategory(new SettingsCategory($setting->section, $setting->category));
+                }
+
+                $this->{$setting->category}->addSetting($setting);
+            }
+        }
+        else
+        {
+            $this->addDefaultSetting('title', 'Chell PHP Portal');
+            $this->addDefaultSetting('version', '0');
+            $this->addDefaultSetting('background', 'autobg');
+            $this->addDefaultSetting('demo_mode', '0');
+            $this->addDefaultSetting('alert_timeout', '5');
+        }
+    }
+
+    private function addDefaultSetting($name, $value)
+    {
+        $setting = new stdClass();
+        $setting->value = $value;
+
+        $this->application->$name = $setting;
     }
 
     /**

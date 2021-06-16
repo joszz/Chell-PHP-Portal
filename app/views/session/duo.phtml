@@ -8,5 +8,5 @@
     <iframe id="duo_iframe" class="hidden_not_important"
         data-host="<?php echo $this->settings->duo->api_hostname ?>"
         data-sig-request="<?php echo $signRequest ?>"
-        data-post-action="<?php echo $this->settings->application->base_uri ?>session/duoVerify"></iframe>
+        data-post-action="<?php echo $this->url->get('session/duoVerify') ?>"></iframe>
 </div>

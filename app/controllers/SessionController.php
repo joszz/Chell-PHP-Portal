@@ -105,8 +105,8 @@ class SessionController extends BaseController
             {
                 if ($rememberMe)
                 {
-                    $this->cookies->set('username', $username, strtotime('+1 year'), $this->settings->application->base_uri, true);
-                    $this->cookies->set('password', $password, strtotime('+1 year'), $this->settings->application->base_uri, true);
+                    $this->cookies->set('username', $username, strtotime('+1 year'), BASEPATH, true);
+                    $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true);
                 }
 
                 return $this->dispatcher->forward([
@@ -120,8 +120,8 @@ class SessionController extends BaseController
             {
                 if ($rememberMe)
                 {
-                    $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', $this->settings->application->base_uri, true)));
-                    $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', $this->settings->application->base_uri, true)));
+                    $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', BASEPATH, true)));
+                    $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', BASEPATH, true)));
                 }
 
                 $this->_registerSession($user);
@@ -252,8 +252,8 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
-        $this->cookies->set('username', 'username', strtotime('-1 year'), $this->settings->application->base_uri, true);
-        $this->cookies->set('password', 'password', strtotime('-1 year'), $this->settings->application->base_uri, true);
+        $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true);
+        $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true);
         $this->session->destroy();
 
         $this->view->containerFullHeight = true;

@@ -4,7 +4,7 @@ namespace Chell\Controllers;
 
 use PDO;
 use Chell\Models\Users;
-use Chell\Models\Menus;
+use Chell\Models\Settings;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 /**
@@ -14,7 +14,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
  */
 class InstallController extends BaseController
 {
-    private string $dbStructureFilename = APP_PATH . 'sql\db-structure.sql';
+    private string $dbStructureFilename = APP_PATH . 'sql/db-structure.sql';
     private $postedData;
 
     /**
@@ -55,8 +55,10 @@ class InstallController extends BaseController
      */
     public function goAction()
     {
-        $this->postedData = $this->request->getPost();
-        $config = $this->postedData;
+        $this->postedData = $config = $this->request->getPost();
+
+        $this->createDatabase();
+        $this->createDatabaseStructure();
 
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
@@ -68,14 +70,12 @@ class InstallController extends BaseController
             ]);
         });
 
-        $this->createDatabase();
-        $this->createDatabaseStructure();
         $this->createAdminUser();
-        $this->createDefaultMenu();
+        $this->createDefaultSettings();
         $this->writeConfig();
         $this->cleanup();
 
-        $this->response->redirect($this->settings->application->base_uri);
+        $this->response->redirect('');
     }
 
     /**
@@ -102,7 +102,8 @@ class InstallController extends BaseController
     {
         $connection = new PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
-        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-user'] . '@' . $this->postedData['mysql-host']);
+        $connection->exec('CREATE USER \'' . $this->postedData['chell-database-user'] . '\'@\'' . $this->postedData['mysql-host'] . '\' IDENTIFIED WITH mysql_native_password BY \'' . $this->postedData['chell-database-password'] . '\'');
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
     }
 
@@ -127,13 +128,146 @@ class InstallController extends BaseController
         $user->save();
     }
 
-    /**
-     * Creates the default menu.
-     */
-    private function createDefaultMenu()
+    private function createDefaultSettings()
     {
-        $menu = new Menus(['id' => 1, 'name' => 'default']);
-        $menu->save();
+        //General
+        $this->createDefaultSetting('title', 'general', 'application', 'Chell PHP Portal');
+        $this->createDefaultSetting('background', 'general', 'application', 'autobg');
+        $this->createDefaultSetting('background_latitude', 'general', 'application', '');
+        $this->createDefaultSetting('background_longitude', 'general', 'application', '');
+        $this->createDefaultSetting('alert_timeout', 'general', 'application', '5');
+        $this->createDefaultSetting('items_per_page', 'general', 'application', '10');
+        $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
+        $this->createDefaultSetting('demo_mode', 'general', 'application', '0');
+        $this->createDefaultSetting('version', 'general', 'application', '1.4.0');
+        $this->createDefaultSetting('check_device_states_interval', 'general', 'application', '10');
+        $this->createDefaultSetting('check_now_playing_interval', 'general', 'application', '10');
+        //Redis
+        $this->createDefaultSetting('enabled', 'general', 'redis', '0');
+        $this->createDefaultSetting('host', 'general', 'redis', 'localhost');
+        $this->createDefaultSetting('port', 'general', 'redis', '6379');
+        $this->createDefaultSetting('auth', 'general', 'redis', '');
+        //Imageproxy
+        $this->createDefaultSetting('enabled', 'general', 'imageproxy', '0');
+        $this->createDefaultSetting('url', 'general', 'imageproxy', '');
+        //Speedtest
+        $this->createDefaultSetting('enabled', 'dashboard', 'speedtest', '0');
+        $this->createDefaultSetting('test_order', 'dashboard', 'speedtest', 'IPDU');
+        $this->createDefaultSetting('time_upload', 'dashboard', 'speedtest', '10');
+        $this->createDefaultSetting('time_download', 'dashboard', 'speedtest', '10');
+        $this->createDefaultSetting('get_isp_info', 'dashboard', 'speedtest', '0');
+        $this->createDefaultSetting('get_isp_distance', 'dashboard', 'speedtest', 'km');
+        $this->createDefaultSetting('telemetry', 'dashboard', 'speedtest', 'full');
+        $this->createDefaultSetting('ip_info_url', 'dashboard', 'speedtest', 'https://ipinfo.io/');
+        $this->createDefaultSetting('ip_info_token', 'dashboard', 'speedtest', '');
+        $this->createDefaultSetting('what_is_my_browser_api_key', 'dashboard', 'speedtest', '');
+        $this->createDefaultSetting('what_is_my_browser_api_url', 'dashboard', 'speedtest', 'https://api.whatismybrowser.com/api/v2/');
+        //Couchpotato
+        $this->createDefaultSetting('enabled', 'dashboard', 'couchpotato', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'couchpotato', '');
+        $this->createDefaultSetting('api_key', 'dashboard', 'couchpotato', '');
+        $this->createDefaultSetting('rotate_interval', 'dashboard', 'couchpotato', '');
+        $this->createDefaultSetting('tmdb_api_url', 'dashboard', 'couchpotato', 'https://api.themoviedb.org/3/');
+        $this->createDefaultSetting('tmdb_api_key', 'dashboard', 'couchpotato', '');
+        //Broadcast
+        $this->createDefaultSetting('broadcast', 'dashboard', 'network', '');
+        //PHPSysInfo
+        $this->createDefaultSetting('enabled', 'dashboard', 'phpsysinfo', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'phpsysinfo', '');
+        $this->createDefaultSetting('username', 'dashboard', 'phpsysinfo', '');
+        $this->createDefaultSetting('password', 'dashboard', 'phpsysinfo', '');
+        //rCPU
+        $this->createDefaultSetting('enabled', 'dashboard', 'rcpu', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'rcpu', '');
+        //Transmission
+        $this->createDefaultSetting('enabled', 'dashboard', 'transmission', '0');
+        $this->createDefaultSetting('username', 'dashboard', 'transmission', '');
+        $this->createDefaultSetting('password', 'dashboard', 'transmission', '');
+        $this->createDefaultSetting('url', 'dashboard', 'transmission', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'transmission', '10');
+        //Subsonic
+        $this->createDefaultSetting('enabled', 'dashboard', 'subsonic', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'subsonic', '');
+        $this->createDefaultSetting('username', 'dashboard', 'subsonic', '');
+        $this->createDefaultSetting('password', 'dashboard', 'subsonic', '');
+        //Kodi
+        $this->createDefaultSetting('enabled', 'dashboard', 'kodi', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'kodi', '');
+        $this->createDefaultSetting('username', 'dashboard', 'kodi', '');
+        $this->createDefaultSetting('password', 'dashboard', 'kodi', '');
+        $this->createDefaultSetting('rotate_movies_interval', 'dashboard', 'kodi', '30');
+        $this->createDefaultSetting('rotate_episodes_interval', 'dashboard', 'kodi', '30');
+        $this->createDefaultSetting('rotate_albums_interval', 'dashboard', 'kodi', '30');
+        //Sickrage
+        $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'sickrage', '');
+        $this->createDefaultSetting('api_key', 'dashboard', 'sickrage', '');
+        $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '');
+        //Duo
+        $this->createDefaultSetting('enabled', 'dashboard', 'duo', '0');
+        $this->createDefaultSetting('ikey', 'dashboard', 'duo', '');
+        $this->createDefaultSetting('skey', 'dashboard', 'duo', '');
+        $this->createDefaultSetting('akey', 'dashboard', 'duo', '');
+        $this->createDefaultSetting('api_hostname', 'dashboard', 'duo', '');
+        //Motion
+        $this->createDefaultSetting('enabled', 'dashboard', 'motion', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'motion', '');
+        $this->createDefaultSetting('picture_path', 'dashboard', 'motion', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'motion', '30');
+        //Opcache
+        $this->createDefaultSetting('enabled', 'dashboard', 'opcache', '0');
+        //Pihole
+        $this->createDefaultSetting('enabled', 'dashboard', 'pihole', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'pihole', '');
+        //Youless
+        $this->createDefaultSetting('enabled', 'dashboard', 'youless', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'youless', '');
+        $this->createDefaultSetting('password', 'dashboard', 'youless', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'youless', '5');
+        $this->createDefaultSetting('threshold_primary', 'dashboard', 'youless', '250');
+        $this->createDefaultSetting('threshold_warning', 'dashboard', 'youless', '500');
+        $this->createDefaultSetting('threshold_danger', 'dashboard', 'youless', '1000');
+        //SNMP
+        $this->createDefaultSetting('enabled', 'dashboard', 'snmp', '0');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'snmp', '5');
+        //Verisure
+        $this->createDefaultSetting('enabled', 'dashboard', 'verisure', '0');
+        $this->createDefaultSetting('username', 'dashboard', 'verisure', '');
+        $this->createDefaultSetting('password', 'dashboard', 'verisure', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'verisure', '180');
+        $this->createDefaultSetting('url', 'dashboard', 'verisure', 'https://mypages.verisure.com/login');
+        $this->createDefaultSetting('securitycode', 'dashboard', 'verisure', '');
+        //Verisure
+        $this->createDefaultSetting('enabled', 'dashboard', 'roborock', '0');
+        $this->createDefaultSetting('ip', 'dashboard', 'roborock', '');
+        $this->createDefaultSetting('token', 'dashboard', 'roborock', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'roborock', '30');
+        //Jellyfin
+        $this->createDefaultSetting('enabled', 'dashboard', 'jellyfin', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'jellyfin', '');
+        $this->createDefaultSetting('token', 'dashboard', 'jellyfin', '');
+        $this->createDefaultSetting('userid', 'dashboard', 'jellyfin', '');
+        $this->createDefaultSetting('views', 'dashboard', 'jellyfin', '');
+        $this->createDefaultSetting('rotate_interval', 'dashboard', 'jellyfin', '30');
+        //Pulseway
+        $this->createDefaultSetting('enabled', 'dashboard', 'pulseway', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'pulseway', 'https://api.pulseway.com/v2/');
+        $this->createDefaultSetting('username', 'dashboard', 'pulseway', '');
+        $this->createDefaultSetting('password', 'dashboard', 'pulseway', '');
+        $this->createDefaultSetting('systems', 'dashboard', 'pulseway', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'pulseway', '');
+        //Database stats
+        $this->createDefaultSetting('enabled', 'dashboard', 'databasestats', '0');
+    }
+
+    private function createDefaultSetting($name, $section, $category, $value)
+    {
+        $setting = new Settings();
+        $setting->name = $name;
+        $setting->section = $section;
+        $setting->category = $category;
+        $setting->value = $value;
+        $setting->save();
     }
 
     /**
@@ -141,14 +275,87 @@ class InstallController extends BaseController
      */
     private function writeConfig()
     {
-        $this->config->database->host = $this->postedData['mysql-host'];
-        $this->config->database->name = $this->postedData['chell-database'];
-        $this->config->database->username = $this->postedData['chell-database-user'];
-        $this->config->database->password = $this->postedData['chell-database-password'];
-        //todo: no longer in config but defined in settings/DB
-        $this->config->application->phalconCryptKey = bin2hex(random_bytes(32));
+        $config['database'] = [
+            'host' => $this->postedData['mysql-host'],
+            'name' => $this->postedData['chell-database'],
+            'username' => $this->postedData['chell-database-user'],
+            'password' => $this->postedData['chell-database-password'],
 
-        $this->writeIniFile($this->config, APP_PATH . 'app/config/config.ini', true);
+        ];
+
+        $this->writeIniFile($config, APP_PATH . 'app/config/config.ini', true);
+    }
+
+    /**
+     * Writes ini file based on associative array.
+     *
+     * @param array     $assoc_arr      The array to write to the ini file.
+     * @param string    $path           The path to write the ini file to.
+     * @param bool      $has_sections   If the ini file has sections (in the form of [section])
+     * @return bool                     If the write was successful
+     */
+    private function writeIniFile(array $assoc_arr, string $path, bool $has_sections = false) : bool
+    {
+        $content = '';
+
+        if ($has_sections)
+        {
+            foreach ($assoc_arr as $key => $elem)
+            {
+                $content .= '[' . $key . ']' . PHP_EOL;
+                foreach ($elem as $key2=>$elem2)
+                {
+                    if (is_array($elem2))
+                    {
+                        $count = count($elem2);
+                        for ($i = 0; $i < $count; $i++)
+                        {
+                            $content .= $key2 .'[] = "' . $elem2[$i] . '"' . PHP_EOL;
+                        }
+                    }
+                    else if ($elem2 == '')
+                    {
+                        $content .= $key2 . ' = ""' . PHP_EOL;
+                    }
+                    else
+                    {
+                        $content .= $key2. ' = "' . $elem2 . '"' . PHP_EOL;
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach ($assoc_arr as $key => $elem)
+            {
+                if (is_array($elem))
+                {
+                    $count = count($elem);
+                    for ($i = 0; $i < $count; $i++)
+                    {
+                        $content .= $key . '[] = "' . $elem[$i] . '"' . PHP_EOL;
+                    }
+                }
+                else if ($elem == '')
+                {
+                    $content .= $key . ' = ""' . PHP_EOL;
+                }
+                else
+                {
+                    $content .= $key . ' = "' . $elem . '"' . PHP_EOL;
+                }
+            }
+        }
+
+        if (!$handle = fopen($path, 'w'))
+        {
+            return false;
+        }
+
+        $success = fwrite($handle, $content);
+        fclose($handle);
+
+        return $success !== false;
     }
 
     /**

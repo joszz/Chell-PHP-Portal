@@ -14,7 +14,7 @@ class PresenceOfConfirmation extends Confirmation
         $with_value = $validation->getValue($with);
         $value = $validation->getValue($field);
 
-        if ($with_value == 'on' && empty($value))
+        if ($with_value == '1' && empty($value))
         {
             $message = $this->getOption('message');
 

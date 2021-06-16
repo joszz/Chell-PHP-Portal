@@ -14,6 +14,7 @@ use Chell\Plugins\SecurityPlugin;
 
 use Phalcon\Crypt;
 use Phalcon\Loader;
+use Phalcon\Url;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Dispatcher;
@@ -75,45 +76,6 @@ class FrontController
     public function __construct()
     {
         $executionTime = -microtime(true);
-        define('APP_PATH', realpath('./') . '/');
-
-        $this->di = new FactoryDefault();
-        $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
-        define('DEBUG', $config->debug);
-
-        $this->registerNamespaces();
-        $this->dbSet = $this->setDB($config);
-        $this->settings = $settings = $this->setSettings();
-
-        set_exception_handler([&$this, 'ExceptionHandler']);
-
-        $this->di->set('dispatcher', function () {
-            $eventsManager = new EventsManager();
-            $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
-
-            $dispatcher = new Dispatcher();
-            $dispatcher->setEventsManager($eventsManager);
-            $dispatcher->setDefaultNamespace('Chell\Controllers');
-
-            return $dispatcher;
-        });
-
-        $this->di->set('crypt', function() use ($settings) {
-            $crypt = new Crypt();
-            $crypt->setKey($settings->application->phalcon_crypt_key);
-            return $crypt;
-        });
-
-        $this->setDisplayErrors();
-        $this->setViewProvider();
-        $this->setSession($settings);
-
-        $this->application = new Application($this->di);
-        $this->application->view->executionTime = $executionTime;
-
-        $this->setAssets();
-        $this->setTitle();
-        $this->setTranslator();
 
         function dump($dump)
         {
@@ -122,6 +84,33 @@ class FrontController
                 die((new Dump())->variable($dump));
             }
         }
+
+        define('APP_PATH', realpath('./') . '/');
+        define('BASEPATH', (new Url())->getBaseUri());
+
+        $this->di = new FactoryDefault();
+        $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
+        define('DEBUG', $config->debug);
+
+        $this->registerNamespaces();
+        $this->setExceptionHandler();
+        $this->setDB($config);
+        $this->setSettings();
+        $this->setDispatcher();
+        $this->setCrypt();
+        $this->setDisplayErrors();
+        $this->setViewProvider();
+        $this->setSession();
+        $this->application = new Application($this->di);
+        $this->application->view->executionTime = $executionTime;
+        $this->setAssets();
+        $this->setTitle();
+        $this->setTranslator();
+    }
+
+    private function setExceptionHandler()
+    {
+        set_exception_handler([&$this, 'ExceptionHandler']);
     }
 
     /**
@@ -138,7 +127,31 @@ class FrontController
 
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
-        new ErrorController(new ChellException($exception), $this->settings);
+        new ErrorController(new ChellException($exception));
+    }
+
+    private function setDispatcher()
+    {
+        $this->di->set('dispatcher', function () {
+            $eventsManager = new EventsManager();
+            $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin());
+
+            $dispatcher = new Dispatcher();
+            $dispatcher->setEventsManager($eventsManager);
+            $dispatcher->setDefaultNamespace('Chell\Controllers');
+
+            return $dispatcher;
+        });
+    }
+
+    private function setCrypt()
+    {
+        $settings = $this->settings;
+        $this->di->set('crypt', function() use ($settings) {
+            $crypt = new Crypt();
+            $crypt->setKey($settings->application->phalcon_crypt_key);
+            return $crypt;
+        });
     }
 
     /**
@@ -183,7 +196,8 @@ class FrontController
     {
         if (empty($config->database->host) || empty($config->database->username) || empty($config->database->password) || empty($config->database->name))
         {
-            return false;
+            $this->dbSet = false;
+            return;
         }
 
         $this->di->set('db', function() use ($config) {
@@ -216,7 +230,7 @@ class FrontController
             ]);
         });
 
-        return true;
+        $this->dbSet = true;
     }
 
     /**
@@ -236,8 +250,9 @@ class FrontController
      *
      * @param SettingsContainer $settings    The settings object representing all settings in the database.
      */
-    private function setSession(SettingsContainer $settings)
+    private function setSession()
     {
+        $settings = $this->settings;
         $dbSet = $this->dbSet;
 
         $this->di->setShared('session', function () use ($settings, $dbSet) {
@@ -313,30 +328,12 @@ class FrontController
 
     /**
      * Retrieves al settings from the database and structures then in a hierarchical structur.
-     *
-     * @return SettingsContainer    The main settings object to be used throughout the application
      */
     private function setSettings()
     {
-        $structuredSettings = new SettingsContainer();
-
-        if ($this->dbSet)
-        {
-            $settings = Settings::find(['order' => 'category']);
-
-            foreach ($settings as $setting)
-            {
-                if (!isset($structuredSettings->{$setting->category}))
-                {
-                    $structuredSettings->addCategory(new SettingsCategory($setting->section, $setting->category));
-                }
-
-                $structuredSettings->{$setting->category}->addSetting($setting);
-            }
-        }
-
+        $structuredSettings = new SettingsContainer($this->dbSet);
         $this->di->set('settings', $structuredSettings);
-        return $structuredSettings;
+        $this->settings =  $structuredSettings;
     }
 
     /**
@@ -346,9 +343,7 @@ class FrontController
      */
     public function __toString() : string
     {
-        $request = new Request();
-        $uri = str_replace($this->settings->application->base_uri, '', '/' . $request->getURI());
-
+        $uri = str_replace(BASEPATH, '', '/' . (new Request())->getURI());
         return $this->application->handle($uri)->getContent();
     }
 }

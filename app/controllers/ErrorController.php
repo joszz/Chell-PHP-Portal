@@ -2,7 +2,6 @@
 
 namespace Chell\Controllers;
 
-use Chell\Models\SettingsContainer;
 use Chell\Exceptions\ChellException;
 use Phalcon\Debug\Dump;
 
@@ -18,9 +17,9 @@ class ErrorController
     private array $css = [];
     private array $js = [];
     private string $logPath = APP_PATH . 'app/logs/';
+    private string $logFile;
 
-    public SettingsContainer $settings;
-    public string $logFile;
+    public string $guid;
 
     /**
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
@@ -29,12 +28,12 @@ class ErrorController
      * @param ChellException $exception The exception being thrown.
      * @param object $config            The config object with all the values of config.ini.
      */
-    public function __construct(ChellException $exception, SettingsContainer $settings)
+    public function __construct(ChellException $exception)
     {
         ob_clean();
 
-        $this->settings = $settings;
         $this->exception = $exception;
+        $this->guid = $this->getGUID();
         $this->setLogFile();
 
         $this->content = $this->exception();
@@ -91,18 +90,18 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            $this->settings->application->base_uri . 'vendor/prism/themes/prism.css',
-            $this->settings->application->base_uri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
-            $this->settings->application->base_uri . 'css/default/exception.min.css'
+            BASEPATH . 'vendor/prism/themes/prism.css',
+            BASEPATH . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
+            BASEPATH . 'css/default/exception.min.css'
         ];
         $this->js = [
-            $this->settings->application->base_uri . 'vendor/jquery/jquery.min.js',
-            $this->settings->application->base_uri . 'vendor/prism/prism.min.js',
-            $this->settings->application->base_uri . 'vendor/prism/components/prism-markup-templating.min.js',
-            $this->settings->application->base_uri . 'vendor/prism/components/prism-php.min.js',
-            $this->settings->application->base_uri . 'vendor/prism/components/prism-php-extras.min.js',
-            $this->settings->application->base_uri . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
-            $this->settings->application->base_uri . 'js/exception.js'
+            BASEPATH . 'vendor/jquery/jquery.min.js',
+            BASEPATH . 'vendor/prism/prism.min.js',
+            BASEPATH . 'vendor/prism/components/prism-markup-templating.min.js',
+            BASEPATH . 'vendor/prism/components/prism-php.min.js',
+            BASEPATH . 'vendor/prism/components/prism-php-extras.min.js',
+            BASEPATH . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
+            BASEPATH . 'js/exception.js'
         ];
 
         ob_start();
@@ -139,11 +138,11 @@ class ErrorController
      */
     private function setLogFile()
     {
-        $filename = $this->getGUID() . '.htm';
+        $filename = $this->guid . '.htm';
 
         while (is_file($this->logPath . $filename))
         {
-            $filename = $this->getGUID() . '.htm';
+            $filename = $this->guid . '.htm';
         }
 
         $this->logFile = $filename;

@@ -4,7 +4,6 @@ namespace Chell\Models;
 
 use Exception;
 use stdClass;
-use Phalcon\Url;
 use Chell\Models\Settings;
 
 /**
@@ -29,25 +28,6 @@ class SettingsCategory
     {
         $this->section = $section;
         $this->category = $category;
-        $this->initialize();
-    }
-
-    private function initialize()
-    {
-        $this->addDefaultSetting('base_uri', (new Url())->getBaseUri());
-        $this->addDefaultSetting('title', 'Chell PHP Portal');
-        $this->addDefaultSetting('version', '0');
-        $this->addDefaultSetting('background', 'autobg');
-        $this->addDefaultSetting('demo_mode', '0');
-        $this->addDefaultSetting('alert_timeout', '5');
-    }
-
-    private function addDefaultSetting($name, $value)
-    {
-        $setting = new stdClass();
-        $setting->value = $value;
-
-        $this->_settings[$name] = $setting;
     }
 
     /**

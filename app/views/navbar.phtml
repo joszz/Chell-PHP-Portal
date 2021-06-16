@@ -40,7 +40,7 @@
 
                     <li class="col-xs-6 col-sm-3 col-lg-2 no-gutter hover<?php echo $menuItem->device != null ? ' disabled" data-id="' . $menuItem->device->id : '' ?>">
                         <a href="<?php echo $menuItem->url ?>" target="_blank" rel="noreferrer">
-                            <img src="<?php echo $menuItem->getIconFilePath() ?>" width="16"
+                            <img src="<?php echo $this->url->get('img/icons/menu/' . $menuItem->id . '.png') ?>" width="16"
                                 alt="<?php echo $menuItem->name ?>" loading="lazy" />
                             <?php echo $menuItem->name ?>
                         </a>
