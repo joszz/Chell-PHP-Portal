@@ -4,8 +4,6 @@ namespace Chell\Plugins;
 use Phalcon\Events\Event;
 use Phalcon\Di\Injectable;
 use Phalcon\Mvc\Dispatcher;
-use Phalcon\Http\Request;
-use Phalcon\Url;
 
 /**
  * Handles security related tasks as a plugin within Phalcon.
@@ -45,7 +43,7 @@ class SecurityPlugin extends Injectable
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
-            $url = str_replace(BASEPATH, '', (new Request())->getURI());
+            $url = str_replace(BASEPATH, '', $this->request->getURI());
             $this->session->set('auth_redirect_url', $url);
             $dispatcher->forward(['controller' => 'session', 'action' => 'index']);
             return false;

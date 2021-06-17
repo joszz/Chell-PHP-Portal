@@ -11,6 +11,9 @@ use Chell\Models\Devices;
  */
 class DevicesController extends BaseController
 {
+    /**
+     * Initializes the controller, disabling the view for all actions/
+     */
     public function initialize()
 	{
 		parent::initialize();

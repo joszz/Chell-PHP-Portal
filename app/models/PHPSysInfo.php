@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use Phalcon\Http\Request;
+
 /**
  * The model responsible for all actions related to PHPSysinfo.
  *

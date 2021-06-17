@@ -17,7 +17,7 @@ class BaseModel extends Model
     protected Url $url;
 
     /**
-     * Sets the database relations
+     * Initializes the model, getting settings and creating a new Url object.
      */
     public function initialize()
     {

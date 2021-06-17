@@ -15,7 +15,13 @@ class SettingsContainer
 {
     private array $_categories = [];
 
-    public function __construct($dbSet)
+    /**
+     * If DB is configured; get all settings from the database and add them to the SettingsContainer.
+     * If DB is not configured; set some default settings which are required for Chell to work.
+     *
+     * @param bool $dbSet   Whether or not the DB is configured.
+     */
+    public function __construct(bool $dbSet)
     {
         $this->_categories = ['application' => new SettingsCategory('general', 'application')];
 
@@ -43,7 +49,13 @@ class SettingsContainer
         }
     }
 
-    private function addDefaultSetting($name, $value)
+    /**
+     * Creates a new anonymous object representing a setting. Using the Settings class can't be done when there's no DB configured yet.
+     * 
+     * @param string $name      The name of the setting.
+     * @param string $value     The value of the setting.
+     */
+    private function addDefaultSetting(string $name, string $value)
     {
         $setting = new stdClass();
         $setting->name = $name;

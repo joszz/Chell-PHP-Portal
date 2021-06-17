@@ -7,8 +7,6 @@ use Throwable;
 use Chell\Controllers\ErrorController;
 use Chell\Exceptions\ChellException;
 use Chell\Messages\TranslatorWrapper;
-use Chell\Models\Settings;
-use Chell\Models\SettingsCategory;
 use Chell\Models\SettingsContainer;
 use Chell\Plugins\SecurityPlugin;
 
@@ -108,6 +106,9 @@ class FrontController
         $this->setTranslator();
     }
 
+    /**
+     * Initializes PHP exception handler to Chell's custom handler.
+     */
     private function setExceptionHandler()
     {
         set_exception_handler([&$this, 'ExceptionHandler']);
@@ -130,6 +131,9 @@ class FrontController
         new ErrorController(new ChellException($exception));
     }
 
+    /**
+     * Sets Phalcon's dispatcher and a beforeExecuteRoute to setup the SecurityPlugin, which enforces logins.
+     */
     private function setDispatcher()
     {
         $this->di->set('dispatcher', function () {
@@ -144,6 +148,9 @@ class FrontController
         });
     }
 
+    /**
+     * Sets up Phalcon's crypt, whith the in settings defined crypt key. Used for encrypting/decrypting password for example.
+     */
     private function setCrypt()
     {
         $settings = $this->settings;
@@ -180,10 +187,10 @@ class FrontController
             'Chell\Models'                      => APP_PATH . 'app/models/',
             'Chell\Models\Kodi'                 => APP_PATH . 'app/models/kodi/',
             'Chell\Plugins'                     => APP_PATH . 'app/plugins/',
-            'Duo'                               => APP_PATH . 'app/vendor/duo/',
-            'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/WebAuthn/',
-            'CBOR'                              => APP_PATH . 'app/vendor/CBOR/',
-            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/'
+            'Duo'                               => APP_PATH . 'app/vendor/duosecurity/duo_php/src/',
+            'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/davidearl/webauthn/WebAuthn',
+            'CBOR'                              => APP_PATH . 'app/vendor/2tvenom/cborencode/src',
+            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/'
         ])->register();
     }
 

@@ -54,6 +54,7 @@ SyncToy_*.dat
 *.v12.suo
 generate-doc.*
 .vs/
+app/vendor/
 app/config/config.ini
 logs/
 phalcon-stubs/
