@@ -1,4 +1,3 @@
-/*! chell-php-portal v1.4.0 | (c) 2021 Jos Nienhuis | GPL-2.0 License */
 body.compensate-for-scrollbar {
     overflow: hidden;
 }
@@ -1613,6 +1612,7 @@ select.selectpicker {
 
 
 
+/*! chell-php-portal v1.4.0 | (c) 2021 Jos Nienhuis | GPL-2.0 License */
 /*!
  * Bootstrap v3.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 Twitter, Inc.
@@ -6908,7 +6908,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&3245033") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1696001") format("woff2"), url("../../fonts/icomoon.woff?5283244") format("woff"), url("../../fonts/icomoon.ttf?7873780") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?7891335") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&6267770") format("embedded-opentype"), url("../../fonts/icomoon.woff2?3092578") format("woff2"), url("../../fonts/icomoon.woff?9593500") format("woff"), url("../../fonts/icomoon.ttf?2410431") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2090966") format("svg"); }
 
 .fa,
 .fas {
