@@ -1798,8 +1798,8 @@ td,
 th {
   padding: 0; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/print";
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/print";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/glyphicons";*/
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -2208,7 +2208,7 @@ address {
   font-style: normal;
   line-height: 1.42857; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/code";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/code";*/
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -4750,7 +4750,7 @@ tbody.collapse.in {
     fieldset[disabled] .navbar-inverse .btn-link:focus {
       color: #444; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs";*/
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -4837,7 +4837,7 @@ tbody.collapse.in {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/pager";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/pager";*/
 .label {
   display: inline;
   padding: .2em .6em .3em;
@@ -4890,9 +4890,9 @@ a.label:hover, a.label:focus {
   .label-danger[href]:hover, .label-danger[href]:focus {
     background-color: #c9302c; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/badges";
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron";
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/badges";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/jumbotron";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/thumbnails";*/
 .alert {
   padding: 15px;
   margin-bottom: 20px;
@@ -5032,7 +5032,7 @@ a.label:hover, a.label:focus {
     background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/media";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/media";*/
 .list-group {
   padding-left: 0;
   margin-bottom: 20px; }
@@ -5519,8 +5519,8 @@ button.list-group-item-danger {
 .embed-responsive-4by3 {
   padding-bottom: 75%; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/wells";
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/close";*/
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/wells";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/close";*/
 .tooltip {
   position: absolute;
   z-index: 1070;
@@ -5622,10 +5622,10 @@ button.list-group-item-danger {
   border-color: transparent;
   border-style: solid; }
 
-/*@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/modals";
+/*@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/modals";
 
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
-@import "../../vendor/bootstrap-sass/assets/stylesheets/bootstrap/carousel";*/
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/popovers";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/carousel";*/
 .clearfix:before, .clearfix:after {
   display: table;
   content: " "; }
@@ -6908,7 +6908,7 @@ fieldset[disabled] .btn-danger.active {
   font-weight: 900;
   font-display: block;
   src: url("../../fonts/icomoon.eot");
-  src: url("../../fonts/icomoon.eot?#iefix&8375039") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1739607") format("woff2"), url("../../fonts/icomoon.woff?7881082") format("woff"), url("../../fonts/icomoon.ttf?3489113") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?2618077") format("svg"); }
+  src: url("../../fonts/icomoon.eot?#iefix&2206081") format("embedded-opentype"), url("../../fonts/icomoon.woff2?1166168") format("woff2"), url("../../fonts/icomoon.woff?8530614") format("woff"), url("../../fonts/icomoon.ttf?2813585") format("truetype"), url("../../fonts/icomoon.svg#fontawesome?3637628") format("svg"); }
 
 .fa,
 .fas {
