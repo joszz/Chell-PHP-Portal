@@ -24,40 +24,40 @@ var config = {
         output_path: 'css/default/',
         sass: ['css/default/default.scss', 'css/default/exception.scss', 'css/default/install.scss'],
         bundle: [
-            'vendor/fancybox/jquery.fancybox.css',
-            'vendor/waves/waves.css',
-            'vendor/bootstrap-select/css/bootstrap-select.css',
-            'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
-            'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.css',
-            'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
+            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css',
+            'node_modules/waves/dist/waves.css',
+            'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
+            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
+            'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
+            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
             'css/default/default.css'
         ]
     },
     js_src: {
         dashboard: ['js/dashboard-blocks/*.js', 'js/dashboard.js'],
         general: [
-            'vendor/jquery/jquery.js',
-            'vendor/fancybox/jquery.fancybox.js',
-            'vendor/bootstrap-select/js/bootstrap-select.js',
-            'vendor/bootstrap-toggle/js/bootstrap-toggle.js',
-            'vendor/jquery-fullscreen-plugin/jquery.fullscreen.js',
-            'vendor/chartist/dist/chartist.js',
-            'vendor/chartist-plugin-legend/chartist-plugin-legend.js',
-            'vendor/spark-md5/spark-md5.js',
-            'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js',
-            'vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
-            'vendor/jquery.vibrate/jquery.vibrate.js',
-            'vendor/tinytimer/jquery.tinytimer.js',
-            'vendor/jquery.isloading/jquery.isloading.js',
-            'vendor/waves/waves.js',
-            'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
+            'node_modules/jquery/dist/jquery.js',
+            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.js',
+            'node_modules/bootstrap-select/dist/js/bootstrap-select.js',
+            'node_modules/bootstrap-toggle/js/bootstrap-toggle.js',
+            'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
+            'node_modules/chartist/dist/chartist.js',
+            'node_modules/chartist-plugin-legend/chartist-plugin-legend.js',
+            'node_modules/spark-md5/spark-md5.js',
+            'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
+            'node_modules/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
+            'node_modules/jquery.vibrate/build/jquery/jquery.vibrate.js',
+            'node_modules/jquery-tinytimer/jquery.tinytimer.js',
+            'node_modules/jquery.isloading/jquery.isloading.js',
+            'node_modules/waves/dist/waves.js',
+            'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
             "js/toggle-passwords.js",
             'js/general.js'
         ],
-        login: ['js/login.js', 'vendor/webauthn/webauthnauthenticate.js'],
+        login: ['js/login.js', 'node_modules/webauthn/src/webauthnauthenticate.js'],
         worker: ['js/worker.js'],
-        speedtest_worker: ['vendor/speedtest/speedtest_worker.js'],
-        settings: ['js/settings.js', 'vendor/webauthn/webauthnregister.js'],
+        speedtest_worker: ['node_modules/speedtest/speedtest_worker.js'],
+        settings: ['js/settings.js', 'node_modules/webauthn/src/webauthnregister.js'],
     }
 };
 
@@ -111,7 +111,7 @@ function scripts(done) {
             }))
             .pipe(uglify())
             .pipe(concat(js + '.min.js', { newLine: ';' }))
-            .pipe(header(banner.main + '"use strict";', { package: package }))
+            .pipe(header(banner.main, { package: package }))
             .pipe(gulp.dest('js/'));
     }
 
