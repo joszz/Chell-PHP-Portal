@@ -19,12 +19,13 @@ var banner = {
 };
 
 var config = {
+    output_path: 'dist/',
     styles: {
-        output_path: 'css/default/',
+        output_path: 'css/',
         sass: [
-            'css/default/default.scss',
-            'css/default/exception.scss',
-            'css/default/install.scss'
+            'css/default.scss',
+            'css/exception.scss',
+            'css/install.scss'
         ],
         bundle: [
             'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css',
@@ -33,7 +34,7 @@ var config = {
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
-            'css/default/default.css'
+            'dist/css/default.css'
         ]
     },
     scripts: {
@@ -76,15 +77,21 @@ var config = {
     }
 };
 
-function compile_sass(done) {
-    config.styles.sass.forEach(css => {
-        var css_file = css.replace('.scss', '');
-        del([css_file + '.css', css_file + '.min.css']);
-    })
+function clean(done, which) {
+    if (which == 'css' || which == '*') {
+        del(config.output_path + "css/*.css");
+    }
+    if (which == 'js' || which == '*') {
+        del(config.output_path + "js/*.js");
+    }
 
+    return done();
+}
+
+function compile_sass() {
     return gulp.src(config.styles.sass)
         .pipe(sass())
-        .pipe(gulp.dest(config.styles.output_path))
+        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({
@@ -94,16 +101,14 @@ function compile_sass(done) {
             })
         )
         .pipe(header(banner.main, { package: package }))
-        .pipe(gulp.dest(config.styles.output_path));
+        .pipe(gulp.dest(config.output_path + config.styles.output_path));
 }
 
 function bundle_css() {
-    del([config.styles.output_path + 'bundle.css', config.styles.output_path + 'bundle.min.css']);
-
     return gulp.src(config.styles.bundle)
         .pipe(concat('bundle.css'))
         .pipe(header(banner.main, { package: package }))
-        .pipe(gulp.dest(config.styles.output_path))
+        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({
@@ -113,34 +118,32 @@ function bundle_css() {
             })
         )
         .pipe(header(banner.main, { package: package }))
-        .pipe(gulp.dest(config.styles.output_path));
+        .pipe(gulp.dest(config.output_path + config.styles.output_path));
 }
 
-function scripts(done) {
+function scripts() {
     for (js in config.scripts.src) {
-        del([config.scripts.output_path + js + '.min.js']);
-
-        result = gulp.src(config.scripts.src[js])
+        gulp.src(config.scripts.src[js])
             .pipe(replace('"use strict";', '', {
                 logs: { enabled: false }
             }))
             .pipe(uglify())
             .pipe(concat(js + '.min.js', { newLine: ';' }))
             .pipe(header(banner.main, { package: package }))
-            .pipe(gulp.dest(config.scripts.output_path));
+            .pipe(gulp.dest(config.output_path + config.scripts.output_path));
     }
 
-    return done();
+    return gulp.src(config.scripts.output_path + '**/*.js').pipe(gulp.dest(config.output_path + config.scripts.output_path));
 }
 
 function watch() {
-    gulp.watch('css/default/**/*.scss', gulp.series(['sass']));
+    gulp.watch('css/**/*.scss', gulp.series(['sass']));
     gulp.watch('js/**/*.js', gulp.series(['js']));
 }
 
-const styles = gulp.series(compile_sass, bundle_css);
+const styles = gulp.series((done) => clean(done, 'css'), compile_sass, bundle_css);
 
-exports.scripts = scripts;
+exports.default = gulp.parallel(scripts, styles);
+exports.scripts = gulp.series((done) => clean(done, 'js'), scripts);
 exports.styles = styles;
 exports.watch = watch;
-exports.default = gulp.parallel(scripts, styles);
