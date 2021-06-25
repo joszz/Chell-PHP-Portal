@@ -37,12 +37,12 @@ class SettingsController extends BaseController
 
         if (DEBUG)
         {
-            $this->addJs('dashboard', 'js/settings.js');
-            $this->addJs('dashboard', 'vendor/webauthn/webauthnregister.js');
+            $this->addJs('dashboard', 'dist/js/settings.js');
+            $this->addJs('dashboard', 'dist/js/webauthnregister.js');
         }
         else
         {
-            $this->addJs('dashboard', 'js/settings.min.js');
+            $this->addJs('dashboard', 'dist/js/settings.min.js');
         }
     }
 

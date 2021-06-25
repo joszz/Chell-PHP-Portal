@@ -1,9 +1,6 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 <?php /** @var $signRequest string */ ?>
 
-<script <?php echo 'src="' . $this->url->get('vendor/duo/Duo-Web-v2.min.js') . '"' ?>></script>
-<script <?php echo 'src="' . $this->url->get('js/duo.js') . '"' ?> id="duojs" data-baseuri="<?php echo $this->url->get() ?>"></script>
-
 <div class="vertical-center text-center" >
     <iframe id="duo_iframe" class="hidden_not_important"
         data-host="<?php echo $this->settings->duo->api_hostname ?>"

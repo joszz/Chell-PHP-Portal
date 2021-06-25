@@ -27,12 +27,12 @@ class SessionController extends BaseController
 
         if (DEBUG)
         {
-            $this->addJs('login', 'js/login.js');
-            $this->addJs('login', 'vendor/webauthn/webauthnauthenticate.js');
+            $this->addJs('login', 'dist/js/login.js');
+            $this->addJs('login', 'dist/js/webauthnauthenticate.js');
         }
         else
         {
-            $this->addJs('login', 'js/login.min.js');
+            $this->addJs('login', 'dist/js/login.min.js');
         }
     }
 
@@ -215,6 +215,16 @@ class SessionController extends BaseController
         $this->view->containerFullHeight = true;
         $this->view->dnsPrefetchRecords = ['https://' . $this->settings->duo->api_hostname];
         $this->view->signRequest = Web::signRequest($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $user->username);
+        
+        if (DEBUG)
+        {
+            $this->addJs('duo', 'dist/js/Duo-Web-v2.js');
+            $this->addJs('duo', 'dist/js/duo.js');
+        }
+        else
+        {
+            $this->addJs('duo', 'dist/js/duo.min.js');
+        }
     }
 
     /**

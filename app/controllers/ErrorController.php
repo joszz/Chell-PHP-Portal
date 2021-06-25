@@ -90,18 +90,10 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            BASEPATH . 'vendor/prism/themes/prism.css',
-            BASEPATH . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.css',
-            BASEPATH . 'css/default/exception.min.css'
+            BASEPATH . 'dist/css/exception.min.css'
         ];
         $this->js = [
-            BASEPATH . 'vendor/jquery/jquery.min.js',
-            BASEPATH . 'vendor/prism/prism.min.js',
-            BASEPATH . 'vendor/prism/components/prism-markup-templating.min.js',
-            BASEPATH . 'vendor/prism/components/prism-php.min.js',
-            BASEPATH . 'vendor/prism/components/prism-php-extras.min.js',
-            BASEPATH . 'vendor/prism/plugins/line-numbers/prism-line-numbers.min.js',
-            BASEPATH . 'js/exception.js'
+            BASEPATH . 'dist/js/exception.min.js'
         ];
 
         ob_start();

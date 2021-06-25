@@ -18,6 +18,7 @@
 		"bootstrap-touchspin": "^4.3.0",
 		"chartist": "0.11.4",
 		"chartist-plugin-legend": "0.6.2",
+		"gulp-uglify": "^3.0.2",
 		"jquery": "^3.6.0",
 		"jquery-fullscreen-plugin": "^1.1.5",
 		"jquery-tinytimer": "0.1.4",
@@ -25,6 +26,7 @@
 		"jquery.shorten": "joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
 		"prismjs": "^1.23.0",
+		"prismjs-theme-sass-core": "^0.0.7",
 		"responsive-paginate": "joszz/rpage",
 		"spark-md5": "^3.0.1",
 		"speedtest": "joszz/speedtest",
@@ -40,12 +42,9 @@
 		"gulp-concat": "^2.6.1",
 		"gulp-cssnano": "^2.1.3",
 		"gulp-header": "^2.0.9",
-		"gulp-jshint": "^2.1.0",
-		"gulp-optimize-js": "^1.1.0",
 		"gulp-rename": "^2.0.0",
 		"gulp-sass": "^4.1.0",
 		"gulp-string-replace": "^1.1.2",
-		"gulp-terser": "^2.0.1",
-		"jshint-stylish": "^2.2.1"
+		"gulp-terser": "^2.0.1"
 	}
 }

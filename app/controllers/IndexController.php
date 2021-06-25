@@ -30,30 +30,30 @@ class IndexController extends BaseController
         if (DEBUG)
         {
             //$this->assets->collection('dashboard')->addJs('typescriptjs/dashboard.js' , true, false, ['defer' => 'defer', 'type' => 'module'], $this->settings->application->version, true);
-            $this->addJs('dashboard', 'js/dashboard-blocks/couchpotato.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/devices.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/gallery.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/hyperv-admin.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/motion.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/nowplaying.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/opcache.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/phpsysinfo.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/pihole.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/sickrage.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/speedtest.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/transmission.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/youless.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/snmp.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/verisure.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/roborock.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/rcpu.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/pulseway.js');
-            $this->addJs('dashboard', 'js/dashboard-blocks/database-stats.js');
-            $this->addJs('dashboard', 'js/dashboard.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/couchpotato.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/devices.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/gallery.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/hyperv-admin.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/motion.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/nowplaying.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/opcache.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/phpsysinfo.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/pihole.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/sickrage.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/speedtest.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/transmission.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/youless.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/snmp.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/verisure.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/roborock.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/rcpu.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/pulseway.js');
+            $this->addJs('dashboard', 'dist/js/dashboard-blocks/database-stats.js');
+            $this->addJs('dashboard', 'dist/js/dashboard.js');
         }
         else
         {
-            $this->addJs('dashboard', 'js/dashboard.min.js');
+            $this->addJs('dashboard', 'dist/js/dashboard.min.js');
         }
     }
 

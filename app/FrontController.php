@@ -39,33 +39,32 @@ class FrontController
     private bool $dbSet;
 
     private array $jsFiles = [
-        'vendor/jquery/jquery.js',
-        'vendor/fancybox/jquery.fancybox.js',
-        'vendor/bootstrap-sass/assets/javascripts/bootstrap.js',
-        'vendor/bootstrap-select/js/bootstrap-select.js',
-        'vendor/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
-        'vendor/bootstrap-toggle/js/bootstrap-toggle.js',
-        'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.js',
-        'vendor/jquery.vibrate/jquery.vibrate.js',
-        'vendor/tinytimer/jquery.tinytimer.js',
-        'vendor/jquery.isloading/jquery.isloading.js',
-        'vendor/jquery-fullscreen-plugin/jquery.fullscreen.js',
-        'vendor/chartist/dist/chartist.js',
-        'vendor/chartist-plugin-legend/chartist-plugin-legend.js',
-        'vendor/waves/waves.js',
-        'vendor/spark-md5/spark-md5.js',
-        'js/toggle-passwords.js',
-        'js/general.js',
+        'dist/js/jquery.js',
+        'dist/js/jquery.fancybox.js',
+        'dist/js/bootstrap.js',
+        'dist/js/bootstrap-select.js',
+        'dist/js/bootstrap-tabcollapse.js',
+        'dist/js/bootstrap-toggle.js',
+        'dist/js/jquery.bootstrap-touchspin.js',
+        'dist/js/jquery.vibrate.js',
+        'dist/js/jquery.tinytimer.js',
+        'dist/js/jquery.isloading.js',
+        'dist/js/jquery.fullscreen.js',
+        'dist/js/chartist.js',
+        'dist/js/chartist-plugin-legend.js',
+        'dist/js/waves.js',
+        'dist/js/spark-md5.js',
+        'dist/js/toggle-passwords.js',
+        'dist/js/general.js',
     ];
 
     private array $cssFiles = [
-        'vendor/fancybox/jquery.fancybox.css',
-        'vendor/waves/waves.css',
-        'vendor/bootstrap-select/css/bootstrap-select.css',
-        'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
-        'vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.css',
-        'vendor/bootstrap-toggle/css/bootstrap-toggle.css',
-        'css/default/default.css'
+        'dist/css/jquery.fancybox.css',
+        'dist/css/waves.css',
+        'dist/css/bootstrap-select.css',
+        'dist/css/bootstrap-toggle.css',
+        'dist/css/jquery.bootstrap-touchspin.css',
+        'dist/css/default.css'
     ];
 
     /**
@@ -310,8 +309,8 @@ class FrontController
         }
         else
         {
-            $this->application->assets->collection('header')->addCss('css/default/bundle.min.css', true, false, [], $version, true);
-            $this->application->assets->collection('general')->addJs('js/general.min.js', true, false, ['defer' => 'defer'], $version, true);
+            $this->application->assets->collection('header')->addCss('dist/css/bundle.min.css', true, false, [], $version, true);
+            $this->application->assets->collection('general')->addJs('dist/js/general.min.js', true, false, ['defer' => 'defer'], $version, true);
         }
     }
 

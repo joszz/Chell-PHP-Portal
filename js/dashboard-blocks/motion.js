@@ -18,7 +18,7 @@
         */
         var settings = $.extend({
             block: this,
-            baseUri: this.data("baseuri"),
+            baseUri: $("body").data("baseuri"),
             updateInterval: this.data("motion-interval") * 1000,
             updateIntervalId: -1
         }, options);

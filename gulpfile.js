@@ -60,7 +60,7 @@ var config = {
                 'node_modules/jquery.isloading/jquery.isloading.js',
                 'node_modules/waves/dist/waves.js',
                 'node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
-                "js/toggle-passwords.js",
+                'js/toggle-passwords.js',
                 'js/general.js'
             ],
             login: [
@@ -72,7 +72,20 @@ var config = {
                 'node_modules/webauthn/src/webauthnregister.js'
             ],
             worker: 'js/worker.js',
-            speedtest_worker: 'node_modules/speedtest/speedtest_worker.js'
+            speedtest_worker: 'node_modules/speedtest/speedtest_worker.js',
+            exception: [
+                'node_modules/jquery/dist/jquery.js',
+                'node_modules/prismjs/prism.js',
+                'node_modules/prismjs/components/prism-markup-templating.js',
+                'node_modules/prismjs/components/prism-php.js',
+                'node_modules/prismjs/components/prism-php-extras.js',
+                'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js',
+                'js/exception.js'
+            ],
+            duo: [
+                'node_modules/@duosecurity/duo_web/js/Duo-Web-v2.js',
+                'js/duo.js'
+            ]
         }
     }
 };
@@ -91,6 +104,7 @@ function clean(done, which) {
 function compile_sass() {
     return gulp.src(config.styles.sass)
         .pipe(sass())
+        .pipe(header(banner.main, { package: package }))
         .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
@@ -106,6 +120,7 @@ function compile_sass() {
 
 function bundle_css() {
     return gulp.src(config.styles.bundle)
+        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(concat('bundle.css'))
         .pipe(header(banner.main, { package: package }))
         .pipe(gulp.dest(config.output_path + config.styles.output_path))
@@ -121,9 +136,10 @@ function bundle_css() {
         .pipe(gulp.dest(config.output_path + config.styles.output_path));
 }
 
-function scripts() {
+function scripts(done) {
     for (js in config.scripts.src) {
         gulp.src(config.scripts.src[js])
+            .pipe(gulp.dest(config.output_path + config.scripts.output_path))
             .pipe(replace('"use strict";', '', {
                 logs: { enabled: false }
             }))
@@ -132,7 +148,7 @@ function scripts() {
             .pipe(header(banner.main, { package: package }))
             .pipe(gulp.dest(config.output_path + config.scripts.output_path));
     }
-
+    return done();
     return gulp.src(config.scripts.output_path + '**/*.js').pipe(gulp.dest(config.output_path + config.scripts.output_path));
 }
 

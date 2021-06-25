@@ -39,6 +39,10 @@
     {
         $this->assets->outputJs('login');
     }
+    if ($this->assets->collection('duo')->count())
+    {
+        $this->assets->outputJs('duo');
+    }
     ?>
 </head>
 

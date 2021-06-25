@@ -174,7 +174,7 @@
                     functions.frame();
 
                     //test is not running, begin
-                    worker = new Worker("vendor/speedtest/speedtest_worker.min.js?t=" + Date.now());
+                    worker = new Worker("dist/js/speedtest_worker.min.js?t=" + Date.now());
                     worker.postMessage("start " +
                         //Add optional parameters as a JSON object to this command
                         JSON.stringify({
