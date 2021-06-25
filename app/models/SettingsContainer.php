@@ -24,6 +24,7 @@ class SettingsContainer
     public function __construct(bool $dbSet)
     {
         $this->_categories = ['application' => new SettingsCategory('general', 'application')];
+        $this->addDefaultSetting('version', $this->getVersion());
 
         if ($dbSet)
         {
@@ -42,16 +43,22 @@ class SettingsContainer
         else
         {
             $this->addDefaultSetting('title', 'Chell PHP Portal');
-            $this->addDefaultSetting('version', '0');
             $this->addDefaultSetting('background', 'autobg');
             $this->addDefaultSetting('demo_mode', '0');
             $this->addDefaultSetting('alert_timeout', '5');
         }
     }
 
+    private function getVersion()
+    {
+        ob_start();
+        require_once(APP_PATH . 'package.json');
+        return json_decode(ob_get_clean())->version;
+    }
+
     /**
      * Creates a new anonymous object representing a setting. Using the Settings class can't be done when there's no DB configured yet.
-     * 
+     *
      * @param string $name      The name of the setting.
      * @param string $value     The value of the setting.
      */

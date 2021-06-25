@@ -1,6 +1,6 @@
 {
 	"name": "chell-php-portal",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "A PHP portal to aggregate all your server services",
 	"author": {
 		"name": "Jos Nienhuis",
@@ -26,7 +26,6 @@
 		"jquery.shorten": "joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
 		"prismjs": "^1.23.0",
-		"prismjs-theme-sass-core": "^0.0.7",
 		"responsive-paginate": "joszz/rpage",
 		"spark-md5": "^3.0.1",
 		"speedtest": "joszz/speedtest",

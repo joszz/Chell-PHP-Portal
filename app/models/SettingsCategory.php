@@ -3,7 +3,6 @@
 namespace Chell\Models;
 
 use Exception;
-use Chell\Models\Settings;
 
 /**
  * The model responsible for all actions related to setting categories.
