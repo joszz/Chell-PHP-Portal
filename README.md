@@ -18,13 +18,23 @@ It aggregates different services and webapplications that I want easily accessib
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/img/screenshots)
 
 # Prerequisites
-- [PHP 7.4 or higher](http://www.php.net/)
+- [PHP 7.4](http://www.php.net/).
+    PHP 8 is not supported yet by Phalcon.
+  - Required extensions 
+    - [PSR](https://github.com/jbboehr/php-psr)
+    - [Phalcon PHP framework 4.x](https://phalconphp.com/)
+    - [Multibyte String](https://www.php.net/manual/en/book.mbstring.php)
+    - [GD](https://www.php.net/manual/en/book.image.php)
+    - [PDO](https://www.php.net/manual/en/book.pdo.php)
+    - [PDO MySQL](https://www.php.net/manual/en/ref.pdo-mysql.php)
+    - [Curl](https://www.php.net/manual/en/book.curl.php)
+  - Optional
+    - [SNMP](https://www.php.net/manual/en/book.snmp.php)
 - [MySQL 5.x or higher](https://www.mysql.com/)
-- [Phalcon PHP framework 4.x](https://phalconphp.com/)
-- [PSR PHP extension](https://github.com/jbboehr/php-psr)
 - [Apache 2.x](https://httpd.apache.org/)
-  - The Apache rewrite module needs to be enabled
-  - The Apache headers module needs to be enabled
+  - Required modules
+    - [mod_rewrite](https://httpd.apache.org/docs/2.4/mod/mod_rewrite.html)
+    - [mod_headers](https://httpd.apache.org/docs/current/mod/mod_headers.html)
 
 # Optional integrations
 - [Couchpotato](https://couchpota.to//)
@@ -61,7 +71,7 @@ The Phalcon PHP extension is required to run this project. [You can read about i
 To have Phalcon work, you will need to add the PSR extension to your php.ini, as described in the Phalcon installation URL. 
 
 ## Apache
-Take a look at the required Apache modules to run this project, and enable those.
+Take a look at the required Apache modules and PHP extensions, to run this project, and enable those.
 
 Since this project relies on .htaccess files to work correctly, you will also need to have this setup in your Apache configuration accordingly 
 (either only for this project or server wide). 
@@ -82,7 +92,7 @@ When you fill all the details in correctly, you can press install and the site s
 It will try to clean up after itself, but it won't be able to do so if the Apache user doesn't have write access in order to cleanup the following files;
 - /app/controllers/InstallController.php
 - /app/views/install/
-- /db-structure.sql
+- /sql/db-structure.sql
 
 It's recommended to check if at least the InstallController is deleted after install (/app/controllers/InstallController.php), since it can be potentially harmfull.
 The other files are cleaned up just for the sake of keeping things clean.
