@@ -51,6 +51,13 @@ class KodiFormFields extends FormFields
 			->setDefault($this->form->settings->kodi->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
+        $this->fields[] = $kodiDbVideo = new Text('kodi-dbmusic');
+		$kodiDbVideo->setLabel('Music database')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->form->settings->kodi->dbmusic)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
         $this->fields[] = $kodiDbVideo = new Text('kodi-dbvideo');
 		$kodiDbVideo->setLabel('Video database')
 			->setFilters(['striptags', 'string'])

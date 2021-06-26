@@ -60,6 +60,11 @@ $help = [
     'kodi-rotate_movies_interval'               => 'The interval used to cycle through the Kodi latest movies widget.',
     'kodi-rotate_episodes_interval'             => 'The interval used to cycle through the Kodi latest episodes widget.',
     'kodi-rotate_albums_interval'               => 'The interval used to cycle through the Kodi latest albums widget.',
+    'kodi-dbmusic'                              => 'The database used for Kodi\'s music storage',
+    'kodi-dbvideo'                              => 'The database used for Kodi\'s video storage',
+    'kodi-dbuser'                               => 'The database user for Kodi\'s storage',
+    'kodi-dbpassword'                           => 'The database password for Kodi\'s storage',
+    'kodi-dbhost'                               => 'The database host for Kodi\'s storage',
 
     'motion-enabled'                            => 'Enables <a href="https://motion-project.github.io/" target="_blank">Motion</a>.',
     'motion-url'                                => 'The URL for Motion.',
@@ -195,6 +200,11 @@ $helpTitles = [
     'kodi-rotate_movies_interval'               => 'Rotate Kodi movies widget interval',
     'kodi-rotate_episodes_interval'             => 'Rotate Kodi epsiodes widget interval',
     'kodi-rotate_albums_interval'               => 'Rotate Kodi albums widget interval',
+    'kodi-dbmusic'                              => 'Kodi music database',
+    'kodi-dbvideo'                              => 'Kodi video database',
+    'kodi-dbuser'                               => 'Kodi database user',
+    'kodi-dbpassword'                           => 'Kodi database password',
+    'kodi-dbhost'                               => 'Kodi database host',
 
     'motion-enabled'                            => 'Motion',
     'motion-url'                                => 'Motion URL',
