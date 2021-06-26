@@ -97,5 +97,16 @@ class ApplicationFormFields extends FormFields
                 'data-offstyle' => 'danger',
                 'data-size' => 'small'
         ]);
+
+        $this->fields[] = $demo = new Check('application-debug');
+        $demo->setLabel('Debug mode')
+            ->setAttributes([
+                'value' => '1',
+                'checked' => $this->form->settings->application->debug == '1' ? 'checked' : null,
+                'data-toggle' => 'toggle',
+                'data-onstyle' => 'success',
+                'data-offstyle' => 'danger',
+                'data-size' => 'small'
+        ]);
 	}
 }

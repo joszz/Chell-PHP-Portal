@@ -51,6 +51,34 @@ class KodiFormFields extends FormFields
 			->setDefault($this->form->settings->kodi->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
 
+        $this->fields[] = $kodiDbVideo = new Text('kodi-dbvideo');
+		$kodiDbVideo->setLabel('Video database')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->form->settings->kodi->dbvideo)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
+		$this->fields[] = $kodiDbMusic = new Text('kodi-dbhost');
+		$kodiDbMusic->setLabel('Database host')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->form->settings->kodi->dbhost)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
+        $this->fields[] = $kodiDbMusic = new Text('kodi-dbuser');
+		$kodiDbMusic->setLabel('Database user')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->form->settings->kodi->dbuser)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
+        $this->fields[] = $kodiDbMusic = new Password('kodi-dbpassword');
+		$kodiDbMusic->setLabel('Database password')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setDefault($this->form->settings->kodi->dbpassword)
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
 		$this->fields[] = $rotateMoviesInterval = new Numeric('kodi-rotate_movies_interval');
 		$rotateMoviesInterval->setLabel('Rotate movies interval')
 			->setFilters(['striptags', 'int'])

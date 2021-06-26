@@ -4,6 +4,7 @@ namespace Chell\Models\Kodi;
 
 use SimpleXMLElement;
 use Chell\Models\BaseModel;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 /**
  * The model responsible for all Kodi movies.
@@ -12,6 +13,31 @@ use Chell\Models\BaseModel;
  */
 class KodiBase extends BaseModel
 {
+    public function initialize()
+    {
+        $config = $this->_settings->kodi;
+        $this->di->set('dbKodiMusic', function() use ($config) {
+            return new DbAdapter([
+                'host'     => $this->sett->database->host,
+                'username' => $config->dbusername,
+                'password' => $config->dbpassword,
+                'dbname'   => $config->dbmusic,
+                'charset'  => 'utf8'
+            ]);
+        });
+
+        $this->di->set('dbKodiVideo', function() use ($config) {
+            return new DbAdapter([
+                'host'     => $config->database->dbhost,
+                'username' => $config->database->dbusername,
+                'password' => $config->database->dbpassword,
+                'dbname'   => $config->database->dbvideo,
+                'charset'  => 'utf8'
+            ]);
+        });
+
+        parent::initialize();
+    }
     /**
      * Retrieves the image URL, used in the src attrbute, to retrieve the image from.
      * The URL provided will call the Kodi controller, action getImage.
@@ -24,7 +50,7 @@ class KodiBase extends BaseModel
     public function getImageUrl(string $type, string $imageField, string $idField) : string
     {
         $width = $type == 'fanart' ? 800 : '350';
-        $which = str_replace('Kodi', '', strtolower(get_class($this)));
+        $which = str_replace('Kodi', '', strtolower($this::class));
 
         if (empty($this->{$imageField}))
         {

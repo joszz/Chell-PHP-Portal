@@ -3,8 +3,10 @@
 namespace Chell\Models;
 
 use Exception;
-use stdClass;
+use Chell\Models\SettingsDefault;
 use Chell\Models\SettingsCategory;
+use Chell\Models\SettingsDefaultStorageType;
+use Phalcon\Config\Adapter\Ini as ConfigIni;
 
 /**
  * The model responsible for all actions related to the settings object, containing all DB settings.
@@ -21,10 +23,11 @@ class SettingsContainer
      *
      * @param bool $dbSet   Whether or not the DB is configured.
      */
-    public function __construct(bool $dbSet)
+    public function __construct(bool $dbSet, ConfigIni $config)
     {
         $this->_categories = ['application' => new SettingsCategory('general', 'application')];
-        $this->addDefaultSetting('version', $this->getVersion());
+        $this->application->addSetting(new SettingsDefault('version', $this->getVersion(), SettingsDefaultStorageType::none));
+        $this->application->addSetting(new SettingsDefault('debug', $config->general->debug, SettingsDefaultStorageType::ini));
 
         if ($dbSet)
         {
@@ -42,33 +45,23 @@ class SettingsContainer
         }
         else
         {
-            $this->addDefaultSetting('title', 'Chell PHP Portal');
-            $this->addDefaultSetting('background', 'autobg');
-            $this->addDefaultSetting('demo_mode', '0');
-            $this->addDefaultSetting('alert_timeout', '5');
+            $this->application->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
+            $this->application->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));
+            $this->application->addSetting(new SettingsDefault('demo_mode', '0', SettingsDefaultStorageType::db));
+            $this->application->addSetting(new SettingsDefault('alert_timeout', '5', SettingsDefaultStorageType::db));
         }
     }
 
-    private function getVersion()
+    /**
+     * Retrieves version from package.json
+     *
+     * @return string   Version
+     */
+    private function getVersion() : string
     {
         ob_start();
         require_once(APP_PATH . 'package.json');
         return json_decode(ob_get_clean())->version;
-    }
-
-    /**
-     * Creates a new anonymous object representing a setting. Using the Settings class can't be done when there's no DB configured yet.
-     *
-     * @param string $name      The name of the setting.
-     * @param string $value     The value of the setting.
-     */
-    private function addDefaultSetting(string $name, string $value)
-    {
-        $setting = new stdClass();
-        $setting->name = $name;
-        $setting->value = $value;
-
-        $this->application->addSetting($setting);
     }
 
     /**

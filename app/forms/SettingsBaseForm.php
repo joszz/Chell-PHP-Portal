@@ -61,7 +61,7 @@ class SettingsBaseForm extends Form
         $name = $element->getName();
         $hasErrors = $this->hasMessagesFor($name);
 
-        if (get_class($element) == 'Phalcon\Forms\Element\Hidden')
+        if (is_a($element, Hidden::class))
         {
             $html = $element;
         }

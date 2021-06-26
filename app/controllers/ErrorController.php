@@ -92,9 +92,7 @@ class ErrorController
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
             BASEPATH . 'dist/css/exception.min.css'
         ];
-        $this->js = [
-            BASEPATH . 'dist/js/exception.min.js'
-        ];
+        $this->js = [ BASEPATH . 'dist/js/exception.min.js' ];
 
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');

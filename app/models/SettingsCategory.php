@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Exception;
+use Chell\Models\SettingsDefault;
 
 /**
  * The model responsible for all actions related to setting categories.
@@ -85,9 +86,9 @@ class SettingsCategory
     /**
      * Adds a setting to the array of settings.
      *
-     * @param $setting     The setting to add.
+     * @param object $setting     The setting to add.
      */
-    public function addSetting($setting)
+    public function addSetting(object $setting)
     {
         $this->_settings[$setting->name] = $setting;
     }

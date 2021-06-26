@@ -2,7 +2,8 @@
     "require": {
         "2tvenom/cborencode": "^1.0",
         "davidearl/webauthn": "dev-master",
-        "duosecurity/duo_php": "^1.0"
+        "duosecurity/duo_php": "^1.0",
+        "magicalex/write-ini-file": "^2.0"
     },
     "require-dev": {
         "phalcon/ide-stubs": "^4.1"

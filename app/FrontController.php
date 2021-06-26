@@ -33,6 +33,7 @@ use Phalcon\Debug\Dump;
  */
 class FrontController
 {
+    private ConfigIni $config;
     private SettingsContainer $settings;
     private FactoryDefault $di;
     private Application $application;
@@ -86,12 +87,12 @@ class FrontController
         define('BASEPATH', (new Url())->getBaseUri());
 
         $this->di = new FactoryDefault();
-        $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
-        define('DEBUG', $config->debug);
+        $this->di->set('config', $this->config = new ConfigIni(APP_PATH . 'app/config/config.ini'));
+        define('DEBUG', $this->config->general->debug);
 
         $this->registerNamespaces();
         $this->setExceptionHandler();
-        $this->setDB($config);
+        $this->setDB();
         $this->setSettings();
         $this->setDispatcher();
         $this->setCrypt();
@@ -189,7 +190,8 @@ class FrontController
             'Duo'                               => APP_PATH . 'app/vendor/duosecurity/duo_php/src/',
             'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/davidearl/webauthn/WebAuthn',
             'CBOR'                              => APP_PATH . 'app/vendor/2tvenom/cborencode/src',
-            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/'
+            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/',
+            'WriteiniFile'                      => APP_PATH . 'app/vendor/magicalex/write-ini-file/src/'
         ])->register();
     }
 
@@ -198,40 +200,21 @@ class FrontController
      *
      * @param ConfigIni $config	The config object representing config.ini.
      */
-    private function setDB(ConfigIni $config)
+    private function setDB()
     {
-        if (empty($config->database->host) || empty($config->database->username) || empty($config->database->password) || empty($config->database->name))
+        if (empty($this->config->database->host) || empty($this->config->database->username) || empty($this->config->database->password) || empty($this->config->database->name))
         {
             $this->dbSet = false;
             return;
         }
 
+        $config = $this->config;
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
                 'host'     => $config->database->host,
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname'   => $config->database->name,
-                'charset'  => 'utf8'
-            ]);
-        });
-
-        $this->di->set('dbKodiMusic', function() use ($config) {
-            return new DbAdapter([
-                'host'     => $config->database->host,
-                'username' => $config->database->username,
-                'password' => $config->database->password,
-                'dbname'   => $config->database->kodiMusic,
-                'charset'  => 'utf8'
-            ]);
-        });
-
-        $this->di->set('dbKodiVideo', function() use ($config) {
-            return new DbAdapter([
-                'host'     => $config->database->host,
-                'username' => $config->database->username,
-                'password' => $config->database->password,
-                'dbname'   => $config->database->kodiVideo,
                 'charset'  => 'utf8'
             ]);
         });
@@ -337,7 +320,7 @@ class FrontController
      */
     private function setSettings()
     {
-        $structuredSettings = new SettingsContainer($this->dbSet);
+        $structuredSettings = new SettingsContainer($this->dbSet, $this->config);
         $this->di->set('settings', $structuredSettings);
         $this->settings =  $structuredSettings;
     }
