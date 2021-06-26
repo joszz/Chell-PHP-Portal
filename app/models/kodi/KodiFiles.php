@@ -9,7 +9,7 @@ use Phalcon\Mvc\Model;
  *
  * @package Models\Kodi
  */
-class KodiFiles extends Model
+class KodiFiles extends KodiBase
 {
     /**
      * Sets the right DB connection and sets the table/view to album
