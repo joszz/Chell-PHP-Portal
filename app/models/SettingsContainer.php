@@ -7,6 +7,7 @@ use Chell\Models\SettingsDefault;
 use Chell\Models\SettingsCategory;
 use Chell\Models\SettingsDefaultStorageType;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
+use Phalcon\Di\Exception as DiException;
 
 /**
  * The model responsible for all actions related to the settings object, containing all DB settings.
@@ -20,17 +21,14 @@ class SettingsContainer
     /**
      * If DB is configured; get all settings from the database and add them to the SettingsContainer.
      * If DB is not configured; set some default settings which are required for Chell to work.
-     *
-     * @param bool $dbSet   Whether or not the DB is configured.
      */
-    public function __construct(bool $dbSet, ConfigIni $config)
+    public function __construct(ConfigIni $config)
     {
         $this->_categories = ['application' => new SettingsCategory('general', 'application')];
         $this->application->addSetting(new SettingsDefault('version', $this->getVersion(), SettingsDefaultStorageType::none));
         $this->application->addSetting(new SettingsDefault('debug', $config->general->debug, SettingsDefaultStorageType::ini));
 
-        if ($dbSet)
-        {
+        try {
             $settings = Settings::find(['order' => 'category']);
 
             foreach ($settings as $setting)
@@ -43,7 +41,7 @@ class SettingsContainer
                 $this->{$setting->category}->addSetting($setting);
             }
         }
-        else
+        catch (DiException $ex)
         {
             $this->application->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
             $this->application->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));

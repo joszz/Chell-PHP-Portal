@@ -37,7 +37,7 @@ class FrontController
     private SettingsContainer $settings;
     private FactoryDefault $di;
     private Application $application;
-    private bool $dbSet;
+    private bool $dbSet = false;
 
     private array $jsFiles = [
         'dist/js/jquery.js',
@@ -320,7 +320,7 @@ class FrontController
      */
     private function setSettings()
     {
-        $structuredSettings = new SettingsContainer($this->dbSet, $this->config);
+        $structuredSettings = new SettingsContainer($this->config);
         $this->di->set('settings', $structuredSettings);
         $this->settings =  $structuredSettings;
     }
