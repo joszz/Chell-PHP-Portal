@@ -6,6 +6,7 @@ use PDO;
 use Chell\Models\Users;
 use Chell\Models\Settings;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use WriteiniFile\WriteiniFile;
 
 /**
  * The controller responsible for the installation.
@@ -23,7 +24,7 @@ class InstallController extends BaseController
     public function initialize()
     {
         parent::initialize();
-        $this->assets->collection('header')->addCss('css/default/install.min.css', true, false, [], $this->settings->application->version, true);
+        $this->assets->collection('header')->addCss('dist/css/install.min.css', true, false, [], $this->settings->application->version, true);
     }
 
     /**
@@ -39,6 +40,9 @@ class InstallController extends BaseController
         $this->view->phalconEnabled = extension_loaded('phalcon');
         $this->view->pdoEnabled = extension_loaded('pdo');
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
+        $this->view->gdEnabled = extension_loaded('gd');
+        $this->view->curlEnabled = extension_loaded('curl');
+        $this->view->snmpEnabled = extension_loaded('snmp');
         $this->view->permissions = array(
             'Logs directory'            => is_writable(APP_PATH . 'app/logs'),
             'Image cache directory'     => is_writable(APP_PATH . 'img/cache'),
@@ -91,6 +95,11 @@ class InstallController extends BaseController
         {
             mkdir(APP_PATH . 'app/cache', 0660);
         }
+
+        if (!is_dir(APP_PATH . 'img/icons/menu'))
+        {
+            mkdir(APP_PATH . 'app/icons/menu', 0660);
+        }
     }
 
     /**
@@ -127,6 +136,9 @@ class InstallController extends BaseController
         $user->save();
     }
 
+    /**
+     * Creates all default setting records.
+     */
     private function createDefaultSettings()
     {
         //General
@@ -138,7 +150,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('items_per_page', 'general', 'application', '10');
         $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
         $this->createDefaultSetting('demo_mode', 'general', 'application', '0');
-        $this->createDefaultSetting('version', 'general', 'application', '1.4.0');
         $this->createDefaultSetting('check_device_states_interval', 'general', 'application', '10');
         $this->createDefaultSetting('check_now_playing_interval', 'general', 'application', '10');
         //Redis
@@ -197,6 +208,11 @@ class InstallController extends BaseController
         $this->createDefaultSetting('rotate_movies_interval', 'dashboard', 'kodi', '30');
         $this->createDefaultSetting('rotate_episodes_interval', 'dashboard', 'kodi', '30');
         $this->createDefaultSetting('rotate_albums_interval', 'dashboard', 'kodi', '30');
+        $this->createDefaultSetting('dbvideo', 'dashboard', 'kodi', 'MyVideos116');
+        $this->createDefaultSetting('dbmusic', 'dashboard', 'kodi', 'MyMusic72');
+        $this->createDefaultSetting('dbhost', 'dashboard', 'kodi', '');
+        $this->createDefaultSetting('dbuser', 'dashboard', 'kodi', '');
+        $this->createDefaultSetting('dbpassword', 'dashboard', 'kodi', '');
         //Sickrage
         $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '0');
         $this->createDefaultSetting('url', 'dashboard', 'sickrage', '');
@@ -259,6 +275,14 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'databasestats', '0');
     }
 
+    /**
+     * Creates a setting with specified values, and saves it to the database.
+     *
+     * @param mixed $name       The name of the setting.
+     * @param mixed $section    The section of the setting.
+     * @param mixed $category   The category of the setting.
+     * @param mixed $value      The value of the setting.
+     */
     private function createDefaultSetting($name, $section, $category, $value)
     {
         $setting = new Settings();
@@ -279,82 +303,8 @@ class InstallController extends BaseController
             'name' => $this->postedData['chell-database'],
             'username' => $this->postedData['chell-database-user'],
             'password' => $this->postedData['chell-database-password'],
-
         ];
-
-        $this->writeIniFile($config, APP_PATH . 'app/config/config.ini', true);
-    }
-
-    /**
-     * Writes ini file based on associative array.
-     *
-     * @param array     $assoc_arr      The array to write to the ini file.
-     * @param string    $path           The path to write the ini file to.
-     * @param bool      $has_sections   If the ini file has sections (in the form of [section])
-     * @return bool                     If the write was successful
-     */
-    private function writeIniFile(array $assoc_arr, string $path, bool $has_sections = false) : bool
-    {
-        $content = '';
-
-        if ($has_sections)
-        {
-            foreach ($assoc_arr as $key => $elem)
-            {
-                $content .= '[' . $key . ']' . PHP_EOL;
-                foreach ($elem as $key2=>$elem2)
-                {
-                    if (is_array($elem2))
-                    {
-                        $count = count($elem2);
-                        for ($i = 0; $i < $count; $i++)
-                        {
-                            $content .= $key2 .'[] = "' . $elem2[$i] . '"' . PHP_EOL;
-                        }
-                    }
-                    else if ($elem2 == '')
-                    {
-                        $content .= $key2 . ' = ""' . PHP_EOL;
-                    }
-                    else
-                    {
-                        $content .= $key2. ' = "' . $elem2 . '"' . PHP_EOL;
-                    }
-                }
-            }
-        }
-        else
-        {
-            foreach ($assoc_arr as $key => $elem)
-            {
-                if (is_array($elem))
-                {
-                    $count = count($elem);
-                    for ($i = 0; $i < $count; $i++)
-                    {
-                        $content .= $key . '[] = "' . $elem[$i] . '"' . PHP_EOL;
-                    }
-                }
-                else if ($elem == '')
-                {
-                    $content .= $key . ' = ""' . PHP_EOL;
-                }
-                else
-                {
-                    $content .= $key . ' = "' . $elem . '"' . PHP_EOL;
-                }
-            }
-        }
-
-        if (!$handle = fopen($path, 'w'))
-        {
-            return false;
-        }
-
-        $success = fwrite($handle, $content);
-        fclose($handle);
-
-        return $success !== false;
+        (new WriteiniFile(APP_PATH . 'app/config/config.ini'))->create($config)->write();
     }
 
     /**
