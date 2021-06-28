@@ -25,7 +25,7 @@
 		"jquery.isloading": "joszz/is-loading",
 		"jquery.shorten": "joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
-		"prismjs": "^1.23.0",
+		"prismjs": "^1.24.0",
 		"responsive-paginate": "joszz/rpage",
 		"spark-md5": "^3.0.1",
 		"speedtest": "joszz/speedtest",
