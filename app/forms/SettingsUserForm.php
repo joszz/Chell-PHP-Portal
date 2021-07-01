@@ -3,6 +3,7 @@
 namespace Chell\Forms;
 
 use Chell\Models\Users;
+use Chell\Forms\Validators\Hibp;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Email;
@@ -45,7 +46,8 @@ class SettingsUserForm extends SettingsBaseForm
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
-                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again']),
+                new Hibp(['message' => $this->translator->validation['hibp']])
             ]);
 
         $passwordAgain = new Password('password_again');
@@ -54,7 +56,8 @@ class SettingsUserForm extends SettingsBaseForm
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
-                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again']),
+                new Hibp(['message' => $this->translator->validation['hibp']])
             ]);
 
         $this->add($username);

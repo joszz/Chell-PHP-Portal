@@ -7,6 +7,7 @@ $validation = [
     'ip'                            => 'Not a valid IP',
     'email'                         => 'Not a valid e-mail',
     'mac'                           => 'Not a valid MAC address',
+    'hibp'                          => 'The specified password is contained in the HIBP database',
 ];
 
 $help = [

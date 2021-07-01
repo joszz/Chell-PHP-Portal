@@ -4,7 +4,7 @@
         "davidearl/webauthn": "dev-master",
         "duosecurity/duo_php": "^1.0",
         "magicalex/write-ini-file": "^2.0",
-        "exeque/php-haveibeenpwned": "dev-master"
+        "mflor/pwned": "^3.0"
     },
     "require-dev": {
         "phalcon/ide-stubs": "^4.1"

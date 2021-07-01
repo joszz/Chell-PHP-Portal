@@ -252,3 +252,20 @@ div.panel-body {
         font-size: 24px;
     }
 }
+
+div#confirm-dialog {
+    overflow: hidden;
+    user-select: none;
+}
+
+div#confirm-dialog h2 {
+    white-space: nowrap;
+}
+
+div#confirm-dialog button {
+    width: 100px;
+}
+
+div#confirm-dialog button#confirm-yes {
+    margin-right: 15px;
+}

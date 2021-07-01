@@ -162,7 +162,13 @@ class FrontController
             'CBOR'                              => APP_PATH . 'app/vendor/2tvenom/cborencode/src',
             'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/',
             'WriteiniFile'                      => APP_PATH . 'app/vendor/magicalex/write-ini-file/src/',
-            'ExeQue'                            => APP_PATH . 'app/vendor/exeque/php-haveibeenpwned/src/'
+            'MFlor\Pwned'                       => APP_PATH . 'app/vendor/mflor/pwned/src/',
+            'MFlor\Pwned\Exceptions'            => APP_PATH . 'app/vendor/mflor/pwned/src/Exceptions/',
+            'MFlor\Pwned\Models'                => APP_PATH . 'app/vendor/mflor/pwned/src/Models/',
+            'MFlor\Pwned\Repositories'          => APP_PATH . 'app/vendor/mflor/pwned/src/Repositories /',
+            'GuzzleHttp'                        => APP_PATH . 'app/vendor/guzzlehttp/guzzle/src/',
+            'GuzzleHttp\Psr7'                   => APP_PATH . 'app/vendor/guzzlehttp/psr7/src/',
+            'GuzzleHttp\Promise'                => APP_PATH . 'app/vendor/guzzlehttp/promises/src/'
         ])->register();
     }
 
