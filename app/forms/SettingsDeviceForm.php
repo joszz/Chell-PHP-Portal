@@ -62,7 +62,7 @@ class SettingsDeviceForm extends SettingsBaseForm
 
         $shutdownMethod = new Select(
             'shutdown_method',
-            ['none' => 'None', 'rpc' => 'RPC'],
+            ['none' => 'None', 'rpc' => 'RPC', 'adb' => 'ADB'],
             ['useEmpty' => false]
         );
         $shutdownMethod->setLabel('Shutdown method');

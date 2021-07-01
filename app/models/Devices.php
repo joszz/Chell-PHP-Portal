@@ -22,14 +22,35 @@ class Devices extends BaseModel
         );
     }
 
-    /**
-     * Calls pingExec with IP and returns the state of the device.
-     *
-     * @return bool         Whether the device is on (true) or off (false)
-     */
+
     public function isDeviceOn() : bool
     {
-        return $this->pingExec() !== false;
+        if ($this->shutdown_method == 'adb')
+        {
+            return $this->adbIsAwake();
+        }
+
+        return $this->ping() !== false;
+    }
+
+    public function wake()
+    {
+        if ($this->shutdown_method == 'adb')
+        {
+            return $this->wakeOnAdb();
+        }
+
+        return $this->wakeOnLan();
+    }
+
+    public function shutdown()
+    {
+        if ($this->shutdown_method == 'adb')
+        {
+            return $this->shutdownOnAdb();
+        }
+
+        return $this->shutdownOnRpc();
     }
 
     /**
@@ -38,7 +59,7 @@ class Devices extends BaseModel
      * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
      * @return bool|double          The time it took for the device to respond or false if failed.
      */
-    private function pingExec(int $ttl = 10)
+    private function ping(int $ttl = 10)
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);
@@ -78,6 +99,13 @@ class Devices extends BaseModel
         return $latency;
     }
 
+    private function adbIsAwake()
+    {
+        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell dumpsys power | grep -e "mWakefulness" | head -1');
+        $output = strtolower(shell_exec($command));
+        return strpos($output, 'asleep') === false;
+    }
+
     /**
      * Wakes up a device by MAC address.
      *
@@ -85,7 +113,7 @@ class Devices extends BaseModel
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    public function wakeOnLan(int $socket_number = 7, int $repetition = 16) : bool
+    private function wakeOnLan(int $socket_number = 7, int $repetition = 16) : bool
     {
         $addr_byte = explode(':', $this->mac);
         $hw_addr = '';
@@ -135,13 +163,20 @@ class Devices extends BaseModel
         }
     }
 
+    private function wakeOnAdb()
+    {
+        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell input keyevent KEYCODE_WAKEUP');
+        $output = strtolower(shell_exec($command));
+        return strpos($output, 'asleep') === -1;
+    }
+
     /**
      * Executes a RPC command to shutdown Windows based devices.
      *
      * @see                     https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
      * @return array            The output of the RPC command on the shell.
      */
-    public function shutdown() : array
+    private function shutdownOnRpc() : bool
     {
         $ip = escapeshellcmd($this->ip);
         $user = trim(escapeshellcmd($this->shutdown_user));
@@ -150,6 +185,13 @@ class Devices extends BaseModel
 
         exec('net rpc shutdown -I ' . $ip . ' -U ' . $user . '%' . $password, $output);
 
-        return $output;
+        return strpos($output[1], 'succeeded') !== false;
+    }
+
+    private function shutdownOnAdb()
+    {
+        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell input keyevent KEYCODE_SLEEP');
+        shell_exec($command);
+        return true;
     }
 }

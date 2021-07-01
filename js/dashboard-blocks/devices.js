@@ -43,25 +43,23 @@
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
-                        self.checkstates(self);
+                        functions.checkstates();
                     }, settings.updateInterval);
 
-                    functions.checkstates(settings.block);
+                    functions.checkstates();
                 });
 
                 settings.block.on("click", ".btn-danger", function () {
                     var title = "Wake <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
-                    openConfirmDialog(title, [{ mac: $(this).data("mac") }], function () {
-                        functions.wol($(this));
+                    openConfirmDialog(title, [{ id: $(this).data("id") }], function () {
+                        functions.wake($(this));
                     });
                 });
 
                 settings.block.on("click", ".btn-success", function () {
                     var title = "Shutdown <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
 
-                    openConfirmDialog(title, [{
-                        "id": $(this).data("id")
-                    }], function () {
+                    openConfirmDialog(title, [{ id: $(this).data("id") }], function () {
                         functions.doShutdown($(this));
                     });
                 });
@@ -75,13 +73,12 @@
             * @method checkstates
             * @param {Object} self  Reference to jquery selector, used to initialize the plugin with.
             */
-            checkstates: function (self) {
-                self = typeof self === "undefined" ? this : self;
+            checkstates: function () {
                 var d = new Date();
 
                 clearInterval(settings.updateIntervalId);
                 settings.updateIntervalId = setInterval(function () {
-                    self.checkstates(self);
+                    functions.checkstates();
                 }, settings.updateInterval);
 
                 settings.block.find(".devicestate").each(function () {
@@ -125,30 +122,18 @@
                 });
             },
 
-            /**
-            * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to WakeupOnLan the selected device.
-            *
-            * @method checkstates
-            * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
-            */
-            wol: function (btn) {
+            wake: function (btn) {
                 $.fancybox.close();
 
                 if (btn.attr("id") === "confirm-yes") {
                     var name = btn.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/wol/" + btn.closest("div").data("id"), function (name) {
-                        showAlert("success", "Magic packet send to: " + name);
+                    $.get("devices/wake/" + btn.closest("div").data("id"), function (name) {
+                        showAlert("success", "Wakeup comment sent to: " + name);
                     }(name));
                 }
             },
 
-            /**
-            * Closes the modal dialog and if confim-yes was clicked, make an AJAX call to shutdown the selected device.
-            *
-            * @method checkstates
-            * @param {Object} btn Which button of the confirm dialog is pressed (yes/no).
-            */
             doShutdown: function (btn) {
                 $.fancybox.close();
 
@@ -161,7 +146,7 @@
                         var alertType = "danger";
                         var alertMessage = "Shutdown command failed for: " + name;
 
-                        if (data === "true") {
+                        if (data) {
                             alertType = "success";
                             alertMessage = "Shutdown command send to: " + name;
                         }

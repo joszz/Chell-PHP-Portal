@@ -27,17 +27,14 @@ class DevicesController extends WidgetController
      *
      * @param int $id   The device Id to WOL.
      */
-    public function wolAction(int $id)
+    public function wakeAction(int $id)
     {
         $device = Devices::findFirst([
            'conditions' => 'id = ?1',
            'bind'       => [1 => $id]
         ]);
 
-        if (isset($device))
-        {
-            $device->wakeOnLan();
-        }
+        $this->response->setJsonContent($device ? $device->wake() : false)->send();
     }
 
     /**
@@ -52,17 +49,7 @@ class DevicesController extends WidgetController
            'bind'       => [1 => $id]
         ]);
 
-        if (isset($device))
-        {
-            $output = $device->shutdown();
-
-            if (isset($output[1]))
-            {
-                return $this->response->setContent(strpos($output[1], 'succeeded') !== false ? 'true' : 'false')->send();
-            }
-        }
-
-        $this->response->setContent('false')->send();
+        $this->response->setJsonContent($device ? $device->shutdown() : false)->send();
     }
 
     /**

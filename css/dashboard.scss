@@ -29,23 +29,6 @@ div.panel ul div:not(.embed-responsive) {
     padding: 0;
 }
 
-div#confirm-dialog {
-    overflow: hidden;
-    user-select: none;
-}
-
-div#confirm-dialog h2 {
-    white-space: nowrap;
-}
-
-div#confirm-dialog button {
-    width: 100px;
-}
-
-div#confirm-dialog button#confirm-yes {
-    margin-right: 15px;
-}
-
 div.panel.transparent,
 div.panel.transparent li.list-group-item:not(.list-group-item-success) {
     background-color: transparent;
