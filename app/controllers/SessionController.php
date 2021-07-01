@@ -60,6 +60,8 @@ class SessionController extends BaseController
 
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->loginFailed);
+        $this->assets->scripts[] = 'bootstrap-toggle';
+        $this->assets->styles[] = 'bootstrap-toggle';
     }
 
     /**
