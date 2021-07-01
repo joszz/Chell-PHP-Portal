@@ -2,10 +2,11 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\SnmpHosts;
 use Phalcon\Mvc\View;
 
-class SnmpController extends BaseController
+class SnmpController extends WidgetController
 {
     /**
      * Shows summarized content of a SNMP host. Used by both the index as well as when updating through AJAX.

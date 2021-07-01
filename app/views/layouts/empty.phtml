@@ -5,7 +5,6 @@
  * @var bool                $overflow
  */
 ?>
-
 <!DOCTYPE html>
 <html lang="en" id="iframe">
 <head>
@@ -15,15 +14,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark light" />
 
-    <?php echo $this->tag->renderTitle();  ?>
     <?php
-    $this->assets->outputCss('header');
-    $this->assets->outputJs('general');
+    echo $this->tag->renderTitle();
+    $this->assets->outputCss('styles');
+    $this->assets->outputJs('scripts');
     $this->partial('favicons');
-    if ($this->assets->collection('dashboard')->count())
-    {
-        $this->assets->outputJs('dashboard');
-    }
     ?>
 </head>
 

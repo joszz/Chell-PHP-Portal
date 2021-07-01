@@ -2,6 +2,8 @@
 
 namespace Chell\Controllers;
 
+use ReflectionClass;
+use DirectoryIterator;
 use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\Jellyfin;
@@ -21,47 +23,12 @@ use Phalcon\Mvc\View;
 class IndexController extends BaseController
 {
     /**
-     * Initializes the controller, adding JS being used.
-     */
-    public function initialize()
-    {
-        parent::initialize();
-
-        if (DEBUG)
-        {
-            //$this->assets->collection('dashboard')->addJs('typescriptjs/dashboard.js' , true, false, ['defer' => 'defer', 'type' => 'module'], $this->settings->application->version, true);
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/couchpotato.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/devices.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/gallery.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/hyperv-admin.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/motion.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/nowplaying.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/opcache.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/phpsysinfo.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/pihole.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/sickrage.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/speedtest.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/transmission.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/youless.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/snmp.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/verisure.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/roborock.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/rcpu.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/pulseway.js');
-            $this->addJs('dashboard', 'dist/js/dashboard-blocks/database-stats.js');
-            $this->addJs('dashboard', 'dist/js/dashboard.js');
-        }
-        else
-        {
-            $this->addJs('dashboard', 'dist/js/dashboard.min.js');
-        }
-    }
-
-    /**
      * Shows the dashboard view
      */
     public function indexAction()
     {
+        $this->setAssets();
+
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
         $this->view->anyWidgetEnabled = $this->getAnyWidgetEnabled();
@@ -166,5 +133,50 @@ class IndexController extends BaseController
     private function getAnyWidgetEnabled() : bool
     {
         return Settings::count('name = "enabled" AND value = "1"') > 0;
+    }
+
+    private function setAssets()
+    {
+        $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
+        $scripts = [
+            'dashboard',
+            'jquery.isloading',
+            'jquery.tinytimer',
+        ];
+        $styles = ['dashboard'];
+
+        foreach ($dir as $fileinfo)
+        {
+            $file = $fileinfo->getFilename();
+            $controllerName = __NAMESPACE__ . '\\' . basename($file, '.' . $fileinfo->getExtension());
+            $currentClass = [get_class($this), get_parent_class($this)];
+
+            if (!$fileinfo->isDot() && !in_array($controllerName, $currentClass))
+            {
+                $controller = new ReflectionClass($controllerName);
+
+                if ($controller->isSubclassOf(__NAMESPACE__ . '\WidgetController'))
+                {
+                    $name = strtolower(str_replace('Controller', '', str_replace(__NAMESPACE__ . '\\', '', $controller->getName())));
+                    $controllerInstance = $controller->newInstanceWithoutConstructor();
+                    $jsFilesProperty = $controller->getProperty('jsFiles');
+                    $jsFilesProperty->setAccessible(true);
+                    $scripts = array_merge($jsFilesProperty->getValue($controllerInstance), $scripts);
+
+                    $cssFilesProperty = $controller->getProperty('cssFiles');
+                    $cssFilesProperty->setAccessible(true);
+                    $styles =  array_merge($cssFilesProperty->getValue($controllerInstance), $styles);
+
+                    if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
+                    {
+                        $scripts[] = $name;
+                        $styles[] = $name;
+                    }
+                }
+            }
+        }
+
+        $this->assets->scripts = array_merge($this->assets->scripts, $scripts);
+        $this->assets->styles = array_merge($this->assets->styles, $styles);
     }
 }

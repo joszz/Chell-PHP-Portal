@@ -35,15 +35,17 @@ class SettingsController extends BaseController
     {
         parent::initialize();
 
-        if (DEBUG)
-        {
-            $this->addJs('dashboard', 'dist/js/settings.js');
-            $this->addJs('dashboard', 'dist/js/webauthnregister.js');
-        }
-        else
-        {
-            $this->addJs('dashboard', 'dist/js/settings.min.js');
-        }
+        $this->assets->scripts[] = 'webauthnregister';
+        $this->assets->scripts[] = 'bootstrap-select';
+        $this->assets->scripts[] = 'bootstrap-tabcollapse';
+        $this->assets->scripts[] = 'bootstrap-toggle';
+        $this->assets->scripts[] = 'jquery.bootstrap-touchspin';
+        $this->assets->scripts[] = 'toggle-passwords';
+        $this->assets->scripts[] = 'settings';
+        $this->assets->styles[] = 'settings';
+        $this->assets->styles[] = 'bootstrap-select';
+        $this->assets->styles[] = 'bootstrap-toggle';
+        $this->assets->styles[] = 'jquery.bootstrap-touchspin';
     }
 
     /**

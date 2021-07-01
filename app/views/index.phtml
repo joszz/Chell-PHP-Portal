@@ -4,7 +4,6 @@
  * @var string[]            $dnsPrefetchRecords
  */
 ?>
-
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $bgcolor ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
 <head>
@@ -12,37 +11,18 @@
     <meta name="description" content="Chell PHP Portal - Aggregate all your webserver services" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="color-scheme" content="dark light">
+    <meta name="color-scheme" content="dark light" />
     <link rel="alternate" title="RSS" type="application/rss+xml" href="<?php echo $this->url->get('rss') ?>" />
-
-    <?php echo $this->tag->renderTitle(); ?>
 
     <?php if (isset($dnsPrefetchRecords)) : foreach ($dnsPrefetchRecords as $dnsRecord) : ?>
     <link rel="preconnect" href="<?php echo $dnsRecord ?>" />
     <?php endforeach; endif ?>
 
-    <?php $this->assets->outputCss('header') ?>
-    <?php $this->partial('favicons') ?>
-
     <?php
-    $this->assets->outputJs('general');
-
-    if ($this->assets->collection('dashboard')->count())
-    {
-        $this->assets->outputJs('dashboard');
-    }
-    if ($this->assets->collection('settings')->count())
-    {
-        $this->assets->outputJs('settings');
-    }
-    if ($this->assets->collection('login')->count())
-    {
-        $this->assets->outputJs('login');
-    }
-    if ($this->assets->collection('duo')->count())
-    {
-        $this->assets->outputJs('duo');
-    }
+    echo $this->tag->renderTitle();
+    $this->assets->outputCss('styles');
+    $this->assets->outputJs('scripts');
+    $this->partial('favicons')
     ?>
 </head>
 

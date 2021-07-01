@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Motion;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Motion;
  *
  * @package Controllers
  */
-class MotionController extends BaseController
+class MotionController extends WidgetController
 {
     private Motion $_model;
 

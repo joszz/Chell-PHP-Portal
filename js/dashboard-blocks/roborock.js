@@ -114,4 +114,16 @@
 
         return functions;
     };
+
+    if ($("#roborock-details").length) {
+        $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
+
+        $("input[type='number'][step!='any']").TouchSpin({
+            verticalupclass: "fa fa-chevron-left",
+            verticaldownclass: "fa fa-chevron-right",
+            buttondown_class: "btn btn-default",
+            buttonup_class: "btn btn-default",
+            max: Number.MAX_SAFE_INTEGER
+        });
+    }
 })(jQuery);

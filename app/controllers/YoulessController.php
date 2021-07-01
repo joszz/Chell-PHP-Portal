@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Youless;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Youless;
  *
  * @package Controllers
  */
-class YoulessController extends BaseController
+class YoulessController extends WidgetController
 {
     private Youless $_model;
 
@@ -32,8 +33,8 @@ class YoulessController extends BaseController
 
         $this->view->disable();
         $this->response->setJsonContent([
-            'power' => $stats->pwr, 
-            'counter' => $stats->cnt, 
+            'power' => $stats->pwr,
+            'counter' => $stats->cnt,
             'class' => $this->_model->getTextClass($stats->pwr)
         ])->send();
     }

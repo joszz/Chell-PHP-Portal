@@ -65,31 +65,10 @@ $(function () {
 function initializeGlobalPlugins() {
     $("a, button, h4").vibrate("short");
 
-    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
-
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
-    $.fancybox.defaults.buttons = ["close"];
-
-    $("[data-nomaxwidth]").fancybox({
-        beforeLoad: function () {
-            this.opts.slideClass ="nomaxwidth";
-        }
-    });
-
-    $(".toggle-password").togglePasswords();
-
     $("body").tooltip({ selector: ".bs-tooltip" });
-
-    $("input[type='number'][step!='any']").TouchSpin({
-        verticalupclass: "fa fa-chevron-left",
-        verticaldownclass: "fa fa-chevron-right",
-        buttondown_class: "btn btn-default",
-        buttonup_class: "btn btn-default",
-        max: Number.MAX_SAFE_INTEGER
-    });
 }
 
 /**

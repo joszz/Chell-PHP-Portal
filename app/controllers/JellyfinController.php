@@ -2,10 +2,14 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Jellyfin;
 
-class JellyfinController extends BaseController
+class JellyfinController extends WidgetController
 {
+    protected array $jsFiles = ['gallery'];
+    protected array $cssFiles = ['gallery'];
+
     /**
      * Retrieves all Jellyfin libraries.
      */

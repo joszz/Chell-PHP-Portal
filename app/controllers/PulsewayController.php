@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Pulseway;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Pulseway;
  *
  * @package Controllers
  */
-class PulsewayController extends BaseController
+class PulsewayController extends WidgetController
 {
     private Pulseway $_model;
 

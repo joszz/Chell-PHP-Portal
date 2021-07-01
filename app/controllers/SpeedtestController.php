@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Speedtest;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 
@@ -10,7 +11,7 @@ use Phalcon\Paginator\Adapter\Model as PaginatorModel;
  *
  * @package Controllers
  */
-class SpeedtestController extends BaseController
+class SpeedtestController extends WidgetController
 {
     private Speedtest $_model;
 
@@ -102,8 +103,10 @@ class SpeedtestController extends BaseController
      */
     public function statsAction(string $activeTab = 'records', int $requestedPage = 1)
     {
+        $this->assets->scripts[] = 'chartist';
+        $this->assets->scripts[] = 'chartist-plugin-legend';
+        $this->assets->scripts[] = 'speedtest';
         $this->view->enable();
-        $this->addJs('dashboard', 'js/dashboard-blocks/speedtest.js');
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;
 

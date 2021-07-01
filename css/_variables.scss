@@ -1,4 +1,6 @@
-﻿$backdropBlur: 5px;
+﻿@import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
+$backdropBlur: 5px;
 $darkBackgroundGradient: linear-gradient(to bottom, rgba(60, 60, 60, 0.9) 0%, rgba(34, 34, 34, 0.9) 100%);
 $label-default-bg: #4f4f4f;
 $grid-float-breakpoint: 999999999px;

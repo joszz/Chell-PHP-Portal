@@ -1,16 +1,5 @@
-﻿@import "dashboard/gallery";
-@import "dashboard/progressbar";
-@import "dashboard/rcpu";
-@import "dashboard/sysinfo";
-@import "dashboard/transmission";
-@import "dashboard/sickrage";
-@import "dashboard/hyperv-admin";
-@import "dashboard/motion";
-@import "dashboard/speedtest";
-@import "dashboard/opcache";
-@import "dashboard/youless";
-@import "dashboard/verisure";
-@import "dashboard/roborock";
+﻿@import "variables";
+@import "progressbar";
 
 canvas,
 div.harddisks,
@@ -20,33 +9,6 @@ div.processes,
 div.temperatures,
 div.cpu {
     width: 100%;
-}
-
-div.panel,
-div.panel-heading,
-div.panel-body {
-    width: 100%;
-    float: left;
-
-    * {
-        scrollbar-width: thin;
-        scrollbar-color: $state-success-bg;
-
-        &::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: $state-success-text;
-            border-radius: $border-radius-base;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: $state-success-bg;
-            border-radius: 0 0 $border-radius-base 0;
-        }
-    }
 }
 
 div.panel-heading h4 {

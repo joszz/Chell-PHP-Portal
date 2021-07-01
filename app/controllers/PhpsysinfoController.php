@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\PHPSysInfo;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\PHPSysInfo;
  *
  * @package Controllers
  */
-class PhpsysinfoController extends BaseController
+class PhpsysinfoController extends WidgetController
 {
     /**
      * Calls the PHPSysInfo API, with specified plugins.

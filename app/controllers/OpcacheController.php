@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Opcache;
 
 /**
@@ -9,8 +10,10 @@ use Chell\Models\Opcache;
  *
  * @package Controllers
  */
-class OpcacheController extends BaseController
+class OpcacheController extends WidgetController
 {
+    protected array $jsFiles = ['chartist', 'chartist-plugin-legend'];
+
     private Opcache $_model;
 
     /**
@@ -44,6 +47,7 @@ class OpcacheController extends BaseController
         $totalPages = 0;
         $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->settings->application->items_per_page);
 
+        $this->assets->styles[] = 'opcache';
         $this->view->scripts = $scripts;
         $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/scripts/');
         $this->view->opcache = $this->_model;

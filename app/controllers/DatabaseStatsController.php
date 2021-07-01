@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\DatabaseStats;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\DatabaseStats;
  *
  * @package Controllers
  */
-class DatabaseStatsController extends BaseController
+class DatabaseStatsController extends WidgetController
 {
     /**
      * Sends the database stats as JSON to be consumed by AJAX in the frontend.

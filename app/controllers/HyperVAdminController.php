@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
 use Chell\Models\HyperVAdmin;
 
@@ -10,7 +11,7 @@ use Chell\Models\HyperVAdmin;
  *
  * @package Controllers
  */
-class HyperVAdminController extends BaseController
+class HyperVAdminController extends WidgetController
 {
 	private HyperVAdmin $_model;
 

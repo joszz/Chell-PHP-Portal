@@ -32,6 +32,8 @@ $(function () {
             return false;
         }
     });
+
+    $(".toggle-password").togglePasswords();
 });
 
 function webauthAuthCallback(success, info) {

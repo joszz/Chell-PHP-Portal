@@ -30,6 +30,18 @@ $(function () {
 });
 
 function initializePlugins() {
+    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
+
+    $("input[type='number'][step!='any']").TouchSpin({
+        verticalupclass: "fa fa-chevron-left",
+        verticaldownclass: "fa fa-chevron-right",
+        buttondown_class: "btn btn-default",
+        buttonup_class: "btn btn-default",
+        max: Number.MAX_SAFE_INTEGER
+    });
+
+    $(".toggle-password").togglePasswords();
+
     //override tabCollapse checkstate since we use 2 differen tabs for mobile and desktop view
     $.fn.tabCollapse.Constructor.prototype.checkState = function () {
         if ($(".nav-tabs.hidden-xs").is(":visible") && this._accordionVisible) {

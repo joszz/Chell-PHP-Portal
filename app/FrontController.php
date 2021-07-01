@@ -39,35 +39,6 @@ class FrontController
     private Application $application;
     private bool $dbSet = false;
 
-    private array $jsFiles = [
-        'dist/js/jquery.js',
-        'dist/js/jquery.fancybox.js',
-        'dist/js/bootstrap.js',
-        'dist/js/bootstrap-select.js',
-        'dist/js/bootstrap-tabcollapse.js',
-        'dist/js/bootstrap-toggle.js',
-        'dist/js/jquery.bootstrap-touchspin.js',
-        'dist/js/jquery.vibrate.js',
-        'dist/js/jquery.tinytimer.js',
-        'dist/js/jquery.isloading.js',
-        'dist/js/jquery.fullscreen.js',
-        'dist/js/chartist.js',
-        'dist/js/chartist-plugin-legend.js',
-        'dist/js/waves.js',
-        'dist/js/spark-md5.js',
-        'dist/js/toggle-passwords.js',
-        'dist/js/general.js',
-    ];
-
-    private array $cssFiles = [
-        'dist/css/jquery.fancybox.css',
-        'dist/css/waves.css',
-        'dist/css/bootstrap-select.css',
-        'dist/css/bootstrap-toggle.css',
-        'dist/css/jquery.bootstrap-touchspin.css',
-        'dist/css/default.css'
-    ];
-
     /**
      * Initialize Phalcon.
      */
@@ -101,7 +72,6 @@ class FrontController
         $this->setSession();
         $this->application = new Application($this->di);
         $this->application->view->executionTime = $executionTime;
-        $this->setAssets();
         $this->setTitle();
         $this->setTranslator();
     }
@@ -128,7 +98,7 @@ class FrontController
 
         require_once(APP_PATH . 'app/controllers/ErrorController.php');
 
-        new ErrorController(new ChellException($exception));
+        (new ErrorController())->initialize(new ChellException($exception));
     }
 
     /**
@@ -191,7 +161,8 @@ class FrontController
             'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/davidearl/webauthn/WebAuthn',
             'CBOR'                              => APP_PATH . 'app/vendor/2tvenom/cborencode/src',
             'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/',
-            'WriteiniFile'                      => APP_PATH . 'app/vendor/magicalex/write-ini-file/src/'
+            'WriteiniFile'                      => APP_PATH . 'app/vendor/magicalex/write-ini-file/src/',
+            'ExeQue'                            => APP_PATH . 'app/vendor/exeque/php-haveibeenpwned/src/'
         ])->register();
     }
 
@@ -227,8 +198,12 @@ class FrontController
      */
     private function setViewProvider()
     {
-        $this->di->set('view', function () {
+        $eventsManager = new EventsManager();
+        $this->di->set('vieweventmanager', $eventsManager);
+
+        $this->di->set('view', function () use($eventsManager) {
             $view = new View();
+            $view->setEventsManager($eventsManager);
             $view->setViewsDir(APP_PATH . 'app/views/');
             return $view;
         });
@@ -269,32 +244,6 @@ class FrontController
 
             return $session;
         });
-    }
-
-    /**
-     * Sets the static assets files, such as JS and CSS.
-     */
-    private function setAssets()
-    {
-        $version = $this->settings->application->version;
-
-        if (DEBUG)
-        {
-            foreach($this->cssFiles as $file)
-            {
-                $this->application->assets->collection('header')->addCss($file, true, false, [], $version, true);
-            }
-
-            foreach($this->jsFiles as $file)
-            {
-                $this->application->assets->collection('general')->addJs($file, true, false, ['defer' => 'defer'], $version, true);
-            }
-        }
-        else
-        {
-            $this->application->assets->collection('header')->addCss('dist/css/bundle.min.css', true, false, [], $version, true);
-            $this->application->assets->collection('general')->addJs('dist/js/general.min.js', true, false, ['defer' => 'defer'], $version, true);
-        }
     }
 
     /**

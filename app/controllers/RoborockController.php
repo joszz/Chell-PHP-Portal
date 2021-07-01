@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Roborock;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Roborock;
  *
  * @package Controllers
  */
-class RoborockController extends BaseController
+class RoborockController extends WidgetController
 {
     private Roborock $_model;
 
@@ -45,6 +46,13 @@ class RoborockController extends BaseController
             $this->_model->setSoundVolume($data['volume']);
             $this->_model->setWaterflow($data['waterflow']);
         }
+
+        $this->assets->scripts[] = 'jquery.bootstrap-touchspin';
+        $this->assets->scripts[] = 'bootstrap-select';
+        $this->assets->scripts[] = 'roborock';
+        $this->assets->styles[] = 'roborock';
+        $this->assets->styles[] = 'bootstrap-select';
+        $this->assets->styles[] = 'jquery.bootstrap-touchspin';
 
         $this->view->setMainView('layouts/empty');
         $this->view->info = $this->_model->getInfo();

@@ -1,3 +1,5 @@
+@import "variables";
+
 .panel-square {
     border-color: $nav-tabs-border-color;
     border-radius: 0 0 4px 4px;
@@ -21,19 +23,6 @@ label {
 
 .bs-container {
     z-index: 9999;
-}
-
-.table > tbody > tr {
-    > td {
-        border: 0;
-        line-height: 33px;
-    }
-
-    > th {
-        line-height: 34px;
-        font-weight: 300;
-        font-size: 24px;
-    }
 }
 
 span.input-group-addon label {

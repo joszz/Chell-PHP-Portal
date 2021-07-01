@@ -28,7 +28,7 @@ class ErrorController
      * @param ChellException $exception The exception being thrown.
      * @param object $config            The config object with all the values of config.ini.
      */
-    public function __construct(ChellException $exception)
+    public function initialize(ChellException $exception)
     {
         ob_clean();
 

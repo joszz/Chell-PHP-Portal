@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Devices;
  *
  * @package Controllers
  */
-class DevicesController extends BaseController
+class DevicesController extends WidgetController
 {
     /**
      * Initializes the controller, disabling the view for all actions/

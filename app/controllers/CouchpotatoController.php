@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Couchpotato;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Couchpotato;
  *
  * @package Controllers
  */
-class CouchpotatoController extends BaseController
+class CouchpotatoController extends WidgetController
 {
 	private Couchpotato $_model;
 

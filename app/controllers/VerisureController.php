@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Controllers\WidgetController;
 use Chell\Models\Verisure;
 
 /**
@@ -9,7 +10,7 @@ use Chell\Models\Verisure;
  *
  * @package Controllers
  */
-class VerisureController extends BaseController
+class VerisureController extends WidgetController
 {
     private Verisure $_model;
 

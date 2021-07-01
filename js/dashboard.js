@@ -25,28 +25,74 @@ $(function () {
  * @method initializePlugins
  */
 function initializePlugins() {
-    $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
-    $(".devices").devices();
-    $(".transmission").transmission();
-    $(".movies, .episodes, .albums, .couchpotato, .jellyfin").gallery();
-    $(".nowplaying").nowplaying();
-    $(".sickrage").sickrage();
-    $(".couchpotato").couchpotato();
-    $(".motion").motion();
-    speedtest = $(".speedtest").speedtest();
-    opcache = $(".opcache").opcache();
-    $(".youless").youless();
-    pihole = $(".pihole").pihole();
-    snmp = $(".snmp").snmp();
-    $(".verisure").verisure();
-    $(".roborock").roborock();
-    $(".cpu").rcpu();
-    $(".pulseway").pulseway();
-    $(".database-stats").database_stats();
+    if (typeof $.fn.devices !== "undefined") {
+        $(".devices").devices();
+    }
+    if (typeof $.fn.phpsysinfo !== "undefined") {
+        $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
+    }
+    if (typeof $.fn.transmission !== "undefined") {
+        $(".transmission").transmission();
+    }
+    if (typeof $.fn.gallery !== "undefined") {
+        $(".movies, .episodes, .albums, .couchpotato, .jellyfin").gallery();
+    }
+    if (typeof $.fn.nowplaying !== "undefined") {
+        $(".nowplaying").nowplaying();
+    }
+    if (typeof $.fn.sickrage !== "undefined") {
+        $(".sickrage").sickrage();
+    }
+    if (typeof $.fn.couchpotato !== "undefined") {
+        $(".couchpotato").couchpotato();
+    }
+    if (typeof $.fn.motion !== "undefined") {
+        $(".motion").motion();
+    }
+    if (typeof $.fn.speedtest !== "undefined") {
+        speedtest = $(".speedtest").speedtest();
+    }
+    if (typeof $.fn.opcache !== "undefined") {
+        opcache = $(".opcache").opcache();
+    }
+    if (typeof $.fn.youless !== "undefined") {
+        $(".youless").youless();
+    }
+    if (typeof $.fn.pihole !== "undefined") {
+        pihole = $(".pihole").pihole();
+    }
+    if (typeof $.fn.snmp !== "undefined") {
+        snmp = $(".snmp").snmp();
+    }
+    if (typeof $.fn.verisure !== "undefined") {
+        $(".verisure").verisure();
+    }
+    if (typeof $.fn.roborock !== "undefined") {
+        $(".roborock").roborock();
+    }
+    if (typeof $.fn.rcpu !== "undefined") {
+        $(".cpu").rcpu();
+    }
+    if (typeof $.fn.pulseway !== "undefined") {
+        $(".pulseway").pulseway();
+    }
+    if (typeof $.fn.database_stats !== "undefined") {
+        $(".database-stats").database_stats();
+    }
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));
     });
+
+    $.fancybox.defaults.smallBtn = $.fancybox.defaults.fullScreen = $.fancybox.defaults.slideShow = false;
+    $.fancybox.defaults.buttons = ["close"];
+
+    $("[data-nomaxwidth]").fancybox({
+        beforeLoad: function () {
+            this.opts.slideClass = "nomaxwidth";
+        }
+    });
+
 }
 
 /**

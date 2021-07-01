@@ -3,6 +3,7 @@
 namespace Chell\Controllers;
 
 use DateTime;
+use Chell\Controllers\WidgetController;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
@@ -12,8 +13,11 @@ use Chell\Models\Kodi\KodiTVShowEpisodes;
  *
  * @package Controllers
  */
-class KodiController extends BaseController
+class KodiController extends WidgetController
 {
+	protected array $jsFiles = ['gallery'];
+	protected array $cssFiles = ['gallery'];
+
 	/**
 	 * Set the default layout to empty.
 	 */
@@ -21,6 +25,7 @@ class KodiController extends BaseController
 	{
 		$this->view->setMainView('layouts/empty');
 		$this->view->overflow = true;
+
 		parent::initialize();
 	}
 

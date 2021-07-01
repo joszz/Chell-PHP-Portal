@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f52ed6d0c51478c4b83cf664b9924f68",
+    "content-hash": "625286f168592f3602021e711e9c7410",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -135,6 +135,54 @@
                 "source": "https://github.com/duosecurity/duo_php/tree/1.0.1"
             },
             "time": "2020-01-08T21:14:20+00:00"
+        },
+        {
+            "name": "exeque/php-haveibeenpwned",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/ExeQue/PHP-HIBP.git",
+                "reference": "db589ede6f169acd4db59e12f1c9fefd06a65ef8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/ExeQue%2FPHP-HIBP/repository/archive.zip?sha=db589ede6f169acd4db59e12f1c9fefd06a65ef8",
+                "reference": "db589ede6f169acd4db59e12f1c9fefd06a65ef8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ExeQue\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GNUv3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Morten Harders",
+                    "homepage": "http://usage.dk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "HaveIBeenPwned Wrapper for PHP",
+            "homepage": "https://gitlab.com/ExeQue/PHP-HIBP",
+            "keywords": [
+                "haveibeenpwned",
+                "hibp",
+                "pwned"
+            ],
+            "support": {
+                "issues": "https://gitlab.com/api/v4/projects/4044223/issues"
+            },
+            "time": "2017-09-03T22:15:49+00:00"
         },
         {
             "name": "magicalex/write-ini-file",
@@ -369,7 +417,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "davidearl/webauthn": 20
+        "davidearl/webauthn": 20,
+        "exeque/php-haveibeenpwned": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

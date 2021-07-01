@@ -6,6 +6,7 @@ use stdClass;
 use Chell\Models\SettingsContainer;
 use Chell\Models\Users;
 use Phalcon\Mvc\Controller;
+use Chell\Plugins\AssetsPlugin;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
@@ -14,9 +15,10 @@ use Phalcon\Mvc\Controller;
  */
 class BaseController extends Controller
 {
-    protected SettingsContainer $settings;
-
     private array $controllersToLoadMenu = ['index', 'about', 'settings'];
+
+    protected SettingsContainer $settings;
+    protected AssetsPlugin $assets;
 
     /**
      * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.
@@ -38,6 +40,8 @@ class BaseController extends Controller
         }
 
         $this->view->bgcolor = $this->getBackgroundColor();
+
+        $this->di->get('vieweventmanager')->attach('view:beforeRender', $this->assets = new AssetsPlugin());
     }
 
     /**
@@ -155,16 +159,5 @@ class BaseController extends Controller
         }
 
         return $paginator;
-    }
-
-    /**
-     * Adds javascript file to collection. Sets defaults for all JS files.
-     *
-     * @param string $collection     The collection to add the JS file to
-     * @param string $file           The file to add to the collection
-     */
-    protected function addJs(string $collection, string $file)
-    {
-        $this->assets->collection($collection)->addJs($file, true, false, ['defer' => 'defer'], $this->settings->application->version, true);
     }
 }
