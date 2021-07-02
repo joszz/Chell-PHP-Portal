@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -43,6 +44,11 @@ class YoulessFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($this->form->settings->youless->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled']));
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$youlessPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 
 		$this->fields[] = $youlessInterval = new Numeric('youless-update_interval');
 		$youlessInterval->setLabel('Interval')

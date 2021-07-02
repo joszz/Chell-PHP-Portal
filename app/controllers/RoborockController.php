@@ -47,12 +47,7 @@ class RoborockController extends WidgetController
             $this->_model->setWaterflow($data['waterflow']);
         }
 
-        $this->assets->scripts[] = 'jquery.bootstrap-touchspin';
-        $this->assets->scripts[] = 'bootstrap-select';
-        $this->assets->scripts[] = 'roborock';
-        $this->assets->styles[] = 'roborock';
-        $this->assets->styles[] = 'bootstrap-select';
-        $this->assets->styles[] = 'jquery.bootstrap-touchspin';
+        $this->assets->addStylesAndScripts(['roborock', 'bootstrap-select', 'jquery.bootstrap-touchspin']);
 
         $this->view->setMainView('layouts/empty');
         $this->view->info = $this->_model->getInfo();

@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\General;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
@@ -46,5 +47,10 @@ class RedisFormFields extends FormFields
                   ->setFilters(['striptags', 'string'])
                   ->setAttributes(['class' => 'form-control', 'fieldset' => true])
                   ->setDefault($this->form->settings->redis->auth);
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$redisAuth->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 	}
 }

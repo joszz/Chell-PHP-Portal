@@ -25,8 +25,7 @@ class SessionController extends BaseController
     {
         parent::initialize();
 
-        $this->assets->scripts[] = 'login';
-        $this->assets->scripts[] = 'webauthnauthenticate';
+        $this->assets->addScripts(['login', 'webauthnauthenticate']);
     }
 
     /**
@@ -60,8 +59,8 @@ class SessionController extends BaseController
 
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->loginFailed);
-        $this->assets->scripts[] = 'bootstrap-toggle';
-        $this->assets->styles[] = 'bootstrap-toggle';
+
+        $this->assets->addStyleAndScript('bootstrap-toggle');
     }
 
     /**
@@ -207,12 +206,12 @@ class SessionController extends BaseController
      */
     public function duoAction(Users $user)
     {
+        $this->assets->addScript('jquery.isloading');
         $this->view->containerFullHeight = true;
         $this->view->dnsPrefetchRecords = ['https://' . $this->settings->duo->api_hostname];
         $this->view->signRequest = Web::signRequest($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $user->username);
 
-        $this->assets->scripts[] = 'Duo-Web-v2';
-        $this->assets->scripts[] = 'duo';
+        $this->assets->addScripts(['Duo-Web-v2', 'duo']);
     }
 
     /**
@@ -250,6 +249,7 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
+        $this->assets->addStyleAndScript('bootstrap-toggle');
         $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true);
         $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true);
         $this->session->destroy();

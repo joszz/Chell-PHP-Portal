@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -50,6 +51,11 @@ class KodiFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->kodi->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'kodi-enabled']));
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$kodiPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 
         $this->fields[] = $kodiDbVideo = new Text('kodi-dbmusic');
 		$kodiDbVideo->setLabel('Music database')

@@ -22,7 +22,12 @@ class Devices extends BaseModel
         );
     }
 
-
+    /**
+     * Determines whether a device is awake or not.
+     * uses either ADB or ping to determine state.
+     *
+     * @return bool awake or not.
+     */
     public function isDeviceOn() : bool
     {
         if ($this->shutdown_method == 'adb')
@@ -33,7 +38,12 @@ class Devices extends BaseModel
         return $this->ping() !== false;
     }
 
-    public function wake()
+    /**
+     * Wakes up a device, using either ADB or WOL.
+     *
+     * @return bool Whether wakeup call succeeded.
+     */
+    public function wake() : bool
     {
         if ($this->shutdown_method == 'adb')
         {
@@ -43,7 +53,12 @@ class Devices extends BaseModel
         return $this->wakeOnLan();
     }
 
-    public function shutdown()
+    /**
+     * Shuts down a device using either ADB or a Remote Procedure Call.
+     *
+     * @return bool Whether shutdown command succeeded.
+     */
+    public function shutdown() : bool
     {
         if ($this->shutdown_method == 'adb')
         {
@@ -99,10 +114,14 @@ class Devices extends BaseModel
         return $latency;
     }
 
-    private function adbIsAwake()
+    /**
+     * Uses ADB to determine if an Android device is awake.
+     *
+     * @return bool Awake or not?
+     */
+    private function adbIsAwake() : bool
     {
-        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell dumpsys power | grep -e "mWakefulness" | head -1');
-        $output = strtolower(shell_exec($command));
+        $output = strtolower(shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys power | grep -e "mWakefulness" | head -1'));
         return strpos($output, 'asleep') === false;
     }
 
@@ -163,18 +182,22 @@ class Devices extends BaseModel
         }
     }
 
-    private function wakeOnAdb()
+    /**
+     * Uses ADB to sent a wakeup keyevent to wake the device.
+     *
+     * @return bool Always returns true since there is no proper way to determine if the call was successful.
+     */
+    private function wakeOnAdb() : bool
     {
-        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell input keyevent KEYCODE_WAKEUP');
-        $output = strtolower(shell_exec($command));
-        return strpos($output, 'asleep') === -1;
+        shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_WAKEUP');
+        return true;
     }
 
     /**
      * Executes a RPC command to shutdown Windows based devices.
      *
-     * @see                     https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
-     * @return array            The output of the RPC command on the shell.
+     * @see             https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
+     * @return bool     Whether the shutdown command was successful or not.
      */
     private function shutdownOnRpc() : bool
     {
@@ -188,10 +211,14 @@ class Devices extends BaseModel
         return strpos($output[1], 'succeeded') !== false;
     }
 
-    private function shutdownOnAdb()
+    /**
+     * Uses ADB to sent a sleep keyevent to wake the device.
+     *
+     * @return bool Always returns true since there is no proper way to determine if the call was successful.
+     */
+    private function shutdownOnAdb() : bool
     {
-        $command = escapeshellcmd('adb -s ' . $this->ip . ' shell input keyevent KEYCODE_SLEEP');
-        shell_exec($command);
+        shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_SLEEP');
         return true;
     }
 }

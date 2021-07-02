@@ -212,7 +212,7 @@
                         var photos = [];
 
                         if (data.imageSeries.length) {
-                            settings.block.find(".fa-camera").removeClass("hidden");
+                            settings.block.find(".fa-image").removeClass("hidden");
                         }
 
                         $.each(data.imageSeries, function (_index, serie) {

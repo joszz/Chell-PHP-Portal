@@ -13,7 +13,6 @@ class WidgetController extends BaseController
     {
         parent::initialize();
 
-        $this->assets->scripts = array_merge($this->assets->scripts, $this->jsFiles);
-        $this->assets->styles = array_merge($this->assets->styles, $this->cssFiles);
+        $this->assets->addScripts($this->jsFiles)->addStyles($this->cssFiles);
     }
 }

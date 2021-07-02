@@ -12,8 +12,14 @@ class Hibp extends AbstractValidator
     public function validate(Validation $validation, $field) : bool
     {
         $pwned = new Pwned();
-        $passwordOccurences = $pwned->passwords()->occurrences($validation->getValue($field));
-        $valid = $passwordOccurences == 0;
+        $value = $validation->getValue($field);
+        $valid = true;
+
+        if (!empty($value))
+        {
+            $passwordOccurences = $pwned->passwords()->occurrences($value);
+            $valid = $passwordOccurences == 0;
+        }
 
         if (!$valid)
         {

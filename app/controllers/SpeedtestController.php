@@ -103,9 +103,7 @@ class SpeedtestController extends WidgetController
      */
     public function statsAction(string $activeTab = 'records', int $requestedPage = 1)
     {
-        $this->assets->scripts[] = 'chartist';
-        $this->assets->scripts[] = 'chartist-plugin-legend';
-        $this->assets->scripts[] = 'speedtest';
+        $this->assets->addScripts(['chartist', 'chartist-plugin-legend', 'speedtest']);
         $this->view->enable();
         $this->view->setMainView('layouts/empty');
         $this->view->overflow = true;

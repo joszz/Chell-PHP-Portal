@@ -176,7 +176,6 @@ class IndexController extends BaseController
             }
         }
 
-        $this->assets->scripts = array_merge($this->assets->scripts, $scripts);
-        $this->assets->styles = array_merge($this->assets->styles, $styles);
+        $this->assets->addScripts($scripts)->addStyles($styles);
     }
 }

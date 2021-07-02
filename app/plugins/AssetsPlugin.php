@@ -7,7 +7,7 @@ use Phalcon\Mvc\View;
 
 class AssetsPlugin extends Injectable
 {
-    public $scripts = [
+    private array $scripts = [
         'jquery',
         'bootstrap',
         'jquery.fancybox',
@@ -17,34 +17,116 @@ class AssetsPlugin extends Injectable
         'general',
     ];
 
-    public $styles = [
+    private array $styles = [
         'jquery.fancybox',
         'waves',
         'default'
     ];
 
+    /**
+     * Called before rendering the view.
+     * Sets the scripts and styles collection, either with minified files or not (when DEBUGging).
+     *
+     * @param Event $event  The beforeRender event
+     * @param View $view    The view being rendered
+     * @return bool         Success or failure.
+     */
     public function beforeRender(Event $event, View $view) : bool
     {
         foreach ($this->scripts as $jsFile)
         {
-            $file = $jsFile . (DEBUG ? '.js' : '.min.js');
+            $file = 'dist/js/' . $jsFile . (DEBUG ? '.js' : '.min.js');
 
-            if (file_exists(APP_PATH . 'dist/js/' . $file))
+            if (file_exists(APP_PATH . $file))
             {
-                $this->assets->collection('scripts')->addJs('dist/js/' . $file, true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+                $this->assets->collection('scripts')->addJs($file, true, false, ['defer' => 'defer'], $this->settings->application->version, true);
             }
         }
 
         foreach ($this->styles as $cssFile)
         {
-            $file = $cssFile . (DEBUG ? '.css' : '.min.css');
+            $file = 'dist/css/' . $cssFile . (DEBUG ? '.css' : '.min.css');
 
-            if (file_exists(APP_PATH . 'dist/css/' . $file))
+            if (file_exists(APP_PATH . $file))
             {
-                $this->assets->collection('styles')->addCss('dist/css/' . $file, true, false, [], $this->settings->application->version, true);
+                $this->assets->collection('styles')->addCss($file, true, false, [], $this->settings->application->version, true);
             }
         }
 
         return true;
+    }
+
+    /**
+     * Adds a style.
+     *
+     * @param string $name  The basename of the style to add. No extension or directory.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addStyle(string $name)
+    {
+        $this->styles[] = $name;
+        return $this;
+    }
+
+    /**
+     * Adds an array of styles.
+     *
+     * @param array $names  The basename of the styles to add. No extension or directory per item.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addStyles(array $names)
+    {
+        $this->styles = array_merge($this->styles, $names);
+        return $this;
+    }
+
+    /**
+     * Adds a script.
+     *
+     * @param string $name  The basename of the script to add. No extension or directory.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addScript(string $name)
+    {
+        $this->scripts[] = $name;
+        return $this;
+    }
+
+    /**
+     * Adds an array of scripts.
+     *
+     * @param array $names  The basename of the scripts to add. No extension or directory.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addScripts(array $names)
+    {
+        $this->scripts = array_merge($this->scripts, $names);
+        return $this;
+    }
+
+    /**
+     * Adds a script and a style with the same basename.
+     *
+     * @param string $name  The basename of the script and style to add. No extension or directory.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addStyleAndScript(string $name)
+    {
+        $this->addStyle($name);
+        $this->addScript($name);
+        return $this;
+    }
+
+    /**
+     * Adds an array of scripts and styles with the same basename.
+     *
+     * @param array $names  The basename of the scripts and styles to add. No extension or directory.
+     * @return AssetsPlugin This class, so you're able to chain calls.
+     */
+    public function addStylesAndScripts(array $name)
+    {
+        $this->addStyles($name);
+        $this->addScripts($name);
+        return $this;
     }
 }

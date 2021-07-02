@@ -46,8 +46,7 @@ class SettingsUserForm extends SettingsBaseForm
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
-                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again']),
-                new Hibp(['message' => $this->translator->validation['hibp']])
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
             ]);
 
         $passwordAgain = new Password('password_again');
@@ -56,9 +55,14 @@ class SettingsUserForm extends SettingsBaseForm
             ->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
             ->addValidators([
                 new PresenceOf(['message' => $this->translator->validation['required']]),
-                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again']),
-                new Hibp(['message' => $this->translator->validation['hibp']])
+                new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
             ]);
+
+        if ($this->settings->hibp->enabled)
+        {
+            $password->addValidator(new Hibp(['message' => $this->translator->validation['hibp']]));
+            $passwordAgain->addValidator(new Hibp(['message' => $this->translator->validation['hibp']]));
+        }
 
         $this->add($username);
         $this->add($email);

@@ -21,7 +21,8 @@ $help = [
     'application-phalcon_crypt_key'             => 'The key used for Phalcon\'s cryptographic functions.',
     'application-debug'                         => 'Whether debug mode is enabled; <ul><li>Sets PHP\'s display_error mode to on</li><li>Disables minification of JS and CSS</li><li>Outputs error information to the browser</li>',
     'application-demo_mode'                     => 'Whether the demo mode is enabled. Will blur all sensitive information when enabled.',
-    'application-check_device_states_interval'  => 'The interval of refreshing the devices block on the dashboard.',
+    'application-check_device_states_interval'  => 'The interval of refreshing the devices widget on the dashboard.',
+    'application-check_now_playing_interval'    => 'The interval of refreshing the now playing widget on the dashboard.',
 
     'speedtest-what_is_my_browser_api_key'      => 'The API key used to access <a href="https://www.whatismybrowser.com/" target="_blank">WhatIsMyBrowser</a> information, used by the Speedtest plugin.',
     'speedtest-what_is_my_browser_api_url'      => 'The API URL used to access <a href="https://www.whatismybrowser.com/" target="_blank">WhatIsMyBrowser</a> information, used by the Speedtest plugin.',
@@ -37,6 +38,11 @@ $help = [
     'redis-port'                                => 'Specifies the port the Redis server is listening on. The default port is 6379.',
     'redis-auth'                                => 'Specifies the password to access the Redis server. Default installs leave this empty.',
 
+    'imageproxy-enabled'                        => 'Enables the optional plugin <a href="https://github.com/willnorris/imageproxy" target="_blank">imageproxy</a>.',
+    'imageproxy-url'                            => 'The URL for the imageproxy.',
+
+    'hibp-enabled'                              => 'Enables the optional <a href="https://haveibeenpwned.com/" target="_blank">Have I Been Pwned</a> integration.',
+
     /* Dashboard related settings */
     'couchpotato-enabled'                       => 'Enables the <a href="https://couchpota.to/" target="_blank">Couchpotato</a> plugin.',
     'couchpotato-url'                           => 'The URL where Couchpotato can be found.',
@@ -50,9 +56,6 @@ $help = [
     'hypervadmin-username'                      => 'The basicauth username to access HyperVAdmin.',
     'hypervadmin-password'                      => 'The basicauth password to access HyperVAdmin.',
     'hypervadmin-device'                        => 'Which device (configured in Chell) is the HyperVAdmin host. This will be used to determine where to place the button in the devices widget.',
-
-    'imageproxy-enabled'                        => 'Enables the optional <a href="https://github.com/willnorris/imageproxy" target="_blank">imageproxy</a>.',
-    'imageproxy-url'                            => 'The URL for the imageproxy.',
 
     'kodi-enabled'                              => 'Enables the Kodi plugins for latest movies, episodes and music albums.',
     'kodi-url'                                  => 'The URL where the Kodi webinterface can be found.',
@@ -161,6 +164,7 @@ $helpTitles = [
     'application-phalcon_crypt_key'             => 'Phalcon cryptkey',
     'application-tmdb_api_key'                  => 'TMDB API key',
     'application-check_device_states_interval'  => 'Check device state interval',
+    'application-check_now_playing_interval'    => 'Now playing interval',
     'application-demo_mode'                     => 'Demo mode',
 
     'speedtest-what_is_my_browser_api_key'      => 'WhatIsMyBrowser API key',
@@ -177,6 +181,11 @@ $helpTitles = [
     'redis-port'                                => 'Redis listening port',
     'redis-auth'                                => 'Redis password',
 
+    'imageproxy-enabled'                        => 'Imageproxy.',
+    'imageproxy-url'                            => 'Imageproxy URL',
+
+    'hibp-enabled'                              => 'Have I Been Pwned',
+
     /* Dashboard related settings */
     'couchpotato-enabled'                       => 'Couchpotato',
     'couchpotato-url'                           => 'Couchpotato URL',
@@ -190,9 +199,6 @@ $helpTitles = [
     'hypervadmin-username'                      => 'HyperVAdmin username',
     'hypervadmin-password'                      => 'HyperVAdmin password',
     'hypervadmin-device'                        => 'HyperVAdmin device',
-
-    'imageproxy-enabled'                        => 'Imageproxy.',
-    'imageproxy-url'                            => 'Imageproxy URL',
 
     'kodi-enabled'                              => 'Kodi',
     'kodi-url'                                  => 'Kodi URL',

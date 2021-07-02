@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
@@ -46,5 +47,10 @@ class PhpSysInfoFormFields extends FormFields
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
 			->setDefault($this->form->settings->phpsysinfo->password);
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$phpSysInfoPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 	}
 }

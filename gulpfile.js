@@ -45,8 +45,7 @@ var config = {
             'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
-            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
-            'dist/css/default.css'
+            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css'
         ]
     },
     scripts: {

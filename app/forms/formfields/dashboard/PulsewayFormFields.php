@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -51,6 +52,11 @@ class PulsewayFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
 			->setDefault($this->form->settings->pulseway->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$pulsewayPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 
         $this->fields[] = $pulsewayInterval = new Numeric('pulseway-update_interval');
 		$pulsewayInterval->setLabel('Interval')

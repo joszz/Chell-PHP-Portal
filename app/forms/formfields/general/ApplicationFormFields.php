@@ -87,6 +87,17 @@ class ApplicationFormFields extends FormFields
             ->setDefault($this->form->settings->application->check_now_playing_interval)
             ->addValidator(new Numericality(['message' => 'Not a number']));
 
+        $this->fields[] = $hibp = new Check('hibp-enabled');
+        $hibp->setLabel('Have I Been Pwned')
+            ->setAttributes([
+                'value' => '1',
+                'checked' => $this->form->settings->hibp->enabled == '1' ? 'checked' : null,
+                'data-toggle' => 'toggle',
+                'data-onstyle' => 'success',
+                'data-offstyle' => 'danger',
+                'data-size' => 'small'
+        ]);
+
         $this->fields[] = $demo = new Check('application-demo_mode');
         $demo->setLabel('Demo mode')
             ->setAttributes([

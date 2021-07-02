@@ -118,7 +118,7 @@ class Verisure extends BaseModel
     public function getImage(string $device_label, string $image_id, string $capture_time) : string
     {
         $capture_time = str_replace(':', '_', $capture_time);
-        $filename = APP_PATH  . 'public/img/cache/verisure/' . $capture_time . '.jpg';
+        $filename = APP_PATH  . 'img/cache/verisure/' . $capture_time . '.jpg';
 
         if (!file_exists($filename))
         {
@@ -157,8 +157,7 @@ class Verisure extends BaseModel
      */
     private function executeCommand(string $command)
     {
-        $command = escapeshellcmd('vsure ' . $this->_settings->verisure->username . ' ' . $this->_settings->verisure->password . ' ' . $command);
-        $output = shell_exec($command);
+        $output = shell_exec('vsure ' . escapeshellcmd($this->_settings->verisure->username) . ' ' . escapeshellcmd($this->_settings->verisure->password) . ' ' . $command);
         return json_decode($output);
     }
 }

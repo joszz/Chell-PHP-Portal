@@ -60,7 +60,7 @@
                     var title = "Shutdown <span>" + $(this).closest("li").find("div:first").html().trim() + "</span>?";
 
                     openConfirmDialog(title, [{ id: $(this).data("id") }], function () {
-                        functions.doShutdown($(this));
+                        functions.shutdown($(this));
                     });
                 });
 
@@ -71,7 +71,6 @@
             * Checks the states of each device. Loops through the devices and makes an AJAX call to retrieve their on/off state.
             *
             * @method checkstates
-            * @param {Object} self  Reference to jquery selector, used to initialize the plugin with.
             */
             checkstates: function () {
                 var d = new Date();
@@ -122,19 +121,38 @@
                 });
             },
 
+            /**
+             * Shows a confirmation dialog. If confirmed with yes, sents a wakeup call.
+             * 
+             * @method wake
+             */
             wake: function (btn) {
                 $.fancybox.close();
 
                 if (btn.attr("id") === "confirm-yes") {
                     var name = btn.closest("div").find("h2 span").html().trim();
 
-                    $.get("devices/wake/" + btn.closest("div").data("id"), function (name) {
-                        showAlert("success", "Wakeup comment sent to: " + name);
-                    }(name));
+                    $.get("devices/wake/" + btn.closest("div").data("id"), function (data) {
+                        var alertType = "danger";
+                        var alertMessage = "Wakeup command failed for: " + name;
+
+                        if (data) {
+                            alertType = "success";
+                            alertMessage = "Wakeup command send to: " + name;
+                        }
+
+                        showAlert(alertType, alertMessage);
+                        functions.checkstates();
+                    });
                 }
             },
 
-            doShutdown: function (btn) {
+            /**
+             * Shows a confirmation dialog. If confirmed with yes, sents a shutdown call.
+             *
+             * @method shutdown
+             */
+            shutdown: function (btn) {
                 $.fancybox.close();
 
                 if (btn.attr("id") === "confirm-yes") {
@@ -152,6 +170,7 @@
                         }
 
                         showAlert(alertType, alertMessage);
+                        functions.checkstates();
                     });
                 }
             }

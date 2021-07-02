@@ -23,7 +23,7 @@ class DevicesController extends WidgetController
 	}
 
     /**
-     * This action will try to send a WOL package to the device that is specified $mac.
+     * This action will try to send a WOL package to the device specified by $id.
      *
      * @param int $id   The device Id to WOL.
      */
@@ -38,7 +38,7 @@ class DevicesController extends WidgetController
     }
 
     /**
-     * This action will try to send a shutdown message (RPC) to the device specified by $ip.
+     * This action will try to send a shutdown message (RPC) to the device specified by $id.
      *
      * @param int $id       The device Id to shutdown.
      */
@@ -53,7 +53,7 @@ class DevicesController extends WidgetController
     }
 
     /**
-     * This action will return the power state of the device identified by IP. Will sent ping to determine state.
+     * This action will return the power state of the device identified by id. Will sent ping to determine state.
      *
      * @param int $id       The device Id to get the on/off state for.
      */

@@ -3,6 +3,7 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
+use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -50,6 +51,11 @@ class TransmissionFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true, 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->transmission->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'transmission-enabled']));
+
+        if ($this->form->settings->hibp->enabled)
+        {
+			$transmissionPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
+        }
 
 		$this->fields[] = $transmissionInterval = new Numeric('transmission-update_interval');
 		$transmissionInterval->setLabel('Update interval')
