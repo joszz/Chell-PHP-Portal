@@ -13,8 +13,7 @@ class AssetsPlugin extends Injectable
         'jquery.fancybox',
         'jquery.vibrate',
         'jquery.fullscreen',
-        'waves',
-        'general',
+        'waves'
     ];
 
     private array $styles = [
@@ -42,6 +41,8 @@ class AssetsPlugin extends Injectable
                 $this->assets->collection('scripts')->addJs($file, true, false, ['defer' => 'defer'], $this->settings->application->version, true);
             }
         }
+
+        $this->assets->collection('scripts')->addJs('dist/js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version, true);
 
         foreach ($this->styles as $cssFile)
         {

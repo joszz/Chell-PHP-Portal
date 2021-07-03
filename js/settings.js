@@ -7,27 +7,21 @@
 * @module Settings
 */
 
-/**
-* Document onload, sets up setting view specific eventhandlers.
-*
-* @method document.onload
-*/
-$(function () {
-    initializePlugins()
-    setEventHandlers();
-    setSelectData($("select[name='pulseway-systems[]']"));
-    setSelectData($("select[name='jellyfin-views[]']"));
-    
-    $("legend input[type='checkbox']").each(function () {
+
+initializePlugins()
+setEventHandlers();
+setSelectData($("select[name='pulseway-systems[]']"));
+setSelectData($("select[name='jellyfin-views[]']"));
+
+$("legend input[type='checkbox']").each(function () {
+    toggleFieldsInFieldSet($(this));
+
+    $(this).change(function () {
         toggleFieldsInFieldSet($(this));
-
-        $(this).change(function () {
-            toggleFieldsInFieldSet($(this));
-        });
     });
-
-    $("#settings").fadeIn("fast");
 });
+
+$("#settings").fadeIn("fast");
 
 function initializePlugins() {
     $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });

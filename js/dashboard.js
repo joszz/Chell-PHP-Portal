@@ -9,15 +9,9 @@ var speedtest = false, opcache = false, pihole = false, snmp = false;
 * @module Dashboard
 */
 
-/**
-* Document onload, call to initialize eventhandlers and plugins.
-*
-* @method document.onload
-*/
-$(function () {
-    initializeDashboardEventHandlers();
-    initializePlugins();
-});
+
+initializeDashboardEventHandlers();
+initializePlugins();
 
 /**
  * Initializes all plugins for the dashboard.

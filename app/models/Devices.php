@@ -20,6 +20,11 @@ class Devices extends BaseModel
             'MenuItems',
             'device_id'
         );
+
+        if ($this->shutdown_method == 'adb')
+        {
+            $this->adbConnect();
+        }
     }
 
     /**
@@ -220,5 +225,38 @@ class Devices extends BaseModel
     {
         shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_SLEEP');
         return true;
+    }
+
+    private function adbConnect()
+    {
+        shell_exec('adb connect ' . escapeshellcmd($this->ip));
+        return true;
+    }
+
+    public function adbGetArchitecture()
+    {
+        return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell getprop ro.product.cpu.abi');
+    }
+
+    public function adbGetBatteryStats()
+    {
+        return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys battery');
+    }
+
+    public function adbGetCpuUsage()
+    {
+        $this->adbConnect();
+        $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');
+        $result = current(explode(PHP_EOL, $output));
+        $result = str_replace('cpu', '', $result);
+        $result = array_values(array_filter(explode (' ', $result)));
+        $totalTime = 0;
+
+        foreach ($result as $time)
+        {
+            $totalTime += trim($time);
+        }
+
+        return round((1 - $result[3] / $totalTime) * 100);
     }
 }

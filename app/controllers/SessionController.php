@@ -25,7 +25,8 @@ class SessionController extends BaseController
     {
         parent::initialize();
 
-        $this->assets->addScripts(['login', 'webauthnauthenticate']);
+        $this->assets->addScripts(['login', 'webauthnauthenticate', 'toggle-passwords']);
+        $this->assets->addStyleAndScript('bootstrap-toggle');
     }
 
     /**
@@ -59,8 +60,6 @@ class SessionController extends BaseController
 
         $this->view->containerFullHeight = true;
         $this->view->form = new LoginForm($this->loginFailed);
-
-        $this->assets->addStyleAndScript('bootstrap-toggle');
     }
 
     /**

@@ -138,11 +138,7 @@ class IndexController extends BaseController
     private function setAssets()
     {
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
-        $scripts = [
-            'dashboard',
-            'jquery.isloading',
-            'jquery.tinytimer',
-        ];
+        $scripts = [];
         $styles = ['dashboard'];
 
         foreach ($dir as $fileinfo)
@@ -175,6 +171,10 @@ class IndexController extends BaseController
                 }
             }
         }
+
+        $scripts[] = 'jquery.tinytimer';
+        $scripts[] = 'jquery.isloading';
+        $scripts[] = 'dashboard';
 
         $this->assets->addScripts($scripts)->addStyles($styles);
     }

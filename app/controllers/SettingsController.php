@@ -36,8 +36,8 @@ class SettingsController extends BaseController
         parent::initialize();
 
         $this->assets->
-            addStylesAndScripts(['bootstrap-select', 'bootstrap-toggle', 'jquery.bootstrap-touchspin', 'settings'])->
-            addScripts(['webauthnregister', 'bootstrap-tabcollapse', 'toggle-passwords']);
+            addScripts(['webauthnregister', 'bootstrap-tabcollapse', 'toggle-passwords'])->
+            addStylesAndScripts(['bootstrap-select', 'bootstrap-toggle', 'jquery.bootstrap-touchspin', 'settings']);
     }
 
     /**

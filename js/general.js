@@ -32,30 +32,28 @@ var keys = {
 *
 * @method document.onload
 */
-$(function () {
-    if ("serviceWorker" in navigator) {
-        var baseUri = $("body").data("baseuri");
-        if (baseUri) {
-            window.addEventListener("load", function () {
-                navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {
-                    // Registration was successful
-                }, function (_err) {
-                    // registration failed :(
-                });
+if ("serviceWorker" in navigator) {
+    var baseUri = $("body").data("baseuri");
+    if (baseUri) {
+        window.addEventListener("load", function () {
+            navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {
+                // Registration was successful
+            }, function (_err) {
+                // registration failed :(
             });
-        }
+        });
     }
+}
 
-    alertTimeout = $(".alert").data("alert-timeout");
+alertTimeout = $(".alert").data("alert-timeout");
 
-    initializeGlobalPlugins();
-    initializeGlobalEventHandlers();
+initializeGlobalPlugins();
+initializeGlobalEventHandlers();
 
-    var iframe = $("body#iframe");
-    if (iframe.length && iframe.data("bgImage").length) {
-        iframe.css("background-image", "url('" + iframe.data("bgImage") + "')")
-    }
-});
+var iframe = $("body#iframe");
+if (iframe.length && iframe.data("bgImage").length) {
+    iframe.css("background-image", "url('" + iframe.data("bgImage") + "')")
+}
 
 /**
 * Initializes all globally used plugins.
