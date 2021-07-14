@@ -11,6 +11,8 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
 use Phalcon\Url;
+use Phalcon\Mvc\Model\Query\Lang;
+use Chell\Forms\Validators\Mac;
 
 /**
  * The base form class used in SettingsGeneralForm and SettingsDashboardForm.
@@ -144,11 +146,27 @@ class SettingsBaseForm extends Form
      * Whether the element with $name has any help content.
      *
      * @param string $name  The name of the formelement.
-     * @return bool         Has help?
+     * @return bool|string  Has help?
      */
-    public function hasHelp(string $name) : bool
+    public function tryGetHelpName(string $name)
     {
-        return isset($this->translator->helpContent[$name]);
+        $class = strtolower(str_replace('Form', '', str_replace('Chell\Forms\Settings', '', get_class($this))));
+
+        if(strrpos($name, '-') !== false)
+        {
+            list($category, $settingName) = explode('-', $name);
+
+            if (is_file(APP_PATH . 'app/messages/en/settings/' . $category . '/' . $settingName . '.phtml'))
+            {
+                return $name;
+            }
+        }
+        else if (is_file(APP_PATH . 'app/messages/en/settings/' . $class . '/' . $name . '.phtml'))
+        {
+            return $class . '-' . $name;
+        }
+
+        return false;
     }
 
     /**

@@ -78,21 +78,33 @@ class SettingsDeviceForm extends SettingsBaseForm
                 'data-size' => 'small'
         ]);
 
+        $hypervadminEnabled = new Check('hypervadmin_enabled');
+		$hypervadminEnabled->setLabel('HyperVAdmin enabled')
+			->setAttributes([
+				'value' => '1',
+                'checked' => !empty($entity->hypervadmin_url),
+				'data-toggle' => 'toggle',
+				'data-onstyle' => 'success',
+				'data-offstyle' => 'danger',
+				'data-size' => 'small',
+				'fieldset' => 'HyperVAdmin enabled'
+		]);
+
         $hypervadminUrl = new Text('hypervadmin_url');
         $hypervadminUrl->setLabel('HyperVAdmin URL')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control'])
+            ->setAttributes(['class' => 'form-control', 'fieldset' => true])
             ->addValidator(new UrlValidator(['message' => $this->translator->validation['url'], 'allowEmpty' => true]));
 
         $hypervadminUsername = new Text('hypervadmin_user');
         $hypervadminUsername->setLabel('HyperVAdmin username')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control']);
+            ->setAttributes(['class' => 'form-control', 'fieldset' => true]);
 
         $hypervadminPassword = new Password('hypervadmin_password');
         $hypervadminPassword->setLabel('HyperVAdmin password')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control']);
+            ->setAttributes(['class' => 'form-control', 'fieldset' => 'end']);
 
         $this->add($name);
         $this->add($ip);
@@ -101,7 +113,8 @@ class SettingsDeviceForm extends SettingsBaseForm
         $this->add($shutdownUser);
         $this->add($shutdownPassword);
         $this->add($shutdownMethod);
-        $this->add($showDasboard);
+        $this->add($hypervadminEnabled);
+        $this->add($hypervadminUrl);
         $this->add($hypervadminUrl);
         $this->add($hypervadminUsername);
         $this->add($hypervadminPassword);

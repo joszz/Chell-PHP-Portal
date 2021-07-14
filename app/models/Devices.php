@@ -201,7 +201,7 @@ class Devices extends BaseModel
     /**
      * Executes a RPC command to shutdown Windows based devices.
      *
-     * @see             https://www.howtogeek.com/howto/windows-vista/enable-mapping-to-hostnamec-share-on-windows-vista/
+     * @see             https://www.howtogeek.com/109655/how-to-remotely-shut-down-or-restart-windows-pcs/
      * @return bool     Whether the shutdown command was successful or not.
      */
     private function shutdownOnRpc() : bool

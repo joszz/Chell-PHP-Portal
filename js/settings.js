@@ -21,7 +21,10 @@ $("legend input[type='checkbox']").each(function () {
     });
 });
 
-$("#settings").fadeIn("fast");
+window.setTimeout(function () {
+    $("#settings").fadeIn("fast");
+}, 100);
+
 
 function initializePlugins() {
     $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
@@ -48,8 +51,6 @@ function initializePlugins() {
         }
     };
 
-    $(".nav-tabs.visible-xs").tabCollapse();
-
     //Set focus to correct tab when URL navigated to with location.hash
     if (location.hash) {
         $("a[href='" + location.hash + "']").tab("show");
@@ -65,6 +66,8 @@ function initializePlugins() {
         var currentForm = $("form:visible");
         $("nav.navbar .fa-save").fadeIn().attr("form", currentForm.attr("id"));
     }
+
+    $(".nav-tabs.visible-xs").tabCollapse();
 }
 
 function setEventHandlers() {
@@ -91,7 +94,7 @@ function setEventHandlers() {
         return false;
     });
 
-    $("#bgcolor").on("change", function () {
+    $("#application-background").on("change", function () {
         if ($(this).val() == "timebg") {
             $(this).parents('.row').next().removeClass('hidden').next().removeClass('hidden');
         }

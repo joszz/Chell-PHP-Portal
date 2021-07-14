@@ -77,7 +77,7 @@ class AssetsPlugin extends Injectable
      */
     public function addStyles(array $names)
     {
-        $this->styles = array_merge($this->styles, $names);
+        $this->styles = [...$this->styles, ...$names];
         return $this;
     }
 
@@ -101,7 +101,7 @@ class AssetsPlugin extends Injectable
      */
     public function addScripts(array $names)
     {
-        $this->scripts = array_merge($this->scripts, $names);
+        $this->scripts = [...$this->scripts, ...$names];
         return $this;
     }
 

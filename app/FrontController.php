@@ -168,7 +168,7 @@ class FrontController
             'MFlor\Pwned\Repositories'          => APP_PATH . 'app/vendor/mflor/pwned/src/Repositories /',
             'GuzzleHttp'                        => APP_PATH . 'app/vendor/guzzlehttp/guzzle/src/',
             'GuzzleHttp\Psr7'                   => APP_PATH . 'app/vendor/guzzlehttp/psr7/src/',
-            'GuzzleHttp\Promise'                => APP_PATH . 'app/vendor/guzzlehttp/promises/src/'
+            'GuzzleHttp\Promise'                => APP_PATH . 'app/vendor/guzzlehttp/promises/src/',
         ])->register();
     }
 
@@ -266,7 +266,7 @@ class FrontController
     private function setTranslator()
     {
         $language = $this->application->request->getBestLanguage();
-        $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language . '.php');
+        $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language);
         $this->di->set('translator', $this->application->view->trans);
     }
 

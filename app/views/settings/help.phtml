@@ -3,21 +3,21 @@
 <div class="panel panel-success">
     <div class="panel-heading">
         <h4 class="pull-left">
-            <?php echo $trans->helpTitles[$which] ?>
+            <?php echo $title ?>
         </h4>
     </div>
     <div class="panel-body">
-        <?php echo $trans->helpContent[$which] ?>
+        <?php echo $help ?>
 
-        <?php if ($which == 'cryptkey') : ?>
-        <div class="col-xs-12 no-gutter">
-            <div class="input-group">
-                <input type="text" class="form-control" value="<?php echo bin2hex(random_bytes(32)) ?>" />
-                <a class="input-group-addon btn btn-default" href="<?php echo $this->url->get('settings/help/cryptkey') ?>">
-                    <i class="fa fa-key"></i>
-                </a>
-            </div>
-        </div>
-        <?php endif ?>
+        <?php /* if ($which == 'cryptkey') : ?>
+        //<div class="col-xs-12 no-gutter">
+        //    <div class="input-group">
+        //        <input type="text" class="form-control" value="<?php echo bin2hex(random_bytes(32)) ?>" />
+        //        <a class="input-group-addon btn btn-default" href="<?php echo $this->url->get('settings/help/cryptkey') ?>">
+        //            <i class="fa fa-key"></i>
+        //        </a>
+        //    </div>
+        //</div>
+        <?php endif */?>
     </div>
 </div>

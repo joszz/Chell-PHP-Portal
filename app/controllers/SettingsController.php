@@ -350,8 +350,12 @@ class SettingsController extends BaseController
      */
     public function helpAction(string $id)
     {
+        list($category, $setting) = explode('-', $id);
         $this->view->setMainView('layouts/empty');
-        $this->view->which = $id;
+        ob_start();
+        require_once(APP_PATH . 'app/messages/en/settings/' . $category . '/' . $setting . '.phtml');
+        $this->view->title = $title;
+        $this->view->help =  ob_get_clean();
     }
 
     /**

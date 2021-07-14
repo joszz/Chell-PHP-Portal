@@ -14,6 +14,8 @@ use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\Settings;
 use Chell\Models\SnmpHosts;
 use Phalcon\Mvc\View;
+use nikosglikis\ModStatusParser\ModStatusParser;
+use Chell\Exceptions\ChellException;
 
 /**
  * The controller responsible for all dashboard related actions.
@@ -157,11 +159,11 @@ class IndexController extends BaseController
                     $controllerInstance = $controller->newInstanceWithoutConstructor();
                     $jsFilesProperty = $controller->getProperty('jsFiles');
                     $jsFilesProperty->setAccessible(true);
-                    $scripts = array_merge($jsFilesProperty->getValue($controllerInstance), $scripts);
+                    $scripts = [...$jsFilesProperty->getValue($controllerInstance), ...$scripts];
 
                     $cssFilesProperty = $controller->getProperty('cssFiles');
                     $cssFilesProperty->setAccessible(true);
-                    $styles =  array_merge($cssFilesProperty->getValue($controllerInstance), $styles);
+                    $styles = [...$cssFilesProperty->getValue($controllerInstance), ...$styles];
 
                     if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
                     {

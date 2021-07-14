@@ -1,8 +1,8 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
-<?php if($this->hasHelp($name)) : ?>
+<?php if($helpName = $this->tryGetHelpName($name)) : ?>
 <a class="btn btn-default help <?php echo get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right' ?> " data-fancybox data-type="iframe" title="Help"
-    href="<?php echo $this->url->get('settings/help/' . $name) ?>">
+    href="<?php echo $this->url->get('settings/help/' . $helpName) ?>">
     <i class="fa fa-question"></i>
 </a>
 <?php endif ?>

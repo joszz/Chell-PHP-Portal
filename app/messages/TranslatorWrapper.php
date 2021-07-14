@@ -14,14 +14,12 @@ class TranslatorWrapper
     /**
      * Given the translationFile, set the translation messages.
      *
-     * @param string $translationFile The translation file to use.
+     * @param string $translationPath The translation file to use.
      */
-    public function __construct($translationFile)
+    public function __construct($translationPath)
     {
-        require file_exists($translationFile) ? $translationFile :  APP_PATH . 'app/messages/en.php';
+        require_once((is_dir($translationPath) ? $translationPath :  APP_PATH . 'app/messages/en') . '/validation.php');
 
-        $this->helpContent =  $help;
-        $this->helpTitles =  $helpTitles;
         $this->validation =  $validation;
     }
 }

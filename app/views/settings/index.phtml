@@ -58,7 +58,7 @@
                     <a data-toggle="tab" href="#logs" class="pull-left">Logs</a>
                 </li>
             </ul>
-            <div class="tab-content" style="float: left; width: 100%">
+            <div class="tab-content pull-left">
                 <?php foreach ($forms AS $formId => $formContent) : ?>
                 <div id="<?php echo strtolower($formId) ?>" class="tab-pane fade<?php echo $activeTab == $formId ? ' in active' : null ?> panel panel-square">
                     <?php echo $formContent->renderForm($formId) ?>

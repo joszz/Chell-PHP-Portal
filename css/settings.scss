@@ -125,6 +125,10 @@ input[type=number] {
     fieldset:last-of-type .row:last-child {
         border: 0;
     }
+
+    .tab-content{
+        width: 100%;
+    }
 }
 
 .bootstrap-touchspin-injected button {
