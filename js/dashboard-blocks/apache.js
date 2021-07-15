@@ -66,7 +66,7 @@
                         settings.block.find(".duration-request").text(data.DurationPerReq);
 
                         var date = new Date();
-                        date.setSeconds(date.getSeconds() - Math.floor(data.uptime));
+                        date.setSeconds(date.getSeconds() - Math.floor(data.ServerUptimeSeconds));
 
                         if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
                             clearInterval(settings.block.find("div.time").data("tinyTimer").interval);

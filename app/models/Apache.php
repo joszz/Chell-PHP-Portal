@@ -18,7 +18,7 @@ class Apache extends BaseModel
         {
             if (strrpos($line, ':') !== false)
             {
-                list($key, $value) = explode(':', $line);
+                list($key, $value) = explode(':', $line, 2);
                 $result[trim($key)] = trim($value);
             }
         }
@@ -40,7 +40,7 @@ class Apache extends BaseModel
         {
             if (strrpos($line, ':') !== false)
             {
-                list($key, $value) = explode(':', $line);
+                list($key, $value) = explode(':', $line, 2);
                 $result[trim($key)] = trim($value);
             }
         }

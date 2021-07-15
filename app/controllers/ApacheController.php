@@ -17,16 +17,18 @@ class ApacheController extends WidgetController
 		parent::initialize();
 
         $this->_model = new Apache();
-        $this->view->disable();
     }
 
     public function indexAction()
     {
+        $this->view->disable();
         $this->response->setJsonContent($this->_model->getServerStatus())->send();
     }
 
-    public function phpfpmAction()
+    public function detailsAction()
     {
-        $this->response->setJsonContent($this->_model->getFpmStatus())->send();
+        $this->view->setMainView('layouts/empty');
+        $this->view->apache = $this->_model->getServerStatus();
+        $this->view->php = $this->_model->getFpmStatus();
     }
 }

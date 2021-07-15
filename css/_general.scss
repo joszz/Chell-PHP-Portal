@@ -269,3 +269,9 @@ div#confirm-dialog button {
 div#confirm-dialog button#confirm-yes {
     margin-right: 15px;
 }
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
