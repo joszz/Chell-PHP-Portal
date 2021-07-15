@@ -17,10 +17,16 @@ class ApacheController extends WidgetController
 		parent::initialize();
 
         $this->_model = new Apache();
+        $this->view->disable();
     }
 
     public function indexAction()
     {
-        \Chell\dump( $this->_model->getFpmStatus());
+        $this->response->setJsonContent($this->_model->getServerStatus())->send();
+    }
+
+    public function phpfpmAction()
+    {
+        $this->response->setJsonContent($this->_model->getFpmStatus())->send();
     }
 }

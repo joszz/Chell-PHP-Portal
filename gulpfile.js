@@ -60,7 +60,6 @@ var config = {
             'node_modules/chartist-plugin-legend/chartist-plugin-legend.js',
             'node_modules/spark-md5/spark-md5.js',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
-            'node_modules/bootstrap-tabcollapse/bootstrap-tabcollapse.js',
             'node_modules/jquery.vibrate/build/jquery/jquery.vibrate.js',
             'node_modules/jquery-tinytimer/jquery.tinytimer.js',
             'node_modules/jquery.isloading/jquery.isloading.js',

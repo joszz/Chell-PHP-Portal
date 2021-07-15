@@ -73,6 +73,9 @@ function initializePlugins() {
     if (typeof $.fn.database_stats !== "undefined") {
         $(".database-stats").database_stats();
     }
+    if (typeof $.fn.apache !== "undefined") {
+        $(".apache").apache();
+    }
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

@@ -96,6 +96,11 @@
 <?php $this->partial('index/partials/database_stats') ?>
 <?php endif ?>
 
+<?php if ($this->settings->apache->enabled) : ?>
+<?php $this->partial('index/partials/apache') ?>
+<?php endif ?>
+
+
 <?php if ($this->settings->pulseway->enabled) : ?>
 <?php $this->partial('index/partials/pulseway') ?>
 <?php endif ?>

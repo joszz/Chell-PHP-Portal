@@ -13,7 +13,6 @@
 		"@fortawesome/fontawesome-free": "^5.15.2",
 		"bootstrap-sass": "3.4.1",
 		"bootstrap-select": "^1.13.18",
-		"bootstrap-tabcollapse": "^0.2.6",
 		"bootstrap-toggle": "^2.2.2",
 		"bootstrap-touchspin": "^4.3.0",
 		"chartist": "0.11.4",

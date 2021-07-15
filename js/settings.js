@@ -27,7 +27,7 @@ window.setTimeout(function () {
 
 
 function initializePlugins() {
-    $("select").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
+    $("select:not(.no-selectpicker)").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
 
     $("input[type='number'][step!='any']").TouchSpin({
         verticalupclass: "fa fa-chevron-left",
@@ -38,18 +38,6 @@ function initializePlugins() {
     });
 
     $(".toggle-password").togglePasswords();
-
-    //override tabCollapse checkstate since we use 2 differen tabs for mobile and desktop view
-    $.fn.tabCollapse.Constructor.prototype.checkState = function () {
-        if ($(".nav-tabs.hidden-xs").is(":visible") && this._accordionVisible) {
-            this.showTabs();
-            this._accordionVisible = false;
-        }
-        else if (this.$accordion.is(":visible") && !this._accordionVisible) {
-            this.showAccordion();
-            this._accordionVisible = true;
-        }
-    };
 
     //Set focus to correct tab when URL navigated to with location.hash
     if (location.hash) {
@@ -66,8 +54,6 @@ function initializePlugins() {
         var currentForm = $("form:visible");
         $("nav.navbar .fa-save").fadeIn().attr("form", currentForm.attr("id"));
     }
-
-    $(".nav-tabs.visible-xs").tabCollapse();
 }
 
 function setEventHandlers() {
@@ -154,6 +140,10 @@ function setEventHandlers() {
         });
 
         return false;
+    });
+
+    $("#settings > .panel-heading select").on("change", function () {
+        $("a[href='" + $(this).val() + "']").tab("show");
     });
 }
 
