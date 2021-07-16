@@ -2,10 +2,11 @@
 
 namespace Chell\Controllers;
 
+use Exception;
+use DateTime;
 use Chell\Models\Users;
 use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
-use Exception;
 use Duo\Web;
 use Phalcon\Http\ResponseInterface;
 
@@ -17,6 +18,7 @@ use Phalcon\Http\ResponseInterface;
 class SessionController extends BaseController
 {
     private bool $loginFailed = false;
+    private string $loginMessage = '';
 
     /**
      * Initializes the controller, adding JS being used.
@@ -59,6 +61,7 @@ class SessionController extends BaseController
         }
 
         $this->view->containerFullHeight = true;
+        $this->view->loginMessage = $this->loginMessage;
         $this->view->form = new LoginForm($this->loginFailed);
     }
 
@@ -91,42 +94,58 @@ class SessionController extends BaseController
             'bind' => ['username' => $username]
         ]);
 
-        if ($user && $this->security->checkHash($password, $user->password))
+        if ($user)
         {
-            //Duo 2 factor login
-            if ($this->settings->duo->enabled)
-            {
-                if ($rememberMe)
-                {
-                    $this->cookies->set('username', $username, strtotime('+1 year'), BASEPATH, true);
-                    $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true);
-                }
+            $now = new DateTime();
+            $lastFailedLogin = new DateTime($user->last_failed_attempt);
 
-                return $this->dispatcher->forward([
-                    'controller' => 'session',
-                    'action'     => 'duo',
-                    'params'     => [$user]
-                ]);
+            if ($user->failed_logins + 1 >= 5 && $now->diff($lastFailedLogin)->i < 5)
+            {
+                $this->loginMessage = 'User locked out for 5 minutes!';
             }
-            //Normal login
+
+            else if ($this->security->checkHash($password, $user->password))
+            {
+                //Duo 2 factor login
+                if ($this->settings->duo->enabled)
+                {
+                    if ($rememberMe)
+                    {
+                        $this->cookies->set('username', $username, strtotime('+1 year'), BASEPATH, true);
+                        $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true);
+                    }
+
+                    return $this->dispatcher->forward([
+                        'controller' => 'session',
+                        'action'     => 'duo',
+                        'params'     => [$user]
+                    ]);
+                }
+                //Normal login
+                else
+                {
+                    if ($rememberMe)
+                    {
+                        $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', BASEPATH, true)));
+                        $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', BASEPATH, true)));
+                    }
+
+                    $this->_registerSession($user);
+                    $user->last_login = $now->format('Y-m-d H:i:s');
+                    $user->last_failed_attempt = null;
+                    $user->failed_logins = 0;
+                    $user->save();
+
+                    return $this->response->redirect($this->getRedirectUrlFromSession());
+                }
+            }
             else
             {
-                if ($rememberMe)
-                {
-                    $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', BASEPATH, true)));
-                    $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', BASEPATH, true)));
-                }
-
-                $this->_registerSession($user);
-                $user->last_login = date('Y-m-d H:i:s');
+                $user->failed_logins = $now->diff($lastFailedLogin)->i >= 5 ? 1 : $user->failed_logins + 1;
+                $user->last_failed_attempt = $now->format('Y-m-d H:i:s');
                 $user->save();
-
-                return $this->response->redirect($this->getRedirectUrlFromSession());
+                $this->loginFailed = true;
             }
-        }
-        else
-        {
-            $this->loginFailed = true;
         }
 
         $this->dispatcher->forward([
@@ -236,6 +255,8 @@ class SessionController extends BaseController
                 throw new Exception('Expected type Users, got type' . get_class($user));
             }
 
+            $user->failed_logins = 0;
+            $user->last_failed_attempt = null;
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
         }

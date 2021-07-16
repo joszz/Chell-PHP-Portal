@@ -22,8 +22,8 @@ $("legend input[type='checkbox']").each(function () {
 });
 
 window.setTimeout(function () {
-    $("#settings").fadeIn("fast");
-}, 100);
+    $("#settings").removeClass("hidden_not_important");
+}, 10);
 
 
 function initializePlugins() {
@@ -44,13 +44,13 @@ function initializePlugins() {
         $("a[href='" + location.hash + "']").tab("show");
 
         if ($(".tab-content " + location.hash + " form").length) {
-            $("nav.navbar .fa-save").fadeIn().attr("form", "form_" + location.hash.replace("#", ""));
+            $("nav.navbar .fa-save").removeClass("hidden_not_important").attr("form", "form_" + location.hash.replace("#", ""));
         }
 
         $("#settings .nav-tabs").find("a").on("shown.bs.tab", scrollToError);
     }
     else {
-        scrollToError(0);
+        scrollToError();
         var currentForm = $("form:visible");
         $("nav.navbar .fa-save").fadeIn().attr("form", currentForm.attr("id"));
     }
@@ -206,6 +206,7 @@ function setSaveButton() {
         saveButton.fadeIn().attr("form", currentForm.attr("id"));
     }
     else {
+        console.log('hiding');
         saveButton.fadeOut();
     }
 }

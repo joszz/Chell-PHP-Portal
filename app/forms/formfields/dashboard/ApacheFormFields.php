@@ -42,7 +42,6 @@ class ApacheFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->form->settings->apache->fpm_status_url)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'apache-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 

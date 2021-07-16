@@ -9,15 +9,19 @@
                     Apache
                 </a>
             </li>
+            <?php if(isset($php)) : ?>
             <li>
                 <a data-toggle="tab" href="#php">
                     PHP
                 </a>
             </li>
+            <?php endif ?>
         </ul>
     </div>
     <div class="tab-content">
         <?php $this->partial('apache/partials/apache') ?>
+        <?php if(isset($php)) : ?>
         <?php $this->partial('apache/partials/php') ?>
+        <?php endif ?>
     </div>
 </div>

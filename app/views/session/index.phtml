@@ -7,6 +7,9 @@
             <button class="btn btn-default fa fa-fingerprint pull-right" id="webauth"></button>
         </div>
         <div class="panel-body">
+            <p class="text-danger text-bold text-center">
+                <?php echo $loginMessage ?>
+            </p>
             <form action="<?php echo $form->getAction() ?>" method="post">
                 <?php foreach($form AS $element) : ?>
 

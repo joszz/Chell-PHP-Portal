@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The roborock widget.
+* The Apache widget.
 *
-* @class Roborock
+* @class Apache
 * @module Dashboard
 * @submodule DashboardBlocks
 */
@@ -41,7 +41,7 @@
             },
 
             /**
-             * Updates the current statistics by calling the Roborock controller.
+             * Updates the current statistics by calling the Apache controller.
              * 
              * @method update
              * @param {boolean} initialize  Whether called on initialization or not.
@@ -58,12 +58,13 @@
                     dataType: "json",
                     success: function (data) {
                         settings.block.find(".version").text(data.ServerVersion);
+                        settings.block.find(".version").attr("title", data.ServerVersion);
                         settings.block.find(".built").text(data['Server Built']);
                         settings.block.find(".load").text(data.CPULoad);
                         settings.block.find(".requests-s").text(data.ReqPerSec);
                         settings.block.find(".bytes-s").text(data.BytesPerSec);
                         settings.block.find(".bytes-requests").text(data.BytesPerReq);
-                        settings.block.find(".duration-request").text(data.DurationPerReq);
+                        settings.block.find(".duration-request").text(data.DurationPerReq + " ms");
 
                         var date = new Date();
                         date.setSeconds(date.getSeconds() - Math.floor(data.ServerUptimeSeconds));
