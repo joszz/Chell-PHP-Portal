@@ -103,7 +103,6 @@ class SessionController extends BaseController
             {
                 $this->loginMessage = 'User locked out for 5 minutes!';
             }
-
             else if ($this->security->checkHash($password, $user->password))
             {
                 //Duo 2 factor login

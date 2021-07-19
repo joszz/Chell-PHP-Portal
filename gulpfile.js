@@ -40,12 +40,12 @@ var config = {
             'css/dashboard/youless.scss'
         ],
         css: [
-            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css',
             'node_modules/waves/dist/waves.css',
             'node_modules/bootstrap-select/dist/css/bootstrap-select.css',
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
-            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css'
+            'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
+            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css'
         ]
     },
     scripts: {
@@ -109,7 +109,8 @@ function build_sass() {
             cssnano({
                 discardComments: {
                     removeAll: true
-                }
+                },
+                zindex: false
             })
         )
         .pipe(header(banner.main, { package: package }))
@@ -125,7 +126,8 @@ function build_styles() {
             cssnano({
                 discardComments: {
                     removeAll: true
-                }
+                },
+                zindex: false
             })
         )
         .pipe(header(banner.main, { package: package }))
