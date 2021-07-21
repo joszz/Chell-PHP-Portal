@@ -306,11 +306,14 @@ class InstallController extends BaseController
      */
     private function writeConfig()
     {
-        $config['database'] = [
-            'host' => $this->postedData['mysql-host'],
-            'name' => $this->postedData['chell-database'],
-            'username' => $this->postedData['chell-database-user'],
-            'password' => $this->postedData['chell-database-password'],
+        $config = [
+            'general' => [ 'debug' => '0'],
+            'database' => [
+                'host' => $this->postedData['mysql-host'],
+                'name' => $this->postedData['chell-database'],
+                'username' => $this->postedData['chell-database-user'],
+                'password' => $this->postedData['chell-database-password'],
+            ]
         ];
         (new WriteiniFile(APP_PATH . 'app/config/config.ini'))->create($config)->write();
     }
