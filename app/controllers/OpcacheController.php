@@ -53,6 +53,6 @@ class OpcacheController extends WidgetController
         $this->view->opcache = $this->_model;
         $this->view->activeTab = $tab;
         $this->view->overflow = true;
-        $this->view->setMainView('layouts/empty');
+        $this->SetEmptyLayout();
     }
 }

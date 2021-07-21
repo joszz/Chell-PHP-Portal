@@ -37,7 +37,7 @@ class SnmpController extends WidgetController
     public function detailsAction(int $id)
     {
         $this->view->overflow = true;
-        $this->view->setMainView('layouts/empty');
+        $this->SetEmptyLayout();
         $this->view->host = SnmpHosts::findFirst([
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],

@@ -3,13 +3,13 @@
 <div class="panel panel-success" id="settings">
     <div class="panel-heading">
         <div class="btn-group pull-left back-btn">
-            <a href="<?php echo $this->url->get('settings/devices') ?>" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
+            <a href="<?php echo $this->url->get('settings/menu') ?>" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
         </div>
         <h4 class="pull-left">
-            <?php echo !empty($device->name) ? 'Edit' : 'New' ?> device
+            <?php echo !empty($item->name) ? 'Edit' : 'New' ?> menuitem
         </h4>
     </div>
     <div class="panel-body">
-        <?php echo $form->renderForm('device') ?>
+        <?php echo $form->renderForm('menu') ?>
     </div>
 </div>

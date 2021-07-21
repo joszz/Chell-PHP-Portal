@@ -14,8 +14,6 @@ use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\Settings;
 use Chell\Models\SnmpHosts;
 use Phalcon\Mvc\View;
-use nikosglikis\ModStatusParser\ModStatusParser;
-use Chell\Exceptions\ChellException;
 
 /**
  * The controller responsible for all dashboard related actions.

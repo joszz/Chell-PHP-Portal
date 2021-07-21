@@ -26,6 +26,9 @@ class BaseController extends Controller
     public function initialize()
     {
         $this->settings = $this->di->get('settings');
+        $this->view->setTemplateAfter('navbar');
+        $this->view->bgcolor = $this->getBackgroundColor();
+        $this->di->get('vieweventmanager')->attach('view:beforeRender', $this->assets = new AssetsPlugin());
 
         if ($this->di->has('db') && in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
         {
@@ -38,10 +41,6 @@ class BaseController extends Controller
                 $this->view->user = $user;
             }
         }
-
-        $this->view->bgcolor = $this->getBackgroundColor();
-
-        $this->di->get('vieweventmanager')->attach('view:beforeRender', $this->assets = new AssetsPlugin());
     }
 
     /**
@@ -159,5 +158,11 @@ class BaseController extends Controller
         }
 
         return $paginator;
+    }
+
+    public function SetEmptyLayout()
+    {
+        $this->view->cleanTemplateAfter();
+        $this->view->setMainView('layouts/empty');
     }
 }

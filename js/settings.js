@@ -21,11 +21,6 @@ $("legend input[type='checkbox']").each(function () {
     });
 });
 
-window.setTimeout(function () {
-    $("#settings").removeClass("hidden_not_important");
-}, 10);
-
-
 function initializePlugins() {
     $("select:not(.no-selectpicker)").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
 
@@ -39,35 +34,10 @@ function initializePlugins() {
 
     $(".toggle-password").togglePasswords();
 
-    //Set focus to correct tab when URL navigated to with location.hash
-    if (location.hash) {
-        $("a[href='" + location.hash + "']").tab("show");
-
-        if ($(".tab-content " + location.hash + " form").length) {
-            $("nav.navbar .fa-save").removeClass("hidden_not_important").attr("form", "form_" + location.hash.replace("#", ""));
-        }
-
-        $("#settings .nav-tabs").find("a").on("shown.bs.tab", scrollToError);
-    }
-    else {
-        scrollToError();
-        var currentForm = $("form:visible");
-        $("nav.navbar .fa-save").fadeIn().attr("form", currentForm.attr("id"));
-    }
+    scrollToError();
 }
 
 function setEventHandlers() {
-    $(".nav-tabs.hidden-xs a").click(function () {
-        var anchor = $(this).attr("href");
-        location.hash = anchor;
-    });
-
-    $(".nav-tabs.hidden-xs a").click(function () {
-        setTimeout(setSaveButton, 0);
-    });
-
-    $(".nav-tabs a").on("shown.bs.tab", setSaveButton);
-
     $(".fa-trash-alt").click(function () {
         openConfirmDialog("Delete this item?", [{ url: $(this).attr("href") }], function () {
             if ($(this).attr("id") === "confirm-yes") {
@@ -143,7 +113,7 @@ function setEventHandlers() {
     });
 
     $("#settings > .panel-heading select").on("change", function () {
-        $("a[href='" + $(this).val() + "']").tab("show");
+        window.location.href = $("body").data("baseuri") + "settings/" + $(this).val();
     });
 }
 
@@ -195,18 +165,5 @@ function scrollToError() {
                 scrollTop: $("input[name='" + scrollTo + "']").offset().top - 60
             });
         }, 0)
-    }
-}
-
-function setSaveButton() {
-    var currentForm = $("form:visible");
-    var saveButton = $("nav.navbar .fa-save");
-
-    if (currentForm.length) {
-        saveButton.fadeIn().attr("form", currentForm.attr("id"));
-    }
-    else {
-        console.log('hiding');
-        saveButton.fadeOut();
     }
 }

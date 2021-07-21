@@ -11,8 +11,6 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
 use Phalcon\Url;
-use Phalcon\Mvc\Model\Query\Lang;
-use Chell\Forms\Validators\Mac;
 
 /**
  * The base form class used in SettingsGeneralForm and SettingsDashboardForm.
@@ -48,7 +46,7 @@ class SettingsBaseForm extends Form
      */
     public function renderElement(ElementInterface $element) : string
     {
-        return !empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element);
+        return (!empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element));
     }
 
     /**
@@ -90,7 +88,7 @@ class SettingsBaseForm extends Form
      *
      * @param string $id    The HTML id attribute to set on the form.
      */
-    public function renderForm(string $id)
+    public function renderForm()
     {
         require APP_PATH . 'app/views/forms/form.phtml';
     }

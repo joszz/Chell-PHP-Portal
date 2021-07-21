@@ -27,8 +27,6 @@
 </head>
 
 <body id="bootstrap" data-baseuri="<?php echo $this->url->get() ?>" class="<?php echo $this->settings->application->demo_mode ? 'demo-mode' : null ?>">
-    <?php $this->partial('navbar') ?>
-
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">
         <?php echo $this->getContent() ?>
     </div>

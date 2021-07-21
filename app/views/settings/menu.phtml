@@ -1,15 +1,76 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="panel panel-success" id="settings">
-    <div class="panel-heading">
-        <div class="btn-group pull-left back-btn">
-            <a href="<?php echo $this->url->get('settings/index#menuitems') ?>" class="btn btn-default fa fa-chevron-left" title="Go back"></a>
-        </div>
-        <h4 class="pull-left">
-            <?php echo !empty($item->name) ? 'Edit' : 'New' ?> menuitem
-        </h4>
-    </div>
-    <div class="panel-body">
-        <?php echo $form->renderForm('menu') ?>
-    </div>
+<div class="table-responsive col-lg-12 col-xs-12 no-gutter">
+    <table class="table table-striped table-hover success">
+        <thead>
+            <tr>
+                <th class="visible-xs">Actions</th>
+                <th class="text-center">Icon</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Device</th>
+                <th class="text-right hidden-xs">Actions</th>
+            </tr>
+            <tr>
+                <td class="visible-xs">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/menuitem/') ?>" title="Add menuitem">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+                <td colspan="5" class="text-right hidden-xs">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/menuitem/') ?>" title="Add menuitem">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($menuitems AS $item) : ?>
+            <tr>
+                <td class="visible-xs">
+                    <div class="btn-group">
+                        <a href="<?php echo $this->url->get('settings/menuitem/' . $item->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                        <a href="<?php echo $this->url->get('settings/delete/MenuItems/' . $item->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <img src="<?php echo $this->url->get('img/icons/menu/' . $item->id . '.png') ?>" width="16" alt="<?php echo $item->name ?>" />
+                </td>
+                <td>
+                    <?php echo $item->name ?>
+                </td>
+                <td>
+                    <a href="<?php echo $item->url ?>" target="_blank" rel="noreferrer">
+                        <?php echo $item->url ?>
+                    </a>
+                </td>
+                <td>
+                    <?php echo $item->device->name ?? null ?>
+                </td>
+                <td class="hidden-xs">
+                    <div class="btn-group pull-right">
+                        <a href="<?php echo $this->url->get('settings/menuitem/' . $item->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                        <a href="<?php echo $this->url->get('settings/delete/MenuItems/' . $item->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+        <tfoot>
+            <tr class="visible-xs">
+                <td colspan="6">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/menuitem/') ?>" title="Add menuitem">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr class="hidden-xs">
+                <td colspan="6" class="text-right">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/menuitem/') ?>" title="Add menuitem">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>

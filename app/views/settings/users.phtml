@@ -1,0 +1,76 @@
+<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+
+<div class="table-responsive col-lg-12 col-xs-12 no-gutter">
+    <table class="table table-striped table-hover success">
+        <thead>
+            <tr>
+                <th class="visible-xs">Actions</th>
+                <th class="text-center">ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Last login</th>
+                <th class="text-right hidden-xs">Actions</th>
+            </tr>
+            <tr>
+                <td class="visible-xs">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/user/') ?>" title="Add user">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+                <td colspan="5" class="text-right hidden-xs">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/user/') ?>" title="Add user">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($users AS $user) : ?>
+            <tr>
+                <td class="visible-xs">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary fa fa-fingerprint webauth"></a>
+                        <a href="<?php echo $this->url->get('settings/user/' . $user->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                        <a href="<?php echo $this->url->get('settings/delete/Users/' . $user->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                    </div>
+                </td>
+                <td class="text-center id">
+                    <?php echo $user->id ?>
+                </td>
+                <td>
+                    <?php echo $user->username ?>
+                </td>
+                <td>
+                    <?php echo $user->email ?>
+                </td>
+                <td>
+                    <?php echo $user->last_login ?>
+                </td>
+                <td class="hidden-xs">
+                    <div class="btn-group pull-right">
+                        <a href="#" class="btn btn-primary fa fa-fingerprint webauth"></a>
+                        <a href="<?php echo $this->url->get('settings/user/' . $user->id) ?>" class="btn btn-warning fa fa-edit"></a>
+                        <a href="<?php echo $this->url->get('settings/delete/Users/' . $user->id) ?>" class="btn btn-danger fa fa-trash-alt"></a>
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach ?>
+        </tbody>
+        <tfoot>
+            <tr class="visible-xs">
+                <td colspan="6">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/user/') ?>" title="Add user">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr class="hidden-xs">
+                <td colspan="6" class="text-right">
+                    <a class="btn btn-primary" href="<?php echo $this->url->get('settings/user/') ?>" title="Add user">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

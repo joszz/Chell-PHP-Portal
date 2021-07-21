@@ -14,6 +14,7 @@ use Chell\Models\Devices;
 use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
+use Chell\Plugins\SaveButtonPlugin;
 use Davidearl\WebAuthn\WebAuthn;
 use Phalcon\Http\ResponseInterface;
 
@@ -24,8 +25,6 @@ use Phalcon\Http\ResponseInterface;
  */
 class SettingsController extends BaseController
 {
-    private ?SettingsGeneralForm $generalForm = null;
-    private ?SettingsDashboardForm $dashboardForm = null;
     private int $logsPage = 1;
 
     /**
@@ -35,6 +34,7 @@ class SettingsController extends BaseController
     {
         parent::initialize();
 
+        $this->di->get('vieweventmanager')->attach('view:beforeRender', new SaveButtonPlugin());
         $this->assets->
             addScripts(['webauthnregister', 'bootstrap-tabcollapse', 'toggle-passwords'])->
             addStylesAndScripts(['bootstrap-select', 'bootstrap-toggle', 'jquery.bootstrap-touchspin', 'settings']);
@@ -45,58 +45,24 @@ class SettingsController extends BaseController
      *
      * @param string $activeTab     Which tab to be active on load, defaults to General.
      */
-    public function indexAction(string $activeTab = 'General')
+    public function indexAction()
     {
-        $this->view->activeTab = $activeTab;
-        $this->view->forms = [
-            'General'   => $this->generalForm ?? new SettingsGeneralForm(),
-            'Dashboard' => $this->dashboardForm ?? new SettingsDashboardForm(),
-        ];
-
-        $logsTotal = 0;
-        $logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
-
-        $this->setScrollToInputErrorElement([$this->generalForm, $this->dashboardForm]);
-
-        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
-        $this->view->users = Users::Find();
-        $this->view->devices = Devices::Find();
-        $this->view->snmpHosts = SnmpHosts::Find(['order' => 'name']);
-        $this->view->menuitems = MenuItems::Find(['order' => 'name']);
-        $this->view->logs = $logs;
-    }
-
-    /**
-     * Handles SettingsGeneralForm post and writes back to config.ini if valid.
-     * Forwards to index.
-     *
-     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#general when successful, or forwards to indexAction when failed.
-     */
-    public function generalAction()
-    {
-        $this->view->activeTab = 'General';
-        $data = $this->request->getPost();
-        $form = new SettingsGeneralForm();
+        $form = $this->view->form = new SettingsGeneralForm();
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
+            $data = $this->request->getPost();
             $form->customBind($data);
 
             if ($form->isValid($data))
             {
                 $this->settings->save('general');
             }
-            else
-            {
-                $this->generalForm = $form;
-                return $this->dispatcher->forward([
-                    'controller' => 'settings',
-                    'action'     => 'index'
-                ]);
-            }
         }
 
-        return $this->response->redirect('settings/index#general');
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->content = $form->renderForm();
+        $this->setScrollToInputErrorElement($form);
     }
 
     /**
@@ -107,73 +73,28 @@ class SettingsController extends BaseController
      */
     public function dashboardAction()
     {
-        $this->view->activeTab = 'Dashboard';
-        $data = $this->request->getPost();
-        $form = new SettingsDashboardForm();
+        $form = $this->view->form = new SettingsDashboardForm();
 
         if ($this->request->isPost() && $this->security->checkToken())
         {
+            $data = $this->request->getPost();
             $form->customBind($data);
 
             if ($form->isValid($data))
             {
                 $this->settings->save('dashboard');
             }
-            else
-            {
-                $this->dashboardForm = $form;
-                return $this->dispatcher->forward([
-                    'controller' => 'settings',
-                    'action'     => 'index'
-                ]);
-            }
         }
 
-        return $this->response->redirect('settings/index#dashboard');
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->content = $form->renderForm();
+        $this->setScrollToInputErrorElement($form);
     }
 
-    /**
-     * Deletes a $entity with $id if found. Or deletes a log if $which == 'Log'
-     * Redirects back to index#devices.
-     *
-     * @param string    $which      The type of the entity to be deleted. Used with call_user_func to get the right object reference.
-     * @param string       $id      The ID of the entity you want to delete.
-     * @param string    $subItem    Used to redirect to the correct page when having nested settings, such as SNMPHost -> SNMPRecord. Defaults to index (top most settings page).
-     * @param int|bool  $subItemId  The ID of the subentity you want to delete. Used to redirect to correct parent page.
-     * @return ResponseInterface    Will forward to settings/index#$which when successful, or will show the form again when failed.
-     */
-    public function deleteAction(string $which, string $id, string $subItem = 'index', $subItemId = false) : ResponseInterface
+    public function devicesAction()
     {
-        if (isset($id, $which))
-        {
-            if ($which == 'Logs')
-            {
-                if (is_file(APP_PATH . 'app/logs/' . $id))
-                {
-                    unlink(APP_PATH . 'app/logs/' . $id);
-                }
-                else if ($id == 'all')
-                {
-                    array_map('unlink', glob(APP_PATH . 'app/logs/*'));
-                }
-            }
-            else
-            {
-                $entity = call_user_func(['Chell\Models\\' . $which, 'findFirst'], [
-                    'conditions' => 'id = ?1',
-                    'bind'       => [1 => intval($id)]
-                ]);
-
-                if($which == 'MenuItems')
-                {
-                    unlink($entity->getIconFilePath());
-                }
-
-                $entity->delete();
-            }
-        }
-
-        return $this->response->redirect('settings/' . $subItem . ($subItemId ? '/' . $subItemId : null) . '#' . strtolower($which));
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->devices = Devices::Find();
     }
 
     /**
@@ -209,153 +130,17 @@ class SettingsController extends BaseController
 
                 $device->save();
 
-                return $this->response->redirect('settings/index#devices');
+                return $this->response->redirect('settings/devices');
             }
         }
 
         $this->view->device = $device;
     }
 
-    /**
-     * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
-     *
-     * @param int $id                     Optional, the menuitem to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
-     */
-    public function menuAction(int $id = 0)
+    public function snmpAction()
     {
-        $item = new MenuItems();
-        $file = false;
-
-        if ($id != 0)
-        {
-            $item  = MenuItems::findFirst([
-                'conditions' => 'id = ?1',
-                'bind'       => [1 => $id],
-            ]);
-        }
-
-        $form = $this->view->form = new SettingsMenuItemForm($item);
-
-        if ($this->request->isPost() && $this->security->checkToken())
-        {
-            $form->bind($data = $this->request->getPost(), $item);
-
-            if ($form->isValid($data, $item))
-            {
-                if ($id == 0)
-                {
-                    $item = new MenuItems($data);
-                }
-
-                if ($this->request->hasFiles())
-                {
-                    $file = current($this->request->getUploadedFiles());
-                    $item->extension = $file->getExtension();
-                }
-
-                $item->save();
-                $item->handlePost($data['user_id'] ?? [-1]);
-
-                if ($file)
-                {
-                    $filename = $item->getIconFilePath();
-                    $file->moveTo($filename);
-                    $item->resizeIcon($filename);
-                }
-
-                return $this->response->redirect('settings/index#menuitems');
-            }
-        }
-
-        $this->view->item = $item;
-    }
-
-    /**
-     * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
-     *
-     * @param int $id                     Optional, the user ID to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
-     */
-    public function userAction(int $id = 0)
-    {
-        $user = new Users();
-
-        if ($id != 0)
-        {
-            $user  = Users::findFirst([
-                'conditions' => 'id = ?1',
-                'bind'       => [1 => $id],
-            ]);
-
-            $user->password = '';
-        }
-
-        $form = $this->view->form = new SettingsUserForm($user);
-
-        if ($this->request->isPost() && $this->security->checkToken())
-        {
-            $form->bind($data = $this->request->getPost(), $user);
-
-            if ($form->isValid($data, $user))
-            {
-                if ($id == 0)
-                {
-                    $user = new Users($data);
-                }
-
-                $user->password = $this->security->hash($user->password);
-                $user->save();
-                return $this->response->redirect('settings/index#users');
-            }
-        }
-
-        $this->view->user = $user;
-    }
-
-    /**
-     * Displays the requested log file.
-     *
-     * @param string $file The log filename to display.
-     */
-    public function logAction(string $file)
-    {
-        if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
-        {
-            header('Content-Encoding: gzip');
-            $this->response->setHeader('Content-Encoding', 'gzip');
-            return $this->response->setContent(file_get_contents($path))->send();
-        }
-
-        $this->response->setContent('Log file not found!')->send();
-    }
-
-    /**
-     * Displays all the log files in a paginated fashion.
-     * Calls IndexAction to set all the data for all the tabs displayed.
-     *
-     * @param int $page The page requested
-     */
-    public function logsAction(int $page)
-    {
-        $this->logsPage = $page;
-        $this->view->pick('settings/index');
-        $this->indexAction('Logs');
-    }
-
-    /**
-     * Shows help content for an input in settings.
-     *
-     * @param string $id     The input name to show the help for.
-     */
-    public function helpAction(string $id)
-    {
-        list($category, $setting) = explode('-', $id);
-        $this->view->setMainView('layouts/empty');
-        ob_start();
-        require_once(APP_PATH . 'app/messages/en/settings/' . $category . '/' . $setting . '.phtml');
-        $this->view->title = $title;
-        $this->view->help =  ob_get_clean();
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->snmpHosts = SnmpHosts::Find(['order' => 'name']);
     }
 
     /**
@@ -391,7 +176,7 @@ class SettingsController extends BaseController
 
                 $host->save();
 
-                return $this->response->redirect('settings/index#snmphosts');
+                return $this->response->redirect('settings/snmp');
             }
         }
 
@@ -435,11 +220,212 @@ class SettingsController extends BaseController
 
                 $record->save();
 
-                return $this->response->redirect('settings/snmphost/' . $record->snmp_host_id . '#snmprecords');
+                return $this->response->redirect('settings/snmphost/' . $record->snmp_host_id);
             }
         }
 
         $this->view->record = $record;
+    }
+
+    public function menuAction()
+    {
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->menuitems = MenuItems::Find(['order' => 'name']);
+    }
+
+    /**
+     * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
+     *
+     * @param int $id                     Optional, the menuitem to edit.
+     * @return void|ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
+     */
+    public function menuitemAction(int $id = 0)
+    {
+        $item = new MenuItems();
+        $file = false;
+
+        if ($id != 0)
+        {
+            $item  = MenuItems::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $id],
+            ]);
+        }
+
+        $form = $this->view->form = new SettingsMenuItemForm($item);
+
+        if ($this->request->isPost() && $this->security->checkToken())
+        {
+            $form->bind($data = $this->request->getPost(), $item);
+
+            if ($form->isValid($data, $item))
+            {
+                if ($id == 0)
+                {
+                    $item = new MenuItems($data);
+                }
+
+                if ($this->request->hasFiles())
+                {
+                    $file = current($this->request->getUploadedFiles());
+                    $item->extension = $file->getExtension();
+                }
+
+                $item->save();
+                $item->handlePost($data['user_id'] ?? [-1]);
+
+                if ($file)
+                {
+                    $filename = $item->getIconFilePath();
+                    $file->moveTo($filename);
+                    $item->resizeIcon($filename);
+                }
+
+                return $this->response->redirect('settings/menu');
+            }
+        }
+
+        $this->view->item = $item;
+    }
+
+    public function usersAction()
+    {
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->users = Users::Find();
+    }
+
+    /**
+     * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
+     *
+     * @param int $id                     Optional, the user ID to edit.
+     * @return void|ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
+     */
+    public function userAction(int $id = 0)
+    {
+        $user = new Users();
+
+        if ($id != 0)
+        {
+            $user  = Users::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $id],
+            ]);
+
+            $user->password = '';
+        }
+
+        $form = $this->view->form = new SettingsUserForm($user);
+
+        if ($this->request->isPost() && $this->security->checkToken())
+        {
+            $form->bind($data = $this->request->getPost(), $user);
+
+            if ($form->isValid($data, $user))
+            {
+                if ($id == 0)
+                {
+                    $user = new Users($data);
+                }
+
+                $user->password = $this->security->hash($user->password);
+                $user->save();
+                return $this->response->redirect('settings/users');
+            }
+        }
+
+        $this->view->user = $user;
+    }
+
+    /**
+     * Displays the requested log file.
+     *
+     * @param string $file The log filename to display.
+     */
+    public function logAction(string $file)
+    {
+        if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
+        {
+            header('Content-Encoding: gzip');
+            $this->response->setHeader('Content-Encoding', 'gzip');
+            return $this->response->setContent(file_get_contents($path))->send();
+        }
+
+        $this->response->setContent('Log file not found!')->send();
+    }
+
+    /**
+     * Displays all the log files in a paginated fashion.
+     * Calls IndexAction to set all the data for all the tabs displayed.
+     *
+     * @param int $page The page requested
+     */
+    public function logsAction(int $page = 1)
+    {
+        $logsTotal = 0;
+        $this->logsPage = $page;
+        $this->view->setTemplateBefore('setting_category');
+        $this->view->logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
+        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
+    }
+
+    /**
+     * Deletes a $entity with $id if found. Or deletes a log if $which == 'Log'
+     * Redirects back to index#devices.
+     *
+     * @param string    $which      The type of the entity to be deleted. Used with call_user_func to get the right object reference.
+     * @param string       $id      The ID of the entity you want to delete.
+     * @param string    $subItem    Used to redirect to the correct page when having nested settings, such as SNMPHost -> SNMPRecord. Defaults to index (top most settings page).
+     * @param int|bool  $subItemId  The ID of the subentity you want to delete. Used to redirect to correct parent page.
+     * @return ResponseInterface    Will forward to settings/index#$which when successful, or will show the form again when failed.
+     */
+    public function deleteAction(string $which, string $id, string $subItem = '', $subItemId = false) : ResponseInterface
+    {
+        if (isset($id, $which))
+        {
+            if ($which == 'Logs')
+            {
+                if (is_file(APP_PATH . 'app/logs/' . $id))
+                {
+                    unlink(APP_PATH . 'app/logs/' . $id);
+                }
+                else if ($id == 'all')
+                {
+                    array_map('unlink', glob(APP_PATH . 'app/logs/*'));
+                }
+            }
+            else
+            {
+                $entity = call_user_func(['Chell\Models\\' . $which, 'findFirst'], [
+                    'conditions' => 'id = ?1',
+                    'bind'       => [1 => intval($id)]
+                ]);
+
+                if($which == 'MenuItems')
+                {
+                    unlink($entity->getIconFilePath());
+                }
+
+                $entity->delete();
+            }
+        }
+
+        return $this->response->redirect('settings/' . $subItem . ($subItemId ? '/' . $subItemId : null) . '/' . strtolower($which));
+    }
+
+    /**
+     * Shows help content for an input in settings.
+     *
+     * @param string $id     The input name to show the help for.
+     */
+    public function helpAction(string $id)
+    {
+        list($category, $setting) = explode('-', $id);
+        $this->SetEmptyLayout();
+
+        ob_start();
+        require_once(APP_PATH . 'app/messages/en/settings/' . $category . '/' . $setting . '.phtml');
+        $this->view->title = $title;
+        $this->view->help =  ob_get_clean();
     }
 
     /**
@@ -526,16 +512,16 @@ class SettingsController extends BaseController
      *
      * @param array $forms      The array of forms to loop through.
      */
-    private function setScrollToInputErrorElement(array $forms)
+    private function setScrollToInputErrorElement($form)
     {
         $this->view->scrollto = '';
 
-        foreach ($forms as $form)
+        if ($form)
         {
-            if ($form)
+            $messages = $form->getMessages();
+            if (count($messages))
             {
-                $this->view->scrollto = $form->getMessages()[0]->getField();
-                break;
+                $this->view->scrollto = $messages[0]->getField();
             }
         }
     }

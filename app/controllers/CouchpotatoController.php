@@ -21,7 +21,7 @@ class CouchpotatoController extends WidgetController
 	{
 		parent::initialize();
 
-		$this->view->setMainView('layouts/empty');
+		$this->SetEmptyLayout();
 		$this->_model = new Couchpotato();
 	}
 

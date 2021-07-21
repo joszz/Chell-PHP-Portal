@@ -20,11 +20,6 @@ class Devices extends BaseModel
             'MenuItems',
             'device_id'
         );
-
-        if ($this->shutdown_method == 'adb')
-        {
-            $this->adbConnect();
-        }
     }
 
     /**

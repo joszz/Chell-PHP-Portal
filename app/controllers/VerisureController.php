@@ -39,7 +39,7 @@ class VerisureController extends WidgetController
      */
     public function detailsAction()
     {
-        $this->view->setMainView('layouts/empty');
+        $this->SetEmptyLayout();
         $this->view->overflow = true;
         $this->view->overview = $this->_model->getOverview(false);
         $this->view->log = $this->_model->getLog();

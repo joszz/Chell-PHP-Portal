@@ -7,7 +7,7 @@
                 <label for="check-devicestate-interval" class="text-bold">Fan speed</label>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12">
-                <select name="fanspeed">
+                <select name="fanspeed" class="form-control">
                     <?php foreach (Chell\Models\Roborock::fanspeedLevels as $key => $level) : ?>
                         <option value="<?php echo $key ?>" <?php echo $key == $fanspeed ? 'selected' : null ?>>
                             <?php echo $level ?>
@@ -29,7 +29,7 @@
                 <label for="check-devicestate-interval" class="text-bold">Waterflow</label>
             </div>
             <div class="col-lg-4 col-sm-6 col-xs-12">
-                <select name="waterflow">
+                <select name="waterflow" class="form-control">
                     <?php foreach (Chell\Models\Roborock::waterFlowLevels as $level) : ?>
                         <option value="<?php echo $level ?>" <?php echo $level == $waterflow ? 'selected' : null ?>>
                             <?php echo $level ?>

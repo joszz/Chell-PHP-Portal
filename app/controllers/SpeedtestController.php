@@ -105,7 +105,7 @@ class SpeedtestController extends WidgetController
     {
         $this->assets->addScripts(['chartist', 'chartist-plugin-legend', 'speedtest']);
         $this->view->enable();
-        $this->view->setMainView('layouts/empty');
+        $this->SetEmptyLayout();
         $this->view->overflow = true;
 
         $paginator = new PaginatorModel([

@@ -23,7 +23,7 @@ class KodiController extends WidgetController
 	 */
 	public function initialize()
 	{
-		$this->view->setMainView('layouts/empty');
+		$this->SetEmptyLayout();
 		$this->view->overflow = true;
 
 		parent::initialize();

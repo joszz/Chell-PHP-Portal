@@ -11,7 +11,9 @@
         <div class="col-xs-12">
             <div class="navbar-header">
                 <div class="btn-group pull-right">
-                    <button type="submit" class="btn btn-success fa fa-save hidden_not_important pull-left" title="Save" aria-label="Save" form="form_general"></button>
+                    <?php if(isset($setSaveButton) && $setSaveButton) : ?>
+                    <button type="submit" class="btn btn-success fa fa-save pull-left" title="Save" aria-label="Save" form="form"></button>
+                    <?php endif ?>
 
                     <?php if (isset($user)) : ?>
                     <button type="button" id="menu_btn" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -63,3 +65,5 @@
         </div>
     </div>
 </nav>
+
+<?php echo $this->getContent() ?>

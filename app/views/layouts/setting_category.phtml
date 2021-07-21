@@ -1,0 +1,53 @@
+<?php
+/** @var Phalcon\Mvc\View $this */ 
+$action = $this->router->getActionName();
+?>
+
+<div class="col-xs-12">
+    <div id="settings" class="panel panel-success with-nav-tabs" <?php echo (isset($scrollto) ? 'data-scrollto="' . $scrollto . '"' : null) ?>>
+        <div class="panel-heading">
+            <h4 class="pull-left">Settings</h4>
+
+            <ul class="nav nav-tabs pull-right hidden-xs">
+                <li <?php echo ($action == '' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings') ?>">General</a>
+                </li>
+                <li <?php echo ($action == 'dashboard' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/dashboard') ?>">Dashboard</a>
+                </li>
+                <li <?php echo ($action == 'devices' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/devices') ?>">Devices</a>
+                </li>
+                <?php if ($this->settings->snmp->enabled) : ?>
+                <li <?php echo ($action == 'snmp' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/snmp') ?>">SNMP</a>
+                </li>
+                <?php endif ?>
+                <li <?php echo ($action == 'menu' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/menu') ?>">Menu</a>
+                </li>
+
+                <li <?php echo ($action == 'users' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/users') ?>">Users</a>
+                </li>
+                <li <?php echo ($action == 'logs' ? 'class="active"' : null) ?>>
+                    <a href="<?php echo $this->url->get('settings/logs') ?>">Logs</a>
+                </li>
+            </ul>
+            <div class="visible-xs pull-right">
+                <select class="no-selectpicker form-control">
+                    <option value="" <?php echo $action == '' ? 'selected' : null ?>>General</option>
+                    <option value="dashboard" <?php echo $action == 'dashboard' ? 'selected' : null ?>>Dashboard</option>
+                    <option value="devices" <?php echo $action == 'devices' ? 'selected' : null ?>>Devices</option>
+                    <option value="snmp" <?php echo $action == 'snmp' ? 'selected' : null ?>>SNMP</option>
+                    <option value="menu" <?php echo $action == 'menu' ? 'selected' : null ?>>Menu</option>
+                    <option value="users" <?php echo $action == 'users' ? 'selected' : null ?>>Users</option>
+                    <option value="logs" <?php echo $action == 'logs' ? 'selected' : null ?>>Logs</option>
+                </select>
+             </div>
+        </div>
+        <div class="panel-body">
+            <?php echo $this->getContent() ?>
+        </div>
+    </div>
+</div>

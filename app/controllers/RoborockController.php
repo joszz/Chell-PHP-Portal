@@ -49,7 +49,7 @@ class RoborockController extends WidgetController
 
         $this->assets->addStylesAndScripts(['roborock', 'bootstrap-select', 'jquery.bootstrap-touchspin']);
 
-        $this->view->setMainView('layouts/empty');
+        $this->SetEmptyLayout();
         $this->view->info = $this->_model->getInfo();
         $this->view->fanspeed = $this->_model->getFanSpeed();
         $this->view->volume = $this->_model->getSoundVolume();
