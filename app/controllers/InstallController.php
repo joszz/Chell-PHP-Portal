@@ -24,7 +24,8 @@ class InstallController extends BaseController
     public function initialize()
     {
         parent::initialize();
-        $this->assets->collection('header')->addCss('dist/css/install.min.css', true, false, [], $this->settings->application->version, true);
+        $this->assets->addStyle('install');
+        $this->assets->addScript('toggle-passwords');
     }
 
     /**
@@ -93,12 +94,12 @@ class InstallController extends BaseController
 
         if (!is_dir(APP_PATH . 'img/cache'))
         {
-            mkdir(APP_PATH . 'app/cache', 0660);
+            mkdir(APP_PATH . 'img/cache', 0660);
         }
 
         if (!is_dir(APP_PATH . 'img/icons/menu'))
         {
-            mkdir(APP_PATH . 'app/icons/menu', 0660);
+            mkdir(APP_PATH . 'img/icons/menu', 0660);
         }
     }
 
@@ -160,6 +161,8 @@ class InstallController extends BaseController
         //Imageproxy
         $this->createDefaultSetting('enabled', 'general', 'imageproxy', '0');
         $this->createDefaultSetting('url', 'general', 'imageproxy', '');
+        //HIBP
+        $this->createDefaultSetting('enabled', 'general', 'hibp', '0');
         //Speedtest
         $this->createDefaultSetting('enabled', 'dashboard', 'speedtest', '0');
         $this->createDefaultSetting('test_order', 'dashboard', 'speedtest', 'IPDU');
@@ -252,7 +255,7 @@ class InstallController extends BaseController
         $this->createDefaultSetting('update_interval', 'dashboard', 'verisure', '180');
         $this->createDefaultSetting('url', 'dashboard', 'verisure', 'https://mypages.verisure.com/login');
         $this->createDefaultSetting('securitycode', 'dashboard', 'verisure', '');
-        //Verisure
+        //Roborock
         $this->createDefaultSetting('enabled', 'dashboard', 'roborock', '0');
         $this->createDefaultSetting('ip', 'dashboard', 'roborock', '');
         $this->createDefaultSetting('token', 'dashboard', 'roborock', '');
@@ -270,9 +273,14 @@ class InstallController extends BaseController
         $this->createDefaultSetting('username', 'dashboard', 'pulseway', '');
         $this->createDefaultSetting('password', 'dashboard', 'pulseway', '');
         $this->createDefaultSetting('systems', 'dashboard', 'pulseway', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'pulseway', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'pulseway', '30');
         //Database stats
         $this->createDefaultSetting('enabled', 'dashboard', 'databasestats', '0');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'databasestats', '30');
+        //Apache
+        $this->createDefaultSetting('enabled', 'dashboard', 'apache', '0');
+        $this->createDefaultSetting('server_status_url', 'dashboard', 'apache', '');
+        $this->createDefaultSetting('fpm_status_url', 'dashboard', 'apache', '');
     }
 
     /**
@@ -298,11 +306,14 @@ class InstallController extends BaseController
      */
     private function writeConfig()
     {
-        $config['database'] = [
-            'host' => $this->postedData['mysql-host'],
-            'name' => $this->postedData['chell-database'],
-            'username' => $this->postedData['chell-database-user'],
-            'password' => $this->postedData['chell-database-password'],
+        $config = [
+            'general' => [ 'debug' => '0'],
+            'database' => [
+                'host' => $this->postedData['mysql-host'],
+                'name' => $this->postedData['chell-database'],
+                'username' => $this->postedData['chell-database-user'],
+                'password' => $this->postedData['chell-database-password'],
+            ]
         ];
         (new WriteiniFile(APP_PATH . 'app/config/config.ini'))->create($config)->write();
     }
