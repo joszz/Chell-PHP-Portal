@@ -23,7 +23,6 @@ class InstallController extends BaseController
      */
     public function initialize()
     {
-        die;
         parent::initialize();
         $this->assets->addStyle('install');
         $this->assets->addScript('toggle-passwords');
