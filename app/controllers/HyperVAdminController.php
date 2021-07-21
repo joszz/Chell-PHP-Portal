@@ -32,7 +32,7 @@ class HyperVAdminController extends WidgetController
 	{
         $device = $this->view->device = $this->getDevice($id);
 
-		$this->assets->collection('dashboard')->addJs('js/dashboard-blocks/hyperv-admin.js', true, false, ['defer' => 'defer'], $this->settings->application->version, true);
+		$this->assets->addScript('hyperv-admin');
 		$this->SetEmptyLayout();
 		$this->view->vms = $this->_model->getVMs($device);
 		$this->view->sites = $this->_model->getSites($device);

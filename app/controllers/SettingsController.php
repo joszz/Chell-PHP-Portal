@@ -41,9 +41,8 @@ class SettingsController extends BaseController
     }
 
     /**
-     * Shows the settings view
-     *
-     * @param string $activeTab     Which tab to be active on load, defaults to General.
+     * GET: Shows the general settings view.
+     * POST: Save the general settings and redirect to the page to show the GET view.
      */
     public function indexAction()
     {
@@ -57,6 +56,7 @@ class SettingsController extends BaseController
             if ($form->isValid($data))
             {
                 $this->settings->save('general');
+                return $this->response->redirect('settings/');
             }
         }
 
@@ -66,8 +66,8 @@ class SettingsController extends BaseController
     }
 
     /**
-     * Handles SettingsDashboardForm post and writes back to config.ini if valid.
-     * Forwards to index.
+     * GET: Shows the dashboard settings view.
+     * POST: Save the dashboard settings and redirect to the page toto show the GET view.
      *
      * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#dashboard when successful, or forwards to indexAction when failed.
      */
@@ -83,6 +83,7 @@ class SettingsController extends BaseController
             if ($form->isValid($data))
             {
                 $this->settings->save('dashboard');
+                return $this->response->redirect('settings/dashboard');
             }
         }
 
@@ -91,6 +92,9 @@ class SettingsController extends BaseController
         $this->setScrollToInputErrorElement($form);
     }
 
+    /**
+     * Shows the devices list view.
+     */
     public function devicesAction()
     {
         $this->view->setTemplateBefore('setting_category');
@@ -137,6 +141,9 @@ class SettingsController extends BaseController
         $this->view->device = $device;
     }
 
+    /**
+     * Shows the SNMP list view.
+     */
     public function snmpAction()
     {
         $this->view->setTemplateBefore('setting_category');
@@ -227,6 +234,9 @@ class SettingsController extends BaseController
         $this->view->record = $record;
     }
 
+    /**
+     * Shows the menu list view.
+     */
     public function menuAction()
     {
         $this->view->setTemplateBefore('setting_category');
@@ -288,6 +298,9 @@ class SettingsController extends BaseController
         $this->view->item = $item;
     }
 
+    /**
+     * Shows the users list view.
+     */
     public function usersAction()
     {
         $this->view->setTemplateBefore('setting_category');

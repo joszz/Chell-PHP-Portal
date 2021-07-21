@@ -121,7 +121,14 @@ class Devices extends BaseModel
      */
     private function adbIsAwake() : bool
     {
+        $this->adbConnect();
         $output = strtolower(shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys power | grep -e "mWakefulness" | head -1'));
+
+        if (empty($output))
+        {
+            return $this->adbIsAwake();
+        }
+
         return strpos($output, 'asleep') === false;
     }
 
@@ -189,6 +196,7 @@ class Devices extends BaseModel
      */
     private function wakeOnAdb() : bool
     {
+        $this->adbConnect();
         shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_WAKEUP');
         return true;
     }
@@ -218,26 +226,61 @@ class Devices extends BaseModel
      */
     private function shutdownOnAdb() : bool
     {
+        $this->adbConnect();
         shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_SLEEP');
         return true;
     }
 
+    /**
+     * Checks if device is already connected through ADB. If not, kill the ADB server (to avoid conflicts) and connect to the device.
+     * It sometimes happens the ADB connect method doesn't connect, if so try again.
+     * 
+     * @return bool Whether connection was succesfull.
+     */
     private function adbConnect()
     {
-        shell_exec('adb connect ' . escapeshellcmd($this->ip));
+        $connectedDevices = shell_exec('adb devices -l');
+
+        if (strpos($connectedDevices, $this->ip) === false)
+        {
+            shell_exec('adb kill-server');
+            $output = shell_exec('adb connect ' . escapeshellcmd($this->ip));
+
+            if (strpos($output, 'connected to ' . $this->ip) === false)
+            {
+                return $this->adbConnect();
+            }
+        }
         return true;
     }
 
+    /**
+     * Retrieves the CPU architecture through ADB.
+     * 
+     * @return string   The CPU architecture.
+     */
     public function adbGetArchitecture()
     {
+        $this->adbConnect();
         return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell getprop ro.product.cpu.abi');
     }
 
+    /**
+     * Retrieves the battery statistics through ADB.
+     * 
+     * @return string   The battery statistics.
+     */
     public function adbGetBatteryStats()
     {
+        $this->adbConnect();
         return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys battery');
     }
 
+    /**
+     * Retrieves the current CPU usage through ADB as a percentage.
+     * 
+     * @return float    The current CPU usage.
+     */
     public function adbGetCpuUsage()
     {
         $this->adbConnect();

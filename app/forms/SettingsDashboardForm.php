@@ -14,7 +14,6 @@ class SettingsDashboardForm extends SettingsBaseForm
      */
 	public function initialize()
 	{
-		$this->setAction($this->url->get('settings/dashboard#dashboard'));
 		$this->setFormFieldClasses('Dashboard');
 	}
 }
