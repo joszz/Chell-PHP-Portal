@@ -22,11 +22,12 @@
             initialize: function () {
                 settings.iframe = settings.block.find("iframe");
 
-                settings.block.isLoading();
                 settings.iframe.on("load", function () {
                     new ResizeObserver(functions.setHeight).observe(settings.iframe.contents().find("body")[0]);
                     settings.block.isLoading("hide");
                 });
+
+                settings.iframe.attr("src", settings.iframe.data("src"));
             },
 
             /**
