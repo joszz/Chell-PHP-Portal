@@ -253,7 +253,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('username', 'dashboard', 'verisure', '');
         $this->createDefaultSetting('password', 'dashboard', 'verisure', '');
         $this->createDefaultSetting('update_interval', 'dashboard', 'verisure', '180');
-        $this->createDefaultSetting('url', 'dashboard', 'verisure', 'https://mypages.verisure.com/login');
         $this->createDefaultSetting('securitycode', 'dashboard', 'verisure', '');
         //Roborock
         $this->createDefaultSetting('enabled', 'dashboard', 'roborock', '0');
