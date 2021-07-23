@@ -1,15 +1,14 @@
 ﻿"use strict";
 
 /**
-* The transmission block on the dashboard.
+* The Motion block on the dashboard.
 * 
-* @class Transmission
+* @class Motion
 * @module Dashboard
 * @submodule DashboardBlocks
 */
 (function ($) {
     $.fn.motion = function (options) {
-
         /**
         * All the settings for this block.
         * 

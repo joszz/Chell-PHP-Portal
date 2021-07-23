@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The devices block on the dashboard.
+* The HyperVAdmin plugin.
 *
 * @class HyperVAdmin
 * @module Dashboard
@@ -9,7 +9,6 @@
 */
 (function ($) {
     $.fn.hypervadmin = function (options) {
-
         /**
         * All the settings for this block.
         *

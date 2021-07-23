@@ -1,7 +1,20 @@
 ﻿"use strict";
 
+/**
+* The rCPU widget.
+*
+* @class rCPU
+* @module Dashboard
+* @submodule DashboardBlocks
+*/
 (function ($) {
     $.fn.rcpu = function (options) {
+        /**
+        * All the settings for this block.
+        *
+        * @property settings
+        * @type Object
+        */
         var settings = $.extend({
             block: $(this),
             iframe: $(this).find("iframe"),

@@ -38,16 +38,6 @@ class VerisureFormFields extends FormFields
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled'])
 			]);
 
-        $this->fields[] = $verisureURL = new Text('verisure-url');
-		$verisureURL->setLabel('URL')
-			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->verisure->url)
-			->addValidators([
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
-			]);
-
 		$this->fields[] = $verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])

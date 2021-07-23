@@ -10,7 +10,6 @@
 (function ($) {
     $.fn.gallery = function (options) {
         this.each(function () {
-
             /**
             * All the settings for this block.
             *

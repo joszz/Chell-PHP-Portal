@@ -5,6 +5,11 @@ use Phalcon\Events\Event;
 use Phalcon\Di\Injectable;
 use Phalcon\Mvc\View;
 
+/**
+ * Handles all JS/CSS assets for the application.
+ *
+ * @package Plugins
+ */
 class AssetsPlugin extends Injectable
 {
     private array $scripts = [

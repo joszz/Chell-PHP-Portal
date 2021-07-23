@@ -5,6 +5,11 @@ use Phalcon\Events\Event;
 use Phalcon\Di\Injectable;
 use Phalcon\Mvc\View;
 
+/**
+ * Sets a variable indicating that a submit button is to be set in the navbar.
+ *
+ * @package Plugins
+ */
 class SaveButtonPlugin extends Injectable
 {
     /**

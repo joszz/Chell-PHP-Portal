@@ -10,7 +10,6 @@
 (function ($) {
     $.fn.nowplaying = function (options) {
         this.each(function () {
-
             /**
             * All the settings for this block.
             *

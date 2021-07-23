@@ -9,7 +9,6 @@
 */
 (function ($) {
     $.fn.devices = function (options) {
-
         /**
         * All the settings for this block.
         *

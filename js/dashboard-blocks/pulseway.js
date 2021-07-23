@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The roborock widget.
+* The pulseway widget.
 *
-* @class Roborock
+* @class Pulseway
 * @module Dashboard
 * @submodule DashboardBlocks
 */

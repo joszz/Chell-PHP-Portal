@@ -1,9 +1,9 @@
 "use strict";
 
 /**
-* The speedtest block on the dashboard.
+* The Youless block on the dashboard.
 *
-* @class Speedtest
+* @class Youless
 * @module Dashboard
 * @submodule DashboardBlocks
 */

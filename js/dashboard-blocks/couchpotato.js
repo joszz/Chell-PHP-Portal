@@ -9,7 +9,6 @@
 */
 (function ($) {
     $.fn.couchpotato = function (options) {
-
         /**
         * All the settings for this block.
         * 

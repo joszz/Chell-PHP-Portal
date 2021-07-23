@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The gallery blocks on the dashboard.
+* The SNMP block on the dashboard.
 *
-* @class Gallery
+* @class SNMP
 * @module Dashboard
 * @submodule DashboardBlocks
 */

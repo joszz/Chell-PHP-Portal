@@ -1,9 +1,9 @@
 "use strict";
 
 /**
-* The speedtest block on the dashboard.
+* The Opcache block on the dashboard.
 *
-* @class Speedtest
+* @class Opcache
 * @module Dashboard
 * @submodule DashboardBlocks
 */

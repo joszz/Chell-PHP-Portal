@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The roborock widget.
+* The database statistics widget.
 *
-* @class Roborock
+* @class DatabaseStats
 * @module Dashboard
 * @submodule DashboardBlocks
 */

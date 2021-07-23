@@ -1,9 +1,9 @@
 "use strict";
 
 /**
-* The speedtest block on the dashboard.
+* The Pihole block on the dashboard.
 *
-* @class Speedtest
+* @class Pihole
 * @module Dashboard
 * @submodule DashboardBlocks
 */
