@@ -19,6 +19,7 @@
             block: $(this),
             updateInterval: $(this).data("update-interval") * 1000,
             updateIntervalId: -1,
+            photos: []
         }, options);
 
         /**
@@ -54,9 +55,7 @@
                 });
 
                 settings.block.find(".fa-sync").click(function () { functions.update(false); });
-                settings.block.find(".fa-image").click(function () {
-                    functions.photos(true)
-                });
+                settings.block.find(".fa-image").click(functions.show_photos);
                 settings.block.find(".fa-camera").click(functions.select_device);
                 settings.block.find(".top button").click(function () {
                     $.fancybox.open({
@@ -64,7 +63,6 @@
                     });
                 });
 
-                functions.photos();
                 functions.update(true);
             },
 
@@ -135,8 +133,15 @@
                         settings.block.isLoading("hide");
                     }
                 });
+
+                functions.get_photos();
             },
 
+            /**
+             * Sets the alarm state to the given state.
+             * 
+             * @param {string} state   The state to set the alarm to.
+             */
             set_arm_state: function (state) {
                 var pin = $("#verisure_set_armstate #verisure_pin").val();
 
@@ -153,6 +158,10 @@
                 });
             },
 
+            /**
+             * Shows the correct buttons depending on the given alarm state.
+             * @param {string} state   The alarm state
+             */
             set_arm_state_buttons: function (state) {
                 var widgetCurrentButton = settings.block.find("#armstate button");
 
@@ -198,9 +207,12 @@
                 widgetCurrentButton.attr("title", state.toLowerCase().capitalize().replace(regexUnderscore, " "));
             },
 
-            photos: function (openFancyBox) {
-                openFancyBox = typeof openFancyBox === "undefined" ? false : openFancyBox;
-
+            /**
+             * Gets all the photos and sets them to settings.photos. At the end of the AJAX call, callBackSuccess is called, if supplied.
+             * 
+             * @param {function} callbackSuccess    The function to call when the photos have been retrieved.
+             */
+            get_photos: function (callbackSuccess) {
                 $.ajax({
                     url: "verisure/imageseries/",
                     dataType: "json",
@@ -209,7 +221,7 @@
                             return;
                         }
 
-                        var photos = [];
+                        settings.photos = [];
 
                         if (data.imageSeries.length) {
                             settings.block.find(".fa-image").removeClass("hidden");
@@ -219,48 +231,69 @@
                             var date = new Date(serie.image[0].captureTime);
                             var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
 
-                            photos.push({
+                            settings.photos.push({
                                 src: "verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
                                 caption: serie.area + " (" + humanReadableDate + ")",
                                 deviceLabel: serie.deviceLabel
                             });
                         });
 
-                        photos.sort(function (a, b) {
+                        settings.photos.sort(function (a, b) {
                             return a.caption > b.caption ? -1 : 1;
                         });
 
-                        if (openFancyBox) {
-                            $.fancybox.open(photos, {
-                                buttons: [
-                                    "take_photo",
-                                    "close"
-                                ],
-                                slideClass: "verisure",
-                                loop: true
-                            });
+                        if (settings.photos.length) {
+                            settings.block.find(".fa-image").removeClass("hidden");
+                        }
+                        else {
+                            settings.block.find(".fa-image").addClass("hidden");
+                        }
+
+                        if (callbackSuccess) {
+                            callbackSuccess();
                         }
                     }
                 });
             },
 
+            /**
+             * Retrieves the current photos. Opens a fancybox modal and shows the retrieved photos.
+             */
+            show_photos: function () {
+                functions.get_photos(function () {
+                    $.fancybox.open(settings.photos, {
+                        buttons: [
+                            "take_photo",
+                            "close"
+                        ],
+                        slideClass: "verisure",
+                        loop: true
+                    });
+                });
+            },
+
+            /**
+             * Sents a request to take a photo for the given device label.
+             * 
+             * @param {string} device_label     The camera's device label
+             */
             take_photo: function (device_label) {
+                var currentAmountOfPhotos = settings.photos.length;
+
                 $.ajax({
                     url: "verisure/captureimage/" + device_label,
                     dataType: "json",
                     success: function (_data) {
                         $.fancybox.getInstance().close();
 
-                        window.setTimeout(function () {
-                            $.ajax({
-                                url: "verisure/imageseries/",
-                                dataType: "json",
-                                success: function (data) {
-                                    settings.block.find(".fa-camera").removeClass("hidden");
+                        var intervalId = window.setInterval(function () {
+                            functions.get_photos(function () {
+                                if (settings.photos.length > currentAmountOfPhotos) {
+                                    window.clearInterval(intervalId);
                                     showAlert("success", "photo taken");
                                 }
                             });
-                        }, 10000);
+                        }, 5000);
                     },
                     error: function () {
                         showAlert("danger", "Something went wrong");

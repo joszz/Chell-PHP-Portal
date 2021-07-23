@@ -5,6 +5,11 @@ namespace Chell\Controllers;
 use Chell\Controllers\WidgetController;
 use Chell\Models\Jellyfin;
 
+/**
+ * The controller responsible for all Jellyfin widget related actions.
+ *
+ * @package Controllers
+ */
 class JellyfinController extends WidgetController
 {
     protected array $jsFiles = ['gallery'];

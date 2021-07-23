@@ -6,6 +6,11 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\SnmpHosts;
 use Phalcon\Mvc\View;
 
+/**
+ * The controller responsible for all SNMP widget related actions.
+ *
+ * @package Controllers
+ */
 class SnmpController extends WidgetController
 {
     /**

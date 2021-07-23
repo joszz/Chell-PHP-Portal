@@ -45,7 +45,8 @@ var config = {
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
             'node_modules/bootstrap-toggle/css/bootstrap-toggle.css',
-            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css'
+            'node_modules/@fancyapps/fancybox/dist/jquery.fancybox.css',
+            'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css',
         ]
     },
     scripts: {

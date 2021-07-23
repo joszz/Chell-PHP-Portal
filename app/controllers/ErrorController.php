@@ -90,7 +90,8 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            BASEPATH . 'dist/css/exception.min.css'
+            BASEPATH . 'dist/css/exception.min.css',
+            BASEPATH . 'dist/css/prism-line-numbers.css'
         ];
         $this->js[] = BASEPATH . 'dist/js/jquery.min.js';
         $this->js[] = BASEPATH . 'dist/js/prism.min.js';

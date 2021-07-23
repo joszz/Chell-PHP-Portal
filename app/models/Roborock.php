@@ -43,8 +43,7 @@ class Roborock extends BaseModel
     {
         $status = $this->executeCommand('status');
         $fanSpeed = $this->getStatusPart($status, 'fanspeed=');
-
-
+        
         return [
             'state'             => $this->getStatusPart($status, 'state='),
             'battery'           => $this->getStatusPart($status, 'battery='),

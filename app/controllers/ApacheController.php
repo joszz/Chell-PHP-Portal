@@ -5,6 +5,11 @@ namespace Chell\Controllers;
 use Chell\Models\Apache;
 use Chell\Controllers\WidgetController;
 
+/**
+ * The controller responsible for all Apache widget related actions.
+ *
+ * @package Controllers
+ */
 class ApacheController extends WidgetController
 {
     private Apache $_model;

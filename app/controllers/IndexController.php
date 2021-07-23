@@ -135,12 +135,19 @@ class IndexController extends BaseController
         return Settings::count('name = "enabled" AND value = "1"') > 0;
     }
 
+    /**
+     * Sets the styles and scripts for the widgets that are enabled.
+     * Iterates through all controllers and uses reflection to get Controllers that are a subclass of WidgetController.
+     * For those controllers, the properties jsFiles and cssFiles are retrieved and added to the collection of JS/CSS to render in the HTML.
+     * Adds the controller name (minus the string 'Controller') to the JS/CSS to render in the HTML.
+     * And finally adds some default JS/CSS that is used in the dashboard.
+     */
     private function setAssets()
     {
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
         $scripts = [];
         $styles = ['dashboard'];
-
+        
         foreach ($dir as $fileinfo)
         {
             $file = $fileinfo->getFilename();
