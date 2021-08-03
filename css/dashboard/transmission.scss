@@ -1,12 +1,14 @@
-﻿div.transmission li {
-    div.torrentname,
-    div.torrentprogress {
-        margin-top: 7px;
-    }
+﻿div.transmission {
+    li {
+        div.torrentname,
+        div.torrentprogress {
+            margin-top: 7px;
+        }
 
-    div.torrentname {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        div.torrentname {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
     }
 }

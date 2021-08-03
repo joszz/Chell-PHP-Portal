@@ -129,7 +129,7 @@ class Devices extends BaseModel
             return $this->adbIsAwake();
         }
 
-        return strpos($output, 'asleep') === false;
+        return strpos($output, 'asleep') === false && strpos($output, 'dozing') === false;
     }
 
     /**
@@ -234,7 +234,7 @@ class Devices extends BaseModel
     /**
      * Checks if device is already connected through ADB. If not, kill the ADB server (to avoid conflicts) and connect to the device.
      * It sometimes happens the ADB connect method doesn't connect, if so try again.
-     * 
+     *
      * @return bool Whether connection was succesfull.
      */
     private function adbConnect()
@@ -256,7 +256,7 @@ class Devices extends BaseModel
 
     /**
      * Retrieves the CPU architecture through ADB.
-     * 
+     *
      * @return string   The CPU architecture.
      */
     public function adbGetArchitecture()
@@ -267,7 +267,7 @@ class Devices extends BaseModel
 
     /**
      * Retrieves the battery statistics through ADB.
-     * 
+     *
      * @return string   The battery statistics.
      */
     public function adbGetBatteryStats()
@@ -278,7 +278,7 @@ class Devices extends BaseModel
 
     /**
      * Retrieves the current CPU usage through ADB as a percentage.
-     * 
+     *
      * @return float    The current CPU usage.
      */
     public function adbGetCpuUsage()

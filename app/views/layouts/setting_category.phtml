@@ -13,7 +13,7 @@ $action = $this->router->getActionName();
                     <a href="<?php echo $this->url->get('settings') ?>">General</a>
                 </li>
                 <li <?php echo ($action == 'dashboard' ? 'class="active"' : null) ?>>
-                    <a href="<?php echo $this->url->get('settings/dashboard') ?>">Dashboard</a>
+                    <a href="<?php echo $this->url->get('settings/dashboard#') ?>">Dashboard</a>
                 </li>
                 <li <?php echo ($action == 'devices' ? 'class="active"' : null) ?>>
                     <a href="<?php echo $this->url->get('settings/devices') ?>">Devices</a>

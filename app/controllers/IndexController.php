@@ -147,7 +147,7 @@ class IndexController extends BaseController
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
         $scripts = [];
         $styles = ['dashboard'];
-        
+
         foreach ($dir as $fileinfo)
         {
             $file = $fileinfo->getFilename();

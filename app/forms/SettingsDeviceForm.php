@@ -71,7 +71,7 @@ class SettingsDeviceForm extends SettingsBaseForm
         $showDasboard->setLabel('Show on dashboard')
             ->setAttributes([
                 'value' => '1',
-                'checked' => $entity->show_on_dashboard == '1' ? 'checked' : null,
+                'checked' => isset($entity->show_on_dashboard) && $entity->show_on_dashboard == '1' ? 'checked' : null,
                 'data-toggle' => 'toggle',
                 'data-onstyle' => 'success',
                 'data-offstyle' => 'danger',
@@ -82,7 +82,7 @@ class SettingsDeviceForm extends SettingsBaseForm
 		$hypervadminEnabled->setLabel('HyperVAdmin enabled')
 			->setAttributes([
 				'value' => '1',
-                'checked' => !empty($entity->hypervadmin_url),
+                'checked' => !empty($entity->hypervadmin_url) ? 'checked' : null,
 				'data-toggle' => 'toggle',
 				'data-onstyle' => 'success',
 				'data-offstyle' => 'danger',
@@ -113,6 +113,7 @@ class SettingsDeviceForm extends SettingsBaseForm
         $this->add($shutdownUser);
         $this->add($shutdownPassword);
         $this->add($shutdownMethod);
+        $this->add($showDasboard);
         $this->add($hypervadminEnabled);
         $this->add($hypervadminUrl);
         $this->add($hypervadminUrl);

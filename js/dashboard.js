@@ -89,7 +89,6 @@ function initializePlugins() {
             this.opts.slideClass = "nomaxwidth";
         }
     });
-
 }
 
 /**

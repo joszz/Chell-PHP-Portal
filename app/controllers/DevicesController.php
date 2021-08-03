@@ -69,4 +69,15 @@ class DevicesController extends WidgetController
 
         $this->response->setJsonContent($state)->send();
     }
+
+    public function detailsAction(int $id)
+    {
+        $device = Devices::findFirst([
+           'conditions' => 'id = ?1',
+           'bind'       => [1 => $id]
+        ]);
+        $this->view->enable();
+        $this->view->architecture = $device->adbGetArchitecture();
+        $this->view->cpuUsage = $device->adbGetCpuUsage();
+    }
 }

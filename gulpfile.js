@@ -150,7 +150,7 @@ function watch() {
     gulp.watch('js/**/*.js', gulp.series(['scripts']));
 }
 
-exports.default = gulp.parallel(build_scripts, build_styles);
 exports.scripts = gulp.series((done) => clean(done, 'js'), build_scripts);
 exports.styles = gulp.series((done) => clean(done, 'css'), build_sass, build_styles);
+exports.default = gulp.parallel(exports.scripts, exports.styles);
 exports.watch = watch;

@@ -13,10 +13,10 @@ div.cpu {
 
 div.panel-heading h4 {
     font-weight: bold;
-}
 
-div.panel-heading h4 a {
-    color: $state-success-text;
+    a {
+        color: $state-success-text;
+    }
 }
 
 div.panel-heading h4,
@@ -34,6 +34,12 @@ div.panel.transparent li.list-group-item:not(.list-group-item-success) {
     background-color: transparent;
 }
 
+div.panel.transparent {
+    position: relative;
+    z-index: 1;
+    left: 0;
+}
+
 div.panel-underlay {
     position: absolute;
     background-color: #FFF;
@@ -43,18 +49,27 @@ div.panel-underlay {
     left: 0;
 }
 
-div.panel.transparent {
-    position: relative;
-    z-index: 1;
-    left: 0;
-}
-
 .rating .label {
     font-size: 12px;
 }
 
 .fancybox-slide > div.sickrage-detail {
     padding: 0;
+}
+
+li.list-group-item {
+    border-width: 1px 0;
+
+    &.clone + li,
+    &:first-child {
+        border-width: 0;
+        border-top: 0;
+    }
+
+    &:last-child {
+        border-bottom: 0;
+        border-radius: 0;
+    }
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {
