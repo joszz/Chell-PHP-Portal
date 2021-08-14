@@ -162,6 +162,8 @@ class IndexController extends BaseController
                 {
                     $name = strtolower(str_replace('Controller', '', str_replace(__NAMESPACE__ . '\\', '', $controller->getName())));
                     $controllerInstance = $controller->newInstanceWithoutConstructor();
+                    $controllerInstance->addAssets();
+
                     $jsFilesProperty = $controller->getProperty('jsFiles');
                     $jsFilesProperty->setAccessible(true);
                     $scripts = [...$jsFilesProperty->getValue($controllerInstance), ...$scripts];
@@ -172,8 +174,15 @@ class IndexController extends BaseController
 
                     if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
                     {
-                        $scripts[] = $name;
-                        $styles[] = $name;
+                        if (is_file(APP_PATH . 'dist/js/' . $name . '.js'))
+                        {
+                            $scripts[] = $name;
+                        }
+
+                        if (is_file(APP_PATH . 'dist/css/' . $name . '.css'))
+                        {
+                            $styles[] = $name;
+                        }
                     }
                 }
             }

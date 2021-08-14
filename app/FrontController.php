@@ -145,7 +145,8 @@ class FrontController
     private function registerNamespaces()
     {
         $loader = new Loader();
-        $loader->registerNamespaces([
+        $vendor = require APP_PATH . 'app/vendor/composer/autoload_psr4.php';
+        $loader->registerNamespaces(array_merge($vendor, [
             'Chell\Controllers'                 => APP_PATH . 'app/controllers/',
             'Chell\Exceptions'                  => APP_PATH . 'app/exceptions/',
             'Chell\Forms'                       => APP_PATH . 'app/forms/',
@@ -157,19 +158,7 @@ class FrontController
             'Chell\Models'                      => APP_PATH . 'app/models/',
             'Chell\Models\Kodi'                 => APP_PATH . 'app/models/kodi/',
             'Chell\Plugins'                     => APP_PATH . 'app/plugins/',
-            'Duo'                               => APP_PATH . 'app/vendor/duosecurity/duo_php/src/',
-            'Davidearl\WebAuthn'                => APP_PATH . 'app/vendor/davidearl/webauthn/WebAuthn',
-            'CBOR'                              => APP_PATH . 'app/vendor/2tvenom/cborencode/src',
-            'phpseclib'                         => APP_PATH . 'app/vendor/phpseclib/phpseclib/phpseclib/',
-            'WriteiniFile'                      => APP_PATH . 'app/vendor/magicalex/write-ini-file/src/',
-            'MFlor\Pwned'                       => APP_PATH . 'app/vendor/mflor/pwned/src/',
-            'MFlor\Pwned\Exceptions'            => APP_PATH . 'app/vendor/mflor/pwned/src/Exceptions/',
-            'MFlor\Pwned\Models'                => APP_PATH . 'app/vendor/mflor/pwned/src/Models/',
-            'MFlor\Pwned\Repositories'          => APP_PATH . 'app/vendor/mflor/pwned/src/Repositories /',
-            'GuzzleHttp'                        => APP_PATH . 'app/vendor/guzzlehttp/guzzle/src/',
-            'GuzzleHttp\Psr7'                   => APP_PATH . 'app/vendor/guzzlehttp/psr7/src/',
-            'GuzzleHttp\Promise'                => APP_PATH . 'app/vendor/guzzlehttp/promises/src/',
-        ])->register();
+        ]))->register();
     }
 
     /**

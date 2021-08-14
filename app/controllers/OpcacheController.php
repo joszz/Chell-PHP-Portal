@@ -12,8 +12,6 @@ use Chell\Models\Opcache;
  */
 class OpcacheController extends WidgetController
 {
-    protected array $jsFiles = ['chartist', 'chartist-plugin-legend'];
-
     private Opcache $_model;
 
     /**
@@ -24,6 +22,11 @@ class OpcacheController extends WidgetController
 		parent::initialize();
 
         $this->_model = new Opcache();
+    }
+
+    public function addAssets()
+    {
+        $this->jsFiles = ['chartist', 'chartist-plugin-legend'];
     }
 
     /**

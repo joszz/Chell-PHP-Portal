@@ -8,7 +8,7 @@
 * @submodule DashboardBlocks
 */
 (function ($) {
-    $.fn.transmission = function (options) {
+    $.fn.torrents = function (options) {
 
         /**
         * All the settings for this block.
@@ -17,22 +17,9 @@
         * @type Object
         */
         var settings = $.extend({
-            defaultData: {
-                type: 'POST',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(settings.block.data('transmission-username') + ':' + settings.block.data('transmission-password')));
-                    xhr.setRequestHeader('X-Transmission-Session-Id', settings.transmissionSessionId);
-                },
-                statusCode: {
-                    409: function (request, status, error) {
-                        settings.transmissionSessionId = request.getResponseHeader('X-Transmission-Session-Id');
-                    }
-                },
-                url: this.data('transmission-url') + "rpc/"
-            },
             block: this,
             transmissionSessionId: -1,
-            updateInterval: this.data('transmission-update-interval') * 1000,
+            updateInterval: this.data('update-interval') * 1000,
             updateIntervalId: -1
         }, options);
 
@@ -65,28 +52,23 @@
 
                 settings.block.find(".fa-sync").off().on("click", function () {
                     functions.getTorrents(false);
-
-                    $(this).blur();
                 });
 
-                var data = settings.defaultData;
-
-                data.data = '{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}';
-                data.complete = function (xhr, status) {
-                    if (xhr.status === 200) {
-                        var responseData = $.parseJSON(xhr.responseText);
+                $.getJSON({
+                    url: "torrents/",
+                    success: function (data) {
                         settings.block.find('li').not('.hidden').remove();
 
-                        if (responseData.arguments.torrents.length === 0) {
+                        if (data.length === 0) {
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.removeClass('hidden');
                             torrent.find('.torrentname').html('No torrents found');
                             torrent.find('.torrentname').removeClass("col-xs-4");
                             torrent.find('.torrentprogress, .torrentactions').remove();
-                            torrent.appendTo($('.transmission ul'));
+                            torrent.appendTo($('.torrents ul'));
                         }
 
-                        $.each(responseData.arguments.torrents, function (index, value) {
+                        $.each(data, function (_index, value) {
                             var torrent = settings.block.find('li.hidden').clone();
                             torrent.attr('data-id', value.id);
                             torrent.removeClass('hidden');
@@ -98,12 +80,12 @@
                             torrent.find('.torrentprogress .progress-bar').width(value.percentDone + '%');
 
                             //Downloading
-                            if (value.status === 4) {
+                            if (value.status === "downloading") {
                                 torrent.find('.torrentactions .status').removeClass('fa-play');
                                 torrent.find('.torrentactions .status').addClass('fa-pause');
                             }
                             //Paused
-                            else if (value.status === 0) {
+                            else if (value.status === "paused") {
                                 torrent.find('.torrentactions .status').removeClass('fa-pause');
                                 torrent.find('.progress-bar').removeClass('progress-bar-success').addClass('progress-bar-primary');
                                 torrent.find('.torrentactions .status').addClass('fa-play');
@@ -123,25 +105,17 @@
                                 });
                             });
 
-                            torrent.appendTo($('.transmission ul'));
+                            torrent.appendTo($('.torrents ul'));
                         });
+                    },
+                    error: function () {
+                        showAlert("danger", "Something went wrong");
                     }
-                    //No sessionID set, do function again
-                    else if (xhr.status === 409) {
-                        if (!onload) {
-                            settings.block.isLoading('hide');
-                        }
+                });
 
-                        functions.getTorrents(onload);
-                        return;
-                    }
-
-                    if (!onload) {
-                        settings.block.isLoading('hide');
-                    }
-                };
-
-                $.ajax(data);
+                if (!onload) {
+                    settings.block.isLoading('hide');
+                }
 
                 return self;
             },
@@ -153,25 +127,16 @@
             * @param {Number} torrentIds The torrent ID to stop/start.
             * @todo Rewrite so an array of torrents can be passed along.
             */
-            startStopTorrents: function (torrentIds) {
-                var data = settings.defaultData;
-                data.data = '{"method":"torrent-' + ($('li[data-id=' + torrentIds + '] button.status:first-child').hasClass('fa-pause') ? 'stop' : 'start-now') + '", "arguments":{"ids":[' + torrentIds + ']}}';
+            startStopTorrents: function (torrentId) {
+                var isPaused = !$('li[data-id=' + torrentId + '] button.status:first-child').hasClass('fa-pause');
 
-                data.complete = function (xhr, status) {
-                    //No sessionID set, do function again
-                    if (xhr.status === 409) {
-                        functions.startTorrents(torrentIds);
+                $.get({
+                    url: "torrents/" + (isPaused ? "resume" : "pause") + "/" + torrentId,
+                    success: function () {
+                        $('li[data-id=' + torrentId + '] button.status').toggleClass('fa-pause fa-play');
+                        $('li[data-id=' + torrentId + '] .progress-bar').toggleClass('progress-bar-success progress-bar-primary');
                     }
-                    else if (xhr.status === 200) {
-                        var responseData = $.parseJSON(xhr.responseText);
-                        if (responseData.result === 'success') {
-                            $('li[data-id=' + torrentIds + '] button.status').toggleClass('fa-pause fa-play');
-                            $('li[data-id=' + torrentIds + '] .progress-bar').toggleClass('progress-bar-success progress-bar-primary');
-                        }
-                    }
-                };
-
-                $.ajax(data);
+                });
             },
 
             /**
@@ -181,25 +146,14 @@
             * @param {Number} torrentIds The torrent ID to remove.
             * @todo Rewrite so an array of torrents can be passed along.
             */
-            removeTorrents: function (torrentIds) {
-                var data = settings.defaultData;
-                data.data = '{"method":"torrent-remove", "arguments":{"ids":[' + torrentIds + ']}, "delete-local-data": true}';
-
-                data.complete = function (xhr, status) {
-                    //No sessionID set, do function again
-                    if (xhr.status === 409) {
-                        functions.removeTorrents(torrentIds);
+            removeTorrents: function (torrentId) {
+                $.get({
+                    url: "torrents/remove/" + torrentId,
+                    success: function () {
+                        $('li[data-id=' + torrentId + ']').remove();
+                        functions.getTorrents(false);
                     }
-                    else if (xhr.status === 200) {
-                        var responseData = $.parseJSON(xhr.responseText);
-                        if (responseData.result === 'success') {
-                            $('li[data-id=' + torrentIds + ']').remove();
-                            functions.getTorrents(false);
-                        }
-                    }
-                };
-
-                $.ajax(data);
+                });
             }
         };
 

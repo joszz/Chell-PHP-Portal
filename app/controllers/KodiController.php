@@ -15,9 +15,6 @@ use Chell\Models\Kodi\KodiTVShowEpisodes;
  */
 class KodiController extends WidgetController
 {
-	protected array $jsFiles = ['gallery'];
-	protected array $cssFiles = ['gallery'];
-
 	/**
 	 * Set the default layout to empty.
 	 */
@@ -28,6 +25,12 @@ class KodiController extends WidgetController
 
 		parent::initialize();
 	}
+
+    public function addAssets()
+    {
+        $this->jsFiles[] = 'gallery';
+        $this->cssFiles[] = 'gallery';
+    }
 
 	/**
 	 * Show movie details.

@@ -1,0 +1,35 @@
+<?php
+namespace Chell\Models;
+
+abstract class Torrents extends BaseModel
+{
+    public function initialize()
+    {
+        parent::initialize();
+        $this->authenticate();
+    }
+
+    protected function getCurlHeaders($curl, $header, &$headers)
+    {
+        $len = strlen($header);
+        $header = explode(':', $header, 2);
+        // ignore invalid headers
+        if (count($header) < 2)
+        {
+            return $len;
+        }
+
+        $headers[strtolower(trim($header[0]))] = trim($header[1]);
+        return $len;
+    }
+
+    protected abstract function authenticate();
+
+    public abstract function getTorrents();
+
+    public abstract function resumeTorrent(array $torrentIds);
+
+    public abstract function pauseTorrent(array $torrentIds);
+
+    public abstract function removeTorrent(array $torrentIds);
+}

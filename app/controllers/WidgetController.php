@@ -14,13 +14,16 @@ class WidgetController extends BaseController
     protected array $jsFiles = [];
     protected array $cssFiles = [];
 
-    /**
-     * Adds styles and sceripts based on what's set in the propeties of this class.
-     */
     public function initialize()
     {
         parent::initialize();
 
+        $this->addAssets();
         $this->assets->addScripts($this->jsFiles)->addStyles($this->cssFiles);
+    }
+
+    public function addAssets()
+    {
+        return;
     }
 }

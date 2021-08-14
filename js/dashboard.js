@@ -25,8 +25,8 @@ function initializePlugins() {
     if (typeof $.fn.phpsysinfo !== "undefined") {
         $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
     }
-    if (typeof $.fn.transmission !== "undefined") {
-        $(".transmission").transmission();
+    if (typeof $.fn.torrents !== "undefined") {
+        $(".torrents").torrents();
     }
     if (typeof $.fn.gallery !== "undefined") {
         $(".movies, .episodes, .albums, .couchpotato, .jellyfin").gallery();

@@ -37,7 +37,7 @@ class AssetsPlugin extends Injectable
      */
     public function beforeRender(Event $event, View $view) : bool
     {
-        foreach ($this->scripts as $jsFile)
+        foreach (array_unique($this->scripts) as $jsFile)
         {
             $file = 'dist/js/' . $jsFile . (DEBUG ? '.js' : '.min.js');
 
@@ -49,7 +49,7 @@ class AssetsPlugin extends Injectable
 
         $this->assets->collection('scripts')->addJs('dist/js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version, true);
 
-        foreach ($this->styles as $cssFile)
+        foreach (array_unique($this->styles) as $cssFile)
         {
             $file = 'dist/css/' . $cssFile . (DEBUG ? '.css' : '.min.css');
 

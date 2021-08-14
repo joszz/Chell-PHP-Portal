@@ -28,8 +28,8 @@
 <?php $this->partial('index/partials/rcpu') ?>
 <?php endif ?>
 
-<?php if ($this->settings->transmission->enabled) : ?>
-<?php $this->partial('index/partials/transmission') ?>
+<?php if ($this->settings->torrents->enabled) : ?>
+<?php $this->partial('index/partials/torrents') ?>
 <?php endif ?>
 
 <div class="clearfix"></div>
@@ -74,23 +74,21 @@
 <?php $this->partial('index/partials/pihole') ?>
 <?php endif ?>
 
-<?php if ($this->settings->snmp->enabled) : ?>
-<?php $this->partial('index/partials/snmp') ?>
-<?php endif ?>
-
 <?php if ($this->settings->verisure->enabled) : ?>
 <?php $this->partial('index/partials/verisure') ?>
 <?php endif ?>
 
-<?php if ($this->settings->youless->enabled) : ?>
-<?php $this->partial('index/partials/youless') ?>
-<?php endif ?>
+<div class="clearfix visible-md visible-sm visible-md visible-lg"></div>
 
-<div class="clearfix visible-md visible-lg"></div>
+<?php if ($this->settings->snmp->enabled) : ?>
+<?php $this->partial('index/partials/snmp') ?>
+<?php endif ?>
 
 <?php if ($this->settings->roborock->enabled) : ?>
 <?php $this->partial('index/partials/roborock') ?>
 <?php endif ?>
+
+<div class="clearfix visible-sm"></div>
 
 <?php if ($this->settings->databasestats->enabled) : ?>
 <?php $this->partial('index/partials/database_stats') ?>
@@ -100,6 +98,9 @@
 <?php $this->partial('index/partials/apache') ?>
 <?php endif ?>
 
+<?php if ($this->settings->youless->enabled) : ?>
+<?php $this->partial('index/partials/youless') ?>
+<?php endif ?>
 
 <?php if ($this->settings->pulseway->enabled) : ?>
 <?php $this->partial('index/partials/pulseway') ?>

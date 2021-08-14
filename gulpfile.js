@@ -35,7 +35,7 @@ var config = {
             'css/dashboard/sickrage.scss',
             'css/dashboard/speedtest.scss',
             'css/dashboard/phpsysinfo.scss',
-            'css/dashboard/transmission.scss',
+            'css/dashboard/torrents.scss',
             'css/dashboard/verisure.scss',
             'css/dashboard/youless.scss'
         ],

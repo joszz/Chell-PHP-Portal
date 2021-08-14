@@ -12,9 +12,6 @@ use Chell\Models\Jellyfin;
  */
 class JellyfinController extends WidgetController
 {
-    protected array $jsFiles = ['gallery'];
-    protected array $cssFiles = ['gallery'];
-
     /**
      * Retrieves all Jellyfin libraries.
      */
@@ -22,5 +19,11 @@ class JellyfinController extends WidgetController
     {
         $this->view->disable();
         $this->response->setJsonContent(array_flip((new Jellyfin())->getViews()))->send();
+    }
+
+    public function addAssets()
+    {
+        $this->jsFiles[] = 'gallery';
+        $this->cssFiles[] = 'gallery';
     }
 }
