@@ -157,6 +157,7 @@ class FrontController
             'Chell\Messages'                    => APP_PATH . 'app/messages/',
             'Chell\Models'                      => APP_PATH . 'app/models/',
             'Chell\Models\Kodi'                 => APP_PATH . 'app/models/kodi/',
+            'Chell\Models\Torrents'             => APP_PATH . 'app/models/Torrents',
             'Chell\Plugins'                     => APP_PATH . 'app/plugins/',
         ]))->register();
     }

@@ -1,11 +1,14 @@
 <?php
-namespace Chell\Models;
+namespace Chell\Models\Torrents;
+
+use Chell\Models\BaseModel;
 
 abstract class Torrents extends BaseModel
 {
     public function initialize()
     {
         parent::initialize();
+
         $this->authenticate();
     }
 

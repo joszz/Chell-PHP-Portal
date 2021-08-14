@@ -3,9 +3,9 @@
 namespace Chell\Controllers;
 
 use Chell\Controllers\WidgetController;
-use Chell\Models\Torrents;
-use Chell\Models\qBittorrent;
-use Chell\Models\Transmission;
+use Chell\Models\Torrents\Torrents;
+use Chell\Models\Torrents\qBittorrent;
+use Chell\Models\Torrents\Transmission;
 
 /**
  * The controller responsible for all Torrents widget related actions.

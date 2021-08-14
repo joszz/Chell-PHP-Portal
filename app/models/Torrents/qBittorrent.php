@@ -1,8 +1,6 @@
 <?php
 
-namespace Chell\Models;
-
-use stdClass;
+namespace Chell\Models\Torrents;
 
 class qBittorrent extends Torrents
 {
@@ -17,12 +15,13 @@ class qBittorrent extends Torrents
 
         foreach($torrents as $torrent)
         {
-            $formatted = new stdClass();
-            $formatted->id = $torrent->hash;
-            $formatted->percentDone = $torrent->progress;
-            $formatted->name = $torrent->name;
-            $formatted->status = $torrent->status;
-			
+            $formatted = (object)[
+                'id'            => $torrent->hash,
+                'percentDone'   => $torrent->progress, 
+                'name'          => $torrent->name, 
+                'status'        => $torrent->status
+            ];
+
             if ($torrent->status == 'pausedDL')
             {
                 $formatted->status = 'paused';

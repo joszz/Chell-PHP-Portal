@@ -1,8 +1,6 @@
 <?php
 
-namespace Chell\Models;
-
-use stdClass;
+namespace Chell\Models\Torrents;
 
 class Transmission extends Torrents
 {
@@ -17,11 +15,12 @@ class Transmission extends Torrents
 
         foreach($torrents as $torrent)
         {
-            $formatted = new stdClass();
-            $formatted->id = $torrent->id;
-            $formatted->percentDone = $torrent->percentDone;
-            $formatted->name = $torrent->name;
-			$formatted->status = $torrent->status;
+            $formatted = (object)[
+                'id'            => $torrent->id,
+                'percentDone'   => $torrent->percentDone,
+                'name'          => $torrent->name,
+                'status'        => $torrent->status
+            ];
 
 			if ($torrent->status == 4)
             {
