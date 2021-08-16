@@ -22,25 +22,25 @@ abstract class Torrents extends BaseModel
 
     protected function getCurlHeaders($curl, $header, &$headers)
     {
-        $len = strlen($header);
+        $length = strlen($header);
         $header = explode(':', $header, 2);
         // ignore invalid headers
         if (count($header) < 2)
         {
-            return $len;
+            return $length;
         }
 
         $headers[strtolower(trim($header[0]))] = trim($header[1]);
-        return $len;
+        return $length;
     }
 
     protected abstract function authenticate();
 
     public abstract function getTorrents();
 
-    public abstract function resumeTorrent(array $torrentIds);
+    public abstract function resumeTorrent($torrentId);
 
-    public abstract function pauseTorrent(array $torrentIds);
+    public abstract function pauseTorrent($torrentId);
 
-    public abstract function removeTorrent(array $torrentIds);
+    public abstract function removeTorrent($torrentId);
 }

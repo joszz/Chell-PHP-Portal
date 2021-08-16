@@ -390,6 +390,7 @@ class SettingsController extends BaseController
      * @param string    $subItem    Used to redirect to the correct page when having nested settings, such as SNMPHost -> SNMPRecord. Defaults to index (top most settings page).
      * @param int|bool  $subItemId  The ID of the subentity you want to delete. Used to redirect to correct parent page.
      * @return ResponseInterface    Will forward to settings/index#$which when successful, or will show the form again when failed.
+     * @todo                        Needs to be refactored
      */
     public function deleteAction(string $which, string $id, string $subItem = '', $subItemId = false) : ResponseInterface
     {
@@ -413,9 +414,10 @@ class SettingsController extends BaseController
                     'bind'       => [1 => intval($id)]
                 ]);
 
-                if($which == 'MenuItems')
+                if ($which == 'MenuItems')
                 {
                     unlink($entity->getIconFilePath());
+                    $which = 'menu';
                 }
 
                 $entity->delete();
