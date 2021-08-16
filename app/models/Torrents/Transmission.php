@@ -2,10 +2,20 @@
 
 namespace Chell\Models\Torrents;
 
+/**
+ * The model responsible for all actions related to Transmission.
+ *
+ * @package Models\Torrents
+ */
 class Transmission extends Torrents
 {
 	private string $_transmissionSessionId;
 
+    /**
+     * Retrieves torrents from the Transmission API.
+     *
+     * @return object[]     The formatted torrent information
+     */
     public function getTorrents()
     {
 		$curl = $this->getCurl('{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}');
@@ -37,6 +47,11 @@ class Transmission extends Torrents
 		return $result;
     }
 
+    /**
+     * Resumes a torrent by given torrentId.
+     *
+     * @param mixed $torrentId  The torrent to resume.
+     */
     public function resumeTorrent($torrentId)
     {
 		$curl = $this->getCurl('{"method":"torrent-start-now", "arguments":{"ids":[' . $torrentId . ']}}');
@@ -46,6 +61,11 @@ class Transmission extends Torrents
 		return $content;
     }
 
+    /**
+     * Pauses a torrent by given torrentId.
+     *
+     * @param mixed $torrentId  The torrent to pause.
+     */
     public function pauseTorrent($torrentId)
     {
 		$curl = $this->getCurl('{"method":"torrent-stop", "arguments":{"ids":[' . $torrentId . ']}}');
@@ -55,6 +75,11 @@ class Transmission extends Torrents
 		return $content;
     }
 
+    /**
+     * Deletes a torrent and the files by given torrentId.
+     *
+     * @param mixed $torrentId  The torrent to delete.
+     */
     public function removeTorrent($torrentId)
     {
 		$curl = $this->getCurl('{"method":"torrent-remove", "arguments":{"ids":[' . $torrentId . ']}, "delete-local-data": true}');
@@ -64,6 +89,10 @@ class Transmission extends Torrents
 		return $content;
     }
 
+    /**
+     * Authenticates the server to the Transmission API.
+     * When the HTTP status code == 409, retrieve the Transmission session Id, to use later when communicating with the API.
+     */
 	protected function authenticate()
     {
 		$headers = [];
@@ -89,6 +118,12 @@ class Transmission extends Torrents
 		}
     }
 
+    /**
+     * Retrieves a cUrl instance to use to communicate with the Transmission API. Sets the X-Transmission-Session-Id for CSRF protection.
+     *
+     * @param string $url                   The API part of the URL to request.
+     * @return \CurlHandle|bool|resource    The cUrl handle to use to communicate with the Transmission API.
+     */
     private function getCurl($postFields)
 	{
 		$curl = curl_init($this->_settings->torrents->url . 'rpc/');

@@ -145,20 +145,26 @@ class FrontController
     private function registerNamespaces()
     {
         $loader = new Loader();
-        $vendor = require APP_PATH . 'app/vendor/composer/autoload_psr4.php';
-        $loader->registerNamespaces(array_merge($vendor, [
-            'Chell\Controllers'                 => APP_PATH . 'app/controllers/',
-            'Chell\Exceptions'                  => APP_PATH . 'app/exceptions/',
-            'Chell\Forms'                       => APP_PATH . 'app/forms/',
-            'Chell\Forms\FormFields'            => APP_PATH . 'app/forms/formfields/',
-            'Chell\Forms\FormFields\Dashboard'  => APP_PATH . 'app/forms/formfields/dashboard/',
-            'Chell\Forms\FormFields\General'    => APP_PATH . 'app/forms/formfields/general/',
-            'Chell\Forms\Validators'            => APP_PATH . 'app/forms/validators/',
-            'Chell\Messages'                    => APP_PATH . 'app/messages/',
-            'Chell\Models'                      => APP_PATH . 'app/models/',
-            'Chell\Models\Kodi'                 => APP_PATH . 'app/models/kodi/',
-            'Chell\Models\Torrents'             => APP_PATH . 'app/models/Torrents',
-            'Chell\Plugins'                     => APP_PATH . 'app/plugins/',
+        $composerAutoloader = require APP_PATH . 'app/vendor/composer/autoload_psr4.php';
+        $composerNamespaces = [];
+        foreach($composerAutoloader as $key => $value)
+        {
+            $composerNamespaces[substr($key, 0, -1)] = $value;
+        }
+
+        $loader->registerNamespaces(array_merge($composerNamespaces, [
+            'Chell\Controllers'                 => [APP_PATH . 'app/controllers/'],
+            'Chell\Exceptions'                  => [APP_PATH . 'app/exceptions/'],
+            'Chell\Forms'                       => [APP_PATH . 'app/forms/'],
+            'Chell\Forms\FormFields'            => [APP_PATH . 'app/forms/formfields/'],
+            'Chell\Forms\FormFields\Dashboard'  => [APP_PATH . 'app/forms/formfields/dashboard/'],
+            'Chell\Forms\FormFields\General'    => [APP_PATH . 'app/forms/formfields/general/'],
+            'Chell\Forms\Validators'            => [APP_PATH . 'app/forms/validators/'],
+            'Chell\Messages'                    => [APP_PATH . 'app/messages/'],
+            'Chell\Models'                      => [APP_PATH . 'app/models/'],
+            'Chell\Models\Kodi'                 => [APP_PATH . 'app/models/kodi/'],
+            'Chell\Models\Torrents'             => [APP_PATH . 'app/models/Torrents'],
+            'Chell\Plugins'                     => [APP_PATH . 'app/plugins/'],
         ]))->register();
     }
 

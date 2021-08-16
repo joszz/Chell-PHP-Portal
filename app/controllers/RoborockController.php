@@ -24,6 +24,12 @@ class RoborockController extends WidgetController
         $this->_model = new Roborock();
     }
 
+    public function addAssets()
+    {
+        $this->jsFiles[] = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
+        $this->cssFiles[] = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
+    }
+
     /**
      * Called by AJAX to refresh the dashboard widget.
      * Returns a JSON encoded string to the browser.

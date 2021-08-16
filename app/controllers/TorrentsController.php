@@ -17,6 +17,9 @@ class TorrentsController extends WidgetController
 {
     private Torrents $_client;
 
+    /**
+     * Sets the correct Torrent client based on saved settings.
+     */
     public function initialize()
     {
         parent::initialize();
@@ -35,21 +38,39 @@ class TorrentsController extends WidgetController
         $this->view->disable();
     }
 
+    /**
+     * Retrieves a list of torrents.
+     */
     public function indexAction()
     {
         $this->response->setJsonContent($this->_client->getTorrents())->send();
     }
 
+    /**
+     * Pauses a torrent.
+     *
+     * @param mixed $id     The torrent Id to pause.
+     */
     public function pauseAction($id)
     {
         $this->_client->pauseTorrent($id);
     }
 
+    /**
+     * Resumes a torrent.
+     *
+     * @param mixed $id     The torrent Id to resume.
+     */
     public function resumeAction($id)
     {
         $this->_client->resumeTorrent($id);
     }
 
+    /**
+     * Deletes a torrent.
+     *
+     * @param mixed $id     The torrent Id to delete.
+     */
     public function removeAction($id)
     {
         $this->_client->removeTorrent($id);

@@ -67,6 +67,19 @@ function initializeGlobalPlugins() {
     Waves.init();
 
     $("body").tooltip({ selector: ".bs-tooltip" });
+
+    if ($.fn.selectpicker) {
+        $("select:not(.no-selectpicker)").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
+    }
+    if ($.fn.TouchSpin) {
+        $("input[type='number'][step!='any']").TouchSpin({
+            verticalupclass: "fa fa-chevron-left",
+            verticaldownclass: "fa fa-chevron-right",
+            buttondown_class: "btn btn-default",
+            buttonup_class: "btn btn-default",
+            max: Number.MAX_SAFE_INTEGER
+        });
+    }
 }
 
 /**
