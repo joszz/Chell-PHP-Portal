@@ -139,54 +139,30 @@ class Devices extends BaseModel
      * @param int       $repetition     The amount of repetition of the MAC in the magic packet. Defaults to 16.
      * @return bool                     Whether or not socket_sendto with magic packet succeeded.
      */
-    private function wakeOnLan(int $socket_number = 7, int $repetition = 16) : bool
+    private function wakeOnLan() : bool
     {
-        $addr_byte = explode(':', $this->mac);
-        $hw_addr = '';
-        $msg = chr(255).chr(255).chr(255).chr(255).chr(255).chr(255);
+        $hwaddr = pack('H*', preg_replace('/[^0-9a-fA-F]/', '', $this->mac));
 
-        for ($a=0; $a <6; $a++)
-        {
-            $hw_addr .= chr(hexdec($addr_byte[$a]));
-        }
+        // Create Magic Packet
+        $packet = sprintf(
+            '%s%s',
+            str_repeat(chr(255), 6),
+            str_repeat($hwaddr, 16)
+        );
 
-        for ($a = 1; $a <= $repetition; $a++)
-        {
-            $msg .= $hw_addr;
-        }
+        $sock = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
 
-        // send it to the broadcast address using UDP
-        // SQL_BROADCAST option isn't help!!
-        $s = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
-        if ($s == false)
-        {
-            echo 'Error creating socket!\n';
-            echo 'Error code is "' . socket_last_error($s) . '" - ' . socket_strerror(socket_last_error($s));
-            return false;
-        }
-        else
-        {
-            // setting a broadcast option to socket:
-            $opt_ret = socket_set_option($s, 1, 6, true);
+        if ($sock !== false) {
+            $options = socket_set_option($sock, SOL_SOCKET, SO_BROADCAST, true);
 
-            if ($opt_ret <0)
-            {
-                echo 'setsockopt() failed, error: ' . $opt_ret . '\n';
-                return false;
-            }
-
-            if (socket_sendto($s, $msg, strlen($msg), 0, $this->broadcast, $socket_number))
-            {
-                echo 'Magic Packet sent successfully!';
-                socket_close($s);
+            if ($options !== false) {
+                socket_sendto($sock, $packet, strlen($packet), 0, $this->ip, 7);
+                socket_close($sock);
                 return true;
             }
-            else
-            {
-                echo 'Magic packet failed!';
-                return false;
-            }
         }
+
+        return false;
     }
 
     /**
