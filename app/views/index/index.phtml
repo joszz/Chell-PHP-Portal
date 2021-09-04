@@ -78,17 +78,17 @@
 <?php $this->partial('index/partials/verisure') ?>
 <?php endif ?>
 
-<div class="clearfix visible-md visible-sm visible-md visible-lg"></div>
-
 <?php if ($this->settings->snmp->enabled) : ?>
 <?php $this->partial('index/partials/snmp') ?>
 <?php endif ?>
+
+<div class="clearfix visible-sm"></div>
 
 <?php if ($this->settings->roborock->enabled) : ?>
 <?php $this->partial('index/partials/roborock') ?>
 <?php endif ?>
 
-<div class="clearfix visible-sm"></div>
+<div class="clearfix visible-md visible-lg"></div>
 
 <?php if ($this->settings->databasestats->enabled) : ?>
 <?php $this->partial('index/partials/database_stats') ?>
@@ -104,4 +104,8 @@
 
 <?php if ($this->settings->pulseway->enabled) : ?>
 <?php $this->partial('index/partials/pulseway') ?>
+<?php endif ?>
+
+<?php if ($this->settings->psa_remote->enabled) : ?>
+<?php $this->partial('index/partials/psa_remote') ?>
 <?php endif ?>
