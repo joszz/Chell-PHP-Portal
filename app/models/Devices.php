@@ -156,7 +156,7 @@ class Devices extends BaseModel
             $options = socket_set_option($sock, SOL_SOCKET, SO_BROADCAST, true);
 
             if ($options !== false) {
-                socket_sendto($sock, $packet, strlen($packet), 0, $this->ip, 7);
+                socket_sendto($sock, $packet, strlen($packet), 0, $this->broadcast, 7);
                 socket_close($sock);
                 return true;
             }

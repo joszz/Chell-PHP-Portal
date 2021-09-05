@@ -42,15 +42,19 @@
 
                 settings.block.on("click", ".fa-sync", function () {
                     clearInterval(settings.updateIntervalId);
-                    settings.updateIntervalId = setInterval(functions.refresh, settings.updateInterval);
-                    functions.refresh();
+                    settings.updateIntervalId = setInterval(function () {
+                        functions.refresh(false, true);
+                    }, settings.updateInterval);
+                    functions.refresh(false, false);
                 });
 
-                //settings.updateIntervalId = setInterval(functions.refresh, settings.updateInterval);
-                functions.refresh(true);
+                settings.updateIntervalId = setInterval(function () {
+                    functions.refresh(false, true);
+                }, settings.updateInterval);
+                functions.refresh(true, true);
             },
 
-            refresh: function (initialize) {
+            refresh: function (initialize, cache) {
                 if (settings.refreshing) {
                     return;
                 }
@@ -62,7 +66,7 @@
                 }
 
                 $.ajax({
-                    url: "psaremote/",
+                    url: "psaremote/index/" + cache,
                     dataType: "json",
                     success: function (data) {
                         settings.block.find(".last_refresh .value").text(data.energy.updated_at);

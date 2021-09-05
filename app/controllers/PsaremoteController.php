@@ -20,8 +20,8 @@ class PsaremoteController extends WidgetController
         $this->view->disable();
     }
 
-    public function indexAction()
+    public function indexAction($cache)
     {
-        $this->response->setJsonContent($this->_model->GetVehicleInfo())->send();
+        $this->response->setJsonContent($this->_model->GetVehicleInfo($cache))->send();
     }
 }

@@ -7,22 +7,20 @@ namespace Chell\Models;
  */
 class Psaremote extends BaseModel
 {
-    public function GetVehicleInfo()
+    public function GetVehicleInfo($cache = true)
     {
-        $curl = $this->getCurl('get_vehicleinfo/' . $this->_settings->psa_remote->vin .'?from_cache=1');
+        $curl = $this->getCurl('get_vehicleinfo/' . $this->_settings->psa_remote->vin . ($cache ? '?from_cache=1' : null));
         $result = json_decode(curl_exec($curl));
         curl_close($curl);
         $output = $result;
 
         foreach ($result->energy as $energy)
         {
-
             if ($energy->type == $result->service->type)
             {
-$output->energy = $energy;
+                $output->energy = $energy;
             }
         }
-
 
         return $output;
     }

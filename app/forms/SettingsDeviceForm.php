@@ -39,6 +39,14 @@ class SettingsDeviceForm extends SettingsBaseForm
                 new IP(['message' => $this->translator->validation['ip'], 'allowPrivate' => true])
             ]);
 
+        $broadcast = new Text('broadcast');
+        $broadcast->setLabel('Broadcast address')
+            ->setFilters(['striptags', 'string'])
+            ->setAttributes(['class' => 'form-control'])
+            ->addValidators([
+                new IP(['message' => $this->translator->validation['ip'], 'allowPrivate' => true, 'allowEmpty' => true])
+            ]);
+
         $mac = new Text('mac');
         $mac->setLabel('MAC')
             ->setFilters(['striptags', 'string'])
@@ -103,6 +111,7 @@ class SettingsDeviceForm extends SettingsBaseForm
 
         $this->add($name);
         $this->add($ip);
+        $this->add($broadcast);
         $this->add($mac);
         $this->add($shutdownUser);
         $this->add($shutdownPassword);
