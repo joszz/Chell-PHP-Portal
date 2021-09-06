@@ -28,6 +28,8 @@ CREATE TABLE `devices` (
   `hypervadmin_url` varchar(255) DEFAULT NULL,
   `hypervadmin_user` varchar(255) DEFAULT NULL,
   `hypervadmin_password` varchar(255) DEFAULT NULL,
+  `broadcast` varchar(15) DEFAULT NULL,
+  `devicescol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -187,5 +189,3 @@ CREATE TABLE `users` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-08-19 14:44:07

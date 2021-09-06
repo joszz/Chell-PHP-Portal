@@ -3,13 +3,15 @@
 namespace Chell\Models;
 
 /**
+ * The model responsible for all actions related to PSA Remote.
+ *
  * @package Models
  */
 class Psaremote extends BaseModel
 {
-    public function GetVehicleInfo($cache = true)
+    public function GetVehicleInfo(bool $cache = true)
     {
-        $curl = $this->getCurl('get_vehicleinfo/' . $this->_settings->psa_remote->vin . ($cache ? '?from_cache=1' : null));
+        $curl = $this->getCurl('get_vehicleinfo/' . $this->_settings->psaremote->vin . ($cache ? '?from_cache=1' : null));
         $result = json_decode(curl_exec($curl));
         curl_close($curl);
         $output = $result;
@@ -27,11 +29,11 @@ class Psaremote extends BaseModel
 
     private function getCurl(string $url)
     {
-        $ch = curl_init($this->_settings->psa_remote->url . $url);
+        $ch = curl_init($this->_settings->psaremote->url . $url);
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERPWD => $this->_settings->psa_remote->username . ':' . $this->_settings->psa_remote->password,
+            CURLOPT_USERPWD => $this->_settings->psaremote->username . ':' . $this->_settings->psaremote->password,
             CURLOPT_TIMEOUT => 3
         ]);
         return $ch;
