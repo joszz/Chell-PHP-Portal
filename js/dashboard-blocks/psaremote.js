@@ -69,20 +69,27 @@
                     url: "psaremote/index/" + cache,
                     dataType: "json",
                     success: function (data) {
+                        var tinyTimer = settings.block.find(".charging_remaining_time .value").data("tinyTimer");
+                        if (tinyTimer) {
+                            clearInterval(tinyTimer.interval);
+                        }
+
                         settings.block.find(".last_refresh .value").text(data.energy.updated_at);
                         settings.block.find(".battery .value").text(data.energy.level + "%");
+                        settings.block.find(".mileage .value").text(data.timed_odometer.mileage + " km");
                         settings.block.find(".charging_mode .value").text(data.energy.charging.charging_mode);
-                        settings.block.find(".charging_rate .value").text(data.energy.charging.charging_rate);
-                        settings.block.find(".charging_plugged .value").text(data.energy.charging.plugged);
-                        settings.block.find(".charging_remaining_time .value").text(data.energy.charging.remaining_time);
-                        settings.block.find(".charging_status .value").text(data.energy.charging.status);
-                        settings.block.find(".mileage .value").text(data.timed_odometer.mileage);
-                        settings.block.find(".acceleration .value").text(data.kinetic.acceleration);
-                        settings.block.find(".moving .value").text(data.kinetic.moving);
-                        settings.block.find(".pace .value").text(data.kinetic.pace);
-                        settings.block.find(".speed .value").text(data.kinetic.speed);
-                        settings.block.find(".doors_state .value").text(data.doors_state);
-                        settings.block.find(".battery_consumption .value").text(data.energy.consumption);
+
+                        if (data.energy.charging.charging_mode !== "No") {
+                            var date = new Date();
+                            date.setSeconds(date.getSeconds() + data.energy.charging.remaining_time);
+
+                            settings.block.find(".charging_rate, .charging_remaining_time").show();
+                            settings.block.find(".charging_rate .value").text(data.energy.charging.charging_rate + " kW");
+                            settings.block.find(".charging_remaining_time .value").tinyTimer({ to: date });
+                        }
+                        else {
+                            settings.block.find(".charging_rate, .charging_remaining_time").hide();
+                        }
                     },
                     complete: function () {
                         settings.block.isLoading("hide");

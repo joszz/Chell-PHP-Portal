@@ -3,6 +3,8 @@
 namespace Chell\Models;
 
 use CurlHandle;
+use DateInterval;
+use DateTime;
 
 /**
  * The model responsible for all actions related to PSA Remote.
@@ -28,11 +30,28 @@ class Psaremote extends BaseModel
         {
             if ($energy->type == $result->service->type)
             {
+                if ($energy->charging->remaining_time)
+                {
+                    $now = new DateTime();
+                    $updated_at = new DateTime($energy->updated_at);
+                    $energy->charging->remaining_time = $this->iso8601ToSeconds($energy->charging->remaining_time) - $updated_at->diff($now)->s;
+                }
+
                 $output->energy = $energy;
             }
         }
 
         return $output;
+    }
+
+    private function iso8601ToSeconds($input)
+    {
+        $duration = new DateInterval($input);
+        $hours_to_seconds = $duration->h * 60 * 60;
+        $minutes_to_seconds = $duration->i * 60;
+        $seconds = $duration->s;
+
+        return $hours_to_seconds + $minutes_to_seconds + $seconds;
     }
 
     /**
