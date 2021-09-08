@@ -44,7 +44,13 @@ class Psaremote extends BaseModel
         return $output;
     }
 
-    private function iso8601ToSeconds($input)
+    /**
+     * Gets the number of seconds from an iso8601 formatted time interval.
+     *
+     * @param string $input     The iso8601 formatted time interval as string.
+     * @return float            The number of seconds.
+     */
+    private function iso8601ToSeconds(string $input)
     {
         $duration = new DateInterval($input);
         $hours_to_seconds = $duration->h * 60 * 60;
@@ -69,6 +75,7 @@ class Psaremote extends BaseModel
             CURLOPT_USERPWD => $this->_settings->psaremote->username . ':' . $this->_settings->psaremote->password,
             CURLOPT_TIMEOUT => 3
         ]);
+
         return $ch;
     }
 }

@@ -1,7 +1,7 @@
 "use strict";
 
 /**
-* The Youless block on the dashboard.
+* The PSA remote block on the dashboard.
 *
 * @class Youless
 * @module Dashboard

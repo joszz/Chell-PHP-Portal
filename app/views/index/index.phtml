@@ -98,14 +98,16 @@
 <?php $this->partial('index/partials/apache') ?>
 <?php endif ?>
 
+<?php if ($this->settings->psaremote->enabled) : ?>
+<?php $this->partial('index/partials/psaremote') ?>
+<?php endif ?>
+
+<div class="clearfix"></div>
+
 <?php if ($this->settings->youless->enabled) : ?>
 <?php $this->partial('index/partials/youless') ?>
 <?php endif ?>
 
 <?php if ($this->settings->pulseway->enabled) : ?>
 <?php $this->partial('index/partials/pulseway') ?>
-<?php endif ?>
-
-<?php if ($this->settings->psaremote->enabled) : ?>
-<?php $this->partial('index/partials/psaremote') ?>
 <?php endif ?>
