@@ -3,7 +3,7 @@
 namespace Chell\Models;
 
 use Phalcon\Mvc\Model;
-
+use DateTimeInterface;
 /**
  * The model responsible for all actions related to Opcache.
  *
@@ -115,7 +115,7 @@ class Opcache extends Model
 
             case 'start_time':
             case 'last_restart_time':
-                return $value ? date(DATE_RFC822, $value) : 'Never';
+                return $value ? date(DateTimeInterface::RFC822, $value) : 'Never';
 
             case 'blacklist_miss_ratio':
             case 'current_wasted_percentage':
