@@ -41,8 +41,8 @@ class KodiMovies extends KodiBase
     /**
      * Extracts thumbs and fanart from the XML stored in the DB.
      *
-     * @param ResultsetInterface $movies   The array of Kodi movies.
-     * @return array                       The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
+     * @param ResultsetInterface|array $movies   The array of Kodi movies.
+     * @return array                             The array of Kodi movies with the XML fields transformed to strings holding only image URLs.
      */
     public function extractMovieImagesFromXML(ResultsetInterface $movies) : array
     {

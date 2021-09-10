@@ -34,8 +34,8 @@ class KodiAlbums extends KodiBase
     /**
      * Extracts thumbs from the XML stored in the DB.
      *
-     * @param ResultsetInterface $albums The array of Kodi albums.
-     * @return array                     The array of Kodi albums with the XML field transformed to string holding only image URL.
+     * @param ResultsetInterface|array $albums The array of Kodi albums.
+     * @return array                           The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
     public function extractAlbumImagesFromXML(ResultsetInterface $albums) : array
     {

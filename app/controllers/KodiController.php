@@ -16,8 +16,8 @@ use Chell\Models\Kodi\KodiTVShowEpisodes;
 class KodiController extends WidgetController
 {
 	/**
-	 * Set the default layout to empty.
-	 */
+     * Set the default layout to empty.
+     */
 	public function initialize()
 	{
 		$this->SetEmptyLayout();
@@ -33,16 +33,18 @@ class KodiController extends WidgetController
     }
 
 	/**
-	 * Show movie details.
-	 *
-	 * @param int $id The ID of the movie.
-	 */
+     * Show movie details.
+     *
+     * @param int $id The ID of the movie.
+     * @suppress PHP0406
+     */
 	public function movieAction(int $id)
 	{
 		$movie = KodiMovies::findFirst([
 			'conditions' => 'idMovie = ?1',
 			'bind'       => [1 => $id],
 		]);
+
 		$movie = current($movie->extractMovieImagesFromXML([$movie]));
 		$movie->trailer = substr($movie->c19, strpos($movie->c19, 'videoid=') + 8);
 
@@ -51,10 +53,11 @@ class KodiController extends WidgetController
 	}
 
 	/**
-	 * Show episode details.
-	 *
-	 * @param int $id The ID of the episode.
-	 */
+     * Show episode details.
+     *
+     * @param int $id The ID of the episode.
+     * @suppress PHP0406
+     */
 	public function episodeAction(int $id)
 	{
 		$episode = KodiTVShowEpisodes::findFirst([
@@ -68,10 +71,10 @@ class KodiController extends WidgetController
 	}
 
 	/**
-	 * Show album details.
-	 *
-	 * @param int $id The ID of the album.
-	 */
+     * Show album details.
+     *
+     * @param int $id The ID of the album.
+     */
 	public function albumAction(int $id)
 	{
 		$album = KodiAlbums::findFirst([
@@ -83,12 +86,13 @@ class KodiController extends WidgetController
 	}
 
 	/**
-	 * Gets an external image and caches it locally before it is outputted to the browser.
+     * Gets an external image and caches it locally before it is outputted to the browser.
      *
      * @param string $which		For which library to get the image for.
      * @param string $type		The type of iamge to retrieve (fanart or thumb).
      * @param int $id			The Id of the media record.
      * @param mixed $maxWidth	Whether to resize to image to specified width.
+     * @suppress PHP0406
      */
 	public function getImageAction(string $which, string $type, int $id, $maxWidth = 'disabled')
 	{

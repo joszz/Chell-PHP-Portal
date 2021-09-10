@@ -129,6 +129,7 @@ class IndexController extends BaseController
      * Is any of the widgets enabled?
      *
      * @return bool     Whether any of the widgets is enabled.
+     * @suppress PHP0406
      */
     private function getAnyWidgetEnabled() : bool
     {

@@ -9,6 +9,7 @@ use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
 use Duo\Web;
 use Phalcon\Http\ResponseInterface;
+use Phalcon\Mvc\ModelInterface;
 
 /**
  * The controller responsible for handling the session.
@@ -35,9 +36,9 @@ class SessionController extends BaseController
     /**
      * Sets session cookie with user id and username.
      *
-     * @param Users $user The user object to populate the session with.
+     * @param ModelInterface $user The user object to populate the session with.
      */
-    private function _registerSession(Users $user)
+    private function _registerSession(ModelInterface $user)
     {
         $this->session->set(
             'auth',
