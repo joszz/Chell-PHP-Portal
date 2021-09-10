@@ -29,6 +29,7 @@ class SessionController extends BaseController
 
         $this->assets->addScripts(['login', 'webauthnauthenticate', 'toggle-passwords']);
         $this->assets->addStyleAndScript('bootstrap-toggle');
+        $this->view->loginMessage = $this->loginMessage;
     }
 
     /**
@@ -61,7 +62,6 @@ class SessionController extends BaseController
         }
 
         $this->view->containerFullHeight = true;
-        $this->view->loginMessage = $this->loginMessage;
         $this->view->form = new LoginForm($this->loginFailed);
     }
 
@@ -284,7 +284,7 @@ class SessionController extends BaseController
      *
      * @return string   The URL to redirect to.
      */
-    private function getRedirectUrlFromSession() : string
+    private function getRedirectUrlFromSession()
     {
         return $this->session->get('auth_redirect_url');
     }

@@ -144,15 +144,10 @@ class FrontController
      */
     private function registerNamespaces()
     {
-        $loader = new Loader();
-        $composerAutoloader = require APP_PATH . 'app/vendor/composer/autoload_psr4.php';
-        $composerNamespaces = [];
-        foreach($composerAutoloader as $key => $value)
-        {
-            $composerNamespaces[substr($key, 0, -1)] = $value;
-        }
+        require APP_PATH . 'vendor/autoload.php';
 
-        $loader->registerNamespaces(array_merge($composerNamespaces, [
+        $loader = new Loader();
+        $loader->registerNamespaces([
             'Chell\Controllers'                 => [APP_PATH . 'app/controllers/'],
             'Chell\Exceptions'                  => [APP_PATH . 'app/exceptions/'],
             'Chell\Forms'                       => [APP_PATH . 'app/forms/'],
@@ -165,7 +160,7 @@ class FrontController
             'Chell\Models\Kodi'                 => [APP_PATH . 'app/models/kodi/'],
             'Chell\Models\Torrents'             => [APP_PATH . 'app/models/Torrents'],
             'Chell\Plugins'                     => [APP_PATH . 'app/plugins/'],
-        ]))->register();
+        ])->register();
     }
 
     /**

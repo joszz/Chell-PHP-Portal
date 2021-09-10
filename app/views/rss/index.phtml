@@ -23,9 +23,9 @@ Refreshed on:
 
         <item>
 <title>Updates
-Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) : '-' ?>
+Packages: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) && is_string($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->packages) : '-' ?>
 
-Security: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->security) : '-' ?>
+Security: <?php echo isset($phpsysinfoData->Plugins->Plugin_UpdateNotifier) && is_string($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->security) ? trim($phpsysinfoData->Plugins->Plugin_UpdateNotifier->UpdateNotifier->security) : '-' ?>
 </title>
             <pubDate><?php echo date('D, d M Y H:i:s') ?> +0200</pubDate>
             <category>Stats</category>

@@ -21,8 +21,8 @@
                 data-nomaxwidth
                 href="<?php echo $this->settings->jellyfin->url .'/web/index.html#!/details?id=' . $item['id'] . '&serverId=' . $item['serverId'] ?>"
                 title="<?php echo $item['title'] ?>">
-                <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" alt="blur effect" class="blur" loading="lazy" />
-                <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348&quality=90' ?>" alt="<?php echo $item['title'] ?>" loading="lazy" />
+                <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348' ?>" alt="blur effect" class="blur" loading="lazy" />
+                <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348' ?>" alt="<?php echo $item['title'] ?>" loading="lazy" />
                 <div class="overlay"></div>
                 <div class="title" title="<?php echo $item['title'] ?>">
                     <?php echo $item['title'] ?>
