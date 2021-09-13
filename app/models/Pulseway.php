@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use GuzzleHttp\Client;
+
 /**
  * The model responsible for all actions related to Pulseway.
  *
@@ -17,7 +19,7 @@ class Pulseway extends BaseModel
     public function getSystems() : array
     {
         $result = [];
-        $content = $this->callApi('systems');
+        $content = $this->getHttpClient('/systems');
 
         if ($content)
         {
@@ -38,7 +40,7 @@ class Pulseway extends BaseModel
      */
     public function getSystem(string $id)
     {
-        $data = $this->callApi('systems/' . $id);
+        $data = $this->getHttpClient('/systems/' . $id);
         return $data ? $data->data : false;
     }
 
@@ -50,38 +52,29 @@ class Pulseway extends BaseModel
      */
     public function getAssets(string $id)
     {
-        $data = $this->callApi('assets/' . $id);
+        $data = $this->getHttpClient('/assets/' . $id);
         return $data ? $data->data : false;
     }
 
     /**
-     * Gets the CurlHandle to be used to invoke the Pulseway API.
+     * Calls the Pulseway API $url and retrieves the content.
      *
      * @param string $url                   The Pulseway endpoint to call.
      * @param bool $decode                  Whether or not to JSON decode the requested data.
      * @return string|object                The Pulseway data, either in object or string form.
      */
-    private function callApi(string $url, bool $decode = true)
+    private function getHttpClient(string $url, bool $decode = true)
     {
         if (empty($this->_settings->pulseway->username) || empty($this->_settings->pulseway->password) || empty($this->_settings->pulseway->url))
         {
             return false;
         }
 
-        $ch = curl_init($this->_settings->pulseway->url . $url);
-        curl_setopt_array($ch, [
-			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_USERPWD => $this->_settings->pulseway->username . ":" . $this->_settings->pulseway->password
-        ]);
-        $content = curl_exec($ch);
-        curl_close($ch);
+        $client = new Client();
+        $response = $client->request('GET', $this->_settings->pulseway->url . $url,
+			['auth' => [$this->_settings->pulseway->username , $this->_settings->pulseway->password]]);
+        $content = $response->getBody();
 
-        if ($decode)
-        {
-            $content = json_decode($content);
-        }
-
-        return $content;
+        return $decode ? json_decode($content) : $content;
     }
 }

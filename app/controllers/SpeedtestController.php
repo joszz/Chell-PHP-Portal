@@ -5,6 +5,7 @@ namespace Chell\Controllers;
 use Chell\Controllers\WidgetController;
 use Chell\Models\Speedtest;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
+use GuzzleHttp\Client;
 
 /**
  * The controller responsible for all Speedtest related actions.
@@ -258,29 +259,21 @@ class SpeedtestController extends WidgetController
             return 'false';
         }
 
-        $ch = curl_init($this->settings->speedtest->what_is_my_browser_api_url . 'user_agent_parse');
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => ['X-API-KEY:' . $this->settings->speedtest->what_is_my_browser_api_key],
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}',
-            CURLOPT_TIMEOUT => 10
+        $client = new Client(['headers' => ['X-API-KEY' => $this->settings->speedtest->what_is_my_browser_api_key]]);
+        $response = $client->request('POST', $this->settings->speedtest->what_is_my_browser_api_url . 'user_agent_parse', [
+            'body' => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}'
         ]);
+        $output = $response->getBody();
 
-        if (($output = curl_exec($ch)) !== false)
+        $parsed = json_decode($output);
+        if ($parsed->result->code == 'success')
         {
-            $parsed = json_decode($output);
-            if ($parsed->result->code == 'success')
-            {
-                return $output;
-            }
-            else if ($parsed->result->message_code == 'usage_limit_exceeded')
-            {
-                return 'false';
-            }
+            return $output;
         }
-
-        curl_close($ch);
+        else if ($parsed->result->message_code == 'usage_limit_exceeded')
+        {
+            return 'false';
+        }
 
         return $this->whatIsMyBrowser(++$try);
     }

@@ -2,9 +2,10 @@
 
 namespace Chell\Models;
 
-use CurlHandle;
 use DateInterval;
 use DateTime;
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * The model responsible for all actions related to PSA Remote.
@@ -21,9 +22,8 @@ class Psaremote extends BaseModel
      */
     public function GetVehicleInfo(bool $cache = true)
     {
-        $curl = $this->getCurl('get_vehicleinfo/' . $this->_settings->psaremote->vin . ($cache ? '?from_cache=1' : null));
-        $result = json_decode(curl_exec($curl));
-        curl_close($curl);
+        $client = $this->getHttpClient('/get_vehicleinfo/' . $this->_settings->psaremote->vin . ($cache ? '?from_cache=1' : null));
+        $result = json_decode($client->getBody());
         $output = $result;
 
         foreach ($result->energy as $energy)
@@ -61,21 +61,15 @@ class Psaremote extends BaseModel
     }
 
     /**
-     * Gets the CurlHandle to be used to invoke the PSA Remote API.
+     * Gets the ResponseInterface to be used to invoke the PSA Remote API.
      *
-     * @param string $url                   The PSA Remote endpoint to call.
-     * @return CurlHandle|bool|resource     The handle to use to call the Jellyfin API with.
+     * @param string $url            The PSA Remote endpoint to call.
+     * @return ResponseInterface     The ResponseInterface to call the API with.
      */
-    private function getCurl(string $url)
+    private function getHttpClient(string $url) : ResponseInterface
     {
-        $ch = curl_init($this->_settings->psaremote->url . $url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERPWD => $this->_settings->psaremote->username . ':' . $this->_settings->psaremote->password,
-            CURLOPT_TIMEOUT => 3
-        ]);
-
-        return $ch;
+        $client = new Client();
+        return $client->request('GET', $this->_settings->psaremote->url . $url,
+            ['auth' => [$this->_settings->psaremote->username, $this->_settings->psaremote->password]]);
     }
 }

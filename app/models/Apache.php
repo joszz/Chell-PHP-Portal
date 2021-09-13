@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use GuzzleHttp\Client;
+
 /**
  * The model responsible for all actions related to Apache.
  *
@@ -16,11 +18,8 @@ class Apache extends BaseModel
      */
     public function getServerStatus() : array
     {
-        $curl = curl_init($this->_settings->apache->server_status_url . '?auto');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($curl);
-        curl_close($curl);
-
+        $client = new Client(['base_uri' => $this->_settings->apache->server_status_url . '?auto']);
+        $data = $client->request('GET')->getBody();
         $data = explode(PHP_EOL, $data);
         $result = [];
 
@@ -43,11 +42,8 @@ class Apache extends BaseModel
      */
     public function getFpmStatus() : array
     {
-        $curl = curl_init($this->_settings->apache->fpm_status_url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($curl);
-        curl_close($curl);
-
+        $client = new Client();
+        $data = $client->request('GET', $this->_settings->apache->fpm_status_url)->getBody();
         $data = explode(PHP_EOL, $data);
         $result = [];
 

@@ -9,11 +9,6 @@ namespace Chell\Models;
  */
 class Motion extends BaseModel
 {
-    /**
-     * Main function retrieving PHPSysInfo JSON through cURL.
-     *
-     * @return array            All PHPSysInfo data in an associative array
-     */
     public function getLatest() : array
     {
         $files = glob($this->_settings->motion->picture_path . '*.jpg');

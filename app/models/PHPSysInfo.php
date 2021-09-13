@@ -2,7 +2,7 @@
 
 namespace Chell\Models;
 
-use Phalcon\Http\Request;
+use GuzzleHttp\Client;
 
 /**
  * The model responsible for all actions related to PHPSysinfo.
@@ -12,18 +12,15 @@ use Phalcon\Http\Request;
 class PHPSysInfo extends BaseModel
 {
     /**
-     * Main function retrieving PHPSysInfo JSON through cURL.
+     * Main function retrieving PHPSysInfo JSON through Guzzle.
      *
      * @return bool|string      All PHPSysInfo data in an associative array
      */
     public function getData(string $plugin)
     {
-        $curl = curl_init($this->_settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time());
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_USERPWD, $this->_settings->phpsysinfo->username . ':' . $this->_settings->phpsysinfo->password);
-        $data = curl_exec($curl);
-        curl_close($curl);
-
-        return $data;
+        $client = new Client();
+        $response = $client->request('GET', $this->_settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time(),
+			['auth' => [$this->_settings->phpsysinfo->username , $this->_settings->phpsysinfo->password]]);
+        return $response->getBody();
     }
 }

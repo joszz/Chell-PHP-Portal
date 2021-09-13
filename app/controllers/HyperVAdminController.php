@@ -5,6 +5,7 @@ namespace Chell\Controllers;
 use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
 use Chell\Models\HyperVAdmin;
+use Phalcon\Http\ResponseInterface;
 
 /**
  * The controller responsible for all HyperVAdmin related actions.
@@ -61,7 +62,7 @@ class HyperVAdminController extends WidgetController
      * @param int $state		The state to set the site to.
 	 * @return mixed            Redirect back to indexAction().
 	 */
-	public function siteToggleStateAction(int $id, string $site, int $state) : \Phalcon\Http\ResponseInterface
+	public function siteToggleStateAction(int $id, string $site, int $state) : ResponseInterface
 	{
 		$this->_model->toggleSiteState($this->getDevice($id), $site, $state);
 

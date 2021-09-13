@@ -2,7 +2,8 @@
 
 namespace Chell\Models;
 
-use CurlHandle;
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * The model responsible for all actions related to Jellyfin.
@@ -19,10 +20,11 @@ class Jellyfin extends BaseModel
      */
     public function getViews() : array
     {
-        $ch = $this->getCurl('/Users/' . $this->_settings->jellyfin->userid . '/Views');
+        $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
+        $output = $response->getBody();
         $result = [];
 
-        if (($output = curl_exec($ch)) !== false && !empty($output))
+        if (!empty($output))
         {
             $output = json_decode($output);
             foreach($output->Items as $item)
@@ -32,7 +34,6 @@ class Jellyfin extends BaseModel
         }
 
         ksort($result);
-        curl_close($ch);
         return $result;
     }
 
@@ -45,11 +46,12 @@ class Jellyfin extends BaseModel
      */
     public function getLatestForView(string $viewId, int $limit = 10) : array
     {
-        $ch = $this->getCurl('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+        $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+        $output = $response->getBody();
         $result = [];
         $count = 0;
 
-        if (($output = curl_exec($ch)) !== false && !empty($output))
+        if (!empty($output))
         {
             $output = json_decode($output);
 
@@ -80,25 +82,18 @@ class Jellyfin extends BaseModel
             }
         }
 
-        curl_close($ch);
         return $result;
     }
 
     /**
-     * Gets the CurlHandle to be used to invoke the Jellyfin API.
+     * Gets the ResponseInterface to be used to invoke the PSA Remote API.
      *
-     * @param string $url                   The Jellyfin endpoint to call.
-     * @return CurlHandle|bool|resource     The handle to use to call the Jellyfin API with.
+     * @param string $url            The PSA Remote endpoint to call.
+     * @return ResponseInterface     The ResponseInterface to call the API with.
      */
-    private function getCurl(string $url)
+    private function getHttpClient(string $url) : ResponseInterface
     {
-        $ch = curl_init($this->_settings->jellyfin->url . $url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTPHEADER => ['X-MediaBrowser-Token:' .$this->_settings->jellyfin->token],
-            CURLOPT_TIMEOUT => 3
-        ]);
-        return $ch;
+        $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->_settings->jellyfin->token]]);
+        return $client->request('GET', $this->_settings->jellyfin->url . $url);
     }
 }

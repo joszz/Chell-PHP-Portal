@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Phalcon\Mvc\Model;
+use SNMP;
 
 /**
  * The model responsible for all actions related to SNMP hosts.
@@ -34,7 +35,7 @@ class SnmpHosts extends Model
     {
         $values = [];
         $oidLabelCache = [];
-        $session = new \SNMP(constant('SNMP::VERSION_' . $this->version), $this->ip, $this->community);
+        $session = new SNMP(constant('SNMP::VERSION_' . $this->version), $this->ip, $this->community);
 
         //MySQL feature to have the positions ordered ASC and null values afterwards.
         foreach($this->getRecords(['order' => '-position DESC']) as $record)

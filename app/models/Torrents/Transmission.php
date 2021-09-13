@@ -2,6 +2,9 @@
 
 namespace Chell\Models\Torrents;
 
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * The model responsible for all actions related to Transmission.
  *
@@ -18,9 +21,8 @@ class Transmission extends Torrents
      */
     public function getTorrents()
     {
-		$curl = $this->getCurl('{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}');
-		$torrents = json_decode(curl_exec($curl))->arguments->torrents;
-		curl_close($curl);
+		$response = $this->getHttpClient('{"method":"torrent-get", "arguments":{"fields":["id", "name", "percentDone", "status"]}}');
+		$torrents = json_decode($response->getBody())->arguments->torrents;
 		$result = [];
 
         foreach($torrents as $torrent)
@@ -54,11 +56,8 @@ class Transmission extends Torrents
      */
     public function resumeTorrent($torrentId)
     {
-		$curl = $this->getCurl('{"method":"torrent-start-now", "arguments":{"ids":[' . $torrentId . ']}}');
-		$content = curl_exec($curl);
-		curl_close($curl);
-
-		return $content;
+		$response = $this->getHttpClient('{"method":"torrent-start-now", "arguments":{"ids":[' . $torrentId . ']}}');
+		return $response->getBody();;
     }
 
     /**
@@ -68,11 +67,8 @@ class Transmission extends Torrents
      */
     public function pauseTorrent($torrentId)
     {
-		$curl = $this->getCurl('{"method":"torrent-stop", "arguments":{"ids":[' . $torrentId . ']}}');
-		$content = curl_exec($curl);
-		curl_close($curl);
-
-		return $content;
+		$response = $this->getHttpClient('{"method":"torrent-stop", "arguments":{"ids":[' . $torrentId . ']}}');
+		return $response->getBody();
     }
 
     /**
@@ -82,11 +78,8 @@ class Transmission extends Torrents
      */
     public function removeTorrent($torrentId)
     {
-		$curl = $this->getCurl('{"method":"torrent-remove", "arguments":{"ids":[' . $torrentId . ']}, "delete-local-data": true}');
-		$content = curl_exec($curl);
-		curl_close($curl);
-
-		return $content;
+		$response = $this->getHttpClient('{"method":"torrent-remove", "arguments":{"ids":[' . $torrentId . ']}, "delete-local-data": true}');
+		return $response->getBody();
     }
 
     /**
@@ -95,48 +88,27 @@ class Transmission extends Torrents
      */
 	protected function authenticate()
     {
-		$headers = [];
-        $curl = curl_init($this->_settings->torrents->url . 'rpc/');
+        $client = new Client();
+        $response = $client->request('GET', $this->_settings->torrents->url . '/rpc/',
+			['auth' => [$this->_settings->torrents->username , $this->_settings->torrents->password]]);
 
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HEADER => true,
-			CURLOPT_HEADERFUNCTION => function($curl, $header) use (&$headers) {
-                return $this->getCurlHeaders($curl, $header, $headers);
-            },
-			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_USERPWD => $this->_settings->torrents->username . ':' . $this->_settings->torrents->password
-		]);
-
-		curl_exec($curl);
-		$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		curl_close($curl);
-
-		if ($statusCode == 409)
+		if ($response->getStatusCode() == 409)
         {
-            $this->_transmissionSessionId = $headers['x-transmission-session-id'];
+            $this->_transmissionSessionId = current($response->getHeaders()['x-transmission-session-id']);
 		}
     }
 
     /**
-     * Retrieves a cUrl instance to use to communicate with the Transmission API. Sets the X-Transmission-Session-Id for CSRF protection.
+     * Retrieves a ResponseInterface instance to use to communicate with the Transmission API. Sets the X-Transmission-Session-Id for CSRF protection.
      *
-     * @param string $url                   The API part of the URL to request.
-     * @return \CurlHandle|bool|resource    The cUrl handle to use to communicate with the Transmission API.
+     * @param string $url           The API part of the URL to request.
+     * @return ResponseInterface    The Guzzle handle to use to communicate with the Transmission API.
      */
-    private function getCurl($postFields)
-	{
-		$curl = curl_init($this->_settings->torrents->url . 'rpc/');
-
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => $postFields,
-			CURLOPT_USERPWD => $this->_settings->torrents->username . ':' . $this->_settings->torrents->password,
-			CURLOPT_HTTPHEADER => ['X-Transmission-Session-Id: ' . $this->_transmissionSessionId]
-		]);
-
-		return $curl;
-	}
+    private function getHttpClient($postFields) : ResponseInterface
+    {
+        $client = new Client(['headers' => ['X-Transmission-Session-Id' => $this->_transmissionSessionId]]);
+        return $client->request('POST', $this->_settings->torrents->url . '/rpc/', [
+            'body' => $postFields
+        ]);
+    }
 }

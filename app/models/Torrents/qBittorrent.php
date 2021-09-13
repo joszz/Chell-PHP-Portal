@@ -2,6 +2,9 @@
 
 namespace Chell\Models\Torrents;
 
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * The model responsible for all actions related to qBittorrent.
  *
@@ -19,9 +22,8 @@ class qBittorrent extends Torrents
      */
     public function getTorrents()
     {
-        $curl = $this->getCurl('torrents/info');
-        $torrents = json_decode(curl_exec($curl));
-        curl_close($curl);
+        $response = $this->getHttpClient('torrents/info');
+        $torrents = json_decode($response->getBody());
         $result = [];
 
         foreach($torrents as $torrent)
@@ -51,9 +53,7 @@ class qBittorrent extends Torrents
      */
     public function resumeTorrent($torrentId)
     {
-        $curl = $this->getCurl('torrents/resume?hashes=' . $torrentId);
-        curl_exec($curl);
-        curl_close($curl);
+        $this->getHttpClient('torrents/resume?hashes=' . $torrentId);
     }
 
     /**
@@ -63,9 +63,7 @@ class qBittorrent extends Torrents
      */
     public function pauseTorrent($torrentId)
     {
-        $curl = $this->getCurl('torrents/pause?hashes=' . $torrentId);
-        curl_exec($curl);
-        curl_close($curl);
+        $this->getHttpClient('torrents/pause?hashes=' . $torrentId);
     }
 
     /**
@@ -75,9 +73,7 @@ class qBittorrent extends Torrents
      */
     public function removeTorrent($torrentId)
     {
-        $curl = $this->getCurl('torrents/delete?hashes=' . $torrentId . '&deleteFiles=true');
-        curl_exec($curl);
-        curl_close($curl);
+        $this->getHttpClient('torrents/delete?hashes=' . $torrentId . '&deleteFiles=true');
     }
 
     /**
@@ -85,24 +81,17 @@ class qBittorrent extends Torrents
      */
     protected function authenticate()
     {
-        $curl = curl_init($this->_settings->torrents->url . 'api/v2/auth/login');
-        $headers = [];
+        $client = new Client();
+        $response = $client->request('POST', $this->_settings->torrents->url . 'api/v2/auth/login', [
+            'form_params' => [
+                'username' => $this->_settings->torrents->username,
+                'password' => $this->_settings->torrents->password,
+            ]
+        ]);
 
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => ['username' => $this->_settings->torrents->username, 'password' => $this->_settings->torrents->password],
-			CURLOPT_HEADER => true,
-			CURLOPT_HEADERFUNCTION => function($curl, $header) use (&$headers) {
-                return $this->getCurlHeaders($curl, $header, $headers);
-            },
-		]);
+        $headers = $response->getHeaders();
+        $cookies = explode(';', current($headers['set-cookie']));
 
-        curl_exec($curl);
-        curl_close($curl);
-
-        $cookies = explode(';', $headers['set-cookie']);
         foreach ($cookies as $cookie)
         {
             $parts = explode('=', $cookie);
@@ -115,21 +104,14 @@ class qBittorrent extends Torrents
     }
 
     /**
-     * Retrieves a cUrl instance to use to communicate with the qBittorrent API. Sets the SID cookie for authentication.
+     * Retrieves a ResponseInterface instance to use to communicate with the qBittorrent API. Sets the SID cookie for authentication.
      *
-     * @param string $url                   The API part of the URL to request.
-     * @return \CurlHandle|bool|resource    The cUrl handle to use to communicate with the qBittorrent API.
+     * @param string $url           The API part of the URL to request.
+     * @return ResponseInterface    The Guzzle handle to use to communicate with the qBittorrent API.
      */
-    private function getCurl(string $url)
-	{
-		$curl = curl_init($this->_settings->torrents->url . 'api/v2/' . $url);
-
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 10,
-            CURLOPT_COOKIE => 'SID=' . $this->_sid
-		]);
-
-		return $curl;
-	}
+    private function getHttpClient(string $url) : ResponseInterface
+    {
+        $client = new Client(['headers' => ['Cookie' => 'SID=' . $this->_sid]]);
+        return $client->request('GET', $this->_settings->torrents->url . 'api/v2/' . $url);
+    }
 }

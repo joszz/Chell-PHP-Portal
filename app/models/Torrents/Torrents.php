@@ -20,20 +20,6 @@ abstract class Torrents extends BaseModel
         $this->authenticate();
     }
 
-    protected function getCurlHeaders($curl, $header, &$headers)
-    {
-        $length = strlen($header);
-        $header = explode(':', $header, 2);
-        // ignore invalid headers
-        if (count($header) < 2)
-        {
-            return $length;
-        }
-
-        $headers[strtolower(trim($header[0]))] = trim($header[1]);
-        return $length;
-    }
-
     protected abstract function authenticate();
 
     public abstract function getTorrents();

@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use GuzzleHttp\Client;
+
 /**
  * The model responsible for all actions related to PHPSysinfo.
  *
@@ -16,13 +18,7 @@ class Couchpotato extends BaseModel
      */
 	public function getAllMovies()
 	{
-		$curl = curl_init($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.list');
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 0
-		]);
-		$content = json_decode(curl_exec($curl));
-		curl_close($curl);
+		$content = $this->getHttpClientBody($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.list');
 
 		return $content && $content->success ? $content->movies : false;
 	}
@@ -36,13 +32,7 @@ class Couchpotato extends BaseModel
 	public function getMovie(string $id)
 	{
 		$movie = false;
-		$curl = curl_init($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.get/?id=' . $id);
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 0
-		]);
-		$content = json_decode(curl_exec($curl));
-		curl_close($curl);
+		$content = $this->getHttpClientBody($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.get/?id=' . $id);
 
 		if ($content->success)
 		{
@@ -61,16 +51,17 @@ class Couchpotato extends BaseModel
      */
 	private function getRandomTrailerFormTMDB(int $id) : string
 	{
-		$curl = curl_init($this->_settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->_settings->application->tmdb_api_key);
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 0
-		]);
-		$content = json_decode(curl_exec($curl));
-		curl_close($curl);
-
+		$content = $this->getHttpClientBody($this->_settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->_settings->application->tmdb_api_key);
 		$randomTrailerIndex = array_rand($content->results);
 
 		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key : '';
 	}
+
+    private function getHttpClientBody(string $url)
+    {
+        $client = new Client();
+        $response = $client->request('GET', $url);
+
+		return json_decode($response->getBody());
+    }
 }

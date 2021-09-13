@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use GuzzleHttp\Client;
+
 /**
  * The model responsible for all actions related to YouLess.
  *
@@ -16,10 +18,9 @@ class Youless extends BaseModel
 	 */
 	public function getCurrentStats()
 	{
-		$ch = curl_init($this->_settings->youless->url . 'a&f=j');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$content = json_decode(curl_exec($ch));
-		curl_close($ch);
+		$client = new Client();
+		$response = $client->request('GET', $this->_settings->youless->url . 'a&f=j');
+		$content = json_decode($response->getBody());
 
 		return $content;
 	}

@@ -2,8 +2,9 @@
 
 namespace Chell\Models;
 
-use CurlHandle;
 use Chell\Models\Devices;
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * The model responsible for all actions related to HyperVAdmin.
@@ -18,34 +19,28 @@ class HyperVAdmin extends BaseModel
 	const siteStateDisabed = 3;
 
 	/**
-	 * Retrieves all VMs using cURL and settings defined in config.ini.
+	 * Retrieves all VMs using Guzzle and settings defined in config.ini.
 	 *
      * @param Devices $device	The device to do the action for.
-     * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
+     * @param bool $jsonDecode	Whether to JSON decode the output of the Guzzle call.
 	 * @return array            List of VMs as anonymous objects.
 	 */
 	public function getVMs(Devices $device, bool $jsonDecode = true)
 	{
-		$curl = $this->getCurl($device, 'VMs/GetVMs');
-		$content = curl_exec($curl);
-		curl_close($curl);
-
+		$content = $this->getHttpClient($device, '/VMs/GetVMs')->getBody();
 		return $jsonDecode ? json_decode($content) : $content;
 	}
 
 	/**
-	 * Retrieves all sites using cURL and settings defined in config.ini.
+     * Retrieves all sites using Guzzle and settings defined in config.ini.
 	 *
      * @param Devices $device	The device to do the action for.
-     * @param bool $jsonDecode	Whether to JSON decode the output of the CURL call.
+     * @param bool $jsonDecode	Whether to JSON decode the output of the Guzzle call.
 	 * @return object           List of sites as anonymous objects.
 	 */
 	public function getSites(Devices $device, bool $jsonDecode = true)
 	{
-		$curl = $this->getCurl($device, 'Sites/GetSites');
-		$content = curl_exec($curl);
-		curl_close($curl);
-
+		$content = $this->getHttpClient($device, '/Sites/GetSites')->getBody();
 		return $jsonDecode ? json_decode($content) :  $content;
 	}
 
@@ -81,11 +76,7 @@ class HyperVAdmin extends BaseModel
 	 */
 	public function toggleVMState(Devices $device, string $vmName, int $state)
 	{
-		$curl = $this->getCurl($device, 'VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state);
-		$content = json_decode(curl_exec($curl));
-		curl_close($curl);
-
-		return $content;
+		return $this->getHttpClient($device, '/VMs/ToggleState?vmName=' . urlencode($vmName) . '&state=' . $state)->getBody();
 	}
 
 	/**
@@ -98,31 +89,21 @@ class HyperVAdmin extends BaseModel
 	 */
 	public function toggleSiteState(Devices $device, string $siteName, int $state)
 	{
-		$url = 'Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
-		$curl = $this->getCurl($device, $url);
-		$content = json_decode(curl_exec($curl));
-		curl_close($curl);
-
-		return $content;
+		$url = '/Sites/' . ($state == self::siteStateEnabed ? 'Start' : 'Stop') . 'Site?sitename=' . urlencode($siteName);
+		return $this->getHttpClient($device, $url)->getBody();
 	}
 
 	/**
-	 * Retrieves the default cURL object to be used in this model, setting some defaults.
+     * Gets the ResponseInterface to be used to invoke the HyperVAdmin API.
 	 *
-     * @param Devices $device	The device to do the action for.
-	 * @param string $url       The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
-	 * @return CurlHandle|bool	The cURL object to be used to query HyperVAdmin.
+     * @param Devices $device		The device to do the action for.
+	 * @param string $url			The URL to be appended to the base URL of HyperVAdmin ($config->hypervadmin->URL).
+     * @return ResponseInterface    The ResponseInterface to call the API with.
 	 */
-	private function getCurl(Devices $device, string $url)
-	{
-		$curl = curl_init($device->hypervadmin_url . $url);
-
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 10,
-			CURLOPT_USERPWD => $device->hypervadmin_user . ':' . $device->hypervadmin_password,
-		]);
-
-		return $curl;
-	}
+    private function getHttpClient(Devices $device, string $url) : ResponseInterface
+    {
+        $client = new Client();
+        return $client->request('GET', $device->hypervadmin_url . $url,
+			['auth' => [$device->hypervadmin_user , $device->hypervadmin_password]]);
+    }
 }
