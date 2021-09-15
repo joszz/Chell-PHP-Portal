@@ -7,6 +7,7 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
+use GuzzleHttp\Client;
 
 /**
  * The controller responsible for all actions related to Kodi.
@@ -136,20 +137,13 @@ class KodiController extends WidgetController
 
 			if (!file_exists($filename))
 			{
-				$ch = curl_init($url);
-				curl_setopt_array($ch, [
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_FOLLOWLOCATION => true,
-					CURLOPT_MAXREDIRS => 5,
-					CURLOPT_TIMEOUT => 3
-				]);
-
-				if (($output = curl_exec($ch)) !== false && !empty($output))
+                $client = new Client();
+				$output = $client->request('GET', $url)->getBody();
+				
+				if (!empty($output))
 				{
 					file_put_contents($filename, $output);
 				}
-
-				curl_close($ch);
 			}
 
 			$filetype = $ntct[@exif_imagetype($filename)];

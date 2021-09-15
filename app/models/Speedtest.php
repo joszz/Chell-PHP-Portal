@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use GuzzleHttp\Client;
+
 /**
  * The model responsible for all actions related to devices.
  *
@@ -25,25 +27,6 @@ class Speedtest extends BaseModel
 	{
 		$this->setIPAddress();
 
-		if ($this->ipAddress == '::1') {
-			$this->ipAddress  .= ' - localhost IPv6 access';
-		}
-		if (stripos($this->ipAddress, 'fe80:') === 0) {
-			$this->ipAddress  .= ' - link-local IPv6 access';
-		}
-		if (strpos($this->ipAddress, '127.') === 0) {
-			$this->ipAddress  .= ' - localhost IPv4 access';
-		}
-		if (strpos($this->ipAddress, '10.') === 0 || strpos($this->ipAddress, '192.168.') === 0) {
-			$this->ipAddress .= ' - private IPv4 access';
-		}
-		if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $this->ipAddress) === 1) {
-			$this->ipAddress  .= ' - private IPv4 access';
-		}
-		if (strpos($this->ipAddress, '169.254.') === 0) {
-			$this->ipAddress  .= ' - link-local IPv4 access';
-		}
-
 		if (isset($_GET['isp']))
 		{
 			$this->setISPDetails();
@@ -62,11 +45,30 @@ class Speedtest extends BaseModel
 					$this->distance = round($this->distance, 2) .' km';
 				}
 			}
-			
+
 			return $this->ipAddress . ' - ' . $this->isp . ' (' . $this->distance . ')';
 		}
 
-		return $this->ipAddress;
+        if ($this->ipAddress == '::1') {
+			$this->ipAddress  .= ' - localhost IPv6 access';
+		}
+		if (stripos($this->ipAddress, 'fe80:') === 0) {
+			$this->ipAddress  .= ' - link-local IPv6 access';
+		}
+		if (strpos($this->ipAddress, '127.') === 0) {
+			$this->ipAddress  .= ' - localhost IPv4 access';
+		}
+		if (strpos($this->ipAddress, '10.') === 0 || strpos($this->ipAddress, '192.168.') === 0) {
+			$this->ipAddress .= ' - private IPv4 access';
+		}
+		if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $this->ipAddress) === 1) {
+			$this->ipAddress  .= ' - private IPv4 access';
+		}
+		if (strpos($this->ipAddress, '169.254.') === 0) {
+			$this->ipAddress  .= ' - link-local IPv4 access';
+		}
+
+		return $this->ipAddress .  (!empty($this->isp) ? ' - ' . $this->isp . ' (' . $this->distance . ')' : null) ;
 	}
 
 	/**
@@ -95,31 +97,20 @@ class Speedtest extends BaseModel
 	}
 
 	/**
-     * Uses CURL to call ipinfo.io and get ISP details.
+     * Uses Guzzle to call ipinfo.io and get ISP details.
      */
 	private function setISPDetails()
 	{
-		$curl = curl_init($this->_settings->speedtest->ip_info_url . $this->ipAddress . '/json?token=' . $this->_settings->speedtest->ip_info_token);
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 0,
-			CURLOPT_SSL_VERIFYHOST => false,
-			CURLOPT_SSL_VERIFYPEER => false
-		]);
-		$details = json_decode(curl_exec($curl));
-		curl_close($curl);
+        $client = new Client();
+		$response = $client->request('GET', $this->_settings->speedtest->ip_info_url . $this->ipAddress . '/json?token=' . $this->_settings->speedtest->ip_info_token);
+		$details = json_decode($response->getBody());
 
 		$this->isp .= $details->org ?? 'Unknown ISP';
 		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
 		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-		$curl = curl_init($this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token);
-		curl_setopt_array($curl, [
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CONNECTTIMEOUT => 0
-		]);
-		$details = json_decode(curl_exec($curl));
-		curl_close($curl);
+        $response = $client->request('GET', $this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token));
+		$details = json_decode($response->getBody());
 
 		$this->serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;
 	}
