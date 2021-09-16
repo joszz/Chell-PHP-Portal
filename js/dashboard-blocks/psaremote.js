@@ -84,7 +84,7 @@
                             date.setSeconds(date.getSeconds() + data.energy.charging.remaining_time);
 
                             settings.block.find(".charging_rate, .charging_remaining_time").show();
-                            settings.block.find(".charging_rate .value").text(data.energy.charging.charging_rate + " kW");
+                            settings.block.find(".charging_rate .value").text(data.energy.charging.charging_rate + " km/h");
                             settings.block.find(".charging_remaining_time .value").tinyTimer({ to: date });
                         }
                         else {
