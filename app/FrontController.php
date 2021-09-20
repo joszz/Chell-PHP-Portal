@@ -257,6 +257,8 @@ class FrontController
     private function setTranslator()
     {
         $language = $this->application->request->getBestLanguage();
+        $language= current(explode('-', $language));
+
         $this->application->view->trans = new TranslatorWrapper(APP_PATH . 'app/messages/' . $language);
         $this->di->set('translator', $this->application->view->trans);
     }

@@ -109,7 +109,7 @@ class Speedtest extends BaseModel
 		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
 		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-        $response = $client->request('GET', $this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token));
+        $response = $client->request('GET', $this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token);
 		$details = json_decode($response->getBody());
 
 		$this->serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;

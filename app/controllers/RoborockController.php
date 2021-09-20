@@ -26,8 +26,8 @@ class RoborockController extends WidgetController
 
     public function addAssets()
     {
-        $this->jsFiles[] = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
-        $this->cssFiles[] = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
+        $this->jsFiles = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
+        $this->cssFiles = ['bootstrap-select', 'jquery.bootstrap-touchspin'];
     }
 
     /**

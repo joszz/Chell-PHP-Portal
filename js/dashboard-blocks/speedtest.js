@@ -277,7 +277,7 @@
                     $("#dlText").text(status == 1 && data.dlStatus == 0 ? "..." : data.dlStatus);
                     functions.drawMeter(
                         $("#dlMeter")[0],
-                        functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))),
+                        //functions.mbpsToAmount(Number(data.dlStatus * (status == 1 ? functions.oscillate() : 1))),
                         settings.colors.meterBk,
                         settings.colors.dlColor,
                         Number(data.dlProgress),
@@ -287,7 +287,7 @@
                     $("#ulText").text((status == 3 && data.ulStatus == 0) ? "..." : data.ulStatus);
                     functions.drawMeter(
                         $("#ulMeter")[0],
-                        functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))),
+                        //functions.mbpsToAmount(Number(data.ulStatus * (status == 3 ? functions.oscillate() : 1))),
                         settings.colors.meterBk,
                         settings.colors.ulColor,
                         Number(data.ulProgress),
