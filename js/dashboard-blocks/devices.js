@@ -72,8 +72,6 @@
             * @method checkstates
             */
             checkstates: function () {
-                var d = new Date();
-
                 clearInterval(settings.updateIntervalId);
                 settings.updateIntervalId = setInterval(function () {
                     functions.checkstates();
@@ -94,7 +92,7 @@
                     icon.addClass("fa-sync fa-spin");
 
                     (function (device, dependentMenuItems, icon, id) {
-                        $.getJSON("devices/state/" + id + "/" + d.getTime(), "", function (data) {
+                        $.getJSON("devices/state/" + id, "", function (data) {
                             icon.removeClass("fa-sync fa-spin");
                             icon.addClass("fa-power-off");
 

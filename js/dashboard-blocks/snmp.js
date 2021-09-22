@@ -95,7 +95,7 @@
                     clearInterval(time.data("tinyTimer").interval);
                 }
 
-                $.get("snmp/hostcontent/" + hostToUpdate.data("id") + (hostToUpdate.find("ul:visible").length ? "" : "/hidden-xs"), function (html) {
+                $.get("snmp/hostcontent/" + hostToUpdate.data("id") + (hostToUpdate.find("ul:visible").length ? "" : "/hidden-xs"), function(html) {
                     hostToUpdate.html(html);
                     initializeTinyTimer(hostToUpdate.find(".time"));
                 });

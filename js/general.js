@@ -61,6 +61,8 @@ if (iframe.length && iframe.data("bgImage").length) {
 * @method initializeGlobalPlugins
 */
 function initializeGlobalPlugins() {
+    $.ajaxSetup({ cache: false });
+
     $("a, button, h4").vibrate("short");
 
     Waves.attach(".btn, button, div#navbar a");

@@ -12,14 +12,12 @@
 
 <?php if (count($devices)) : ?>
 <?php $this->partial('index/partials/devices') ?>
-<?php endif ?>
-
-<div class="clearfix visible-sm"></div>
+<?php endif ?>  
 
 <?php if ($this->settings->phpsysinfo->enabled) : ?>
 <?php $this->partial('index/partials/phpsysinfo_disks') ?>
 
-<div class="clearfix visible-lg visible-md"></div>
+<div class="clearfix"></div>
 
 <?php $this->partial('index/partials/phpsysinfo_processes') ?>
 <?php endif ?>

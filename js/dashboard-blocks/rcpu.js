@@ -52,7 +52,6 @@
             setHeight: function () {
                 var height = settings.iframe.contents().height();
                 settings.block.find(".panel-body").height(height);
-                settings.block.parent().prev().find(".processes ul").height(height + 15);
 
                 window.setTimeout(functions.setVisibility, 0);
             },

@@ -69,10 +69,10 @@
                         var date = new Date();
                         date.setSeconds(date.getSeconds() - Math.floor(data.ServerUptimeSeconds));
 
-                        if (settings.block.find("div.time").data("tinyTimer") !== undefined) {
-                            clearInterval(settings.block.find("div.time").data("tinyTimer").interval);
+                        if (settings.block.find("div.uptime").data("tinyTimer") !== undefined) {
+                            clearInterval(settings.block.find("div.uptime").data("tinyTimer").interval);
                         }
-                        settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
+                        settings.block.find("div.uptime").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                     },
                     complete: function () {
                         settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
