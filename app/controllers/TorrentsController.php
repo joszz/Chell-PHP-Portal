@@ -6,6 +6,7 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\Torrents\Torrents;
 use Chell\Models\Torrents\qBittorrent;
 use Chell\Models\Torrents\Transmission;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for all Torrents widget related actions.

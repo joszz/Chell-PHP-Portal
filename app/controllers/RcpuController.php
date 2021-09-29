@@ -3,6 +3,7 @@
 namespace Chell\Controllers;
 
 use Chell\Controllers\WidgetController;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for all rCPU widget related actions.

@@ -4,6 +4,7 @@ namespace Chell\Controllers;
 
 use Chell\Controllers\WidgetController;
 use Chell\Models\Jellyfin;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for all Jellyfin widget related actions.
@@ -16,6 +17,11 @@ class JellyfinController extends WidgetController
     {
         $this->jsFiles[] = 'gallery';
         $this->cssFiles[] = 'gallery';
+    }
+
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12, 6, 4, true);
     }
 
     /**

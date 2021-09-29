@@ -4,6 +4,7 @@ namespace Chell\Controllers;
 
 use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for handling all actions that have to do with the devices in your network.

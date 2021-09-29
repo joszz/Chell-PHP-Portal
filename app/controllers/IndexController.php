@@ -29,6 +29,7 @@ class IndexController extends BaseController
     {
         $this->setAssets();
 
+
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
 
@@ -171,7 +172,6 @@ class IndexController extends BaseController
                         $widgetProperty = $controller->getProperty('widget');
                         $widgetProperty->setAccessible(true);
                         $widget = $widgetProperty->getValue($controllerInstance);
-
 
                         $positions = $widgetPositions->filter(function($widgetPostion) use($name) {
                             if (strpos($widgetPostion->name, $name) !== false){

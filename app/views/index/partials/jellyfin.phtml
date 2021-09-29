@@ -1,36 +1,11 @@
-<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+<?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="panel panel-success jellyfin gallery" data-rotate-interval="<?php echo $this->settings->jellyfin->rotate_interval ?>">
-    <div class="panel-heading">
-        <div class="backdrop"></div>
-        <div class="btn-group pull-right">
-            <button class="btn btn-default fa fa-chevron-left" title="Previous album" aria-label="Previous"></button>
-            <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next album" aria-label="Next"></button>
-            <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-        </div>
-        <h4>
-            Latest <?php echo $title ?>
-        </h4>
-    </div>
-    <div class="panel-body hidden-xs">
-        <?php $i = 0; foreach($view as $item) : ?>
-        <a class="album item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
-            data-fancybox="jellyfin_<?php echo $title ?>"
-            data-type="iframe"
-            data-nomaxwidth
-            href="<?php echo $this->settings->jellyfin->url .'/web/index.html#!/details?id=' . $item['id'] . '&serverId=' . $item['serverId'] ?>"
-            title="<?php echo $item['title'] ?>">
-            <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348' ?>" alt="blur effect" class="blur" loading="lazy" />
-            <img src="<?php echo $this->settings->jellyfin->url . '/Items/' . $item['id'] . '/Images/Primary?maxHeight=377&maxWidth=348' ?>" alt="<?php echo $item['title'] ?>" loading="lazy" />
-            <div class="overlay"></div>
-            <div class="title" title="<?php echo $item['title'] ?>">
-                <?php echo $item['title'] ?>
-            </div>
-            <div class="subtitle">
-                <?php echo $item['subtitle'] ?>
-            </div>
-        </a>
-        <?php $i++;
-              endforeach ?>
-    </div>
-</div>
+<?php
+foreach ($jellyfinviews as $title => $view)
+{
+    $widget->calculateColumnCounts($columnCountSm, $columnCountMd, true);
+    echo '<div class="'. $widget->getClass(true) . '">';
+    $this->partial('index/partials/jellyfin_library');
+    echo '</div>';
+}
+?>

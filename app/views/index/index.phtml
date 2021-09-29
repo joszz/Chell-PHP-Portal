@@ -9,39 +9,17 @@ $columnCountMd = 0;
     <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
 </h1>
 <?php else : ?>
-<?php
-foreach ($widgets as $widget)
-{
-    if ($widget->viewFileName == 'jellyfin')
-    {
-        foreach ($jellyfinviews as $title => $view)
-        {
-            $sm = $widget->sm != 0 ? $widget->sm : $widget->xs;
-            $md = $widget->md != 0 ? $widget->md : $sm;
-            $columnCountSm += $sm;
-            $columnCountMd += $md;
-
-            echo '<div class="'. $widget->getClass() . '">';
-            $this->partial('index/partials/jellyfin');
-            echo '</div>';
-        }
-    }
-    else
-    {
-        $sm = $widget->sm != 0 ? $widget->sm : $widget->xs;
-        $md = $widget->md != 0 ? $widget->md : $sm;
-        $columnCountSm += $sm;
-        $columnCountMd += $md;
-
-        echo '<div class="'. $widget->getClass() . '">';
-        $this->partial('index/partials/' . $widget->viewFileName);
-        echo '</div>';
-    }
-
-    if ($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0)
-    {
-        echo '<div class="clearfix ' . ($columnCountSm % 12 == 0 ? 'visible-sm ' : null) . ($columnCountMd % 12 == 0 ? 'visible-md visible-lg' : null) . '" data-sm="' . $columnCountSm .'" data-md=' . $columnCountMd . '"></div>';
-    }
-}
+<?php 
+foreach ($widgets as $widget) :
+    $widget->calculateColumnCounts($columnCountSm, $columnCountMd);
 ?>
+<div class="<?php echo $widget->getClass() ?>">
+    <?php $this->partial('index/partials/' . $widget->viewFileName); ?>
+</div>
+
+<?php if($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0) : ?>
+<div class="clearfix <?php echo ($columnCountSm % 12 == 0 ? 'visible-sm ' : null) . ($columnCountMd % 12 == 0 ? 'visible-md visible-lg' : null) ?>"></div>
+<?php endif ?>
+
+<?php endforeach ?>
 <?php endif ?>

@@ -4,6 +4,7 @@ namespace Chell\Controllers;
 
 use Chell\Controllers\WidgetController;
 use Chell\Models\PHPSysInfo;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for all PHPSysInfo related actions.
