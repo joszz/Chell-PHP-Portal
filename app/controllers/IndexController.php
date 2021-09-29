@@ -11,8 +11,8 @@ use Chell\Models\Motion;
 use Chell\Models\Kodi\KodiMovies;
 use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
-use Chell\Models\Settings;
 use Chell\Models\SnmpHosts;
+use Chell\Models\WidgetPosition;
 use Phalcon\Mvc\View;
 
 /**
@@ -31,7 +31,6 @@ class IndexController extends BaseController
 
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
-        $this->view->anyWidgetEnabled = $this->getAnyWidgetEnabled();
 
         if ($this->settings->kodi->enabled)
         {
@@ -126,28 +125,21 @@ class IndexController extends BaseController
     }
 
     /**
-     * Is any of the widgets enabled?
-     *
-     * @return bool     Whether any of the widgets is enabled.
-     * @suppress PHP0406
-     */
-    private function getAnyWidgetEnabled() : bool
-    {
-        return Settings::count('name = "enabled" AND value = "1"') > 0;
-    }
-
-    /**
      * Sets the styles and scripts for the widgets that are enabled.
      * Iterates through all controllers and uses reflection to get Controllers that are a subclass of WidgetController.
      * For those controllers, the properties jsFiles and cssFiles are retrieved and added to the collection of JS/CSS to render in the HTML.
      * Adds the controller name (minus the string 'Controller') to the JS/CSS to render in the HTML.
-     * And finally adds some default JS/CSS that is used in the dashboard.
+     * And finally adds some default JS/CSS that is used in the dashboard.+
+     *
+     * @todo Refactor this, seperate widget logic and asset logic.
      */
     private function setAssets()
     {
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
         $scripts = [];
         $styles = ['dashboard'];
+        $widgets = [];
+        $widgetPositions = WidgetPosition::find(['order' => 'position']);
 
         foreach ($dir as $fileinfo)
         {
@@ -164,6 +156,7 @@ class IndexController extends BaseController
                     $name = strtolower(str_replace('Controller', '', str_replace(__NAMESPACE__ . '\\', '', $controller->getName())));
                     $controllerInstance = $controller->newInstanceWithoutConstructor();
                     $controllerInstance->addAssets();
+                    $controllerInstance->setPanelSize();
 
                     $jsFilesProperty = $controller->getProperty('jsFiles');
                     $jsFilesProperty->setAccessible(true);
@@ -175,6 +168,25 @@ class IndexController extends BaseController
 
                     if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
                     {
+                        $widgetProperty = $controller->getProperty('widget');
+                        $widgetProperty->setAccessible(true);
+                        $widget = $widgetProperty->getValue($controllerInstance);
+
+
+                        $positions = $widgetPositions->filter(function($widgetPostion) use($name) {
+                            if (strpos($widgetPostion->name, $name) !== false){
+                                return $widgetPostion;
+                            }
+                        });
+
+                        foreach ($positions as $position)
+                        {
+                            $widget = clone $widget;
+                            $widget->viewFileName = $position->name;
+                            $widgets[$position->position] = $widget;
+                        }
+
+
                         if (is_file(APP_PATH . 'dist/js/' . $name . '.js'))
                         {
                             $scripts[] = $name;
@@ -188,6 +200,9 @@ class IndexController extends BaseController
                 }
             }
         }
+
+        ksort($widgets);
+        $this->view->widgets = $widgets;
 
         $scripts[] = 'jquery.tinytimer';
         $scripts[] = 'jquery.isloading';

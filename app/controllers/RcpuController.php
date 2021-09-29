@@ -12,5 +12,8 @@ use Chell\Controllers\WidgetController;
  */
 class RcpuController extends WidgetController
 {
-
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12, 8);
+    }
 }

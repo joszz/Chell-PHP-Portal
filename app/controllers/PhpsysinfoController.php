@@ -12,6 +12,11 @@ use Chell\Models\PHPSysInfo;
  */
 class PhpsysinfoController extends WidgetController
 {
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12, 4);
+    }
+
     /**
      * Calls the PHPSysInfo API, with specified plugins.
      *

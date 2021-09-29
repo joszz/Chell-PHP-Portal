@@ -139,7 +139,7 @@ class KodiController extends WidgetController
 			{
                 $client = new Client();
 				$output = $client->request('GET', $url)->getBody();
-				
+
 				if (!empty($output))
 				{
 					file_put_contents($filename, $output);

@@ -1,16 +1,14 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="col-xs-12 col-sm-4 col-lg-4">
-    <div class="panel panel-success pull-left processes">
-        <?php $this->partial('is-loading') ?>
+<div class="panel panel-success pull-left processes">
+    <?php $this->partial('is-loading') ?>
 
-        <div class="panel-heading">
-            <div class="btn-group pull-right">
-                <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-            </div>
-            <h4>Processes</h4>
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
-        <ul class="list-group hidden-xs"></ul>
+        <h4>Processes</h4>
     </div>
+    <ul class="list-group hidden-xs"></ul>
 </div>

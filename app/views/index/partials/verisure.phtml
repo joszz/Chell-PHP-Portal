@@ -1,61 +1,59 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success verisure" data-update-interval="<?php echo $this->settings->verisure->update_interval ?>">
-        <?php $this->partial('is-loading') ?>
+<div class="panel panel-success verisure" data-update-interval="<?php echo $this->settings->verisure->update_interval ?>">
+    <?php $this->partial('is-loading') ?>
 
-        <div class="panel-heading">
-            <div class="btn-group pull-right">
-                <a href="<?php echo $this->url->get('verisure/details/') ?>" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>
-                <button class="btn btn-default fa fa-camera" title="Take photo" aria-label="Take photo"></button>
-                <button class="btn btn-default fa fa-image hidden" title="Photos" aria-label="Photos"></button>
-                <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-            </div>
-            <h4>Verisure</h4>
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <a href="<?php echo $this->url->get('verisure/details/') ?>" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>
+            <button class="btn btn-default fa fa-camera" title="Take photo" aria-label="Take photo"></button>
+            <button class="btn btn-default fa fa-image hidden" title="Photos" aria-label="Photos"></button>
+            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+            <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
-        <div class="panel-body hidden-xs">
-            <div class="top">
-                <div class="text-center" id="armstate">
-                    <button class="fa fa-verisure-disarmed invisible"></button>
-                </div>
-                <div class="temps">
-                    <div class="temp text-right clone hidden">
-                        <div class="text-bold area">
-                            <span></span>
-                            <i class="fa fa-thermometer-half"></i>
-                        </div>
-                        <div class="value"></div>
+        <h4>Verisure</h4>
+    </div>
+    <div class="panel-body hidden-xs">
+        <div class="top">
+            <div class="text-center" id="armstate">
+                <button class="fa fa-verisure-disarmed invisible"></button>
+            </div>
+            <div class="temps">
+                <div class="temp text-right clone hidden">
+                    <div class="text-bold area">
+                        <span></span>
+                        <i class="fa fa-thermometer-half"></i>
                     </div>
+                    <div class="value"></div>
                 </div>
             </div>
-            <ul class="list-group">
-                <li class="list-group-item col-xs-12">
-                    <div class="col-xs-4 col-sm-5 col-lg-4">
-                        Status
-                    </div>
-                    <div class="col-xs-8 col-sm-7 col-lg-8 status">&hellip;</div>
-                </li>
-                <li class="list-group-item col-xs-12">
-                    <div class="col-xs-4 col-sm-5 col-lg-4">
-                        Changed by
-                    </div>
-                    <div class="col-xs-8 col-sm-7 col-lg-8 name">&hellip;</div>
-                </li>
-                <li class="list-group-item col-xs-12">
-                    <div class="col-xs-4 col-sm-5 col-lg-4">
-                        Changed on
-                    </div>
-                    <div class="col-xs-8 col-sm-7 col-lg-8 date">&hellip;</div>
-                </li>
-                <li class="list-group-item col-xs-12">
-                    <div class="col-xs-4 col-sm-5 col-lg-4">
-                        Changed with
-                    </div>
-                    <div class="col-xs-8 col-sm-7 col-lg-8 via">&hellip;</div>
-                </li>
-            </ul>
         </div>
+        <ul class="list-group">
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4 col-sm-5 col-lg-4">
+                    Status
+                </div>
+                <div class="col-xs-8 col-sm-7 col-lg-8 status">&hellip;</div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4 col-sm-5 col-lg-4">
+                    Changed by
+                </div>
+                <div class="col-xs-8 col-sm-7 col-lg-8 name">&hellip;</div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4 col-sm-5 col-lg-4">
+                    Changed on
+                </div>
+                <div class="col-xs-8 col-sm-7 col-lg-8 date">&hellip;</div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4 col-sm-5 col-lg-4">
+                    Changed with
+                </div>
+                <div class="col-xs-8 col-sm-7 col-lg-8 via">&hellip;</div>
+            </li>
+        </ul>
     </div>
 </div>
 

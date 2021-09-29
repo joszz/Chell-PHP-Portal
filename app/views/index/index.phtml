@@ -1,111 +1,47 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
+<?php
+$columnCountSm = 0;
+$columnCountMd = 0;
+?>
 
-<?php if (!$anyWidgetEnabled) : ?>
+<?php if (count($widgets) == 0) : ?>
 <h1 class="text-center">
     <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
 </h1>
-<?php endif ?>
+<?php else : ?>
+<?php
+foreach ($widgets as $widget)
+{
+    if ($widget->viewFileName == 'jellyfin')
+    {
+        foreach ($jellyfinviews as $title => $view)
+        {
+            $sm = $widget->sm != 0 ? $widget->sm : $widget->xs;
+            $md = $widget->md != 0 ? $widget->md : $sm;
+            $columnCountSm += $sm;
+            $columnCountMd += $md;
 
-<?php if ($this->settings->phpsysinfo->enabled) : ?>
-<?php $this->partial('index/partials/phpsysinfo_sysinfo') ?>
-<?php endif ?>
+            echo '<div class="'. $widget->getClass() . '">';
+            $this->partial('index/partials/jellyfin');
+            echo '</div>';
+        }
+    }
+    else
+    {
+        $sm = $widget->sm != 0 ? $widget->sm : $widget->xs;
+        $md = $widget->md != 0 ? $widget->md : $sm;
+        $columnCountSm += $sm;
+        $columnCountMd += $md;
 
-<?php if (count($devices)) : ?>
-<?php $this->partial('index/partials/devices') ?>
-<?php endif ?>  
+        echo '<div class="'. $widget->getClass() . '">';
+        $this->partial('index/partials/' . $widget->viewFileName);
+        echo '</div>';
+    }
 
-<?php if ($this->settings->phpsysinfo->enabled) : ?>
-<?php $this->partial('index/partials/phpsysinfo_disks') ?>
-
-<div class="clearfix"></div>
-
-<?php $this->partial('index/partials/phpsysinfo_processes') ?>
-<?php endif ?>
-
-<?php if ($this->settings->rcpu->enabled) : ?>
-<?php $this->partial('index/partials/rcpu') ?>
-<?php endif ?>
-
-<?php if ($this->settings->torrents->enabled) : ?>
-<?php $this->partial('index/partials/torrents') ?>
-<?php endif ?>
-
-<div class="clearfix"></div>
-
-<?php if ($this->settings->kodi->enabled) : ?>
-<?php $this->partial('index/partials/kodi_latest_movies') ?>
-<?php $this->partial('index/partials/kodi_latest_episodes') ?>
-<?php $this->partial('index/partials/kodi_latest_albums') ?>
-<?php endif ?>
-
-<?php if ($this->settings->jellyfin->enabled) : ?>
-<?php foreach ($jellyfinviews as $title => $view) : ?>
-<?php $this->partial('index/partials/jellyfin') ?>
-<?php endforeach ?>
-<?php endif ?>
-
-<?php if ($this->settings->kodi->enabled || $this->settings->subsonic->enabled) : ?>
-<?php $this->partial('index/partials/now_playing') ?>
-<?php endif ?>
-
-<?php if ($this->settings->couchpotato->enabled) : ?>
-<?php $this->partial('index/partials/couchpotato') ?>
-<?php endif ?>
-
-<?php if ($this->settings->motion->enabled) : ?>
-<?php $this->partial('index/partials/motion') ?>
-<?php endif ?>
-
-<?php if ($this->settings->speedtest->enabled) : ?>
-<?php $this->partial('index/partials/speedtest') ?>
-<?php endif ?>
-
-<?php if ($this->settings->sickrage->enabled) : ?>
-<?php $this->partial('index/partials/sickrage') ?>
-<?php endif ?>
-
-<?php if ($this->settings->opcache->enabled) : ?>
-<?php $this->partial('index/partials/opcache') ?>
-<?php endif ?>
-
-<?php if ($this->settings->pihole->enabled) : ?>
-<?php $this->partial('index/partials/pihole') ?>
-<?php endif ?>
-
-<?php if ($this->settings->verisure->enabled) : ?>
-<?php $this->partial('index/partials/verisure') ?>
-<?php endif ?>
-
-<?php if ($this->settings->snmp->enabled) : ?>
-<?php $this->partial('index/partials/snmp') ?>
-<?php endif ?>
-
-<div class="clearfix visible-sm"></div>
-
-<?php if ($this->settings->roborock->enabled) : ?>
-<?php $this->partial('index/partials/roborock') ?>
-<?php endif ?>
-
-<div class="clearfix visible-md visible-lg"></div>
-
-<?php if ($this->settings->databasestats->enabled) : ?>
-<?php $this->partial('index/partials/database_stats') ?>
-<?php endif ?>
-
-<?php if ($this->settings->apache->enabled) : ?>
-<?php $this->partial('index/partials/apache') ?>
-<?php endif ?>
-
-<?php if ($this->settings->psaremote->enabled) : ?>
-<?php $this->partial('index/partials/psaremote') ?>
-<?php endif ?>
-
-<div class="clearfix"></div>
-
-<?php if ($this->settings->youless->enabled) : ?>
-<?php $this->partial('index/partials/youless') ?>
-<?php endif ?>
-
-<?php if ($this->settings->pulseway->enabled) : ?>
-<?php $this->partial('index/partials/pulseway') ?>
+    if ($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0)
+    {
+        echo '<div class="clearfix ' . ($columnCountSm % 12 == 0 ? 'visible-sm ' : null) . ($columnCountMd % 12 == 0 ? 'visible-md visible-lg' : null) . '" data-sm="' . $columnCountSm .'" data-md=' . $columnCountMd . '"></div>';
+    }
+}
+?>
 <?php endif ?>

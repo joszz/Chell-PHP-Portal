@@ -1,56 +1,54 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success pull-left speedtest"
-        data-speedtest-testorder="<?php echo $this->settings->speedtest->test_order ?>"
-        data-speedtest-uploadtime="<?php echo $this->settings->speedtest->time_upload ?>"
-        data-speedtest-downloadtime="<?php echo $this->settings->speedtest->time_download ?>"
-        data-speedtest-getispip="<?php echo $this->settings->speedtest->get_isp_info ?>"
-        data-speedtest-distance="<?php echo $this->settings->speedtest->get_isp_distance ?>"
-        data-speedtest-telemetry="<?php echo $this->settings->speedtest->telemetry ?>">
-        <div class="panel-heading">
-            <div class="btn-group pull-right">
-                <?php if ($this->settings->speedtest->telemetry != 'off') : ?>
-                <a href="<?php echo $this->url->get('speedtest/stats') ?>" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
-                <?php endif ?>
-                <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-            </div>
-            <h4>Speedtest</h4>
+<div class="panel panel-success pull-left speedtest"
+    data-speedtest-testorder="<?php echo $this->settings->speedtest->test_order ?>"
+    data-speedtest-uploadtime="<?php echo $this->settings->speedtest->time_upload ?>"
+    data-speedtest-downloadtime="<?php echo $this->settings->speedtest->time_download ?>"
+    data-speedtest-getispip="<?php echo $this->settings->speedtest->get_isp_info ?>"
+    data-speedtest-distance="<?php echo $this->settings->speedtest->get_isp_distance ?>"
+    data-speedtest-telemetry="<?php echo $this->settings->speedtest->telemetry ?>">
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <?php if ($this->settings->speedtest->telemetry != 'off') : ?>
+            <a href="<?php echo $this->url->get('speedtest/stats') ?>" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
+            <?php endif ?>
+            <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>
+            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
-        <div class="panel-body hidden-xs">
-            <div id="test">
-                <div class="testGroup">
-                    <div class="testArea">
-                        <div class="testName">Download</div>
-                        <canvas id="dlMeter" class="meter"></canvas>
-                        <div id="dlText" class="meterText"></div>
-                        <div class="unit">Mbps</div>
-                    </div>
-                    <div class="testArea">
-                        <div class="testName">Upload</div>
-                        <canvas id="ulMeter" class="meter"></canvas>
-                        <div id="ulText" class="meterText"></div>
-                        <div class="unit">Mbps</div>
-                    </div>
+        <h4>Speedtest</h4>
+    </div>
+    <div class="panel-body hidden-xs">
+        <div id="test">
+            <div class="testGroup">
+                <div class="testArea">
+                    <div class="testName">Download</div>
+                    <canvas id="dlMeter" class="meter"></canvas>
+                    <div id="dlText" class="meterText"></div>
+                    <div class="unit">Mbps</div>
                 </div>
-                <div class="testGroup">
-                    <div class="testArea">
-                        <div class="testName">Ping</div>
-                        <canvas id="pingMeter" class="meter"></canvas>
-                        <div id="pingText" class="meterText"></div>
-                        <div class="unit">ms</div>
-                    </div>
-                    <div class="testArea">
-                        <div class="testName">Jitter</div>
-                        <canvas id="jitMeter" class="meter"></canvas>
-                        <div id="jitText" class="meterText"></div>
-                        <div class="unit">ms</div>
-                    </div>
+                <div class="testArea">
+                    <div class="testName">Upload</div>
+                    <canvas id="ulMeter" class="meter"></canvas>
+                    <div id="ulText" class="meterText"></div>
+                    <div class="unit">Mbps</div>
                 </div>
-                <div id="ipArea">
-                    <span id="ip"></span>
+            </div>
+            <div class="testGroup">
+                <div class="testArea">
+                    <div class="testName">Ping</div>
+                    <canvas id="pingMeter" class="meter"></canvas>
+                    <div id="pingText" class="meterText"></div>
+                    <div class="unit">ms</div>
                 </div>
+                <div class="testArea">
+                    <div class="testName">Jitter</div>
+                    <canvas id="jitMeter" class="meter"></canvas>
+                    <div id="jitText" class="meterText"></div>
+                    <div class="unit">ms</div>
+                </div>
+            </div>
+            <div id="ipArea">
+                <span id="ip"></span>
             </div>
         </div>
     </div>

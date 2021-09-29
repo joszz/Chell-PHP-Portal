@@ -1,38 +1,36 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success kodi episodes gallery" data-rotate-interval="<?php echo $this->settings->kodi->rotate_episodes_interval ?>">
-        <div class="panel-heading">
-            <div class="backdrop"></div>
-            <div class="btn-group pull-right">
-                <button class="btn btn-default fa fa-chevron-left" title="Previous episode" aria-label="Previous episode"></button>
-                <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next episode" aria-label="Next episode"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+<div class="panel panel-success kodi episodes gallery" data-rotate-interval="<?php echo $this->settings->kodi->rotate_episodes_interval ?>">
+    <div class="panel-heading">
+        <div class="backdrop"></div>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default fa fa-chevron-left" title="Previous episode" aria-label="Previous episode"></button>
+            <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next episode" aria-label="Next episode"></button>
+            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+        </div>
+        <h4>Latest episodes</h4>
+    </div>
+    <div class="panel-body hidden-xs">
+        <?php $i = 0; foreach($episodes as $episode) : ?>
+        <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
+            data-fancybox="episodes"
+            data-type="iframe"
+            href="<?php echo $this->url->get('kodi/episode/' . $episode->idEpisode) ?>"
+            title="<?php echo $episode->c00 ?>">
+            <img src="<?php echo $episode->getImageUrl('thumb', 'c06', 'idEpisode') ?>" loading="lazy" width="348" height="377" alt="<?php echo $episode->c00 ?>" />
+            <div class="overlay"></div>
+            <div class="title" title="<?php echo $episode->strTitle ?>">
+                <?php echo $episode->strTitle ?>
             </div>
-            <h4>Latest episodes</h4>
-        </div>
-        <div class="panel-body hidden-xs">
-            <?php $i = 0; foreach($episodes as $episode) : ?>
-            <a class="episode item <?php echo $i++ > 0 ? ' hidden' : 'show' ?>_not_important"
-                data-fancybox="episodes"
-                data-type="iframe"
-                href="<?php echo $this->url->get('kodi/episode/' . $episode->idEpisode) ?>"
-                title="<?php echo $episode->c00 ?>">
-                <img src="<?php echo $episode->getImageUrl('thumb', 'c06', 'idEpisode') ?>" loading="lazy" width="348" height="377" alt="<?php echo $episode->c00 ?>" />
-                <div class="overlay"></div>
-                <div class="title" title="<?php echo $episode->strTitle ?>">
-                    <?php echo $episode->strTitle ?>
-                </div>
-                <div class="subtitle" title="<?php echo $title = sprintf('%02d', $episode->c12) . 'E' . sprintf('%02d', $episode->c13) . ' - ' . $episode->c00 ?>">
-                    <?php echo $title ?>
-                </div>
+            <div class="subtitle" title="<?php echo $title = sprintf('%02d', $episode->c12) . 'E' . sprintf('%02d', $episode->c13) . ' - ' . $episode->c00 ?>">
+                <?php echo $title ?>
+            </div>
 
-                <?php if (!empty($episode->getFiles()[0]->lastPlayed)) : ?>
-                <div class="fa fa-eye" title="Watched"></div>
-                <?php endif ?>
-            </a>
-            <?php $i++;
-                  endforeach ?>
-        </div>
+            <?php if (!empty($episode->getFiles()[0]->lastPlayed)) : ?>
+            <div class="fa fa-eye" title="Watched"></div>
+            <?php endif ?>
+        </a>
+        <?php $i++;
+              endforeach ?>
     </div>
 </div>

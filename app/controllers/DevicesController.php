@@ -22,6 +22,11 @@ class DevicesController extends WidgetController
 		$this->view->disable();
 	}
 
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12, 4);
+    }
+
     /**
      * This action will try to send a WOL package to the device specified by $id.
      *

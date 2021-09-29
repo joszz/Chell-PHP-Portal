@@ -1,37 +1,35 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 
-<div class="col-xs-12 col-sm-4">
-    <div class="panel panel-success devices" data-device-state-interval="<?php echo $this->settings->application->check_device_states_interval ?>">
-        <div class="panel-heading">
-            <div class="btn-group pull-right">
-                <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refreh"></button>
-                <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-            </div>
-            <h4>Devices</h4>
+<div class="panel panel-success devices" data-device-state-interval="<?php echo $this->settings->application->check_device_states_interval ?>">
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refreh"></button>
+            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
-        <ul class="list-group hidden-xs">
-            <?php foreach($devices as $device) : ?>
-            <li class="list-group-item col-xs-12<?php echo $device->show_on_dashboard ? null : ' hidden' ?>">
-                <div class="col-xs-6 col-sm-5">
-                    <?php echo $device->name ?>
-                </div>
-                <div class="col-xs-6 col-sm-7">
-                    <div class="btn-group pull-right">
-                        <?php if (!empty($device->hypervadmin_url)) : ?>
-                        <a href="<?php echo $this->url->get('hyper_v_admin/index/' . $device->id) ?>" class="btn btn-default disabled hypervadmin" data-fancybox data-type="iframe" title="HyperVAdmin">
-                            <span class="fa fa-server"></span>
-                        </a>
-                        <?php endif ?>
-
-                        <a class="btn btn-default disabled devicestate"
-                            data-id="<?php echo $device->id ?>"
-                            data-shutdown-method="<?php echo $device->shutdown_method ?>">
-                            <span class="fa fa-sync fa-spin"></span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <?php endforeach ?>
-        </ul>
+        <h4>Devices</h4>
     </div>
+    <ul class="list-group hidden-xs">
+        <?php foreach($devices as $device) : ?>
+        <li class="list-group-item col-xs-12<?php echo $device->show_on_dashboard ? null : ' hidden' ?>">
+            <div class="col-xs-6 col-sm-5">
+                <?php echo $device->name ?>
+            </div>
+            <div class="col-xs-6 col-sm-7">
+                <div class="btn-group pull-right">
+                    <?php if (!empty($device->hypervadmin_url)) : ?>
+                    <a href="<?php echo $this->url->get('hyper_v_admin/index/' . $device->id) ?>" class="btn btn-default disabled hypervadmin" data-fancybox data-type="iframe" title="HyperVAdmin">
+                        <span class="fa fa-server"></span>
+                    </a>
+                    <?php endif ?>
+
+                    <a class="btn btn-default disabled devicestate"
+                        data-id="<?php echo $device->id ?>"
+                        data-shutdown-method="<?php echo $device->shutdown_method ?>">
+                        <span class="fa fa-sync fa-spin"></span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <?php endforeach ?>
+    </ul>
 </div>

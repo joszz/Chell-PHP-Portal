@@ -38,6 +38,11 @@ class TorrentsController extends WidgetController
         $this->view->disable();
     }
 
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12);
+    }
+
     /**
      * Retrieves a list of torrents.
      */

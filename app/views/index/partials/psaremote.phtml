@@ -1,69 +1,67 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success pull-left psaremote"
-        data-updateinterval="<?php echo $this->settings->psaremote->update_interval ?>">
-        <?php $this->partial('is-loading') ?>
+<div class="panel panel-success pull-left psaremote"
+    data-updateinterval="<?php echo $this->settings->psaremote->update_interval ?>">
+    <?php $this->partial('is-loading') ?>
 
-        <div class="panel-heading">
-            <div class="btn-group pull-right">
-                <a href="<?php echo $this->settings->psaremote->url ?>"
-                    target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="PSA Remote"></a>
-                <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
-            </div>
-            <h4>PSA Remote</h4>
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <a href="<?php echo $this->settings->psaremote->url ?>"
+                target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="PSA Remote"></a>
+            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+            <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
-        <ul class="list-group hidden-xs">
-            <li class="list-group-item col-xs-12 last_refresh">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Last refresh
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-
-            </li>
-            <li class="list-group-item col-xs-12 battery">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Battery level
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-            </li>
-            <li class="list-group-item col-xs-12 mileage">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Mileage
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-            </li>
-            <li class="list-group-item col-xs-12 charging_mode">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Charging mode
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-            </li>
-            <li class="list-group-item col-xs-12 charging_rate">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Charging rate
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-            </li>
-            <li class="list-group-item col-xs-12 charging_remaining_time">
-                <div class="col-xs-4 col-sm-5 col-lg-4">
-                    Charging remaining time
-                </div>
-                <div class="col-xs-8 col-sm-7 col-lg-8 value">
-                    &hellip;
-                </div>
-            </li>
-        </ul>
+        <h4>PSA Remote</h4>
     </div>
+    <ul class="list-group hidden-xs">
+        <li class="list-group-item col-xs-12 last_refresh">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Last refresh
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+
+        </li>
+        <li class="list-group-item col-xs-12 battery">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Battery level
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12 mileage">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Mileage
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12 charging_mode">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Charging mode
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12 charging_rate">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Charging rate
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+        </li>
+        <li class="list-group-item col-xs-12 charging_remaining_time">
+            <div class="col-xs-4 col-sm-5 col-lg-4">
+                Charging remaining time
+            </div>
+            <div class="col-xs-8 col-sm-7 col-lg-8 value">
+                &hellip;
+            </div>
+        </li>
+    </ul>
 </div>

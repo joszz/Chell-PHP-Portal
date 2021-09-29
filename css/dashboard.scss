@@ -24,7 +24,7 @@ div.panel-heading button {
     white-space: nowrap;
 }
 
-div.panel ul div:not(.embed-responsive) {
+div.panel li > div:not(.embed-responsive) {
     &:first-child {
         padding-left: 0;
     }

@@ -1,25 +1,23 @@
 <?php /** @var Phalcon\Mvc\Controller $this */ ?>
 <?php /** @var $motionModifiedTime string */ ?>
 
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
-    <div class="panel panel-success motion gallery" data-motion-interval="<?php echo $this->settings->motion->update_interval ?>">
-        <div class="panel-heading">
-            <div class="backdrop"></div>
-            <div class="btn-group pull-right">
-                <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-                <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+<div class="panel panel-success motion gallery" data-motion-interval="<?php echo $this->settings->motion->update_interval ?>">
+    <div class="panel-heading">
+        <div class="backdrop"></div>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+            <button class="btn btn-default fa fa-plus visible-xs pull-right toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+        </div>
+        <h4>Motion</h4>
+    </div>
+    <div class="panel-body hidden-xs">
+        <a class="item" href="<?php echo $this->settings->motion->url ?>" target="_blank"
+            style="background-image: url('<?php echo $this->url->get('motion/?t=' . time()) ?>')">
+            <div class="overlay"></div>
+            <div class="title">Modified on</div>
+            <div class="subtitle">
+                <?php echo $motionModifiedTime ?>
             </div>
-            <h4>Motion</h4>
-        </div>
-        <div class="panel-body hidden-xs">
-            <a class="item" href="<?php echo $this->settings->motion->url ?>" target="_blank"
-                style="background-image: url('<?php echo $this->url->get('motion/?t=' . time()) ?>')">
-                <div class="overlay"></div>
-                <div class="title">Modified on</div>
-                <div class="subtitle">
-                    <?php echo $motionModifiedTime ?>
-                </div>
-            </a>
-        </div>
+        </a>
     </div>
 </div>
