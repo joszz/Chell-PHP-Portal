@@ -18,7 +18,7 @@ class Widget
         $this->hasSubWidgets = $hasSubWidgets;
     }
 
-    public function getClass($renderSubWidgets = false)
+    public function getPanelClass($renderSubWidgets = false) : string
     {
         if ($this->hasSubWidgets && !$renderSubWidgets)
         {
@@ -30,6 +30,16 @@ class Widget
         $class .=  $this->md != 0 ? ' col-md-' . $this->md : null;
 
         return $class;
+    }
+
+    public function getRowSeperatorClass($columnCountSm, $columnCountMd)
+    {
+        if ($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0)
+        {
+            return 'col-xs-12 ' . ($columnCountSm % 12 == 0 ? 'visible-sm ' : null) . ($columnCountMd % 12 == 0 ? 'visible-md visible-lg' : null);
+        }
+
+        return false;
     }
 
     public function calculateColumnCounts(&$columnCountSm, &$columnCountMd, $renderSubWidgets = false)

@@ -118,7 +118,7 @@ class SpeedtestController extends WidgetController
         ]);
 
         $page = $paginator->paginate();
-        $page = self::GetPaginator($page->current, $page->last, 'speedtest/stats/' . $activeTab . '/', $page);
+        $page = self::getPaginator($page->current, $page->last, 'speedtest/stats/' . $activeTab . '/', $page);
 
         $labels = [];
         $dl = [];

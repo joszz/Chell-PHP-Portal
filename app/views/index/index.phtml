@@ -13,12 +13,12 @@ $columnCountMd = 0;
 foreach ($widgets as $widget) :
     $widget->calculateColumnCounts($columnCountSm, $columnCountMd);
 ?>
-<div class="<?php echo $widget->getClass() ?>">
+<div class="<?php echo $widget->getPanelClass() ?>">
     <?php $this->partial('index/partials/' . $widget->viewFileName); ?>
 </div>
 
-<?php if($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0) : ?>
-<div class="clearfix <?php echo ($columnCountSm % 12 == 0 ? 'visible-sm ' : null) . ($columnCountMd % 12 == 0 ? 'visible-md visible-lg' : null) ?>"></div>
+<?php if($class = $widget->getRowSeperatorClass($columnCountSm, $columnCountMd)) : ?>
+<div class="<?php echo $class ?>"></div>
 <?php endif ?>
 
 <?php endforeach ?>

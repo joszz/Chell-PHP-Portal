@@ -30,16 +30,12 @@ class BaseController extends Controller
         $this->view->bgcolor = $this->getBackgroundColor();
         $this->di->get('vieweventmanager')->attach('view:beforeRender', $this->assets = new AssetsPlugin());
 
-        if ($this->di->has('db') && in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu))
+        if ($this->di->has('db') && in_array($this->dispatcher->getControllerName(), $this->controllersToLoadMenu) && $this->session->get('auth'))
         {
-            if ($this->session->get('auth'))
-            {
-                $user = Users::findFirst([
-                    'conditions' => 'id = ?1',
-                    'bind'       => [1 => $this->session->get('auth')['id']],
-                ]);
-                $this->view->user = $user;
-            }
+            $this->view->user = Users::findFirst([
+                'conditions' => 'id = ?1',
+                'bind'       => [1 => $this->session->get('auth')['id']],
+            ]);
         }
     }
 
@@ -133,7 +129,7 @@ class BaseController extends Controller
      * @param mixed $paginator      The pagination object, defaults to null (which will make a new stdClass).
      * @return object               An object with all pagination data.
      */
-    public function GetPaginator(int $currentPage, int $totalPages, string $baseURI, $paginator = null)
+    public function getPaginator(int $currentPage, int $totalPages, string $baseURI, $paginator = null)
     {
         if ($paginator == null)
         {

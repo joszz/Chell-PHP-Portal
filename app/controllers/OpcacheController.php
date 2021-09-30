@@ -52,7 +52,7 @@ class OpcacheController extends WidgetController
 
         $this->assets->styles[] = 'opcache';
         $this->view->scripts = $scripts;
-        $this->view->paginator = $this->GetPaginator($currentPage, $totalPages, 'opcache/details/scripts/');
+        $this->view->paginator = $this->getPaginator($currentPage, $totalPages, 'opcache/details/scripts/');
         $this->view->opcache = $this->_model;
         $this->view->activeTab = $tab;
         $this->view->overflow = true;

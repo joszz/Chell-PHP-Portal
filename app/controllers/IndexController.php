@@ -27,9 +27,7 @@ class IndexController extends BaseController
      */
     public function indexAction()
     {
-        $this->setAssets();
-
-
+        $this->setWidgets();
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
 
@@ -134,19 +132,19 @@ class IndexController extends BaseController
      *
      * @todo Refactor this, seperate widget logic and asset logic.
      */
-    private function setAssets()
+    private function setWidgets()
     {
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
         $scripts = [];
         $styles = ['dashboard'];
         $widgets = [];
         $widgetPositions = WidgetPosition::find(['order' => 'position']);
+        $currentClass = [get_class($this), get_parent_class($this)];
 
         foreach ($dir as $fileinfo)
         {
             $file = $fileinfo->getFilename();
             $controllerName = __NAMESPACE__ . '\\' . basename($file, '.' . $fileinfo->getExtension());
-            $currentClass = [get_class($this), get_parent_class($this)];
 
             if (!$fileinfo->isDot() && !in_array($controllerName, $currentClass))
             {
@@ -169,23 +167,7 @@ class IndexController extends BaseController
 
                     if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
                     {
-                        $widgetProperty = $controller->getProperty('widget');
-                        $widgetProperty->setAccessible(true);
-                        $widget = $widgetProperty->getValue($controllerInstance);
-
-                        $positions = $widgetPositions->filter(function($widgetPostion) use($name) {
-                            if (strpos($widgetPostion->name, $name) !== false){
-                                return $widgetPostion;
-                            }
-                        });
-
-                        foreach ($positions as $position)
-                        {
-                            $widget = clone $widget;
-                            $widget->viewFileName = $position->name;
-                            $widgets[$position->position] = $widget;
-                        }
-
+                        $this->addWidget($controller, $controllerInstance, $widgetPositions, $name, $widgets);
 
                         if (is_file(APP_PATH . 'dist/js/' . $name . '.js'))
                         {
@@ -204,10 +186,28 @@ class IndexController extends BaseController
         ksort($widgets);
         $this->view->widgets = $widgets;
 
-        $scripts[] = 'jquery.tinytimer';
-        $scripts[] = 'jquery.isloading';
-        $scripts[] = 'dashboard';
+        $scripts = [...$scripts, 'jquery.tinytimer', 'jquery.isloading', 'dashboard'];
 
         $this->assets->addScripts($scripts)->addStyles($styles);
+    }
+
+    private function addWidget($controller, $controllerInstance, $widgetPositions, $name, &$widgets)
+    {
+        $widgetProperty = $controller->getProperty('widget');
+        $widgetProperty->setAccessible(true);
+        $widget = $widgetProperty->getValue($controllerInstance);
+
+        $currentWidgetPositions = $widgetPositions->filter(function($widgetPostion) use($name) {
+            if (strpos($widgetPostion->name, $name) !== false){
+                return $widgetPostion;
+            }
+        });
+
+        foreach ($currentWidgetPositions as $currentWidgetPosition)
+        {
+            $widget = clone $widget;
+            $widget->viewFileName = $currentWidgetPosition->name;
+            $widgets[$currentWidgetPosition->position] = $widget;
+        }
     }
 }

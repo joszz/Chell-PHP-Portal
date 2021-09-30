@@ -378,7 +378,7 @@ class SettingsController extends BaseController
         $this->logsPage = $page;
         $this->view->setTemplateBefore('setting_category');
         $this->view->logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
-        $this->view->paginator = self::GetPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
+        $this->view->paginator = self::getPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
     }
 
     /**

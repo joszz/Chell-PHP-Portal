@@ -1,6 +1,6 @@
 {
 	"name": "chell-php-portal",
-	"version": "1.8.0",
+	"version": "2.0.0",
 	"description": "A PHP portal to aggregate all your server services",
 	"author": {
 		"name": "Jos Nienhuis",
@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@duosecurity/duo_web": "1.0.5",
 		"@fancyapps/fancybox": "^3.5.7",
-		"@fortawesome/fontawesome-free": "^5.15.2",
+		"@fortawesome/fontawesome-free": "^5.15.4",
 		"bootstrap-sass": "3.4.1",
 		"bootstrap-select": "^1.13.18",
 		"bootstrap-toggle": "^2.2.2",
@@ -20,19 +20,23 @@
 		"jquery": "^3.6.0",
 		"jquery-fullscreen-plugin": "^1.1.5",
 		"jquery-tinytimer": "0.1.4",
-		"jquery.isloading": "joszz/is-loading",
-		"jquery.shorten": "joszz/jquery-shorten",
+		"jquery.isloading": "github:joszz/is-loading",
+		"jquery.shorten": "github:joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
+		"librespeed": "github:joszz/speedtest",
+		"node-waves": "github:joszz/waves",
 		"prismjs": "^1.25.0",
 		"responsive-paginate": "joszz/rpage",
-		"spark-md5": "^3.0.1",
+		"rpage": "github:joszz/rpage",
+		"spark-md5": "^3.0.2",
 		"speedtest": "joszz/speedtest",
+		"vibrate": "github:Illyism/jquery.vibrate.js",
 		"waves": "joszz/waves",
-		"webauthn": "joszz/webauthn"
+		"webauthn": "github:joszz/webauthn"
 	},
 	"devDependencies": {
-		"@popperjs/core": "^2.9.2",
-		"bootstrap": ">=3.0.0",
+		"@popperjs/core": "^2.10.1",
+		"bootstrap": "^5.1.1",
 		"cssnano": "^3.10.0",
 		"del": "^6.0.0",
 		"gulp": "^4.0.2",

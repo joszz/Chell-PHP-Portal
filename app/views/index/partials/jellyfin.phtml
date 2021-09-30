@@ -1,11 +1,10 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <?php
-foreach ($jellyfinviews as $title => $view)
-{
+foreach ($jellyfinviews as $title => $view) :
     $widget->calculateColumnCounts($columnCountSm, $columnCountMd, true);
-    echo '<div class="'. $widget->getClass(true) . '">';
-    $this->partial('index/partials/jellyfin_library');
-    echo '</div>';
-}
 ?>
+<div class="<?php echo $widget->getPanelClass(true) ?>">
+    <?php $this->partial('index/partials/jellyfin_library'); ?>
+</div>
+<?php endforeach ?>
