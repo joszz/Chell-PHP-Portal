@@ -24,6 +24,9 @@ class RoborockController extends WidgetController
         $this->_model = new Roborock();
     }
 
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles = ['bootstrap-select', 'jquery.bootstrap-touchspin'];

@@ -23,6 +23,9 @@ class DevicesController extends WidgetController
 		$this->view->disable();
 	}
 
+    /**
+     * Sets the Bootstrap panel size for the widget.
+     */
     public function setPanelSize()
     {
         $this->widget = new Widget(12, 4);
@@ -76,6 +79,11 @@ class DevicesController extends WidgetController
         $this->response->setJsonContent($state)->send();
     }
 
+    /**
+     * Shows detailed information for the device.
+     *
+     * @param int $id       The device Id to get the details for.
+     */
     public function detailsAction(int $id)
     {
         $device = Devices::findFirst([

@@ -13,6 +13,9 @@ use Chell\Models\Widget;
  */
 class PhpsysinfoController extends WidgetController
 {
+    /**
+     * Sets the Bootstrap panel size for the widget.
+     */
     public function setPanelSize()
     {
         $this->widget = new Widget(12, 4);

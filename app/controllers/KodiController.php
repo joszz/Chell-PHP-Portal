@@ -27,6 +27,9 @@ class KodiController extends WidgetController
 		parent::initialize();
 	}
 
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles[] = 'gallery';

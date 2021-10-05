@@ -156,6 +156,9 @@ class BaseController extends Controller
         return $paginator;
     }
 
+    /**
+     * Sets the empty layout.
+     */
     public function SetEmptyLayout()
     {
         $this->view->cleanTemplateAfter();

@@ -13,12 +13,18 @@ use Chell\Models\Widget;
  */
 class JellyfinController extends WidgetController
 {
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles[] = 'gallery';
         $this->cssFiles[] = 'gallery';
     }
 
+    /**
+     * Sets the Bootstrap panel size for the widget.
+     */
     public function setPanelSize()
     {
         $this->widget = new Widget(12, 6, 4, true);

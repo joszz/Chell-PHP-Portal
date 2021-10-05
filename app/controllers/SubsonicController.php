@@ -11,6 +11,9 @@ use Chell\Controllers\WidgetController;
  */
 class SubsonicController extends WidgetController
 {
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles = ['nowplaying', 'spark-md5'];

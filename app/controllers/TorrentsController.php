@@ -39,6 +39,9 @@ class TorrentsController extends WidgetController
         $this->view->disable();
     }
 
+    /**
+     * Sets the Bootstrap panel size for the widget.
+     */
     public function setPanelSize()
     {
         $this->widget = new Widget(12);

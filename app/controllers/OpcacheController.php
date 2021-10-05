@@ -24,6 +24,9 @@ class OpcacheController extends WidgetController
         $this->_model = new Opcache();
     }
 
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles = ['chartist', 'chartist-plugin-legend'];
