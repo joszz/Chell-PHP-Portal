@@ -198,7 +198,8 @@ class IndexController extends BaseController
         $widget = $widgetProperty->getValue($controllerInstance);
 
         $currentWidgetPositions = $widgetPositions->filter(function($widgetPostion) use($name) {
-            if (strpos($widgetPostion->name, $name) !== false){
+            if ($widgetPostion->controller == $name)
+            {
                 return $widgetPostion;
             }
         });
@@ -206,7 +207,7 @@ class IndexController extends BaseController
         foreach ($currentWidgetPositions as $currentWidgetPosition)
         {
             $widget = clone $widget;
-            $widget->viewFileName = $currentWidgetPosition->name;
+            $widget->partial = $currentWidgetPosition->controller . '/' . $currentWidgetPosition->widget_viewname;
             $widgets[$currentWidgetPosition->position] = $widget;
         }
     }

@@ -4,7 +4,7 @@ namespace Chell\Models;
 
 class Widget
 {
-    public string $viewFileName;
+    public string $partial;
     public int $xs;
     public int $sm;
     public int $md;
