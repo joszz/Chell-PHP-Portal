@@ -4,22 +4,24 @@ $columnCountSm = 0;
 $columnCountMd = 0;
 ?>
 
-<?php if (count($widgets) == 0) : ?>
-<h1 class="text-center">
-    <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
-</h1>
-<?php else : ?>
-<?php 
+<div class="grid-stack">
+    <?php if (count($widgets) == 0) : ?>
+    <h1 class="text-center">
+        <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
+    </h1>
+    <?php else : ?>
+    <?php
 foreach ($widgets as $widget) :
     $widget->calculateColumnCounts($columnCountSm, $columnCountMd);
-?>
-<div class="<?php echo $widget->getPanelClass() ?>">
-    <?php $this->partial($widget->partial); ?>
+    ?>
+    <div class="<?php echo $widget->getPanelClass() ?>">
+        <?php $this->partial($widget->partial); ?>
+    </div>
+
+    <?php if($class = $widget->getRowSeperatorClass($columnCountSm, $columnCountMd)) : ?>
+    <div class="<?php echo $class ?>"></div>
+    <?php endif ?>
+
+    <?php endforeach ?>
+    <?php endif ?>
 </div>
-
-<?php if($class = $widget->getRowSeperatorClass($columnCountSm, $columnCountMd)) : ?>
-<div class="<?php echo $class ?>"></div>
-<?php endif ?>
-
-<?php endforeach ?>
-<?php endif ?>

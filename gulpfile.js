@@ -37,7 +37,7 @@ var config = {
             'css/dashboard/phpsysinfo.scss',
             'css/dashboard/torrents.scss',
             'css/dashboard/verisure.scss',
-            'css/dashboard/youless.scss'
+            'css/dashboard/youless.scss',
         ],
         css: [
             'node_modules/waves/dist/waves.css',

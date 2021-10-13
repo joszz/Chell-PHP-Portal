@@ -127,8 +127,8 @@ function initializeDashboardEventHandlers() {
     });
 
     $("footer .toggle-all").click(function () {
-        $(".fa-" + ($(this).hasClass("fa-expand") ? "plus" : "minus")).trigger("click");
-        $(this).toggleClass("fa-expand fa-compress");
+        $(".content .fa-" + ($(this).hasClass("fa-plus") ? "plus" : "minus")).trigger("click");
+        $(this).toggleClass("fa-plus fa-minus");
     });
 }
 

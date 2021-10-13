@@ -7,6 +7,8 @@
         <div class="btn-group pull-right">
             <a href="javascript:;" data-fancybox data-src="#hardware" class="btn btn-default fa fa-wrench" title="Hardware"></a>
             <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+            <a href="<?php echo $this->url->get('movewidget/up/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-up move-widget"></a>
+            <a href="<?php echo $this->url->get('movewidget/down/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-down move-widget"></a>
             <button class="btn btn-default fa fa-minus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
         </div>
         <h4>System info</h4>

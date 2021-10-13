@@ -211,3 +211,11 @@ $fa-font-path: "../../fonts";
 .#{$fa-css-prefix}-cloud-download-alt:before {
     content: fa-content($fa-var-cloud-download-alt);
 }
+
+.#{$fa-css-prefix}-chevron-up:before {
+    content: fa-content($fa-var-chevron-up);
+}
+
+.#{$fa-css-prefix}-chevron-down:before {
+    content: fa-content($fa-var-chevron-down);
+}

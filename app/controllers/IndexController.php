@@ -135,7 +135,7 @@ class IndexController extends BaseController
     private function setWidgets()
     {
         $dir = new DirectoryIterator(APP_PATH . 'app/controllers/');
-        $scripts = [];
+        $scripts = ['jquery.tinytimer', 'jquery.isloading'];
         $styles = ['dashboard'];
         $widgets = [];
         $widgetPositions = WidgetPosition::find(['order' => 'position']);
@@ -186,7 +186,7 @@ class IndexController extends BaseController
         ksort($widgets);
         $this->view->widgets = $widgets;
 
-        $scripts = [...$scripts, 'jquery.tinytimer', 'jquery.isloading', 'dashboard'];
+        $scripts[] = 'dashboard';
 
         $this->assets->addScripts($scripts)->addStyles($styles);
     }
@@ -207,6 +207,7 @@ class IndexController extends BaseController
         foreach ($currentWidgetPositions as $currentWidgetPosition)
         {
             $widget = clone $widget;
+            $widget->id = $currentWidgetPosition->id;
             $widget->partial = $currentWidgetPosition->controller . '/' . $currentWidgetPosition->widget_viewname;
             $widgets[$currentWidgetPosition->position] = $widget;
         }

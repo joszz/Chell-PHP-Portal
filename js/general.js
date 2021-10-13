@@ -120,7 +120,8 @@ function initializeGlobalEventHandlers() {
         }
     });
 
-    $("footer .fa-arrows-alt").click(function () {
+    $("footer .fa-expand").click(function () {
+        $(this).toggleClass("fa-expand fa-compress");
         $(document).fullScreen(!$(document).fullScreen());
     });
 }

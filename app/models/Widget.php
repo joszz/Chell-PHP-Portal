@@ -2,14 +2,28 @@
 
 namespace Chell\Models;
 
+/**
+ * The model responsible for all actions related to dashboard widgets.
+ *
+ * @package Models
+ */
 class Widget
 {
+    public int $id;
     public string $partial;
     public int $xs;
     public int $sm;
     public int $md;
     public bool $hasSubWidgets;
 
+    /**
+     * Sets the defaulot column sizes and whether or not this widget contains other subwidgets.
+     *
+     * @param int $xs                   The Bootstrap XS column size
+     * @param int $sm                   The Bootstrap SM column size
+     * @param int $md                   The Bootstrap MD column size
+     * @param mixed $hasSubWidgets      Has sub widgets
+     */
     public function __construct(int $xs = 12, int $sm = 0, int $md = 0, $hasSubWidgets = false)
     {
         $this->xs = $xs;
@@ -18,21 +32,35 @@ class Widget
         $this->hasSubWidgets = $hasSubWidgets;
     }
 
-    public function getPanelClass($renderSubWidgets = false) : string
+    /**
+     * Gets the CSS class with the bootstrap column sizes
+     *
+     * @param bool $renderSubWidgets    Whether or not to render the subwidgets when this widget has subwidgets. If not render, return an empty class.
+     * @return string                   The CSS class for the panel.
+     */
+    public function getPanelClass(bool $renderSubWidgets = false) : string
     {
         if ($this->hasSubWidgets && !$renderSubWidgets)
         {
             return '';
         }
 
-        $class = 'col-xs-' . $this->xs;
+        $class = 'widget col-xs-' . $this->xs;
         $class .=  $this->sm != 0 ? ' col-sm-' . $this->sm : null;
         $class .=  $this->md != 0 ? ' col-md-' . $this->md : null;
 
         return $class;
     }
 
-    public function getRowSeperatorClass($columnCountSm, $columnCountMd)
+    /**
+     * Gets the CSS class for the seperator between rows of widgets.
+     * Uses 12 columns since rows can't be used with variable column sizes.
+     *
+     * @param int $columnCountSm    Total amount of SM columns displayed so far.
+     * @param int $columnCountMd    Total amount of MD columns displayed so far.
+     * @return bool|string          A row seperator, visible for SM, MD, and LG depending on the column counts.
+     */
+    public function getRowSeperatorClass(int $columnCountSm, int $columnCountMd)
     {
         if ($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0)
         {
@@ -42,7 +70,14 @@ class Widget
         return false;
     }
 
-    public function calculateColumnCounts(&$columnCountSm, &$columnCountMd, $renderSubWidgets = false)
+    /**
+     * Calculates the total column count.
+     *
+     * @param int $columnCountSm        Total amount of SM columns displayed so far, passed by reference.
+     * @param int $columnCountMd        Total amount of MD columns displayed so far, passed by reference.
+     * @param bool $renderSubWidgets    Whether or not this call is rendering subwidgets.
+     */
+    public function calculateColumnCounts(int &$columnCountSm, int &$columnCountMd, bool $renderSubWidgets = false)
     {
         if (!$this->hasSubWidgets || $renderSubWidgets)
         {
