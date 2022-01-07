@@ -115,7 +115,7 @@ class Roborock extends BaseModel
      */
     public function setFanSpeed(int $speed)
     {
-       $this->executeCommand('set_fan_speed ' . $speed);
+        $this->executeCommand('set_fan_speed ' . $speed);
     }
 
     /**

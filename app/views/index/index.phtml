@@ -1,5 +1,6 @@
-<?php /** @var Phalcon\Mvc\View $this */ ?>
-<?php
+<?php 
+/** @var Phalcon\Mvc\View $this */
+
 $columnCountSm = 0;
 $columnCountMd = 0;
 ?>
@@ -10,10 +11,7 @@ $columnCountMd = 0;
         <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
     </h1>
     <?php else : ?>
-    <?php
-foreach ($widgets as $widget) :
-    $widget->calculateColumnCounts($columnCountSm, $columnCountMd);
-    ?>
+    <?php foreach ($widgets as $widget) : $widget->calculateColumnCounts($columnCountSm, $columnCountMd); ?>
     <div class="<?php echo $widget->getPanelClass() ?>">
         <?php $this->partial($widget->partial); ?>
     </div>
