@@ -50,9 +50,9 @@ class qBittorrent extends Torrents
     /**
      * Resumes a torrent by given torrentId/hash.
      *
-     * @param mixed $torrentId  The torrent to resume.
+     * @param string $torrentId  The torrent to resume.
      */
-    public function resumeTorrent($torrentId)
+    public function resumeTorrent(string $torrentId)
     {
         $this->getHttpClient('torrents/resume?hashes=' . $torrentId);
     }
@@ -60,9 +60,9 @@ class qBittorrent extends Torrents
     /**
      * Pauses a torrent by given torrentId/hash.
      *
-     * @param mixed $torrentId  The torrent to pause.
+     * @param string $torrentId  The torrent to pause.
      */
-    public function pauseTorrent($torrentId)
+    public function pauseTorrent(string $torrentId)
     {
         $this->getHttpClient('torrents/pause?hashes=' . $torrentId);
     }
@@ -70,9 +70,9 @@ class qBittorrent extends Torrents
     /**
      * Deletes a torrent and the files by given torrentId/hash.
      *
-     * @param mixed $torrentId  The torrent to delete.
+     * @param string $torrentId  The torrent to delete.
      */
-    public function removeTorrent($torrentId)
+    public function removeTorrent(string $torrentId)
     {
         $this->getHttpClient('torrents/delete?hashes=' . $torrentId . '&deleteFiles=true');
     }

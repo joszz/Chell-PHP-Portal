@@ -96,10 +96,9 @@ class SettingsBaseForm extends Form
     /**
      * Summary of renderButton
      *
-     * @param string $button
-     * @param string $name
+     * @param string $button                The button view to render
+     * @param string $name                  The name of the button to render.
      * @param ElementInterface  $element    The element to render ther button for.
-     * @param mixed $element
      */
     public function renderButton(string $button, string $name = '', ElementInterface $element = null)
     {
@@ -146,7 +145,7 @@ class SettingsBaseForm extends Form
      * @param string $name  The name of the formelement.
      * @return bool|string  Has help?
      */
-    public function tryGetHelpName(string $name)
+    public function tryGetHelpName(string $name) : boolean|string
     {
         $class = strtolower(str_replace('Form', '', str_replace('Chell\Forms\Settings', '', get_class($this))));
 
@@ -211,7 +210,7 @@ class SettingsBaseForm extends Form
      * @param mixed $whitelist
      * @return SettingsBaseForm     Returns this class
      */
-    public function bind(array $data, $entity = null, $whitelist = null): SettingsBaseForm
+    public function bind(array $data, $entity = null, $whitelist = null) : SettingsBaseForm
     {
         if($entity)
         {

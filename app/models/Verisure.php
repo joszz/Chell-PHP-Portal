@@ -133,7 +133,7 @@ class Verisure extends BaseModel
      * Calls the Verisure API to capture an image for the device with $device_label.
      *
      * @param string $device_label      The device label.
-     * @return object           An object with the JSON encoded output of the API call.
+     * @return object                   An object with the JSON encoded output of the API call.
      */
     public function captureImage(string $device_label)
     {

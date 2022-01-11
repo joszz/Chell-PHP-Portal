@@ -160,6 +160,8 @@ class ErrorController
 
     /**
      * This will write the rendered HTML in $this->content to the logs folder GZipped.
+     *
+     * @param string $content   The HTML log content to write as gzipped file.
      */
     private function writeLogAsHTML(string $content)
     {

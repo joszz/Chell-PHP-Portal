@@ -6,6 +6,7 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
 use Chell\Models\HyperVAdmin;
 use Phalcon\Http\ResponseInterface;
+use Phalcon\Mvc\Model\Query\Lang;
 
 /**
  * The controller responsible for all HyperVAdmin related actions.
@@ -28,6 +29,8 @@ class HyperVAdminController extends WidgetController
 
 	/**
 	 * Shows a view which displays all VMs in a table.
+     *
+     * @param int $id	The Id of the device to show the HyperVAdmin VMs and sites for.
 	 */
 	public function indexAction(int $id)
 	{
@@ -42,12 +45,12 @@ class HyperVAdminController extends WidgetController
 	/**
 	 * Sets the state of the VM to on/off.
 	 *
-     * @param int $id			The device Id to do this action for.
-	 * @param string $vm        The name of the VM to set state for.
-     * @param int $state		The state to set the VM to.
-	 * @return mixed            Redirect back to indexAction().
+     * @param int $id				The device Id to do this action for.
+	 * @param string $vm			The name of the VM to set state for.
+     * @param int $state			The state to set the VM to.
+     * @return ResponseInterface	Redirect back to indexAction().
 	 */
-	public function vmToggleStateAction(int $id, string $vm, int $state)
+	public function vmToggleStateAction(int $id, string $vm, int $state) : ResponseInterface
 	{
 		$this->_model->toggleVMState($this->getDevice($id), $vm, $state);
 
@@ -57,10 +60,10 @@ class HyperVAdminController extends WidgetController
 	/**
 	 * Sets the state of an IIS site to on/off.
 	 *
-     * @param int $id			The device Id to do this action for.
-	 * @param string $site      The name of the site to set state for.
-     * @param int $state		The state to set the site to.
-	 * @return mixed            Redirect back to indexAction().
+     * @param int $id				The device Id to do this action for.
+	 * @param string $site			The name of the site to set state for.
+     * @param int $state			The state to set the site to.
+     * @return ResponseInterface	Redirect back to indexAction().
 	 */
 	public function siteToggleStateAction(int $id, string $site, int $state) : ResponseInterface
 	{
@@ -97,7 +100,7 @@ class HyperVAdminController extends WidgetController
 	 * @param int $id			The Device Id to look for.
      * @return Devices|null		The Device when found, otherwise null.
 	 */
-	private function getDevice(int $id)
+	private function getDevice(int $id) : Devices|null
     {
         return Devices::findFirst([
             'conditions' => 'id = ?1',

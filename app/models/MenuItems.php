@@ -67,7 +67,8 @@ class MenuItems extends Model
      *
      * @param array $userIds    The Ids of users to add or remove the MenuItem link for.
      */
-    public function handlePost(array $userIds){
+    public function handlePost(array $userIds)
+    {
         $this->addToUsers($userIds);
         $this->deleteFromUsers($userIds);
     }

@@ -15,21 +15,13 @@ use Phalcon\Forms\Element\Check;
 class LoginForm extends Form
 {
     /**
-     * Whether login failed on last POST.
-     * @var bool
-     */
-    private bool $_loginFailed = false;
-
-    /**
      * Set the config array (config.ini contents) to private variable.
      * Set bool if login already failed on last request.
      *
-     * @param bool  $loginFailed    Whether login failed on last POST.
+     * @param bool  $_loginFailed    Whether login failed on last POST.
      */
-    public function __construct(bool $loginFailed)
+    public function __construct(private bool $_loginFailed)
     {
-        $this->_loginFailed = $loginFailed;
-
         parent::__construct();
     }
 

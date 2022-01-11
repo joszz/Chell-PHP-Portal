@@ -58,9 +58,9 @@ class TorrentsController extends WidgetController
     /**
      * Pauses a torrent.
      *
-     * @param mixed $id     The torrent Id to pause.
+     * @param string $id     The torrent Id to pause.
      */
-    public function pauseAction($id)
+    public function pauseAction(string $id)
     {
         $this->_client->pauseTorrent($id);
     }
@@ -68,9 +68,9 @@ class TorrentsController extends WidgetController
     /**
      * Resumes a torrent.
      *
-     * @param mixed $id     The torrent Id to resume.
+     * @param string $id     The torrent Id to resume.
      */
-    public function resumeAction($id)
+    public function resumeAction(string $id)
     {
         $this->_client->resumeTorrent($id);
     }
@@ -78,9 +78,9 @@ class TorrentsController extends WidgetController
     /**
      * Deletes a torrent.
      *
-     * @param mixed $id     The torrent Id to delete.
+     * @param string $id     The torrent Id to delete.
      */
-    public function removeAction($id)
+    public function removeAction(string $id)
     {
         $this->_client->removeTorrent($id);
     }

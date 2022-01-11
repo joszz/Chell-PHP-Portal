@@ -24,9 +24,9 @@ abstract class Torrents extends BaseModel
 
     public abstract function getTorrents();
 
-    public abstract function resumeTorrent($torrentId);
+    public abstract function resumeTorrent(string $torrentId);
 
-    public abstract function pauseTorrent($torrentId);
+    public abstract function pauseTorrent(string $torrentId);
 
-    public abstract function removeTorrent($torrentId);
+    public abstract function removeTorrent(string $torrentId);
 }

@@ -4,12 +4,10 @@ namespace Chell\Forms\FormFields;
 
 abstract class FormFields
 {
-    protected $form;
     protected $fields;
 
-    public function __construct($form)
+    public function __construct(protected $form)
     {
-        $this->form = $form;
     }
 
     /**

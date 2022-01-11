@@ -38,8 +38,7 @@ class OpcacheController extends WidgetController
     public function datasetAction()
     {
         $this->view->disable();
-        $this->response->setContentType('application/json');
-        $this->response->setContent($this->_model->getGraphDataSetJson())->send();
+        $this->response->setJsonContent($this->_model->getGraphDataSetJson())->send();
     }
 
     /**

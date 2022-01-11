@@ -13,19 +13,16 @@ use WriteiniFile\WriteiniFile;
  */
 class SettingsDefault
 {
-    public int $type;
-    public string $name;
-    public string $value;
     public string $category = 'application';
     public string $section = 'general';
 
-    public function __construct(string $name, string $value, int $type)
+    public function __construct(public string $name, public string $value, public int $type)
     {
         $this->name = $name;
         $this->value = $value;
         $this->type = $type;
     }
-    
+
     /**
      * Saves only data for ini based settings.
      * Other types of default settings do not need to be stored.

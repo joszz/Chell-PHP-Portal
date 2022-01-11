@@ -68,7 +68,7 @@ class AssetsPlugin extends Injectable
      * @param string $name  The basename of the style to add. No extension or directory.
      * @return AssetsPlugin This class, so you're able to chain calls.
      */
-    public function addStyle(string $name)
+    public function addStyle(string $name) : AssetsPlugin
     {
         $this->styles[] = $name;
         return $this;

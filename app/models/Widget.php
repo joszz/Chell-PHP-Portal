@@ -11,10 +11,6 @@ class Widget
 {
     public int $id;
     public string $partial;
-    public int $xs;
-    public int $sm;
-    public int $md;
-    public bool $hasSubWidgets;
 
     /**
      * Sets the defaulot column sizes and whether or not this widget contains other subwidgets.
@@ -24,7 +20,7 @@ class Widget
      * @param int $md                   The Bootstrap MD column size
      * @param mixed $hasSubWidgets      Has sub widgets
      */
-    public function __construct(int $xs = 12, int $sm = 0, int $md = 0, $hasSubWidgets = false)
+    public function __construct(public int $xs = 12, public int $sm = 0, public int $md = 0, public $hasSubWidgets = false)
     {
         $this->xs = $xs;
         $this->sm = $sm;
@@ -60,7 +56,7 @@ class Widget
      * @param int $columnCountMd    Total amount of MD columns displayed so far.
      * @return bool|string          A row seperator, visible for SM, MD, and LG depending on the column counts.
      */
-    public function getRowSeperatorClass(int $columnCountSm, int $columnCountMd)
+    public function getRowSeperatorClass(int $columnCountSm, int $columnCountMd) : bool|string
     {
         if ($columnCountSm % 12 == 0 || $columnCountMd % 12 == 0)
         {

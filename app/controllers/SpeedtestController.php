@@ -250,9 +250,9 @@ class SpeedtestController extends WidgetController
      * Try to retrieve browser information
      *
      * @param int       $try    The amount of tries done, if more than 5 it will stop trying
-     * @return boolean|string   Either 'false' on failure or a JSON string when succesfull.
+     * @return string           Either 'false' on failure or a JSON string when succesfull.
      */
-    private function whatIsMyBrowser(int $try = 1)
+    private function whatIsMyBrowser(int $try = 1) : string
     {
         if ($try > 5)
         {

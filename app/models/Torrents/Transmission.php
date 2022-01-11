@@ -53,9 +53,9 @@ class Transmission extends Torrents
     /**
      * Resumes a torrent by given torrentId.
      *
-     * @param mixed $torrentId  The torrent to resume.
+     * @param string $torrentId  The torrent to resume.
      */
-    public function resumeTorrent($torrentId)
+    public function resumeTorrent(string $torrentId)
     {
 		$response = $this->getHttpClient('{"method":"torrent-start-now", "arguments":{"ids":[' . $torrentId . ']}}');
 		return $response->getBody();;
@@ -64,9 +64,9 @@ class Transmission extends Torrents
     /**
      * Pauses a torrent by given torrentId.
      *
-     * @param mixed $torrentId  The torrent to pause.
+     * @param string $torrentId  The torrent to pause.
      */
-    public function pauseTorrent($torrentId)
+    public function pauseTorrent(string $torrentId)
     {
 		$response = $this->getHttpClient('{"method":"torrent-stop", "arguments":{"ids":[' . $torrentId . ']}}');
 		return $response->getBody();
@@ -75,9 +75,9 @@ class Transmission extends Torrents
     /**
      * Deletes a torrent and the files by given torrentId.
      *
-     * @param mixed $torrentId  The torrent to delete.
+     * @param string $torrentId  The torrent to delete.
      */
-    public function removeTorrent($torrentId)
+    public function removeTorrent(string $torrentId)
     {
 		$response = $this->getHttpClient('{"method":"torrent-remove", "arguments":{"ids":[' . $torrentId . ']}, "delete-local-data": true}');
 		return $response->getBody();

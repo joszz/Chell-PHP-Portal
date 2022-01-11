@@ -74,9 +74,9 @@ class Devices extends BaseModel
      * Pings a device and returns the response time.
      *
      * @param int           $ttl    The TimeToLive for the ping request. Defaults to 1 second
-     * @return bool|double          The time it took for the device to respond or false if failed.
+     * @return bool|float          The time it took for the device to respond or false if failed.
      */
-    private function ping(int $ttl = 10)
+    private function ping(int $ttl = 10) : boolean|float
     {
         $latency = false;
         $ttl     = escapeshellcmd($ttl);
@@ -215,7 +215,7 @@ class Devices extends BaseModel
      *
      * @return bool Whether connection was succesfull.
      */
-    private function adbConnect()
+    private function adbConnect() : bool
     {
         $connectedDevices = shell_exec('adb devices -l');
 
@@ -235,9 +235,9 @@ class Devices extends BaseModel
     /**
      * Retrieves the CPU architecture through ADB.
      *
-     * @return string   The CPU architecture.
+     * @return bool|string|null   The CPU architecture.
      */
-    public function adbGetArchitecture()
+    public function adbGetArchitecture() : bool|string|null
     {
         $this->adbConnect();
         return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell getprop ro.product.cpu.abi');
@@ -248,7 +248,7 @@ class Devices extends BaseModel
      *
      * @return string   The battery statistics.
      */
-    public function adbGetBatteryStats()
+    public function adbGetBatteryStats() : bool|string|null
     {
         $this->adbConnect();
         return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys battery');
@@ -259,7 +259,7 @@ class Devices extends BaseModel
      *
      * @return float    The current CPU usage.
      */
-    public function adbGetCpuUsage()
+    public function adbGetCpuUsage() : float
     {
         $this->adbConnect();
         $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');

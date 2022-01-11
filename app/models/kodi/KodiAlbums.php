@@ -38,7 +38,7 @@ class KodiAlbums extends KodiBase
      * @param ResultsetInterface|array $albums The array of Kodi albums.
      * @return array                           The array of Kodi albums with the XML field transformed to string holding only image URL.
      */
-    public function extractAlbumImagesFromXML(ResultsetInterface $albums) : array
+    public function extractAlbumImagesFromXML(ResultsetInterface|array $albums) : array
     {
         $return = [];
 

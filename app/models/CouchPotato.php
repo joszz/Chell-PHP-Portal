@@ -17,7 +17,7 @@ class Couchpotato extends BaseModel
      *
      * @return array|bool            The movies objects as an array or false on failure.
      */
-	public function getAllMovies()
+	public function getAllMovies() : array|boolean
 	{
 		$content = $this->getHttpClientBody($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.list');
 

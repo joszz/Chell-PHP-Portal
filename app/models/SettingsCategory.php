@@ -14,16 +14,13 @@ class SettingsCategory
 {
     private array $_settings = [];
 
-    public string $section;
-    public string $category;
-
     /**
      * Initializes a settings category.
      *
      * @param string $section    The section, such as general or dashboard.
      * @param string $category   The category, such as application wide or plugin specific.
      */
-    public function __construct(string $section, string $category)
+    public function __construct(public string $section, public string $category)
     {
         $this->section = $section;
         $this->category = $category;
@@ -51,7 +48,7 @@ class SettingsCategory
      * @param string $name  The name of the setting to retrieve the value for.
      * @return string       The retrieved value.
      */
-    public function __get(string $name)
+    public function __get(string $name) : string
     {
         if (!isset($this->_settings[$name]))
         {
@@ -67,7 +64,7 @@ class SettingsCategory
      * @param string $name  The setting's name to check
      * @return bool         True if exists, otherwise false.
      */
-    public function __isset(string $name)
+    public function __isset(string $name) : bool
     {
         return isset($this->_settings[$name]);
     }

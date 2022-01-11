@@ -25,9 +25,9 @@ class Opcache extends Model
     /**
      * Builds up a JSON object to be consumed by ChartistJS.
      *
-     * @return string A JSON string that contains all the (formatted) Opcache data in a structured object.
+     * @return array    An array that contains all the (formatted) Opcache data in a structured object.
      */
-    public function getGraphDataSetJson()
+    public function getGraphDataSetJson() : array
     {
         $dataset['memory'] = [
             round($this->status['memory_usage']['used_memory'] / 1048576, 2),
@@ -51,7 +51,7 @@ class Opcache extends Model
             $this->status['opcache_statistics']['hash_restarts'],
         ];
 
-        return json_encode($dataset);
+        return $dataset;
     }
 
     /**

@@ -69,9 +69,9 @@ class SettingsController extends BaseController
      * GET: Shows the dashboard settings view.
      * POST: Save the dashboard settings and redirect to the page toto show the GET view.
      *
-     * @return void|\Phalcon\Http\ResponseInterface     Will forward to settings/index#dashboard when successful, or forwards to indexAction when failed.
+     * @return null|ResponseInterface     Will forward to settings/index#dashboard when successful, or forwards to indexAction when failed.
      */
-    public function dashboardAction()
+    public function dashboardAction() : null|ResponseInterface
     {
         $form = $this->view->form = new SettingsDashboardForm();
 
@@ -105,9 +105,9 @@ class SettingsController extends BaseController
      * Shows a form to add/edit a device. If $id is set will edit that device, otherwise it will create a new device.
      *
      * @param int $id                     Optional, the device to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#devices when successful, or will show the form again when failed.
+     * @return null|ResponseInterface     Will forward to settings/index#devices when successful, or will show the form again when failed.
      */
-    public function deviceAction(int $id = 0)
+    public function deviceAction(int $id = 0) : null|ResponseInterface
     {
         $device = new Devices();
 
@@ -154,9 +154,9 @@ class SettingsController extends BaseController
      * Shows a form to add/edit a SNMP host. If $id is set will edit that host, otherwise it will create a new host.
      *
      * @param int $id                     Optional, SNMPHost ID to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#snmphosts when successful, or will show the form again when failed.
+     * @return null|ResponseInterface     Will forward to settings/index#snmphosts when successful, or will show the form again when failed.
      */
-    public function snmphostAction(int $id = 0)
+    public function snmphostAction(int $id = 0) : null|ResponseInterface
     {
         $host = new SnmpHosts();
 
@@ -195,9 +195,9 @@ class SettingsController extends BaseController
      *
      * @param int $hostId                 The SNMPHost to add/edit a SNMPRecord for.
      * @param int $id                     Optional, SNMPRecord ID to edit.
-     * @return void|ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
+     * @return null|ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
-    public function snmprecordAction(int $hostId, int $id = 0)
+    public function snmprecordAction(int $hostId, int $id = 0) : null|ResponseInterface
     {
         $record = new SnmpRecords();
 
@@ -247,9 +247,9 @@ class SettingsController extends BaseController
      * Shows a form to add/edit a menuitem. If $id is set will edit that menuitem, otherwise it will create a new menuitem.
      *
      * @param int $id                     Optional, the menuitem to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
+     * @return null|ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
      */
-    public function menuitemAction(int $id = 0)
+    public function menuitemAction(int $id = 0) : null|ResponseInterface
     {
         $item = new MenuItems();
         $file = false;
@@ -311,9 +311,9 @@ class SettingsController extends BaseController
      * Shows a form to add/edit a users. If $id is set will edit that user, otherwise it will create a new user.
      *
      * @param int $id                     Optional, the user ID to edit.
-     * @return void|ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
+     * @return null|ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
      */
-    public function userAction(int $id = 0)
+    public function userAction(int $id = 0) : null|ResponseInterface
     {
         $user = new Users();
 

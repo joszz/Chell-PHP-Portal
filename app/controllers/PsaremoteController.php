@@ -30,7 +30,7 @@ class PsaremoteController extends WidgetController
      *
      * @param bool $cache   Whether or not to retrieve the information from cache.
      */
-    public function indexAction($cache)
+    public function indexAction(bool $cache)
     {
         $this->response->setJsonContent($this->_model->GetVehicleInfo($cache))->send();
     }
