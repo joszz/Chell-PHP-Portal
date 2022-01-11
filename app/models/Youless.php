@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
  * The model responsible for all actions related to YouLess.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class Youless extends BaseModel
 {

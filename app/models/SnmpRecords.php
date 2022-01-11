@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model;
  * The model responsible for all actions related to SNMP records.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class SnmpRecords extends Model
 {

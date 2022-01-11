@@ -10,9 +10,9 @@ use Chell\Messages\TranslatorWrapper;
 use Chell\Models\SettingsContainer;
 use Chell\Plugins\SecurityPlugin;
 
-use Phalcon\Crypt;
-use Phalcon\Loader;
-use Phalcon\Url;
+use Phalcon\Encryption\Crypt;
+use Phalcon\Autoload\Loader;
+use Phalcon\Mvc\Url;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Mvc\Dispatcher;
@@ -26,7 +26,8 @@ use Phalcon\Session\Adapter\Stream;
 use Phalcon\Storage\SerializerFactory;
 use Phalcon\Storage\AdapterFactory;
 use Phalcon\Http\Request;
-use Phalcon\Debug\Dump;
+use Phalcon\Support\Debug\Dump;
+use Phalcon\Tag;
 
 /**
  * Frontcontroller sets up Phalcon to run the application.
@@ -147,7 +148,7 @@ class FrontController
         require APP_PATH . 'vendor/autoload.php';
 
         $loader = new Loader();
-        $loader->registerNamespaces([
+        $loader->setNamespaces([
             'Chell\Controllers'                 => [APP_PATH . 'app/controllers/'],
             'Chell\Exceptions'                  => [APP_PATH . 'app/exceptions/'],
             'Chell\Forms'                       => [APP_PATH . 'app/forms/'],
@@ -248,7 +249,7 @@ class FrontController
      */
     private function setTitle()
     {
-        $this->application->tag->setTitle($this->settings->application->title);
+        Tag::setTitle($this->settings->application->title);
     }
 
     /**

@@ -7,6 +7,6 @@
         "davidearl/webauthn": "dev-master"
     },
     "require-dev": {
-        "phalcon/ide-stubs": "^4.1"
+        "phalcon/ide-stubs": "^5.0.0-beta2"
     }
 }

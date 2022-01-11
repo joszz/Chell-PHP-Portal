@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\ResultsetInterface;
  * The model responsible for all Kodi movies.
  *
  * @package Models\Kodi
+ * @suppress PHP2414
  */
 class KodiMovies extends KodiBase
 {

@@ -7,22 +7,15 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class SickrageFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $sickrageEnabled = new Check('sickrage-enabled');
-		$sickrageEnabled->setLabel('Enabled');
-		$sickrageEnabled->setAttributes([
-			'value' => '1',
+		$this->fields[] = new Check('sickrage-enabled', [
+			'fieldset' => 'Sickrage',
 			'checked' => $this->form->settings->sickrage->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Sickrage'
 		]);
 
 		$this->fields[] = $sickrageURL = new Text('sickrage-url');

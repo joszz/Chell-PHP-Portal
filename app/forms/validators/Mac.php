@@ -2,9 +2,9 @@
 
 namespace Chell\Forms\Validators;
 
-use Phalcon\Validation;
+use Phalcon\Filter\Validation;
 use Phalcon\Messages\Message;
-use Phalcon\Validation\AbstractValidator;
+use Phalcon\Filter\Validation\AbstractValidator;
 
 class Mac extends AbstractValidator
 {

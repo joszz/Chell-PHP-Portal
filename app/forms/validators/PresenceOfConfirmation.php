@@ -2,9 +2,9 @@
 
 namespace Chell\Forms\Validators;
 
-use Phalcon\Validation;
+use Phalcon\Filter\Validation;
 use Phalcon\Messages\Message;
-use Phalcon\Validation\Validator\Confirmation;
+use Phalcon\Filter\Validation\Validator\Confirmation;
 
 class PresenceOfConfirmation extends Confirmation
 {

@@ -13,9 +13,16 @@
     <div class="col-lg-4 col-sm-6 col-xs-12">
         <div class="input-group">
             <?php
-            echo $element;
 
-            if (get_class($element) == 'Phalcon\Forms\Element\Password')
+            $class = get_class($element);
+            if($class == 'Phalcon\Forms\Element\Check') :?>
+            <input type="checkbox" name="<?php echo $name ?>" id="<?php echo $name ?>" <?php echo $element->getAttribute('checked') ?>
+                data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-size="small" value="1" />
+            <?php else :
+                echo $element;
+           endif;
+
+            if ($class == 'Phalcon\Forms\Element\Password')
             {
                 $this->renderButton('toggle_password');
             }

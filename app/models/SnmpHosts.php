@@ -9,6 +9,7 @@ use SNMP;
  * The model responsible for all actions related to SNMP hosts.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class SnmpHosts extends Model
 {

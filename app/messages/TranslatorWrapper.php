@@ -18,7 +18,12 @@ class TranslatorWrapper
      */
     public function __construct($translationPath)
     {
-        require_once((is_dir($translationPath) ? $translationPath :  APP_PATH . 'app/messages/en') . '/validation.php');
+        $file = $translationPath . '/validation.php';
+        if (!is_file($file))
+        {
+            $file = APP_PATH . 'app/messages/en//validation.php';
+        }
+        require_once($file);
 
         $this->validation =  $validation;
     }

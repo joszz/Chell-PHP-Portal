@@ -11,6 +11,7 @@ use Psr\Http\Message\ResponseInterface;
  * The model responsible for all actions related to PSA Remote.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class Psaremote extends BaseModel
 {

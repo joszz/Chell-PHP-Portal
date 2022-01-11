@@ -9,8 +9,8 @@ use Phalcon\Forms\Element\File;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Mvc\Model\ResultsetInterface;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for adding new MenuItems.

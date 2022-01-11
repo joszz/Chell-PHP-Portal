@@ -4,12 +4,13 @@ namespace Chell\Models;
 
 use Chell\Models\SettingsContainer;
 use Phalcon\Mvc\Model;
-use Phalcon\Url;
+use Phalcon\Mvc\Url;
 
 /**
  * The base model used by all other models.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class BaseModel extends Model
 {

@@ -4,6 +4,8 @@
  * @var string              $bgImage
  * @var bool                $overflow
  */
+
+use Phalcon\Tag;
 ?>
 <!DOCTYPE html>
 <html lang="en" id="iframe">
@@ -15,7 +17,7 @@
     <meta name="color-scheme" content="dark light" />
 
     <?php
-    echo $this->tag->renderTitle();
+    echo Tag::renderTitle();
     $this->assets->outputCss('styles');
     $this->assets->outputJs('scripts');
     $this->partial('favicons');

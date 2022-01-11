@@ -10,23 +10,16 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class TorrentsFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $torrentsEnabled = new Check('torrents-enabled');
-		$torrentsEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->torrents->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Torrents'
+		$this->fields[] = new Check('torrents-enabled', [
+			'fieldset' => 'Torrents',
+			'checked' => $this->form->settings->torrents->enabled == '1' ? 'checked' : null
 		]);
 
         $this->fields[] = $speedtestISPInfo = new Select('torrents-client', ['qbittorrent' => 'qBittorrent', 'transmission' => 'Transmission']);

@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  * The model responsible for all actions related to Transmission.
  *
  * @package Models\Torrents
+ * @suppress PHP2414
  */
 class Transmission extends Torrents
 {

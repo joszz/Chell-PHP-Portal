@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\ResultsetInterface;
  * The model responsible for all Kodi albums.
  *
  * @package Models\Kodi
+ * @suppress PHP2414
  */
 class KodiAlbums extends KodiBase
 {

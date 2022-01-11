@@ -7,23 +7,16 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class ApacheFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $apacheEnabled = new Check('apache-enabled');
-		$apacheEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->apache->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Apache'
+		$this->fields[] = new Check('apache-enabled', [
+			'fieldset' => 'Apache',
+			'checked' => $this->form->settings->apache->enabled == '1' ? 'checked' : null,
 		]);
 
 		$this->fields[] = $apacheServerStatusURL = new Text('apache-server_status_url');

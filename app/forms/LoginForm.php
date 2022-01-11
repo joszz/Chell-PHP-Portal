@@ -52,8 +52,9 @@ class LoginForm extends Form
 
         $rememberme = new Check('rememberme');
         $rememberme->setLabel('Remember me');
+        $rememberme->setDefault('checked');
         $rememberme->setAttributes([
-            'checked' => true,
+            'checked' => 'checked',
             'data-toggle' => 'toggle',
             'data-onstyle' => 'success',
             'data-offstyle' => 'danger',

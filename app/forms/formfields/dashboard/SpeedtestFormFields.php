@@ -9,23 +9,16 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class SpeedtestFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $speedtestEnabled = new Check('speedtest-enabled');
-		$speedtestEnabled->setLabel('Enabled');
-		$speedtestEnabled->setAttributes([
-			'value' => '1',
+		$this->fields[] = new Check('speedtest-enabled', [
+			'fieldset' => 'Speedtest',
 			'checked' => $this->form->settings->speedtest->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Speedtest'
 		]);
 
 		$this->fields[] = $speedtestTestOrder = new Text('speedtest-test_order');

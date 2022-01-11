@@ -6,6 +6,7 @@ namespace Chell\Models;
  * The model responsible for all actions related to devices.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class Devices extends BaseModel
 {
@@ -18,7 +19,8 @@ class Devices extends BaseModel
         $this->hasMany(
             'id',
             'MenuItems',
-            'device_id'
+            'device_id',
+            []
         );
     }
 

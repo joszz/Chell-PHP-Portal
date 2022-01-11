@@ -7,23 +7,16 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class MotionFormFields extends FormFields
 {
     protected function initializeFields()
 	{
-		$this->fields[] = $motionEnabled = new Check('motion-enabled');
-		$motionEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->motion->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Motion'
+		$this->fields[] = new Check('motion-enabled', [
+			'fieldset' => 'Motion',
+			'checked' => $this->form->settings->motion->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $motionURL = new Text('motion-url');

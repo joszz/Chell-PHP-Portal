@@ -90,6 +90,6 @@ class ChellException extends \Exception
      */
     private function getLineNumberStart() : int
     {
-        return $this->line - $this->surroundingLines > 0 ? $this->line - $this->surroundingLines : 1;
+        return $this->line - $this->surroundingLines > 0 ? $this->line - $this->surroundingLines + 1 : 1;
     }
 }

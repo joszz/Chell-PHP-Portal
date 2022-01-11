@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
  * The model responsible for all actions related to Jellyfin.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class Jellyfin extends BaseModel
 {
@@ -72,7 +73,7 @@ class Jellyfin extends BaseModel
                         $result[$count]['subtitle'] = $item->Name;
                         break;
                     case 'musicalbum':
-                        $result[$count]['title'] = implode($item->Artists, ', ');
+                        $result[$count]['title'] = implode(', ', $item->Artists);
                         $result[$count]['played'] = false;
                         $result[$count]['subtitle'] = $item->Name;
                         break;

@@ -3,6 +3,8 @@
  * @var Phalcon\Mvc\View    $this
  * @var string[]            $dnsPrefetchRecords
  */
+
+use Phalcon\Tag;
 ?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $bgcolor ?> <?php echo isset($containerFullHeight) ? 'full-height' : null ?>">
@@ -19,7 +21,7 @@
     <?php endforeach; endif ?>
 
     <?php
-    echo $this->tag->renderTitle();
+    echo Tag::renderTitle();
     $this->assets->outputCss('styles');
     $this->assets->outputJs('scripts');
     $this->partial('favicons')

@@ -9,8 +9,8 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Mvc\Model;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Numericality;
 
 /**
  * The form responsible for adding new SNMP records.

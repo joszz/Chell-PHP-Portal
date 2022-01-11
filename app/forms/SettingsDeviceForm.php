@@ -8,9 +8,9 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
-use Phalcon\Validation\Validator\Ip;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Ip;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 /**
  * The form responsible for adding new devices.

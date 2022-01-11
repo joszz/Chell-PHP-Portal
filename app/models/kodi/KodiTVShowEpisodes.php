@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\ResultsetInterface;
  * The model responsible for all Kodi episodes.
  *
  * @package Models\Kodi
+ * @suppress PHP2414
  */
 class KodiTVShowEpisodes extends KodiBase
 {

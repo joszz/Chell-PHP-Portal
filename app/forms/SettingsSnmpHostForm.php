@@ -4,8 +4,8 @@ namespace Chell\Forms;
 
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Ip;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Ip;
 
 /**
  * The form responsible for adding new SNMP hosts.

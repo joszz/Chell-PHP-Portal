@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
  * The model responsible for all actions related to devices.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class Speedtest extends BaseModel
 {

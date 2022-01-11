@@ -6,22 +6,15 @@ use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
-use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Numericality;
 
 class SnmpFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $snmpEnabled = new Check('snmp-enabled');
-		$snmpEnabled->setLabel('Enabled');
-		$snmpEnabled->setAttributes([
-			'value' => '1',
-			'checked' => $this->form->settings->snmp->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'SNMP'
+		$this->fields[] = new Check('snmp-enabled', [
+			'fieldset' => 'SNMP',
+			'checked' => $this->form->settings->snmp->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $snmpInterval = new Numeric('snmp-update_interval');

@@ -3,7 +3,7 @@
 namespace Chell\Controllers;
 
 use Chell\Exceptions\ChellException;
-use Phalcon\Debug\Dump;
+use Phalcon\Support\Debug\Dump;
 
 /**
  * The controller responsible for handling all errors.
@@ -30,7 +30,9 @@ class ErrorController
      */
     public function initialize(ChellException $exception)
     {
-        ob_clean();
+        if (ob_get_length()){
+            ob_end_clean();
+        }
 
         $this->exception = $exception;
         $this->guid = $this->getGUID();

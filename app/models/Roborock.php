@@ -7,6 +7,7 @@ namespace Chell\Models;
  *
  * @see https://github.com/rytilahti/python-miio
  * @package Models
+ * @suppress PHP2414
  */
 class Roborock extends BaseModel
 {
@@ -153,7 +154,7 @@ class Roborock extends BaseModel
         {
             $output = explode("\n", $output);
             array_shift($output);
-            return implode($output, "\n");
+            return implode("\n", $output);
         }
 
         return $output;

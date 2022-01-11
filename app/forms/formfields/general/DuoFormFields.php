@@ -12,17 +12,11 @@ class DuoFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-        $this->fields[] = $duoEnabled = new Check('duo-enabled');
-        $duoEnabled->setLabel('Enabled');
-        $duoEnabled->setAttributes([
-            'value' => '1',
+        $this->fields[] = $duoEnabled = new Check('duo-enabled', [
             'checked' => $this->form->settings->duo->enabled == '1' ? 'checked' : null,
-            'data-toggle' => 'toggle',
-            'data-onstyle' => 'success',
-            'data-offstyle' => 'danger',
-            'data-size' => 'small',
             'fieldset' => 'Duo'
         ]);
+        $duoEnabled->setLabel('Enabled');
 
         $this->fields[] = $duoAPIHostname = new Text('duo-api_hostname');
         $duoAPIHostname->setLabel('API hostname')

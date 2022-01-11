@@ -10,6 +10,7 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
  * The model responsible for all Kodi movies.
  *
  * @package Models\Kodi
+ * @suppress PHP2414
  */
 class KodiBase extends BaseModel
 {

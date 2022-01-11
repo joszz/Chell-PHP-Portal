@@ -1,6 +1,6 @@
 Chell PHP Portal
 ================
-&copy; 2021, Jos Nienhuis
+&copy; 2022, Jos Nienhuis
 
 I created this project to have an easy to use portal for my homeserver. 
 It aggregates different services and webapplications that I want easily accessible from within this portal.
@@ -18,11 +18,10 @@ It aggregates different services and webapplications that I want easily accessib
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/img/screenshots)
 
 # Prerequisites
-- [PHP 7.4](http://www.php.net/).
-    PHP 8 is not supported yet by Phalcon.
+- [PHP 7.4 or higher](http://www.php.net/).
   - Required extensions 
     - [PSR](https://github.com/jbboehr/php-psr)
-    - [Phalcon PHP framework 4.x](https://phalconphp.com/)
+    - [Phalcon PHP framework 5.x](https://phalconphp.com/)
     - [Multibyte String](https://www.php.net/manual/en/book.mbstring.php)
     - [GD](https://www.php.net/manual/en/book.image.php)
     - [PDO](https://www.php.net/manual/en/book.pdo.php)

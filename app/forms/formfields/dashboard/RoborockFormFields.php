@@ -8,23 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Ip;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Ip;
 
 class RoborockFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $roborockEnabled = new Check('roborock-enabled');
-		$roborockEnabled->setLabel('Enabled');
-		$roborockEnabled->setAttributes([
-			'value' => '1',
-			'checked' => $this->form->settings->roborock->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Roborock'
+		$this->fields[] = new Check('roborock-enabled', [
+			'fieldset' => 'Roborock',
+			'checked' => $this->form->settings->roborock->enabled == '1' ? 'checked' : null
 		]);
 
         $this->fields[] =  $roborockInterval = new Numeric('roborock-update_interval');

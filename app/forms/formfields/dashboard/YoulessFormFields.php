@@ -9,23 +9,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class YoulessFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $youlessEnabled = new Check('youless-enabled');
-		$youlessEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->youless->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Youless'
+		$this->fields[] = new Check('youless-enabled', [
+			'fieldset' => 'Youless',
+			'checked' => $this->form->settings->youless->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $youlessURL = new Text('youless-url');

@@ -8,8 +8,8 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Numericality;
 
 class ApplicationFormFields extends FormFields
 {
@@ -87,37 +87,19 @@ class ApplicationFormFields extends FormFields
             ->setDefault($this->form->settings->application->check_now_playing_interval)
             ->addValidator(new Numericality(['message' => 'Not a number']));
 
-        $this->fields[] = $hibp = new Check('hibp-enabled');
-        $hibp->setLabel('Have I Been Pwned')
-            ->setAttributes([
-                'value' => '1',
-                'checked' => $this->form->settings->hibp->enabled == '1' ? 'checked' : null,
-                'data-toggle' => 'toggle',
-                'data-onstyle' => 'success',
-                'data-offstyle' => 'danger',
-                'data-size' => 'small'
+        $this->fields[] = $hibp = new Check('hibp-enabled', [
+            'checked' => $this->form->settings->hibp->enabled == '1' ? 'checked' : null
         ]);
+        $hibp->setLabel('Have I Been Pwned');
 
-        $this->fields[] = $demo = new Check('application-demo_mode');
-        $demo->setLabel('Demo mode')
-            ->setAttributes([
-                'value' => '1',
-                'checked' => $this->form->settings->application->demo_mode == '1' ? 'checked' : null,
-                'data-toggle' => 'toggle',
-                'data-onstyle' => 'success',
-                'data-offstyle' => 'danger',
-                'data-size' => 'small'
+        $this->fields[] = $demo = new Check('application-demo_mode', [
+            'checked' => $this->form->settings->application->demo_mode == '1' ? 'checked' : null
         ]);
+        $demo->setLabel('Demo mode');
 
-        $this->fields[] = $demo = new Check('application-debug');
-        $demo->setLabel('Debug mode')
-            ->setAttributes([
-                'value' => '1',
-                'checked' => $this->form->settings->application->debug == '1' ? 'checked' : null,
-                'data-toggle' => 'toggle',
-                'data-onstyle' => 'success',
-                'data-offstyle' => 'danger',
-                'data-size' => 'small'
+        $this->fields[] = $demo = new Check('application-debug', [
+            'checked' => $this->form->settings->application->debug == '1' ? 'checked' : null
         ]);
+        $demo->setLabel('Debug mode');
 	}
 }

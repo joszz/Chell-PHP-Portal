@@ -10,7 +10,7 @@ use Phalcon\Forms\Element\ElementInterface;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
-use Phalcon\Url;
+use Phalcon\Mvc\Url;
 
 /**
  * The base form class used in SettingsGeneralForm and SettingsDashboardForm.
@@ -211,15 +211,18 @@ class SettingsBaseForm extends Form
      * @param mixed $whitelist
      * @return SettingsBaseForm     Returns this class
      */
-    public function bind(array $data, $entity, $whitelist = null): SettingsBaseForm
+    public function bind(array $data, $entity = null, $whitelist = null): SettingsBaseForm
     {
-        parent::bind($data, $entity, $whitelist);
-
-        foreach ($this->elements as $field => $element)
+        if($entity)
         {
-            if (is_a($element, Check::class))
+            parent::bind($data, $entity, $whitelist);
+
+            foreach ($this->elements as $field => $element)
             {
-                $entity->$field = $data[$field] ?? '0';
+                if (is_a($element, Check::class))
+                {
+                    $entity->$field = $data[$field] ?? '0';
+                }
             }
         }
 
@@ -261,7 +264,7 @@ class SettingsBaseForm extends Form
             }
             else
             {
-                $this->settings->$category->$setting = $isArray ? implode($data[$field], ',') : $data[$field];
+                $this->settings->$category->$setting = $isArray ? implode( ',', $data[$field]) : $data[$field];
             }
         }
 

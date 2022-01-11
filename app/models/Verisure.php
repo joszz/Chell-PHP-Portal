@@ -7,6 +7,7 @@ namespace Chell\Models;
  *
  * @see https://github.com/persandstrom/python-verisure
  * @package Models
+ * @suppress PHP2414
  */
 class Verisure extends BaseModel
 {

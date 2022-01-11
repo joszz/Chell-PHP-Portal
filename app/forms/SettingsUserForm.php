@@ -7,9 +7,9 @@ use Chell\Forms\Validators\Hibp;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Email;
-use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Confirmation;
-use Phalcon\Validation\Validator\Email as EmailValidator;
+use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Confirmation;
+use Phalcon\Filter\Validation\Validator\Email as EmailValidator;
 
 /**
  * The form responsible for updating existing Users.

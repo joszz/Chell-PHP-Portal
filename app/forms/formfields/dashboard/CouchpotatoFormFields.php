@@ -8,23 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class CouchpotatoFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $couchpotatoEnabled = new Check('couchpotato-enabled');
-		$couchpotatoEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->couchpotato->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Couchpotato'
+		$this->fields[] = new Check('couchpotato-enabled', [
+			'fieldset' => 'Couchpotato',
+			'checked' => $this->form->settings->couchpotato->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $couchpotatoURL = new Text('couchpotato-url');

@@ -6,22 +6,15 @@ use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class RCpuFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $rCpuEnabled = new Check('rcpu-enabled');
-		$rCpuEnabled->setLabel('Enabled');
-		$rCpuEnabled->setAttributes([
-			'value' => '1',
-			'checked' => $this->form->settings->rcpu->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
+		$this->fields[] = new Check('rcpu-enabled', [
 			'fieldset' => 'rCPU',
+			'checked' => $this->form->settings->rcpu->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $rCpuURL = new Text('rcpu-url');

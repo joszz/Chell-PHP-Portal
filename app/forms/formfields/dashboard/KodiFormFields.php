@@ -9,23 +9,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class KodiFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $kodiEnabled = new Check('kodi-enabled');
-		$kodiEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->kodi->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'Kodi'
+		$this->fields[] = new Check('kodi-enabled', [
+			'fieldset' => 'Kodi',
+			'checked' => $this->form->settings->kodi->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $kodiURL = new Text('kodi-url');

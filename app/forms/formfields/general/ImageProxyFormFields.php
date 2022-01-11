@@ -6,7 +6,7 @@ use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class ImageProxyFormFields extends FormFields
 {
@@ -27,7 +27,7 @@ class ImageProxyFormFields extends FormFields
         $this->fields[] = $imageproxyUrl = new Text('imageproxy-url');
         $imageproxyUrl->setLabel('URL')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+            ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
             ->setDefault($this->form->settings->imageproxy->url)
             ->addValidators([
                 new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'imageproxy-enabled']),

@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface;
  * The model responsible for all actions related to HyperVAdmin.
  *
  * @package Models
+ * @suppress PHP2414
  */
 class HyperVAdmin extends BaseModel
 {

@@ -7,22 +7,15 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Numeric;
-use Phalcon\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Numericality;
 
 class DatabaseStatsFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $dbStatsEnabled = new Check('databasestats-enabled');
-		$dbStatsEnabled->setLabel('Enabled');
-		$dbStatsEnabled->setAttributes([
-			'value' => '1',
-			'checked' => $this->form->settings->databasestats->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'Database'
+		$this->fields[] = new Check('databasestats-enabled', [
+			'fieldset' => 'Database',
+			'checked' => $this->form->settings->databasestats->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $dbStatsHidden = new Hidden('databasestats-hidden');

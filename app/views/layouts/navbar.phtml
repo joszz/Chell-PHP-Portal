@@ -5,6 +5,8 @@
  * @var Chell\Models\Users              $user
  * @var bool                            $setSaveButton
  */
+
+use Phalcon\Tag;
 ?>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -29,7 +31,7 @@
                 <a class="navbar-brand" href="<?php echo $this->url->get() ?>">
                     <img src="<?php echo $this->url->get('img/icons/favicons/android-chrome-192x192.png') ?>" alt="Logo" width="32" height="32" />
                     <span>
-                        <?php echo $this->tag->getTitle(); ?>
+                        <?php echo Tag::getTitle(); ?>
                     </span>
                 </a>
             </div>

@@ -8,22 +8,15 @@ use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class PhpSysInfoFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $phpSysInfoEnabled = new Check('phpsysinfo-enabled');
-		$phpSysInfoEnabled->setLabel('Enabled');
-		$phpSysInfoEnabled->setAttributes([
-			'value' => '1',
-			'checked' => $this->form->settings->phpsysinfo->enabled == '1' ? 'checked' : null,
-			'data-toggle' => 'toggle',
-			'data-onstyle' => 'success',
-			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => 'PHPSysInfo'
+		$this->fields[] = new Check('phpsysinfo-enabled', [
+			'fieldset' => 'PHPSysInfo',
+			'checked' => $this->form->settings->phpsysinfo->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $phpSysInfoURL = new Text('phpsysinfo-url');

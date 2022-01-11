@@ -9,23 +9,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Numericality;
-use Phalcon\Validation\Validator\Url as UrlValidator;
+use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 class PsaRemoteFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-		$this->fields[] = $psaremoteEnabled = new Check('psaremote-enabled');
-		$psaremoteEnabled->setLabel('Enabled')
-			->setAttributes([
-				'value' => '1',
-				'checked' => $this->form->settings->psaremote->enabled == '1' ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'PSA Remote'
+		$this->fields[] = new Check('psaremote-enabled', [
+			'fieldset' => 'PSA Remote',
+			'checked' => $this->form->settings->psaremote->enabled == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $psaremoteURL = new Text('psaremote-url');
