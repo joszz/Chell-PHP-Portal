@@ -1,0 +1,9 @@
+<?php /** @var Phalcon\Mvc\View $this */ ?>
+
+<?php if ($hasRefresh) : ?>
+<button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
+<?php endif ?>
+
+<a href="<?php echo $this->url->get('movewidget/up/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-up move-widget" title="Move up" aria-label="Move up"></a>
+<a href="<?php echo $this->url->get('movewidget/down/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-down move-widget" title="Move down" aria-label="Move down"></a>
+<button class="btn btn-default fa fa-minus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>

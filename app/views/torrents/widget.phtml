@@ -1,4 +1,4 @@
-<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+<?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="panel panel-success pull-left torrents"
     data-update-interval="<?php echo $this->settings->torrents->update_interval ?>">
@@ -7,8 +7,7 @@
             <button class="btn btn-default fa fa-pause" title="Start all" aria-label="Start all"></button>
             <button class="btn btn-default fa fa-play" title="Stop all" aria-label="Stop all"></button>
             <a href="<?php echo $this->settings->torrents->url ?>" target="_blank" class="btn btn-default fa fa-globe" title="Open WebUI"></a>
-            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
         </div>
         <h4>Torrents</h4>
     </div>

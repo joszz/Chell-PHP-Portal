@@ -166,8 +166,6 @@ class FrontController
 
     /**
      * Setup the database services.
-     *
-     * @param ConfigIni $config	The config object representing config.ini.
      */
     private function setDB()
     {
@@ -209,8 +207,6 @@ class FrontController
 
     /**
      * Instantiate session.
-     *
-     * @param SettingsContainer $settings    The settings object representing all settings in the database.
      */
     private function setSession()
     {

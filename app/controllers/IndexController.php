@@ -88,6 +88,11 @@ class IndexController extends BaseController
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
+    public function movewidgetAction()
+    {
+        
+    }
+
     /**
      * Sets the URLs for <link rel="dns-prefetch" />
      *

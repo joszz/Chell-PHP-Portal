@@ -1,4 +1,4 @@
-<?php /** @var Phalcon\Mvc\Controller $this */ ?>
+<?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="panel panel-success nowplaying gallery"
     data-nowplaying-intveral="<?php echo $this->settings->application->check_now_playing_interval ?>"
@@ -14,8 +14,7 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-chevron-left" title="Previous player" aria-label="Previous player"></button>
             <button class="btn btn-default fa fa-chevron-right" title="Next player" aria-label="Next player"></button>
-            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
         </div>
         <h4>Now playing</h4>
     </div>

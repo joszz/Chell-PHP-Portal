@@ -6,12 +6,9 @@
     <div class="panel-heading">
         <div class="btn-group pull-right">
             <a href="javascript:;" data-fancybox data-src="#hardware" class="btn btn-default fa fa-wrench" title="Hardware"></a>
-            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-            <a href="<?php echo $this->url->get('movewidget/up/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-up move-widget"></a>
-            <a href="<?php echo $this->url->get('movewidget/down/' . $widget->id) ?>" class="btn btn-default fa fa-chevron-down move-widget"></a>
-            <button class="btn btn-default fa fa-minus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
         </div>
-        <h4>System info</h4>
+        <h4 class="truncate-text" title="System info">System info</h4>
     </div>
     <ul class="list-group">
         <li class="list-group-item col-xs-12">

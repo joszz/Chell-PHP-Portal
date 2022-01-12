@@ -18,7 +18,7 @@ It aggregates different services and webapplications that I want easily accessib
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/img/screenshots)
 
 # Prerequisites
-- [PHP 7.4 or higher](http://www.php.net/).
+- [PHP 8.x](http://www.php.net/).
   - Required extensions 
     - [PSR](https://github.com/jbboehr/php-psr)
     - [Phalcon PHP framework 5.x](https://phalconphp.com/)

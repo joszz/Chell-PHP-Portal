@@ -6,7 +6,6 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\Devices;
 use Chell\Models\HyperVAdmin;
 use Phalcon\Http\ResponseInterface;
-use Phalcon\Mvc\Model\Query\Lang;
 
 /**
  * The controller responsible for all HyperVAdmin related actions.
