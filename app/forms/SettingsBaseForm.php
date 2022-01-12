@@ -210,7 +210,7 @@ class SettingsBaseForm extends Form
      * @param mixed $whitelist
      * @return SettingsBaseForm     Returns this class
      */
-    public function bind(array $data, $entity = null, $whitelist = null) : SettingsBaseForm
+    public function bind(array $data, $entity = null, $whitelist = []) : SettingsBaseForm
     {
         if($entity)
         {

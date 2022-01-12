@@ -81,17 +81,11 @@ class SettingsDeviceForm extends SettingsBaseForm
                 'data-size' => 'small'
         ]);
 
-        $hypervadminEnabled = new Check('hypervadmin_enabled');
-		$hypervadminEnabled->setLabel('HyperVAdmin enabled')
-			->setAttributes([
-				'value' => '1',
-                'checked' => !empty($entity->hypervadmin_url) ? 'checked' : null,
-				'data-toggle' => 'toggle',
-				'data-onstyle' => 'success',
-				'data-offstyle' => 'danger',
-				'data-size' => 'small',
-				'fieldset' => 'HyperVAdmin enabled'
-		]);
+        $hypervadminEnabled = new Check('hypervadmin_enabled', [
+            'fieldset' => 'HyperVAdmin enabled',
+			'checked' => $entity->hypervadmin_url ? 'checked' : null,
+        ]);
+		$hypervadminEnabled->setLabel('HyperVAdmin enabled');
 
         $hypervadminUrl = new Text('hypervadmin_url');
         $hypervadminUrl->setLabel('HyperVAdmin URL')

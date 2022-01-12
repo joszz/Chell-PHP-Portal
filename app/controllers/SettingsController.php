@@ -71,7 +71,7 @@ class SettingsController extends BaseController
      *
      * @return null|ResponseInterface     Will forward to settings/index#dashboard when successful, or forwards to indexAction when failed.
      */
-    public function dashboardAction() : null|ResponseInterface
+    public function dashboardAction()
     {
         $form = $this->view->form = new SettingsDashboardForm();
 
@@ -107,7 +107,7 @@ class SettingsController extends BaseController
      * @param int $id                     Optional, the device to edit.
      * @return null|ResponseInterface     Will forward to settings/index#devices when successful, or will show the form again when failed.
      */
-    public function deviceAction(int $id = 0) : null|ResponseInterface
+    public function deviceAction(int $id = 0)
     {
         $device = new Devices();
 
@@ -156,7 +156,7 @@ class SettingsController extends BaseController
      * @param int $id                     Optional, SNMPHost ID to edit.
      * @return null|ResponseInterface     Will forward to settings/index#snmphosts when successful, or will show the form again when failed.
      */
-    public function snmphostAction(int $id = 0) : null|ResponseInterface
+    public function snmphostAction(int $id = 0)
     {
         $host = new SnmpHosts();
 
@@ -197,7 +197,7 @@ class SettingsController extends BaseController
      * @param int $id                     Optional, SNMPRecord ID to edit.
      * @return null|ResponseInterface     Will forward to settings/snmphost/{id}/#records when successful, or will show the form again when failed.
      */
-    public function snmprecordAction(int $hostId, int $id = 0) : null|ResponseInterface
+    public function snmprecordAction(int $hostId, int $id = 0)
     {
         $record = new SnmpRecords();
 
@@ -249,7 +249,7 @@ class SettingsController extends BaseController
      * @param int $id                     Optional, the menuitem to edit.
      * @return null|ResponseInterface     Will forward to settings/index#menu when successful, or will show the form again when failed.
      */
-    public function menuitemAction(int $id = 0) : null|ResponseInterface
+    public function menuitemAction(int $id = 0)
     {
         $item = new MenuItems();
         $file = false;
@@ -313,7 +313,7 @@ class SettingsController extends BaseController
      * @param int $id                     Optional, the user ID to edit.
      * @return null|ResponseInterface     Will forward to settings/index#users when successful, or will show the form again when failed.
      */
-    public function userAction(int $id = 0) : null|ResponseInterface
+    public function userAction(int $id = 0)
     {
         $user = new Users();
 
