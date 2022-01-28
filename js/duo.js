@@ -1,3 +1,1 @@
-﻿if (window.self !== window.top) {
-    window.top.location = document.getElementById("bootstrap").dataset.baseuri;
-}
+﻿window.location.href = document.getElementById("bootstrap").dataset.baseuri;

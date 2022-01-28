@@ -130,6 +130,10 @@ function initializeDashboardEventHandlers() {
         $(".content .fa-" + ($(this).hasClass("fa-plus") ? "plus" : "minus")).trigger("click");
         $(this).toggleClass("fa-plus fa-minus");
     });
+
+    $("#move_widgets").click(function () {
+        $(".move-widget").toggleClass("hidden");
+    });
 }
 
 function initializeTinyTimer($this) {

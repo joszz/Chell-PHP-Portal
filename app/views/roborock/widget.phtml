@@ -7,9 +7,9 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-play start-stop" title="Start/Stop" aria-label="Start/Stop"></button>
             <a href="roborock/info" data-fancybox data-type="iframe" class="btn btn-default fa fa-info-circle" title="Info" aria-label="Info"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Roborock</h4>
+        <h4 class="truncate-text" title="Roborock">Roborock</h4>
     </div>
     <ul class="list-group hidden-xs">
         <li class="list-group-item col-xs-12">

@@ -5,8 +5,6 @@
  * @var Chell\Models\Users              $user
  * @var bool                            $setSaveButton
  */
-
-use Phalcon\Tag;
 ?>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -31,7 +29,7 @@ use Phalcon\Tag;
                 <a class="navbar-brand" href="<?php echo $this->url->get() ?>">
                     <img src="<?php echo $this->url->get('img/icons/favicons/android-chrome-192x192.png') ?>" alt="Logo" width="32" height="32" />
                     <span>
-                        <?php echo Tag::getTitle(); ?>
+                        <?php echo Phalcon\Tag::getTitle(); ?>
                     </span>
                 </a>
             </div>
@@ -52,13 +50,16 @@ use Phalcon\Tag;
                 </ul>
                 <div class="col-xs-12">
                     <div class="btn-group pull-right">
-                        <a class="btn btn-dark" href="<?php echo $this->url->get('settings/') ?>">
+                        <a class="btn btn-dark" id="move_widgets" href="#" title="Move widgets">
+                            <span class="fa fa-arrows-alt"></span>
+                        </a>
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('settings/') ?>" title="Settings">
                             <span class="fa fa-cog"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->url->get('about/') ?>">
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('about/') ?>" title="About">
                             <span class="fa fa-info-circle"></span>
                         </a>
-                        <a class="btn btn-dark" href="<?php echo $this->url->get('session/logout/') ?>">
+                        <a class="btn btn-dark" href="<?php echo $this->url->get('session/logout/') ?>" title="Logout">
                             <span class="fa fa-sign-out-alt" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
                         </a>
                     </div>

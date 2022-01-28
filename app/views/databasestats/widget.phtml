@@ -5,9 +5,9 @@
 
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Database</h4>
+        <h4 class="truncate-text" title="Database">Database</h4>
     </div>
     <ul class="list-group hidden-xs">
         <li class="list-group-item col-xs-12">

@@ -6,9 +6,9 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-chevron-left" title="Previous movie" aria-label="Previous movie"></button>
             <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next movie" aria-label="Next movie"></button>
-            <?php $this->partial('index/default_widget_buttons') ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Latest movies</h4>
+        <h4 class="truncate-text" title="Latest movies">Latest movies</h4>
     </div>
     <div class="panel-body hidden-xs">
         <?php $i = 0; foreach($movies as $movie) :?>

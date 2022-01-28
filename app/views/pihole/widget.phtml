@@ -3,9 +3,9 @@
 <div class="panel panel-success pull-left pihole chartist" data-pihole-url="<?php echo $this->settings->pihole->url ?>">
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>PiHole</h4>
+        <h4 class="truncate-text" title="PiHole">PiHole</h4>
     </div>
     <div class="panel-body hidden-xs">
         <h4>DNS queries today</h4>

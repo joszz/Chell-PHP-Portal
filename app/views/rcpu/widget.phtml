@@ -4,8 +4,10 @@
     <?php $this->partial('is-loading') ?>
 
     <div class="panel-heading">
-        <?php $this->partial('index/default_widget_buttons') ?>
-        <h4>CPU</h4>
+        <div class="btn-group pull-right">
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
+        </div>
+        <h4 class="truncate-text">CPU</h4>
     </div>
     <div class="panel-body hidden-xs">
         <iframe data-src="<?php echo $this->settings->rcpu->url ?>" title="rCPU"></iframe>

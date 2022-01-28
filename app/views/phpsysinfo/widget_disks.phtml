@@ -5,10 +5,9 @@
 
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
-            <button class="btn btn-default fa fa-plus visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Disk usage</h4>
+        <h4 class="truncate-text" title="Disk usage">Disk usage</h4>
     </div>
     <ul class="list-group hidden-xs">
         <li class="list-group-item col-xs-12 hidden clone">

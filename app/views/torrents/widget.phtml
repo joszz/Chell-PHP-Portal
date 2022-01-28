@@ -7,9 +7,9 @@
             <button class="btn btn-default fa fa-pause" title="Start all" aria-label="Start all"></button>
             <button class="btn btn-default fa fa-play" title="Stop all" aria-label="Stop all"></button>
             <a href="<?php echo $this->settings->torrents->url ?>" target="_blank" class="btn btn-default fa fa-globe" title="Open WebUI"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Torrents</h4>
+        <h4 class="truncate-text" title="Torrents">Torrents</h4>
     </div>
     <ul class="list-group hidden-xs">
         <li class="list-group-item col-xs-12 col-lg-12 torrent hidden">

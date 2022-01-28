@@ -6,9 +6,9 @@
     <div class="panel-heading">
         <div class="btn-group pull-right">
             <a href="<?php echo $this->url->get('apache/details/') ?>" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Apache</h4>
+        <h4 class="truncate-text" title="Apache">Apache</h4>
     </div>
     <ul class="list-group hidden-xs">
         <li class="list-group-item col-xs-12">

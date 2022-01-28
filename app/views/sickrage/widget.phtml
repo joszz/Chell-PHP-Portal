@@ -5,9 +5,9 @@
     data-sickrage-url="<?php echo $this->settings->sickrage->url ?>">
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Sickrage</h4>
+        <h4 class="truncate-text" title="Sickrage">Sickrage</h4>
     </div>
 
     <div class="panel-body hidden-xs">

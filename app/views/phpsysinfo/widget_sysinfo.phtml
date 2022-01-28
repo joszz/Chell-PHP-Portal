@@ -6,7 +6,7 @@
     <div class="panel-heading">
         <div class="btn-group pull-right">
             <a href="javascript:;" data-fancybox data-src="#hardware" class="btn btn-default fa fa-wrench" title="Hardware"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'expanded' => true, 'widgetId' => $widget->id]) ?>
         </div>
         <h4 class="truncate-text" title="System info">System info</h4>
     </div>

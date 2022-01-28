@@ -43,8 +43,6 @@ class SecurityPlugin extends Injectable
 
         if (!$this->session->get('auth') && $controller != 'session')
         {
-            $url = str_replace(BASEPATH, '', $this->request->getURI());
-            $this->session->set('auth_redirect_url', $url);
             $dispatcher->forward(['controller' => 'session', 'action' => 'index']);
             return false;
         }

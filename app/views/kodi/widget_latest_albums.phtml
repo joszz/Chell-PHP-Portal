@@ -6,9 +6,9 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-chevron-left" title="Previous album" aria-label="Previous album"></button>
             <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next album" aria-label="Next album"></button>
-            <?php $this->partial('index/default_widget_buttons') ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Latest albums</h4>
+        <h4 class="truncate-text" title="Latest albums">Latest albums</h4>
     </div>
     <div class="panel-body hidden-xs">
         <?php $i = 0; foreach($albums as $album) : ?>

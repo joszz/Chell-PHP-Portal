@@ -6,9 +6,9 @@
             <button class="btn btn-default fa fa-chevron-left" title="Previous chart" aria-label="Previous chart"></button>
             <button class="btn btn-default fa fa-chevron-right" title="Next chart" aria-label="Next chart"></button>
             <a href="<?php echo $this->url->get('opcache/details') ?>" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar rounded-not-mobile" title="Details"></a>
-            <?php $this->partial('index/default_widget_buttons') ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Opcache</h4>
+        <h4 class="truncate-text" title="Opcache">Opcache</h4>
     </div>
     <div class="panel-body hidden-xs">
         <div class="graph">

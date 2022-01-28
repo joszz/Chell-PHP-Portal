@@ -9,9 +9,9 @@
     <div class="panel-heading">
         <div class="backdrop"></div>
         <div class="btn-group pull-right">
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Motion</h4>
+        <h4 class="truncate-text" title="Motion">Motion</h4>
     </div>
     <div class="panel-body hidden-xs">
         <a class="item" href="<?php echo $this->settings->motion->url ?>" target="_blank"

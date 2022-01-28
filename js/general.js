@@ -27,13 +27,14 @@ var keys = {
     ArrowLeft: 37, ArrowUp: 38, ArrowRight: 39, ArrowDown: 40
 };
 
+var baseUri = $("body").data("baseuri");
+
 /**
 * Document onload, call to initialize plugins and eventhandlers.
 *
 * @method document.onload
 */
 if ("serviceWorker" in navigator) {
-    var baseUri = $("body").data("baseuri");
     if (baseUri) {
         window.addEventListener("load", function () {
             navigator.serviceWorker.register(baseUri + "index/worker", { scope: baseUri }).then(function (_registration) {

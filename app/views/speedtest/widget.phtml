@@ -13,9 +13,9 @@
             <a href="<?php echo $this->url->get('speedtest/stats') ?>" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
             <?php endif ?>
             <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Speedtest</h4>
+        <h4 class="truncate-text" title="Speedtest">Speedtest</h4>
     </div>
     <div class="panel-body hidden-xs">
         <div id="test">

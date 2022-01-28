@@ -261,7 +261,7 @@ class FrontController
     }
 
     /**
-     * Retrieves al settings from the database and structures then in a hierarchical structur.
+     * Retrieves all settings from the database and structures them in a hierarchical structure.
      */
     private function setSettings()
     {

@@ -2,13 +2,12 @@
 
 namespace Chell\Controllers;
 
-use Exception;
 use DateTime;
 use Chell\Models\Users;
 use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
-use Duo\Web;
-use Phalcon\Http\ResponseInterface;
+use Duo\DuoUniversal\Client as DuoClient;
+use Duo\DuoUniversal\DuoException;
 use Phalcon\Mvc\ModelInterface;
 
 /**
@@ -115,11 +114,11 @@ class SessionController extends BaseController
                         $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true);
                     }
 
-                    return $this->dispatcher->forward([
-                        'controller' => 'session',
-                        'action'     => 'duo',
-                        'params'     => [$user]
-                    ]);
+                    $client = $this->getDuoClient();
+                    $user->duostate = $client->generateState();
+                    $user->save();
+
+                    return $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
                 }
                 //Normal login
                 else
@@ -136,7 +135,7 @@ class SessionController extends BaseController
                     $user->failed_logins = 0;
                     $user->save();
 
-                    return $this->response->redirect($this->getRedirectUrlFromSession());
+                    return $this->response->redirect('');
                 }
             }
             else
@@ -218,27 +217,11 @@ class SessionController extends BaseController
     }
 
     /**
-     * Show the Dou iframe when 2 factor authentication has been enabled in config.
-     *
-     * @param Users $user The user that tries to login.
-     */
-    public function duoAction(Users $user)
-    {
-        $this->assets->addScript('jquery.isloading');
-        $this->view->containerFullHeight = true;
-        $this->view->dnsPrefetchRecords = ['https://' . $this->settings->duo->api_hostname];
-        $this->view->signRequest = Web::signRequest($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $user->username);
-
-        $this->assets->addScripts(['Duo-Web-v2', 'duo']);
-    }
-
-    /**
      * Callback method for the Duo iFrame. Check the user, set session, update the last login time and redirect to dashboard.
      */
-    public function duoVerifyAction() : ResponseInterface
+    public function duoVerifyAction()
     {
-        $username = Web::verifyResponse($this->settings->duo->ikey, $this->settings->duo->skey, $this->settings->duo->akey, $_POST['sig_response']);
-
+        $username = trim($this->cookies->get('username')->getValue());
         $user = Users::findFirst([
             'username = :username:',
             'bind' => ['username' => $username]
@@ -246,22 +229,35 @@ class SessionController extends BaseController
 
         if ($user)
         {
-            if ($user instanceof Users)
-            {
-                $this->_registerSession($user);
-            }
-            else
-            {
-                throw new Exception('Expected type Users, got type' . get_class($user));
+            $client = $this->getDuoClient();
+            $state = $this->request->getQuery("state");
+            $duo_code = $this->request->getQuery("duo_code");
+
+            if (empty($user->duostate) || $state !== $user->duostate) {
+                return $this->dispatcher->forward([
+                    'controller' => 'session',
+                    'action'     => 'logout'
+                ]);
             }
 
+            try {
+                $decoded_token = $client->exchangeAuthorizationCodeFor2FAResult($duo_code, $username);
+            }
+            catch (DuoException $e) {
+                return $this->dispatcher->forward([
+                    'controller' => 'session',
+                    'action'     => 'logout'
+                ]);
+            }
+
+            $this->_registerSession($user);
+            $this->assets->addScript('duo');
+
             $user->failed_logins = 0;
-            $user->last_failed_attempt = null;
+            $user->last_failed_attempt = $user->duostate = null;
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
         }
-
-        return $this->response->redirect($this->getRedirectUrlFromSession());
     }
 
     /**
@@ -279,14 +275,13 @@ class SessionController extends BaseController
         $this->view->pick('session/index');
     }
 
-    /**
-     * Gets the requested URL before redirected to login (which was saved in the session).
-     * Replace the base uri to not have it being injected twice in the resuling redirect.
-     *
-     * @return string   The URL to redirect to.
-     */
-    private function getRedirectUrlFromSession()
+    private function getDuoClient() : DuoClient
     {
-        return $this->session->get('auth_redirect_url');
+        return new DuoClient(
+            $this->settings->duo->clientid,
+            $this->settings->duo->clientsecret,
+            $this->settings->duo->api_hostname,
+            'https://' . $_SERVER['SERVER_NAME'] . $this->url->get('session/duoVerify')
+        );
     }
 }

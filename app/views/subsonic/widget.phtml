@@ -14,9 +14,9 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-chevron-left" title="Previous player" aria-label="Previous player"></button>
             <button class="btn btn-default fa fa-chevron-right" title="Next player" aria-label="Next player"></button>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
         </div>
-        <h4>Now playing</h4>
+        <h4 class="truncate-text" title="Now playing">Now playing</h4>
     </div>
     <div class="panel-body hidden-xs">
         <div class="player nothing-playing">
