@@ -28,6 +28,7 @@
 		"prismjs": "1.26.0",
 		"responsive-paginate": "joszz/rpage",
 		"rpage": "github:joszz/rpage",
+		"sass": "^1.49.0",
 		"spark-md5": "^3.0.2",
 		"speedtest": "joszz/speedtest",
 		"vibrate": "github:Illyism/jquery.vibrate.js",

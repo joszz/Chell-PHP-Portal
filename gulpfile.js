@@ -1,11 +1,11 @@
-﻿var gulp = require('gulp');
-var package = require('./package.json');
-var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
-var del = require('del');
-var cssnano = require('gulp-cssnano');
-var header = require('gulp-header');
-var rename = require('gulp-rename');
+﻿const gulp = require('gulp');
+const package = require('./package.json');
+const sass = require('gulp-sass')(require('sass'));
+const uglify = require('gulp-uglify');
+const del = require('del');
+const cssnano = require('gulp-cssnano');
+const header = require('gulp-header');
+const rename = require('gulp-rename');
 
 var banner = {
     main:

@@ -133,6 +133,7 @@ function initializeDashboardEventHandlers() {
 
     $("#move_widgets").click(function () {
         $(".move-widget").toggleClass("hidden");
+        return false;
     });
 }
 
