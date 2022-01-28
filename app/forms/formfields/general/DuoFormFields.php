@@ -25,25 +25,18 @@ class DuoFormFields extends FormFields
             ->setDefault($this->form->settings->duo->api_hostname)
             ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 
-        $this->fields[] = $duoIKey = new Password('duo-ikey');
-        $duoIKey->setLabel('Integration key')
+        $this->fields[] = $duoIKey = new Password('duo-clientid');
+        $duoIKey->setLabel('Client Id')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($this->form->settings->duo->ikey)
+                ->setDefault($this->form->settings->duo->clientid)
                 ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 
-        $this->fields[] = $duoSKey = new Password('duo-skey');
-        $duoSKey->setLabel('Secret key')
+        $this->fields[] = $duoSKey = new Password('duo-clientsecret');
+        $duoSKey->setLabel('Client secret')
                 ->setFilters(['striptags', 'string'])
                 ->setAttributes(['class' => 'form-control', 'fieldset' => true])
-                ->setDefault($this->form->settings->duo->skey)
-                ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
-
-        $this->fields[] = $duoAKey = new Password('duo-akey');
-        $duoAKey->setLabel('Akey')
-                ->setFilters(['striptags', 'string'])
-                ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
-                ->setDefault($this->form->settings->duo->akey)
+                ->setDefault($this->form->settings->duo->clientsecret)
                 ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 	}
 }
