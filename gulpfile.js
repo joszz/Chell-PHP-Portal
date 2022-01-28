@@ -84,7 +84,7 @@ var config = {
             'js/settings.js',
             'js/worker.js',
             'js/exception.js',
-            'js/duo.js'
+            'js/redirect_to_base.js'
         ]
     }
 };

@@ -251,7 +251,7 @@ class SessionController extends BaseController
             }
 
             $this->_registerSession($user);
-            $this->assets->addScript('duo');
+            $this->assets->addScript('redirect_to_base');
 
             $user->failed_logins = 0;
             $user->last_failed_attempt = $user->duostate = null;
@@ -265,14 +265,10 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
-        $this->assets->addStyleAndScript('bootstrap-toggle');
+        $this->assets->addScript('redirect_to_base');
         $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true);
         $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true);
         $this->session->destroy();
-
-        $this->view->containerFullHeight = true;
-        $this->view->form = new LoginForm($this->loginFailed);
-        $this->view->pick('session/index');
     }
 
     private function getDuoClient() : DuoClient
