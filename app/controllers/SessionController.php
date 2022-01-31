@@ -35,22 +35,6 @@ class SessionController extends BaseController
     }
 
     /**
-     * Sets session cookie with user id and username.
-     *
-     * @param ModelInterface $user The user object to populate the session with.
-     */
-    private function _registerSession(ModelInterface $user)
-    {
-        $this->session->set(
-            'auth',
-            [
-                'id'        => $user->id,
-                'username'  => $user->username
-            ]
-        );
-    }
-
-    /**
      * Shows the login form. Forwards to login action when remember me cookies are present.
      */
     public function indexAction()
@@ -110,23 +94,12 @@ class SessionController extends BaseController
                 //Duo 2 factor login
                 if ($this->settings->duo->enabled)
                 {
-                    $client = $this->getDuoClient();
-                    $user->duostate = $client->generateState();
-                    $user->save();
-
-                    $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
+                    $this->loginDuo($user);
                 }
                 //Normal login
                 else
                 {
-                    $this->_registerSession($user);
-                    $this->assets->addScript('redirect_to_base');
-                    $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
-
-                    $user->last_login = $now->format('Y-m-d H:i:s');
-                    $user->last_failed_attempt = null;
-                    $user->failed_logins = 0;
-                    $user->save();
+                    $this->login($user);
                 }
 
                 if ($rememberMe)
@@ -150,11 +123,6 @@ class SessionController extends BaseController
             'controller' => 'session',
             'action'     => 'index'
         ]);
-    }
-
-    private function loginDuo()
-    {
-
     }
 
     /**
@@ -205,7 +173,7 @@ class SessionController extends BaseController
                 }
                 else
                 {
-                    $this->_registerSession($user);
+                    $this->registerSession($user);
                     $user->last_login = date('Y-m-d H:i:s');
                     $user->save();
 
@@ -255,14 +223,10 @@ class SessionController extends BaseController
                 ]);
             }
 
-            $this->_registerSession($user);
+            $this->registerSession($user);
             $this->assets->addScript('redirect_to_base');
             $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
-
-            $user->failed_logins = 0;
-            $user->last_failed_attempt = $user->duostate = null;
-            $user->last_login = date('Y-m-d H:i:s');
-            $user->save();
+            $this->setLastLoginSuccesfull($user);
         }
         else
         {
@@ -275,11 +239,53 @@ class SessionController extends BaseController
      */
     public function logoutAction()
     {
+        $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
         $this->assets->addScript('redirect_to_base');
         $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true, null, true);
         $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true, null, true);
         session_unset();
         session_regenerate_id(true);
+    }
+
+    /**
+     * Sets session cookie with user id and username.
+     *
+     * @param ModelInterface $user The user object to populate the session with.
+     */
+    private function registerSession(ModelInterface $user)
+    {
+        $this->session->set(
+            'auth',
+            [
+                'id'        => $user->id,
+                'username'  => $user->username
+            ]
+        );
+    }
+
+    private function login($user)
+    {
+        $this->registerSession($user);
+        $this->assets->addScript('redirect_to_base');
+        $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
+        $this->setLastLoginSuccesfull($user);
+    }
+
+    private function loginDuo($user)
+    {
+        $client = $this->getDuoClient();
+        $user->duostate = $client->generateState();
+        $user->save();
+
+        $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
+    }
+
+    private function setLastLoginSuccesfull($user)
+    {
+        $user->failed_logins = 0;
+        $user->last_failed_attempt = $user->duostate = null;
+        $user->last_login = date('Y-m-d H:i:s');
+        $user->save();
     }
 
     /**
