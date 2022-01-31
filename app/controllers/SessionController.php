@@ -263,7 +263,7 @@ class SessionController extends BaseController
         );
     }
 
-    private function login($user)
+    private function login(ModelInterface $user)
     {
         $this->registerSession($user);
         $this->assets->addScript('redirect_to_base');
@@ -271,7 +271,7 @@ class SessionController extends BaseController
         $this->setLastLoginSuccesfull($user);
     }
 
-    private function loginDuo($user)
+    private function loginDuo(ModelInterface $user)
     {
         $client = $this->getDuoClient();
         $user->duostate = $client->generateState();
@@ -280,7 +280,7 @@ class SessionController extends BaseController
         $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
     }
 
-    private function setLastLoginSuccesfull($user)
+    private function setLastLoginSuccesfull(ModelInterface $user)
     {
         $user->failed_logins = 0;
         $user->last_failed_attempt = $user->duostate = null;
