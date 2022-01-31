@@ -33,7 +33,7 @@ class Verisure extends BaseModel
     /**
      * Gets the overview of the system with the most general information.
      *
-     * @param boolean $encode   Whether or not to JSON encode the output of the overview command.
+     * @param bool $encode      Whether or not to JSON encode the output of the overview command.
      * @return object|string    Either an JSON encoded string when $encode == true, or an object.
      */
     public function getOverview(bool $encode)

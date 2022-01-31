@@ -12,11 +12,10 @@ class DuoFormFields extends FormFields
 {
 	protected function initializeFields()
 	{
-        $this->fields[] = $duoEnabled = new Check('duo-enabled', [
+        $this->fields[] = new Check('duo-enabled', [
             'checked' => $this->form->settings->duo->enabled == '1' ? 'checked' : null,
             'fieldset' => 'Duo'
         ]);
-        $duoEnabled->setLabel('Enabled');
 
         $this->fields[] = $duoAPIHostname = new Text('duo-api_hostname');
         $duoAPIHostname->setLabel('API hostname')
@@ -35,7 +34,7 @@ class DuoFormFields extends FormFields
         $this->fields[] = $duoSKey = new Password('duo-clientsecret');
         $duoSKey->setLabel('Client secret')
                 ->setFilters(['striptags', 'string'])
-                ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+                ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
                 ->setDefault($this->form->settings->duo->clientsecret)
                 ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'duo-enabled']));
 	}

@@ -145,7 +145,7 @@ class SettingsBaseForm extends Form
      * @param string $name  The name of the formelement.
      * @return bool|string  Has help?
      */
-    public function tryGetHelpName(string $name) : boolean|string
+    public function tryGetHelpName(string $name) : bool|string
     {
         $class = strtolower(str_replace('Form', '', str_replace('Chell\Forms\Settings', '', get_class($this))));
 

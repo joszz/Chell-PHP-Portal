@@ -143,7 +143,7 @@ class Roborock extends BaseModel
      * Calls the miiocli python API with ip and token arguments as well as the command to run (see --help for more).
      *
      * @param string  $command            The command to run on the Roborock.
-     * @param boolean $removeFirstLine    Whether to trim the first line from the output. Defaults to true.
+     * @param bool $removeFirstLine    Whether to trim the first line from the output. Defaults to true.
      * @return string                     The output of the run command.
      */
     private function executeCommand(string $command, bool $removeFirstLine = true) : string

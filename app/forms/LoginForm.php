@@ -30,7 +30,7 @@ class LoginForm extends Form
      */
     public function initialize()
     {
-        $this->setAction( $this->url->get('session/login'));
+        $this->setAction($this->url->get('session/login'));
 
         $username = new Text('username');
         $username->setLabel('Username');

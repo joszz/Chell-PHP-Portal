@@ -3,12 +3,14 @@
 namespace Chell\Controllers;
 
 use DateTime;
+use Exception;
 use Chell\Models\Users;
 use Chell\Forms\LoginForm;
 use Davidearl\WebAuthn\WebAuthn;
 use Duo\DuoUniversal\Client as DuoClient;
 use Duo\DuoUniversal\DuoException;
 use Phalcon\Mvc\ModelInterface;
+use Phalcon\Mvc\View;
 
 /**
  * The controller responsible for handling the session.
@@ -69,7 +71,7 @@ class SessionController extends BaseController
      * Handles login with either POST variables or remember me cookie values.
      * If success redirects to dashboard (IndexController), unsuccessful forward to index/login form
      *
-     * @return mixed    Either forward to duoAction when duo is enabled in config, or redirects back to homepage
+     * @return mixed    Either forward to duoAction when duo is enabled in settings, or redirects back to login.
      */
     public function loginAction()
     {
@@ -108,35 +110,32 @@ class SessionController extends BaseController
                 //Duo 2 factor login
                 if ($this->settings->duo->enabled)
                 {
-                    if ($rememberMe)
-                    {
-                        $this->cookies->set('username', $username, strtotime('+1 year'), BASEPATH, true);
-                        $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true);
-                    }
-
                     $client = $this->getDuoClient();
                     $user->duostate = $client->generateState();
                     $user->save();
 
-                    return $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
+                    $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
                 }
                 //Normal login
                 else
                 {
-                    if ($rememberMe)
-                    {
-                        $this->response->setCookies($this->cookies->set('username', $username, strtotime('+1 year', BASEPATH, true)));
-                        $this->response->setCookies($this->cookies->set('password', $password, strtotime('+1 year', BASEPATH, true)));
-                    }
-
                     $this->_registerSession($user);
+                    $this->assets->addScript('redirect_to_base');
+                    $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
+
                     $user->last_login = $now->format('Y-m-d H:i:s');
                     $user->last_failed_attempt = null;
                     $user->failed_logins = 0;
                     $user->save();
-
-                    return $this->response->redirect('');
                 }
+
+                if ($rememberMe)
+                {
+                    $this->cookies->set('username', $username, strtotime('+1 year'), BASEPATH, true, null, true);
+                    $this->cookies->set('password', $password, strtotime('+1 year'), BASEPATH, true, null, true);
+                }
+
+                return;
             }
             else
             {
@@ -151,6 +150,11 @@ class SessionController extends BaseController
             'controller' => 'session',
             'action'     => 'index'
         ]);
+    }
+
+    private function loginDuo()
+    {
+
     }
 
     /**
@@ -192,11 +196,12 @@ class SessionController extends BaseController
             {
                 if ($this->settings->duo->enabled)
                 {
-                    return $this->dispatcher->forward([
-                        'controller' => 'session',
-                        'action'     => 'duo',
-                        'params'     => [$user]
-                    ]);
+                    $client = $this->getDuoClient();
+                    $user->duostate = $client->generateState();
+                    $user->save();
+                    $this->cookies->set('username', $user->username, strtotime('+1 year'), BASEPATH, true, null, true);
+
+                    return $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
                 }
                 else
                 {
@@ -233,17 +238,17 @@ class SessionController extends BaseController
             $state = $this->request->getQuery("state");
             $duo_code = $this->request->getQuery("duo_code");
 
-            if (empty($user->duostate) || $state !== $user->duostate) {
-                return $this->dispatcher->forward([
-                    'controller' => 'session',
-                    'action'     => 'logout'
-                ]);
-            }
+            try
+            {
+                if (empty($user->duostate) || $state !== $user->duostate)
+                {
+                    throw new DuoException('DUO state doesn\'t equal saved state');
+                }
 
-            try {
-                $decoded_token = $client->exchangeAuthorizationCodeFor2FAResult($duo_code, $username);
+                $client->exchangeAuthorizationCodeFor2FAResult($duo_code, $username);
             }
-            catch (DuoException $e) {
+            catch (DuoException $e)
+            {
                 return $this->dispatcher->forward([
                     'controller' => 'session',
                     'action'     => 'logout'
@@ -252,25 +257,36 @@ class SessionController extends BaseController
 
             $this->_registerSession($user);
             $this->assets->addScript('redirect_to_base');
+            $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
 
             $user->failed_logins = 0;
             $user->last_failed_attempt = $user->duostate = null;
             $user->last_login = date('Y-m-d H:i:s');
             $user->save();
         }
+        else
+        {
+            throw new Exception('Duo 2FA failed');
+        }
     }
 
     /**
-     * Logout user, destroying session and invalidating remember me cookie. Forwards to login form.
+     * Logout user, destroying session and invalidating remember me cookie.
      */
     public function logoutAction()
     {
         $this->assets->addScript('redirect_to_base');
-        $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true);
-        $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true);
-        $this->session->destroy();
+        $this->cookies->set('username', 'username', strtotime('-1 year'), BASEPATH, true, null, true);
+        $this->cookies->set('password', 'password', strtotime('-1 year'), BASEPATH, true, null, true);
+        session_unset();
+        session_regenerate_id(true);
     }
 
+    /**
+     * Returns a DuoClient to do Duo 2FA.
+     *
+     * @return DuoClient    The DuoClient to do authentication with.
+     */
     private function getDuoClient() : DuoClient
     {
         return new DuoClient(

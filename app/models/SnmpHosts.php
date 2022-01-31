@@ -29,7 +29,7 @@ class SnmpHosts extends Model
     /**
      * Sets up on SNMP session for this host and retrieves all record by order. Structures the records in an array of $values.
      *
-     * @param boolean $showDashboard    Whether or not to retrieve only the values marked as show_dashboard.
+     * @param bool $showDashboard       Whether or not to retrieve only the values marked as show_dashboard.
      * @return array                    The structured value array, ordered by position ASC and after that the null values.
      */
     public function getValues(bool $showDashboard) : array

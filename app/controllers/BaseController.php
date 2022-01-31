@@ -66,7 +66,7 @@ class BaseController extends Controller
      * @param int $maxWidth          The maximum width of the resized image, defaults to 800.
      * @param int $maxHeight         The maximum height of the resized image, defaults to 2000.
      * @param int $imageQuality      The image quality used for the JPEG compression of the resized image, defaults to 70.
-     * @return boolean               Whether or not resized succeeded.
+     * @return bool                  Whether or not resized succeeded.
      */
     protected function resizeImage(string $sourcePath, string $resizedPath, int $maxWidth = 800, int $maxHeight = 2000, int $imageQuality = 70) : bool
     {
