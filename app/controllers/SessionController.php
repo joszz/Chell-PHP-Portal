@@ -4,8 +4,8 @@ namespace Chell\Controllers;
 
 use DateTime;
 use Exception;
-use Chell\Models\Users;
 use Chell\Forms\LoginForm;
+use Chell\Models\Users;
 use Davidearl\WebAuthn\WebAuthn;
 use Duo\DuoUniversal\Client as DuoClient;
 use Duo\DuoUniversal\DuoException;
@@ -59,21 +59,8 @@ class SessionController extends BaseController
      */
     public function loginAction()
     {
-        $rememberMe = false;
-        $username = '';
-        $password = '';
-
-        if ($this->request->isPost() && $this->security->checkToken())
-        {
-            $username = trim($this->request->get('username'));
-            $password = trim($this->request->get('password'));
-            $rememberMe = $this->request->get('rememberme');
-        }
-        else if ($this->cookies->has('username') && $this->cookies->has('password'))
-        {
-            $username = trim($this->cookies->get('username')->getValue());
-            $password = trim($this->cookies->get('password')->getValue());
-        }
+        $rememberMe = $this->request->get('rememberme');
+        $this->getCredentials($username, $password);
 
         $user = Users::findFirst([
             'username = :username:',
@@ -203,8 +190,8 @@ class SessionController extends BaseController
         if ($user)
         {
             $client = $this->getDuoClient();
-            $state = $this->request->getQuery("state");
-            $duo_code = $this->request->getQuery("duo_code");
+            $state = $this->request->getQuery('state');
+            $duo_code = $this->request->getQuery('duo_code');
 
             try
             {
@@ -226,7 +213,7 @@ class SessionController extends BaseController
             $this->registerSession($user);
             $this->assets->addScript('redirect_to_base');
             $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
-            $this->setLastLoginSuccesfull($user);
+            $this->setLastSuccesfulLogin($user);
         }
         else
         {
@@ -247,6 +234,20 @@ class SessionController extends BaseController
         session_regenerate_id(true);
     }
 
+    private function getCredentials(&$username = '', &$password = '')
+    {
+        if ($this->request->isPost() && $this->security->checkToken())
+        {
+            $username = trim($this->request->get('username'));
+            $password = trim($this->request->get('password'));
+        }
+        else if ($this->cookies->has('username') && $this->cookies->has('password'))
+        {
+            $username = trim($this->cookies->get('username')->getValue());
+            $password = trim($this->cookies->get('password')->getValue());
+        }
+    }
+
     /**
      * Sets session cookie with user id and username.
      *
@@ -263,14 +264,25 @@ class SessionController extends BaseController
         );
     }
 
+    /**
+     * Normal login method. Registers a session, makes the last successful login datetime persistent in the database.
+     *
+     * @param Users $user    The user being logged in.
+     */
     private function login(ModelInterface $user)
     {
         $this->registerSession($user);
         $this->assets->addScript('redirect_to_base');
         $this->view->disableLevel(View::LEVEL_ACTION_VIEW);
-        $this->setLastLoginSuccesfull($user);
+        $this->setLastSuccesfulLogin($user);
     }
 
+    /**
+     * Duo 2FA login method. Creates a Duo authentication URL and redirects to that URL.
+     * Makes the state persistent in the database for the user that tries to log in.
+     *
+     * @param Users $user    The user being logged in.
+     */
     private function loginDuo(ModelInterface $user)
     {
         $client = $this->getDuoClient();
@@ -280,7 +292,12 @@ class SessionController extends BaseController
         $this->response->redirect($client->createAuthUrl($user->username, $user->duostate));
     }
 
-    private function setLastLoginSuccesfull(ModelInterface $user)
+    /**
+     * Cleans up persistent state of the logged in user.
+     *
+     * @param Users $user    The user being logged in.
+     */
+    private function setLastSuccesfulLogin(ModelInterface $user)
     {
         $user->failed_logins = 0;
         $user->last_failed_attempt = $user->duostate = null;

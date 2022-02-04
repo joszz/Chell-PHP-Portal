@@ -42,10 +42,7 @@ class SettingsDeviceForm extends SettingsBaseForm
         $broadcast = new Text('broadcast');
         $broadcast->setLabel('Broadcast address')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control'])
-            ->addValidators([
-                new IP(['message' => $this->translator->validation['ip'], 'allowPrivate' => true, 'allowEmpty' => true])
-            ]);
+            ->setAttributes(['class' => 'form-control']);
 
         $mac = new Text('mac');
         $mac->setLabel('MAC')
