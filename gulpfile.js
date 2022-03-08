@@ -1,6 +1,6 @@
 ﻿const gulp = require('gulp');
 const package = require('./package.json');
-const sass = require('gulp-sass')(require('sass'));
+const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
 const del = require('del');
 const cssnano = require('gulp-cssnano');
