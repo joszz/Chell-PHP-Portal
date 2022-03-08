@@ -121,14 +121,18 @@ class Devices extends BaseModel
      *
      * @return bool Awake or not?
      */
-    private function adbIsAwake() : bool
+    private function adbIsAwake(int $retryCounter = 0) : bool
     {
         $this->adbConnect();
         $output = strtolower(shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys power | grep -e "mWakefulness" | head -1'));
 
-        if (empty($output))
+        if (++$retryCounter >= 5 )
         {
-            return $this->adbIsAwake();
+            return false;
+        }
+        else if (empty($output))
+        {
+            return $this->adbIsAwake($retryCounter);
         }
 
         return strpos($output, 'asleep') === false && strpos($output, 'dozing') === false;
