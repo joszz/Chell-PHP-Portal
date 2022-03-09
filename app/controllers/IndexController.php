@@ -13,6 +13,9 @@ use Chell\Models\Kodi\KodiAlbums;
 use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\SnmpHosts;
 use Chell\Models\WidgetPosition;
+use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Model\ResultsetInterface;
+use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 use Phalcon\Mvc\View;
 
 /**
@@ -30,6 +33,7 @@ class IndexController extends BaseController
         $this->setWidgets();
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
+        $this->view->moveWidgetVisible = $_GET['moveWidgetVisible'] ?? false;
 
         if ($this->settings->kodi->enabled)
         {
@@ -88,9 +92,58 @@ class IndexController extends BaseController
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
     }
 
-    public function movewidgetAction()
+    /**
+     * Moves a widget position up or down, swapping the position with the widget already there.
+     *
+     * @param string $direction     Either 'up' or 'down', moving the widget in that direction on the dashboard.
+     * @param int $id               The id of the widget to move.
+     */
+    public function movewidgetAction(string $direction, int $id)
     {
-        
+        $widgetToMove = WidgetPosition::findFirst([
+            'conditions' => 'id = ?1',
+            'bind'       => [1 => $id],
+        ]);
+        $maxPosition = WidgetPosition::maximum(['column' => 'position']);
+        $widgetToSwapPlaceWith;
+
+        if ($direction === 'down' && $widgetToMove->position + 1 < $maxPosition)
+        {
+            $widgetToMove->position += 1;
+            $widgetToSwapPlaceWith = WidgetPosition::findFirst([
+                'conditions' => 'position = ?1',
+                'bind'       => [1 => $widgetToMove->position],
+            ]);
+            $widgetToSwapPlaceWith->position -= 1;
+        }
+        else if ($widgetToMove->position > 1)
+        {
+            $widgetToMove->position -= 1;
+            $widgetToSwapPlaceWith = WidgetPosition::findFirst([
+                'conditions' => 'position = ?1',
+                'bind'       => [1 => $widgetToMove->position],
+            ]);
+            $widgetToSwapPlaceWith->position += 1;
+        }
+
+        if ($widgetToSwapPlaceWith)
+        {
+            $transactionManager = new TransactionManager();
+            $transaction = $transactionManager->get();
+            $widgetToMove->setTransaction($transaction);
+            $widgetToSwapPlaceWith->setTransaction($transaction);
+
+            if ($widgetToMove->save() === false || $widgetToSwapPlaceWith->save() === false)
+            {
+                $transaction->rollback();
+            }
+            else
+            {
+                $transaction->commit();
+            }
+        }
+
+        $this->response->redirect('?moveWidgetVisible=true');
     }
 
     /**
@@ -196,14 +249,26 @@ class IndexController extends BaseController
         $this->assets->addScripts($scripts)->addStyles($styles);
     }
 
-    private function addWidget($controller, $controllerInstance, $widgetPositions, $name, &$widgets)
+    /**
+     * Adds a widget to the array of widgets, passed by reference.
+     * Each controller that inherits from WidgetController, has a Widget class.
+     * Retrieve this Widget class through reflection (using $controller and $controllerInstance).
+     * Set the widget in the correct position in the array (the key of $widgets) and set the Id and the partial to use to use as the widget's view.
+     *
+     * @param ReflectionClass $controller           Used to retrieve the Widget class.
+     * @param Controller $controllerInstance        Used to retrieve the Widget class.
+     * @param ResultsetInterface $widgetPositions   All the widget positions in one resultset.
+     * @param string $controllerName                The name of the controller the widget belongs to.
+     * @param array $widgets                        All the widgets in an array so far.
+     */
+    private function addWidget(ReflectionClass $controller, Controller $controllerInstance, ResultsetInterface $widgetPositions, string $controllerName, array &$widgets)
     {
         $widgetProperty = $controller->getProperty('widget');
         $widgetProperty->setAccessible(true);
         $widget = $widgetProperty->getValue($controllerInstance);
 
-        $currentWidgetPositions = $widgetPositions->filter(function($widgetPostion) use($name) {
-            if ($widgetPostion->controller == $name)
+        $currentWidgetPositions = $widgetPositions->filter(function($widgetPostion) use($controllerName) {
+            if ($widgetPostion->controller == $controllerName)
             {
                 return $widgetPostion;
             }

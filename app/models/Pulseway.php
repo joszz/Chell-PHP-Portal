@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * The model responsible for all actions related to Pulseway.
@@ -72,10 +73,17 @@ class Pulseway extends BaseModel
         }
 
         $client = new Client();
-        $response = $client->request('GET', $this->_settings->pulseway->url . $url,
-			['auth' => [$this->_settings->pulseway->username , $this->_settings->pulseway->password]]);
-        $content = $response->getBody();
 
-        return $decode ? json_decode($content) : $content;
+        try
+        {
+            $response = $client->request('GET', $this->_settings->pulseway->url . $url,
+                ['auth' => [$this->_settings->pulseway->username , $this->_settings->pulseway->password]]);
+            $content = $response->getBody();
+            return $decode ? json_decode($content) : $content;
+        }
+        catch(ClientException $e)
+        {
+            return false;
+        }
     }
 }

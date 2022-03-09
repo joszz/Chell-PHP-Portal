@@ -4,6 +4,6 @@
 <button class="btn btn-default fa fa-sync rounded-not-mobile" title="Refresh" aria-label="Refresh"></button>
 <?php endif ?>
 
-<a href="<?php echo $this->url->get('movewidget/up/' . $widgetId) ?>" class="btn btn-default fa fa-chevron-up move-widget hidden" title="Move up" aria-label="Move up"></a>
-<a href="<?php echo $this->url->get('movewidget/down/' . $widgetId) ?>" class="btn btn-default fa fa-chevron-down move-widget hidden" title="Move down" aria-label="Move down"></a>
+<a href="<?php echo $this->url->get('index/movewidget/up/' . $widgetId) ?>" class="btn btn-default fa fa-chevron-up move-widget <?php echo $moveWidgetVisible ? '' : 'hidden' ?>" title="Move up" aria-label="Move up"></a>
+<a href="<?php echo $this->url->get('index/movewidget/down/' . $widgetId) ?>" class="btn btn-default fa fa-chevron-down move-widget <?php echo $moveWidgetVisible ? '' : 'hidden' ?>" title="Move down" aria-label="Move down"></a>
 <button class="btn btn-default fa fa-<?php echo ($expanded ?? false) ? 'minus' : 'plus' ?> visible-xs toggle-collapse" title="Collapse/expand" aria-label="Collapse/expand"></button>
