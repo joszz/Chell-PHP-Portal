@@ -8,7 +8,7 @@
         <div class="btn-group pull-right">
             <a href="<?php echo $this->settings->psaremote->url ?>"
                 target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="PSA Remote"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="PSA Remote">PSA Remote</h4>
     </div>

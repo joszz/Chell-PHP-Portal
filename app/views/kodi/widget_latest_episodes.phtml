@@ -6,7 +6,7 @@
         <div class="btn-group pull-right">
             <button class="btn btn-default fa fa-chevron-left" title="Previous episode" aria-label="Previous episode"></button>
             <button class="btn btn-default fa fa-chevron-right rounded-not-mobile" title="Next episode" aria-label="Next episode"></button>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="Latest episodes">Latest episodes</h4>
     </div>

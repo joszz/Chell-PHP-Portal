@@ -3,7 +3,7 @@
 <div class="panel panel-success devices" data-device-state-interval="<?php echo $this->settings->application->check_device_states_interval ?>">
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="Devices">Devices</h4>
     </div>

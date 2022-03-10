@@ -133,8 +133,14 @@ function initializeDashboardEventHandlers() {
 
     $("#move_widgets").click(function () {
         $(".move-widget").toggleClass("hidden");
+        sessionStorage.setItem("move-widget-visible", !$(".move-widget").hasClass("hidden"));
+
         return false;
     });
+    
+    if (sessionStorage.getItem("move-widget-visible") == "true") {
+        $(".move-widget").removeClass("hidden");
+    }
 }
 
 function initializeTinyTimer($this) {

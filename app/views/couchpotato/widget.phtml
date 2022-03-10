@@ -11,7 +11,7 @@
             <button class="btn btn-default fa fa-chevron-left" title="Next movie" aria-label="Next movie"></button>
             <button class="btn btn-default fa fa-chevron-right" title="Previous movie" aria-label="Previous movie"></button>
             <button class="btn btn-default fa fa-search" title="Search wanted movies now!" aria-label="Search wanted movies now!"></button>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="CouchPotato">CouchPotato</h4>
     </div>

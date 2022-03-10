@@ -8,7 +8,7 @@
             <a href="<?php echo $this->url->get('verisure/details/') ?>" data-fancybox data-type="iframe" class="btn btn-default fa fa-chart-bar" title="Details"></a>
             <button class="btn btn-default fa fa-camera" title="Take photo" aria-label="Take photo"></button>
             <button class="btn btn-default fa fa-image hidden" title="Photos" aria-label="Photos"></button>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="Verisure">Verisure</h4>
     </div>

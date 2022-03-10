@@ -11,7 +11,7 @@
         <div class="btn-group pull-right">
             <a href="<?php echo $this->settings->youless->url ?>"
                 target="_blank" class="btn btn-default fa fa-globe" rel="noreferrer" title="Youless"></a>
-            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widgetId' => $widget->id]) ?>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
         </div>
         <h4 class="truncate-text" title="Youless">Youless</h4>
     </div>

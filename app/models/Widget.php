@@ -10,6 +10,7 @@ namespace Chell\Models;
 class Widget
 {
     public int $id;
+    public int $position;
     public string $partial;
 
     /**

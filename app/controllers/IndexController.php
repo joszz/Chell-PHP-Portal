@@ -33,7 +33,7 @@ class IndexController extends BaseController
         $this->setWidgets();
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
-        $this->view->moveWidgetVisible = $_GET['moveWidgetVisible'] ?? false;
+        $this->view->maxWidgetPosition = $this->getMaxWidgetPosition();
 
         if ($this->settings->kodi->enabled)
         {
@@ -104,7 +104,7 @@ class IndexController extends BaseController
             'conditions' => 'id = ?1',
             'bind'       => [1 => $id],
         ]);
-        $maxPosition = WidgetPosition::maximum(['column' => 'position']);
+        $maxPosition = $this->getMaxWidgetPosition();
         $widgetToSwapPlaceWith;
 
         if ($direction === 'down' && $widgetToMove->position + 1 < $maxPosition)
@@ -179,6 +179,11 @@ class IndexController extends BaseController
         }
 
         return $dnsPrefetchRecords;
+    }
+
+    private function getMaxWidgetPosition() : int
+    {
+        return WidgetPosition::maximum(['column' => 'position']);
     }
 
     /**
@@ -279,6 +284,7 @@ class IndexController extends BaseController
             $widget = clone $widget;
             $widget->id = $currentWidgetPosition->id;
             $widget->partial = $currentWidgetPosition->controller . '/' . $currentWidgetPosition->widget_viewname;
+            $widget->position = $currentWidgetPosition->position;
             $widgets[$currentWidgetPosition->position] = $widget;
         }
     }
