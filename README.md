@@ -47,7 +47,6 @@ It aggregates different services and webapplications that I want easily accessib
 - [Pihole](https://pi-hole.net/)
 - [Pulseway](https://www.pulseway.com/)
 - [QBittorrent](https://www.qbittorrent.org/)
-- [rCPU](https://github.com/davidsblog/rCPU)
 - [Redis](https://redis.io/)
 - [Remote Control of PSA car](https://github.com/flobz/psa_car_controller)
 - [Roborock](https://github.com/rytilahti/python-miio)

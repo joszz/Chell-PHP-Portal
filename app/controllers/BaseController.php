@@ -40,8 +40,8 @@ class BaseController extends Controller
     }
 
     /**
-     * Retreives the background color class based on the settings.
-     * If set to 'timebg', get the sunrise/sunset infor and compare this to the time in order to decide what color to use.
+     * Retrieves the background color class based on the settings.
+     * If set to 'timebg', get the sunrise/sunset info and compare this to the time in order to decide what color to use.
      *
      * @return string   The CSS class used to set the background color.
      */

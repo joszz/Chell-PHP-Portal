@@ -33,6 +33,7 @@
                     urlJSON: $(this).data("kodi-url") + "/jsonrpc",
                     password: $(this).data("kodi-password"),
                     username: $(this).data("kodi-username"),
+                    enabled: $(this).data("kodi-enabled"),
                     timeout: 5000
                 }
             }, options);
@@ -81,7 +82,10 @@
                     settings.block.find(".player:not(.nothing-playing)").remove();
 
                     functions.subsonic.nowPlaying();
-                    functions.kodi.nowPlaying();
+
+                    if (settings.kodi.enabled) {
+                        functions.kodi.nowPlaying();
+                    }
 
                     var checkloadingInterval = window.setInterval(function () {
                         if (!onload && settings.kodi.loading === false && settings.subsonic.loading === false) {
@@ -132,7 +136,10 @@
                         settings.block.find(".player:not(.nothing-playing)").remove();
 
                         functions.subsonic.nowPlaying();
-                        functions.kodi.nowPlaying();
+
+                        if (settings.kodi.enabled) {
+                            functions.kodi.nowPlaying();
+                        }
                     }, settings.updateInterval);
                 },
 

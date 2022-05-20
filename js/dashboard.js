@@ -64,8 +64,8 @@ function initializePlugins() {
     if (typeof $.fn.roborock !== "undefined") {
         $(".roborock").roborock();
     }
-    if (typeof $.fn.rcpu !== "undefined") {
-        $(".cpu").rcpu();
+    if (typeof $.fn.cpu !== "undefined") {
+        $(".cpu").cpu();
     }
     if (typeof $.fn.pulseway !== "undefined") {
         $(".pulseway").pulseway();

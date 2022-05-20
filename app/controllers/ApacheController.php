@@ -34,7 +34,7 @@ class ApacheController extends WidgetController
     }
 
     /**
-     * Details page showing
+     * Showing details page 
      */
     public function detailsAction()
     {

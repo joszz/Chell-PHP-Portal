@@ -23,7 +23,7 @@ class Psaremote extends BaseModel
      */
     public function GetVehicleInfo(bool $cache = true)
     {
-        $client = $this->getHttpClient('/get_vehicleinfo/' . $this->_settings->psaremote->vin . ($cache ? '?from_cache=1' : null));
+        $client = $this->getHttpClient('get_vehicleinfo/' . $this->_settings->psaremote->vin . ($cache ? '?from_cache=1' : null));
         $result = json_decode($client->getBody());
         $output = $result;
 
@@ -70,7 +70,6 @@ class Psaremote extends BaseModel
     private function getHttpClient(string $url) : ResponseInterface
     {
         $client = new Client();
-        return $client->request('GET', $this->_settings->psaremote->url . $url,
-            ['auth' => [$this->_settings->psaremote->username, $this->_settings->psaremote->password]]);
+        return $client->request('GET', $this->_settings->psaremote->url . $url);
     }
 }
