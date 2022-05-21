@@ -128,12 +128,12 @@ class SpeedtestController extends WidgetController
 
         foreach($page->items as $stat)
         {
-            $labels[] = $stat['id'];
+            $labels[] = $stat->id;
 
-            $dl[] = empty($stat['dl']) ? '0' : $stat['dl'];
-            $ul[] = empty($stat['ul']) ? '0' : $stat['ul'];
-            $ping[] = empty($stat['ping']) ? '0' : $stat['ping'];
-            $jitter[] = empty($stat['jitter']) ? '0' : $stat['jitter'];
+            $dl[] = empty($stat->dl) ? '0' : $stat->dl;
+            $ul[] = empty($stat->ul) ? '0' : $stat->ul;
+            $ping[] = empty($stat->ping) ? '0' : $stat->ping;
+            $jitter[] = empty($stat->jitter) ? '0' : $stat->jitter;
         }
 
         $this->view->activetab =  $activeTab;

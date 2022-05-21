@@ -19,26 +19,26 @@
                 <?php foreach($stats->items AS $stat) : ?>
                 <tr>
                     <td class="text-nowrap">
-                        <?php echo date('Y-m-d H:i', strtotime($stat['timestamp'])) ?>
+                        <?php echo date('Y-m-d H:i', strtotime($stat->timestamp)) ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['ip']) ? $stat['ip'] : '&hellip;' ?>
+                        <?php echo !empty($stat->ip) ? $stat->ip : '&hellip;' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['dl']) ? $stat['dl'] . '&nbsp;Mbps' : '&hellip;' ?>
+                        <?php echo !empty($stat->dl) ? $stat->dl . '&nbsp;Mbps' : '&hellip;' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['ul']) ? $stat['ul'] .'&nbsp;Mbps' : '&hellip;' ?>
+                        <?php echo !empty($stat->ul) ? $stat->ul .'&nbsp;Mbps' : '&hellip;' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['ping']) ? $stat['ping'] . '&nbsp;ms' : '&hellip;' ?>
+                        <?php echo !empty($stat->ping) ? $stat->ping . '&nbsp;ms' : '&hellip;' ?>
                     </td>
                     <td>
-                        <?php echo !empty($stat['jitter']) ? $stat['jitter'] .'&nbsp;ms' : '&hellip;' ?>
+                        <?php echo !empty($stat->jitter) ? $stat->jitter .'&nbsp;ms' : '&hellip;' ?>
                     </td>
                     <td class="text-center">
                         <?php 
-                            $browser = json_decode($stat['extra']);
+                            $browser = json_decode($stat->extra);
                             if (isset($browser->parse->software_name))
                             {
                                 $browser = $browser->parse->software_name;
@@ -47,7 +47,7 @@
                         <i class="text-success fa fa-<?php echo str_replace(' ', '-', strtolower($browser)) ?>" title="<?php echo $browser ?>"></i>
                     </td>
                     <td class="text-center">
-                        <a href="<?php echo $this->url->get('speedtest/share/' . $stat['id']) ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt" title="Share"></a>
+                        <a href="<?php echo $this->url->get('speedtest/share/' . $stat->id) ?>" target="_blank" class="btn btn-success btn-sm fa fa-share-alt" title="Share"></a>
                     </td>
                 </tr>
                 <?php endforeach ?>
