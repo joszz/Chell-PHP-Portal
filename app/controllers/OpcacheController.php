@@ -29,7 +29,7 @@ class OpcacheController extends WidgetController
      */
     public function addAssets()
     {
-        $this->jsFiles = ['chartist', 'chartist-plugin-legend'];
+        $this->jsFiles = ['chartjs'];
     }
 
     /**

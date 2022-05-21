@@ -23,6 +23,7 @@
                 { name: "Hits", legendNames: ["Misses", "Hits"], unitIndicator: false, active: false },
                 { name: "Restarts", legendNames: ["Memory", "Manual", "Keys"], unitIndicator: false, active: false },
             ],
+            chart: undefined
 
         }, options);
 
@@ -91,66 +92,68 @@
                     chartData = settings.charts[0];
                 }
 
-                var chart = new Chartist.Pie(".panel.opcache .graph", {
-                    series: chartData.data
-                }, {
-                    donut: true,
-                    donutWidth: 30,
-                    showLabel: true,
-                    plugins: [
-                        Chartist.plugins.legend({
-                            position: "bottom",
-                            legendNames: chartData.legendNames
-                        })
-                    ],
-                    labelInterpolationFnc: function (value) {
-                        return value + (chartData.unitIndicator ? " " + chartData.unitIndicator : "");
-                    }
-                });
+                const data = {
+                    labels: chartData.legendNames,
+                    datasets: [{
+                        label: 'My First Dataset',
+                        data: chartData.data,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+                };
 
-                chart.on("draw", functions.animateChart);
-                chart.on("created", function () {
-                    setTimeout(function () {
-                        settings.block.find(".ct-label ").fadeTo("fast", 1);
-                    }, 1000);
+                if (settings.chart) {
+                    settings.chart.destroy();
 
-                });
-            },
-
-            /**
-             * Animates the chart, same as the example on ChartistJS website.
-             *
-             * @method animateChart
-             */
-            animateChart: function (data) {
-                if (data.type === "slice") {
-                    var pathLength = data.element._node.getTotalLength();
-
-                    data.element.attr({
-                        "stroke-dasharray": pathLength + "px " + pathLength + "px"
-                    });
-
-                    var animationDefinition = {
-                        "stroke-dashoffset": {
-                            id: "anim" + data.index,
-                            dur: 750,
-                            from: -pathLength + "px",
-                            to: "0px",
-                            easing: Chartist.Svg.Easing.easeOutQuint,
-                            fill: "freeze"
-                        }
-                    };
-
-                    if (data.index !== 0) {
-                        animationDefinition["stroke-dashoffset"].begin = "anim" + (data.index - 1) + ".end";
-                    }
-
-                    data.element.attr({
-                        "stroke-dashoffset": -pathLength + "px"
-                    });
-
-                    data.element.animate(animationDefinition, false);
                 }
+
+                const config = {
+                    type: 'doughnut',
+                    data: data,
+                   
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: chartData.name
+                            }
+                        }
+                    },
+                };
+                settings.chart = new Chart(document.getElementById("test"), config);
+                //var chart = new Chartist.Pie(".panel.opcache .graph", {
+                //    series: chartData.data
+                //}, {
+                //    donut: true,
+                //    donutWidth: 30,
+                //    showLabel: true,
+                //    plugins: [
+                //        Chartist.plugins.legend({
+                //            position: "bottom",
+                //            legendNames: chartData.legendNames
+                //        })
+                //    ],
+                //    labelInterpolationFnc: function (value) {
+                //        return value + (chartData.unitIndicator ? " " + chartData.unitIndicator : "");
+                //    }
+                //});
+
+                //chart.on("draw", functions.animateChart);
+                //chart.on("created", function () {
+                //    setTimeout(function () {
+                //        settings.block.find(".ct-label ").fadeTo("fast", 1);
+                //    }, 1000);
+
+                //});
             }
         };
 
