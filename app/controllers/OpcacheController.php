@@ -29,7 +29,7 @@ class OpcacheController extends WidgetController
      */
     public function addAssets()
     {
-        $this->jsFiles = ['chartjs'];
+        $this->jsFiles = ['chart', 'chartjs-plugin-datalabels'];
     }
 
     /**

@@ -92,68 +92,51 @@
                     chartData = settings.charts[0];
                 }
 
-                const data = {
-                    labels: chartData.legendNames,
-                    datasets: [{
-                        label: 'My First Dataset',
-                        data: chartData.data,
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
-                    }]
-                };
-
                 if (settings.chart) {
                     settings.chart.destroy();
-
                 }
 
-                const config = {
-                    type: 'doughnut',
-                    data: data,
-                   
-                    options: {
-                        maintainAspectRatio: false,
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: chartData.name
+                if (chartData.data.reduce((a, b) => a + b) == 0) {
+                    settings.block.find(".no-data").show();
+                }
+                else {
+                    settings.block.find(".no-data").hide();
+                    const config = {
+                        type: "doughnut",
+                        data: {
+                            labels: chartData.legendNames,
+                            datasets: [{
+                                label: "My First Dataset",
+                                data: chartData.data,
+                                backgroundColor: [
+                                    "#3c763d",
+                                    "rgb(54, 162, 235)",
+                                    "rgb(255, 99, 132)",
+                                ],
+                                hoverOffset: 4
+                            }]
+                        },
+                        plugins: [ChartDataLabels],
+                        options: {
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            plugins: {
+                                datalabels: {
+                                    color: '#FFF'
+                                },
+                                legend: {
+                                    position: "top",
+                                },
+                                title: {
+                                    display: true,
+                                    text: chartData.name
+                                }
                             }
-                        }
-                    },
-                };
-                settings.chart = new Chart(document.getElementById("test"), config);
-                //var chart = new Chartist.Pie(".panel.opcache .graph", {
-                //    series: chartData.data
-                //}, {
-                //    donut: true,
-                //    donutWidth: 30,
-                //    showLabel: true,
-                //    plugins: [
-                //        Chartist.plugins.legend({
-                //            position: "bottom",
-                //            legendNames: chartData.legendNames
-                //        })
-                //    ],
-                //    labelInterpolationFnc: function (value) {
-                //        return value + (chartData.unitIndicator ? " " + chartData.unitIndicator : "");
-                //    }
-                //});
+                        },
+                    };
 
-                //chart.on("draw", functions.animateChart);
-                //chart.on("created", function () {
-                //    setTimeout(function () {
-                //        settings.block.find(".ct-label ").fadeTo("fast", 1);
-                //    }, 1000);
-
-                //});
+                    settings.chart = new Chart(settings.block.find("canvas")[0], config);
+                }
             }
         };
 

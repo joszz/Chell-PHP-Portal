@@ -79,7 +79,7 @@
                             max: 100,
                             ticks: {
                                 callback: function (value) {
-                                    return value + '%';
+                                    return value + "%";
                                 },
                             },
                         }
@@ -99,7 +99,7 @@
             * @method initialize
             */
             initialize: function () {
-                new Chart(document.getElementById("cpu-chart"), settings.config);
+                new Chart(settings.block.find("canvas")[0], settings.config);
             }
         };
 

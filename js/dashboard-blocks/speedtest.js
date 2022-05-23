@@ -79,33 +79,81 @@
              */
             initializeIframe: function () {
                 var panel = settings.block.closest(".panel.with-nav-tabs");
-                var chart = new Chartist.Bar("#ct-chart",
-                    {
-                        labels: settings.block.data("labels").toString().indexOf(",") != -1 ? settings.block.data("labels").split(",") : [settings.block.data("labels")],
-                        series: [
-                            settings.block.data("dl").toString().indexOf(",") != -1 ? settings.block.data("dl").split(",") : [settings.block.data("dl")],
-                            settings.block.data("ul").toString().indexOf(",") != -1 ? settings.block.data("ul").split(",") : [settings.block.data("ul")],
-                            settings.block.data("ping").toString().indexOf(",") != -1 ? settings.block.data("ping").split(",") : [settings.block.data("ping")],
-                            settings.block.data("jitter").toString().indexOf(",") != -1 ? settings.block.data("jitter").split(",") : [settings.block.data("jitter")]
-                        ]
-                    },
-                    {
-                        horizontalBars: true,
-                        height: "650px",
-                        plugins: [
-                            Chartist.plugins.legend({
-                                legendNames: ["Download", "Upload", "Ping", "Jitter"]
-                            })
-                        ]
-                    }
-                );
 
-                //Update chart after 250ms timeout since it will otherwise display incorrectly
-                panel.find(".nav-tabs a").click(function () {
-                    setTimeout(function () {
-                        chart.update();
-                    }, 250);
-                });
+                const data = {
+                    labels: settings.block.data("labels").toString().indexOf(",") != -1 ? settings.block.data("labels").split(",") : [settings.block.data("labels")],
+                    datasets: [
+                        {
+                            label: 'Download',
+                            data: settings.block.data("dl").toString().indexOf(",") != -1 ? settings.block.data("dl").split(",") : [settings.block.data("dl")]
+                        },
+                        {
+                            label: 'Upload',
+                            data: settings.block.data("ul").toString().indexOf(",") != -1 ? settings.block.data("ul").split(",") : [settings.block.data("ul")]
+                        },
+                        {
+                            label: 'Ping',
+                            data: settings.block.data("ping").toString().indexOf(",") != -1 ? settings.block.data("ping").split(",") : [settings.block.data("ping")]
+                        },
+                        {
+                            label: 'Jitter',
+                            data: settings.block.data("jitter").toString().indexOf(",") != -1 ? settings.block.data("jitter").split(",") : [settings.block.data("jitter")]
+                        }
+                    ]
+                };
+
+                const config = {
+                    type: 'bar',
+                    data: data,
+                    options: {
+                        indexAxis: 'y',
+                        // Elements options apply to all of the options unless overridden in a dataset
+                        // In this case, we are setting the border of each horizontal bar to be 2px wide
+                        elements: {
+                            bar: {
+                                borderWidth: 2,
+                            }
+                        },
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            title: {
+                                display: true,
+                                text: 'Chart.js Horizontal Bar Chart'
+                            }
+                        }
+                    },
+                };
+                new Chart(settings.block[0], config);
+                //var chart = new Chartist.Bar("#ct-chart",
+                //    {
+                //        labels: settings.block.data("labels").toString().indexOf(",") != -1 ? settings.block.data("labels").split(",") : [settings.block.data("labels")],
+                //        series: [
+                //            settings.block.data("dl").toString().indexOf(",") != -1 ? settings.block.data("dl").split(",") : [settings.block.data("dl")],
+                //            settings.block.data("ul").toString().indexOf(",") != -1 ? settings.block.data("ul").split(",") : [settings.block.data("ul")],
+                //            settings.block.data("ping").toString().indexOf(",") != -1 ? settings.block.data("ping").split(",") : [settings.block.data("ping")],
+                //            settings.block.data("jitter").toString().indexOf(",") != -1 ? settings.block.data("jitter").split(",") : [settings.block.data("jitter")]
+                //        ]
+                //    },
+                //    {
+                //        horizontalBars: true,
+                //        height: "650px",
+                //        plugins: [
+                //            Chartist.plugins.legend({
+                //                legendNames: ["Download", "Upload", "Ping", "Jitter"]
+                //            })
+                //        ]
+                //    }
+                //);
+
+                ////Update chart after 250ms timeout since it will otherwise display incorrectly
+                //panel.find(".nav-tabs a").click(function () {
+                //    setTimeout(function () {
+                //        chart.update();
+                //    }, 250);
+                //});
 
                 panel.find(".paginator a:not([href='#'])").click(function () {
                     var href = $(this).attr("href");

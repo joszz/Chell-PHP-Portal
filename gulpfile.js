@@ -80,6 +80,7 @@ var config = {
             'node_modules/luxon/build/global/luxon.js',
             'node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.js',
             'node_modules/chartjs-plugin-streaming/dist/chartjs-plugin-streaming.js',
+			'node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js',
             'js/dashboard-blocks/*.js',
             'js/dashboard.js',
             'js/toggle-passwords.js',
