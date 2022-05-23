@@ -114,9 +114,8 @@
                     type: "bar",
                     data: data,
                     options: {
+                        maintainAspectRatio: false,
                         indexAxis: "y",
-                        // Elements options apply to all of the options unless overridden in a dataset
-                        // In this case, we are setting the border of each horizontal bar to be 2px wide
                         elements: {
                             bar: {
                                 borderWidth: 2
@@ -354,7 +353,7 @@
     };
 
     //Called from Speedtest stats dialog
-    if ($("#speedtest-chart").length) {
-        $("#speedtest-chart").speedtest().initializeIframe();
+    if ($("#speedtest-chart canvas").length) {
+        $("#speedtest-chart canvas").speedtest().initializeIframe();
     }
 })(jQuery);

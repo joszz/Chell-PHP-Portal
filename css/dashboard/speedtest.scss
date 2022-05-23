@@ -70,6 +70,10 @@
     }
 }
 
+#speedtest-chart {
+    height: 528px;
+}
+
 @media only screen and (max-width : $screen-xs) {
     .speedtest .tab-pane {
         height: 400px;
