@@ -277,7 +277,9 @@ class FrontController
      */
     public function __toString() : string
     {
-        $uri = str_replace(BASEPATH, '', '/' . (new Request())->getURI());
+        //todo: check dit
+        $uri = (new Request())->getURI();
+        //$uri = str_replace(BASEPATH, '', '/' . (new Request())->getURI());
         return $this->application->handle($uri)->getContent();
     }
 }
