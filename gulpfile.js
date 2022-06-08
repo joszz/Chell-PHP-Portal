@@ -57,8 +57,6 @@ var config = {
             'node_modules/bootstrap-select/dist/js/bootstrap-select.js',
             'node_modules/bootstrap-toggle/js/bootstrap-toggle.js',
             'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
-            'node_modules/chartist/dist/chartist.js',
-            'node_modules/chartist-plugin-legend/chartist-plugin-legend.js',
             'node_modules/spark-md5/spark-md5.js',
             'node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
             'node_modules/jquery.vibrate/build/jquery/jquery.vibrate.js',

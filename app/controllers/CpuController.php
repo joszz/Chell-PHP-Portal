@@ -8,7 +8,6 @@ use Chell\Models\Cpu;
 
 /**
  * The controller responsible for all CPU widget related actions.
- * Currently just used as a stub, to indicate this widget exists.
  *
  * @package Controllers
  */

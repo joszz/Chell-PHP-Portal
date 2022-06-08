@@ -2,6 +2,7 @@
 
 namespace Chell\Models;
 
+use Exception;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,9 +22,18 @@ class Jellyfin extends BaseModel
      */
     public function getViews() : array
     {
-        $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
-        $output = $response->getBody();
         $result = [];
+
+        try
+        {
+            $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
+        }
+        catch(Exception)
+        {
+            return $result;
+        }
+
+        $output = $response->getBody();
 
         if (!empty($output))
         {
@@ -47,9 +57,19 @@ class Jellyfin extends BaseModel
      */
     public function getLatestForView(string $viewId, int $limit = 10) : array
     {
-        $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
-        $output = $response->getBody();
         $result = [];
+
+        try
+        {
+            $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+        }
+        catch(Exception)
+        {
+            return $result;
+        }
+
+        $output = $response->getBody();
+
         $count = 0;
 
         if (!empty($output))
