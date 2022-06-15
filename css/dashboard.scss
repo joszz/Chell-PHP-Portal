@@ -75,6 +75,11 @@ li.list-group-item {
         border-bottom: 0;
         border-radius: 0;
     }
+
+    &:hover {
+        color: $state-success-text;
+        background-color: $state-success-bg;
+    }
 }
 
 @media only screen and (min-width : ($screen-xs + 1)) {
