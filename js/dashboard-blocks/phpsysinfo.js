@@ -240,8 +240,9 @@
                         var total = functions.getFormattedSize(value["@attributes"].Total);
                         var free = functions.getFormattedSize(value["@attributes"].Free);
                         var used = functions.getFormattedSize(value["@attributes"].Used);
+                        var mountpoint = value["@attributes"].MountPoint;
 
-                        disk.find(".name").html(value["@attributes"].MountPoint);
+                        disk.find(".name").html(mountpoint);
                         disk.find(".progress-bar").css("width", percent);
                         disk.find(".percent").html(percent);
                         disk.find(".progress").addClass("bs-tooltip").attr("title", "Total: " + total + "\nFree: " + free + "\nUsed: " + used);
@@ -258,6 +259,16 @@
                         else {
                             disk.find(".progress-bar").addClass("progress-bar-success");
                         }
+
+                        $.getJSON("disk?mountpoint=" + encodeURIComponent(mountpoint), function (spindownStatusses) {
+                            var tooltip = "Spindown status\n";
+
+                            $.each(spindownStatusses, function (disk, status) {
+                                tooltip += disk + ": " + status + "\n";
+                            });
+
+                            disk.find(".name").addClass("bs-tooltip").attr("title", tooltip);
+                        });
                     });
                 },
 
