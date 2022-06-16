@@ -1,14 +1,14 @@
 ﻿"use strict";
 
 /**
-* The pulseway widget.
+* The docker widget.
 *
-* @class Pulseway
+* @class Docker
 * @module Dashboard
 * @submodule DashboardBlocks
 */
 (function ($) {
-    $.fn.pulseway = function (options) {
+    $.fn.docker = function (options) {
         /**
         * All the settings for this block.
         *
@@ -17,7 +17,6 @@
         */
         var settings = $.extend({
             block: $(this),
-            systems: $(this).data("systems").split(","),
             updateInterval: this.data("updateinterval") * 1000,
             updateIntervalId: -1,
         }, options);
@@ -42,7 +41,7 @@
             },
 
             /**
-             * Updates the current statistics by calling the Pulseway controller.
+             * Updates the current statistics by calling the Docker controller.
              * 
              * @method update
              * @param {boolean} initialize  Whether called on initialization or not.
@@ -55,27 +54,16 @@
                 }
 
                 $.ajax({
-                    url: "pulseway",
+                    url: "docker",
                     dataType: "json",
                     success: function (data) {
-                        settings.block.find(".system:not(.hidden)").remove();
-                        $.each(data, function (_index, system) {
-                            if (system) {
-                                var clone = settings.block.find(".system.hidden").clone();
-                                clone.find(".name span").text(system.name).attr("title", system.description);
-                                clone.find(".icon i").attr({
-                                    class: "fa fa-power-off text-" + (system.is_online ? "success" : "danger"),
-                                    title: system.is_online ? "Online" : "Offline"
-                                });
-                                clone.find(".value span.uptime").text(system.uptime);
-
-                                if (system.uptime.indexOf("Offline") !== -1) {
-                                    clone.find(".value span.uptimelabel").hide();
-                                }
-
-                                clone.removeClass("hidden");
-                                clone.appendTo(settings.block.find("ul"));
-                            }
+                        settings.block.find(".docker-container:not(.hidden)").remove();
+                        $.each(data, function (_index, container) {
+                            var clone = settings.block.find(".docker-container.hidden").clone();
+                            clone.find(".name span").text(container.name).attr("title", container.image);
+                            clone.find(".status").text(container.status);
+                            clone.removeClass("hidden");
+                            clone.appendTo(settings.block.find("ul"));
                         });
                     },
                     complete: function () {

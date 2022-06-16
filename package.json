@@ -23,7 +23,7 @@
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
 		"librespeed": "github:joszz/speedtest",
 		"node-waves": "github:joszz/waves",
-		"prismjs": "1.28.0",
+		"prismjs": "^1.28.0",
 		"responsive-paginate": "joszz/rpage",
 		"rpage": "github:joszz/rpage",
 		"spark-md5": "^3.0.2",
@@ -35,7 +35,7 @@
 		"luxon": "^2.4.0",
 		"chartjs-adapter-luxon": "^1.1.0",
 		"chartjs-plugin-streaming": "^2.0.0",
-		"chartjs-plugin-datalabels": "2.0.0"
+		"chartjs-plugin-datalabels": "^2.0.0"
 	},
 	"devDependencies": {
 		"@popperjs/core": "^2.11.4",

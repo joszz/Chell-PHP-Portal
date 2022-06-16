@@ -10,7 +10,7 @@ namespace Chell\Models;
  */
 class Disk extends BaseModel
 {
-    public function getSpindownStatsForMountpoint(string $mountPoint)
+    public function getSpindownStatsForMountpoint(string $mountPoint) : array
     {
         $disks = json_decode(shell_exec('lsblk -J'))->blockdevices;
 
@@ -30,7 +30,7 @@ class Disk extends BaseModel
         return $result;
     }
 
-    private function getMountPountForDisk(object $disk)
+    private function getMountPountForDisk(object $disk) : array
     {
         if (!empty($disk->mountpoint))
         {

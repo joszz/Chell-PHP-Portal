@@ -79,6 +79,9 @@ function initializePlugins() {
     if (typeof $.fn.psaremote !== "undefined") {
         $(".psaremote").psaremote();
     }
+    if (typeof $.fn.docker !== "undefined") {
+        $(".docker").docker();
+    }
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

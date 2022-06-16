@@ -69,7 +69,7 @@ function initializeGlobalPlugins() {
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    $("body").tooltip({ selector: ".bs-tooltip" });
+    $("body").tooltip({ selector: ".bs-tooltip", container: "body" });
 
     if ($.fn.selectpicker) {
         $("select:not(.no-selectpicker)").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
