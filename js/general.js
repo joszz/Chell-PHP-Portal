@@ -28,6 +28,7 @@ var keys = {
 };
 
 var baseUri = $("body").data("baseuri");
+var diskspaceunits = ["B", "KB", "MB", "GB", "TB"];
 
 /**
 * Document onload, call to initialize plugins and eventhandlers.
@@ -197,4 +198,21 @@ function openConfirmDialog(title, data, buttonClick) {
 function zeropad(str, max) {
     str = str.toString();
     return str.length < max ? zeropad("0" + str, max) : str;
+}
+
+/**
+* Given a number representing a memory size, format it to a more readable size (MB/GB/TB depending on the size of the number).
+*
+* @method getFormattedSize
+* @param {number} number    The number to format.
+*/
+function getFormattedSize(number) {
+    var iteration = 0;
+
+    while (number > 1024) {
+        number /= 1024;
+        iteration++;
+    }
+
+    return (Math.round(number * 100) / 100) + " " + diskspaceunits[iteration];
 }

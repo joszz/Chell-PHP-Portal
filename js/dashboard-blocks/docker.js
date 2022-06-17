@@ -17,7 +17,7 @@
         */
         var settings = $.extend({
             block: $(this),
-            updateInterval: this.data("updateinterval") * 1000,
+            updateInterval: this.data("update-interval") * 1000,
             updateIntervalId: -1,
         }, options);
 

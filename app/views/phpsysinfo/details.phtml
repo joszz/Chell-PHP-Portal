@@ -1,0 +1,27 @@
+<?php /** @var Phalcon\Mvc\View $this */ ?>
+
+<div id="phpsysinfo-details" class="hidden_not_important">
+    <div class="panel panel-success with-nav-tabs">
+        <div class="panel-heading">
+            <h4 class="pull-left hidden-xs">Sysinfo</h4>
+            <ul class="nav nav-tabs pull-right">
+                <li class="active">
+                    <a data-toggle="tab" href="#hardware">
+                        Hardware
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#processes">
+                        Processes
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body no-gutter">
+            <div class="tab-content">
+                <?php $this->partial('phpsysinfo/partials/hardware') ?>
+                <?php $this->partial('phpsysinfo/partials/processes') ?>
+            </div>
+        </div>
+    </div>
+</div>

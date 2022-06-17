@@ -23,7 +23,7 @@ function initializePlugins() {
         $(".devices").devices();
     }
     if (typeof $.fn.phpsysinfo !== "undefined") {
-        $(".sysinfo, .hardware, .harddisks, .processes").phpsysinfo();
+        $(".sysinfo").phpsysinfo();
     }
     if (typeof $.fn.torrents !== "undefined") {
         $(".torrents").torrents();
@@ -81,6 +81,9 @@ function initializePlugins() {
     }
     if (typeof $.fn.docker !== "undefined") {
         $(".docker").docker();
+    }
+    if (typeof $.fn.disks !== "undefined") {
+        $(".disks").disks();
     }
 
     $(".time:not(.delayed)").each(function () {

@@ -18,26 +18,21 @@ div.distro span {
     white-space: nowrap;
 }
 
-.hw-panel {
-    max-width: 800px;
-}
-
-#hardware {
-    margin: 12px;
+#phpsysinfo-details {
+    max-width: 600px;
+    max-height: 90%;
     padding: 0;
+
+    .panel,
+    .panel-body ul {
+        margin: 0;
+    }
 }
 
-.panel.processes, 
 .panel.docker {
     ul {
         width: 100%;
         max-height: 400px;
         overflow-y: auto;
-    }
-}
-
-@media only screen and (max-width : $screen-xs) {
-    .panel.processes ul {
-        height: 100% !important;
     }
 }
