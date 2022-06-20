@@ -58,6 +58,8 @@
                     url: "disks",
                     dataType: "json",
                     success: function (disks) {
+                        initializeTooltip();
+
                         $.each(disks, function (index, value) {
                             var disk = settings.block.find("li:not(.clone)").eq(index);
 
@@ -76,7 +78,6 @@
 
                             $.each(value.disks, (index, v) => {
                                 tooltip += v.name + ": " + v.standby + "\n"
-                                console.log(v);
                             });
 
                             disk.find(".name").html(mountpoint);

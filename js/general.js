@@ -70,8 +70,6 @@ function initializeGlobalPlugins() {
     Waves.attach(".btn, button, div#navbar a");
     Waves.init();
 
-    $("body").tooltip({ selector: ".bs-tooltip", container: "body" });
-
     if ($.fn.selectpicker) {
         $("select:not(.no-selectpicker)").selectpicker({ width: "100%", container: "body", showTick: true, tickIcon: "fa-check", iconBase: "fa" });
     }
@@ -128,6 +126,10 @@ function initializeGlobalEventHandlers() {
     });
 }
 
+function initializeTooltip() {
+    $("body").tooltip("destroy");
+    $("body").tooltip({ selector: ".bs-tooltip", container: "body" });
+}
 /**
  * Shows the alert box with the message provided.. Alerttype is a bootstrap type (success, danger etc)
  *

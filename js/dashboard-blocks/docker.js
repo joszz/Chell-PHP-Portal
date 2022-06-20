@@ -58,6 +58,8 @@
                     dataType: "json",
                     success: function (data) {
                         settings.block.find(".docker-container:not(.hidden)").remove();
+                        initializeTooltip();
+
                         $.each(data, function (_index, container) {
                             var clone = settings.block.find(".docker-container.hidden").clone();
                             clone.find(".name span").text(container.name).attr("title", container.image);
