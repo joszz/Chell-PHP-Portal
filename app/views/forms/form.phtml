@@ -7,5 +7,5 @@
     <?php echo $this->renderElement($element) ?>
     <?php endforeach ?>
 
-    <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
+    <input type="hidden" name="<?php echo $this->session->get('auth')['csrf-key'] ?>" value="<?php echo $this->session->get('auth')['csrf-token'] ?>" />
 </form>

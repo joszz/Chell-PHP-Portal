@@ -31,7 +31,6 @@
                 <?php endforeach ?>
 
                 <input type="hidden" name="webauth" value="" />
-                <input type="hidden" name="<?php echo $this->security->getTokenKey() ?>" value="<?php echo $this->security->getToken() ?>" />
                 <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
             </form>
         </div>

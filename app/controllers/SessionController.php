@@ -236,7 +236,7 @@ class SessionController extends BaseController
 
     private function getCredentials(&$username = '', &$password = '')
     {
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost())
         {
             $username = trim($this->request->get('username'));
             $password = trim($this->request->get('password'));
@@ -258,8 +258,10 @@ class SessionController extends BaseController
         $this->session->set(
             'auth',
             [
-                'id'        => $user->id,
-                'username'  => $user->username
+                'id'         => $user->id,
+                'username'   => $user->username,
+                'csrf-key'   => $this->security->getTokenKey(),
+                'csrf-token' => $this->security->getToken()
             ]
         );
     }

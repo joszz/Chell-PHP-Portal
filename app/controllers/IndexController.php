@@ -105,7 +105,7 @@ class IndexController extends BaseController
             'bind'       => [1 => $id],
         ]);
         $maxPosition = $this->getMaxWidgetPosition();
-        $widgetToSwapPlaceWith;
+        $widgetToSwapPlaceWith = null;
 
         if ($direction === 'down' && $widgetToMove->position + 1 < $maxPosition)
         {

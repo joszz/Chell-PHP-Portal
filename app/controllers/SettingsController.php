@@ -48,7 +48,7 @@ class SettingsController extends BaseController
     {
         $form = $this->view->form = new SettingsGeneralForm();
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $data = $this->request->getPost();
             $form->customBind($data);
