@@ -128,6 +128,9 @@ function build_styles() {
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({
+                reduceIdents: {
+                    keyframes: false
+                },
                 discardComments: {
                     removeAll: true
                 },
