@@ -10,7 +10,12 @@ namespace Chell\Models;
  */
 class Docker extends BaseModel
 {
-    public function getContainers()
+    /**
+     * Uses Docker's ps command to retrieve container information as JSON.
+     * 
+     * @return array    An array of objects containing information about all containers.
+     */
+    public function getContainers() : array
     {
         $output = shell_exec('sudo docker ps --format \'{"image": "{{ .Image }}", "name":"{{ .Names }}", "status":"{{ .Status }}", "ports":"{{ .Ports }}"},\'');
         $output = json_decode('[' . substr($output, 0, -2) . ']');

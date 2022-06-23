@@ -63,6 +63,7 @@ class Disks extends BaseModel
 
     /**
      * Recursively retrieves mountpoints for a disk. When a disk is part of a RAID array, the children field needs to be checked.
+     * 
      * @param object $disk  The current disk object, retrieved from lsblk.
      * @return array        All the mountpoints for the given disk.
      */

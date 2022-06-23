@@ -4,6 +4,11 @@ namespace Chell\Controllers;
 
 use Chell\Models\Disks;
 
+/**
+ * The controller responsible for Disk related actions.
+ *
+ * @package Controllers
+ */
 class DisksController extends WidgetController
 {
     private Disks $_model;
@@ -20,7 +25,7 @@ class DisksController extends WidgetController
     }
 
     /**
-     * Retrieves statistics for all disks
+     * Retrieves statistics for all disks.
      */
     public function indexAction()
     {

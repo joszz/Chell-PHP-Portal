@@ -4,12 +4,17 @@ namespace Chell\Controllers;
 
 use Chell\Models\Docker;
 
+/**
+ * The controller responsible for Docker related actions.
+ *
+ * @package Controllers
+ */
 class DockerController extends WidgetController
 {
     private Docker $_model;
 
     /**
-     * Initializes the controller, creating a new Disk model.
+     * Initializes the controller, creating a new Docker model.
      */
 	public function initialize()
     {
@@ -19,6 +24,9 @@ class DockerController extends WidgetController
         $this->_model = new Docker();
     }
 
+    /**
+     * Retrieves an array of objects representing the Docker containers.
+     */
     public function indexAction()
     {
         return $this->response->setJsonContent($this->_model->getContainers())->send();
