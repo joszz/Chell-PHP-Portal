@@ -21,7 +21,7 @@ $(function () {
         if (webauth) {
             $.ajax({
                 type: "POST",
-                url: "/portal/session/webauthchallenge",
+                url: "session/webauthchallenge",
                 data: { username: $("#username").val() },
                 dataType: "json",
                 success: function (data) {
@@ -39,6 +39,6 @@ $(function () {
 function webauthAuthCallback(success, info) {
     if (success) {
         $("input[name=webauth]").val(info);
-        $("form").attr("action", "/portal/session/webauthauthenticate").submit();
+        $("form").attr("action", "session/webauthauthenticate").submit();
     }
 }

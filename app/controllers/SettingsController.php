@@ -486,7 +486,7 @@ class SettingsController extends BaseController
         ]);
 
         $webauthn = new WebAuthn($_SERVER['HTTP_HOST']);
-        $challenge = $webauthn->prepareChallengeForRegistration($user->username, $user->id, false);
+        $challenge = @$webauthn->prepareChallengeForRegistration($user->username, $user->id, false);
 
         $this->view->disable();
         $this->response->setJsonContent($challenge)->send();

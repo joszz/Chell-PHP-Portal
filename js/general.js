@@ -7,20 +7,6 @@
 * @module General
 */
 
-/**
-* The time to show notifications, defined in config.ini.
-*
-* @property alertTimeout
-* @type Number
-*/
-var alertTimeout;
-
-/**
- * Enum with used keyboard shortcut codes
- *
- * @property keys
- * @type Object
- */
 var keys = {
     Enter: 13, Alt: 18, M: 77,
     Number1: 49, Number9: 57,
@@ -29,6 +15,7 @@ var keys = {
 
 var baseUri = $("body").data("baseuri");
 var diskspaceunits = ["B", "KB", "MB", "GB", "TB"];
+var alertTimeout = $(".alert").data("alert-timeout");
 
 /**
 * Document onload, call to initialize plugins and eventhandlers.
@@ -46,8 +33,6 @@ if ("serviceWorker" in navigator) {
         });
     }
 }
-
-alertTimeout = $(".alert").data("alert-timeout");
 
 initializeGlobalPlugins();
 initializeGlobalEventHandlers();
@@ -187,6 +172,14 @@ function openConfirmDialog(title, data, buttonClick) {
     $.fancybox.open({
         src: "#confirm-dialog",
         modal: true
+    });
+}
+
+function isLoggedIn(callBackOnLoggedOut) {
+    $.getJSON(baseUri + "session/isLoggedIn", function (loggedIn) {
+        if (!loggedIn) {
+            callBackOnLoggedOut();
+        }
     });
 }
 

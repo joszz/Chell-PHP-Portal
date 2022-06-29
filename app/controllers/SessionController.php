@@ -234,6 +234,13 @@ class SessionController extends BaseController
         session_regenerate_id(true);
     }
 
+    public function isLoggedInAction()
+    {
+        $this->view->disable();
+        
+        $this->response->setJsonContent($this->session->get('auth') !== null)->send();
+    }
+
     private function getCredentials(&$username = '', &$password = '')
     {
         if ($this->request->isPost())

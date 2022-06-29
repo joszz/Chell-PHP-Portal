@@ -9,7 +9,6 @@ var speedtest = false, opcache = false, pihole = false, snmp = false;
 * @module Dashboard
 */
 
-
 initializeDashboardEventHandlers();
 initializePlugins();
 
@@ -143,10 +142,14 @@ function initializeDashboardEventHandlers() {
 
         return false;
     });
-    
+
     if (sessionStorage.getItem("move-widget-visible") == "true") {
         $(".move-widget").removeClass("hidden");
     }
+
+    setInterval(function () {
+        isLoggedIn(() => { window.location.href = baseUri });
+    }, 5000);
 }
 
 function initializeTinyTimer($this) {
