@@ -45,6 +45,11 @@ body.demo-mode {
         text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
+    .tooltip-inner {
+        color: transparent !important;
+        text-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+
     form input::placeholder {
         text-shadow: none;
     }
