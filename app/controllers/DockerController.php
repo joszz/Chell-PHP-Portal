@@ -3,6 +3,7 @@
 namespace Chell\Controllers;
 
 use Chell\Models\Docker;
+use Chell\Models\Widget;
 
 /**
  * The controller responsible for Docker related actions.
@@ -22,6 +23,14 @@ class DockerController extends WidgetController
 
         $this->view->disable();
         $this->_model = new Docker();
+    }
+
+    /**
+     * Sets the Bootstrap panel size for the widget.
+     */
+    public function setPanelSize()
+    {
+        $this->widget = new Widget(12, 4);
     }
 
     /**

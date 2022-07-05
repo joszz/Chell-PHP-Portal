@@ -116,7 +116,7 @@ function initializeTooltip() {
     $("body").tooltip({ selector: ".bs-tooltip", container: "body" });
 }
 /**
- * Shows the alert box with the message provided.. Alerttype is a bootstrap type (success, danger etc)
+ * Shows the alert box with the message provided. Alerttype is a bootstrap type (success, danger etc)
  *
  * @method showAlert
  * @param {String} alertType    The bootstrap type.
