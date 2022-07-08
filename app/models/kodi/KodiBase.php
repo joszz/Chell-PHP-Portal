@@ -14,6 +14,9 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
  */
 class KodiBase extends BaseModel
 {
+    /**
+     * Initializes DB connections for Kodi databases.
+     */
     public function initialize()
     {
         $config = $this->_settings->kodi;

@@ -10,6 +10,11 @@ namespace Chell\Models;
  */
 class Cpu extends BaseModel
 {
+    /**
+     * Retrieves the CPU usage for either Windows or Linux.
+     *
+     * @return mixed    The CPU usage in percent.
+     */
     public function getCurrentCpuUsage()
     {
         $load = null;
@@ -62,6 +67,11 @@ class Cpu extends BaseModel
         return $load;
     }
 
+    /**
+     * Retrieves the CPU load for Linyx.
+     * 
+     * @return array|bool   Either an array of load, or false if failed.
+     */
     private function getServerLoadLinuxData()
     {
         if (is_readable('/proc/stat'))
@@ -91,6 +101,6 @@ class Cpu extends BaseModel
             }
         }
 
-        return null;
+        return false;
     }
 }

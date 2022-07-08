@@ -17,8 +17,8 @@ class Jellyfin extends BaseModel
     /**
      * Retrieves the different channels/libraries defined for a user.
      *
-     * @return array            The array of channels/libraries. The key holds the name lowercase, and removed from <spaces>.
-     *                          The value holds the channel's Id.
+     * @return array    The array of channels/libraries. The key holds the name lowercase, and removed from <spaces>.
+     *                  The value holds the channel's Id.
      */
     public function getViews() : array
     {

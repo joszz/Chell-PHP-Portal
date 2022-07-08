@@ -58,6 +58,12 @@ class Couchpotato extends BaseModel
 		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key : '';
 	}
 
+    /**
+     * Uses Guzzle to do a new request to the specified URL. Return a json decoded object from the request's body.
+     * 
+     * @param string $url	The URL to request
+     * @return mixed		An object created from the JSON body.
+     */
     private function getHttpClientBody(string $url)
     {
         $client = new Client();
