@@ -6,7 +6,17 @@
     </div>
     <div class="panel-body">
         <?php echo $architecture ?><br />
-        <?php echo $cpuUsage ?>
+        <?php echo $cpuUsage ?><br />
         <br />
+        <?php foreach($cores as $core => $values) : ?>
+        <?php echo $core ?><br />
+        <?php foreach($values as $name => $value) : ?>
+        <?php echo $name . ':' . $value ?><br />
+        <?php endforeach ?>
+        <?php endforeach ?>
+        <br />
+        <?php foreach($info as $name => $value) : ?>
+        <?php echo $name . ':' . $value ?><br />
+        <?php endforeach ?>
     </div>
 </div>

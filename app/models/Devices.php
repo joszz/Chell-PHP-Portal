@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use Chell\Models\Cpu;
+
 /**
  * The model responsible for all actions related to devices.
  *
@@ -262,21 +264,101 @@ class Devices extends BaseModel
      * Retrieves the current CPU usage through ADB as a percentage.
      *
      * @return float    The current CPU usage.
+     * @todo            Copy/paste of devices, refactor
      */
     public function adbGetCpuUsage() : float
     {
+        $load = null;
         $this->adbConnect();
         $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');
-        $result = current(explode(PHP_EOL, $output));
-        $result = str_replace('cpu', '', $result);
-        $result = array_values(array_filter(explode (' ', $result)));
-        $totalTime = 0;
 
-        foreach ($result as $time)
+        // Collect 2 samples - each with 1 second period
+        // See: https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen
+        $statData1 = Cpu::getServerLoadLinuxData($output);
+        sleep(1);
+        $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');
+        $statData2 = Cpu::getServerLoadLinuxData($output);
+
+        if(!is_null($statData1) && !is_null($statData2))
         {
-            $totalTime += trim($time);
+
+            // Get difference
+            $statData2[0] -= $statData1[0];
+            $statData2[1] -= $statData1[1];
+            $statData2[2] -= $statData1[2];
+            $statData2[3] -= $statData1[3];
+
+            // Sum up the 4 values for User, Nice, System and Idle and calculate
+            // the percentage of idle time (which is part of the 4 values!)
+            $cpuTime = $statData2[0] + $statData2[1] + $statData2[2] + $statData2[3];
+
+            // Invert percentage to get CPU time, not idle time
+            $load = 100 - ($statData2[3] * 100 / $cpuTime);
         }
 
-        return round((1 - $result[3] / $totalTime) * 100);
+        return $load;
+    }
+
+    public function adbGetCores() : array
+    {
+        $this->adbConnect();
+
+        $numberOfCores = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/present');
+        $numberOfCores = current(explode(PHP_EOL, $numberOfCores));
+        $numberOfCores = explode('-', $numberOfCores);
+        $numberOfCores = intval(end($numberOfCores)) + 1;
+
+        $cpuFrequencyCommand = 'adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/cpu%1d/cpufreq/%2s';
+        $result = [];
+
+        for ($i = 0; $i < $numberOfCores; $i++)
+        {
+            $result['Core ' . $i] = [
+                'current' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'scaling_cur_freq')),
+                'minimum' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_min_freq')),
+                'maximum' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_max_freq')),
+            ];
+        }
+
+        return $result;
+    }
+
+    public function adbGetSystemInformation()
+    {
+        $this->adbConnect();
+
+        $props = [
+            'ro.board.platform'         => 'Platform',
+            'ro.build.version.sdk'      => 'Android SDK',
+            'ro.build.version.release'  => 'Android version',
+            'ro.product.brand'          => 'Brand',
+            'vendor.display-size'       => 'Resolution',
+            'ro.product.model'          => 'Model',
+        ];
+        $command = 'adb -s ' . escapeshellcmd($this->ip) . ' shell getprop | grep "';
+        $index = 0;
+
+        foreach($props as $prop => $name)
+        {
+            $command .= '\[' . $prop . '\]';
+            if ($index++ < count($props) - 1)
+            {
+                $command .= '\|';
+            }
+        }
+
+        $output = shell_exec($command . '"');
+        $output = explode(PHP_EOL, trim($output));
+        $result = [];
+
+        foreach($output as $line)
+        {
+            $line = str_replace(['[', ']'], '', $line);
+            list($prop, $value) = explode(':', $line);
+            $name = $props[$prop];
+            $result[$name] = trim($value);
+        }
+        
+        return $result;
     }
 }

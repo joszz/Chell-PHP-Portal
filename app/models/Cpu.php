@@ -42,9 +42,9 @@ class Cpu extends BaseModel
             {
                 // Collect 2 samples - each with 1 second period
                 // See: https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen
-                $statData1 = $this->getServerLoadLinuxData();
+                $statData1 = $this->getServerLoadLinuxData(@file_get_contents('/proc/stat'));
                 sleep(1);
-                $statData2 = $this->getServerLoadLinuxData();
+                $statData2 = $this->getServerLoadLinuxData(@file_get_contents('/proc/stat'));
 
                 if(!is_null($statData1) && !is_null($statData2))
                 {
@@ -68,35 +68,30 @@ class Cpu extends BaseModel
     }
 
     /**
-     * Retrieves the CPU load for Linyx.
-     * 
+     * Retrieves the CPU load for Linux.
+     *
      * @return array|bool   Either an array of load, or false if failed.
      */
-    private function getServerLoadLinuxData()
+    public static function getServerLoadLinuxData(string $stats)
     {
-        if (is_readable('/proc/stat'))
+        if ($stats !== false)
         {
-            $stats = @file_get_contents('/proc/stat');
+            // Remove double spaces to make it easier to extract values with explode()
+            $stats = preg_replace('/[[:blank:]]+/', ' ', $stats);
 
-            if ($stats !== false)
+            // Separate lines
+            $stats = str_replace(array("\r\n", "\n\r", "\r"), "\n", $stats);
+            $stats = explode("\n", $stats);
+
+            // Separate values and find line for main CPU load
+            foreach ($stats as $statLine)
             {
-                // Remove double spaces to make it easier to extract values with explode()
-                $stats = preg_replace('/[[:blank:]]+/', ' ', $stats);
+                $statLineData = explode(' ', trim($statLine));
 
-                // Separate lines
-                $stats = str_replace(array("\r\n", "\n\r", "\r"), "\n", $stats);
-                $stats = explode("\n", $stats);
-
-                // Separate values and find line for main CPU load
-                foreach ($stats as $statLine)
+                // Found!
+                if (count($statLineData) >= 5 && array_shift($statLineData) == 'cpu')
                 {
-                    $statLineData = explode(' ', trim($statLine));
-
-                    // Found!
-                    if (count($statLineData) >= 5 && array_shift($statLineData) == 'cpu')
-                    {
-                        return $statLineData;
-                    }
+                    return $statLineData;
                 }
             }
         }

@@ -251,7 +251,7 @@ class SessionController extends BaseController
      * @param string $username  The username found
      * @param string $password  The password found
      */
-    private function getCredentials(string &$username = '', string &$password = '')
+    private function getCredentials(&$username = '', &$password = '')
     {
         if ($this->request->isPost())
         {
