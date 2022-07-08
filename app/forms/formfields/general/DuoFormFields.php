@@ -8,8 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 
+/**
+ * The formfields for the Apache plugin
+ *
+ * @package Formfields
+ */
 class DuoFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
         $this->fields[] = new Check('duo-enabled', [

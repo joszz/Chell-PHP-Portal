@@ -10,8 +10,16 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Numericality;
 use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
+/**
+ * The formfields for the Apache plugin
+ *
+ * @package Formfields
+ */
 class ApacheFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('apache-enabled', [

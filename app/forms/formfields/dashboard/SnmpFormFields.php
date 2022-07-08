@@ -8,8 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Filter\Validation\Validator\Numericality;
 
+/**
+ * The formfields for the SNMP plugin
+ *
+ * @package Formfields
+ */
 class SnmpFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('snmp-enabled', [

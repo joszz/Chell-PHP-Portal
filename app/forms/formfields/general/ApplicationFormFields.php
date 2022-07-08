@@ -11,8 +11,16 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\PresenceOf;
 use Phalcon\Filter\Validation\Validator\Numericality;
 
+/**
+ * The formfields for the Apache plugin
+ *
+ * @package Formfields
+ */
 class ApplicationFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
         $this->fields[] = $title = new Text('application-title');

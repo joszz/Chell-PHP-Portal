@@ -8,8 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Filter\Validation\Validator\Numericality;
 
+/**
+ * The formfields for the Docker plugin
+ *
+ * @package Formfields
+ */
 class DockerFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('docker-enabled', [

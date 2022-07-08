@@ -181,6 +181,11 @@ class IndexController extends BaseController
         return $dnsPrefetchRecords;
     }
 
+    /**
+     * Retrives the maximum position of all widgets.
+     * 
+     * @return int  The maximum position of all widgets
+     */
     private function getMaxWidgetPosition() : int
     {
         return WidgetPosition::maximum(['column' => 'position']);

@@ -11,8 +11,16 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Numericality;
 use Phalcon\Filter\Validation\Validator\Ip;
 
+/**
+ * The formfields for the Roborock plugin
+ *
+ * @package Formfields
+ */
 class RoborockFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('roborock-enabled', [

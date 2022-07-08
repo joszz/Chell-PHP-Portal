@@ -7,6 +7,11 @@ use Phalcon\Messages\Message;
 use Phalcon\Filter\Validation\AbstractValidator;
 use MFlor\Pwned\Pwned;
 
+/**
+ * The HaveIBeenPwned validator
+ *
+ * @package Formvalidators
+ */
 class Hibp extends AbstractValidator
 {
     public function validate(Validation $validation, $field) : bool

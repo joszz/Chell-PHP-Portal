@@ -15,6 +15,9 @@ class CpuController extends WidgetController
 {
     private Cpu $_model;
 
+    /**
+     * Initializes the controller, creating a new Cpu model.
+     */
     public function initialize()
     {
 		parent::initialize();
@@ -31,11 +34,17 @@ class CpuController extends WidgetController
         $this->widget = new Widget(12, 8);
     }
 
+    /**
+     * Adds the assets for the widget.
+     */
     public function addAssets()
     {
         $this->jsFiles = ['chart', 'luxon', 'chartjs-adapter-luxon', 'chartjs-plugin-streaming'];
     }
 
+    /**
+     * Retrieves the current CPU usage.
+     */
     public function indexAction()
     {
         $this->response->setJsonContent($this->_model->getCurrentCpuUsage())->send();

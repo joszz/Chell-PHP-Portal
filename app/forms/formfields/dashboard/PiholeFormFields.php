@@ -8,8 +8,16 @@ use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
+/**
+ * The formfields for the Pihole plugin
+ *
+ * @package Formfields
+ */
 class PiholeFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('pihole-enabled', [

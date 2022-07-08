@@ -6,6 +6,11 @@ use Phalcon\Filter\Validation;
 use Phalcon\Messages\Message;
 use Phalcon\Filter\Validation\AbstractValidator;
 
+/**
+ * The MAC address validator.
+ *
+ * @package Formvalidators
+ */
 class Mac extends AbstractValidator
 {
     public function validate(Validation $validation, $field) : bool

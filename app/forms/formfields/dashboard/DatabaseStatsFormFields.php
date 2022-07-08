@@ -9,8 +9,16 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Numeric;
 use Phalcon\Filter\Validation\Validator\Numericality;
 
+/**
+ * The formfields for the Database stats plugin
+ *
+ * @package Formfields
+ */
 class DatabaseStatsFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('databasestats-enabled', [

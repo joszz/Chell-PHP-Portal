@@ -234,14 +234,24 @@ class SessionController extends BaseController
         session_regenerate_id(true);
     }
 
+    /**
+     * Checks if current session is not expired, and user is still logged in.
+     * Called every 5 seconds through AJAX, and if false redirects to login page.
+     */
     public function isLoggedInAction()
     {
         $this->view->disable();
-        
+
         $this->response->setJsonContent($this->session->get('auth') !== null)->send();
     }
 
-    private function getCredentials(&$username = '', &$password = '')
+    /**
+     * Retrieves the username from either POST or cookie.
+     * 
+     * @param string $username  The username found
+     * @param string $password  The password found
+     */
+    private function getCredentials(string &$username = '', string &$password = '')
     {
         if ($this->request->isPost())
         {

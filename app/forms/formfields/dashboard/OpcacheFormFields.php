@@ -6,8 +6,16 @@ use Chell\Forms\FormFields\FormFields;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Hidden;
 
+/**
+ * The formfields for the Opcache plugin
+ *
+ * @package Formfields
+ */
 class OpcacheFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('opcache-enabled', [

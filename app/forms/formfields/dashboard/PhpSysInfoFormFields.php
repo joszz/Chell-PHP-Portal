@@ -10,8 +10,16 @@ use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
+/**
+ * The formfields for the PHPSysinfo plugin
+ *
+ * @package Formfields
+ */
 class PhpSysInfoFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('phpsysinfo-enabled', [

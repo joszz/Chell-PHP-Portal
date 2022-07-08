@@ -83,7 +83,11 @@ class ErrorController
 		]))->variable($dump);
     }
 
-    public function getUserIP()
+    /**
+     * Retrieves the User IP from the request headers.
+     * @return string   The user's IP.
+     */
+    public function getUserIP() : string
     {
         // Get real visitor IP behind CloudFlare network
         if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {

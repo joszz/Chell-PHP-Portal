@@ -3,13 +3,18 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
-use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
-use Phalcon\Forms\Element\Text;
-use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
+/**
+ * The formfields for the CPU plugin
+ *
+ * @package Formfields
+ */
 class CpuFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('cpu-enabled', [

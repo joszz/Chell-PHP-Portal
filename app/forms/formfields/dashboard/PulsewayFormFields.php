@@ -13,8 +13,16 @@ use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Numericality;
 use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
+/**
+ * The formfields for the Pulseway plugin
+ *
+ * @package Formfields
+ */
 class PulsewayFormFields extends FormFields
 {
+    /**
+     * Add all fields to the form.
+     */
 	protected function initializeFields()
 	{
 		$this->fields[] = new Check('pulseway-enabled', [
