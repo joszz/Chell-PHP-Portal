@@ -313,10 +313,14 @@ class Devices extends BaseModel
 
         for ($i = 0; $i < $numberOfCores; $i++)
         {
+            $current = round(intval(shell_exec(sprintf($cpuFrequencyCommand, $i, 'scaling_cur_freq'))) / 1000 / 1000, 2);
+            $minimum = round(intval(shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_min_freq'))) / 1000 / 1000, 2);
+            $maximum = round(intval(shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_max_freq'))) / 1000 / 1000, 2);
+
             $result['Core ' . $i] = [
-                'current' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'scaling_cur_freq')),
-                'minimum' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_min_freq')),
-                'maximum' => shell_exec(sprintf($cpuFrequencyCommand, $i, 'cpuinfo_max_freq')),
+                'current' => $current . ' GHz',
+                'minimum' => $minimum . ' GHz',
+                'maximum' => $maximum . ' GHz',
             ];
         }
 
@@ -358,7 +362,7 @@ class Devices extends BaseModel
             $name = $props[$prop];
             $result[$name] = trim($value);
         }
-        
+
         return $result;
     }
 }

@@ -1,22 +1,50 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="panel panel-success with-nav-tabs" id="roborock-details">
+<div class="panel panel-success">
     <div class="panel-heading">
-        <h4 class="pull-left hidden-xs">Device</h4>
+        <h4 class="pull-left">Device</h4>
     </div>
-    <div class="panel-body">
-        <?php echo $architecture ?><br />
-        <?php echo $cpuUsage ?><br />
-        <br />
-        <?php foreach($cores as $core => $values) : ?>
-        <?php echo $core ?><br />
-        <?php foreach($values as $name => $value) : ?>
-        <?php echo $name . ':' . $value ?><br />
-        <?php endforeach ?>
-        <?php endforeach ?>
-        <br />
-        <?php foreach($info as $name => $value) : ?>
-        <?php echo $name . ':' . $value ?><br />
-        <?php endforeach ?>
-    </div>
+        <ul class="list-group panel-success pull-left">
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4">Architecture</div>
+                <div class="col-xs-8">
+                    <?php echo $architecture ?>
+                </div>
+            </li>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4">CPU usage</div>
+                <div class="col-xs-8">
+                    <?php echo $cpuUsage ?>
+                </div>
+            </li>
+
+            <?php foreach ($cores as $core => $values) : ?>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4">
+                    <?php echo $core ?>
+                </div>
+                <div class="col-xs-8">
+                    <?php foreach($values as $name => $value) : ?>
+                    <div class="col-xs-6 no-gutter-left">
+                        <?php echo $name ?>
+                    </div>
+                    <div class="col-xs-6">
+                        <?php echo $value ?>
+                    </div>
+                    <?php endforeach ?>
+                </div>
+            </li>
+            <?php endforeach ?>
+
+            <?php foreach ($info as $name => $value) : ?>
+            <li class="list-group-item col-xs-12">
+                <div class="col-xs-4">
+                    <?php echo $name ?>
+                </div>
+                <div class="col-xs-8">
+                    <?php echo $value ?>
+                </div>
+            </li>
+            <?php endforeach ?>
+        </ul>
 </div>
