@@ -86,13 +86,14 @@ class DevicesController extends WidgetController
      */
     public function detailsAction(int $id)
     {
-        $this->SetEmptyLayout();
         $device = Devices::findFirst([
            'conditions' => 'id = ?1',
            'bind'       => [1 => $id]
         ]);
+
+        $this->SetEmptyLayout();
+        $this->view->overflow = true;
         $this->view->enable();
-        $this->view->architecture = $device->adbGetArchitecture();
         $this->view->cpuUsage = $device->adbGetCpuUsage();
         $this->view->cores = $device->adbGetCores();
         $this->view->info = $device->adbGetSystemInformation();

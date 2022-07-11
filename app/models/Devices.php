@@ -239,17 +239,6 @@ class Devices extends BaseModel
     }
 
     /**
-     * Retrieves the CPU architecture through ADB.
-     *
-     * @return bool|string|null   The CPU architecture.
-     */
-    public function adbGetArchitecture() : bool|string|null
-    {
-        $this->adbConnect();
-        return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell getprop ro.product.cpu.abi');
-    }
-
-    /**
      * Retrieves the battery statistics through ADB.
      *
      * @return string   The battery statistics.
@@ -264,41 +253,18 @@ class Devices extends BaseModel
      * Retrieves the current CPU usage through ADB as a percentage.
      *
      * @return float    The current CPU usage.
-     * @todo            Copy/paste of devices, refactor
      */
     public function adbGetCpuUsage() : float
     {
-        $load = null;
         $this->adbConnect();
-        $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');
-
-        // Collect 2 samples - each with 1 second period
-        // See: https://de.wikipedia.org/wiki/Load#Der_Load_Average_auf_Unix-Systemen
-        $statData1 = Cpu::getServerLoadLinuxData($output);
-        sleep(1);
-        $output = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat');
-        $statData2 = Cpu::getServerLoadLinuxData($output);
-
-        if(!is_null($statData1) && !is_null($statData2))
-        {
-
-            // Get difference
-            $statData2[0] -= $statData1[0];
-            $statData2[1] -= $statData1[1];
-            $statData2[2] -= $statData1[2];
-            $statData2[3] -= $statData1[3];
-
-            // Sum up the 4 values for User, Nice, System and Idle and calculate
-            // the percentage of idle time (which is part of the 4 values!)
-            $cpuTime = $statData2[0] + $statData2[1] + $statData2[2] + $statData2[3];
-
-            // Invert percentage to get CPU time, not idle time
-            $load = 100 - ($statData2[3] * 100 / $cpuTime);
-        }
-
-        return $load;
+        return Cpu::getCpuUsageLinux(fn() => shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat'));
     }
 
+    /**
+     * Retrieves the core count of an Android device, and also retrieves the current/min/max fequencies of each core.
+     *
+     * @return array    An array with an string index representing the Core and a value containing an array with frequencies.
+     */
     public function adbGetCores() : array
     {
         $this->adbConnect();
@@ -327,25 +293,31 @@ class Devices extends BaseModel
         return $result;
     }
 
-    public function adbGetSystemInformation()
+    /**
+     * Retrieves information for an Android devices getprop call. The properties to retrieve are defined in $properties.
+     *
+     * @return array    An ordered array for all elements defined in $properties.
+     */
+    public function adbGetSystemInformation() : array
     {
         $this->adbConnect();
 
-        $props = [
+        $properties = [
+            'ro.product.cpu.abi'        => 'Architecture',
             'ro.board.platform'         => 'Platform',
-            'ro.build.version.sdk'      => 'Android SDK',
-            'ro.build.version.release'  => 'Android version',
             'ro.product.brand'          => 'Brand',
-            'vendor.display-size'       => 'Resolution',
             'ro.product.model'          => 'Model',
+            'ro.build.version.release'  => 'Droid version',
+            'ro.build.version.sdk'      => 'Droid SDK',
+            'vendor.display-size'       => 'Resolution'
         ];
         $command = 'adb -s ' . escapeshellcmd($this->ip) . ' shell getprop | grep "';
         $index = 0;
 
-        foreach($props as $prop => $name)
+        foreach ($properties as $property => $name)
         {
-            $command .= '\[' . $prop . '\]';
-            if ($index++ < count($props) - 1)
+            $command .= '\[' . $property . '\]';
+            if ($index++ < count($properties) - 1)
             {
                 $command .= '\|';
             }
@@ -355,14 +327,20 @@ class Devices extends BaseModel
         $output = explode(PHP_EOL, trim($output));
         $result = [];
 
-        foreach($output as $line)
+        foreach ($output as $line)
         {
             $line = str_replace(['[', ']'], '', $line);
-            list($prop, $value) = explode(':', $line);
-            $name = $props[$prop];
+            list($property, $value) = explode(':', $line);
+            $name = $properties[$property];
             $result[$name] = trim($value);
         }
 
-        return $result;
+        $orderedResult = [];
+        foreach ($properties as $property)
+        {
+            $orderedResult[$property] = $result[$property];
+        }
+
+        return $orderedResult;
     }
 }
