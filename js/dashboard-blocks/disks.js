@@ -70,9 +70,9 @@
                             }
 
                             var percent = parseInt(value.usage_percentage) + "%";
-                            var total = getFormattedSize(value.size);
-                            var free = getFormattedSize(value.available);
-                            var used = getFormattedSize(value.usage);
+                            var total = getFormattedSize(value.size, 1);
+                            var free = getFormattedSize(value.available, 1);
+                            var used = getFormattedSize(value.usage, 1);
                             var mountpoint = value.mount_point;
                             var tooltip = "Standby\n";
 

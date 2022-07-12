@@ -235,6 +235,7 @@ class Devices extends BaseModel
                 return $this->adbConnect();
             }
         }
+
         return true;
     }
 

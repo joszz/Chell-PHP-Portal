@@ -201,9 +201,7 @@ function zeropad(str, max) {
 * @method getFormattedSize
 * @param {number} number    The number to format.
 */
-function getFormattedSize(number) {
-    var iteration = 0;
-
+function getFormattedSize(number, iteration = 0) {
     while (number > 1024) {
         number /= 1024;
         iteration++;
