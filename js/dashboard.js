@@ -84,6 +84,9 @@ function initializePlugins() {
     if (typeof $.fn.disks !== "undefined") {
         $(".disks").disks();
     }
+    if (typeof $.fn.tdarr !== "undefined") {
+        $(".tdarr").tdarr();
+    }
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));

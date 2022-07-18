@@ -51,8 +51,10 @@ It aggregates different services and webapplications that I want easily accessib
 - [Remote Control of PSA car](https://github.com/flobz/psa_car_controller)
 - [Roborock](https://github.com/rytilahti/python-miio)
 - [Sickrage](https://sickrage.github.io/)
+- [Docker](https://www.docker.com/)
 - SNMP
 - [Subsonic](http://www.subsonic.org/pages/index.jsp)
+- [Tdarr](https://tdarr.io/)
 - [TMDB](https://www.themoviedb.org/)
 - [Transmission](https://www.transmissionbt.com/)
 - [Verisure](https://github.com/persandstrom/python-verisure)

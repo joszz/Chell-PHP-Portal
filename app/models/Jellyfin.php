@@ -28,7 +28,7 @@ class Jellyfin extends BaseModel
         {
             $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
         }
-        catch(Exception)
+        catch (Exception)
         {
             return $result;
         }

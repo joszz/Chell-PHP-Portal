@@ -106,7 +106,6 @@
                         data: {
                             labels: chartData.legendNames,
                             datasets: [{
-                                label: "My First Dataset",
                                 data: chartData.data,
                                 backgroundColor: [
                                     "#3c763d",
