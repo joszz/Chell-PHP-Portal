@@ -82,6 +82,10 @@ li.list-group-item {
     }
 }
 
+.panel .graph {
+    height: 285px;
+}
+
 @media only screen and (min-width : ($screen-xs + 1)) {
     div.panel .list-group,
     div.panel .panel-body:not(#settings) {

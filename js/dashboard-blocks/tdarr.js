@@ -19,7 +19,38 @@
             block: this,
             updateInterval: $(this).data("update-interval") * 1000,
             updateIntervalId: -1,
-            chart: undefined
+            chart: undefined,
+            chartConfig: {
+                type: "doughnut",
+                data: {
+                    labels: undefined,
+                    datasets: [{
+                        data: undefined,
+                        backgroundColor: [
+                            "#3c763d",
+                            "rgb(54, 162, 235)",
+                            "rgb(255, 99, 132)",
+                            "#8a6d3b",
+                            "#337ab7"
+
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                plugins: [ChartDataLabels],
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    plugins: {
+                        datalabels: {
+                            color: '#FFF'
+                        },
+                        legend: {
+                            position: "top",
+                        }
+                    }
+                },
+            }
         }, options);
 
         /**
@@ -69,43 +100,17 @@
              * @method initializeChart
              */
             initializeChart: function (chartData) {
-                const config = {
-                    type: "doughnut",
-                    data: {
-                        labels: Object.keys(chartData),
-                        datasets: [{
-                            data: Object.values(chartData),
-                            backgroundColor: [
-                                "#3c763d",
-                                "rgb(54, 162, 235)",
-                                "rgb(255, 99, 132)",
-                                "#8a6d3b",
-                                "#337ab7"
-                                
-                            ],
-                            hoverOffset: 4
-                        }]
-                    },
-                    plugins: [ChartDataLabels],
-                    options: {
-                        maintainAspectRatio: false,
-                        responsive: true,
-                        plugins: {
-                            datalabels: {
-                                color: '#FFF'
-                            },
-                            legend: {
-                                position: "top",
-                            }
-                        }
-                    },
-                };
-
                 if (settings.chart) {
-                    settings.chart.destroy();
+                    settings.chart.data.datasets.forEach((dataset) => {
+                        dataset.data = Object.values(chartData);
+                    });
+                    settings.chart.update();
+                    return;
                 }
 
-                settings.chart= new Chart(settings.block.find("canvas")[0], config);
+                settings.chartConfig.data.datasets[0].data = Object.values(chartData);
+                settings.chartConfig.data.labels = Object.keys(chartData);
+                settings.chart = new Chart(settings.block.find("canvas")[0], settings.chartConfig);
             }
         };
 
