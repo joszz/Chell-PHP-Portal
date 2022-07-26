@@ -2,7 +2,6 @@
 
 namespace Chell\Models;
 
-use Chell\Exceptions\ChellException;
 use Exception;
 use stdClass;
 use GuzzleHttp\Client;

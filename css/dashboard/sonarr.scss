@@ -1,0 +1,19 @@
+﻿.sonarr {
+    #sonarr-calendar {
+        display: flex;
+        justify-content: center;
+    }
+
+    .color-calendar.basic.color-calendar--small {
+        .calendar__header,
+        .calendar__weekdays,
+        .calendar__days {
+            grid-template-columns: repeat(7, minmax(25px, 52px));
+            padding: 0;
+        }
+
+        .calendar__body {
+            padding: 0;
+        }
+    }
+}
