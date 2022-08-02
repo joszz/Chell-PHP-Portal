@@ -4,12 +4,25 @@
         justify-content: center;
     }
 
+    ul {
+        margin-bottom: 0;
+        max-height: 315px;
+        overflow-y: auto;
+
+        .name {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+
     .color-calendar.basic.color-calendar--small {
         .calendar__header,
         .calendar__weekdays,
         .calendar__days {
             grid-template-columns: repeat(7, minmax(25px, 52px));
             padding: 0;
+            font-size: 14px !important;
         }
 
         .calendar__body {

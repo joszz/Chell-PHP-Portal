@@ -30,7 +30,7 @@ class TdarrController extends WidgetController
      */
     public function setPanelSize()
     {
-        $this->widget = new Widget(12, 4);
+        $this->widget = new Widget(12, 6, 4);
     }
 
     /**

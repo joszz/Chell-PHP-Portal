@@ -219,3 +219,7 @@ $fa-font-path: "../../fonts";
 .#{$fa-css-prefix}-chevron-down:before {
     content: fa-content($fa-var-chevron-down);
 }
+
+.#{$fa-css-prefix}-list:before {
+    content: fa-content($fa-var-list);
+}

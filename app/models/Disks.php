@@ -32,15 +32,18 @@ class Disks extends BaseModel
 
             foreach ($mountPoints as $mountPoint)
             {
-                if (!isset($result[$mountPoint]))
+                if ($mountPoint)
                 {
-                    $result[$mountPoint] = $this->getDiskSpaceForMountpoint($mountPoint);
-                }
+                    if (!isset($result[$mountPoint]))
+                    {
+                        $result[$mountPoint] = $this->getDiskSpaceForMountpoint($mountPoint);
+                    }
 
-                $d = new stdClass();
-                $d->standby = $this->getSpindownStatsForDisk($disk->name);
-                $d->name = $disk->name;
-                $result[$mountPoint]->disks[] = $d;
+                    $d = new stdClass();
+                    $d->standby = $this->getSpindownStatsForDisk($disk->name);
+                    $d->name = $disk->name;
+                    $result[$mountPoint]->disks[] = $d;
+                }
             }
         }
 
@@ -63,7 +66,7 @@ class Disks extends BaseModel
 
     /**
      * Recursively retrieves mountpoints for a disk. When a disk is part of a RAID array, the children field needs to be checked.
-     * 
+     *
      * @param object $disk  The current disk object, retrieved from lsblk.
      * @return array        All the mountpoints for the given disk.
      */
@@ -86,7 +89,7 @@ class Disks extends BaseModel
 
     /**
      * Uses df to retrieve usage of a given partition.
-     * 
+     *
      * @param string $mountPoint    The mountpoint to retrieve usage for.
      * @return object               An object containing information form df.
      */

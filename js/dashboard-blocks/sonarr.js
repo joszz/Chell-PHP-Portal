@@ -31,8 +31,6 @@
         */
         var functions = {
             /**
-            * Initializes the eventhandlers for the various button clicks.
-            *
             * @method initialize
             */
             initialize: () => {
@@ -46,6 +44,10 @@
                     dateChanged: (currentDate) => functions.dateChanged(currentDate),
                     selectedDateClicked: (currentDate) => functions.dateChanged(currentDate),
                     monthChanged: (currentDate) => functions.update(currentDate)
+                });
+
+                settings.block.find(".fa-list").click(() => {
+                    settings.block.find("#sonarr-calendar, .list").toggle();
                 });
 
                 functions.update(new Date());
@@ -67,8 +69,23 @@
                     success: (data) => {
                         settings.initializing = true;
                         settings.calendar.setEventsData(data);
+                        functions.createList(data);
                     },
                     complete: () => settings.block.isLoading("hide")
+                });
+            },
+
+            createList: (data) => {
+                let list = settings.block.find("ul");
+                list.find("li:not(.clone)").remove();
+
+                $.each(data, (_index, event) => {
+                    let clone = list.find(".clone").clone();
+                    let title = functions.getCompoundTitle([event]);
+                    clone.find(".date").text(event.start);
+                    clone.find(".name").text(title).attr("title", title);
+                    clone.removeClass("clone hidden");
+                    settings.block.find("ul").append(clone);
                 });
             },
 
