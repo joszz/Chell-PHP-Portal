@@ -6,7 +6,7 @@
 
     ul {
         margin-bottom: 0;
-        max-height: 315px;
+        max-height: 250px;
         overflow-y: auto;
 
         .name {
@@ -17,7 +17,9 @@
     }
 
     .color-calendar.basic.color-calendar--small {
-        .calendar__header,
+        .calendar__header{
+            display: none;
+        }
         .calendar__weekdays,
         .calendar__days {
             grid-template-columns: repeat(7, minmax(25px, 52px));

@@ -41,23 +41,42 @@
                 settings.calendar = new Calendar({
                     id: "#sonarr-calendar",
                     calendarSize: "small",
+                    disableMonthYearPickers: true,
+                    disableMonthArrowClick: true,
                     dateChanged: (currentDate) => functions.dateChanged(currentDate),
                     selectedDateClicked: (currentDate) => functions.dateChanged(currentDate),
                     monthChanged: (currentDate) => functions.update(currentDate)
                 });
 
                 settings.block.find(".fa-list").click(() => {
+                    if (settings.currentlyShownEventDay) {
+                        settings.currentlyShownEventDay.tooltip("destroy");
+                    }
                     settings.block.find("#sonarr-calendar, .list").toggle();
                 });
 
-                functions.update(new Date());
-            },
+                settings.block.find(".fa-chevron-left").click(() => {
+                    if (settings.currentlyShownEventDay) {
+                        settings.currentlyShownEventDay.tooltip("destroy");
+                    }
+                    var previousMonth = new Date(settings.currentStartDate.getFullYear(), settings.currentStartDate.getMonth() - 1, 1);
+                    settings.calendar.setDate(previousMonth);
+                });
+                settings.block.find(".fa-chevron-right").click(() => {
+                    if (settings.currentlyShownEventDay) {
+                        settings.currentlyShownEventDay.tooltip("destroy");
+                    }
+                    var nextMonth = new Date(settings.currentStartDate.getFullYear(), settings.currentStartDate.getMonth() + 1, 1);
+                    settings.calendar.setDate(nextMonth);
+                });
+            }, 
 
             update: (startDate) => {
                 if (functions.formatDate(settings.currentStartDate) == functions.formatDate(startDate)) {
                     return;
                 }
 
+                settings.block.isLoading("show");
                 settings.currentStartDate = startDate;
                 var endDate = new Date(startDate);
                 endDate.setMonth(endDate.getMonth() + 1);
@@ -71,7 +90,9 @@
                         settings.calendar.setEventsData(data);
                         functions.createList(data);
                     },
-                    complete: () => settings.block.isLoading("hide")
+                    complete: () => {
+                        settings.block.isLoading("hide");
+                    }
                 });
             },
 
@@ -108,7 +129,7 @@
                 var eventDay = functions.findDayByIndex(currentDay);
                 var eventDayData = settings.calendar.eventsData.filter((date) => date.end == currentDate);
 
-                if (!eventDayData.length || (settings.currentlyShownEventDay && settings.currentlyShownEventDay.data("day") == currentDay)) {
+                if (settings.currentlyShownEventDay && (!eventDayData.length || settings.currentlyShownEventDay.data("day") == currentDay)) {
                     settings.currentlyShownEventDay.data("day", null);
                     return;
                 }

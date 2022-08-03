@@ -31,7 +31,7 @@
 		"vibrate": "github:Illyism/jquery.vibrate.js",
 		"waves": "joszz/waves",
 		"webauthn": "github:joszz/webauthn",
-		"chart.js": "^3.8.2",
+		"chart.js": "^3.9.1",
 		"luxon": "^2.4.0",
 		"chartjs-adapter-luxon": "^1.1.0",
 		"chartjs-plugin-streaming": "^2.0.0",
