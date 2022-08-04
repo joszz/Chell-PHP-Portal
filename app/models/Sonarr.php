@@ -43,6 +43,6 @@ class Sonarr extends BaseModel
     private function getHttpClient(string $url, string $parameters = '') : ResponseInterface
     {
         $client = new Client();
-        return $client->request('GET', 'http://192.168.1.30:8989/api/v3/' . $url . '?apikey=b356ab98ec344e149fb29a55d7f2a5d6' . $parameters);
+        return $client->request('GET', $this->_settings->sonarr->url . $url . '?apikey=' . $this->_settings->sonarr->api_key . $parameters);
     }
 }

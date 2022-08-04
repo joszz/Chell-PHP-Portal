@@ -3,7 +3,6 @@
 namespace Chell\Forms\FormFields\Dashboard;
 
 use Chell\Forms\FormFields\FormFields;
-use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
@@ -35,7 +34,7 @@ class TdarrFormFields extends FormFields
 			->setDefault($this->form->settings->tdarr->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled'])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled'])
 			]);
 
 		$this->fields[] = $tdarrURL = new Text('tdarr-url');
@@ -44,7 +43,7 @@ class TdarrFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'fieldset' => true])
 			->setDefault($this->form->settings->tdarr->url)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
 			]);
 	}
