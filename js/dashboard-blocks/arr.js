@@ -8,7 +8,7 @@
 * @submodule DashboardBlocks
 */
 (function ($) {
-    $.fn.sonarr = function (options) {
+    $.fn.arr = function (options) {
         /**
         * All the settings for this block.
         *
@@ -39,7 +39,7 @@
                 }
 
                 settings.calendar = new Calendar({
-                    id: "#sonarr-calendar",
+                    id: "#arr-calendar",
                     calendarSize: "small",
                     disableMonthYearPickers: true,
                     disableMonthArrowClick: true,
@@ -52,7 +52,7 @@
                     if (settings.currentlyShownEventDay) {
                         settings.currentlyShownEventDay.tooltip("destroy");
                     }
-                    settings.block.find("#sonarr-calendar, .list").toggle();
+                    settings.block.find("#arr-calendar, .list").toggle();
                 });
 
                 settings.block.find(".fa-chevron-left").click(() => {
@@ -69,7 +69,7 @@
                     var nextMonth = new Date(settings.currentStartDate.getFullYear(), settings.currentStartDate.getMonth() + 1, 1);
                     settings.calendar.setDate(nextMonth);
                 });
-            }, 
+            },
 
             update: (startDate) => {
                 if (functions.formatDate(settings.currentStartDate) == functions.formatDate(startDate)) {
@@ -83,7 +83,7 @@
                 endDate.setDate(0);
 
                 $.ajax({
-                    url: "sonarr?start=" + functions.formatDate(startDate) + "&end=" + functions.formatDate(endDate),
+                    url: "arr?start=" + functions.formatDate(startDate) + "&end=" + functions.formatDate(endDate),
                     dataType: "json",
                     success: (data) => {
                         settings.initializing = true;
@@ -103,8 +103,11 @@
                 $.each(data, (_index, event) => {
                     let clone = list.find(".clone").clone();
                     let title = functions.getCompoundTitle([event]);
-                    clone.find(".date").text(event.start);
+                    clone.find(".date span.hidden-sm").text(event.start.substring(0, 2));
+                    clone.find(".date span:last-child").text(event.start.substring(2));
+                    clone.find(".date i").addClass(event.type == "movie" ? "fa-clapperboard" : "fa-tv");
                     clone.find(".name").text(title).attr("title", title);
+                    
                     clone.removeClass("clone hidden");
                     settings.block.find("ul").append(clone);
                 });
@@ -158,7 +161,12 @@
                 return title;
             },
 
-            getTitle: (eventData) => eventData.serie + " | S" + zeropad(eventData.seasonNumber, 2) + "E" + zeropad(eventData.episodeNumber, 2) + " - " + eventData.title,
+            getTitle: (eventData) => {
+                if (eventData.serie) {
+                    return eventData.serie + " | S" + zeropad(eventData.seasonNumber, 2) + "E" + zeropad(eventData.episodeNumber, 2) + " - " + eventData.title;
+                }
+                return eventData.title;
+            },
 
             findDayByIndex: (index) => settings.block.find(".calendar__day-active").contents().filter(function () {
                 return $(this).text().trim() == index;

@@ -1,0 +1,30 @@
+<?php /** @var Phalcon\Mvc\View $this */ ?>
+
+<div class="panel panel-success arr">
+    <?php $this->partial('is-loading') ?>
+
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <button class="btn btn-default fa fa-chevron-left" title="Previous month" aria-label="Previous month"></button>
+            <button class="btn btn-default fa fa-chevron-right" title="Next month" aria-label="Next month"></button>
+            <button class="btn btn-default fa fa-list" title="Show as list" aria-label="Show as list"></button>
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => false, 'widget' => $widget]) ?>
+        </div>
+        <h4 class="truncate-text" title="Sonarr">Arr</h4>
+    </div>
+    <div class="panel-body hidden-xs no-gutter">
+        <div id="arr-calendar"></div>
+
+        <div class="hidden_not_important list">
+            <ul class="list-group">
+                <li class="list-group-item col-xs-12 clone hidden">
+                    <div class="col-xs-4 col-md-5 col-lg-4 date">
+                        <i class="fa"></i>
+                        <span class="hidden-xs hidden-sm"></span><span></span>
+                    </div>
+                    <div class="col-xs-8 col-md-7 col-lg-8 name bs-tooltip"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

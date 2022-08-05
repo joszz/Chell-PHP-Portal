@@ -1,4 +1,5 @@
-﻿@import '../node_modules/@fortawesome/fontawesome-free/scss/variables';
+﻿@import '../node_modules/@fortawesome/fontawesome-free/scss/functions';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/variables';
 @import '../node_modules/@fortawesome/fontawesome-free/scss/mixins';
 @import '../node_modules/@fortawesome/fontawesome-free/scss/core';
 @import '../node_modules/@fortawesome/fontawesome-free/scss/animated';
@@ -222,4 +223,12 @@ $fa-font-path: "../../fonts";
 
 .#{$fa-css-prefix}-list:before {
     content: fa-content($fa-var-list);
+}
+
+.#{$fa-css-prefix}-tv:before {
+    content: fa-content($fa-var-tv);
+}
+
+.#{$fa-css-prefix}-clapperboard:before {
+    content: fa-content($fa-var-clapperboard);
 }

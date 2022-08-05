@@ -1,5 +1,5 @@
-﻿.sonarr {
-    #sonarr-calendar {
+﻿.arr {
+    #arr-calendar {
         display: flex;
         justify-content: center;
     }
@@ -9,6 +9,10 @@
         max-height: 250px;
         overflow-y: auto;
 
+        .date i {
+            min-width: 22px;
+        }
+
         .name {
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -17,9 +21,10 @@
     }
 
     .color-calendar.basic.color-calendar--small {
-        .calendar__header{
+        .calendar__header {
             display: none;
         }
+
         .calendar__weekdays,
         .calendar__days {
             grid-template-columns: repeat(7, minmax(25px, 52px));
