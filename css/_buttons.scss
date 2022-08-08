@@ -1,9 +1,9 @@
-﻿.btn:not(.input-group-addon ) {
+﻿.btn:not(.input-group-addon):not(.btn-xs) {
     line-height: 1;
     padding: 8px 12px;
 }
 
-.bootstrap-touchspin-injected .btn {
+.input-group-btn.bootstrap-touchspin-injected .btn {
     padding: 9px 12px;
 }
 
