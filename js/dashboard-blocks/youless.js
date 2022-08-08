@@ -40,7 +40,7 @@
                     return;
                 }
 
-                settings.block.on("click", ".fa-sync", function () {
+                settings.block.on("click", ".fa-rotate", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(functions.refresh, settings.updateInterval);
                     functions.refresh();

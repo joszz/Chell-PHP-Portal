@@ -6,6 +6,8 @@ const del = require('del');
 const cssnano = require('gulp-cssnano');
 const header = require('gulp-header');
 const rename = require('gulp-rename');
+const iconfont = require('gulp-iconfont');
+const iconfontCss = require('gulp-iconfont-css');
 
 var banner = {
     main:
@@ -90,6 +92,13 @@ function clean(done, which) {
     if (which == 'js' || which == '*') {
         del(config.output_path + "js/*.js");
     }
+    if (which == 'fonts' || which == '*') {
+        del(config.output_path + "fonts/*.svg");
+        del(config.output_path + "fonts/*.ttf");
+        del(config.output_path + "fonts/*.woff");
+        del(config.output_path + "fonts/*.woff2");
+        del(config.output_path + "fonts/*.eot");
+    }
 
     return done();
 }
@@ -111,6 +120,7 @@ function build_sass() {
         .pipe(header(banner.main, { package: package }))
         .pipe(gulp.dest(config.output_path + config.styles.output_path));
 }
+
 
 function build_styles() {
     return gulp.src(config.styles.css)
@@ -142,6 +152,25 @@ function build_scripts(done) {
         .pipe(gulp.dest(config.output_path + config.scripts.output_path));
 }
 
+function build_fonts() {
+    var runTimestamp = Math.round(Date.now() / 1000);
+    return gulp.src(['fonts/svg/*.svg'])
+        .pipe(iconfontCss({
+            fontName: 'chell',
+            targetPath: '../css/_icons.scss',
+            fontPath: '../../fonts/',
+            cssClass: 'fa'
+        }))
+        .pipe(iconfont({
+            fontName: 'chell',
+            prependUnicode: false,
+            normalize: true,
+            formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
+            timestamp: runTimestamp,
+        }))
+        .pipe(gulp.dest('fonts/'));
+}
+
 function watch() {
     gulp.watch('css/**/*.scss', gulp.series(['styles']));
     gulp.watch('js/**/*.js', gulp.series(['scripts']));
@@ -149,5 +178,6 @@ function watch() {
 
 exports.scripts = gulp.series((done) => clean(done, 'js'), build_scripts);
 exports.styles = gulp.series((done) => clean(done, 'css'), build_sass, build_styles);
-exports.default = gulp.parallel(exports.scripts, exports.styles);
+exports.fonts = gulp.series((done) => clean(done, 'fonts'), build_fonts);
+exports.default = gulp.parallel(exports.scripts, gulp.series(exports.fonts, exports.styles));
 exports.watch = watch;

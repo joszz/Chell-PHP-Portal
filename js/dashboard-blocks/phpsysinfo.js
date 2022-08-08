@@ -45,7 +45,7 @@
                     settings.setBadges = true;
                 }
 
-                settings.block.find(".fa-sync").off().on("click", function () {
+                settings.block.find(".fa-rotate").off().on("click", function () {
                     if (settings.block.hasClass("processes")) {
                         functions.getPsStatus();
                     }

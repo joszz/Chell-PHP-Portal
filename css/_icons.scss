@@ -1,0 +1,230 @@
+@font-face {
+	font-family: "chell";
+	src: url('../../fonts/chell.eot');
+	src: url('../../fonts/chell.eot?#iefix') format('eot'),
+		url('../../fonts/chell.woff2') format('woff2'),
+		url('../../fonts/chell.woff') format('woff'),
+		url('../../fonts/chell.ttf') format('truetype'),
+		url('../../fonts/chell.svg#chell') format('svg');
+}
+
+.fa:before {
+	font-family: "chell";
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	/* speak: none; only necessary if not using the private unicode range (firstGlyph option) */
+	text-decoration: none;
+	text-transform: none;
+}
+
+
+.fa-arrows-up-down-left-right:before {
+	content: "\E001";
+}
+
+.fa-backward:before {
+	content: "\E002";
+}
+
+.fa-bolt:before {
+	content: "\E003";
+}
+
+.fa-camera:before {
+	content: "\E004";
+}
+
+.fa-chart-bar:before {
+	content: "\E005";
+}
+
+.fa-check:before {
+	content: "\E006";
+}
+
+.fa-chevron-down:before {
+	content: "\E007";
+}
+
+.fa-chevron-left:before {
+	content: "\E008";
+}
+
+.fa-chevron-right:before {
+	content: "\E009";
+}
+
+.fa-chevron-up:before {
+	content: "\E00A";
+}
+
+.fa-chrome:before {
+	content: "\E00B";
+}
+
+.fa-circle-info:before {
+	content: "\E00C";
+}
+
+.fa-clapperboard:before {
+	content: "\E00D";
+}
+
+.fa-cloud-arrow-down:before {
+	content: "\E00E";
+}
+
+.fa-compress:before {
+	content: "\E00F";
+}
+
+.fa-edge:before {
+	content: "\E010";
+}
+
+.fa-expand:before {
+	content: "\E011";
+}
+
+.fa-eye:before {
+	content: "\E012";
+}
+
+.fa-fingerprint:before {
+	content: "\E013";
+}
+
+.fa-firefox:before {
+	content: "\E014";
+}
+
+.fa-floppy-disk:before {
+	content: "\E015";
+}
+
+.fa-forward:before {
+	content: "\E016";
+}
+
+.fa-gear:before {
+	content: "\E017";
+}
+
+.fa-globe:before {
+	content: "\E018";
+}
+
+.fa-image:before {
+	content: "\E019";
+}
+
+.fa-internet-explorer:before {
+	content: "\E01A";
+}
+
+.fa-key:before {
+	content: "\E01B";
+}
+
+.fa-list:before {
+	content: "\E01C";
+}
+
+.fa-location-dot:before {
+	content: "\E01D";
+}
+
+.fa-minus:before {
+	content: "\E01E";
+}
+
+.fa-opera:before {
+	content: "\E01F";
+}
+
+.fa-pause:before {
+	content: "\E020";
+}
+
+.fa-pen-to-square:before {
+	content: "\E021";
+}
+
+.fa-play:before {
+	content: "\E022";
+}
+
+.fa-plus:before {
+	content: "\E023";
+}
+
+.fa-power-off:before {
+	content: "\E024";
+}
+
+.fa-question:before {
+	content: "\E025";
+}
+
+.fa-right-from-bracket:before {
+	content: "\E026";
+}
+
+.fa-rotate:before {
+	content: "\E027";
+}
+
+.fa-server:before {
+	content: "\E028";
+}
+
+.fa-share:before {
+	content: "\E029";
+}
+
+.fa-star-half:before {
+	content: "\E02A";
+}
+
+.fa-star:before {
+	content: "\E02B";
+}
+
+.fa-stop:before {
+	content: "\E02C";
+}
+
+.fa-temperature-half:before {
+	content: "\E02D";
+}
+
+.fa-trash-can:before {
+	content: "\E02E";
+}
+
+.fa-tv:before {
+	content: "\E02F";
+}
+
+.fa-vacuum-robot:before {
+	content: "\E030";
+}
+
+.fa-verisure-away:before {
+	content: "\E031";
+}
+
+.fa-verisure-disarmed:before {
+	content: "\E032";
+}
+
+.fa-verisure-stay:before {
+	content: "\E033";
+}
+
+.fa-wrench:before {
+	content: "\E034";
+}

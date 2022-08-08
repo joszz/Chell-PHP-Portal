@@ -39,7 +39,7 @@
                     return;
                 }
 
-                settings.block.on("click", ".fa-sync", function () {
+                settings.block.on("click", ".fa-rotate", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
                         functions.checkstates();
@@ -89,11 +89,11 @@
                     $(this).addClass("disabled");
 
                     icon.removeClass("fa-power-off");
-                    icon.addClass("fa-sync fa-spin");
+                    icon.addClass("fa-rotate fa-spin");
 
                     (function (device, dependentMenuItems, icon, id) {
                         $.getJSON("devices/state/" + id, "", function (data) {
-                            icon.removeClass("fa-sync fa-spin");
+                            icon.removeClass("fa-rotate fa-spin");
                             icon.addClass("fa-power-off");
 
                             device.removeClass("disabled");

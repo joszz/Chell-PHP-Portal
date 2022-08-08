@@ -54,7 +54,7 @@
                     functions.set_arm_state($(this).data("state"));
                 });
 
-                settings.block.find(".fa-sync").click(function () { functions.update(false); });
+                settings.block.find(".fa-rotate").click(function () { functions.update(false); });
                 settings.block.find(".fa-image").click(functions.show_photos);
                 settings.block.find(".fa-camera").click(functions.select_device);
                 settings.block.find(".top button").click(function () {

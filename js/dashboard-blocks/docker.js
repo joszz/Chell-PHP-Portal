@@ -35,7 +35,7 @@
             * @method initialize
             */
             initialize: function () {
-                settings.block.find(".fa-sync").click(function () { functions.update(false) });
+                settings.block.find(".fa-rotate").click(function () { functions.update(false) });
                 settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                 functions.update(true);
             },

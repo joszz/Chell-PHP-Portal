@@ -13,7 +13,7 @@
             <div class="navbar-header">
                 <div class="btn-group pull-right">
                     <?php if(isset($setSaveButton) && $setSaveButton) : ?>
-                    <button type="submit" class="btn btn-success fa fa-save pull-left" title="Save" aria-label="Save" form="form"></button>
+                    <button type="submit" class="btn btn-success fa fa-floppy-disk pull-left" title="Save" aria-label="Save" form="form"></button>
                     <?php endif ?>
 
                     <?php if (isset($user)) : ?>
@@ -51,16 +51,16 @@
                 <div class="col-xs-12">
                     <div class="btn-group pull-right">
                         <a class="btn btn-dark" id="move_widgets" href="#" title="Move widgets">
-                            <span class="fa fa-arrows-alt"></span>
+                            <span class="fa fa-arrows-up-down-left-right"></span>
                         </a>
                         <a class="btn btn-dark" href="<?php echo $this->url->get('settings/') ?>" title="Settings">
-                            <span class="fa fa-cog"></span>
+                            <span class="fa fa-gear"></span>
                         </a>
                         <a class="btn btn-dark" href="<?php echo $this->url->get('about/') ?>" title="About">
-                            <span class="fa fa-info-circle"></span>
+                            <span class="fa fa-circle-info"></span>
                         </a>
                         <a class="btn btn-dark" href="<?php echo $this->url->get('session/logout/') ?>" title="Logout">
-                            <span class="fa fa-sign-out-alt" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
+                            <span class="fa fa-right-from-bracket" title="Logout <?php echo $this->session->get('auth')['username'] ?>"></span>
                         </a>
                     </div>
                 </div>

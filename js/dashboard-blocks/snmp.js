@@ -62,7 +62,7 @@
                 settings.block.find("a").click(function () {
                     $(this).attr("href", "/portal/snmp/details/" + settings.block.find(".host:visible").data("id"));
                 });
-                settings.block.find(".fa-sync").click(function () {
+                settings.block.find(".fa-rotate").click(function () {
                     functions.update();
                 });
 

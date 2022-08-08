@@ -52,8 +52,8 @@
                 * @method initialize
                 */
                 initialize: function () {
-                    settings.block.find(".fa-sync").on("click", functions.nowPlaying);
-                    $("body").on("click", ".nowplaying_detail .fa-sync", functions.nowPlaying);
+                    settings.block.find(".fa-rotate").on("click", functions.nowPlaying);
+                    $("body").on("click", ".nowplaying_detail .fa-rotate", functions.nowPlaying);
 
                     settings.block.find(".fa-chevron-left, .fa-chevron-right").click(function () {
                         functions.rotate($(this).hasClass("fa-chevron-left") ? "left" : "right");

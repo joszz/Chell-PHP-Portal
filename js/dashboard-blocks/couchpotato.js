@@ -40,7 +40,7 @@
                     return;
                 }
 
-                settings.block.find(".fa-sync").on("click", functions.refresh);
+                settings.block.find(".fa-rotate").on("click", functions.refresh);
                 settings.block.find(".fa-search").on("click", functions.searchWantedMovies);
             },
 
