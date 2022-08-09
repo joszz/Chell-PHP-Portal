@@ -1,15 +1,15 @@
 @font-face {
-	font-family: "chell";
-	src: url('../../fonts/chell.eot');
-	src: url('../../fonts/chell.eot?#iefix') format('eot'),
-		url('../../fonts/chell.woff2') format('woff2'),
-		url('../../fonts/chell.woff') format('woff'),
-		url('../../fonts/chell.ttf') format('truetype'),
-		url('../../fonts/chell.svg#chell') format('svg');
+	font-family: "chell-icons";
+	src: url('../../fonts/chell-icons.eot');
+	src: url('../../fonts/chell-icons.eot?#iefix') format('eot'),
+		url('../../fonts/chell-icons.woff2') format('woff2'),
+		url('../../fonts/chell-icons.woff') format('woff'),
+		url('../../fonts/chell-icons.ttf') format('truetype'),
+		url('../../fonts/chell-icons.svg#chell-icons') format('svg');
 }
 
 .fa:before {
-	font-family: "chell";
+	font-family: "chell-icons";
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	font-style: normal;
@@ -21,210 +21,214 @@
 }
 
 
-.fa-arrows-up-down-left-right:before {
+.fa-vacuum-robot:before {
 	content: "\E001";
 }
 
-.fa-backward:before {
+.fa-verisure-away:before {
 	content: "\E002";
 }
 
-.fa-bolt:before {
+.fa-verisure-disarmed:before {
 	content: "\E003";
 }
 
-.fa-camera:before {
+.fa-verisure-stay:before {
 	content: "\E004";
 }
 
-.fa-chart-bar:before {
+.fa-chrome:before {
 	content: "\E005";
 }
 
-.fa-check:before {
+.fa-edge:before {
 	content: "\E006";
 }
 
-.fa-chevron-down:before {
+.fa-firefox:before {
 	content: "\E007";
 }
 
-.fa-chevron-left:before {
+.fa-safari:before {
 	content: "\E008";
 }
 
-.fa-chevron-right:before {
+.fa-internet-explorer:before {
 	content: "\E009";
 }
 
-.fa-chevron-up:before {
+.fa-opera:before {
 	content: "\E00A";
 }
 
-.fa-chrome:before {
+.fa-arrows-up-down-left-right:before {
 	content: "\E00B";
 }
 
-.fa-circle-info:before {
+.fa-backward:before {
 	content: "\E00C";
 }
 
-.fa-clapperboard:before {
+.fa-bolt:before {
 	content: "\E00D";
 }
 
-.fa-cloud-arrow-down:before {
+.fa-camera:before {
 	content: "\E00E";
 }
 
-.fa-compress:before {
+.fa-chart-bar:before {
 	content: "\E00F";
 }
 
-.fa-edge:before {
+.fa-check:before {
 	content: "\E010";
 }
 
-.fa-expand:before {
+.fa-chevron-down:before {
 	content: "\E011";
 }
 
-.fa-eye:before {
+.fa-chevron-left:before {
 	content: "\E012";
 }
 
-.fa-fingerprint:before {
+.fa-chevron-right:before {
 	content: "\E013";
 }
 
-.fa-firefox:before {
+.fa-chevron-up:before {
 	content: "\E014";
 }
 
-.fa-floppy-disk:before {
+.fa-circle-info:before {
 	content: "\E015";
 }
 
-.fa-forward:before {
+.fa-clapperboard:before {
 	content: "\E016";
 }
 
-.fa-gear:before {
+.fa-cloud-arrow-down:before {
 	content: "\E017";
 }
 
-.fa-globe:before {
+.fa-compress:before {
 	content: "\E018";
 }
 
-.fa-image:before {
+.fa-expand:before {
 	content: "\E019";
 }
 
-.fa-internet-explorer:before {
+.fa-eye:before {
 	content: "\E01A";
 }
 
-.fa-key:before {
+.fa-fingerprint:before {
 	content: "\E01B";
 }
 
-.fa-list:before {
+.fa-floppy-disk:before {
 	content: "\E01C";
 }
 
-.fa-location-dot:before {
+.fa-forward:before {
 	content: "\E01D";
 }
 
-.fa-minus:before {
+.fa-gear:before {
 	content: "\E01E";
 }
 
-.fa-opera:before {
+.fa-globe:before {
 	content: "\E01F";
 }
 
-.fa-pause:before {
+.fa-image:before {
 	content: "\E020";
 }
 
-.fa-pen-to-square:before {
+.fa-key:before {
 	content: "\E021";
 }
 
-.fa-play:before {
+.fa-list:before {
 	content: "\E022";
 }
 
-.fa-plus:before {
+.fa-location-dot:before {
 	content: "\E023";
 }
 
-.fa-power-off:before {
+.fa-minus:before {
 	content: "\E024";
 }
 
-.fa-question:before {
+.fa-pause:before {
 	content: "\E025";
 }
 
-.fa-right-from-bracket:before {
+.fa-pen-to-square:before {
 	content: "\E026";
 }
 
-.fa-rotate:before {
+.fa-play:before {
 	content: "\E027";
 }
 
-.fa-server:before {
+.fa-plus:before {
 	content: "\E028";
 }
 
-.fa-share:before {
+.fa-power-off:before {
 	content: "\E029";
 }
 
-.fa-star-half:before {
+.fa-question:before {
 	content: "\E02A";
 }
 
-.fa-star:before {
+.fa-right-from-bracket:before {
 	content: "\E02B";
 }
 
-.fa-stop:before {
+.fa-rotate:before {
 	content: "\E02C";
 }
 
-.fa-temperature-half:before {
+.fa-server:before {
 	content: "\E02D";
 }
 
-.fa-trash-can:before {
+.fa-share:before {
 	content: "\E02E";
 }
 
-.fa-tv:before {
+.fa-star:before {
 	content: "\E02F";
 }
 
-.fa-vacuum-robot:before {
+.fa-star-half:before {
 	content: "\E030";
 }
 
-.fa-verisure-away:before {
+.fa-stop:before {
 	content: "\E031";
 }
 
-.fa-verisure-disarmed:before {
+.fa-temperature-half:before {
 	content: "\E032";
 }
 
-.fa-verisure-stay:before {
+.fa-trash-can:before {
 	content: "\E033";
 }
 
-.fa-wrench:before {
+.fa-tv:before {
 	content: "\E034";
+}
+
+.fa-wrench:before {
+	content: "\E035";
 }

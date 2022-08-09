@@ -59,9 +59,10 @@ app/config/config.ini
 logs/
 phalcon-stubs/
 node_modules/
-img/cache
-img/icons/menu
 vendor/
 typescriptjs/
-scripts/
-dist/
+public/img/cache
+public/img/icons/menu
+public/css/
+public/js/
+public/fonts/

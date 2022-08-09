@@ -183,7 +183,7 @@ class IndexController extends BaseController
 
     /**
      * Retrives the maximum position of all widgets.
-     * 
+     *
      * @return int  The maximum position of all widgets
      */
     private function getMaxWidgetPosition() : int
@@ -237,12 +237,12 @@ class IndexController extends BaseController
                     {
                         $this->addWidget($controller, $controllerInstance, $widgetPositions, $name, $widgets);
 
-                        if (is_file(APP_PATH . 'dist/js/' . $name . '.js'))
+                        if (is_file(PUBLIC_PATH . 'js/' . $name . '.js'))
                         {
                             $scripts[] = $name;
                         }
 
-                        if (is_file(APP_PATH . 'dist/css/' . $name . '.css'))
+                        if (is_file(PUBLIC_PATH . 'css/' . $name . '.css'))
                         {
                             $styles[] = $name;
                         }

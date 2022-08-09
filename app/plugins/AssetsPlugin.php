@@ -37,24 +37,26 @@ class AssetsPlugin extends Injectable
      */
     public function beforeRender(Event $event, View $view) : bool
     {
+
         foreach (array_unique($this->scripts) as $jsFile)
         {
-            $file = 'dist/js/' . $jsFile . (DEBUG ? '.js' : '.min.js');
+            $file = 'js/' . $jsFile . (DEBUG ? '.js' : '.min.js');
 
-            if (file_exists(APP_PATH . $file))
+            if (file_exists(PUBLIC_PATH . $file))
             {
                 $this->assets->collection('scripts')->addJs(BASEPATH . $file, true, false, ['defer' => 'defer'], $this->settings->application->version);
             }
         }
 
-        $this->assets->collection('scripts')->addJs(BASEPATH . 'dist/js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version);
+        $this->assets->collection('scripts')->addJs(BASEPATH . 'js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version);
 
         foreach (array_unique($this->styles) as $cssFile)
         {
-            $file = 'dist/css/' . $cssFile . (DEBUG ? '.css' : '.min.css');
+            $file = 'css/' . $cssFile . (DEBUG ? '.css' : '.min.css');
 
-            if (file_exists(APP_PATH . $file))
+            if (file_exists(PUBLIC_PATH . $file))
             {
+
                 $this->assets->collection('styles')->addCss(BASEPATH . $file, true, false, [], $this->settings->application->version);
             }
         }

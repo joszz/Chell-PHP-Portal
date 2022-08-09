@@ -55,7 +55,9 @@ class FrontController
             }
         }
 
+        chdir('../');
         define('APP_PATH', realpath('./') . '/');
+        define('PUBLIC_PATH', APP_PATH . 'public/');
         define('BASEPATH', (new Url())->getBaseUri());
 
         $this->di = new FactoryDefault();
