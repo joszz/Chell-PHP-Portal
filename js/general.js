@@ -67,6 +67,9 @@ function initializeGlobalPlugins() {
             max: Number.MAX_SAFE_INTEGER
         });
     }
+    if ($.fn.togglePasswords) {
+        $(".toggle-password").togglePasswords();
+    }
 }
 
 /**

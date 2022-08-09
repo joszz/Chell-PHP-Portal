@@ -37,6 +37,7 @@ It aggregates different services and webapplications that I want easily accessib
 
 # Optional integrations
 - [Couchpotato](https://couchpota.to//)
+- [Docker](https://www.docker.com/)
 - [Duo](https://duo.com/)
 - [HyperVAdmin](https://github.com/joszz/HyperVAdmin)
 - [ImageProxy](https://github.com/willnorris/imageproxy)
@@ -47,11 +48,12 @@ It aggregates different services and webapplications that I want easily accessib
 - [Pihole](https://pi-hole.net/)
 - [Pulseway](https://www.pulseway.com/)
 - [QBittorrent](https://www.qbittorrent.org/)
+- [Radarr](https://radarr.video/)
 - [Redis](https://redis.io/)
 - [Remote Control of PSA car](https://github.com/flobz/psa_car_controller)
 - [Roborock](https://github.com/rytilahti/python-miio)
 - [Sickrage](https://sickrage.github.io/)
-- [Docker](https://www.docker.com/)
+- [Sonarr](https://sonarr.tv/)
 - SNMP
 - [Subsonic](http://www.subsonic.org/pages/index.jsp)
 - [Tdarr](https://tdarr.io/)

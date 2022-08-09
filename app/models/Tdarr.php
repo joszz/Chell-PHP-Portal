@@ -10,6 +10,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class Tdarr extends BaseModel
 {
+    /**
+     * Retrieves statistics for Tdarr
+     *
+     * @return array|bool   An array of statistics or false if failed.
+     */
     public function getStats()
     {
         try
@@ -32,11 +37,19 @@ class Tdarr extends BaseModel
             {
                 $result[$statistic->name] = $statistic->value;
             }
-            
+
             return $result;
         }
+
+        return false;
     }
 
+    /**
+     * Gets the ResponseInterface to be used to invoke the Tdarr API.
+     *
+     * @param string $url           The Tdarr endpoint to call.
+     * @return ResponseInterface    The ResponseInterface to call the API with.
+     */
     private function getHttpClient(string $url) : ResponseInterface
     {
         $client = new Client();

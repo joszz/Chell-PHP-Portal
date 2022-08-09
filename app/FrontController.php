@@ -231,7 +231,7 @@ class FrontController
             else
             {
                 $savePath = ini_get('session.save_path');
-                $adapter = new Stream(['savePath' => $savePath]);
+                $adapter = new Stream(['savePath' => $savePath ? $savePath : '/tmp']);
             }
 
             $session->setAdapter($adapter);
@@ -279,9 +279,7 @@ class FrontController
      */
     public function __toString() : string
     {
-        //todo: check dit
         $uri = (new Request())->getURI();
-        //$uri = str_replace(BASEPATH, '', '/' . (new Request())->getURI());
         return $this->application->handle($uri)->getContent();
     }
 }

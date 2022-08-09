@@ -7,11 +7,23 @@ use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * The model responsible for all actions related to Radarr and Sonarr.
+ * 
  * @see https://github.com/Sonarr/Sonarr/wiki/API
+ * @package Models
+ * @suppress PHP2414
  */
 class Arr extends BaseModel
 {
-    public function getCalendar($start, $end)
+    /**
+     * Retrieves Radarr and Sonarr calendar entries if the plugins are enabled.
+     * Sorted by startdate.
+     *
+     * @param string $start     The start date as string, format 'yyyy-mm-dd'
+     * @param string $end       The end date as string, format 'yyyy-mm-dd'
+     * @return array<stdClass>  The Radarr and Sonarr entries as an array.
+     */
+    public function getCalendar(string $start, string $end) : array
     {
         $result = [];
 
@@ -30,7 +42,14 @@ class Arr extends BaseModel
         return $result;
     }
 
-    private function getSonarrCalendar($start, $end)
+    /**
+     * Retrieves Sonarr calendar entries for the given $start and $end range.
+     *
+     * @param string $start     The start date as string, format 'yyyy-mm-dd'
+     * @param string $end       The end date as string, format 'yyyy-mm-dd'
+     * @return array<stdClass>  An array of anonymous objects representing Sonarr calendar entries.
+     */
+    private function getSonarrCalendar(string $start, string $end) : array
     {
         $episodes = $this->getHttpClient($this->_settings->sonarr->url . 'calendar', $this->_settings->sonarr->api_key, '&start=' . $start . '&end=' . $end);
         $episodes = json_decode($episodes->getBody());
@@ -53,6 +72,11 @@ class Arr extends BaseModel
         return $result;
     }
 
+    /**
+     * Retrieves all series defined in Sonarr.
+     *
+     * @return array    All series
+     */
     private function getSonarrSeries()
     {
         $series = $this->getHttpClient($this->_settings->sonarr->url . 'series', $this->_settings->sonarr->api_key);
@@ -60,7 +84,14 @@ class Arr extends BaseModel
         return $series;
     }
 
-    private function getRadarrCalendar($start, $end)
+    /**
+     * Retrieves Radarr calendar entries for the given $start and $end range.
+     *
+     * @param string $start     The start date as string, format 'yyyy-mm-dd'
+     * @param string $end       The end date as string, format 'yyyy-mm-dd'
+     * @return array<stdClass>  An array of anonymous objects representing Radarr calendar entries.
+     */
+    private function getRadarrCalendar(string $start, string $end)
     {
         $movies = $this->getHttpClient($this->_settings->radarr->url . 'calendar', $this->_settings->radarr->api_key, '&start=' . $start . '&end=' . $end);
         $movies = json_decode($movies->getBody());
@@ -83,6 +114,14 @@ class Arr extends BaseModel
         return $result;
     }
 
+    /**
+     * Gets the ResponseInterface to be used to invoke the Sonarr and Radarr API.
+     *
+     * @param string $url           The Sonarr or Radarr endpoint to call.
+     * @param string $apiKey        The Sonarr or Radarr API key to authenticate with.
+     * @param string $parameters    The Sonarr or Radarr querystring parameters.
+     * @return ResponseInterface    The ResponseInterface to call the API with.
+     */
     private function getHttpClient(string $url, string $apiKey, string $parameters = '') : ResponseInterface
     {
         $client = new Client();

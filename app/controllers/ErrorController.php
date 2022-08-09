@@ -124,16 +124,16 @@ class ErrorController
     {
         $this->css = [
             'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css',
-            BASEPATH . 'dist/css/exception.min.css',
-            BASEPATH . 'dist/css/prism-line-numbers.css'
+            BASEPATH . 'css/exception.min.css',
+            BASEPATH . 'css/prism-line-numbers.css'
         ];
-        $this->js[] = BASEPATH . 'dist/js/jquery.min.js';
-        $this->js[] = BASEPATH . 'dist/js/prism.min.js';
-        $this->js[] = BASEPATH . 'dist/js/prism-markup-templating.min.js';
-        $this->js[] = BASEPATH . 'dist/js/prism-line-numbers.min.js';
-        $this->js[] = BASEPATH . 'dist/js/prism-php-extras.min.js';
-        $this->js[] = BASEPATH . 'dist/js/prism-php.min.js';
-        $this->js[] = BASEPATH . 'dist/js/exception.min.js';
+        $this->js[] = BASEPATH . 'js/jquery.min.js';
+        $this->js[] = BASEPATH . 'js/prism.min.js';
+        $this->js[] = BASEPATH . 'js/prism-markup-templating.min.js';
+        $this->js[] = BASEPATH . 'js/prism-line-numbers.min.js';
+        $this->js[] = BASEPATH . 'js/prism-php-extras.min.js';
+        $this->js[] = BASEPATH . 'js/prism-php.min.js';
+        $this->js[] = BASEPATH . 'js/exception.min.js';
 
         ob_start();
         require_once(APP_PATH . 'app/views/error/exception.phtml');

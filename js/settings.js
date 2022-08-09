@@ -22,8 +22,6 @@ $("legend input[type='checkbox']").each(function () {
 });
 
 function initializePlugins() {
-    $(".toggle-password").togglePasswords();
-
     scrollToError();
 }
 

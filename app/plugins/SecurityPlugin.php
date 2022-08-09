@@ -13,11 +13,11 @@ use Phalcon\Mvc\Dispatcher;
 class SecurityPlugin extends Injectable
 {
     private array $publiclyAccessible = [
-        ['controller' => 'rss', 'action' => '*'],
-        ['controller' => 'index', 'action' => 'manifest'],
-        ['controller' => 'index', 'action' => 'worker'],
-        ['controller' => 'install', 'action' => '*'],
-        ['controller' => 'speedtest', 'action' => 'share']
+        ['controller' => 'rss',         'action' => '*'],
+        ['controller' => 'index',       'action' => 'manifest'],
+        ['controller' => 'index',       'action' => 'worker'],
+        ['controller' => 'install',     'action' => '*'],
+        ['controller' => 'speedtest',   'action' => 'share']
     ];
 
     /**
