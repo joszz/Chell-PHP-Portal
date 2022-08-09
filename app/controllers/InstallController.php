@@ -189,9 +189,8 @@ class InstallController extends BaseController
         $this->createDefaultSetting('url', 'dashboard', 'phpsysinfo', '');
         $this->createDefaultSetting('username', 'dashboard', 'phpsysinfo', '');
         $this->createDefaultSetting('password', 'dashboard', 'phpsysinfo', '');
-        //rCPU
-        $this->createDefaultSetting('enabled', 'dashboard', 'rcpu', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'rcpu', '');
+        //CPU
+        $this->createDefaultSetting('enabled', 'dashboard', 'cpu', '0');
         //Transmission
         $this->createDefaultSetting('enabled', 'dashboard', 'transmission', '0');
         $this->createDefaultSetting('username', 'dashboard', 'transmission', '');
@@ -280,6 +279,20 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'apache', '0');
         $this->createDefaultSetting('server_status_url', 'dashboard', 'apache', '');
         $this->createDefaultSetting('fpm_status_url', 'dashboard', 'apache', '');
+        //Docker
+        $this->createDefaultSetting('enabled', 'dashboard', 'docker', '0');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'docker', '30');
+        //Disks
+        $this->createDefaultSetting('enabled', 'dashboard', 'disks', '0');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'disks', '30');
+        //Tdarr
+        $this->createDefaultSetting('enabled', 'dashboard', 'tdarr', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'tdarr', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'tdarr', '30');
+        //Sonarr
+        $this->createDefaultSetting('enabled', 'dashboard', 'sonarr', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'sonarr', '');
+        $this->createDefaultSetting('api_key', 'dashboard', 'sonarr', '30');
     }
 
     /**
