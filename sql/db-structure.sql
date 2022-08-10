@@ -175,9 +175,27 @@ CREATE TABLE `users` (
   `webauthn` text,
   `failed_logins` tinyint unsigned NOT NULL DEFAULT '0',
   `last_failed_attempt` datetime DEFAULT NULL,
+  `duostate` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `widget_position`
+--
+
+DROP TABLE IF EXISTS `widget_position`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `widget_position` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `controller` varchar(45) DEFAULT NULL,
+  `widget_viewname` varchar(255) NOT NULL DEFAULT 'widget',
+  `position` tinyint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

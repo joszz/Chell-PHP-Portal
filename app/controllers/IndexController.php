@@ -192,7 +192,7 @@ class IndexController extends BaseController
      *
      * @return int  The maximum position of all widgets
      */
-    private function getMaxWidgetPosition() : int
+    private function getMaxWidgetPosition()
     {
         return WidgetPosition::maximum(['column' => 'position']);
     }

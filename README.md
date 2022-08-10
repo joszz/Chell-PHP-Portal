@@ -20,7 +20,6 @@ It aggregates different services and webapplications that I want easily accessib
 # Prerequisites
 - [PHP 8.x](http://www.php.net/).
   - Required extensions 
-    - [PSR](https://github.com/jbboehr/php-psr)
     - [Phalcon PHP framework 5.x](https://phalconphp.com/)
     - [Multibyte String](https://www.php.net/manual/en/book.mbstring.php)
     - [GD](https://www.php.net/manual/en/book.image.php)
