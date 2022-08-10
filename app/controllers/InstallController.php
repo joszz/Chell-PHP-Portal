@@ -37,7 +37,6 @@ class InstallController extends BaseController
         $this->ensureDirectories();
         $this->view->containerFullHeight = true;
         $this->view->mbstringEnabled = extension_loaded('mbstring');
-        $this->view->psrEnabled = extension_loaded('psr');
         $this->view->phalconEnabled = extension_loaded('phalcon');
         $this->view->pdoEnabled = extension_loaded('pdo');
         $this->view->pdoMysqlEnabled = extension_loaded('pdo_mysql');
@@ -46,11 +45,11 @@ class InstallController extends BaseController
         $this->view->snmpEnabled = extension_loaded('snmp');
         $this->view->permissions = array(
             'Logs directory'            => is_writable(APP_PATH . 'app/logs'),
-            'Image cache directory'     => is_writable(APP_PATH . 'img/cache'),
             'config.ini'                => is_writable(APP_PATH . 'app/config/config.ini'),
             'Install controller'        => is_writable(APP_PATH . 'app/controllers/InstallController.php'),
             'Install views'             => is_writable(APP_PATH . 'app/views/install'),
-            'DB structure file'         => is_writable(APP_PATH . 'sql/db-structure.sql')
+            'DB structure file'         => is_writable(APP_PATH . 'sql/db-structure.sql'),
+            'Image cache directory'     => is_writable(PUBLIC_PATH . 'img/cache')
         );
     }
 
@@ -92,14 +91,14 @@ class InstallController extends BaseController
             mkdir(APP_PATH . 'app/logs', 0660);
         }
 
-        if (!is_dir(APP_PATH . 'img/cache'))
+        if (!is_dir(PUBLIC_PATH . 'img/cache'))
         {
-            mkdir(APP_PATH . 'img/cache', 0660);
+            mkdir(PUBLIC_PATH . 'img/cache', 0660);
         }
 
-        if (!is_dir(APP_PATH . 'img/icons/menu'))
+        if (!is_dir(PUBLIC_PATH . 'img/icons/menu'))
         {
-            mkdir(APP_PATH . 'img/icons/menu', 0660);
+            mkdir(PUBLIC_PATH . 'img/icons/menu', 0660);
         }
     }
 
@@ -111,7 +110,7 @@ class InstallController extends BaseController
     {
         $connection = new PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
-        $connection->exec('CREATE USER \'' . $this->postedData['chell-database-user'] . '\'@\'' . $this->postedData['mysql-host'] . '\' IDENTIFIED WITH mysql_native_password BY \'' . $this->postedData['chell-database-password'] . '\'');
+        $connection->exec('CREATE USER IF NOT EXISTS \'' . $this->postedData['chell-database-user'] . '\'@\'' . $this->postedData['mysql-host'] . '\' IDENTIFIED WITH mysql_native_password BY \'' . $this->postedData['chell-database-password'] . '\'');
         $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
     }
@@ -191,12 +190,13 @@ class InstallController extends BaseController
         $this->createDefaultSetting('password', 'dashboard', 'phpsysinfo', '');
         //CPU
         $this->createDefaultSetting('enabled', 'dashboard', 'cpu', '0');
-        //Transmission
-        $this->createDefaultSetting('enabled', 'dashboard', 'transmission', '0');
-        $this->createDefaultSetting('username', 'dashboard', 'transmission', '');
-        $this->createDefaultSetting('password', 'dashboard', 'transmission', '');
-        $this->createDefaultSetting('url', 'dashboard', 'transmission', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'transmission', '10');
+        //Torrents
+        $this->createDefaultSetting('enabled', 'dashboard', 'torrents', '0');
+        $this->createDefaultSetting('client', 'dashboard', 'torrents', '');
+        $this->createDefaultSetting('username', 'dashboard', 'torrents', '');
+        $this->createDefaultSetting('password', 'dashboard', 'torrents', '');
+        $this->createDefaultSetting('url', 'dashboard', 'torrents', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'torrents', '10');
         //Subsonic
         $this->createDefaultSetting('enabled', 'dashboard', 'subsonic', '0');
         $this->createDefaultSetting('url', 'dashboard', 'subsonic', '');
@@ -222,9 +222,8 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '');
         //Duo
         $this->createDefaultSetting('enabled', 'dashboard', 'duo', '0');
-        $this->createDefaultSetting('ikey', 'dashboard', 'duo', '');
-        $this->createDefaultSetting('skey', 'dashboard', 'duo', '');
-        $this->createDefaultSetting('akey', 'dashboard', 'duo', '');
+        $this->createDefaultSetting('clientid', 'dashboard', 'duo', '');
+        $this->createDefaultSetting('clientsecret', 'dashboard', 'duo', '');
         $this->createDefaultSetting('api_hostname', 'dashboard', 'duo', '');
         //Motion
         $this->createDefaultSetting('enabled', 'dashboard', 'motion', '0');
@@ -293,6 +292,17 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'sonarr', '0');
         $this->createDefaultSetting('url', 'dashboard', 'sonarr', '');
         $this->createDefaultSetting('api_key', 'dashboard', 'sonarr', '30');
+        //Radarr
+        $this->createDefaultSetting('enabled', 'dashboard', 'radarr', '0');
+        $this->createDefaultSetting('url', 'dashboard', 'radarr', '');
+        $this->createDefaultSetting('api_key', 'dashboard', 'radarr', '30');
+        //PSA Remote
+        $this->createDefaultSetting('enabled', 'dashboard', 'psaremote', '0');
+        $this->createDefaultSetting('vin', 'dashboard', 'psaremote', '');
+        $this->createDefaultSetting('url', 'dashboard', 'psaremote', '');
+        $this->createDefaultSetting('username', 'dashboard', 'psaremote', '');
+        $this->createDefaultSetting('password', 'dashboard', 'psaremote', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'psaremote', '30');
     }
 
     /**
@@ -319,7 +329,10 @@ class InstallController extends BaseController
     private function writeConfig()
     {
         $config = [
-            'general' => [ 'debug' => '0'],
+            'general' => [
+                'debug' => '0',
+                'installed' => '1'
+            ],
             'database' => [
                 'host' => $this->postedData['mysql-host'],
                 'name' => $this->postedData['chell-database'],
