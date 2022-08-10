@@ -17,7 +17,6 @@ use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\Model\ResultsetInterface;
 use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 use Phalcon\Mvc\View;
-use Phalcon\Http\Response;
 
 /**
  * The controller responsible for all dashboard related actions.
@@ -31,11 +30,6 @@ class IndexController extends BaseController
      */
     public function indexAction()
     {
-        if (!$this->config->general->installed)
-        {
-            return $this->dispatcher->forward(['controller' => 'install', 'action' => 'index']);
-        }
-
         $this->setWidgets();
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);

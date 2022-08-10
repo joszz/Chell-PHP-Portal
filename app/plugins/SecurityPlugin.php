@@ -32,6 +32,15 @@ class SecurityPlugin extends Injectable
     {
         $controller = $dispatcher->getControllerName();
         $action = $dispatcher->getActionName();
+        $config = $this->di->get('config');
+
+        if (!$config->general->installed && $controller !== 'install')
+        {
+            $dispatcher->forward(['controller' => 'install', 'action' => 'index']);
+            return false;
+        }
+
+
 
         foreach ($this->publiclyAccessible AS $access)
         {
