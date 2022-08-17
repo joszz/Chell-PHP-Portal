@@ -21,6 +21,8 @@ class SickrageFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('sickrage-enabled', [
 			'fieldset' => 'Sickrage',
 			'checked' => $this->form->settings->sickrage->enabled == '1' ? 'checked' : null,
@@ -29,7 +31,7 @@ class SickrageFormFields extends FormFields
 		$this->fields[] = $sickrageURL = new Text('sickrage-url');
 		$sickrageURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->sickrage->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sickrage-enabled']),
@@ -39,7 +41,7 @@ class SickrageFormFields extends FormFields
 		$this->fields[] = $sickrageAPIKey = new Password('sickrage-api_key');
 		$sickrageAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->sickrage->api_key)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sickrage-enabled']));
 	}

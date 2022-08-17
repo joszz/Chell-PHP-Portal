@@ -22,6 +22,8 @@ class TdarrFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('tdarr-enabled', [
 			'fieldset' => 'Tdarr',
 			'checked' => $this->form->settings->tdarr->enabled == '1' ? 'checked' : null
@@ -30,7 +32,7 @@ class TdarrFormFields extends FormFields
 		$this->fields[] = $tdarrInterval = new Numeric('tdarr-update_interval');
 		$tdarrInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->tdarr->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
@@ -40,7 +42,7 @@ class TdarrFormFields extends FormFields
 		$this->fields[] = $tdarrURL = new Text('tdarr-url');
 		$tdarrURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->tdarr->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled']),

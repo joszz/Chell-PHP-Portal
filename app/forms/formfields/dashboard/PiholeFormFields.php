@@ -20,6 +20,8 @@ class PiholeFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('pihole-enabled', [
 			'fieldset' => 'Pi-hole',
 			'checked' => $this->form->settings->pihole->enabled == '1' ? 'checked' : null
@@ -28,7 +30,7 @@ class PiholeFormFields extends FormFields
 		$this->fields[] = $piholeURL = new Text('pihole-url');
 		$piholeURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->pihole->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pihole-enabled']),

@@ -20,6 +20,8 @@ class SnmpFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('snmp-enabled', [
 			'fieldset' => 'SNMP',
 			'checked' => $this->form->settings->snmp->enabled == '1' ? 'checked' : null
@@ -28,7 +30,7 @@ class SnmpFormFields extends FormFields
 		$this->fields[] = $snmpInterval = new Numeric('snmp-update_interval');
 		$snmpInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->snmp->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),

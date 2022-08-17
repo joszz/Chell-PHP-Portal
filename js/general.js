@@ -70,6 +70,7 @@ function initializeGlobalPlugins() {
     if ($.fn.togglePasswords) {
         $(".toggle-password").togglePasswords();
     }
+    initializeTooltip();
 }
 
 /**

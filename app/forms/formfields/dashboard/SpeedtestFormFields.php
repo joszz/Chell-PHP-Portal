@@ -24,6 +24,8 @@ class SpeedtestFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('speedtest-enabled', [
 			'fieldset' => 'Speedtest',
 			'checked' => $this->form->settings->speedtest->enabled == '1' ? 'checked' : null,
@@ -32,14 +34,14 @@ class SpeedtestFormFields extends FormFields
 		$this->fields[] = $speedtestTestOrder = new Text('speedtest-test_order');
 		$speedtestTestOrder->setLabel('Test order')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->speedtest->test_order)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$this->fields[] = $speedtestUpTime = new Numeric('speedtest-time_upload');
 		$speedtestUpTime->setLabel('Upload time')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->speedtest->time_upload)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
@@ -49,7 +51,7 @@ class SpeedtestFormFields extends FormFields
 		$this->fields[] = $speedtestDownloadTime = new Numeric('speedtest-time_download');
 		$speedtestDownloadTime->setLabel('Download time')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->speedtest->time_download)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
@@ -71,7 +73,7 @@ class SpeedtestFormFields extends FormFields
 		$this->fields[] = $speedtestISPInfo = new Select('speedtest-get_isp_distance', ['km' => 'Kilometers', 'mi' => 'Miles']);
 		$speedtestISPInfo->setLabel('Distance units')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->speedtest->get_isp_distance)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
@@ -95,21 +97,21 @@ class SpeedtestFormFields extends FormFields
 		$this->fields[] = $speedtestIpInfoToken = new Password('speedtest-ip_info_token');
 		$speedtestIpInfoToken->setLabel('IPInfo token')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->speedtest->ip_info_token)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
         $this->fields[] = $whatIsMyBrowserAPIURL = new Text('speedtest-what_is_my_browser_api_url');
         $whatIsMyBrowserAPIURL->setLabel('WhatIsMyBrowser API URL')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+            ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->form->settings->speedtest->what_is_my_browser_api_url)
             ->addValidator(new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true]));
 
         $this->fields[] = $whatIsMyBrowserAPIKey = new Password('speedtest-what_is_my_browser_api_key');
         $whatIsMyBrowserAPIKey->setLabel('WhatIsMyBrowser API key')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+            ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->form->settings->speedtest->what_is_my_browser_api_key);
 	}
 }

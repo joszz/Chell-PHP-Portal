@@ -23,6 +23,8 @@ class VerisureFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('verisure-enabled', [
 			'fieldset' => 'Verisure',
 			'checked' => $this->form->settings->verisure->enabled == '1' ? 'checked' : null
@@ -31,7 +33,7 @@ class VerisureFormFields extends FormFields
 		$this->fields[] = $verisureInterval = new Numeric('verisure-update_interval');
 		$verisureInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->verisure->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
@@ -41,14 +43,14 @@ class VerisureFormFields extends FormFields
 		$this->fields[] = $verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->verisure->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$this->fields[] = $verisurePassword = new Password('verisure-password');
 		$verisurePassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->verisure->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
@@ -60,7 +62,7 @@ class VerisureFormFields extends FormFields
         $this->fields[] = $verisurePin = new Password('verisure-securitycode');
 		$verisurePin->setLabel('Pin')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->verisure->securitycode);
 	}
 }

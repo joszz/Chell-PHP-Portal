@@ -8,6 +8,7 @@ use Chell\Messages\TranslatorWrapper;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\ElementInterface;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Form;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Url;
@@ -46,7 +47,7 @@ class SettingsBaseForm extends Form
      */
     public function renderElement(ElementInterface $element) : string
     {
-        return (!empty($element->getAttribute('fieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element));
+        return (!empty($element->getAttribute('hasfieldset')) ? $this->renderFieldset($element) : $this->renderElementInternal($element));
     }
 
     /**
@@ -114,26 +115,29 @@ class SettingsBaseForm extends Form
     private function renderFieldset(ElementInterface $element) : string
     {
         $attributes = $element->getAttributes();
-        $fieldset = $attributes['fieldset'];
+        $fieldset = array_key_exists('fieldset', $attributes) ? $attributes['fieldset'] : false;
+        $closefieldset = array_key_exists('closefieldset', $attributes) ? $attributes['closefieldset'] : false;
         $name = $element->getName();
         $html = '';
 
-        unset($attributes['fieldset']);
+        unset($attributes['fieldset'], $attributes['closefieldset']);
         $element->setAttributes($attributes);
 
-        if ($fieldset === true)
-        {
-            $html = $this->renderElementInternal($element, true);
-        }
-        else if ($fieldset == 'end')
-        {
-            $html = $this->renderElementInternal($element, true) . '</fieldset>';
-        }
-        else
+        if ($fieldset)
         {
             ob_start();
             require APP_PATH . 'app/views/forms/fieldset.phtml';
             $html = ob_get_clean();
+
+        }
+        else
+        {
+            $html = $this->renderElementInternal($element, true);
+        }
+
+        if ($closefieldset)
+        {
+            $html .= '</fieldset>';
         }
 
         return $html;
@@ -212,15 +216,21 @@ class SettingsBaseForm extends Form
      */
     public function bind(array $data, $entity = null, $whitelist = []) : SettingsBaseForm
     {
-        if($entity)
+        if ($entity)
         {
             parent::bind($data, $entity, $whitelist);
 
             foreach ($this->elements as $field => $element)
             {
-                if (is_a($element, Check::class))
+                $field = str_replace('[]', '', $field);
+
+                if (is_a($element, Check::class) && $field == 'show_on_dashboard')
                 {
                     $entity->$field = $data[$field] ?? '0';
+                }
+                else if (is_a($element, Select::class) && empty($data[$field]))
+                {
+                    $entity->$field = null;
                 }
             }
         }

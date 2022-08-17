@@ -22,6 +22,8 @@ class ApacheFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('apache-enabled', [
 			'fieldset' => 'Apache',
 			'checked' => $this->form->settings->apache->enabled == '1' ? 'checked' : null,
@@ -30,7 +32,7 @@ class ApacheFormFields extends FormFields
 		$this->fields[] = $apacheServerStatusURL = new Text('apache-server_status_url');
 		$apacheServerStatusURL->setLabel('Server status URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->apache->server_status_url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'apache-enabled']),
@@ -40,7 +42,7 @@ class ApacheFormFields extends FormFields
 		$this->fields[] = $apacheFpmStatusUrl = new Text('apache-fpm_status_url');
 		$apacheFpmStatusUrl->setLabel('FPM status URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->apache->fpm_status_url)
 			->addValidators([
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -49,7 +51,7 @@ class ApacheFormFields extends FormFields
         $this->fields[] = $apacheInterval = new Numeric('apache-update_interval');
 		$apacheInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->pulseway->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),

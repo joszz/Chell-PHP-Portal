@@ -42,7 +42,7 @@ class MenuItems extends Model
      */
     public function getIconFilePath() : string
     {
-        return APP_PATH . 'img/icons/menu/' . $this->id . '.png';
+        return PUBLIC_PATH . 'img/icons/menu/' . $this->id . '.png';
     }
 
     /**

@@ -25,6 +25,8 @@ class PulsewayFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('pulseway-enabled', [
 			'fieldset' => 'Pulseway',
 			'checked' => $this->form->settings->pulseway->enabled == '1' ? 'checked' : null
@@ -33,7 +35,7 @@ class PulsewayFormFields extends FormFields
 		$this->fields[] = $pulsewayURL = new Text('pulseway-url');
 		$pulsewayURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->pulseway->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']),
@@ -43,14 +45,14 @@ class PulsewayFormFields extends FormFields
         $this->fields[] = $pulsewayUsername = new Text('pulseway-username');
 		$pulsewayUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->pulseway->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
 		$this->fields[] = $pulsewayPassword = new Password('pulseway-password');
 		$pulsewayPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->pulseway->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
@@ -62,7 +64,7 @@ class PulsewayFormFields extends FormFields
         $this->fields[] = $pulsewayInterval = new Numeric('pulseway-update_interval');
 		$pulsewayInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->pulseway->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),

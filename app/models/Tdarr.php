@@ -31,6 +31,7 @@ class Tdarr extends BaseModel
         if (!empty($output))
         {
             $output = json_decode($output);
+
             $result = [];
 
             foreach ($output->pies[0][6] as $statistic)

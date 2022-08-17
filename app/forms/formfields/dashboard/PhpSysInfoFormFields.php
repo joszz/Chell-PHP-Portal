@@ -22,6 +22,8 @@ class PhpSysInfoFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+
+		$this->hasFieldset = true;
 		$this->fields[] = new Check('phpsysinfo-enabled', [
 			'fieldset' => 'PHPSysInfo',
 			'checked' => $this->form->settings->phpsysinfo->enabled == '1' ? 'checked' : null
@@ -30,7 +32,7 @@ class PhpSysInfoFormFields extends FormFields
 		$this->fields[] = $phpSysInfoURL = new Text('phpsysinfo-url');
 		$phpSysInfoURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->phpsysinfo->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'phpsysinfo-enabled']),
@@ -40,13 +42,13 @@ class PhpSysInfoFormFields extends FormFields
 		$this->fields[] = $phpSysInfoUsername = new Text('phpsysinfo-username');
 		$phpSysInfoUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->phpsysinfo->username);
 
 		$this->fields[] = $phpSysInfoPassword = new Password('phpsysinfo-password');
 		$phpSysInfoPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->phpsysinfo->password);
 
         if ($this->form->settings->hibp->enabled)

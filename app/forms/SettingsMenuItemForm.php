@@ -44,7 +44,7 @@ class SettingsMenuItemForm extends SettingsBaseForm
         $icon->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control', 'accept' => '.jpg,.png,.gif,.bmp'])
             ->setLabel('Icon')
-            ->setDefault(isset($entity) ? $entity->id . '.png' : '')
+            ->setDefault(isset($entity->id) ? $entity->id . '.png' : '')
             ->setUserOptions(['buttons' => ['menuitem_icon']]);
 
         $device = new Select(
@@ -61,7 +61,7 @@ class SettingsMenuItemForm extends SettingsBaseForm
 
         $allUsers = Users::find();
         $users = new Select(
-            'user_id[]' ,
+            'user_id[]',
             $allUsers,
             [
                 'using'     => ['id', 'username'],

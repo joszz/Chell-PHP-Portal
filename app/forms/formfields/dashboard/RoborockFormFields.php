@@ -23,6 +23,8 @@ class RoborockFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('roborock-enabled', [
 			'fieldset' => 'Roborock',
 			'checked' => $this->form->settings->roborock->enabled == '1' ? 'checked' : null
@@ -31,7 +33,7 @@ class RoborockFormFields extends FormFields
         $this->fields[] =  $roborockInterval = new Numeric('roborock-update_interval');
 		$roborockInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->roborock->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
@@ -51,7 +53,7 @@ class RoborockFormFields extends FormFields
 		$this->fields[] = $roborockToken = new Password('roborock-token');
 		$roborockToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->roborock->token)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'roborock-enabled']));
 	}

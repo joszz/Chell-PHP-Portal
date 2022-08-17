@@ -13,7 +13,6 @@
     <div class="col-lg-4 col-sm-6 col-xs-12">
         <div class="input-group">
             <?php
-
             $class = get_class($element);
             if($class == 'Phalcon\Forms\Element\Check') :?>
             <input type="checkbox" name="<?php echo $name ?>" id="<?php echo $name ?>" <?php echo $element->getAttribute('checked') ?>

@@ -21,6 +21,8 @@ class SonarrFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+
+		$this->hasFieldset = true;
 		$this->fields[] = new Check('sonarr-enabled', [
 			'fieldset' => 'Sonarr',
 			'checked' => $this->form->settings->sonarr->enabled == '1' ? 'checked' : null
@@ -29,7 +31,7 @@ class SonarrFormFields extends FormFields
 		$this->fields[] = $sonarrURL = new Text('sonarr-url');
 		$sonarrURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->sonarr->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonarr-enabled']),
@@ -39,11 +41,10 @@ class SonarrFormFields extends FormFields
 		$this->fields[] = $sonarrAPIKey = new Password('sonarr-api_key');
 		$sonarrAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->sonarr->api_key)
 			->addValidators([
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonarr-enabled']),
-				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonarr-enabled'])
 			]);
 	}
 }

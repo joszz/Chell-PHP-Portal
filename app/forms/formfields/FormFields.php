@@ -4,6 +4,7 @@ namespace Chell\Forms\FormFields;
 
 abstract class FormFields
 {
+    protected $hasFieldset = false;
     protected $fields;
 
     public function __construct(protected $form)
@@ -22,8 +23,16 @@ abstract class FormFields
     {
         $this->initializeFields();
 
-        foreach($this->fields as $field)
+        if ($this->hasFieldset)
         {
+            end($this->fields)->setAttribute('closefieldset', true);
+        }
+        foreach ($this->fields as $field)
+        {
+            if ($this->hasFieldset)
+            {
+                $field->setAttribute('hasfieldset', true);
+            }
             $this->form->add($field);
         }
     }

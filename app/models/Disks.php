@@ -22,6 +22,7 @@ class Disks extends BaseModel
     public function getStats() : array
     {
         $disks = json_decode(shell_exec('lsblk -J'))->blockdevices;
+
         $disks = array_filter($disks, fn ($disk) => $disk->type == 'disk');
         $result = [];
 
@@ -73,15 +74,23 @@ class Disks extends BaseModel
     private function getMountPountsForDisk(object $disk) : array
     {
         $result = [];
+        $mountPoints = array_filter($disk->mountpoints);
 
-        if (!empty($disk->mountpoint))
+        if (!empty($mountPoints) && count($mountPoints))
         {
-            return [$disk->mountpoint];
+            return $mountPoints;
         }
 
-        foreach ($disk->children as $child)
+        if(isset($disk->children))
         {
-            $result[] = $this->getMountPountsForDisk($child)[0];
+            foreach ($disk->children as $child)
+            {
+                $mountPoint = $this->getMountPountsForDisk($child);
+                if(isset($mountPoint[0]))
+                {
+                    $result[] = $mountPoint[0];
+                }
+            }
         }
 
         return $result;

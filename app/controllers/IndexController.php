@@ -71,6 +71,7 @@ class IndexController extends BaseController
         {
             $this->view->snmpHosts = SnmpHosts::find();
         }
+
     }
 
     /**

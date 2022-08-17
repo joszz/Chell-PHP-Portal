@@ -20,6 +20,8 @@ class DockerFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('docker-enabled', [
 			'fieldset' => 'Docker',
 			'checked' => $this->form->settings->docker->enabled == '1' ? 'checked' : null
@@ -28,7 +30,7 @@ class DockerFormFields extends FormFields
         $this->fields[] = $pulsewayInterval = new Numeric('docker-update_interval');
 		$pulsewayInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->docker->update_interval)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),

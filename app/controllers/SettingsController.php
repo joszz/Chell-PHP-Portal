@@ -75,7 +75,7 @@ class SettingsController extends BaseController
     {
         $form = $this->view->form = new SettingsDashboardForm();
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $data = $this->request->getPost();
             $form->customBind($data);
@@ -121,17 +121,12 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsDeviceForm($device);
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $form->bind($data = $this->request->getPost(), $device);
 
             if ($form->isValid($data, $device))
             {
-                if ($id == 0)
-                {
-                    $device = new Devices($data);
-                }
-
                 $device->save();
 
                 return $this->response->redirect('settings/devices');
@@ -170,17 +165,12 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsSnmpHostForm($host);
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $form->bind($data = $this->request->getPost(), $host);
 
             if ($form->isValid($data, $host))
             {
-                if ($id == 0)
-                {
-                    $host = new SnmpHosts($data);
-                }
-
                 $host->save();
 
                 return $this->response->redirect('settings/snmp');
@@ -214,7 +204,7 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsSnmpRecordForm($record);
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $form->bind($data = $this->request->getPost(), $record);
 
@@ -264,17 +254,12 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsMenuItemForm($item);
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $form->bind($data = $this->request->getPost(), $item);
 
             if ($form->isValid($data, $item))
             {
-                if ($id == 0)
-                {
-                    $item = new MenuItems($data);
-                }
-
                 if ($this->request->hasFiles())
                 {
                     $file = current($this->request->getUploadedFiles());
@@ -329,17 +314,12 @@ class SettingsController extends BaseController
 
         $form = $this->view->form = new SettingsUserForm($user);
 
-        if ($this->request->isPost() && $this->security->checkToken())
+        if ($this->request->isPost() && $this->security->checkToken(null, null, false))
         {
             $form->bind($data = $this->request->getPost(), $user);
 
             if ($form->isValid($data, $user))
             {
-                if ($id == 0)
-                {
-                    $user = new Users($data);
-                }
-
                 $user->password = $this->security->hash($user->password);
                 $user->save();
                 return $this->response->redirect('settings/users');

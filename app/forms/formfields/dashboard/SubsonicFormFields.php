@@ -22,6 +22,8 @@ class SubsonicFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+		$this->hasFieldset = true;
+
 		$this->fields[] = new Check('subsonic-enabled', [
 			'fieldset' => 'Subsonic',
 			'checked' => $this->form->settings->subsonic->enabled == '1' ? 'checked' : null
@@ -30,7 +32,7 @@ class SubsonicFormFields extends FormFields
 		$this->fields[] = $subsonicURL = new Text('subsonic-url');
 		$subsonicURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->subsonic->url)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']),
@@ -40,14 +42,14 @@ class SubsonicFormFields extends FormFields
 		$this->fields[] = $subsonicUsername = new Text('subsonic-username');
 		$subsonicUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => true])
+			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->subsonic->username)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$this->fields[] = $subsonicPassword = new Password('subsonic-password');
 		$subsonicPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
-			->setAttributes(['class' => 'form-control', 'fieldset' => 'end', 'autocomplete' => 'new-password'])
+			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->subsonic->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
