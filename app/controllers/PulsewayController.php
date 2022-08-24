@@ -46,6 +46,9 @@ class PulsewayController extends WidgetController
      */
     public function systemsAction()
     {
+        $this->settings->pulseway->username = $_POST['pulseway-username'];
+        $this->settings->pulseway->password = $_POST['pulseway-password'];
+        $this->settings->pulseway->url = $_POST['pulseway-url'];
         $this->response->setJsonContent($this->_model->getSystems())->send();
     }
 }

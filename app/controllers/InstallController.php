@@ -51,6 +51,9 @@ class InstallController extends BaseController
             'DB structure file'         => is_writable(APP_PATH . 'sql/db-structure.sql'),
             'Image cache directory'     => is_writable(PUBLIC_PATH . 'img/cache')
         );
+
+        setcookie('username', null, -1, BASEPATH, null, true, true);
+        setcookie('password', null, -1, BASEPATH, null, true, true);
     }
 
     /**

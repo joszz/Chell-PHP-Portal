@@ -36,6 +36,10 @@ class JellyfinController extends WidgetController
     public function viewsAction()
     {
         $this->view->disable();
+        $this->settings->jellyfin->userid = $_POST['jellyfin-userid'];
+        $this->settings->jellyfin->token = $_POST['jellyfin-token'];
+        $this->settings->jellyfin->url = $_POST['jellyfin-url'];
+
         $this->response->setJsonContent(array_flip((new Jellyfin())->getViews()))->send();
     }
 }

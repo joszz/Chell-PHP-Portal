@@ -51,7 +51,10 @@ class IndexController extends BaseController
             foreach ($views as $view)
             {
                 list($title, $viewId) = explode(':', $view);
-                $jellyfinviews[strtolower($title)] = $jellyfin->getLatestForView($viewId);
+                if ($viewId) 
+                {
+                    $jellyfinviews[strtolower($title)] = $jellyfin->getLatestForView($viewId);
+                }
             }
 
             $this->view->jellyfinviews = $jellyfinviews;

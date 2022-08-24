@@ -2,7 +2,6 @@
 
 namespace Chell\Controllers;
 
-use Exception;
 use Chell\Forms\SettingsGeneralForm;
 use Chell\Forms\SettingsDashboardForm;
 use Chell\Forms\SettingsDeviceForm;
@@ -19,7 +18,6 @@ use Chell\Models\WidgetPosition;
 use Chell\Plugins\SaveButtonPlugin;
 use Davidearl\WebAuthn\WebAuthn;
 use Phalcon\Http\ResponseInterface;
-use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
 /**
  * The controller responsible for all setting related actions.
@@ -85,57 +83,7 @@ class SettingsController extends BaseController
 
             if ($form->isValid($data))
             {
-                $transactionManager = new TransactionManager();
-                $transaction = $transactionManager->get();
-
-                $widgetPositions = WidgetPosition::find(['order' => 'position']);
-                $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 1;
-
-                try
-                {
-                    foreach ($this->settings as $widget)
-                    {
-                        if ($widget->section === 'dashboard')
-                        {
-                            $widgetPosition = current($widgetPositions->filter(function($position) use ($widget) {
-                                if ($position->controller == $widget->category ||
-                                    ($position->controller == 'arr' && ($widget->category == 'sonarr' || $widget->category == 'radarr'))){
-                                    return $position;
-                                }
-                            }));
-
-                            if($widget->enabled && empty($widgetPosition)){
-                                $widgetPosition = new WidgetPosition();
-                                $widgetPosition->controller = $widget->category;
-                                $widgetPosition->position = ++$maxWidgetPosition;
-                                $widgetPosition->setTransaction($transaction);
-                                $widgetPosition->save();
-                            }
-                            else if(!$widget->enabled && $widgetPosition) {
-                                $widgetPositionsToUpdate = WidgetPosition::find([
-                                    'conditions' => 'position > ?1',
-                                    'bind'       => [1 => $widgetPosition->position]]);
-
-                                foreach($widgetPositionsToUpdate as $widgetPositionToUpdate)
-                                {
-                                    $widgetPositionToUpdate->position--;
-                                    $widgetPositionToUpdate->setTransaction($transaction);
-                                    $widgetPositionToUpdate->save();
-                                };
-
-                                $widgetPosition->setTransaction($transaction);
-                                $widgetPosition->delete();
-                            }
-                        }
-                    }
-
-                    $transaction->commit();
-                }
-                catch (Exception $e)
-                {
-                    $transaction->rollback();
-                }
-                
+                WidgetPosition::reorderPositions($this->settings);
                 $this->settings->save('dashboard');
                 return $this->response->redirect('settings/dashboard');
             }

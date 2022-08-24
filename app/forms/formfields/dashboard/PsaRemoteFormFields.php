@@ -47,7 +47,7 @@ class PsaRemoteFormFields extends FormFields
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->psaremote->username)
 
-			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
+			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'psaremote-enabled']));
 		$this->fields[] = $psaremotePassword = new Password('psaremote-password');
 		$psaremotePassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])

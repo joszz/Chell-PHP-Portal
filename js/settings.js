@@ -107,14 +107,21 @@ function setEventHandlers() {
 
 function setSelectData(select) {
     if (select.length) {
+        var data = {};
         var selected = select.data("selected").split(",");
         select.find("option").remove();
         select.attr('disabled', true);
         select.selectpicker("refresh");
 
+        select.parents("fieldset").find("input").each((index, input) => {
+            data[$(input).attr("name")] = $(input).val();
+        });
+
         $.ajax({
             url: select.data("apiurl"),
+            method: "POST",
             dataType: "json",
+            data: data,
             success: function (data) {
                 $.each(data, function (index, value) {
                     select.append("<option value='" + index + "' " + (selected.indexOf(index) !== -1 ? "selected" : "") + ">" + value + "</option>");
