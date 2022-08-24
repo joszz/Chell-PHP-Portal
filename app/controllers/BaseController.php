@@ -34,7 +34,7 @@ class BaseController extends Controller
         {
             $this->view->user = Users::findFirst([
                 'conditions' => 'id = ?1',
-                'bind'       => [1 => $this->session->get('auth')['id']],
+                'bind'       => [1 => $this->session->get('auth')['id']]
             ]);
         }
     }

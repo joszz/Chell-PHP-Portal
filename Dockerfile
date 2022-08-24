@@ -3,11 +3,15 @@ FROM php:8.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/portal/public
 
+# Install prerequisites
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x
 RUN apt-get update && apt-get install -y curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev nodejs npm python3-pip
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql
+RUN docker-php-ext-configure opcache && docker-php-ext-install -j$(nproc) opcache
+
+RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install phalcon-5.0.0RC4 && docker-php-ext-enable phalcon
 RUN pecl install zip && docker-php-ext-enable zip
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -38,5 +42,6 @@ RUN a2enmod rewrite
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
+# Cleanup
 RUN rm -rf /var/www/portal/node_modules
 RUN chown -R www-data:www-data ./

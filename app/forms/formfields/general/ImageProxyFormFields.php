@@ -20,6 +20,8 @@ class ImageProxyFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+        $this->hasFieldset = true;
+
         $this->fields[] = $imageproxyEnabled = new Check('imageproxy-enabled');
         $imageproxyEnabled->setLabel('Enabled')
             ->setAttributes([
@@ -35,7 +37,7 @@ class ImageProxyFormFields extends FormFields
         $this->fields[] = $imageproxyUrl = new Text('imageproxy-url');
         $imageproxyUrl->setLabel('URL')
             ->setFilters(['striptags', 'string'])
-            ->setAttributes(['class' => 'form-control', 'fieldset' => 'end'])
+            ->setAttributes(['class' => 'form-control'])
             ->setDefault($this->form->settings->imageproxy->url)
             ->addValidators([
                 new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'imageproxy-enabled']),

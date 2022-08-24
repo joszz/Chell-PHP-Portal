@@ -181,8 +181,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('rotate_interval', 'dashboard', 'couchpotato', '');
         $this->createDefaultSetting('tmdb_api_url', 'dashboard', 'couchpotato', 'https://api.themoviedb.org/3/');
         $this->createDefaultSetting('tmdb_api_key', 'dashboard', 'couchpotato', '');
-        //Broadcast
-        $this->createDefaultSetting('broadcast', 'dashboard', 'network', '');
         //PHPSysInfo
         $this->createDefaultSetting('enabled', 'dashboard', 'phpsysinfo', '0');
         $this->createDefaultSetting('url', 'dashboard', 'phpsysinfo', '');
@@ -278,8 +276,10 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'apache', '0');
         $this->createDefaultSetting('server_status_url', 'dashboard', 'apache', '');
         $this->createDefaultSetting('fpm_status_url', 'dashboard', 'apache', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'apache', '30');
         //Docker
         $this->createDefaultSetting('enabled', 'dashboard', 'docker', '0');
+        $this->createDefaultSetting('remote_api_url', 'dashboard', 'docker', '');
         $this->createDefaultSetting('update_interval', 'dashboard', 'docker', '30');
         //Disks
         $this->createDefaultSetting('enabled', 'dashboard', 'disks', '0');
@@ -291,11 +291,11 @@ class InstallController extends BaseController
         //Sonarr
         $this->createDefaultSetting('enabled', 'dashboard', 'sonarr', '0');
         $this->createDefaultSetting('url', 'dashboard', 'sonarr', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'sonarr', '30');
+        $this->createDefaultSetting('api_key', 'dashboard', 'sonarr', '');
         //Radarr
         $this->createDefaultSetting('enabled', 'dashboard', 'radarr', '0');
         $this->createDefaultSetting('url', 'dashboard', 'radarr', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'radarr', '30');
+        $this->createDefaultSetting('api_key', 'dashboard', 'radarr', '');
         //PSA Remote
         $this->createDefaultSetting('enabled', 'dashboard', 'psaremote', '0');
         $this->createDefaultSetting('vin', 'dashboard', 'psaremote', '');

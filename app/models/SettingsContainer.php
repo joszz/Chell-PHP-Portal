@@ -2,19 +2,22 @@
 
 namespace Chell\Models;
 
+use ArrayObject;
 use Exception;
+use IteratorAggregate;
 use Chell\Models\SettingsDefault;
 use Chell\Models\SettingsCategory;
 use Chell\Models\SettingsDefaultStorageType;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Di\Exception as DiException;
+use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
 /**
  * The model responsible for all actions related to the settings object, containing all DB settings.
  *
  * @package Models
  */
-class SettingsContainer
+class SettingsContainer implements IteratorAggregate
 {
     private array $_categories = [];
 
@@ -89,6 +92,11 @@ class SettingsContainer
         return isset($this->_categories[$name]);
     }
 
+    public function getIterator()
+    {
+        return (new ArrayObject($this->_categories))->getIterator();
+    }
+
     /**
      * Adds a new SettingCategory to the array of categoreis.
      *
@@ -106,12 +114,24 @@ class SettingsContainer
      */
     public function save(string $section)
     {
-        foreach ($this->_categories as $category)
+        $transactionManager = new TransactionManager();
+        $transaction = $transactionManager->get();
+
+        try
         {
-            if ($category->section == $section)
+            foreach ($this->_categories as $category)
             {
-                $category->save();
+                if ($category->section == $section)
+                {
+                    $category->save($transaction);
+                }
             }
+
+            $transaction->commit();
+        }
+        catch (Exception)
+        {
+            $transaction->rollback();
         }
     }
 }

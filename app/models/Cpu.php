@@ -21,6 +21,10 @@ class Cpu extends BaseModel
         {
             return $this->getCpuUsageWindows();
         }
+        else if (is_readable('/prochost/stat'))
+        {
+            return $this->getCpuUsageLinux(fn() => @file_get_contents('/prochost/stat'));
+        }
         else if (is_readable('/proc/stat'))
         {
             return $this->getCpuUsageLinux(fn() => @file_get_contents('/proc/stat'));
@@ -31,7 +35,7 @@ class Cpu extends BaseModel
 
     /**
      * Retrieves the CPU usage in percentage for Linux.
-     * 
+     *
      * @param mixed $getProcStatFunction    A function to retrieve the output of /proc/stat by.
      * @return bool|float                   A CPU usage percentage as float (0-100) or false if failed.
      */
@@ -64,7 +68,7 @@ class Cpu extends BaseModel
 
     /**
      * Retrieves the CPU usage in percentage for Windows.
-     * 
+     *
      * @return string|bool   Either a string of usage percentage, or false if failed.
      */
     private function getCpuUsageWindows()

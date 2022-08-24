@@ -29,7 +29,7 @@
 		"librespeed": "github:joszz/speedtest",
 		"luxon": "^3.0.1",
 		"node-waves": "github:joszz/waves",
-		"prismjs": "^1.28.0",
+		"prismjs": "^1.29.0",
 		"responsive-paginate": "joszz/rpage",
 		"rpage": "github:joszz/rpage",
 		"spark-md5": "^3.0.2",

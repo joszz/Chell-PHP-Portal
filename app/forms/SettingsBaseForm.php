@@ -120,7 +120,7 @@ class SettingsBaseForm extends Form
         $name = $element->getName();
         $html = '';
 
-        unset($attributes['fieldset'], $attributes['closefieldset']);
+        unset($attributes['fieldset'], $attributes['closefieldset'], $attributes['hasfieldset']);
         $element->setAttributes($attributes);
 
         if ($fieldset)
@@ -128,7 +128,6 @@ class SettingsBaseForm extends Form
             ob_start();
             require APP_PATH . 'app/views/forms/fieldset.phtml';
             $html = ob_get_clean();
-
         }
         else
         {
@@ -251,7 +250,6 @@ class SettingsBaseForm extends Form
 
         foreach ($elements as $field => $element)
         {
-            $isArray = strpos($field, '[]') !== false;
             $field = str_replace('[]', '', $field);
             $category = substr($field, 0, $categoryEnd = strpos($field, '-'));
             $setting = substr($field, $categoryEnd + 1);
@@ -267,13 +265,18 @@ class SettingsBaseForm extends Form
                 continue;
             }
 
-            if (is_a($element, Check::class))
+            if (isset($data[$field]))
             {
-                $this->settings->$category->$setting = $data[$field] ?? '0';
-            }
-            else
-            {
-                $this->settings->$category->$setting = $isArray ? implode( ',', $data[$field]) : $data[$field];
+                if (is_a($element, Check::class))
+                {
+                    $this->settings->$category->$setting = $data[$field] ?? '0';
+                    $element->setAttribute('checked', $this->settings->$category->$setting == '1' ? 'checked' : null);
+                }
+                else
+                {
+                    $this->settings->$category->$setting = is_array($data[$field]) ? implode(',', $data[$field]) : $data[$field];
+                    $element->setDefault($data[$field]);
+                }
             }
         }
 

@@ -5,8 +5,8 @@
 @import '../node_modules/@fortawesome/fontawesome-free/scss/animated';
 @import 'icons';
 
-.fa,
-.fas {
+.fa:not(.btn),
+.fas:not(.btn) {
     text-align: center;
     display: inline-flex;
     align-items: center;

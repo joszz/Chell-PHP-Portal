@@ -23,6 +23,8 @@ class RedisFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
+        $this->hasFieldset = true;
+
         $this->fields[] = new Check('redis-enabled', [
             'fieldset' => 'Redis',
             'checked' => $this->form->settings->redis->enabled == '1' ? 'checked' : null
@@ -31,14 +33,14 @@ class RedisFormFields extends FormFields
         $this->fields[] = $redisHost = new Text('redis-host');
         $redisHost->setLabel('Host')
                   ->setFilters(['striptags', 'string'])
-                  ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+                  ->setAttributes(['class' => 'form-control'])
                   ->setDefault($this->form->settings->redis->host)
                   ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'redis-enabled']));
 
         $this->fields[] =  $redisPort = new Numeric('redis-port');
         $redisPort->setLabel('Port')
                   ->setFilters(['striptags', 'int'])
-                  ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+                  ->setAttributes(['class' => 'form-control'])
                   ->setDefault($this->form->settings->redis->port)
                   ->addValidator(new Numericality(['message' => $this->form->translator->validation['not-a-number']]))
                   ->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'redis-enabled']));
@@ -46,7 +48,7 @@ class RedisFormFields extends FormFields
         $this->fields[] = $redisAuth = new Password('redis-auth');
         $redisAuth->setLabel('Auth')
                   ->setFilters(['striptags', 'string'])
-                  ->setAttributes(['class' => 'form-control', 'fieldset' => true])
+                  ->setAttributes(['class' => 'form-control'])
                   ->setDefault($this->form->settings->redis->auth);
 
         if ($this->form->settings->hibp->enabled)

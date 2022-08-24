@@ -126,7 +126,7 @@ class Devices extends BaseModel
     private function adbIsAwake(int $retryCounter = 0) : bool
     {
         $this->adbConnect();
-        $output = strtolower(shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys power | grep -e "mWakefulness" | head -1'));
+        $output = strtolower(shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys power | grep -e "mWakefulness" | head -1'));
 
         if (++$retryCounter >= 5 )
         {
@@ -181,7 +181,7 @@ class Devices extends BaseModel
     private function wakeOnAdb() : bool
     {
         $this->adbConnect();
-        shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_WAKEUP');
+        shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_WAKEUP');
         return true;
     }
 
@@ -211,7 +211,7 @@ class Devices extends BaseModel
     private function shutdownOnAdb() : bool
     {
         $this->adbConnect();
-        shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_SLEEP');
+        shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell input keyevent KEYCODE_SLEEP');
         return true;
     }
 
@@ -223,11 +223,11 @@ class Devices extends BaseModel
      */
     private function adbConnect() : bool
     {
-        $connectedDevices = shell_exec(APP_PATH. 'adb devices -l');
+        $connectedDevices = shell_exec('adb devices -l');
 
         if (strpos($connectedDevices, $this->ip) === false)
         {
-            shell_exec(APP_PATH. 'adb kill-server');
+            shell_exec('adb kill-server');
             $output = shell_exec('adb connect ' . escapeshellcmd($this->ip));
 
             if (strpos($output, 'connected to ' . $this->ip) === false)
@@ -247,7 +247,7 @@ class Devices extends BaseModel
     public function adbGetBatteryStats() : bool|string|null
     {
         $this->adbConnect();
-        return shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys battery');
+        return shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell dumpsys battery');
     }
 
     /**
@@ -258,7 +258,7 @@ class Devices extends BaseModel
     public function adbGetCpuUsage() : float
     {
         $this->adbConnect();
-        return Cpu::getCpuUsageLinux(fn() => shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat'));
+        return Cpu::getCpuUsageLinux(fn() => shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /proc/stat'));
     }
 
     /**
@@ -270,12 +270,12 @@ class Devices extends BaseModel
     {
         $this->adbConnect();
 
-        $numberOfCores = shell_exec(APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/present');
+        $numberOfCores = shell_exec('adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/present');
         $numberOfCores = current(explode(PHP_EOL, $numberOfCores));
         $numberOfCores = explode('-', $numberOfCores);
         $numberOfCores = intval(end($numberOfCores)) + 1;
 
-        $cpuFrequencyCommand = APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/cpu%1d/cpufreq/%2s';
+        $cpuFrequencyCommand = 'adb -s ' . escapeshellcmd($this->ip) . ' shell cat /sys/devices/system/cpu/cpu%1d/cpufreq/%2s';
         $result = [];
 
         for ($i = 0; $i < $numberOfCores; $i++)
@@ -312,7 +312,7 @@ class Devices extends BaseModel
             'ro.build.version.sdk'      => 'Droid SDK',
             'vendor.display-size'       => 'Resolution'
         ];
-        $command = APP_PATH. 'adb -s ' . escapeshellcmd($this->ip) . ' shell getprop | grep "';
+        $command = 'adb -s ' . escapeshellcmd($this->ip) . ' shell getprop | grep "';
         $index = 0;
 
         foreach ($properties as $property => $name)

@@ -3,7 +3,7 @@
 namespace Chell\Models;
 
 use Exception;
-use Chell\Models\SettingsDefault;
+use Phalcon\Mvc\Model\TransactionInterface;
 
 /**
  * The model responsible for all actions related to setting categories.
@@ -48,7 +48,7 @@ class SettingsCategory
      * @param string $name  The name of the setting to retrieve the value for.
      * @return string       The retrieved value.
      */
-    public function __get(string $name) : string
+    public function __get(string $name)
     {
         if (!isset($this->_settings[$name]))
         {
@@ -72,10 +72,14 @@ class SettingsCategory
     /**
      * Calls save on all settings belonging to this category.
      */
-    public function save()
+    public function save(TransactionInterface $transaction)
     {
         foreach ($this->_settings as $setting)
         {
+            if (is_a($setting, 'Settings'))
+            {
+                $setting->setTransaction($transaction);
+            }
             $setting->save();
         }
     }

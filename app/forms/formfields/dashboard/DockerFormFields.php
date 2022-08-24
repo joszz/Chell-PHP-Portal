@@ -6,7 +6,9 @@ use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
 use Phalcon\Forms\Element\Numeric;
+use Phalcon\Forms\Element\Text;
 use Phalcon\Filter\Validation\Validator\Numericality;
+use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 /**
  * The formfields for the Docker plugin
@@ -27,8 +29,18 @@ class DockerFormFields extends FormFields
 			'checked' => $this->form->settings->docker->enabled == '1' ? 'checked' : null
 		]);
 
-        $this->fields[] = $pulsewayInterval = new Numeric('docker-update_interval');
-		$pulsewayInterval->setLabel('Interval')
+		$this->fields[] = $dockerApiUrl = new Text('docker-remote_api_url');
+		$dockerApiUrl->setLabel('Remote API URL')
+			->setFilters(['striptags', 'string'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->docker->remote_api_url)
+			->addValidators([
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'docker-enabled']),
+				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
+			]);
+
+        $this->fields[] = $dockerInterval = new Numeric('docker-update_interval');
+		$dockerInterval->setLabel('Interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->docker->update_interval)

@@ -77,7 +77,6 @@ class PulsewayFormFields extends FormFields
 			->setAttributes([
 				'class' => 'form-control',
 				'multiple' => 'multiple',
-				'fieldset' => 'end',
 				'disabled' => true,
 				'data-selected' => $this->form->settings->pulseway->systems ?? '',
 				'data-apiurl' => '../pulseway/systems'

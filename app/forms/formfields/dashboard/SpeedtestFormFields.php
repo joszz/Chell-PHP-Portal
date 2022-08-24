@@ -66,8 +66,7 @@ class SpeedtestFormFields extends FormFields
 			'data-toggle' => 'toggle',
 			'data-onstyle' => 'success',
 			'data-offstyle' => 'danger',
-			'data-size' => 'small',
-			'fieldset' => true
+			'data-size' => 'small'
 		]);
 
 		$this->fields[] = $speedtestISPInfo = new Select('speedtest-get_isp_distance', ['km' => 'Kilometers', 'mi' => 'Miles']);
