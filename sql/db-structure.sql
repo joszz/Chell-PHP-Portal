@@ -131,7 +131,7 @@ CREATE TABLE `snmp_records` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `snmp_host_id_idx` (`snmp_host_id`),
-  CONSTRAINT `snmp_host_id` FOREIGN KEY (`snmp_host_id`) REFERENCES `snmp_hosts` (`id`)
+  CONSTRAINT `snmp_host_id` FOREIGN KEY (`snmp_host_id`) REFERENCES `snmp_hosts` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
