@@ -1,15 +1,50 @@
 <?php /** @var Chell\Controllers\ErrorController $this */ ?>
 
 <h1 class="text-danger ellipsis" title="<?php echo $this->exception->getMessage() ?>">
-    <?php echo $this->exception->getMessage() ?>
+    An error occurred
 </h1>
 
 <div class="row">
     <div class="col-xs-4 col-sm-3 col-lg-2">
-        <span class="label label-danger">IP:</span>
+        <span class="label label-danger">Message:</span>
     </div>
     <div class="col-xs-8 col-sm-9 col-lg-10">
-        <?php echo $this->getUserIP() ?>
+        <?php echo $this->exception->getMessage() ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-lg-2">
+        <span class="label label-danger">File:</span>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-lg-10 ellipsis" title="<?php echo $this->exception->getFile() ?>">
+        <?php echo $this->exception->getFile() ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-lg-2">
+        <span class="label label-danger">Line:</span>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-lg-10">
+        <?php echo $this->exception->getLine() ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-lg-2">
+        <span class="label label-danger">Type:</span>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-lg-10">
+        <?php echo $this->exception->type ?>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-lg-2">
+        <span class="label label-danger">Code:</span>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-lg-10">
+        <?php echo $this->exception->getCode() ?>
     </div>
 </div>
 
@@ -42,46 +77,19 @@
 
 <div class="row">
     <div class="col-xs-4 col-sm-3 col-lg-2">
+        <span class="label label-danger">IP:</span>
+    </div>
+    <div class="col-xs-8 col-sm-9 col-lg-10">
+        <?php echo $this->getUserIP() ?>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-xs-4 col-sm-3 col-lg-2">
         <span class="label label-danger">User agent:</span>
     </div>
     <div class="col-xs-8 col-sm-9 col-lg-10">
         <?php echo $_SERVER['HTTP_USER_AGENT'] ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-4 col-sm-3 col-lg-2">
-        <span class="label label-danger">Type:</span>
-    </div>
-    <div class="col-xs-8 col-sm-9 col-lg-10">
-        <?php echo $this->exception->type ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-4 col-sm-3 col-lg-2">
-        <span class="label label-danger">Code:</span>
-    </div>
-    <div class="col-xs-8 col-sm-9 col-lg-10">
-        <?php echo $this->exception->getCode() ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-4 col-sm-3 col-lg-2">
-        <span class="label label-danger">Line:</span>
-    </div>
-    <div class="col-xs-8 col-sm-9 col-lg-10">
-        <?php echo $this->exception->getLine() ?>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-4 col-sm-3 col-lg-2">
-        <span class="label label-danger">File:</span>
-    </div>
-    <div class="col-xs-8 col-sm-9 col-lg-10 ellipsis" title="<?php echo $this->exception->getFile() ?>">
-        <?php echo $this->exception->getFile() ?>
     </div>
 </div>
 
