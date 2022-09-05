@@ -30,7 +30,6 @@ class IndexController extends BaseController
      */
     public function indexAction()
     {
-        throw new \Exception('test');
         $this->setWidgets();
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);

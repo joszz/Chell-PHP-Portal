@@ -16,7 +16,7 @@ class SettingsDefault
     public string $category = 'application';
     public string $section = 'general';
 
-    public function __construct(public string $name, public string $value, public int $type)
+    public function __construct(public string $name, public string $value, public SettingsDefaultStorageType $type)
     {
         $this->name = $name;
         $this->value = $value;
@@ -38,9 +38,9 @@ class SettingsDefault
     }
 }
 
-abstract class SettingsDefaultStorageType
+enum SettingsDefaultStorageType
 {
-    const none = 0;
-    const db = 1;
-    const ini = 2;
+    case none;
+    case db;
+    case ini;
 }
