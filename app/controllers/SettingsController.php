@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Exception;
 use Chell\Forms\SettingsGeneralForm;
 use Chell\Forms\SettingsDashboardForm;
 use Chell\Forms\SettingsDeviceForm;
@@ -129,8 +130,7 @@ class SettingsController extends BaseController
 
             if ($form->isValid($data, $device))
             {
-                $device->save();
-
+                WidgetPosition::addDeviceWidgetPosition($device);
                 return $this->response->redirect('settings/devices');
             }
         }

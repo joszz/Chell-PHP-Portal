@@ -5,8 +5,9 @@ namespace Chell\Controllers;
 use stdClass;
 use Chell\Models\SettingsContainer;
 use Chell\Models\Users;
-use Phalcon\Mvc\Controller;
 use Chell\Plugins\AssetsPlugin;
+use Phalcon\Mvc\Controller;
+use Phalcon\Logger\Logger;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
@@ -19,6 +20,7 @@ class BaseController extends Controller
 
     protected SettingsContainer $settings;
     protected AssetsPlugin $assets;
+    protected Logger $logger;
 
     /**
      * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.
@@ -26,6 +28,7 @@ class BaseController extends Controller
     public function initialize()
     {
         $this->settings = $this->di->get('settings');
+        $this->logger = $this->di->get('logger');
         $this->view->setTemplateAfter('navbar');
         $this->view->bgcolor = $this->getBackgroundColor();
         $this->di->get('vieweventmanager')->attach('view:beforeRender', $this->assets = new AssetsPlugin());

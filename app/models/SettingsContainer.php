@@ -129,9 +129,10 @@ class SettingsContainer implements IteratorAggregate
 
             $transaction->commit();
         }
-        catch (Exception)
+        catch (Exception $exception)
         {
             $transaction->rollback();
+            throw($exception);
         }
     }
 }

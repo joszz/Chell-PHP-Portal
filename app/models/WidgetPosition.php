@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Exception;
+use Chell\Models\Devices;
 use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
 /**
@@ -61,6 +62,36 @@ class WidgetPosition extends BaseModel
                 }
             }
 
+            $transaction->commit();
+        }
+        catch (Exception $e)
+        {
+            $transaction->rollback();
+        }
+    }
+
+    public static function addDeviceWidgetPosition($device)
+    {
+        $transactionManager = new TransactionManager();
+        $transaction = $transactionManager->get();
+
+        try
+        {
+            $dashboardDeviceCount = Devices::count('show_on_dashboard = 1');
+            $deviceWidgetAdded = WidgetPosition::findFirst(['conditions' => 'controller = "devices"']);
+
+            if ($dashboardDeviceCount == 0 && !$deviceWidgetAdded)
+            {
+                $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 1;
+                $widgetPosition = new WidgetPosition();
+                $widgetPosition->controller = 'devices';
+                $widgetPosition->position = ++$maxWidgetPosition;
+                $widgetPosition->setTransaction($transaction);
+                $widgetPosition->save();
+            }
+
+            $device->setTransaction($transaction);
+            $device->save();
             $transaction->commit();
         }
         catch (Exception $e)

@@ -265,18 +265,15 @@ class SettingsBaseForm extends Form
                 continue;
             }
 
-            if (isset($data[$field]))
+            if (is_a($element, Check::class))
             {
-                if (is_a($element, Check::class))
-                {
-                    $this->settings->$category->$setting = $data[$field] ?? '0';
-                    $element->setAttribute('checked', $this->settings->$category->$setting == '1' ? 'checked' : null);
-                }
-                else
-                {
-                    $this->settings->$category->$setting = is_array($data[$field]) ? implode(',', $data[$field]) : $data[$field];
-                    $element->setDefault($data[$field]);
-                }
+                $this->settings->$category->$setting = $data[$field] ?? '0';
+                $element->setAttribute('checked', $this->settings->$category->$setting == '1' ? 'checked' : null);
+            }
+            else if (isset($data[$field]))
+            {
+                $this->settings->$category->$setting = is_array($data[$field]) ? implode(',', $data[$field]) : $data[$field];
+                $element->setDefault($data[$field]);
             }
         }
 

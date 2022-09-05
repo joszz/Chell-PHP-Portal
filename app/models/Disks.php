@@ -29,7 +29,7 @@ class Disks extends BaseModel
         foreach ($disks as $disk)
         {
             $mountPoints = $this->getMountPountsForDisk($disk);
-            $mountPoints = array_filter($mountPoints, fn ($mountPoint) => stripos($mountPoint, '/boot/') === false);
+            $mountPoints = array_filter($mountPoints, fn ($mountPoint) => stripos($mountPoint, '/boot/') === false && stripos($mountPoint, '/tmp') === false);
 
             foreach ($mountPoints as $mountPoint)
             {
@@ -40,10 +40,10 @@ class Disks extends BaseModel
                         $result[$mountPoint] = $this->getDiskSpaceForMountpoint($mountPoint);
                     }
 
-                    $d = new stdClass();
-                    $d->standby = $this->getSpindownStatsForDisk($disk->name);
-                    $d->name = $disk->name;
-                    $result[$mountPoint]->disks[] = $d;
+                    $diskResult = new stdClass();
+                    $diskResult->standby = $this->getSpindownStatsForDisk($disk->name);
+                    $diskResult->name = $disk->name;
+                    $result[$mountPoint]->disks[] = $diskResult;
                 }
             }
         }
@@ -85,11 +85,7 @@ class Disks extends BaseModel
         {
             foreach ($disk->children as $child)
             {
-                $mountPoint = $this->getMountPountsForDisk($child);
-                if(isset($mountPoint[0]))
-                {
-                    $result[] = $mountPoint[0];
-                }
+                $result = array_merge($result, $this->getMountPountsForDisk($child));
             }
         }
 

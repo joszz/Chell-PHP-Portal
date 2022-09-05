@@ -16,10 +16,6 @@ class ErrorController
     private string $content;
     private array $css = [];
     private array $js = [];
-    private string $logPath = APP_PATH . 'app/logs/';
-    private string $logFile;
-
-    public string $guid;
 
     /**
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
@@ -35,9 +31,6 @@ class ErrorController
         }
 
         $this->exception = $exception;
-        $this->guid = $this->getGUID();
-        $this->setLogFile();
-
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
@@ -50,8 +43,6 @@ class ErrorController
             $this->content = $this->error();
             $this->content = $this->layout();
         }
-
-        $this->writeLogAsHTML($exceptionContent);
 
         header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
         header('Cache-Control: post-check=0, pre-check=0', false);
@@ -162,47 +153,5 @@ class ErrorController
         ob_start();
         require APP_PATH . 'app/views/layouts/exception.phtml';
         return ob_get_clean();
-    }
-
-    /**
-     * Sets the log filename based on datetime.
-     */
-    private function setLogFile()
-    {
-        $filename = $this->guid . '.htm';
-
-        while (is_file($this->logPath . $filename))
-        {
-            $this->guid = $this->getGUID();
-            $filename = $this->guid . '.htm';
-        }
-
-        $this->logFile = $filename;
-    }
-
-    /**
-     * Generates a unique string.
-     *
-     * @return string   A GUID string.
-     */
-    private function getGUID() : string
-    {
-        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
-    }
-
-    /**
-     * This will write the rendered HTML in $this->content to the logs folder GZipped.
-     *
-     * @param string $content   The HTML log content to write as gzipped file.
-     */
-    private function writeLogAsHTML(string $content)
-    {
-        if (!file_exists($this->logPath)) {
-            mkdir($this->logPath, 0770);
-        }
-
-        $gzip = gzopen($this->logPath . $this->logFile, 'w9');
-        gzwrite($gzip, $content);
-        gzclose($gzip);
     }
 }

@@ -10,7 +10,7 @@
 	"dependencies": {
 		"@duosecurity/duo_web": "^1.0.6",
 		"@fancyapps/fancybox": "^3.5.7",
-		"@fortawesome/fontawesome-free": "6.1.2",
+		"@fortawesome/fontawesome-free": "6.2.0",
 		"bootstrap-sass": "3.4.1",
 		"bootstrap-select": "^1.13.18",
 		"bootstrap-toggle": "^2.2.2",
@@ -20,7 +20,7 @@
 		"chartjs-plugin-datalabels": "^2.1.0",
 		"chartjs-plugin-streaming": "^2.0.0",
 		"color-calendar": "^1.0.7",
-		"jquery": "^3.6.0",
+		"jquery": "^3.6.1",
 		"jquery-fullscreen-plugin": "^1.1.5",
 		"jquery-tinytimer": "^0.1.4",
 		"jquery.isloading": "github:joszz/is-loading",
@@ -36,10 +36,10 @@
 		"speedtest": "joszz/speedtest",
 		"vibrate": "github:Illyism/jquery.vibrate.js",
 		"waves": "joszz/waves",
-		"webauthn": "github:joszz/webauthn"
+		"webauthn": "github:joszz/webauthn",
+		"@fontsource/roboto": "^4.5.8"
 	},
 	"devDependencies": {
-		"@fontsource/roboto": "^4.5.8",
 		"@popperjs/core": "^2.11.5",
 		"bootstrap": "^5.2.0",
 		"del": "^6.1.1",

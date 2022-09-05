@@ -76,10 +76,11 @@ class SettingsCategory
     {
         foreach ($this->_settings as $setting)
         {
-            if (is_a($setting, 'Settings'))
+            if ($setting instanceof Settings)
             {
                 $setting->setTransaction($transaction);
             }
+
             $setting->save();
         }
     }

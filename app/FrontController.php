@@ -20,9 +20,11 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Logger\Logger;
+use Phalcon\Logger\Adapter\Stream as LogStream;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Redis;
-use Phalcon\Session\Adapter\Stream;
+use Phalcon\Session\Adapter\Stream as SessionStream;
 use Phalcon\Storage\SerializerFactory;
 use Phalcon\Storage\AdapterFactory;
 use Phalcon\Http\Request;
@@ -38,6 +40,7 @@ class FrontController
     private SettingsContainer $settings;
     private FactoryDefault $di;
     private Application $application;
+    private Logger $logger;
     private bool $dbSet = false;
 
     /**
@@ -64,8 +67,8 @@ class FrontController
         $this->di->set('config', $this->config = new ConfigIni(APP_PATH . 'app/config/config.ini'));
         define('DEBUG', $this->config->general->debug);
 
+        $this->setLogger();
         $this->registerNamespaces();
-        $this->setExceptionHandler();
         $this->setDB();
         $this->setSettings();
         $this->setDispatcher();
@@ -80,31 +83,6 @@ class FrontController
     }
 
     /**
-     * Initializes PHP exception handler to Chell's custom handler.
-     */
-    private function setExceptionHandler()
-    {
-        set_exception_handler([&$this, 'ExceptionHandler']);
-    }
-
-    /**
-     * function defined for PHP's set_exception_handler.
-     *
-     * @param Throwable $exception  The exception being thrown.
-     */
-    public function ExceptionHandler(Throwable $exception)
-    {
-        if (strpos(basename($_SERVER['REQUEST_URI']), '.') !== false)
-        {
-            die(header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found'));
-        }
-
-        require_once(APP_PATH . 'app/controllers/ErrorController.php');
-
-        (new ErrorController())->initialize(new ChellException($exception));
-    }
-
-    /**
      * Sets Phalcon's dispatcher and a beforeExecuteRoute to setup the SecurityPlugin, which enforces logins.
      */
     private function setDispatcher()
@@ -112,6 +90,16 @@ class FrontController
         $this->di->set('dispatcher', function () {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin());
+            $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, Throwable $exception) {
+                $this->logger->critical($exception->getMessage());
+                if (DEBUG)
+                {
+                    $this->logger->debug('File: ' . $exception->getFile() . PHP_EOL . 'Line: ' . $exception->getLine() . PHP_EOL . 'Stacktrace:' . $exception->getTraceAsString());
+                }
+
+                require_once(APP_PATH . 'app/controllers/ErrorController.php');
+                (new ErrorController())->initialize(new ChellException($exception));
+            });
 
             $dispatcher = new Dispatcher();
             $dispatcher->setEventsManager($eventsManager);
@@ -184,7 +172,8 @@ class FrontController
                 'username' => $config->database->username,
                 'password' => $config->database->password,
                 'dbname'   => $config->database->name,
-                'charset'  => 'utf8'
+                'charset'  => 'utf8',
+                "options"    => [\PDO::ATTR_PERSISTENT => 1],
             ]);
         });
 
@@ -231,7 +220,7 @@ class FrontController
             else
             {
                 $savePath = ini_get('session.save_path');
-                $adapter = new Stream(['savePath' => $savePath ? $savePath : '/tmp']);
+                $adapter = new SessionStream(['savePath' => $savePath ? $savePath : '/tmp']);
             }
 
             $session->setAdapter($adapter);
@@ -253,6 +242,16 @@ class FrontController
     /**
      * Sets the translator for use in views.
      */
+    private function setLogger()
+    {
+        $this->di->set('logger', function() {
+            $adapter = new LogStream(APP_PATH . '/app/logs/main.log');
+            $this->logger  = new Logger('messages', [ 'main' => $adapter ]);
+
+            return $this->logger;
+        });
+    }
+
     private function setTranslator()
     {
         $language = $this->application->request->getBestLanguage();
