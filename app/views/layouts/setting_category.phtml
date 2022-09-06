@@ -30,9 +30,6 @@ $action = $this->router->getActionName();
                 <li <?php echo ($action == 'users' ? 'class="active"' : null) ?>>
                     <a href="<?php echo $this->url->get('settings/users') ?>">Users</a>
                 </li>
-                <li <?php echo ($action == 'logs' ? 'class="active"' : null) ?>>
-                    <a href="<?php echo $this->url->get('settings/logs') ?>">Logs</a>
-                </li>
             </ul>
             <div class="visible-xs pull-right">
                 <select class="no-selectpicker form-control">

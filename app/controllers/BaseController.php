@@ -6,8 +6,8 @@ use stdClass;
 use Chell\Models\SettingsContainer;
 use Chell\Models\Users;
 use Chell\Plugins\AssetsPlugin;
+use Chell\Plugins\ChellLogger;
 use Phalcon\Mvc\Controller;
-use Phalcon\Logger\Logger;
 
 /**
  * The baseController used by all controllers. Loads the config.ini to a variable.
@@ -20,7 +20,7 @@ class BaseController extends Controller
 
     protected SettingsContainer $settings;
     protected AssetsPlugin $assets;
-    protected Logger $logger;
+    protected ChellLogger $logger;
 
     /**
      * Sets the config object to $this->config and retrieves menuitems for controllers that requires it.

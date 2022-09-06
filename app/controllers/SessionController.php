@@ -202,8 +202,9 @@ class SessionController extends BaseController
 
                 $client->exchangeAuthorizationCodeFor2FAResult($duo_code, $username);
             }
-            catch (DuoException $e)
+            catch (DuoException $exception)
             {
+                $this->logger->LogException($exception);
                 return $this->dispatcher->forward([
                     'controller' => 'session',
                     'action'     => 'logout'
@@ -247,7 +248,7 @@ class SessionController extends BaseController
 
     /**
      * Retrieves the username from either POST or cookie.
-     * 
+     *
      * @param string $username  The username found
      * @param string $password  The password found
      */

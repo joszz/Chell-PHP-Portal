@@ -21,8 +21,9 @@ class Tdarr extends BaseModel
         {
             $response = $this->getHttpClient('cruddb');
         }
-        catch (Exception $e)
+        catch (Exception $exception)
         {
+            $this->logger->LogException($exception);
             return false;
         }
 

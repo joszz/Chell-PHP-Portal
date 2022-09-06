@@ -44,7 +44,7 @@ class SettingsContainer implements IteratorAggregate
                 $this->{$setting->category}->addSetting($setting);
             }
         }
-        catch (DiException $ex)
+        catch (DiException $exception)
         {
             $this->application->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
             $this->application->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));

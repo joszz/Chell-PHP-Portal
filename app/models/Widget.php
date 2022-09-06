@@ -32,15 +32,10 @@ class Widget
     /**
      * Gets the CSS class with the bootstrap column sizes
      *
-     * @param bool $renderSubWidgets    Whether or not to render the subwidgets when this widget has subwidgets. If not render, return an empty class.
      * @return string                   The CSS class for the panel.
      */
-    public function getPanelClass(bool $renderSubWidgets = false) : string
+    public function getPanelClass() : string
     {
-        if ($this->hasSubWidgets && !$renderSubWidgets)
-        {
-            return '';
-        }
 
         $class = 'widget col-xs-' . $this->xs;
         $class .=  $this->sm != 0 ? ' col-sm-' . $this->sm : null;
@@ -72,16 +67,12 @@ class Widget
      *
      * @param int $columnCountSm        Total amount of SM columns displayed so far, passed by reference.
      * @param int $columnCountMd        Total amount of MD columns displayed so far, passed by reference.
-     * @param bool $renderSubWidgets    Whether or not this call is rendering subwidgets.
      */
-    public function calculateColumnCounts(int &$columnCountSm, int &$columnCountMd, bool $renderSubWidgets = false)
+    public function calculateColumnCounts(int &$columnCountSm, int &$columnCountMd)
     {
-        if (!$this->hasSubWidgets || $renderSubWidgets)
-        {
-            $sm = $this->sm != 0 ? $this->sm : $this->xs;
-            $md = $this->md != 0 ? $this->md : $sm;
-            $columnCountSm += $sm;
-            $columnCountMd += $md;
-        }
+        $sm = $this->sm != 0 ? $this->sm : $this->xs;
+        $md = $this->md != 0 ? $this->md : $sm;
+        $columnCountSm += $sm;
+        $columnCountMd += $md;
     }
 }

@@ -11,10 +11,14 @@ $columnCountMd = 0;
         <a href="settings" class="text-warning">No widgets enabled, go to the settings to set them up!</a>
     </h1>
     <?php else : ?>
-    <?php foreach ($widgets as $widget) : $widget->calculateColumnCounts($columnCountSm, $columnCountMd); ?>
+    <?php foreach ($widgets as $widget) : ?>
+    <?php if ($widget->hasSubWidgets) : ?>
+    <?php $this->partial($widget->partial); ?>
+    <?php else : $widget->calculateColumnCounts($columnCountSm, $columnCountMd); ?>
     <div class="<?php echo $widget->getPanelClass() ?>">
         <?php $this->partial($widget->partial); ?>
     </div>
+    <?php endif ?>
 
     <?php if($class = $widget->getRowSeperatorClass($columnCountSm, $columnCountMd)) : ?>
     <div class="<?php echo $class ?>"></div>

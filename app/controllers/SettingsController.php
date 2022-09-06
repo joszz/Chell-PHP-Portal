@@ -332,38 +332,6 @@ class SettingsController extends BaseController
     }
 
     /**
-     * Displays the requested log file.
-     *
-     * @param string $file The log filename to display.
-     */
-    public function logAction(string $file)
-    {
-        if (is_file($path = APP_PATH . 'app/logs/' . basename($file)))
-        {
-            header('Content-Encoding: gzip');
-            $this->response->setHeader('Content-Encoding', 'gzip');
-            return $this->response->setContent(file_get_contents($path))->send();
-        }
-
-        $this->response->setContent('Log file not found!')->send();
-    }
-
-    /**
-     * Displays all the log files in a paginated fashion.
-     * Calls IndexAction to set all the data for all the tabs displayed.
-     *
-     * @param int $page The page requested
-     */
-    public function logsAction(int $page = 1)
-    {
-        $logsTotal = 0;
-        $this->logsPage = $page;
-        $this->view->setTemplateBefore('setting_category');
-        $this->view->logs = $this->getLogsOrderedByFilemtime($logsTotal, $this->logsPage);
-        $this->view->paginator = self::getPaginator($this->logsPage, ceil($logsTotal / $this->settings->application->items_per_page), 'settings/logs/');
-    }
-
-    /**
      * Deletes a $entity with $id if found. Or deletes a log if $which == 'Log'
      * Redirects back to index#devices.
      *

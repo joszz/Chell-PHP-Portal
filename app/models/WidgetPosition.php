@@ -38,7 +38,7 @@ class WidgetPosition extends BaseModel
                     if ($widget->enabled && empty($widgetPosition))
                     {
                         $widgetPosition = new WidgetPosition();
-                        $widgetPosition->controller = $widget->category;
+                        $widgetPosition->controller = $widget->category == 'sonarr' || $widget->category == 'radarr' ? 'arr' : $widget->category;
                         $widgetPosition->position = ++$maxWidgetPosition;
                         $widgetPosition->setTransaction($transaction);
                         $widgetPosition->save();
@@ -64,9 +64,10 @@ class WidgetPosition extends BaseModel
 
             $transaction->commit();
         }
-        catch (Exception $e)
+        catch (Exception $exception)
         {
             $transaction->rollback();
+            throw($exception);
         }
     }
 
@@ -94,9 +95,10 @@ class WidgetPosition extends BaseModel
             $device->save();
             $transaction->commit();
         }
-        catch (Exception $e)
+        catch (Exception $exception)
         {
             $transaction->rollback();
+            throw($exception);
         }
     }
 }

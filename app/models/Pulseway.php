@@ -81,8 +81,9 @@ class Pulseway extends BaseModel
             $content = $response->getBody();
             return $decode ? json_decode($content) : $content;
         }
-        catch(ClientException $e)
+        catch(ClientException $exception)
         {
+            $this->logger->LogException($exception);
             return false;
         }
     }

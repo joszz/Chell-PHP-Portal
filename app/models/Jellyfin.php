@@ -28,8 +28,9 @@ class Jellyfin extends BaseModel
         {
             $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
         }
-        catch (Exception)
+        catch (Exception $exception)
         {
+            $this->logger->LogException($exception);
             return $result;
         }
 
@@ -63,8 +64,9 @@ class Jellyfin extends BaseModel
         {
             $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         }
-        catch(Exception)
+        catch(Exception $exception)
         {
+            $this->logger->LogException($exception);
             return $result;
         }
 

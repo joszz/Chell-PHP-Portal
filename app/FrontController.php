@@ -9,6 +9,7 @@ use Chell\Exceptions\ChellException;
 use Chell\Messages\TranslatorWrapper;
 use Chell\Models\SettingsContainer;
 use Chell\Plugins\SecurityPlugin;
+use Chell\Plugins\ChellLogger;
 
 use Phalcon\Encryption\Crypt;
 use Phalcon\Autoload\Loader;
@@ -20,7 +21,6 @@ use Phalcon\DI\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Events\Manager as EventsManager;
-use Phalcon\Logger\Logger;
 use Phalcon\Logger\Adapter\Stream as LogStream;
 use Phalcon\Session\Manager;
 use Phalcon\Session\Adapter\Redis;
@@ -40,7 +40,7 @@ class FrontController
     private SettingsContainer $settings;
     private FactoryDefault $di;
     private Application $application;
-    private Logger $logger;
+    private ChellLogger $logger;
     private bool $dbSet = false;
 
     /**
@@ -69,9 +69,9 @@ class FrontController
 
         $this->setLogger();
         $this->registerNamespaces();
+        $this->setDispatcher();
         $this->setDB();
         $this->setSettings();
-        $this->setDispatcher();
         $this->setCrypt();
         $this->setDisplayErrors();
         $this->setViewProvider();
@@ -92,10 +92,7 @@ class FrontController
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin());
             $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, Throwable $exception) {
                 $this->logger->critical($exception->getMessage());
-                if (DEBUG)
-                {
-                    $this->logger->debug('File: ' . $exception->getFile() . PHP_EOL . 'Line: ' . $exception->getLine() . PHP_EOL . 'Stacktrace:' . $exception->getTraceAsString());
-                }
+                $this->logger->debug('File: ' . $exception->getFile() . PHP_EOL . 'Line: ' . $exception->getLine() . PHP_EOL . 'Stacktrace:' . $exception->getTraceAsString());
 
                 require_once(APP_PATH . 'app/controllers/ErrorController.php');
                 (new ErrorController())->initialize(new ChellException($exception));
@@ -246,8 +243,8 @@ class FrontController
     {
         $this->di->set('logger', function() {
             $adapter = new LogStream(APP_PATH . '/app/logs/main.log');
-            $this->logger  = new Logger('messages', [ 'main' => $adapter ]);
-
+            $this->logger  = new ChellLogger('messages', [ 'main' => $adapter ]);
+            $this->logger->setLogLevel(DEBUG ? ChellLogger::DEBUG : ChellLogger::ERROR);
             return $this->logger;
         });
     }
