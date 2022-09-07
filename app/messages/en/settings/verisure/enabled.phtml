@@ -2,5 +2,17 @@
 $title = 'Verisure';
 ?>
 
-Enables the Verisure widget. Requires installation of
-<a href="https://github.com/persandstrom/python-verisure" target="_blank">python-verisure API</a>.
+<p>
+    Enables the Verisure widget.<br />
+    Requires installation of
+    <a href="https://github.com/persandstrom/python-verisure" target="_blank">python-verisure API</a>, which is part of the Docker container.
+</p>
+<p>
+    If you use 2FA with Verisure it's important to authenticate the user that runs apache.<br />
+    In the container this can be done by running the following command;<br />
+    <code>docker exec -it &lt;containername/containerid&gt; /var/www/portal/vsure.sh</code>
+</p>
+<p>
+    if run on baremetal you will need to run below command under the user that runs Apache;<br />
+    <code>vsure &lt;username&gt; &lt;password&gt; mfa</code>
+</p>

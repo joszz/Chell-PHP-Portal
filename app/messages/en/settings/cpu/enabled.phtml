@@ -1,5 +1,13 @@
 <?php
 $title = 'CPU';
 ?>
-
-Enables the CPU plugin.
+<p>
+    Enables the CPU usage widget.
+</p>
+<p>
+    When running this project as a container it's important to mount /proc in the container;<br />
+    <code>
+        <pre>volumes:
+  - /proc:/prochost:ro</pre>
+    </code>
+</p>

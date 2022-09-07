@@ -16,17 +16,18 @@ RUN pecl install phalcon-5.0.0RC4 && docker-php-ext-enable phalcon
 RUN pecl install zip && docker-php-ext-enable zip
 RUN curl -sS https://getcomposer.org/installer | php \
 	&& chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
-RUN pip install python-miio
-RUN pip install vsure
 
 RUN mkdir /var/www/portal
 WORKDIR /var/www/portal
+RUN chown -R www-data:www-data ./../
 COPY . .
 
 RUN npm install -g gulp
 RUN npm install gulp
 RUN gulp
 
+RUN pip install python-miio
+RUN pip install vsure
 RUN composer install --no-dev
 
 # Use the default production configuration
@@ -44,4 +45,5 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 # Cleanup
 RUN rm -rf /var/www/portal/node_modules
-RUN chown -R www-data:www-data ./
+
+USER www-data
