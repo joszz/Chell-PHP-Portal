@@ -20,8 +20,8 @@ class PHPSysInfo extends BaseModel
     public function getData(string $plugin)
     {
         $client = new Client();
-        $response = $client->request('GET', $this->_settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time(),
-			['auth' => [$this->_settings->phpsysinfo->username , $this->_settings->phpsysinfo->password]]);
+        $response = $client->request('GET', $this->settings->phpsysinfo->url . 'xml.php?json&plugin=' . $plugin . '&t=' . time(),
+			['auth' => [$this->settings->phpsysinfo->username , $this->settings->phpsysinfo->password]]);
         return $response->getBody();
     }
 }

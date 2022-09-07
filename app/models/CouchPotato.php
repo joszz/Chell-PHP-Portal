@@ -19,7 +19,7 @@ class Couchpotato extends BaseModel
      */
 	public function getAllMovies() : array|bool
 	{
-		$content = $this->getHttpClientBody($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.list');
+		$content = $this->getHttpClientBody($this->settings->couchpotato->url . 'api/' . $this->settings->couchpotato->api_key . '/media.list');
 
 		return $content && $content->success ? $content->movies : false;
 	}
@@ -33,7 +33,7 @@ class Couchpotato extends BaseModel
 	public function getMovie(string $id)
 	{
 		$movie = false;
-		$content = $this->getHttpClientBody($this->_settings->couchpotato->url . 'api/' . $this->_settings->couchpotato->api_key . '/media.get/?id=' . $id);
+		$content = $this->getHttpClientBody($this->settings->couchpotato->url . 'api/' . $this->settings->couchpotato->api_key . '/media.get/?id=' . $id);
 
 		if ($content->success)
 		{
@@ -52,7 +52,7 @@ class Couchpotato extends BaseModel
      */
 	private function getRandomTrailerFormTMDB(int $id) : string
 	{
-		$content = $this->getHttpClientBody($this->_settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->_settings->application->tmdb_api_key);
+		$content = $this->getHttpClientBody($this->settings->application->tmdb_api_url . 'movie/' . $id . '/videos?api_key=' . $this->settings->application->tmdb_api_key);
 		$randomTrailerIndex = array_rand($content->results);
 
 		return isset($content->results[$randomTrailerIndex]) ? $content->results[$randomTrailerIndex]->key : '';

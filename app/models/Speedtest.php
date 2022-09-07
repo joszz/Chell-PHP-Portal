@@ -103,14 +103,14 @@ class Speedtest extends BaseModel
 	private function setISPDetails()
 	{
         $client = new Client();
-		$response = $client->request('GET', $this->_settings->speedtest->ip_info_url . $this->ipAddress . '/json?token=' . $this->_settings->speedtest->ip_info_token);
+		$response = $client->request('GET', $this->settings->speedtest->ip_info_url . $this->ipAddress . '/json?token=' . $this->settings->speedtest->ip_info_token);
 		$details = json_decode($response->getBody());
 
 		$this->isp .= $details->org ?? 'Unknown ISP';
 		$this->isp .= isset($details->country) ? ', ' . $details->country : '';
 		$this->clientLocaction = isset($details->loc) ? explode(',', $details->loc) : false;
 
-        $response = $client->request('GET', $this->_settings->speedtest->ip_info_url . 'json?token=' . $this->_settings->speedtest->ip_info_token);
+        $response = $client->request('GET', $this->settings->speedtest->ip_info_url . 'json?token=' . $this->settings->speedtest->ip_info_token);
 		$details = json_decode($response->getBody());
 
 		$this->serverLocation = isset($details->loc) ? explode(',', $details->loc) : false;

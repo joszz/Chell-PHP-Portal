@@ -26,7 +26,7 @@ class Jellyfin extends BaseModel
 
         try
         {
-            $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Views');
+            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Views');
         }
         catch (Exception $exception)
         {
@@ -62,7 +62,7 @@ class Jellyfin extends BaseModel
 
         try
         {
-            $response = $this->getHttpClient('/Users/' . $this->_settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
+            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
         }
         catch(Exception $exception)
         {
@@ -116,7 +116,7 @@ class Jellyfin extends BaseModel
      */
     private function getHttpClient(string $url) : ResponseInterface
     {
-        $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->_settings->jellyfin->token]]);
-        return $client->request('GET', $this->_settings->jellyfin->url . $url);
+        $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->settings->jellyfin->token]]);
+        return $client->request('GET', $this->settings->jellyfin->url . $url);
     }
 }

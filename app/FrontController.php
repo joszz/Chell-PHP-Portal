@@ -67,8 +67,8 @@ class FrontController
         $this->di->set('config', $this->config = new ConfigIni(APP_PATH . 'app/config/config.ini'));
         define('DEBUG', $this->config->general->debug);
 
-        $this->setLogger();
         $this->registerNamespaces();
+        $this->setLogger();
         $this->setDispatcher();
         $this->setDB();
         $this->setSettings();
@@ -87,12 +87,13 @@ class FrontController
      */
     private function setDispatcher()
     {
-        $this->di->set('dispatcher', function () {
+        $logger = $this->logger;
+        $this->di->set('dispatcher', function () use ($logger) {
             $eventsManager = new EventsManager();
             $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin());
-            $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, Throwable $exception) {
-                $this->logger->critical($exception->getMessage());
-                $this->logger->debug('File: ' . $exception->getFile() . PHP_EOL . 'Line: ' . $exception->getLine() . PHP_EOL . 'Stacktrace:' . $exception->getTraceAsString());
+            $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, Throwable $exception) use ($logger) {
+                $logger->critical($exception->getMessage());
+                $logger->debug('File: ' . $exception->getFile() . PHP_EOL . 'Line: ' . $exception->getLine() . PHP_EOL . 'Stacktrace:' . $exception->getTraceAsString());
 
                 require_once(APP_PATH . 'app/controllers/ErrorController.php');
                 (new ErrorController())->initialize(new ChellException($exception));
@@ -241,11 +242,13 @@ class FrontController
      */
     private function setLogger()
     {
-        $this->di->set('logger', function() {
-            $adapter = new LogStream(APP_PATH . '/app/logs/main.log');
-            $this->logger  = new ChellLogger('messages', [ 'main' => $adapter ]);
-            $this->logger->setLogLevel(DEBUG ? ChellLogger::DEBUG : ChellLogger::ERROR);
-            return $this->logger;
+        $adapter = new LogStream(APP_PATH . '/app/logs/main.log');
+        $logger  = new ChellLogger('messages', [ 'main' => $adapter ]);
+        $logger->setLogLevel(DEBUG ? ChellLogger::DEBUG : ChellLogger::ERROR);
+        $this->logger = $logger;
+
+        $this->di->set('logger', function() use ($logger) {
+            return $logger;
         });
     }
 

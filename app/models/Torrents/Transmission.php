@@ -90,8 +90,8 @@ class Transmission extends Torrents
 	protected function authenticate()
     {
         $client = new Client();
-        $response = $client->request('GET', $this->_settings->torrents->url . '/rpc/',
-			['auth' => [$this->_settings->torrents->username , $this->_settings->torrents->password]]);
+        $response = $client->request('GET', $this->settings->torrents->url . '/rpc/',
+			['auth' => [$this->settings->torrents->username , $this->settings->torrents->password]]);
 
 		if ($response->getStatusCode() == 409)
         {
@@ -108,7 +108,7 @@ class Transmission extends Torrents
     private function getHttpClient($postFields) : ResponseInterface
     {
         $client = new Client(['headers' => ['X-Transmission-Session-Id' => $this->_transmissionSessionId]]);
-        return $client->request('POST', $this->_settings->torrents->url . '/rpc/', [
+        return $client->request('POST', $this->settings->torrents->url . '/rpc/', [
             'body' => $postFields
         ]);
     }

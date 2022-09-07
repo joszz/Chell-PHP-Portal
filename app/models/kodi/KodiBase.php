@@ -19,7 +19,7 @@ class KodiBase extends BaseModel
      */
     public function initialize()
     {
-        $config = $this->_settings->kodi;
+        $config = $this->settings->kodi;
         $this->di->set('dbKodiMusic', function() use ($config) {
             return new DbAdapter([
                 'host'     => $this->sett->database->host,
@@ -61,9 +61,9 @@ class KodiBase extends BaseModel
             return $this->url->get('img/icons/unknown.jpg');
         }
 
-        if ($this->_settings->imageproxy->enabled)
+        if ($this->settings->imageproxy->enabled)
         {
-            return $this->_settings->imageproxy->url . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
+            return $this->settings->imageproxy->url . (!empty($width) ? $width .  ',sc/' : null) . $this->{$imageField};
         }
 
         return $this->url->get('kodi/getImage/' . $which . '/'. $type . '/' . $this->{$idField} . (!empty($width) ? '/'. $width : null));

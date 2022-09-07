@@ -55,7 +55,7 @@ class Tdarr extends BaseModel
     private function getHttpClient(string $url) : ResponseInterface
     {
         $client = new Client();
-        return $client->post($this->_settings->tdarr->url . $url, [
+        return $client->post($this->settings->tdarr->url . $url, [
             RequestOptions::JSON => [
                 'data' => [
                     'collection' => 'StatisticsJSONDB',

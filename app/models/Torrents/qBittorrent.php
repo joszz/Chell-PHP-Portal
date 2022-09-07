@@ -83,10 +83,10 @@ class qBittorrent extends Torrents
     protected function authenticate()
     {
         $client = new Client();
-        $response = $client->request('POST', $this->_settings->torrents->url . 'api/v2/auth/login', [
+        $response = $client->request('POST', $this->settings->torrents->url . 'api/v2/auth/login', [
             'form_params' => [
-                'username' => $this->_settings->torrents->username,
-                'password' => $this->_settings->torrents->password,
+                'username' => $this->settings->torrents->username,
+                'password' => $this->settings->torrents->password,
             ]
         ]);
 
@@ -113,6 +113,6 @@ class qBittorrent extends Torrents
     private function getHttpClient(string $url) : ResponseInterface
     {
         $client = new Client(['headers' => ['Cookie' => 'SID=' . $this->_sid]]);
-        return $client->request('GET', $this->_settings->torrents->url . 'api/v2/' . $url);
+        return $client->request('GET', $this->settings->torrents->url . 'api/v2/' . $url);
     }
 }

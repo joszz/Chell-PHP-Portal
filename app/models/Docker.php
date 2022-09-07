@@ -20,7 +20,7 @@ class Docker extends BaseModel
      */
     public function getContainers() : array
     {
-        $client = new Client(['base_uri' => $this->_settings->docker->remote_api_url . 'containers/json']);
+        $client = new Client(['base_uri' => $this->settings->docker->remote_api_url . 'containers/json']);
         $data = json_decode($client->request('GET')->getBody());
         $result = [];
 

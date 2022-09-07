@@ -3,6 +3,7 @@
 namespace Chell\Models;
 
 use Chell\Models\SettingsContainer;
+use Chell\Plugins\ChellLogger;
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Url;
 
@@ -14,8 +15,9 @@ use Phalcon\Mvc\Url;
  */
 class BaseModel extends Model
 {
-    protected SettingsContainer $_settings;
+    protected SettingsContainer $settings;
     protected Url $url;
+    protected ChellLogger $logger;
 
     /**
      * Initializes the model, getting settings and creating a new Url object.
@@ -23,6 +25,7 @@ class BaseModel extends Model
     public function initialize()
     {
         $this->url = new Url();
-        $this->_settings = $this->di->get('settings');
+        $this->settings = $this->di->get('settings');
+        $this->logger = $this->di->get('logger');
     }
 }

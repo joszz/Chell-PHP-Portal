@@ -27,11 +27,11 @@ class Arr extends BaseModel
     {
         $result = [];
 
-        if ($this->_settings->sonarr->enabled)
+        if ($this->settings->sonarr->enabled)
         {
             $result = array_merge($result, $this->getSonarrCalendar($start, $end));
         }
-        if ($this->_settings->radarr->enabled)
+        if ($this->settings->radarr->enabled)
         {
             $result = array_merge($result, $this->getRadarrCalendar($start, $end));
         }
@@ -51,7 +51,7 @@ class Arr extends BaseModel
      */
     private function getSonarrCalendar(string $start, string $end) : array
     {
-        $episodes = $this->getHttpClient($this->_settings->sonarr->url . 'calendar', $this->_settings->sonarr->api_key, '&start=' . $start . '&end=' . $end);
+        $episodes = $this->getHttpClient($this->settings->sonarr->url . 'calendar', $this->settings->sonarr->api_key, '&start=' . $start . '&end=' . $end);
         $episodes = json_decode($episodes->getBody());
         $series = $this->getSonarrSeries();
         $result = [];
@@ -79,7 +79,7 @@ class Arr extends BaseModel
      */
     private function getSonarrSeries()
     {
-        $series = $this->getHttpClient($this->_settings->sonarr->url . 'series', $this->_settings->sonarr->api_key);
+        $series = $this->getHttpClient($this->settings->sonarr->url . 'series', $this->settings->sonarr->api_key);
         $series = json_decode($series->getBody());
         return $series;
     }
@@ -93,7 +93,7 @@ class Arr extends BaseModel
      */
     private function getRadarrCalendar(string $start, string $end)
     {
-        $movies = $this->getHttpClient($this->_settings->radarr->url . 'calendar', $this->_settings->radarr->api_key, '&start=' . $start . '&end=' . $end);
+        $movies = $this->getHttpClient($this->settings->radarr->url . 'calendar', $this->settings->radarr->api_key, '&start=' . $start . '&end=' . $end);
         $movies = json_decode($movies->getBody());
         $result = [];
 
