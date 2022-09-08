@@ -1,17 +1,14 @@
-version: "3.7"
+version: "3.8"
 
 services:
   chell:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: gotgeeks/chell:latest
     ports:
       - 8080:80
     volumes:
       - /proc:/prochost:ro
   db:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: example
