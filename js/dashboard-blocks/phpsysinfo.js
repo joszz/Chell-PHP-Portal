@@ -69,7 +69,7 @@
             getAll: function (initialize) {
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
-                    $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading();
+                    $(".sysinfo, #hardware:visible, .processes").isLoading();
                 }
 
                 $.ajax({
@@ -87,7 +87,7 @@
                         functions.setPsStatus(data);
                     },
                     complete: function () {
-                        $(".sysinfo, #hardware:visible, .harddisks, .processes").isLoading("hide");
+                        $(".sysinfo, #hardware:visible, .processes").isLoading("hide");
                     }
                 });
             },
