@@ -129,6 +129,7 @@
             'node_modules/@fortawesome/fontawesome-free/svgs/solid/trash-can.svg',
             'node_modules/@fortawesome/fontawesome-free/svgs/solid/tv.svg',
             'node_modules/@fortawesome/fontawesome-free/svgs/solid/wrench.svg',
+            'node_modules/@fortawesome/fontawesome-free/svgs/solid/location-dot.svg',
         ]
     }
 };
