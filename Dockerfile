@@ -5,7 +5,7 @@ ENV APACHE_DOCUMENT_ROOT /var/www/portal/public
 
 # Install prerequisites
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x
-RUN apt-get update && apt-get install -y curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev nodejs npm python3-pip
+RUN apt-get update && apt-get install -y curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev nodejs npm python3-pip iputils-ping adb hdparm
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp
 RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql

@@ -21,35 +21,87 @@ class Disks extends BaseModel
      */
     public function getStats() : array
     {
-        $disks = json_decode(shell_exec('lsblk -J'))->blockdevices;
-
+        $disks = json_decode(shell_exec('lsblk -J -O -b'))->blockdevices;
         $disks = array_filter($disks, fn ($disk) => $disk->type == 'disk');
         $result = [];
 
         foreach ($disks as $disk)
         {
-            $mountPoints = $this->getMountPountsForDisk($disk);
-            $mountPoints = array_filter($mountPoints, fn ($mountPoint) => stripos($mountPoint, '/boot/') === false && stripos($mountPoint, '/tmp') === false);
+            $diskResult = new stdClass();
 
-            foreach ($mountPoints as $mountPoint)
+            if ($raid = $this->isRaid($disk))
             {
-                if ($mountPoint)
+                if (!isset($result[$raid->name]))
                 {
-                    if (!isset($result[$mountPoint]))
-                    {
-                        $result[$mountPoint] = $this->getDiskSpaceForMountpoint($mountPoint);
-                    }
-
-                    $diskResult = new stdClass();
-                    $diskResult->standby = $this->getSpindownStatsForDisk($disk->name);
-                    $diskResult->name = $disk->name;
-                    $result[$mountPoint]->disks[] = $diskResult;
+                    $result[$raid->name] = $raid;
                 }
+
+                $diskResult->standby = $this->getSpindownStatsForDisk($disk->name);
+                $diskResult->name = $disk->name;
+                $result[$raid->name]->disks[] = $diskResult;
+            }
+            else
+            {
+                $standbyResult = new stdClass();
+                $standbyResult->standby = $this->getSpindownStatsForDisk($disk->name);
+                $standbyResult->name = $disk->name;
+                $diskResult = $this->setAvailableSpace($disk, $diskResult);
+                $diskResult->usage_percentage = round($diskResult->usage / $diskResult->size * 100) . '%';
+                $diskResult->disks = [$standbyResult];
+                $diskResult->name = $disk->name;
+                $result[$disk->name] = $diskResult;
             }
         }
 
         ksort($result);
-        return array_values($result);
+        return $result;
+    }
+
+    private function isRaid($disk)
+    {
+        if (isset($disk->children))
+        {
+            foreach ($disk->children as $child)
+            {
+                return $this->isRaid($child);
+            }
+        }
+        else
+        {
+            if (stripos($disk->type, 'raid') !== false)
+            {
+
+                $fsuse = 'fsuse%';
+                $diskResult = new stdClass();
+                $diskResult->name = $disk->name;
+                $diskResult->usage_percentage = $disk->$fsuse;
+                $diskResult->size = $disk->fssize;
+                $diskResult->available = $disk->fsavail;
+                $diskResult->usage = $disk->fsused;
+                return $diskResult;
+            }
+
+            return false;
+        }
+    }
+
+    private function setAvailableSpace(stdClass $disk, stdClass $diskResult)
+    {
+        if (isset($disk->children))
+        {
+
+            foreach ($disk->children as $child)
+            {
+                $diskResult = $this->setAvailableSpace($child, $diskResult);
+            }
+        }
+        else
+        {
+            $diskResult->size = isset($diskResult->size) ? $diskResult->size + $disk->fssize : $disk->fssize;
+            $diskResult->available = isset($diskResult->available) ? $diskResult->available + $disk->fsavail : $disk->fsavail;
+            $diskResult->usage = isset($diskResult->usage) ? $diskResult->usage + $disk->fsused : $disk->fsused;
+        }
+        return $diskResult;
     }
 
     /**
@@ -63,63 +115,5 @@ class Disks extends BaseModel
         $spindown_status = explode(PHP_EOL, shell_exec('sudo hdparm -C /dev/' . escapeshellcmd($disk)));
         $spindown_status = array_filter($spindown_status, fn ($status) => !empty($status));
         return strripos(end($spindown_status), 'standby') != false;
-    }
-
-    /**
-     * Recursively retrieves mountpoints for a disk. When a disk is part of a RAID array, the children field needs to be checked.
-     *
-     * @param object $disk  The current disk object, retrieved from lsblk.
-     * @return array        All the mountpoints for the given disk.
-     */
-    private function getMountPountsForDisk(object $disk) : array
-    {
-        $result = [];
-        $mountPoints = array_filter($disk->mountpoints);
-
-        if (!empty($mountPoints) && count($mountPoints))
-        {
-            return $mountPoints;
-        }
-
-        if(isset($disk->children))
-        {
-            foreach ($disk->children as $child)
-            {
-                $result = array_merge($result, $this->getMountPountsForDisk($child));
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * Uses df to retrieve usage of a given partition.
-     *
-     * @param string $mountPoint    The mountpoint to retrieve usage for.
-     * @return object               An object containing information form df.
-     */
-    private function getDiskSpaceForMountpoint(string $mountPoint) : object
-    {
-        if (!$this->diskspace)
-        {
-            $output = shell_exec('df $1  | gawk \'
-            BEGIN { ORS = ""; print " [ "}
-            /Filesystem/ {next}
-            { printf "%s{\"name\": \"%s\", \"size\": \"%s\", \"usage\": \"%s\", \"available\": \"%s\", \"usage_percentage\": \"%s\", \"mount_point\": \"%s\"}",
-                separator, $1, $2, $3, $4, $5, $6
-              separator = ", "
-            }
-            END { print " ] " }\'');
-            $output = json_decode($output);
-
-            foreach ($output as $mountpoint)
-            {
-                $mountpoint->usage_percentage = substr($mountpoint->usage_percentage, 0, -1);
-            }
-
-            $this->diskspace = $output;
-        }
-
-        return current(array_filter($this->diskspace, fn($disk) => $disk->mount_point == $mountPoint));
     }
 }

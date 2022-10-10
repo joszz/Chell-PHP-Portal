@@ -61,26 +61,26 @@
                         initializeTooltip();
 
                         $.each(disks, function (index, value) {
-                            var disk = settings.block.find("li:not(.clone)").eq(index);
+                            var disk = settings.block.find("li:not(.clone)." + index);
 
                             if (disk.length === 0) {
                                 disk = settings.block.find("li.clone").clone();
                                 disk.removeClass("hidden clone");
+                                disk.addClass(index);
                                 disk.appendTo(settings.block.find("ul"));
                             }
 
-                            var percent = parseInt(value.usage_percentage) + "%";
-                            var total = getFormattedSize(value.size, 1);
-                            var free = getFormattedSize(value.available, 1);
-                            var used = getFormattedSize(value.usage, 1);
-                            var mountpoint = value.mount_point;
+                            var percent = value.usage_percentage;
+                            var total = getFormattedSize(value.size);
+                            var free = getFormattedSize(value.available);
+                            var used = getFormattedSize(value.usage);
                             var tooltip = "Standby\n";
 
                             $.each(value.disks, (index, v) => {
                                 tooltip += v.name + ": " + v.standby + "\n"
                             });
 
-                            disk.find(".name").html(mountpoint);
+                            disk.find(".name").html(value.name);
                             disk.find(".progress-bar").css("width", percent);
                             disk.find(".percent").html(percent);
                             disk.find(".progress").addClass("bs-tooltip").attr("title", "Total: " + total + "\nFree: " + free + "\nUsed: " + used);
