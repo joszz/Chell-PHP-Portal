@@ -10,6 +10,7 @@
 	"dependencies": {
 		"@duosecurity/duo_web": "^1.0.6",
 		"@fancyapps/fancybox": "^3.5.7",
+		"@fontsource/roboto": "^4.5.8",
 		"@fortawesome/fontawesome-free": "6.2.0",
 		"bootstrap-sass": "3.4.1",
 		"bootstrap-select": "^1.13.18",
@@ -27,7 +28,7 @@
 		"jquery.shorten": "github:joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
 		"librespeed": "github:joszz/speedtest",
-		"luxon": "^3.0.1",
+		"luxon": "^3.0.4",
 		"node-waves": "github:joszz/waves",
 		"prismjs": "^1.29.0",
 		"responsive-paginate": "joszz/rpage",
@@ -36,12 +37,11 @@
 		"speedtest": "joszz/speedtest",
 		"vibrate": "github:Illyism/jquery.vibrate.js",
 		"waves": "joszz/waves",
-		"webauthn": "github:joszz/webauthn",
-		"@fontsource/roboto": "^4.5.8"
+		"webauthn": "github:joszz/webauthn"
 	},
 	"devDependencies": {
 		"@popperjs/core": "^2.11.5",
-		"bootstrap": "^5.2.0",
+		"bootstrap": "^5.2.2",
 		"del": "^6.1.1",
 		"gulp": "^4.0.2",
 		"gulp-cssnano": "^2.1.3",
