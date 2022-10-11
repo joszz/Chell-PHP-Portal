@@ -57,7 +57,13 @@ class Disks extends BaseModel
         return $result;
     }
 
-    private function isRaid($disk)
+    /**
+     * Checks disk and it's children if they are part of a RAID array. If so retrieve the stats for the array
+     *
+     * @param stdClass $disk    The disk to check if it's part of a RAID array
+     * @return bool|stdClass    Either an stdClass with size information of the RAID array, or false if the disk is not part of a RAID array.
+     */
+    private function isRaid(stdClass $disk)
     {
         if (isset($disk->children))
         {
@@ -80,12 +86,19 @@ class Disks extends BaseModel
                 $diskResult->usage = $disk->fsused;
                 return $diskResult;
             }
-
-            return false;
         }
+
+        return false;
     }
 
-    private function setAvailableSpace(stdClass $disk, stdClass $diskResult)
+    /**
+     * Sets the disk usage of a standard Disk.
+     *
+     * @param stdClass $disk        The disk to set the stats for.
+     * @param stdClass $diskResult  The stats of the disk to return.
+     * @return stdClass             The stats of the given disk.
+     */
+    private function setAvailableSpace(stdClass $disk, stdClass $diskResult) : stdClass
     {
         if (isset($disk->children))
         {
@@ -101,6 +114,7 @@ class Disks extends BaseModel
             $diskResult->available = isset($diskResult->available) ? $diskResult->available + $disk->fsavail : $disk->fsavail;
             $diskResult->usage = isset($diskResult->usage) ? $diskResult->usage + $disk->fsused : $disk->fsused;
         }
+
         return $diskResult;
     }
 

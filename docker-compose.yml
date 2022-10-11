@@ -3,10 +3,13 @@ version: "3.8"
 services:
   chell:
     image: gotgeeks/chell:latest
+    network_mode: bridge
+    restart: unless-stopped
     ports:
       - 8080:80
     volumes:
       - /proc:/prochost:ro
+      - /:/hostfs:ro
   db:
     image: mysql
     restart: unless-stopped
