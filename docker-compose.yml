@@ -5,6 +5,8 @@ services:
     image: gotgeeks/chell:latest
     network_mode: bridge
     restart: unless-stopped
+    # only needed if you wish to get spindown status of HDDs
+    privileged: true
     ports:
       - 8080:80
     volumes:
