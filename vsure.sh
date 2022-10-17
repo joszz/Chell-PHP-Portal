@@ -9,4 +9,4 @@ PASSWORD=""
 read -p "Verisure username: " USERNAME
 read -p "Verisure password: " -s PASSWORD
 
-vsure $USERNAME $PASSWORD mfa
+vsure $USERNAME $PASSWORD --mfa
