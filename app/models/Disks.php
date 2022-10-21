@@ -126,7 +126,7 @@ class Disks extends BaseModel
      */
     private function getSpindownStatsForDisk(string $disk) : bool
     {
-        $spindown_status = explode(PHP_EOL, shell_exec('sudo hdparm -C /dev/' . escapeshellcmd($disk)));
+        $spindown_status = explode(PHP_EOL, shell_exec('hdparm -C /dev/' . escapeshellcmd($disk)));
         $spindown_status = array_filter($spindown_status, fn ($status) => !empty($status));
         return strripos(end($spindown_status), 'standby') != false;
     }

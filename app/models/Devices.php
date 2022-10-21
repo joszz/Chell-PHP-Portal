@@ -228,7 +228,7 @@ class Devices extends BaseModel
         if (strpos($connectedDevices, $this->ip) === false)
         {
             shell_exec('adb kill-server');
-            $output = shell_exec('timout 5 adb connect ' . escapeshellcmd($this->ip));
+            $output = shell_exec('timeout 5 adb connect ' . escapeshellcmd($this->ip));
 
             if (strpos($output, 'connected to ' . $this->ip) === false)
             {

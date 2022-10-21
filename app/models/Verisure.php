@@ -27,7 +27,7 @@ class Verisure extends BaseModel
      */
     public function getArmState()
     {
-        return $this->executeCommand('armstate');
+        return $this->executeCommand('arm-state');
     }
 
     /**
@@ -81,7 +81,7 @@ class Verisure extends BaseModel
      */
     public function getLog()
     {
-        $log = $this->executeCommand('eventlog');
+        $log = $this->executeCommand('event-log');
 
         foreach ($log->eventLogItems as $logItem)
         {
@@ -105,7 +105,7 @@ class Verisure extends BaseModel
      */
     public function getImageSeries()
     {
-        return $this->executeCommand('imageseries');
+        return $this->executeCommand('cameras-image-series');
     }
 
     /**
@@ -137,7 +137,7 @@ class Verisure extends BaseModel
      */
     public function captureImage(string $device_label)
     {
-        return $this->executeCommand('capture ' . $device_label);
+        return $this->executeCommand('camera-capture ' . $device_label);
     }
 
     /**
@@ -158,7 +158,7 @@ class Verisure extends BaseModel
      */
     private function executeCommand(string $command)
     {
-        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' ' . $command);
+        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' --' . $command);
         return json_decode($output);
     }
 }
