@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use stdClass;
+
 /**
  * The model responsible for all actions related to Verisure.
  *
@@ -38,19 +40,28 @@ class Verisure extends BaseModel
      */
     public function getOverview(bool $encode)
     {
-        $overview = $this->executeCommand('overview');
+        $result = $this->executeCommand('--arm-state --climate');
+        $overview = new stdClass();
 
-        foreach($overview->climateValues as $value)
+        foreach ($result as $item)
         {
-            if ($value->temperature >= 25)
+            foreach ($item->data->installation as $property => $value)
+            {
+                $overview->$property = $value;
+            }
+        }
+
+        foreach($overview->climates as $value)
+        {
+            if ($value->temperatureValue >= 25)
             {
                 $value->cssClass = 'text-danger';
             }
-            else if ($value->temperature >= 20 && $value->temperature < 25)
+            else if ($value->temperatureValue >= 20 && $value->temperatureValue < 25)
             {
                 $value->cssClass = 'text-warning';
             }
-            else if ($value->temperature >= 10 && $value->temperature < 20)
+            else if ($value->temperatureValue >= 10 && $value->temperatureValue < 20)
             {
                 $value->cssClass = 'text-success';
             }
@@ -81,7 +92,7 @@ class Verisure extends BaseModel
      */
     public function getLog()
     {
-        $log = $this->executeCommand('event-log');
+        $log = $this->executeCommand('--event-log');
 
         foreach ($log->eventLogItems as $logItem)
         {
@@ -105,7 +116,8 @@ class Verisure extends BaseModel
      */
     public function getImageSeries()
     {
-        return $this->executeCommand('cameras-image-series');
+        $result = $this->executeCommand('--cameras-image-series');
+        return $result->data->ContentProviderMediaSearch;
     }
 
     /**
@@ -119,11 +131,11 @@ class Verisure extends BaseModel
     public function getImage(string $device_label, string $image_id, string $capture_time) : string
     {
         $capture_time = str_replace(':', '_', $capture_time);
-        $filename = APP_PATH  . 'img/cache/verisure/' . $capture_time . '.jpg';
+        $filename = PUBLIC_PATH  . 'img/cache/verisure/' . $capture_time . '.jpg';
 
         if (!file_exists($filename))
         {
-            $this->executeCommand('getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename);
+            $this->executeCommand('--getimage ' . $device_label .  '  ' . $image_id . ' ' . $filename);
         }
 
         return $filename;
@@ -137,7 +149,7 @@ class Verisure extends BaseModel
      */
     public function captureImage(string $device_label)
     {
-        return $this->executeCommand('camera-capture ' . $device_label);
+        return $this->executeCommand('--camera-capture ' . $device_label);
     }
 
     /**
@@ -147,7 +159,7 @@ class Verisure extends BaseModel
      */
     public function getFirmwareStatus()
     {
-        return $this->executeCommand('firmware_status');
+        return $this->executeCommand('--firmware_status');
     }
 
     /**
@@ -158,7 +170,7 @@ class Verisure extends BaseModel
      */
     private function executeCommand(string $command)
     {
-        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' --' . $command);
+        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' ' . $command);
         return json_decode($output);
     }
 }

@@ -6,7 +6,7 @@
     .top {
         display: flex;
         align-items: center;
-        padding: 17px;
+        padding: 15px;
 
         > div {
             flex: 1;
@@ -25,7 +25,7 @@
             transition: font-size .25s;
 
             &:hover {
-                font-size: 12rem;
+                font-size: 11rem;
             }
         }
     }
@@ -85,17 +85,20 @@
 
             button {
                 font-size: 6rem;
-                line-height: normal;
+                line-height: 0.8;
                 box-shadow: 0 5px 5px #CCC;
-                margin: auto auto 0;
                 border-radius: 50%;
                 border: 1px solid #CCC;
-                flex-grow: 0;
-                padding: 15px 15px 15px 15px;
                 transition: font-size .25s;
+                margin: auto;
 
                 &:hover {
                     font-size: 8rem;
+                }
+
+                &:before {
+                    top: 5px;
+                    position: relative;
                 }
             }
         }

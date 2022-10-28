@@ -94,8 +94,8 @@
 
                         functions.set_arm_state_buttons(data.armState.statusType);
 
-                        $.each(data.climateValues, function (_index, value) {
-                            var deviceId = value.deviceLabel.replace(/\s/g, '_');
+                        $.each(data.climates, function (_index, value) {
+                            var deviceId = value.device.deviceLabel.replace(/\s/g, '_');
                             var tempBlock = settings.block.find("#" + deviceId);
 
                             if (tempBlock.length === 0) {
@@ -106,17 +106,17 @@
                                 tempBlock.appendTo($(".temps"));
                             }
 
-                            tempBlock.find(".area span").text(value.deviceArea);
-                            tempBlock.find(".value").html(value.temperature + "&deg;");
-                            tempBlock.find("i").attr("class", "fa fa-thermometer-half " + value.cssClass);
+                            tempBlock.find(".area span").text(value.device.area);
+                            tempBlock.find(".value").html(value.temperatureValue + "&deg;");
+                            tempBlock.find("i").attr("class", "fa fa-temperature-half " + value.cssClass);
                         });
 
                         var devices = $("#verisure_device_select");
                         devices.find("button:not(.hidden)").remove();
                         $.each(data.customerImageCameras, function (_index, value) {
                             var camera = devices.find("button.hidden").clone();
-                            camera.data("device-label", value.deviceLabel);
-                            camera.html(value.area);
+                            camera.data("device-label", value.device.deviceLabel);
+                            camera.html(value.device.area);
                             camera.removeClass("hidden");
                             camera.appendTo(devices);
                         });
@@ -223,18 +223,24 @@
 
                         settings.photos = [];
 
-                        if (data.imageSeries.length) {
+                        if (data.mediaSeriesList.length) {
                             settings.block.find(".fa-image").removeClass("hidden");
                         }
 
-                        $.each(data.imageSeries, function (_index, serie) {
-                            var date = new Date(serie.image[0].captureTime);
-                            var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
+                        $.each(data.mediaSeriesList, function (_index, seriesList) {
+                            $.each(seriesList.deviceMediaList, function (_index, mediaList) {
+                                var date = new Date(mediaList.timestamp);
+                                var humanReadableDate = date.getDate() + "-" + zeropad(date.getMonth() + 1, 2) + "-" + date.getFullYear() + " " + zeropad(date.getHours(), 2) + ":" + zeropad(date.getMinutes(), 2);
 
-                            settings.photos.push({
-                                src: "verisure/image/" + encodeURI(serie.deviceLabel) + "/" + encodeURI(serie.image[0].imageId) + "/" + encodeURI(serie.image[0].captureTime),
-                                caption: serie.area + " (" + humanReadableDate + ")",
-                                deviceLabel: serie.deviceLabel
+                                settings.photos.push({
+                                    src: "verisure/image/" + encodeURI(mediaList.deviceLabel) + "/" + encodeURI(mediaList.mediaId) + "/" + encodeURI(mediaList.timestamp),
+                                    //caption: serie.area + " (" + humanReadableDate + ")",
+                                    type: "image",
+                                    opts: {
+                                        caption: humanReadableDate,
+                                        deviceLabel: mediaList.deviceLabel
+                                    }
+                                });
                             });
                         });
 
