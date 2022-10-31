@@ -9,7 +9,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($overview->doorWindow->doorWindowDevice as $doorWindow) : ?>
+                <?php foreach($doorWindow->data->installation->doorWindows as $doorWindow) : ?>
                 <tr>
                     <td>
                         <?php echo $doorWindow->area ?>

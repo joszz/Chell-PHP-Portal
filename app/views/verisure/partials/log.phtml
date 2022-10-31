@@ -9,10 +9,10 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($log->eventLogItems as $eventLog) : ?>
+                <?php foreach($log->data->installation->eventLog->pagedList as $eventLog) : ?>
                 <tr>
                     <td>
-                        <?php echo $eventLog->deviceArea ?>
+                        <?php echo $eventLog->device->area ?>
                     </td>
                     <td>
                         <?php echo $eventLog->eventCategory ?>

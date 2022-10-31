@@ -70,7 +70,7 @@ class Verisure extends BaseModel
                 $value->cssClass = 'text-primary';
             }
         }
-
+        \Chell\dump($overview);
         return $encode ? json_encode($overview) : $overview;
     }
 
@@ -93,19 +93,6 @@ class Verisure extends BaseModel
     public function getLog()
     {
         $log = $this->executeCommand('--event-log');
-
-        foreach ($log->eventLogItems as $logItem)
-        {
-            if (array_key_exists($logItem->eventCategory, self::$eventToReadableName))
-            {
-                $logItem->eventCategory = self::$eventToReadableName[$logItem->eventCategory];
-            }
-            else
-            {
-                $logItem->eventCategory = ucfirst(strtolower($logItem->eventCategory));
-            }
-        }
-
         return $log;
     }
 
@@ -160,6 +147,11 @@ class Verisure extends BaseModel
     public function getFirmwareStatus()
     {
         return $this->executeCommand('--firmware_status');
+    }
+
+    public function getDoorWindowStatus()
+    {
+        return $this->executeCommand('--door-window');
     }
 
     /**

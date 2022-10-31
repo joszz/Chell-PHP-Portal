@@ -41,7 +41,7 @@ class VerisureController extends WidgetController
     {
         $this->SetEmptyLayout();
         $this->view->overflow = true;
-        $this->view->overview = $this->_model->getOverview(false);
+        $this->view->doorWindow = $this->_model->getDoorWindowStatus();
         $this->view->log = $this->_model->getLog();
         $this->view->firmware = $this->_model->getFirmwareStatus();
     }
