@@ -12,7 +12,7 @@ RUN docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_
 RUN docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
 
-RUN pecl install redis phalcon-5.0.4 zip && docker-php-ext-enable redis phalcon zip opcache
+RUN pecl install redis phalcon-5.1.0 zip && docker-php-ext-enable redis phalcon zip opcache
 RUN curl -sS https://getcomposer.org/installer | php \
 	&& chmod +x composer.phar && mv composer.phar /usr/local/bin/composer
 
