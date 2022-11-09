@@ -306,6 +306,13 @@ class InstallController extends BaseController
         $this->createDefaultSetting('username', 'dashboard', 'psaremote', '');
         $this->createDefaultSetting('password', 'dashboard', 'psaremote', '');
         $this->createDefaultSetting('update_interval', 'dashboard', 'psaremote', '30');
+        //Sonos
+        $this->createDefaultSetting('enabled', 'dashboard', 'sonos', '0');
+        $this->createDefaultSetting('api_key', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('api_secret', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('access_token', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('refresh_token', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('token_expires', 'dashboard', 'sonos', '');
     }
 
     /**
