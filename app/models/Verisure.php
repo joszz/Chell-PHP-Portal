@@ -70,7 +70,7 @@ class Verisure extends BaseModel
                 $value->cssClass = 'text-primary';
             }
         }
-        \Chell\dump($overview);
+
         return $encode ? json_encode($overview) : $overview;
     }
 
@@ -82,7 +82,15 @@ class Verisure extends BaseModel
      */
     public function setArmState(string $state, string $pin)
     {
-        $this->executeCommand('set alarm ' . $pin . ' ' . $state);
+        switch ($state)
+        {
+            case self::$statusArmedAwayCode:
+                return $this->executeCommand('--arm-away ' . $pin);
+            case self::$statusArmedStayCode:
+                return $this->executeCommand('--arm-home ' . $pin);
+            case self::$statusDisarmedCode:
+                return $this->executeCommand('--disarm ' . $pin);
+        }
     }
 
     /**
