@@ -40,18 +40,10 @@ class Verisure extends BaseModel
      */
     public function getOverview(bool $encode)
     {
-        $result = $this->executeCommand('--arm-state --climate');
-        $overview = new stdClass();
+        $result = $this->executeCommand('--arm-state --climate --cameras');
+        $result = $this->flattenResponse($result);
 
-        foreach ($result as $item)
-        {
-            foreach ($item->data->installation as $property => $value)
-            {
-                $overview->$property = $value;
-            }
-        }
-
-        foreach($overview->climates as $value)
+        foreach($result->climates as $value)
         {
             if ($value->temperatureValue >= 25)
             {
@@ -71,7 +63,7 @@ class Verisure extends BaseModel
             }
         }
 
-        return $encode ? json_encode($overview) : $overview;
+        return $encode ? json_encode($result) : $result;
     }
 
     /**
@@ -91,17 +83,6 @@ class Verisure extends BaseModel
             case self::$statusDisarmedCode:
                 return $this->executeCommand('--disarm ' . $pin);
         }
-    }
-
-    /**
-     * Retrieves the current log records.
-     *
-     * @return object           An object with all eventLogItems in it.
-     */
-    public function getLog()
-    {
-        $log = $this->executeCommand('--event-log');
-        return $log;
     }
 
     /**
@@ -144,22 +125,19 @@ class Verisure extends BaseModel
      */
     public function captureImage(string $device_label)
     {
+        $device_label = urldecode($device_label);
+        \Chell\dump($this->executeCommand('--camera-get-request-id "' . $device_label . '"'));
         return $this->executeCommand('--camera-capture ' . $device_label);
     }
 
     /**
-     * Calls the Verisure API to retrieve firmware statistics.
+     * Retrieves the door/window and eventlogs from the Verisure API.
      *
-     * @return object           An object with the JSON encoded output of the API call.
+     * @return object An object with the JSON encoded output of the API call.
      */
-    public function getFirmwareStatus()
+    public function getDetails()
     {
-        return $this->executeCommand('--firmware_status');
-    }
-
-    public function getDoorWindowStatus()
-    {
-        return $this->executeCommand('--door-window');
+        return $this->flattenResponse($this->executeCommand('--door-window --event-log --firmware'));
     }
 
     /**
@@ -172,5 +150,26 @@ class Verisure extends BaseModel
     {
         $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' ' . $command);
         return json_decode($output);
+    }
+
+    /**
+     * Given a Verisure response object, remove data->installation from the response.
+     *
+     * @param object $response  A response from the Verisure API.
+     * @return stdClass         A flattened response object, removing data->installation
+     */
+    private function flattenResponse($response)
+    {
+        $result = new stdClass();
+
+        foreach ($response as $item)
+        {
+            foreach ($item->data->installation as $property => $value)
+            {
+                $result->$property = $value;
+            }
+        }
+
+        return $result;
     }
 }

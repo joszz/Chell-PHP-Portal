@@ -135,4 +135,17 @@ class SettingsContainer implements IteratorAggregate
             throw($exception);
         }
     }
+
+    public function getDomainWithProtocol(bool $urlEncode = false)
+    {
+        $protocol = 'http://';
+
+        if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1) ||
+            isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+            $protocol = 'https://';
+        }
+        
+        $domainWithProtocol = $protocol . $_SERVER['SERVER_NAME'];
+        return $urlEncode ? urlencode($domainWithProtocol) : $domainWithProtocol;
+    }
 }

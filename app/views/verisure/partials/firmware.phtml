@@ -7,7 +7,7 @@
                         Upgradeable
                     </td>
                     <td>
-                        <?php echo ($firmware->upgradeable ? 'Yes' : 'No') ?>
+                        <?php echo ($details->firmware->status->upgradeable ? 'Yes' : 'No') ?>
                     </td>
                 </tr>
                 <tr>
@@ -15,7 +15,7 @@
                         Current firmware
                     </td>
                     <td>
-                        <?php echo $firmware->gateways[0]->reportedRunningFirmware ?>
+                        <?php echo $details->firmware->status->gateways[0]->reportedRunningFirmware ?>
                     </td>
                 </tr>
                 <tr>
@@ -23,7 +23,7 @@
                         Latest firmware
                     </td>
                     <td>
-                        <?php echo $firmware->latestFirmware ?>
+                        <?php echo $details->firmware->status->latestFirmware ?>
                     </td>
                 </tr>
             </tbody>

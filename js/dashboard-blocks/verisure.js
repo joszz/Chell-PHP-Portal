@@ -113,7 +113,7 @@
 
                         var devices = $("#verisure_device_select");
                         devices.find("button:not(.hidden)").remove();
-                        $.each(data.customerImageCameras, function (_index, value) {
+                        $.each(data.cameras, function (_index, value) {
                             var camera = devices.find("button.hidden").clone();
                             camera.data("device-label", value.device.deviceLabel);
                             camera.html(value.device.area);

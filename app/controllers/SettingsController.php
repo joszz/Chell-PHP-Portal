@@ -2,7 +2,6 @@
 
 namespace Chell\Controllers;
 
-use Exception;
 use Chell\Forms\SettingsGeneralForm;
 use Chell\Forms\SettingsDashboardForm;
 use Chell\Forms\SettingsDeviceForm;
@@ -15,6 +14,7 @@ use Chell\Models\Devices;
 use Chell\Models\MenuItems;
 use Chell\Models\SnmpHosts;
 use Chell\Models\SnmpRecords;
+use Chell\Models\Sonos;
 use Chell\Models\WidgetPosition;
 use Chell\Plugins\SaveButtonPlugin;
 use Davidearl\WebAuthn\WebAuthn;
@@ -470,6 +470,16 @@ class SettingsController extends BaseController
         }
 
         $this->response->setJsonContent('failed')->send();
+    }
+
+    public function sonosAction()
+    {
+        $state = $_GET['state'];
+        $code = $_GET['code'];
+        $model = new Sonos();
+
+        $model->setAccessToken($code);
+        return $this->response->redirect('settings/dashboard');
     }
 
     /**
