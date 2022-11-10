@@ -313,6 +313,8 @@ class InstallController extends BaseController
         $this->createDefaultSetting('access_token', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('refresh_token', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('token_expires', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('household_id', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('group_id', 'dashboard', 'sonos', '');
     }
 
     /**

@@ -12,6 +12,9 @@ initializePlugins()
 setEventHandlers();
 setSelectData($("select[name='pulseway-systems[]']"));
 setSelectData($("select[name='jellyfin-views[]']"));
+setSelectData($("select[name='sonos-household_id']"), function () {
+    setSelectData($("select[name='sonos-group_id']"));
+});
 
 $("legend input[type='checkbox']").each(function () {
     toggleFieldsInFieldSet($(this));
@@ -105,7 +108,7 @@ function setEventHandlers() {
     });
 }
 
-function setSelectData(select) {
+function setSelectData(select, callback) {
     if (select.length) {
         var data = {};
         var selected = select.data("selected").split(",");
@@ -113,7 +116,7 @@ function setSelectData(select) {
         select.attr('disabled', true);
         select.selectpicker("refresh");
 
-        select.parents("fieldset").find("input").each((index, input) => {
+        select.parents("fieldset").find("input, select").each((index, input) => {
             data[$(input).attr("name")] = $(input).val();
         });
 
@@ -129,6 +132,10 @@ function setSelectData(select) {
 
                 select.attr('disabled', false);
                 select.selectpicker("refresh");
+
+                if (callback) {
+                    callback();
+                }
             }
         });
     }

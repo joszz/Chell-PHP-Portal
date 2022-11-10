@@ -93,6 +93,9 @@ function initializePlugins() {
     if (typeof $.fn.arr !== "undefined") {
         $(".arr").arr();
     }
+    if (typeof $.fn.sonos !== "undefined") {
+        $(".sonos").sonos();
+    }
 
     $(".time:not(.delayed)").each(function () {
         initializeTinyTimer($(this));
