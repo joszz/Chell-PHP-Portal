@@ -6,15 +6,11 @@ services:
     # Host networking needed to do UDP broadcasts for WOL
     network_mode: host
     restart: unless-stopped
-    # only needed if you wish to get spindown status of HDDs
-    privileged: true
     ports:
-      - 8080:80
+      - 8094:8094
     volumes:
       # Needed for CPU widget to get the current CPU usage for the host
       - /proc:/prochost:ro
-      # Needed for the disk widget to get the disk usage of the host
-      - /:/hostfs:ro
       
   db:
     image: mysql

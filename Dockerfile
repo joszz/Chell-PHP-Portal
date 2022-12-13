@@ -2,6 +2,7 @@
 FROM php:8.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/portal/public
+ENV PATH="${PATH}:/var/www/.local/bin"
 
 # Install prerequisites
 RUN apt-get update && apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping adb wget zip git
