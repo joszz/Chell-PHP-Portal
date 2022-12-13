@@ -21,7 +21,7 @@
 		"chartjs-plugin-datalabels": "^2.1.0",
 		"chartjs-plugin-streaming": "^2.0.0",
 		"color-calendar": "^1.0.7",
-		"jquery": "^3.6.1",
+		"jquery": "^3.6.2",
 		"jquery-fullscreen-plugin": "^1.1.5",
 		"jquery-tinytimer": "^0.1.4",
 		"jquery.isloading": "github:joszz/is-loading",

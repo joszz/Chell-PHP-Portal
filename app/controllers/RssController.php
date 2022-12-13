@@ -2,7 +2,7 @@
 
 namespace Chell\Controllers;
 
-use Chell\Models\PHPSysInfo;
+use Chell\Models\Sysinfo;
 use Phalcon\Mvc\View;
 
 /**
@@ -23,6 +23,6 @@ class RssController extends BaseController
 		$this->response->setContentType('application/xml', 'charset=UTF-8');
 
 		$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-		$this->view->phpsysinfoData = json_decode((new PHPSysInfo())->getData('complete'));
+		$this->view->phpsysinfoData = json_decode((new Sysinfo())->getData('complete'));
 	}
 }
