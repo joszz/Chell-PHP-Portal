@@ -56,7 +56,7 @@
             'node_modules/@duosecurity/duo_web/js/Duo-Web-v2.js',
             'node_modules/chart.js/dist/chart.js',
             'node_modules/luxon/build/global/luxon.js',
-            'node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.js',
+            'node_modules/chartjs-adapter-luxon/dist/chartjs-adapter-luxon.umd.js',
             'node_modules/chartjs-plugin-streaming/dist/chartjs-plugin-streaming.js',
             'node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.js',
             'node_modules/color-calendar/dist/bundle.js',

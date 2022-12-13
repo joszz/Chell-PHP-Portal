@@ -39,7 +39,7 @@ class CpuController extends WidgetController
      */
     public function addAssets()
     {
-        $this->jsFiles = ['chart', 'luxon', 'chartjs-adapter-luxon', 'chartjs-plugin-streaming'];
+        $this->jsFiles = ['chart', 'luxon', 'chartjs-adapter-luxon.umd', 'chartjs-plugin-streaming'];
     }
 
     /**

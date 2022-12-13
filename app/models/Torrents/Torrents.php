@@ -16,7 +16,6 @@ abstract class Torrents extends BaseModel
     public function initialize()
     {
         parent::initialize();
-
         $this->authenticate();
     }
 

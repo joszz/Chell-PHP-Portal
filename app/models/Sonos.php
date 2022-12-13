@@ -17,7 +17,7 @@ class Sonos extends BaseModel
             'form_params' => [
                 'grant_type' => 'authorization_code',
                 'code' => $code,
-                'redirect_uri' => self::getDomainWithProtocol() . '/settings/sonos/'
+                'redirect_uri' => $this->settings->getDomainWithProtocol() . '/settings/sonos/'
             ]
         ];
 
@@ -88,11 +88,17 @@ class Sonos extends BaseModel
     {
         $result = $this->getPlaybackStatus($this->settings->sonos->group_id);
         $metadata = $this->getPlaybackMetadata($this->settings->sonos->group_id);
+
         $result->track = $metadata->currentItem->track->name;
-        $result->tracknumber = $metadata->currentItem->track->trackNumber;
-        $result->artist = $metadata->currentItem->track->album->artist->name;
+        $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
+        $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
         $result->album = $metadata->currentItem->track->album->name;
-        $result->image = urlencode($metadata->currentItem->track->imageUrl);
+
+        if (isset($metadata->currentItem->track->imageUrl))
+        {
+            $result->image = urlencode($metadata->currentItem->track->imageUrl);
+        }
+
         return $result;
     }
     public function getPlaybackMetadata(string $groupId)

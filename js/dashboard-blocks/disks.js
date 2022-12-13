@@ -58,10 +58,8 @@
                     url: "disks",
                     dataType: "json",
                     success: function (disks) {
-                        initializeTooltip();
-
                         $.each(disks, function (index, value) {
-                            var disk = settings.block.find("li:not(.clone)." + index);
+                            var disk = settings.block.find("li:not(.clone):eq(" + index +")");
 
                             if (disk.length === 0) {
                                 disk = settings.block.find("li.clone").clone();
@@ -70,21 +68,15 @@
                                 disk.appendTo(settings.block.find("ul"));
                             }
 
-                            var percent = value.usage_percentage;
-                            var total = getFormattedSize(value.size);
-                            var free = getFormattedSize(value.available);
-                            var used = getFormattedSize(value.usage);
-                            var tooltip = "Standby\n";
+                            var percent = value.usage;
+                            var total = getFormattedSize(value.size, 1);
+                            var free = getFormattedSize(value.available, 1);
+                            var used = getFormattedSize(value.used, 1);
 
-                            $.each(value.disks, (index, v) => {
-                                tooltip += v.name + ": " + v.standby + "\n"
-                            });
-
-                            disk.find(".name").html(value.name);
+                            disk.find(".name").html(value.mount);
                             disk.find(".progress-bar").css("width", percent);
                             disk.find(".percent").html(percent);
                             disk.find(".progress").addClass("bs-tooltip").attr("title", "Total: " + total + "\nFree: " + free + "\nUsed: " + used);
-                            disk.find(".name").addClass("bs-tooltip").attr("title", tooltip);
 
                             if (value.usage_percentage > 90) {
                                 disk.find(".progress-bar").addClass("progress-bar-danger");

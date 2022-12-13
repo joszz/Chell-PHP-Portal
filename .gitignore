@@ -53,6 +53,7 @@ SyncToy_*.dat
 *.sln
 *.v12.suo
 .vs/
+.stignore
 app/config/config.ini
 app/logs/
 phalcon-stubs/

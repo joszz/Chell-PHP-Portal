@@ -2,8 +2,6 @@
 
 namespace Chell\Models;
 
-use stdClass;
-
 /**
  * The model responsible for all actions related to devices.
  *
@@ -12,44 +10,47 @@ use stdClass;
  */
 class Disks extends BaseModel
 {
-    private $diskspace;
-
-    /**
-     * uses lsblk to determine all disks on Linux.
-     *
-     * @return array    An array with objects representing each mountpoint.
-     */
     public function getStats() : array
     {
-        $disks = json_decode(shell_exec('lsblk -J -O -b'))->blockdevices;
-        $disks = array_filter($disks, fn ($disk) => $disk->type == 'disk');
         $result = [];
 
-        foreach ($disks as $disk)
+        if (is_file('/.dockerenv'))
         {
-            $diskResult = new stdClass();
+            $mountpoints = glob('/mnt/*', GLOB_ONLYDIR);
 
-            if ($raid = $this->isRaid($disk))
+            foreach ($mountpoints as $mountpoint)
             {
-                if (!isset($result[$raid->name]))
-                {
-                    $result[$raid->name] = $raid;
-                }
-
-                $diskResult->standby = $this->getSpindownStatsForDisk($disk->name);
-                $diskResult->name = $disk->name;
-                $result[$raid->name]->disks[] = $diskResult;
+                $diskResult = json_decode(shell_exec('df '  . $mountpoint .' | awk \'BEGIN {}{if($1=="Filesystem")next;if(a)print",";print"{\"mount\":\""$6"\",\"size\":\""$2"\",\"used\":\""$3"\",\"available\":\""$4"\",\"usage\":\""$5"\"}";a++;}END{}\''));
+                $result[] = $diskResult;
             }
-            else
+        }
+        else
+        {
+            $disks = json_decode(shell_exec('lsblk -J -O -b'))->blockdevices;
+            $disks = array_filter($disks, fn ($disk) => $disk->type == 'disk');
+            $result = [];
+
+            foreach ($disks as $disk)
             {
-                $standbyResult = new stdClass();
-                $standbyResult->standby = $this->getSpindownStatsForDisk($disk->name);
-                $standbyResult->name = $disk->name;
-                $diskResult = $this->setAvailableSpace($disk, $diskResult);
-                $diskResult->usage_percentage = round($diskResult->usage / $diskResult->size * 100) . '%';
-                $diskResult->disks = [$standbyResult];
-                $diskResult->name = $disk->name;
-                $result[$disk->name] = $diskResult;
+                $diskResult = new stdClass();
+
+                if ($raid = $this->isRaid($disk))
+                {
+                    if (!isset($result[$raid->name]))
+                    {
+                        $result[$raid->name] = $raid;
+                    }
+
+                    $diskResult->mount = $disk->mountpoint;
+                    $result[]->disks[] = $diskResult;
+                }
+                else
+                {
+                    $diskResult = $this->setAvailableSpace($disk, $diskResult);
+                    $diskResult->usage = round($diskResult->usage / $diskResult->size * 100) . '%';
+                    $diskResult->mount = $disk->mountpoint;
+                    $result[] = $diskResult;
+                }
             }
         }
 
@@ -72,20 +73,16 @@ class Disks extends BaseModel
                 return $this->isRaid($child);
             }
         }
-        else
+        else if (stripos($disk->type, 'raid') !== false)
         {
-            if (stripos($disk->type, 'raid') !== false)
-            {
-
-                $fsuse = 'fsuse%';
-                $diskResult = new stdClass();
-                $diskResult->name = $disk->name;
-                $diskResult->usage_percentage = $disk->$fsuse;
-                $diskResult->size = $disk->fssize;
-                $diskResult->available = $disk->fsavail;
-                $diskResult->usage = $disk->fsused;
-                return $diskResult;
-            }
+            $fsuse = 'fsuse%';
+            $diskResult = new stdClass();
+            $diskResult->name = $disk->name;
+            $diskResult->usage_percentage = $disk->$fsuse;
+            $diskResult->size = $disk->fssize;
+            $diskResult->available = $disk->fsavail;
+            $diskResult->usage = $disk->fsused;
+            return $diskResult;
         }
 
         return false;
@@ -102,7 +99,6 @@ class Disks extends BaseModel
     {
         if (isset($disk->children))
         {
-
             foreach ($disk->children as $child)
             {
                 $diskResult = $this->setAvailableSpace($child, $diskResult);
@@ -112,22 +108,9 @@ class Disks extends BaseModel
         {
             $diskResult->size = isset($diskResult->size) ? $diskResult->size + $disk->fssize : $disk->fssize;
             $diskResult->available = isset($diskResult->available) ? $diskResult->available + $disk->fsavail : $disk->fsavail;
-            $diskResult->usage = isset($diskResult->usage) ? $diskResult->usage + $disk->fsused : $disk->fsused;
+            $diskResult->used = isset($diskResult->usage) ? $diskResult->usage + $disk->fsused : $disk->fsused;
         }
 
         return $diskResult;
-    }
-
-    /**
-     * Uses hdparm to retrieve spindown status of a disk.
-     *
-     * @param string $disk  the disk identifier, for example sda, used to query hdparm with.
-     * @return bool         Whether or not the disk is spinned down.
-     */
-    private function getSpindownStatsForDisk(string $disk) : bool
-    {
-        $spindown_status = explode(PHP_EOL, shell_exec('hdparm -C /dev/' . escapeshellcmd($disk)));
-        $spindown_status = array_filter($spindown_status, fn ($status) => !empty($status));
-        return strripos(end($spindown_status), 'standby') != false;
     }
 }
