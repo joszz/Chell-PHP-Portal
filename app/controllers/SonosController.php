@@ -47,7 +47,7 @@ class SonosController extends WidgetController
         $client = new Client();
         $output = $client->request('GET', $url)->getBody()->getContents();
         
-        $this->response->setContentType('image/jpeg');
+        //$this->response->setContentType('image/jpeg');
         $this->response->setContent($output)->send();
     }
 }

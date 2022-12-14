@@ -3,7 +3,6 @@
 namespace Chell\Models;
 
 use Exception;
-use stdClass;
 use GuzzleHttp\Client;
 
 class Sonos extends BaseModel
@@ -89,12 +88,12 @@ class Sonos extends BaseModel
         $result = $this->getPlaybackStatus($this->settings->sonos->group_id);
         $metadata = $this->getPlaybackMetadata($this->settings->sonos->group_id);
 
-        $result->track = $metadata->currentItem->track->name;
+        $result->track = $metadata->currentItem->track->name ?? '';
         $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
         $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
-        $result->album = $metadata->currentItem->track->album->name;
+        $result->album = $metadata->currentItem->track->album->name ?? '';
 
-        if (isset($metadata->currentItem->track->imageUrl))
+        if (isset($metadata->currentItem->track->imageUrl) && $metadata->container->imageUrl !== 'tracks')
         {
             $result->image = urlencode($metadata->currentItem->track->imageUrl);
         }

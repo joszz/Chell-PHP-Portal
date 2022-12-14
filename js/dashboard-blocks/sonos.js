@@ -17,6 +17,8 @@
         */
         var settings = $.extend({
             block: $(this),
+            updateInterval: this.data("updateinterval") * 1000,
+            updateIntervalId: -1,
         }, options);
 
         /**
@@ -33,6 +35,9 @@
             * @method initialize
             */
             initialize: function () {
+                settings.updateIntervalId = setInterval(function () {
+                    functions.refresh(false, true);
+                }, settings.updateInterval);
                 functions.update(true);
             },
 
@@ -54,7 +59,7 @@
                     success: function (data) {
                         settings.block.find(".title").html(data.track);
                         settings.block.find(".subtitle").html(data.artist);
-                        settings.block.find("img").attr("src", "sonos/image?url=" + data.image);
+                        settings.block.find("img").attr("src", data.image ? "sonos/image?url=" + data.image : "img/icons/unknown.jpg");
                     },
                     complete: function () {
                         settings.block.isLoading("hide");

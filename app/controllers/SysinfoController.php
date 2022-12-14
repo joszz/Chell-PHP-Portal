@@ -7,7 +7,7 @@ use Chell\Models\Sysinfo;
 use Chell\Models\Widget;
 
 /**
- * The controller responsible for all PHPSysInfo related actions.
+ * The controller responsible for all Sysinfo related actions.
  *
  * @package Controllers
  */
@@ -21,14 +21,9 @@ class SysinfoController extends WidgetController
         $this->widget = new Widget(12, 4);
     }
 
-    /**
-     * Calls the PHPSysInfo API, with specified plugins.
-     *
-     * @param string $plugin    Which PHPSysInfo plugin details to retrieve. Defaults to all/complete.
-     */
-    public function indexAction(string $plugin = 'complete')
+    public function indexAction()
     {
         $this->view->disable();
-        $this->response->setJsonContent((new Sysinfo())->getData($plugin))->send();
+        $this->response->setJsonContent((new Sysinfo())->getData())->send();
     }
 }

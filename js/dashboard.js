@@ -21,8 +21,8 @@ function initializePlugins() {
     if (typeof $.fn.devices !== "undefined") {
         $(".devices").devices();
     }
-    if (typeof $.fn.phpsysinfo !== "undefined") {
-        $(".sysinfo").phpsysinfo();
+    if (typeof $.fn.sysinfo !== "undefined") {
+        $(".sysinfo").sysinfo();
     }
     if (typeof $.fn.torrents !== "undefined") {
         $(".torrents").torrents();
@@ -30,11 +30,8 @@ function initializePlugins() {
     if (typeof $.fn.gallery !== "undefined") {
         $(".movies, .episodes, .albums, .couchpotato, .jellyfin").gallery();
     }
-    if (typeof $.fn.nowplaying !== "undefined") {
-        $(".nowplaying").nowplaying();
-    }
-    if (typeof $.fn.sickrage !== "undefined") {
-        $(".sickrage").sickrage();
+    if (typeof $.fn.subsonic !== "undefined") {
+        $(".subsonic").subsonic();
     }
     if (typeof $.fn.couchpotato !== "undefined") {
         $(".couchpotato").couchpotato();

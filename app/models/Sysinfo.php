@@ -3,14 +3,12 @@
 namespace Chell\Models;
 
 /**
- * The model responsible for all actions related to PHPSysinfo.
- *
  * @package Models
  * @suppress PHP2414
  */
 class Sysinfo extends BaseModel
 {
-    public function getData(string $plugin)
+    public function getData()
     {
         return [
             'uptime' => $this->getUptime(),
@@ -25,13 +23,13 @@ class Sysinfo extends BaseModel
         $uptime = explode(' ', file_get_contents('/prochost/uptime'));
         return [
             'uptime'    => $uptime[0],
-            'idle'      => $uptime[1]
+            'idle'      => trim($uptime[1])
         ];
     }
 
     private function getHostname()
     {
-        return file_get_contents('/prochost/sys/kernel/hostname');
+        return trim(file_get_contents('/prochost/sys/kernel/hostname'));
     }
 
     private function getLinuxAndKernelVersion()
@@ -43,7 +41,7 @@ class Sysinfo extends BaseModel
             '\((gcc.+)\) ' .                        /* group 3: GCC version information */
             '(#\d+) ' .                             /* group 4: "#1" */
             '(.*) ' .                               /* group 5: optional SMP, PREEMPT, and any CONFIG_FLAGS */
-            '((Sun|Mon|Tue|Wed|Thu|Fri|Sat).+)/';   /* group 6: "Thu Jun 28 11:02:39 PDT 2012" */
+            '((Sun|Mon|Tue|Wed|Thu|Fri|Sat).+)/';   /* group 6: "Thu Jun 28 11:02:39 PDT 2022" */
         preg_match($regex, $version, $matches);
         return $matches[1];
 
@@ -62,7 +60,7 @@ class Sysinfo extends BaseModel
             }
         }
 
-        $meminfoParsed['percentused'] = (1 - $meminfoParsed['MemAvailable'] / $meminfoParsed['MemTotal']) * 100;
+        $meminfoParsed['percentused'] = round((1 - $meminfoParsed['MemAvailable'] / $meminfoParsed['MemTotal']) * 100, 2);
         return $meminfoParsed;
     }
 }

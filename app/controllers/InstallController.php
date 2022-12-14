@@ -184,11 +184,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('rotate_interval', 'dashboard', 'couchpotato', '');
         $this->createDefaultSetting('tmdb_api_url', 'dashboard', 'couchpotato', 'https://api.themoviedb.org/3/');
         $this->createDefaultSetting('tmdb_api_key', 'dashboard', 'couchpotato', '');
-        //PHPSysInfo
-        $this->createDefaultSetting('enabled', 'dashboard', 'phpsysinfo', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'phpsysinfo', '');
-        $this->createDefaultSetting('username', 'dashboard', 'phpsysinfo', '');
-        $this->createDefaultSetting('password', 'dashboard', 'phpsysinfo', '');
         //CPU
         $this->createDefaultSetting('enabled', 'dashboard', 'cpu', '0');
         //Torrents
@@ -203,24 +198,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('url', 'dashboard', 'subsonic', '');
         $this->createDefaultSetting('username', 'dashboard', 'subsonic', '');
         $this->createDefaultSetting('password', 'dashboard', 'subsonic', '');
-        //Kodi
-        $this->createDefaultSetting('enabled', 'dashboard', 'kodi', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'kodi', '');
-        $this->createDefaultSetting('username', 'dashboard', 'kodi', '');
-        $this->createDefaultSetting('password', 'dashboard', 'kodi', '');
-        $this->createDefaultSetting('rotate_movies_interval', 'dashboard', 'kodi', '30');
-        $this->createDefaultSetting('rotate_episodes_interval', 'dashboard', 'kodi', '30');
-        $this->createDefaultSetting('rotate_albums_interval', 'dashboard', 'kodi', '30');
-        $this->createDefaultSetting('dbvideo', 'dashboard', 'kodi', 'MyVideos116');
-        $this->createDefaultSetting('dbmusic', 'dashboard', 'kodi', 'MyMusic72');
-        $this->createDefaultSetting('dbhost', 'dashboard', 'kodi', '');
-        $this->createDefaultSetting('dbuser', 'dashboard', 'kodi', '');
-        $this->createDefaultSetting('dbpassword', 'dashboard', 'kodi', '');
-        //Sickrage
-        $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'sickrage', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'sickrage', '');
-        $this->createDefaultSetting('enabled', 'dashboard', 'sickrage', '');
         //Duo
         $this->createDefaultSetting('enabled', 'dashboard', 'duo', '0');
         $this->createDefaultSetting('clientid', 'dashboard', 'duo', '');
@@ -315,6 +292,7 @@ class InstallController extends BaseController
         $this->createDefaultSetting('token_expires', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('household_id', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('group_id', 'dashboard', 'sonos', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'sonos', '30');
     }
 
     /**

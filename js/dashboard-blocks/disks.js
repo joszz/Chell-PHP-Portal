@@ -73,7 +73,7 @@
                             var free = getFormattedSize(value.available, 1);
                             var used = getFormattedSize(value.used, 1);
 
-                            disk.find(".name").html(value.mount);
+                            disk.find(".name").html(value.mount).addClass("bs-tooltip").attr("title", value.mount);
                             disk.find(".progress-bar").css("width", percent);
                             disk.find(".percent").html(percent);
                             disk.find(".progress").addClass("bs-tooltip").attr("title", "Total: " + total + "\nFree: " + free + "\nUsed: " + used);

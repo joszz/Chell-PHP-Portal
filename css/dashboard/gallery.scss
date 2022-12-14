@@ -109,12 +109,6 @@ div.gallery {
     }
 }
 
-.kodi-movies h4 {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
 @media only screen and (max-width : 480px) {
     div.gallery {
         height: auto;

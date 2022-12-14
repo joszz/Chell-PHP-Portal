@@ -8,9 +8,6 @@ use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\Jellyfin;
 use Chell\Models\Motion;
-use Chell\Models\Kodi\KodiMovies;
-use Chell\Models\Kodi\KodiAlbums;
-use Chell\Models\Kodi\KodiTVShowEpisodes;
 use Chell\Models\SnmpHosts;
 use Chell\Models\WidgetPosition;
 use Phalcon\Mvc\Controller;
@@ -34,13 +31,6 @@ class IndexController extends BaseController
         $this->view->dnsPrefetchRecords = $this->setDNSPrefetchRecords();
         $this->view->devices = Devices::find(['order' => 'name ASC']);
         $this->view->maxWidgetPosition = $this->getMaxWidgetPosition();
-
-        if ($this->settings->kodi->enabled)
-        {
-            $this->view->movies = (new KodiMovies())->getLatestMovies();
-            $this->view->albums = (new KodiAlbums())->getLatestAlbums();
-            $this->view->episodes = (new KodiTVShowEpisodes())->getLatestEpisodes();
-        }
 
         if ($this->settings->jellyfin->enabled)
         {

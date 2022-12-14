@@ -16,6 +16,6 @@ class SubsonicController extends WidgetController
      */
     public function addAssets()
     {
-        $this->jsFiles = ['nowplaying', 'spark-md5'];
+        $this->jsFiles = ['spark-md5'];
     }
 }

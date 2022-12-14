@@ -56,10 +56,8 @@ SyncToy_*.dat
 .stignore
 app/config/config.ini
 app/logs/
-phalcon-stubs/
 node_modules/
 vendor/
-typescriptjs/
 public/img/cache
 public/img/icons/menu
 public/css/
