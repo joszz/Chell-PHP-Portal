@@ -106,6 +106,6 @@ gulp.task('robotofont', () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch('css/**/*.scss', gulp.series(['build_sass']));
+    gulp.watch('css/**/*.scss', gulp.series(['build_sass', 'build_styles']));
     gulp.watch('js/**/*.js', gulp.series(['scripts']));
 });
