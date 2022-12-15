@@ -18,7 +18,9 @@
         */
         var settings = $.extend({
             url: $(this).data("distro-icon-base"),
-            block: $(this)
+            block: $(this),
+            updateInterval: this.data("updateinterval") * 1000,
+            updateIntervalId: -1,
         }, options);
 
         /**
@@ -35,18 +37,23 @@
             * @method initialize
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
+                settings.block.find(".fa-rotate").off().on("click", function () {
+                    functions.update(false);
+                });
 
-                settings.block.find(".fa-rotate").off().on("click", functions.update);
-
-                if (settings.block.hasClass("sysinfo")) {
-                    functions.update();
-                }
+                //settings.updateIntervalId = setInterval(function () {
+                //    functions.update(false);
+                //}, settings.updateInterval);
+                functions.update(true);
             },
 
-            update: function () {
+            update: function (initialize) {
+                initialize = typeof initialize === "undefined" ? false : initialize;
+                if (!initialize) {
+                    settings.block.isLoading();
+                    window.clearInterval(settings.updateIntervalId);
+                }
+
                 $.ajax({
                     url: "sysinfo/",
                     dataType: "json",
@@ -65,7 +72,8 @@
                         settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                     },
                     complete: function () {
-                        $(".sysinfo").isLoading("hide");
+                        //settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                        settings.block.isLoading("hide");
                     }
                 });
             }
