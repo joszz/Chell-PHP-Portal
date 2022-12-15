@@ -36,7 +36,7 @@
             */
             initialize: function () {
                 settings.updateIntervalId = setInterval(function () {
-                    functions.refresh(false, true);
+                    functions.update(false);
                 }, settings.updateInterval);
                 functions.update(true);
             },
@@ -51,6 +51,7 @@
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
+                    window.clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -62,6 +63,7 @@
                         settings.block.find("img").attr("src", data.image ? "sonos/image?url=" + data.image : "img/icons/unknown.jpg");
                     },
                     complete: function () {
+                        settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });

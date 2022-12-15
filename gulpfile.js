@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const package = require('./package.json');
 const sass = require('gulp-dart-sass');
 const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
 const del = require('del');
 const cssnano = require('gulp-cssnano');
 const header = require('gulp-header');
@@ -48,6 +49,7 @@ gulp.task('build_sass', () => {
 
 gulp.task('build_styles', () => {
     return gulp.src(config.styles.css)
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(header(config.banner.main, { package: package }))
         .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
@@ -63,17 +65,20 @@ gulp.task('build_styles', () => {
             })
         )
         .pipe(header(config.banner.main, { package: package }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.output_path + config.styles.output_path));
 });
 
 gulp.task('scripts', () => {
     clean('js');
     return gulp.src(config.scripts.src)
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(header(config.banner.main, { package: package }))
         .pipe(gulp.dest(config.output_path + config.scripts.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(header(config.banner.main, { package: package }))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.output_path + config.scripts.output_path));
 });
 
