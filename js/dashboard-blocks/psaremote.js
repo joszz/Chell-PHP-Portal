@@ -36,25 +36,21 @@
             * @method checkstates
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 settings.block.on("click", ".fa-rotate", function () {
                     clearInterval(settings.updateIntervalId);
                     settings.updateIntervalId = setInterval(function () {
-                        functions.refresh(false, true);
+                        functions.update(false, true);
                     }, settings.updateInterval);
-                    functions.refresh(false, false);
+                    functions.update(false, false);
                 });
 
                 settings.updateIntervalId = setInterval(function () {
-                    functions.refresh(false, true);
+                    functions.update(false, true);
                 }, settings.updateInterval);
-                functions.refresh(true, true);
+                functions.update(true, true);
             },
 
-            refresh: function (initialize, cache) {
+            update: function (initialize, cache) {
                 if (settings.refreshing) {
                     return;
                 }

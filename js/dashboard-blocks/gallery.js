@@ -36,10 +36,6 @@
                 * @method initialize
                 */
                 initialize: function () {
-                    if (settings.block.length === 0) {
-                        return;
-                    }
-
                     settings.rotateIntervalId = setInterval(function () {
                         functions.rotateGallery("right");
                     }, settings.rotateInterval);

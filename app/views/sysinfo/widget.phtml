@@ -1,6 +1,7 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="panel panel-success sysinfo">
+<div class="panel panel-success sysinfo"
+    data-updateinterval="<?php echo $this->settings->sysinfo->update_interval ?>">
     <?php $this->partial('is-loading') ?>
 
     <div class="panel-heading">

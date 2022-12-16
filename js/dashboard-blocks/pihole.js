@@ -37,15 +37,11 @@
             * @method initialize
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 settings.block.on("click", ".fa-rotate", function () {
-                    functions.refresh();
+                    functions.update();
                 });
 
-                functions.refresh();
+                functions.update();
             },
 
             /**
@@ -53,7 +49,7 @@
              * 
              * @method refresh
              */
-            refresh: function () {
+            update: function () {
                 $.getJSON(settings.url + "api.php?summaryRaw", function (data) {
                     settings.charts[0].data = [
                         data.queries_cached,

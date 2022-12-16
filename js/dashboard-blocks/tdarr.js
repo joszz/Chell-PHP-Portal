@@ -66,10 +66,6 @@
             * @method initialize
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 settings.block.find(".fa-rotate").click(function () { functions.update(false); });
                 functions.update(true);
             },

@@ -34,10 +34,6 @@
             * @method initialize
             */
             initialize: () => {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 settings.calendar = new Calendar({
                     id: "#arr-calendar",
                     calendarSize: "small",

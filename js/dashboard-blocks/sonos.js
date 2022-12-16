@@ -35,6 +35,10 @@
             * @method initialize
             */
             initialize: function () {
+                settings.block.find(".fa-rotate").off().on("click", function () {
+                    functions.update(false);
+                });
+
                 settings.updateIntervalId = setInterval(function () {
                     functions.update(false);
                 }, settings.updateInterval);

@@ -21,7 +21,7 @@ class SysinfoController extends WidgetController
         $this->widget = new Widget(12, 4);
     }
 
-    public function indexAction()
+    public function indexAction() 
     {
         $this->view->disable();
         $this->response->setJsonContent((new Sysinfo())->getData())->send();

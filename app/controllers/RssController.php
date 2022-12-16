@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Chell\Models\Disks;
 use Chell\Models\Sysinfo;
 use Phalcon\Mvc\View;
 
@@ -20,9 +21,10 @@ class RssController extends BaseController
 	*/
 	public function indexAction()
 	{
-		$this->response->setContentType('application/xml', 'charset=UTF-8');
+		$this->view->sysinfoData = (new Sysinfo())->getData();
+		$this->view->disksData = (new Disks())->getStats();
 
+		$this->response->setContentType('application/xml', 'charset=UTF-8');
 		$this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-		$this->view->phpsysinfoData = json_decode((new Sysinfo())->getData('complete'));
 	}
 }

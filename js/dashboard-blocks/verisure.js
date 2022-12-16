@@ -36,10 +36,6 @@
             * @method initialize
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 $.fancybox.defaults.btnTpl.take_photo = "<button data-fancybox-take-photo class='fancybox-button fa fa-camera' title='Take photo'></button>";
 
                 $("body").on("click", "[data-fancybox-take-photo]", function () {

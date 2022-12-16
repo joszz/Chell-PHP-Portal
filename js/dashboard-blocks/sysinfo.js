@@ -41,9 +41,9 @@
                     functions.update(false);
                 });
 
-                //settings.updateIntervalId = setInterval(function () {
-                //    functions.update(false);
-                //}, settings.updateInterval);
+                settings.updateIntervalId = setInterval(function () {
+                    functions.update(false);
+                }, settings.updateInterval);
                 functions.update(true);
             },
 

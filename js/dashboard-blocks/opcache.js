@@ -40,10 +40,6 @@
             * @method initialize
             */
             initialize: function () {
-                if (settings.block.length === 0) {
-                    return;
-                }
-
                 $.getJSON("opcache/dataset", function (data) {
                     settings.charts[0].data = data.memory;
                     settings.charts[1].data = data.keys;
