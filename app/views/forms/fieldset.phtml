@@ -8,6 +8,20 @@
             <span><?php echo $fieldset ?></span>
         </div>
         <div class="col-lg-4 col-sm-6 col-xs-2">
-            <?php $this->renderButton('help', $name, $element); ?>
+            <div class="pull-right btns">
+                <div class="input-group">
+                    <?php $this->renderButton('help', $name, $element); ?>
+                    <?php 
+                    $options = $element->getUserOptions();
+                    if (isset($options['buttons']))
+                    {
+                        foreach ($options['buttons'] as $button)
+                        {
+                            $this->renderButton($button, $name, $element);
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     </legend>

@@ -1,7 +1,12 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
-<?php if($helpName = $this->tryGetHelpName($name)) : ?>
-<a class="btn btn-default help <?php echo get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : 'pull-right' ?> " data-fancybox data-type="iframe" title="Help"
+<?php if ($helpName = $this->tryGetHelpName($name)) : ?>
+<?php
+$options = $element->getUserOptions();
+$buttons = isset($options['buttons']) ? $options['buttons'] : [];
+$cssClass = (get_class($element) == 'Phalcon\Forms\Element\Check' && count($buttons)) || get_class($element) != 'Phalcon\Forms\Element\Check' ? 'input-group-addon' : null;
+?>
+<a class="btn btn-default help <?php echo $cssClass ?>" data-fancybox data-type="iframe" title="Help"
     href="<?php echo $this->url->get('settings/help/' . $helpName) ?>">
     <i class="fa fa-question"></i>
 </a>

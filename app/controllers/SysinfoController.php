@@ -21,6 +21,9 @@ class SysinfoController extends WidgetController
         $this->widget = new Widget(12, 4);
     }
 
+    /**
+     * Retrieves the system information as JSON.
+     */
     public function indexAction() 
     {
         $this->view->disable();

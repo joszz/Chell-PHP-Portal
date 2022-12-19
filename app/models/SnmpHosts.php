@@ -31,6 +31,7 @@ class SnmpHosts extends Model
      *
      * @param bool $showDashboard       Whether or not to retrieve only the values marked as show_dashboard.
      * @return array                    The structured value array, ordered by position ASC and after that the null values.
+     * @suppress PHP0413
      */
     public function getValues(bool $showDashboard) : array
     {

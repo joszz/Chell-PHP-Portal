@@ -3,9 +3,10 @@ FROM php:8.1-apache
 
 ENV APACHE_DOCUMENT_ROOT /var/www/portal/public
 ENV PATH="${PATH}:/var/www/.local/bin"
+ENV TZ=Europe/Amsterdam
 
 # Install prerequisites
-RUN apt-get update && apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping adb wget zip git
+RUN apt-get update && apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping wget zip git
 
 WORKDIR /usr/local/lib/php/extensions/no-debug-non-zts-20210902
 RUN wget https://github.com/phalcon/cphalcon/releases/download/v5.1.2/phalcon-php8.1-nts-ubuntu-gcc-x64.zip 
@@ -24,6 +25,13 @@ WORKDIR /var/www/portal
 RUN chown -R www-data:www-data ./../
 COPY . .
 
+# Get latest ADB
+RUN wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+RUN unzip -p platform-tools-latest-linux.zip platform-tools/adb > adb
+RUN chmod +x adb
+RUN chown -R www-data:www-data adb
+RUN rm platform-tools-latest-linux.zip
+
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
@@ -36,6 +44,9 @@ RUN a2enmod rewrite
 # Copy Apache configuration
 COPY ./apache_conf/ports.conf /etc/apache2/ports.conf
 COPY ./apache_conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Set timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Cleanup
 RUN rm -rf /var/www/portal/apache_conf

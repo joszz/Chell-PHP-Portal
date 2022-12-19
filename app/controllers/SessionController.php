@@ -41,10 +41,11 @@ class SessionController extends BaseController
     {
         if (!$this->loginFailed && $this->cookies->has('username') && $this->cookies->has('password'))
         {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'session',
                 'action'     => 'login'
             ]);
+            return;
         }
 
         $this->view->containerFullHeight = true;
@@ -205,10 +206,11 @@ class SessionController extends BaseController
             catch (DuoException $exception)
             {
                 $this->logger->LogException($exception);
-                return $this->dispatcher->forward([
+                $this->dispatcher->forward([
                     'controller' => 'session',
                     'action'     => 'logout'
                 ]);
+                return;
             }
 
             $this->registerSession($user);

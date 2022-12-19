@@ -2,6 +2,7 @@
 
 namespace Chell\Controllers;
 
+use Exception;
 use Chell\Forms\SettingsGeneralForm;
 use Chell\Forms\SettingsDashboardForm;
 use Chell\Forms\SettingsDeviceForm;
@@ -63,7 +64,7 @@ class SettingsController extends BaseController
         }
 
         $this->view->setTemplateBefore('setting_category');
-        $this->view->content = $form->renderForm();
+        $form->renderForm();
         $this->setScrollToInputErrorElement($form);
     }
 
@@ -91,7 +92,7 @@ class SettingsController extends BaseController
         }
 
         $this->view->setTemplateBefore('setting_category');
-        $this->view->content = $form->renderForm();
+        $form->renderForm();
         $this->setScrollToInputErrorElement($form);
     }
 
@@ -474,11 +475,13 @@ class SettingsController extends BaseController
 
     public function sonosAction()
     {
-        $state = $_GET['state'];
-        $code = $_GET['code'];
-        $model = new Sonos();
+        if ($this->session->get('sonos_state') !== $_GET['state'])
+        {
+            throw new Exception('Sonos state did not match');
+        }
 
-        $model->setAccessToken($code);
+        $model = new Sonos();
+        $model->setAccessToken($_GET['code']);
         return $this->response->redirect('settings/dashboard');
     }
 

@@ -30,7 +30,7 @@ class SettingsCategory
      * Sets a Setting's value to the provided $value.
      *
      * @param string $name  The name of the Setting to set the value for.
-     * @param ?string $value The value to set for the given setting.
+     * @param string $value The value to set for the given setting.
      */
     public function __set(string $name, ?string $value)
     {

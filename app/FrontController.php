@@ -80,6 +80,11 @@ class FrontController
         $this->application->view->executionTime = $executionTime;
         $this->setTitle();
         $this->setTranslator();
+
+        if ($timezone = getenv('TZ'))
+        {
+            date_default_timezone_set($timezone);
+        }
     }
 
     /**

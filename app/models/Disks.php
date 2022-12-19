@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use stdClass;
+
 /**
  * The model responsible for all actions related to devices.
  *
@@ -20,7 +22,7 @@ class Disks extends BaseModel
 
             foreach ($mountpoints as $mountpoint)
             {
-                $diskResult = json_decode(shell_exec('df '  . $mountpoint .' | awk \'BEGIN {}{if($1=="Filesystem")next;if(a)print",";print"{\"mount\":\""$6"\",\"size\":\""$2"\",\"used\":\""$3"\",\"available\":\""$4"\",\"usage\":\""$5"\"}";a++;}END{}\''));
+                $diskResult = json_decode(shell_exec('df '  . escapeshellcmd($mountpoint) .' | awk \'BEGIN {}{if($1=="Filesystem")next;if(a)print",";print"{\"mount\":\""$6"\",\"size\":\""$2"\",\"used\":\""$3"\",\"available\":\""$4"\",\"usage\":\""$5"\"}";a++;}END{}\''));
                 $result[] = $diskResult;
             }
         }
@@ -42,14 +44,14 @@ class Disks extends BaseModel
                     }
 
                     $diskResult->mount = $disk->mountpoint;
-                    $result[]->disks[] = $diskResult;
+                    $result[$raid->name]->disks[] = $diskResult;
                 }
                 else
                 {
                     $diskResult = $this->setAvailableSpace($disk, $diskResult);
                     $diskResult->usage = round($diskResult->usage / $diskResult->size * 100) . '%';
                     $diskResult->mount = $disk->mountpoint;
-                    $result[] = $diskResult;
+                    $result[$disk->name] = $diskResult;
                 }
             }
         }

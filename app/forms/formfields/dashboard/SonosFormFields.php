@@ -22,12 +22,12 @@ class SonosFormFields extends FormFields
      */
 	protected function initializeFields()
 	{
-
 		$this->hasFieldset = true;
-		$this->fields[] = new Check('sonos-enabled', [
+		$this->fields[] = $sonosEnabled = new Check('sonos-enabled', [
 			'fieldset' => 'Sonos',
 			'checked' => $this->form->settings->sonos->enabled == '1' ? 'checked' : null
 		]);
+		$sonosEnabled->setUserOptions(['buttons' => ['sonos_request_authorization_code']]);
 
 		$this->fields[] = $sonosAPIKey = new Password('sonos-api_key');
 		$sonosAPIKey->setLabel('API key')
@@ -38,6 +38,9 @@ class SonosFormFields extends FormFields
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])
 			]);
 
+		$session = $this->form->di->get('session');
+		$session->set('sonos_state', bin2hex(random_bytes(32)));
+
 		$this->fields[] = $sonosAPISecret = new Password('sonos-api_secret');
 		$sonosAPISecret->setLabel('API secret')
 			->setFilters(['striptags', 'string'])
@@ -45,7 +48,7 @@ class SonosFormFields extends FormFields
 			->setDefault($this->form->settings->sonos->api_secret)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])
-			])->setUserOptions(['buttons' => ['sonos_request_authorization_code']]);
+			]);
 
         $this->fields[] = $sonosHouseholds = new Select('sonos-household_id');
 		$sonosHouseholds->setLabel('Household')

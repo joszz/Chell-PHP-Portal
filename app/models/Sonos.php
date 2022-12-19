@@ -5,11 +5,23 @@ namespace Chell\Models;
 use Exception;
 use GuzzleHttp\Client;
 
+/**
+ * The model responsible for all actions related to Sonos.
+ *
+ * @package Models
+ * @suppress PHP2414
+ */
 class Sonos extends BaseModel
 {
     private string $apiOauthAccessUrl = 'https://api.sonos.com/login/v3/oauth/access';
     private string $apiControlUrl = 'https://api.ws.sonos.com/control/api/v1/';
 
+    /**
+     * Calls the Sonos API to get an access token, used to call the API with.
+     *
+     * @param string $code      The OAuth2 code in the querystring parameters of the redirect by the Sonos API.
+     * @return bool             True on success or false on failure.
+     */
     public function setAccessToken(string $code)
     {
         $options = [
@@ -21,42 +33,32 @@ class Sonos extends BaseModel
         ];
 
         $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
-
-        if ($content)
-        {
-            //tokens need to be encrypted
-            $this->settings->sonos->access_token = $content->access_token;
-            $this->settings->sonos->refresh_token = $content->refresh_token;
-            $this->settings->sonos->token_expires = time() + $content->expires_in;
-            $this->settings->save('dashboard');
-            return true;
-        }
-        return false;
+        return $this->setTokenSettings($content);
     }
 
+    /**
+     * Gets a new access token using the refresh token from the Sonos API.
+     *
+     * @return bool True on success or false on failure.
+     */
     public function refreshAccessToken()
     {
         $options = [
             'form_params' => [
-                'grant_type' => 'authorization_code',
+                'grant_type' => 'refresh_token',
                 'refresh_token' => $this->settings->sonos->refresh_token
             ]
         ];
 
         $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
-
-        if ($content)
-        {
-            //tokens need to be encrypted
-            $this->settings->sonos->access_token = $content->access_token;
-            $this->settings->sonos->refresh_token = $content->refresh_token;
-            $this->settings->sonos->token_expires = time() + $content->expires_in;
-            $this->settings->save('dashboard');
-            return true;
-        }
-        return false;
+        return $this->setTokenSettings($content);
     }
 
+    /**
+     * Retrieves the configured households from the Sonos API.
+     *
+     * @return array    An array of households.
+     */
     public function getHouseholds()
     {
         $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
@@ -70,6 +72,12 @@ class Sonos extends BaseModel
         return $result;
     }
 
+    /**
+     * Retrieves the configured groups from the Sonos API for the given household.
+     *
+     * @param string $householdId   The household id to get the groups for.
+     * @return array                An array of groups.
+     */
     public function getGroups(string $householdId)
     {
         $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
@@ -83,6 +91,11 @@ class Sonos extends BaseModel
         return $result;
     }
 
+    /**
+     * Retrieves the currently playing details from the Sonos API.
+     *
+     * @return Object   An object with all the Sonos playing details.
+     */
     public function getPlayingDetails()
     {
         $result = $this->getPlaybackStatus($this->settings->sonos->group_id);
@@ -100,6 +113,7 @@ class Sonos extends BaseModel
 
         return $result;
     }
+
     public function getPlaybackMetadata(string $groupId)
     {
         return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playbackMetadata', 'GET', $this->getBearerAuthorization());
@@ -134,5 +148,19 @@ class Sonos extends BaseModel
             $this->logger->LogException($exception);
             return false;
         }
+    }
+
+    private function setTokenSettings($content)
+    {
+        if ($content)
+        {
+            //tokens need to be encrypted
+            $this->settings->sonos->access_token = $content->access_token;
+            $this->settings->sonos->refresh_token = $content->refresh_token;
+            $this->settings->sonos->token_expires = time() + $content->expires_in;
+            $this->settings->save('dashboard');
+            return true;
+        }
+        return false;
     }
 }
