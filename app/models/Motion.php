@@ -3,7 +3,7 @@
 namespace Chell\Models;
 
 /**
- * The model responsible for all actions related to PHPSysinfo.
+ * The model responsible for all actions related to Motion.
  *
  * @package Models
  * @suppress PHP2414

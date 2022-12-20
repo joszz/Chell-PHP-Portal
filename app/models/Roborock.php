@@ -3,7 +3,7 @@
 namespace Chell\Models;
 
 /**
- * The model responsible for all actions related to Jellyfin.
+ * The model responsible for all actions related to Roborock.
  *
  * @see https://github.com/rytilahti/python-miio
  * @package Models

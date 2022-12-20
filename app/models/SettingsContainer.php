@@ -136,6 +136,12 @@ class SettingsContainer implements IteratorAggregate
         }
     }
 
+    /**
+     * Retrieves the current domain with the protocol (either HTTP or HTTPS).
+     * 
+     * @param bool $urlEncode   Whether or not to urlencode the output.
+     * @return string           The protocol + domain.
+     */
     public function getDomainWithProtocol(bool $urlEncode = false)
     {
         $protocol = 'http://';

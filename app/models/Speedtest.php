@@ -5,7 +5,7 @@ namespace Chell\Models;
 use GuzzleHttp\Client;
 
 /**
- * The model responsible for all actions related to devices.
+ * The model responsible for all actions related to Speedtest.
  *
  * @package Models
  * @suppress PHP2414

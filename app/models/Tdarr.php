@@ -8,6 +8,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * The model responsible for all actions related to Tdarr.
+ *
+ * @package Models
+ * @suppress PHP2414
+ */
 class Tdarr extends BaseModel
 {
     /**

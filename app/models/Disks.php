@@ -5,13 +5,20 @@ namespace Chell\Models;
 use stdClass;
 
 /**
- * The model responsible for all actions related to devices.
+ * The model responsible for all actions related to disks.
  *
  * @package Models
  * @suppress PHP2414
  */
 class Disks extends BaseModel
 {
+    /**
+     * Retrieves the current statistic for each disk.
+     * Either finding all mountpoints in /mnt/ for docker instances, or using lsblk for running on baremetal.
+     * Only supports Linux.
+     * 
+     * @return array    An array containing all information about the disks.
+     */
     public function getStats() : array
     {
         $result = [];

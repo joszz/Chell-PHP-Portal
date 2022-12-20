@@ -7,7 +7,7 @@ use Chell\Controllers\WidgetController;
 use Chell\Models\Sonos;
 
 /**
- * The controller responsible for all Verisure related actions.
+ * The controller responsible for all Sonos related actions.
  *
  * @package Controllers
  */

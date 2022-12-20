@@ -32,7 +32,7 @@ class Sonos extends BaseModel
             ]
         ];
 
-        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
+        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $options);
         return $this->setTokenSettings($content);
     }
 
@@ -50,7 +50,7 @@ class Sonos extends BaseModel
             ]
         ];
 
-        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
+        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $options);
         return $this->setTokenSettings($content);
     }
 
@@ -61,7 +61,7 @@ class Sonos extends BaseModel
      */
     public function getHouseholds()
     {
-        $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
+        $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET');
         $result = [];
 
         foreach ($content->households as $household)
@@ -80,7 +80,7 @@ class Sonos extends BaseModel
      */
     public function getGroups(string $householdId)
     {
-        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
+        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET');
         $result = [];
 
         foreach ($content->groups as $group)
@@ -114,29 +114,59 @@ class Sonos extends BaseModel
         return $result;
     }
 
+    /**
+     * Calls the Sonos API to retrieve the playback metadata.
+     *
+     * @param string $groupId   The group to retrieve playback metadata for.
+     * @return mixed            An object containing the playback metadata.
+     */
     public function getPlaybackMetadata(string $groupId)
     {
-        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playbackMetadata', 'GET', $this->getBearerAuthorization());
+        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playbackMetadata', 'GET');
     }
 
+    /**
+     * Calls the Sonos API to retrieve the playback status.
+     *
+     * @param string $groupId   The group to retrieve playback status for.
+     * @return mixed            An object containing the playback status.
+     */
     public function getPlaybackStatus(string $groupId)
     {
-        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playback', 'GET', $this->getBearerAuthorization());
+        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playback', 'GET');
     }
 
+    /**
+     * Gets a Basic Auth string to be used to retrieve a token from the Sonos API.
+     * 
+     * @return string   The Basic auth string.
+     */
     private function getBasicAuthorization()
     {
         return 'Basic ' . base64_encode($this->settings->sonos->api_key . ':' . $this->settings->sonos->api_secret);
     }
 
+    /**
+     * Gets the bearer token to do Sonos API calls with.
+     * 
+     * @return string   The bearer token
+     */
     private function getBearerAuthorization()
     {
         return 'Bearer ' . $this->settings->sonos->access_token;
     }
 
-    private function getHttpClient(string $url, string $method, string $authorization, array $options = [])
+    /**
+     * Get s a new HTTP Client to do Sonos API calls with.
+     * 
+     * @param string $url               The Sonos endpoint to call.
+     * @param string $method            The request method, either 'GET' or 'POST'
+     * @param array $options            The options for the request, such as specifying the POST form parameters.
+     * @return mixed                    Either a object converted from the API's JSON response, or false on failure.
+     */
+    private function getHttpClient(string $url, string $method, array $options = [])
     {
-        $client = new Client(['headers' => ['Authorization' => $authorization]]);
+        $client = new Client(['headers' => ['Authorization' => $this->getBearerAuthorization()]]);
 
         try
         {
@@ -150,6 +180,12 @@ class Sonos extends BaseModel
         }
     }
 
+    /**
+     * Persists the token related fields in the database for future use.
+     * 
+     * @param mixed $content    The object containing the tokens.
+     * @return bool             Either trye on success or false on failure.
+     */
     private function setTokenSettings($content)
     {
         if ($content)

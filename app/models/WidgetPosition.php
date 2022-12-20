@@ -7,7 +7,7 @@ use Chell\Models\Devices;
 use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
 /**
- * The model responsible for all actions related to menu_items_users.
+ * The model responsible for all actions related to WidgetPositions.
  *
  * @package Models
  * @suppress PHP2414

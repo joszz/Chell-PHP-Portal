@@ -23,7 +23,7 @@ class Opcache extends Model
     }
 
     /**
-     * Builds up a JSON object to be consumed by ChartistJS.
+     * Builds up a JSON object to be consumed by Chart.js.
      *
      * @return array    An array that contains all the (formatted) Opcache data in a structured object.
      */

@@ -6,7 +6,7 @@ use Chell\Models\Tdarr;
 use Chell\Models\Widget;
 
 /**
- * The controller responsible for Disk related actions.
+ * The controller responsible for Tdarr related actions.
  *
  * @package Controllers
  */
@@ -15,7 +15,7 @@ class TdarrController extends WidgetController
     private Tdarr $_model;
 
     /**
-     * Initializes the controller, creating a new Disk model.
+     * Initializes the controller, creating a new Tdarr model.
      */
 	public function initialize()
     {
