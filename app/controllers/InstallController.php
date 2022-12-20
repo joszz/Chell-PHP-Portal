@@ -154,7 +154,6 @@ class InstallController extends BaseController
         $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
         $this->createDefaultSetting('demo_mode', 'general', 'application', '0');
         $this->createDefaultSetting('check_device_states_interval', 'general', 'application', '10');
-        $this->createDefaultSetting('check_now_playing_interval', 'general', 'application', '10');
         //Redis
         $this->createDefaultSetting('enabled', 'general', 'redis', '0');
         $this->createDefaultSetting('host', 'general', 'redis', 'localhost');
@@ -198,6 +197,7 @@ class InstallController extends BaseController
         $this->createDefaultSetting('url', 'dashboard', 'subsonic', '');
         $this->createDefaultSetting('username', 'dashboard', 'subsonic', '');
         $this->createDefaultSetting('password', 'dashboard', 'subsonic', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'subsonic', '30');
         //Duo
         $this->createDefaultSetting('enabled', 'dashboard', 'duo', '0');
         $this->createDefaultSetting('clientid', 'dashboard', 'duo', '');

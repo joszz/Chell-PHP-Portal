@@ -50,11 +50,6 @@ class IndexController extends BaseController
             $this->view->jellyfinviews = $jellyfinviews;
         }
 
-        if ($this->settings->couchpotato->enabled)
-        {
-            $this->view->couchpotato = (new Couchpotato())->getAllMovies();
-        }
-
         if ($this->settings->motion->enabled)
         {
             $this->view->motionModifiedTime = (new Motion())->getModifiedTime();
@@ -64,7 +59,6 @@ class IndexController extends BaseController
         {
             $this->view->snmpHosts = SnmpHosts::find();
         }
-
     }
 
     /**

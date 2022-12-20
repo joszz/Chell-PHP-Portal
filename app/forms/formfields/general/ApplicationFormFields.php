@@ -88,13 +88,6 @@ class ApplicationFormFields extends FormFields
             ->setDefault($this->form->settings->application->check_device_states_interval)
             ->addValidator(new Numericality(['message' => 'Not a number']));
 
-        $this->fields[] = $devicestateTimeouts = new Numeric('application-check_now_playing_interval');
-        $devicestateTimeouts->setLabel('Check now playing interval')
-            ->setFilters(['striptags', 'int'])
-            ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->check_now_playing_interval)
-            ->addValidator(new Numericality(['message' => 'Not a number']));
-
         $this->fields[] = $hibp = new Check('hibp-enabled', [
             'checked' => $this->form->settings->hibp->enabled == '1' ? 'checked' : null
         ]);

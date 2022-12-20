@@ -1,7 +1,7 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="panel panel-success subsonic gallery"
-    data-updateinterval="<?php echo $this->settings->application->check_now_playing_interval ?>"
+    data-updateinterval="<?php echo $this->settings->subsonic->update_interval ?>"
     data-url="<?php echo $this->settings->subsonic->url ?>"
     data-username="<?php echo $this->settings->subsonic->username ?>"
     data-password="<?php echo $this->settings->subsonic->password ?>">

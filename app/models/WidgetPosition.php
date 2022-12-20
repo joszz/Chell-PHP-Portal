@@ -14,7 +14,12 @@ use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
  */
 class WidgetPosition extends BaseModel
 {
-    public static function reorderPositions($settings)
+    /**
+     * Called by the Settings controller to reorder all widgets when saving the dashboard settings.
+     *
+     * @param SettingsContainer $settings   The current settings
+     */
+    public static function reorderPositions(SettingsContainer $settings)
     {
         $transactionManager = new TransactionManager();
         $transaction = $transactionManager->get();
@@ -71,7 +76,12 @@ class WidgetPosition extends BaseModel
         }
     }
 
-    public static function addDeviceWidgetPosition($device)
+    /**
+     * When a new device is added in the settings, make sure the device widget is added to the widget positions.
+     *
+     * @param Devices $device   The device added.
+     */
+    public static function addDeviceWidgetPosition(Devices $device)
     {
         $transactionManager = new TransactionManager();
         $transaction = $transactionManager->get();

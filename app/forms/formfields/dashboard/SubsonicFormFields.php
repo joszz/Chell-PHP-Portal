@@ -6,8 +6,10 @@ use Chell\Forms\FormFields\FormFields;
 use Chell\Forms\Validators\Hibp;
 use Chell\Forms\Validators\PresenceOfConfirmation;
 use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\Numeric;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Filter\Validation\Validator\Numericality;
 use Phalcon\Filter\Validation\Validator\Url as UrlValidator;
 
 /**
@@ -52,6 +54,16 @@ class SubsonicFormFields extends FormFields
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
 			->setDefault($this->form->settings->subsonic->password)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
+
+		$this->fields[] = $sonosInterval = new Numeric('subsonic-update_interval');
+		$sonosInterval->setLabel('Interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->sonos->update_interval)
+			->addValidators([
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled'])
+			]);
 
         if ($this->form->settings->hibp->enabled)
         {
