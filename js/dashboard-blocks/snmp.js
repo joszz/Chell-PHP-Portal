@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The SNMP block on the dashboard.
+* The SNMP widget.
 *
 * @class SNMP
 * @module Dashboard
@@ -62,7 +62,7 @@
                     functions.update();
                 });
 
-                settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
 
                 settings.block.find(".host").each(function (_index, host) {
                     $.get("snmp/hostcontent/" + $(host).data("id") + "/hidden-xs", function (html) {
@@ -83,7 +83,7 @@
                 if (hostToUpdate === undefined) {
                     hostToUpdate = settings.block.find(".host:visible");
                 }
-                window.clearInterval(settings.updateIntervalId);
+                clearInterval(settings.updateIntervalId);
 
                 var time = hostToUpdate.find("div.time");
 
@@ -96,7 +96,7 @@
                     initializeTinyTimer(hostToUpdate.find(".time"));
                 });
 
-                settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                 settings.block.isLoading("hide");
             }
         };

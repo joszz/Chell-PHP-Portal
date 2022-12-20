@@ -1,9 +1,9 @@
 ﻿"use strict";
 
 /**
-* The nowplaying block on the dashboard.
+* The Subsonic widget.
 *
-* @class Nowplaying
+* @class Subsonic
 * @module Dashboard
 * @submodule DashboardBlocks
 */
@@ -72,7 +72,7 @@
 
                     functions.nowPlaying();
 
-                    var checkloadingInterval = window.setInterval(function () {
+                    var checkloadingInterval = setInterval(function () {
                         if (!onload && settings.loading === false) {
                             $(".nowplaying").isLoading("hide");
                             clearInterval(checkloadingInterval);

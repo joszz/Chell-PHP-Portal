@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The Motion block on the dashboard.
+* The Motion widget.
 * 
 * @class Motion
 * @module Dashboard
@@ -55,7 +55,7 @@
             /**
             * Refreshes the image either by interval or manually by clicking the refresh button.
             * 
-            * @method initialize
+            * @method refreshImage
             */
             refreshImage: function () {
                 var anchor = settings.block.find("a");
@@ -65,6 +65,11 @@
                 anchor.css("background-image", bgImgUrlParts[0] + "?t=" + Date.now() + "\")");
             },
 
+            /**
+             * Calls the Motion controller to update the modifiedtime.
+             * 
+             * @method refreshModifiedTime
+             */
             refreshModifiedTime: function() {
                 $.ajax({
                     url: settings.baseUri + "motion/modifiedTime",

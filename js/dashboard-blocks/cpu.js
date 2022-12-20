@@ -96,8 +96,9 @@
         */
         var functions = {
             /**
-            * @method initialize
-            */
+             * Creates a new chart with the given config.
+             * @method initialize
+             */
             initialize: function () {
                 new Chart(settings.block.find("canvas")[0], settings.config);
             }

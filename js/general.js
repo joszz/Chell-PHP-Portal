@@ -137,7 +137,7 @@ function showAlert(alertType, message) {
 * @method fadeOutAlert
 */
 function fadeOutAlert() {
-    window.setTimeout(function () {
+    setTimeout(function () {
         $("div.alert").fadeOut("fast", function () {
             $("div.alert").removeClass("alert-success alert-danger");
         });

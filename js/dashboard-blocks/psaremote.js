@@ -1,9 +1,9 @@
 "use strict";
 
 /**
-* The PSA remote block on the dashboard.
+* The PSA remote widget.
 *
-* @class Youless
+* @class Psaremote
 * @module Dashboard
 * @submodule DashboardBlocks
 */
@@ -50,6 +50,13 @@
                 functions.update(true, true);
             },
 
+            /**
+             * Updates the current statistics by calling the PSARemote controller.
+             * 
+             * @method update
+             * @param {boolean} initialize  Whether called on initialization or not.
+             * @param {boolean} cache       Whether to use cache calling the API or not.
+             */
             update: function (initialize, cache) {
                 if (settings.refreshing) {
                     return;

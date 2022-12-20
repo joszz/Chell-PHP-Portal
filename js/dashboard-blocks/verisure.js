@@ -71,7 +71,7 @@
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
-                    window.clearInterval(settings.updateIntervalId);
+                    clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -125,7 +125,7 @@
                             console.log(xhr.errorMessage);
                         }
 
-                        settings.updateIntervalId = window.setInterval(functions.update, timeout);
+                        settings.updateIntervalId = setInterval(functions.update, timeout);
                         settings.block.isLoading("hide");
                     }
                 });
@@ -288,10 +288,10 @@
                     success: function (_data) {
                         $.fancybox.getInstance().close();
 
-                        var intervalId = window.setInterval(function () {
+                        var intervalId = setInterval(function () {
                             functions.get_photos(function () {
                                 if (settings.photos.length > currentAmountOfPhotos) {
-                                    window.clearInterval(intervalId);
+                                    clearInterval(intervalId);
                                     showAlert("success", "photo taken");
                                 }
                             });
@@ -303,6 +303,11 @@
                 });
             },
 
+            /**
+             * Shows a Fancybox modal to select a device/camera.
+             * 
+             * @method select_device
+             */
             select_device: function () {
                 $.fancybox.open({
                     src: "#verisure_device_select"

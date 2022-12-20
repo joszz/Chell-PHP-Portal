@@ -1,9 +1,9 @@
 "use strict";
 
 /**
-* The Opcache block on the dashboard.
+* The Arr widget on the dashboard.
 *
-* @class Opcache
+* @class Arr
 * @module Dashboard
 * @submodule DashboardBlocks
 */
@@ -67,6 +67,12 @@
                 });
             },
 
+            /**
+             * Updates the current statistics by calling the Arr controller.
+             * 
+             * @method update
+             * @param {boolean} initialize  Whether called on initialization or not.
+             */
             update: (startDate) => {
                 if (functions.formatDate(settings.currentStartDate) == functions.formatDate(startDate)) {
                     return;
@@ -92,6 +98,12 @@
                 });
             },
 
+            /**
+             * Called by update to create a list of Sonarr and Radarr items.
+             * 
+             * @method createList
+             * @param {object} data The data retrieved from the Arr controller.
+             */
             createList: (data) => {
                 let list = settings.block.find("ul");
                 list.find("li:not(.clone)").remove();
@@ -109,6 +121,12 @@
                 });
             },
 
+            /**
+             * Called when the calendar changes date. Creates a new tooltip with Sonarr and Radarr items on that date.
+             * 
+             * @method dateChanged
+             * @param Date currentDate  The currently selected date.
+             * */
             dateChanged: (currentDate) => {
                 if (!settings.calendar) {
                     return;
@@ -142,6 +160,12 @@
                 }).tooltip("toggle");
             },
 
+            /**
+             * Creates a title for a tooltip containing all the Radarr and Sonarr items.
+             * 
+             * @method getCompoundTitle
+             * @param {object} eventDayData  Data containing the Radarr and Sonarr items for a date.
+             * */
             getCompoundTitle: (eventDayData) => {
                 var title = "";
 
@@ -157,6 +181,12 @@
                 return title;
             },
 
+            /**
+             * Creates a title for a single Radarr or Sonarr item.
+             * 
+             * @method getTitle
+             * @param {object} eventData The data for the Radarr or Sonarr item to get the title for.
+             * */
             getTitle: (eventData) => {
                 if (eventData.serie) {
                     return eventData.serie + " | S" + zeropad(eventData.seasonNumber, 2) + "E" + zeropad(eventData.episodeNumber, 2) + " - " + eventData.title;
@@ -164,10 +194,22 @@
                 return eventData.title;
             },
 
+            /**
+             * Given an index/day, retrieve the HTMLElement representing that day on the calendar.
+             * 
+             * @method findDayByIndex
+             * @param {number} index    The current day index of the month.
+             * */
             findDayByIndex: (index) => settings.block.find(".calendar__day-active").contents().filter(function () {
                 return $(this).text().trim() == index;
             }).parent().find(".calendar__day-box"),
 
+            /**
+             * Given a date, format it as an ISO string.
+             * 
+             * @method formatDate
+             * @param {Date} date   The date to format.
+             * */
             formatDate: (date) => date ? date.toISOString().split("T")[0] : null
         };
 

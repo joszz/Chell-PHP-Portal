@@ -1,7 +1,7 @@
 "use strict";
 
 /**
-* The Youless block on the dashboard.
+* The Youless widget.
 *
 * @class Youless
 * @module Dashboard
@@ -46,6 +46,12 @@
                 functions.update(true);
             },
 
+            /**
+             * Updates the current statistics by calling the Youless controller.
+             * 
+             * @method update
+             * @param {boolean} initialize  Whether called on initialization or not.
+             */
             update: function (initialize) {
                 if (settings.refreshing) {
                     return;

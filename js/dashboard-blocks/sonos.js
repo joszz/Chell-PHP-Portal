@@ -55,7 +55,7 @@
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
-                    window.clearInterval(settings.updateIntervalId);
+                    clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -67,7 +67,7 @@
                         settings.block.find("img").attr("src", data.image ? "sonos/image?url=" + data.image : "img/icons/unknown.jpg");
                     },
                     complete: function () {
-                        settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });

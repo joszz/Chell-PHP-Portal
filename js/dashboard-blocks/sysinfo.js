@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The various blocks on the dashboard that build upon PHPSysInfo data.
+* The Sysinfo widget.
 *
 * @class SysInfo
 * @module Dashboard
@@ -41,17 +41,23 @@
                     functions.update(false);
                 });
 
-                settings.updateIntervalId = setInterval(function () {
+                settings.updateIntervalId = setTimeout(function () {
                     functions.update(false);
                 }, settings.updateInterval);
                 functions.update(true);
             },
 
+            /**
+             * Updates the current statistics by calling the Sysinfo controller.
+             * 
+             * @method update
+             * @param {boolean} initialize  Whether called on initialization or not.
+             */
             update: function (initialize) {
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
-                    window.clearInterval(settings.updateIntervalId);
+                    clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -72,7 +78,7 @@
                         settings.block.find("div.time").tinyTimer({ from: date, format: "%d days %0h:%0m:%0s" });
                     },
                     complete: function () {
-                        //settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });

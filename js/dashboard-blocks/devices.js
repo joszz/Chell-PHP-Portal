@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The devices block on the dashboard.
+* The devices widget.
 *
 * @class Devices
 * @module Dashboard

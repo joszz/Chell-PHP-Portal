@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 /**
-* The transmission block on the dashboard.
+* The transmission widget.
 * 
 * @class Transmission
 * @module Dashboard

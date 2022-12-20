@@ -51,7 +51,7 @@
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
-                    window.clearInterval(settings.updateIntervalId);
+                    clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -83,7 +83,7 @@
                         }
                     },
                     complete: function () {
-                        settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });

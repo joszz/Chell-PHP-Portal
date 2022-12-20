@@ -1,7 +1,7 @@
 "use strict";
 
 /**
-* The Opcache block on the dashboard.
+* The Opcache widget.
 *
 * @class Opcache
 * @module Dashboard

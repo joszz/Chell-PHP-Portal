@@ -1,7 +1,7 @@
 "use strict";
 
 /**
-* The speedtest block on the dashboard.
+* The speedtest widget.
 *
 * @class Speedtest
 * @module Dashboard

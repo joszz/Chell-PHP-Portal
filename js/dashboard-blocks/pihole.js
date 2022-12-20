@@ -1,7 +1,7 @@
 "use strict";
 
 /**
-* The Pihole block on the dashboard.
+* The Pihole widget.
 *
 * @class Pihole
 * @module Dashboard
@@ -47,7 +47,7 @@
             /**
              * Calls the Pihole API and reinitializes the chart with the data received.
              * 
-             * @method refresh
+             * @method update
              */
             update: function () {
                 $.getJSON(settings.url + "api.php?summaryRaw", function (data) {

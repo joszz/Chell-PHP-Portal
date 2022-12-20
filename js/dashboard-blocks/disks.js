@@ -1,12 +1,13 @@
 ﻿"use strict";
 
 /**
-*
-* @class Disks
-* @module Dashboard
-* @submodule DashboardBlocks
-* @example http://phpsysinfo.github.io/phpsysinfo/
-*/
+ * The disks widgeton the dashboard.
+ * 
+ * @class Disks
+ * @module Dashboard
+ * @submodule DashboardBlocks
+ * @example http://phpsysinfo.github.io/phpsysinfo/
+ */
 (function ($) {
     $.fn.disks = function (options) {
         /**
@@ -17,7 +18,6 @@
         */
         var settings = $.extend({
             block: $(this),
-            diskspaceunits: ["B", "KB", "MB", "GB", "TB"],
             updateInterval: this.data("update-interval") * 1000,
             updateIntervalId: -1,
         }, options);
@@ -51,7 +51,7 @@
                 initialize = typeof initialize === "undefined" ? false : initialize;
                 if (!initialize) {
                     settings.block.isLoading();
-                    window.clearInterval(settings.updateIntervalId);
+                    clearInterval(settings.updateIntervalId);
                 }
 
                 $.ajax({
@@ -93,7 +93,7 @@
                         });
                     },
                     complete: function () {
-                        settings.updateIntervalId = window.setInterval(functions.update, settings.updateInterval);
+                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });
