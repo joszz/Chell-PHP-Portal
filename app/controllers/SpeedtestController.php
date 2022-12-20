@@ -56,6 +56,7 @@ class SpeedtestController extends WidgetController
         ini_set('zlib.output_compression', 'Off');
         ini_set('output_buffering', 'Off');
         ini_set('output_handler', '');
+        ini_set('memory_limit', '256M');
 
         $this->response->setStatusCode(200);
         $this->response->setContentType('application/octet-stream');

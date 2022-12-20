@@ -126,8 +126,12 @@ input[type=number] {
         border: 0;
     }
 
-    .tab-content{
+    .tab-content {
         width: 100%;
+    }
+
+    .toggle + .help {
+        float: right;
     }
 }
 
