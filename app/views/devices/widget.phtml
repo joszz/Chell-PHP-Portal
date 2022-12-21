@@ -21,7 +21,7 @@
                     </a>
                     <?php endif ?>
                     <?php if ($device->shutdown_method == 'adb') : ?>
-                    <a href="<?php echo $this->url->get('devices/details/' . $device->id) ?>" class="btn btn-default" data-fancybox data-type="iframe" title="Details">
+                    <a href="<?php echo $this->url->get('devices/details/' . $device->id) ?>" class="btn btn-default adb-details" data-fancybox data-type="iframe" title="Details">
                         <span class="fa fa-wrench"></span>
                     </a>
                     <?php endif ?>

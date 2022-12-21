@@ -32,7 +32,7 @@ class Sonos extends BaseModel
             ]
         ];
 
-        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $options);
+        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
         return $this->setTokenSettings($content);
     }
 
@@ -50,7 +50,7 @@ class Sonos extends BaseModel
             ]
         ];
 
-        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $options);
+        $content = $this->getHttpClient($this->apiOauthAccessUrl, 'POST', $this->getBasicAuthorization(), $options);
         return $this->setTokenSettings($content);
     }
 
@@ -61,7 +61,7 @@ class Sonos extends BaseModel
      */
     public function getHouseholds()
     {
-        $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET');
+        $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
         $result = [];
 
         foreach ($content->households as $household)
@@ -80,7 +80,7 @@ class Sonos extends BaseModel
      */
     public function getGroups(string $householdId)
     {
-        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET');
+        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
         $result = [];
 
         foreach ($content->groups as $group)
@@ -101,14 +101,13 @@ class Sonos extends BaseModel
         $result = $this->getPlaybackStatus($this->settings->sonos->group_id);
         $metadata = $this->getPlaybackMetadata($this->settings->sonos->group_id);
 
-        $result->track = $metadata->currentItem->track->name ?? '';
-        $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
-        $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
-        $result->album = $metadata->currentItem->track->album->name ?? '';
-
-        if (isset($metadata->currentItem->track->imageUrl) && $metadata->container->imageUrl !== 'tracks')
+        if ($metadata)
         {
-            $result->image = urlencode($metadata->currentItem->track->imageUrl);
+            $result->track = $metadata->currentItem->track->name ?? '';
+            $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
+            $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
+            $result->album = $metadata->currentItem->track->album->name ?? '';
+            $result->image = urlencode($metadata->container->imageUrl);
         }
 
         return $result;
@@ -122,7 +121,7 @@ class Sonos extends BaseModel
      */
     public function getPlaybackMetadata(string $groupId)
     {
-        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playbackMetadata', 'GET');
+        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playbackMetadata', 'GET', $this->getBearerAuthorization());
     }
 
     /**
@@ -133,12 +132,26 @@ class Sonos extends BaseModel
      */
     public function getPlaybackStatus(string $groupId)
     {
-        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playback', 'GET');
+        return $this->getHttpClient($this->apiControlUrl . 'groups/' . $groupId . '/playback', 'GET', $this->getBearerAuthorization());
+    }
+
+    /**
+     * Retrieves the URL/IP from the websocketUrl and saves this to the settings.
+     * Only called once by the SonosController when the setting is not set.
+     * The URL/IP is consequently used to retrieve images which have relative URLs.
+     */
+    public function setUrl()
+    {
+        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $this->settings->sonos->household_id . '/groups', 'GET', $this->getBearerAuthorization());
+        $url = str_replace('wss://', '', current($content->players)->websocketUrl);
+        $url = substr($url, 0, stripos($url, ':'));
+        $this->settings->sonos->url = $url;
+        $this->settings->save('dashboard');
     }
 
     /**
      * Gets a Basic Auth string to be used to retrieve a token from the Sonos API.
-     * 
+     *
      * @return string   The Basic auth string.
      */
     private function getBasicAuthorization()
@@ -148,7 +161,7 @@ class Sonos extends BaseModel
 
     /**
      * Gets the bearer token to do Sonos API calls with.
-     * 
+     *
      * @return string   The bearer token
      */
     private function getBearerAuthorization()
@@ -158,15 +171,15 @@ class Sonos extends BaseModel
 
     /**
      * Get s a new HTTP Client to do Sonos API calls with.
-     * 
+     *
      * @param string $url               The Sonos endpoint to call.
      * @param string $method            The request method, either 'GET' or 'POST'
      * @param array $options            The options for the request, such as specifying the POST form parameters.
      * @return mixed                    Either a object converted from the API's JSON response, or false on failure.
      */
-    private function getHttpClient(string $url, string $method, array $options = [])
+    private function getHttpClient(string $url, string $method, string $authorization, array $options = [])
     {
-        $client = new Client(['headers' => ['Authorization' => $this->getBearerAuthorization()]]);
+        $client = new Client(['headers' => ['Authorization' => $authorization]]);
 
         try
         {
@@ -182,7 +195,7 @@ class Sonos extends BaseModel
 
     /**
      * Persists the token related fields in the database for future use.
-     * 
+     *
      * @param mixed $content    The object containing the tokens.
      * @return bool             Either trye on success or false on failure.
      */

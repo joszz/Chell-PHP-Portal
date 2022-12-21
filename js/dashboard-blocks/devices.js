@@ -100,11 +100,11 @@
 
                             if (!data["state"]) {
                                 dependentMenuItems.addClass("disabled");
-                                device.parent().find(".hypervadmin").addClass("disabled");
+                                device.parent().find(".hypervadmin, .adb-details").addClass("disabled");
                             }
                             else {
                                 dependentMenuItems.removeClass("disabled");
-                                device.parent().find(".hypervadmin").removeClass("disabled");
+                                device.parent().find(".hypervadmin, .adb-details").removeClass("disabled");
                                 dependentMenuItems.find("a").unbind("click", false);
                             }
 
