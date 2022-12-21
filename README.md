@@ -9,7 +9,7 @@ Take a look at the wiki to find out how to setup this project.
 
 # Video
 
-[![Demo](https://img.youtube.com/vi/IzuMtewr6gc/0.jpg)](https://www.youtube.com/watch?v=IzuMtewr6gc)
+[![Demo](https://img.youtube.com/vi/PoM_Cxvqwjc/1.jpg)](https://www.youtube.com/watch?v=PoM_Cxvqwjc)
 
 # Screenshots
 
