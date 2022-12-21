@@ -65,7 +65,7 @@ gulp.task('build_styles', () => {
             })
         )
         .pipe(header(config.banner.main, { package: package }))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.output_path + config.styles.output_path));
 });
 
@@ -78,7 +78,7 @@ gulp.task('scripts', () => {
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
         .pipe(header(config.banner.main, { package: package }))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.output_path + config.scripts.output_path));
 });
 

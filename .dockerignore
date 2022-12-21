@@ -3,5 +3,10 @@ css/
 js/
 icons/
 Chell.phpproj*
+Chell.sln
 .git*/
 .vs/
+.dockerignore
+.editorconfig
+.stignore
+Dockerfile
