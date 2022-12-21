@@ -17,7 +17,6 @@ RUN pecl install redis zip && docker-php-ext-enable redis zip opcache
 
 RUN mkdir /var/www/portal
 WORKDIR /var/www/portal
-RUN chown -R www-data:www-data ./../
 COPY . .
 
 # Install dependencies
@@ -26,7 +25,6 @@ RUN apt-get install wget && \
 	wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip && \
 	unzip -p platform-tools-latest-linux.zip platform-tools/adb > adb && \
 	chmod +x adb && \
-	chown -R 33:33 adb && \
 	rm platform-tools-latest-linux.zip && \
 	# Install Phalcon
 	wget https://github.com/phalcon/cphalcon/releases/download/v5.1.2/phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
@@ -34,6 +32,9 @@ RUN apt-get install wget && \
 	docker-php-ext-enable phalcon && \
 	rm phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
 	apt-get remove -y wget && apt-get autoclean && apt-get autoremove -y
+
+RUN chown -R www-data:www-data ./../
+RUN chmod -R 0700 ./
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
