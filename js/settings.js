@@ -24,6 +24,10 @@ $("legend input[type='checkbox']").each(function () {
     });
 });
 
+setTimeout(function () {
+    $("#settings > .panel-body").fadeIn("fast");
+}, 0);
+
 function initializePlugins() {
     scrollToError();
 }
