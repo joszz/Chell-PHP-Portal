@@ -107,7 +107,15 @@ class Sonos extends BaseModel
             $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
             $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
             $result->album = $metadata->currentItem->track->album->name ?? '';
-            $result->image = urlencode($metadata->container->imageUrl);
+
+            if (isset($metadata->container->imageUrl))
+            {
+                $result->image = urlencode($metadata->container->imageUrl);
+            }
+            else if (isset($metadata->currentItem->track->imageUrl))
+            {
+                $result->image = urlencode($metadata->currentItem->track->imageUrl);
+            }
         }
 
         return $result;

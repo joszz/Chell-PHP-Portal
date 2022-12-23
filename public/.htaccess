@@ -4,6 +4,7 @@
   RewriteCond %{THE_REQUEST} \.php\s [NC]
   RewriteRule ^ - [R=404,L]
 
+  RewriteCond %{REQUEST_URI} !=/server-status
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^((?s).*)$ index.php [QSA,L]

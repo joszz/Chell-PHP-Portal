@@ -62,8 +62,8 @@
                     url: "sonos",
                     dataType: "json",
                     success: function (data) {
-                        settings.block.find(".title").html(data.track);
-                        settings.block.find(".subtitle").html(data.artist);
+                        settings.block.find(".title").text(data.track).fadeIn("fast");
+                        settings.block.find(".subtitle").text(data.artist).fadeIn("fast");
                         settings.block.find("img").attr("src", data.image ? "sonos/image?url=" + data.image : "img/icons/unknown.jpg");
                     },
                     complete: function () {

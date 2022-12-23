@@ -246,7 +246,7 @@ class FrontController
      */
     private function setLogger()
     {
-        $adapter = new LogStream(APP_PATH . '/app/logs/main.log');
+        $adapter = new LogStream(APP_PATH . '/app/logs/' . date('Y-m-d') . '.log');
         $logger  = new ChellLogger('messages', [ 'main' => $adapter ]);
         $logger->setLogLevel(DEBUG ? ChellLogger::DEBUG : ChellLogger::ERROR);
         $this->logger = $logger;
