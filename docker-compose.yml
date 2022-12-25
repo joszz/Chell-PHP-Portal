@@ -11,6 +11,10 @@ services:
     volumes:
       # Needed for CPU widget to get the current CPU usage for the host
       - /proc:/prochost:ro
+      # In order to have the disk widget work, add volumes for the mountpoints of each disk you want to get stats on here.
+      # They need to be mounted in /mnt/<name>
+      - /mnt/disk1:/host/mountpath:ro
+      - /mnt/disk2:/host/mountpath2:ro
       
   db:
     image: mysql
