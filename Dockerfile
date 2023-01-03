@@ -15,17 +15,12 @@ RUN apt-get update && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \
 	docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets && \
 	docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd && \
-	pecl install redis && docker-php-ext-enable redis opcache  && \
+	pecl install redis phalcon-5.1.3 && docker-php-ext-enable redis opcache phalcon && \
 	# Install ADB
 	wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip && \
 	unzip -p platform-tools-latest-linux.zip platform-tools/adb > adb && \
 	chmod +x adb && \
 	rm platform-tools-latest-linux.zip && \
-	# Install Phalcon
-	wget https://github.com/phalcon/cphalcon/releases/download/v5.1.2/phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
-	unzip phalcon-php8.1-nts-ubuntu-gcc-x64.zip -d /usr/local/lib/php/extensions/no-debug-non-zts-20210902 && \
-	docker-php-ext-enable phalcon && \
-	rm phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
 	# set permissions
 	chown -R www-data:www-data ./../ && \
 	chmod -R 0700 ./ && \
