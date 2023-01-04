@@ -39,7 +39,10 @@ class SonosFormFields extends FormFields
 			]);
 
 		$session = $this->form->di->get('session');
-		$session->set('sonos_state', bin2hex(random_bytes(32)));
+        if (!$session->get('sonos_state'))
+        { 
+            $session->set('sonos_state', bin2hex(random_bytes(32)));
+		}
 
 		$this->fields[] = $sonosAPISecret = new Password('sonos-api_secret');
 		$sonosAPISecret->setLabel('API secret')
