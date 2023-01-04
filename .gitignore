@@ -53,7 +53,7 @@ SyncToy_*.dat
 *.sln
 *.v12.suo
 .vs/
-.stignore
+gulpfile_configdev.js
 app/config/config.ini
 app/logs/
 node_modules/

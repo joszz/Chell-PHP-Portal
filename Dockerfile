@@ -44,7 +44,7 @@ COPY ./docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Copy logclean cron
 COPY ./docker/logclean /etc/cron.daily/logclean
-RUN chmod 0644 /etc/cron.daily/logclean
+RUN chmod 0755 /etc/cron.daily/logclean
 
 # Cleanup
 RUN rm -rf /var/www/portal/docker

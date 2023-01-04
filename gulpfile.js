@@ -1,6 +1,5 @@
 /// <binding ProjectOpened='watch' />
 const gulp = require('gulp');
-const package = require('./package.json');
 const sass = require('gulp-dart-sass');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
@@ -10,7 +9,10 @@ const header = require('gulp-header');
 const rename = require('gulp-rename');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
+const clc = require('cli-color');
+const package = require('./package.json');
 const config = require("./gulpfile_config.js");
+const configdev = require("./gulpfile_configdev.js");
 
 function clean(which) {
     if (which == 'css' || which == '*') {
@@ -25,6 +27,16 @@ function clean(which) {
     if (which == 'robotofont' || which == '*') {
         del(config.output_path + "fonts/roboto-latin-300-normal.*");
     }
+}
+
+function copyProduction(path) {
+    console.log(clc.green(`Copying to production: ${path}`));
+    gulp.src(path).pipe(gulp.dest(configdev.production_path));
+}
+
+function deleteProduction(path) {
+    console.log(clc.red(`Deleting from production: ${path}`));
+    del(configdev.production_path + path, { force: true });
 }
 
 gulp.task('build_sass', () => {
@@ -113,4 +125,10 @@ gulp.task('robotofont', () => {
 gulp.task('watch', () => {
     gulp.watch('css/**/*.scss', gulp.series(['build_sass', 'build_styles']));
     gulp.watch('js/**/*.js', gulp.series(['scripts']));
+    gulp.watch('**')
+        .on("change", copyProduction)
+        .on("add", copyProduction)
+        .on("addDir", copyProduction)
+        .on("unlink", deleteProduction)
+        .on("unlinkDir", deleteProduction)
 });

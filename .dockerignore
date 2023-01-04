@@ -2,11 +2,12 @@
 css/
 js/
 icons/
-Chell.phpproj*
-Chell.sln
 .git*/
 .vs/
+app/logs/*
+Chell.phpproj*
+Chell.sln
 .dockerignore
 .editorconfig
-.stignore
 Dockerfile
+gulpfile_configdev.js
