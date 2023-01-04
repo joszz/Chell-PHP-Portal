@@ -53,24 +53,24 @@ class SonosFormFields extends FormFields
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])
 			]);
 
-        $this->fields[] = $sonosHouseholds = new Select('sonos-household_id');
+        $this->fields[] = $sonosHouseholds = new Select('sonos-household');
 		$sonosHouseholds->setLabel('Household')
 			->setFilters(['striptags', 'string'])
 			->setAttributes([
 				'class' => 'form-control',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->sonos->household_id ?? '',
+				'data-selected' => $this->form->settings->sonos->household ?? '',
 				'data-apiurl' => '../sonos/households'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
 
-        $this->fields[] = $sonosGroups = new Select('sonos-group_id');
+        $this->fields[] = $sonosGroups = new Select('sonos-group');
 		$sonosGroups->setLabel('Group')
 			->setFilters(['striptags', 'string'])
 			->setAttributes([
 				'class' => 'form-control',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->sonos->group_id ?? '',
+				'data-selected' => $this->form->settings->sonos->group ?? '',
 				'data-apiurl' => '../sonos/groups'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);

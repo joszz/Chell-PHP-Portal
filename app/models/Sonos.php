@@ -66,29 +66,60 @@ class Sonos extends BaseModel
 
         foreach ($content->households as $household)
         {
-            $result[$household->id] = $household->name;
+            $result[$household->name] = $household->name;
         }
 
         return $result;
     }
 
+    private function getHouseholdIdByName($name)
+    {
+        $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
+        foreach ($content->households as $household)
+        {
+            if ($household->name == $name)
+            {
+                return $household->id;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Retrieves the configured groups from the Sonos API for the given household.
      *
-     * @param string $householdId   The household id to get the groups for.
+     * @param string $household   The household id to get the groups for.
      * @return array                An array of groups.
      */
-    public function getGroups(string $householdId)
+    public function getGroups(string $household)
     {
+        $householdId = $this->getHouseholdIdByName($household);
         $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
         $result = [];
 
         foreach ($content->groups as $group)
         {
-            $result[$group->id] = $group->name;
+            $result[$group->name] = $group->name;
         }
 
         return $result;
+    }
+
+    private function getGroupIdByName($name)
+    {
+        $householdId = $this->getHouseholdIdByName($this->settings->sonos->household);
+        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
+
+        foreach ($content->groups as $group)
+        {
+            if ($group->name == $name)
+            {
+                return $group->id;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -98,8 +129,9 @@ class Sonos extends BaseModel
      */
     public function getPlayingDetails()
     {
-        $result = $this->getPlaybackStatus($this->settings->sonos->group_id);
-        $metadata = $this->getPlaybackMetadata($this->settings->sonos->group_id);
+        $groupId = $this->getGroupIdByName($this->settings->sonos->group);
+        $result = $this->getPlaybackStatus($groupId);
+        $metadata = $this->getPlaybackMetadata($groupId);
 
         if ($metadata)
         {

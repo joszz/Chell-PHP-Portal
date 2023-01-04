@@ -58,7 +58,7 @@ class SonosController extends WidgetController
      */
     public function groupsAction()
     {
-        $this->response->setJsonContent($this->_model->getGroups( $_POST['sonos-household_id']))->send();
+        $this->response->setJsonContent($this->_model->getGroups( $_POST['sonos-household']))->send();
     }
 
     /**

@@ -12,8 +12,8 @@ initializePlugins()
 setEventHandlers();
 setSelectData($("select[name='pulseway-systems[]']"));
 setSelectData($("select[name='jellyfin-views[]']"));
-setSelectData($("select[name='sonos-household_id']"), function () {
-    setSelectData($("select[name='sonos-group_id']"));
+setSelectData($("select[name='sonos-household']"), function () {
+    setSelectData($("select[name='sonos-group']"));
 });
 
 $("legend input[type='checkbox']").each(function () {
