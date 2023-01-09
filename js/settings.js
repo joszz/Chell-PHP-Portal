@@ -6,8 +6,6 @@
 * @class Index
 * @module Settings
 */
-
-
 initializePlugins()
 setEventHandlers();
 setSelectData($("select[name='pulseway-systems[]']"));

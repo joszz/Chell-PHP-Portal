@@ -39,12 +39,24 @@ function deleteProduction(path) {
     del(configdev.production_path + path, { force: true });
 }
 
-gulp.task('build_sass', () => {
+function buildScript(path) {
+    console.log(clc.green(`Building script: ${path}`));
+    gulp.src(path)
+        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(header(config.banner.main, { package: package }))
+        .pipe(gulp.dest(config.output_path))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(header(config.banner.main, { package: package }))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(config.output_path));
+}
+
+gulp.task('sass', () => {
     clean('css');
     return gulp.src(config.styles.sass)
         .pipe(sass())
         .pipe(header(config.banner.main, { package: package }))
-        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({
@@ -59,11 +71,10 @@ gulp.task('build_sass', () => {
 });
 
 
-gulp.task('build_styles', () => {
+gulp.task('styles', () => {
     return gulp.src(config.styles.css)
         .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(header(config.banner.main, { package: package }))
-        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({
@@ -123,12 +134,14 @@ gulp.task('robotofont', () => {
 });
 
 gulp.task('watch', () => {
-    gulp.watch('css/**/*.scss', gulp.series(['build_sass', 'build_styles']));
-    gulp.watch('js/**/*.js', gulp.series(['scripts']));
+    gulp.watch('css/**/*.scss', gulp.series(['sass', 'styles']));
+    gulp.watch('js/**/*.js')
+        .on("change", buildScript)
+        .on("add", buildScript);
     gulp.watch('**')
         .on("change", copyProduction)
         .on("add", copyProduction)
         .on("addDir", copyProduction)
         .on("unlink", deleteProduction)
-        .on("unlinkDir", deleteProduction)
+        .on("unlinkDir", deleteProduction);
 });

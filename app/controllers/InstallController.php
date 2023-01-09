@@ -293,6 +293,11 @@ class InstallController extends BaseController
         $this->createDefaultSetting('household', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('group', 'dashboard', 'sonos', '');
         $this->createDefaultSetting('update_interval', 'dashboard', 'sonos', '30');
+        //AdGuard
+        $this->createDefaultSetting('enabled', 'dashboard', 'adguard', '0');
+        $this->createDefaultSetting('username', 'dashboard', 'adguard', '');
+        $this->createDefaultSetting('password', 'dashboard', 'adguard', '');
+        $this->createDefaultSetting('update_interval', 'dashboard', 'adguard', '30');
     }
 
     /**

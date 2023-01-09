@@ -7,9 +7,9 @@
             ' | <%= package.license %> License' +
             ' */\n'
     },
-    output_path: 'public/',
+    output_path: 'public\\',
     styles: {
-        output_path: 'css/',
+        output_path: 'css\\',
         sass: [
             'css/default.scss',
             'css/exception.scss',

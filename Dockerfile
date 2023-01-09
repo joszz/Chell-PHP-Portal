@@ -10,7 +10,7 @@ COPY . .
 
 # Install prerequisites
 RUN apt-get update && \
-	apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping wget unzip zip anacron && \
+	apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping wget unzip zip cron anacron && \
 	docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \
 	docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets && \
@@ -24,8 +24,12 @@ RUN apt-get update && \
 	# set permissions
 	chown -R www-data:www-data ./../ && \
 	chmod -R 0700 ./ && \
-	# Use the default production configuration
+	# Use the default production configuration and change some settings
 	mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+	sed -i 's#;session.cookie_secure =#session.cookie_secure = 1#' /usr/local/etc/php/php.ini && \
+	sed -i 's#session.cookie_httponly =#session.cookie_httponly = 1#' /usr/local/etc/php/php.ini && \
+	sed -i 's#session.cookie_samesite =#session.cookie_samesite = "Lax"#' /usr/local/etc/php/php.ini && \
+	sed -i 's#session.name = PHPSESSID#session.name = __SECURE-PHPSESSID#' /usr/local/etc/php/php.ini && \
 	# Allow htaccess
 	sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /etc/apache2/apache2.conf && \
 	# Allow Apache status from 127.0.0.1
@@ -42,9 +46,11 @@ RUN apt-get update && \
 COPY ./docker/ports.conf /etc/apache2/ports.conf
 COPY ./docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# Copy logclean cron
+# Setup cron
 COPY ./docker/logclean /etc/cron.daily/logclean
-RUN chmod 0755 /etc/cron.daily/logclean
+RUN chmod 0644 /etc/cron.daily/logclean && \
+	chmod +x /etc/cron.daily/logclean && \
+	sed -i 's/^exec /service cron start\n\nexec /' /usr/local/bin/apache2-foreground
 
 # Cleanup
 RUN rm -rf /var/www/portal/docker

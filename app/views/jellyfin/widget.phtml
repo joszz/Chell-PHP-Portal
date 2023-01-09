@@ -2,9 +2,9 @@
 
 <?php
 foreach ($jellyfinviews as $title => $view) :
-    $widget->calculateColumnCounts($columnCountSm, $columnCountMd, true);
+    $widget->calculateColumnCounts($columnCountSm, $columnCountMd);
 ?>
-<div class="<?php echo $widget->getPanelClass(true) ?>">
+<div class="<?php echo $widget->getPanelClass() ?>">
     <?php $this->partial('jellyfin/widget_library'); ?>
 </div>
 <?php endforeach ?>

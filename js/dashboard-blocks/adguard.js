@@ -1,14 +1,14 @@
 "use strict";
 
 /**
-* The Tdarr widget.
+* The AdGuard widget.
 *
-* @class Tdarr
+* @class AdGuard
 * @module Dashboard
 * @submodule DashboardBlocks
 */
 (function ($) {
-    $.fn.tdarr = function (options) {
+    $.fn.adguard = function (options) {
         /**
         * All the settings for this block.
         *
@@ -17,7 +17,6 @@
         */
         var settings = $.extend({
             block: this,
-            updateInterval: $(this).data("update-interval") * 1000,
             updateIntervalId: -1,
             chart: undefined,
             chartConfig: {
@@ -78,13 +77,13 @@
                 }
 
                 $.ajax({
-                    url: "tdarr",
+                    url: "adguard",
                     dataType: "json",
                     success: function (data) {
                         functions.initializeChart(data);
                     },
                     complete: function () {
-                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
+                        //settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });

@@ -1,0 +1,17 @@
+<?php /** @var Phalcon\Mvc\View $this */ ?>
+
+<div class="panel panel-success adguard">
+    <?php $this->partial('is-loading') ?>
+
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+            <?php $this->partial('index/default_widget_buttons', ['hasRefresh' => true, 'widget' => $widget]) ?>
+        </div>
+        <h4 class="truncate-text" title="AdGuard">AdGuard</h4>
+    </div>
+    <div class="panel-body hidden-xs">
+        <div class="graph">
+            <canvas></canvas>
+        </div>
+    </div>
+</div>
