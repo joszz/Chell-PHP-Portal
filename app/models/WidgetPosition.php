@@ -18,6 +18,7 @@ class WidgetPosition extends BaseModel
      * Called by the Settings controller to reorder all widgets when saving the dashboard settings.
      *
      * @param SettingsContainer $settings   The current settings
+     * @suppress PHP0407
      */
     public static function reorderPositions(SettingsContainer $settings)
     {

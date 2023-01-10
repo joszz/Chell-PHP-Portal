@@ -125,7 +125,7 @@ class Sonos extends BaseModel
     /**
      * Retrieves the currently playing details from the Sonos API.
      *
-     * @return Object   An object with all the Sonos playing details.
+     * @return \stdClass   An object with all the Sonos playing details.
      */
     public function getPlayingDetails()
     {
