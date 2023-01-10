@@ -8,7 +8,6 @@ use PDO;
  * The model responsible for all actions related to database statistics.
  *
  * @package Models
- * @suppress PHP2414
  */
 class DatabaseStats extends BaseModel
 {

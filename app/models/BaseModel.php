@@ -11,7 +11,6 @@ use Phalcon\Mvc\Url;
  * The base model used by all other models.
  *
  * @package Models
- * @suppress PHP2414
  */
 class BaseModel extends Model
 {

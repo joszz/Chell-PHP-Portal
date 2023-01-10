@@ -8,7 +8,6 @@ use DateTimeInterface;
  * The model responsible for all actions related to Opcache.
  *
  * @package Models
- * @suppress PHP2414
  */
 class Opcache extends Model
 {

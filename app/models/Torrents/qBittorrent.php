@@ -10,7 +10,6 @@ use Psr\Http\Message\ResponseInterface;
  *
  * @package Models\Torrents
  * @see https://github.com/qbittorrent/qBittorrent/wiki/WebUI-API-(qBittorrent-4.1)
- * @suppress PHP2414
  */
 class qBittorrent extends Torrents
 {

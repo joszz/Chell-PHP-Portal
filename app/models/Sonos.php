@@ -9,7 +9,6 @@ use GuzzleHttp\Client;
  * The model responsible for all actions related to Sonos.
  *
  * @package Models
- * @suppress PHP2414
  */
 class Sonos extends BaseModel
 {

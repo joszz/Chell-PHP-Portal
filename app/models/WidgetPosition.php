@@ -10,7 +10,6 @@ use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
  * The model responsible for all actions related to WidgetPositions.
  *
  * @package Models
- * @suppress PHP2414
  */
 class WidgetPosition extends BaseModel
 {

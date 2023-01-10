@@ -9,7 +9,6 @@ use GuzzleHttp\Client;
  * The model responsible for all actions related to docker.
  *
  * @package Models
- * @suppress PHP2414
  */
 class Docker extends BaseModel
 {

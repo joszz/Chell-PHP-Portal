@@ -6,7 +6,6 @@ namespace Chell\Models;
  * The model responsible for all actions related to Sysinfo.
  *
  * @package Models
- * @suppress PHP2414
  */
 class Sysinfo extends BaseModel
 {

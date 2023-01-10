@@ -173,6 +173,7 @@ class SettingsBaseForm extends Form
      * Creates all the FormField classes in the given namespace.
      *
      * @param string $namespace     Which FormFields namespace to create FormField instances for.
+     * @suppress PHP0404
      */
     protected function setFormFieldClasses(string $namespace)
     {

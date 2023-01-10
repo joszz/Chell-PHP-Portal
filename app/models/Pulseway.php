@@ -10,7 +10,6 @@ use GuzzleHttp\Exception\ClientException;
  *
  * @see https://api.pulseway.com/
  * @package Models
- * @suppress PHP2414
  */
 class Pulseway extends BaseModel
 {

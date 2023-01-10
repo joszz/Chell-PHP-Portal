@@ -7,7 +7,6 @@ namespace Chell\Models;
  *
  * @see https://github.com/rytilahti/python-miio
  * @package Models
- * @suppress PHP2414
  */
 class Roborock extends BaseModel
 {

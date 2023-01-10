@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
  * 
  * @see https://github.com/Sonarr/Sonarr/wiki/API
  * @package Models
- * @suppress PHP2414
  */
 class Arr extends BaseModel
 {

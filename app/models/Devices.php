@@ -8,7 +8,6 @@ use Chell\Models\Cpu;
  * The model responsible for all actions related to devices.
  *
  * @package Models
- * @suppress PHP2414
  */
 class Devices extends BaseModel
 {

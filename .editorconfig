@@ -1,1 +1,7 @@
 ﻿end_of_line = lf
+
+[/vendor/**]
+php_diagnostic = false
+
+[/node_modules/**]
+php_diagnostic = false
