@@ -29,7 +29,6 @@ RUN apt-get update && \
 	sed -i 's#;session.cookie_secure =#session.cookie_secure = 1#' /usr/local/etc/php/php.ini && \
 	sed -i 's#session.cookie_httponly =#session.cookie_httponly = 1#' /usr/local/etc/php/php.ini && \
 	sed -i 's#session.cookie_samesite =#session.cookie_samesite = "Lax"#' /usr/local/etc/php/php.ini && \
-	sed -i 's#session.name = PHPSESSID#session.name = __SECURE-PHPSESSID#' /usr/local/etc/php/php.ini && \
 	# Allow htaccess
 	sed -i 's#AllowOverride [Nn]one#AllowOverride All#' /etc/apache2/apache2.conf && \
 	# Allow Apache status from 127.0.0.1
@@ -40,7 +39,7 @@ RUN apt-get update && \
 	# Set timezone
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
 	# Cleanup 
-	apt-get remove -y python3-pip wget unzip zip && apt-get autoclean && apt-get autoremove -y
+	apt-get remove -y python3-pip wget unzip zip && apt-get autoremove -y && apt-get clean
 
 # Copy Apache configuration
 COPY ./docker/ports.conf /etc/apache2/ports.conf
