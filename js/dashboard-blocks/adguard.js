@@ -17,6 +17,7 @@
         */
         var settings = $.extend({
             block: this,
+            updateInterval: $(this).data("update-interval") * 1000,
             updateIntervalId: -1,
             chart: undefined,
             chartConfig: {
@@ -42,7 +43,16 @@
                     responsive: true,
                     plugins: {
                         datalabels: {
-                            color: '#FFF'
+                            color: "#FFF",
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => {
+                                    sum += data;
+                                });
+                                let percentage = (value * 100 / sum).toFixed(2) + "%";
+                                return percentage;
+                            },
                         },
                         legend: {
                             position: "top",
@@ -83,7 +93,7 @@
                         functions.initializeChart(data);
                     },
                     complete: function () {
-                        //settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
+                        settings.updateIntervalId = setInterval(functions.update, settings.updateInterval);
                         settings.block.isLoading("hide");
                     }
                 });
