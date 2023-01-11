@@ -108,48 +108,57 @@ class Sonos extends BaseModel
     private function getGroupIdByName($name)
     {
         $householdId = $this->getHouseholdIdByName($this->settings->sonos->household);
-        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
 
-        foreach ($content->groups as $group)
+        if ($householdId)
         {
-            if ($group->name == $name)
+            $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
+
+            foreach ($content->groups as $group)
             {
-                return $group->id;
+                if ($group->name == $name)
+                {
+                    return $group->id;
+                }
             }
         }
-
         return false;
     }
 
     /**
      * Retrieves the currently playing details from the Sonos API.
      *
-     * @return \stdClass   An object with all the Sonos playing details.
+     * @return bool|\stdClass   An object with all the Sonos playing details or false on failure.
      */
     public function getPlayingDetails()
     {
         $groupId = $this->getGroupIdByName($this->settings->sonos->group);
-        $result = $this->getPlaybackStatus($groupId);
-        $metadata = $this->getPlaybackMetadata($groupId);
 
-        if ($metadata)
+        if ($groupId)
         {
-            $result->track = $metadata->currentItem->track->name ?? '';
-            $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
-            $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
-            $result->album = $metadata->currentItem->track->album->name ?? '';
+            $result = $this->getPlaybackStatus($groupId);
+            $metadata = $this->getPlaybackMetadata($groupId);
 
-            if (isset($metadata->container->imageUrl))
+            if ($metadata)
             {
-                $result->image = urlencode($metadata->container->imageUrl);
+                $result->track = $metadata->currentItem->track->name ?? '';
+                $result->tracknumber = $metadata->currentItem->track->trackNumber ?? '';
+                $result->artist = $metadata->currentItem->track->album->artist->name ?? '';
+                $result->album = $metadata->currentItem->track->album->name ?? '';
+
+                if (isset($metadata->container->imageUrl))
+                {
+                    $result->image = urlencode($metadata->container->imageUrl);
+                }
+                else if (isset($metadata->currentItem->track->imageUrl))
+                {
+                    $result->image = urlencode($metadata->currentItem->track->imageUrl);
+                }
             }
-            else if (isset($metadata->currentItem->track->imageUrl))
-            {
-                $result->image = urlencode($metadata->currentItem->track->imageUrl);
-            }
+
+            return $result;
         }
 
-        return $result;
+        return false;
     }
 
     /**
