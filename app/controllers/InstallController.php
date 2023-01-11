@@ -297,6 +297,7 @@ class InstallController extends BaseController
         $this->createDefaultSetting('enabled', 'dashboard', 'adguard', '0');
         $this->createDefaultSetting('username', 'dashboard', 'adguard', '');
         $this->createDefaultSetting('password', 'dashboard', 'adguard', '');
+        $this->createDefaultSetting('url', 'dashboard', 'adguard', '');
         $this->createDefaultSetting('update_interval', 'dashboard', 'adguard', '30');
     }
 
