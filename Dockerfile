@@ -55,6 +55,4 @@ RUN chmod 0644 /etc/cron.daily/logclean && \
 # Cleanup
 RUN rm -rf /var/www/portal/docker
 
-USER www-data
-
 EXPOSE 8094
