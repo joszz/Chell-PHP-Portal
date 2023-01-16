@@ -4,7 +4,6 @@ namespace Chell\Controllers;
 
 use ReflectionClass;
 use DirectoryIterator;
-use Chell\Models\Couchpotato;
 use Chell\Models\Devices;
 use Chell\Models\Jellyfin;
 use Chell\Models\Motion;

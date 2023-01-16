@@ -4,9 +4,9 @@
         "magicalex/write-ini-file": "^2.0.1",
         "mflor/pwned": "^4.0",
         "davidearl/webauthn": "dev-master",
-        "duosecurity/duo_universal_php": "^1.0.1"
+        "duosecurity/duo_universal_php": "^1.0.2"
     },
     "require-dev": {
-        "phalcon/ide-stubs": "^5.1.3"
+        "phalcon/ide-stubs": "^5.1.4"
     }
 }

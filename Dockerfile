@@ -10,7 +10,7 @@ COPY . .
 
 # Install prerequisites
 RUN apt-get update && \
-	apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping wget unzip zip cron anacron && \
+	apt-get install -y python3 python3-pip curl libz-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev snmpd snmp libsnmp-dev iputils-ping wget unzip zip cron && \
 	docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \
 	docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets && \
@@ -46,9 +46,9 @@ COPY ./docker/ports.conf /etc/apache2/ports.conf
 COPY ./docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # Setup cron
-COPY ./docker/logclean /etc/cron.daily/logclean
-RUN chmod 0644 /etc/cron.daily/logclean && \
-	chmod +x /etc/cron.daily/logclean && \
+COPY ./docker/logclean /etc/cron.hourly/logclean
+RUN chmod 0644 /etc/cron.hourly/logclean && \
+	chmod +x /etc/cron.hourly/logclean && \
 	sed -i 's/^exec /service cron start\n\nexec /' /usr/local/bin/apache2-foreground
 
 # Cleanup

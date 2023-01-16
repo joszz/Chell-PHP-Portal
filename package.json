@@ -43,7 +43,6 @@
 		"@popperjs/core": "^2.11.6",
 		"bootstrap": "^5.2.3",
 		"cli-color": "^2.0.3",
-		"debounce": "^1.2.1",
 		"del": "6.1.1",
 		"gulp": "^4.0.2",
 		"gulp-cssnano": "^2.1.3",

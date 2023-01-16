@@ -14,14 +14,14 @@ class Widget
     public string $partial;
 
     /**
-     * Sets the defaulot column sizes and whether or not this widget contains other subwidgets.
+     * Sets the default column sizes and whether or not this widget contains other subwidgets.
      *
      * @param int $xs                   The Bootstrap XS column size
      * @param int $sm                   The Bootstrap SM column size
      * @param int $md                   The Bootstrap MD column size
-     * @param mixed $hasSubWidgets      Has sub widgets
+     * @param bool $hasSubWidgets       Has sub widgets
      */
-    public function __construct(public int $xs = 12, public int $sm = 0, public int $md = 0, public $hasSubWidgets = false)
+    public function __construct(public int $xs = 12, public int $sm = 0, public int $md = 0, public bool $hasSubWidgets = false)
     {
         $this->xs = $xs;
         $this->sm = $sm;
@@ -36,7 +36,6 @@ class Widget
      */
     public function getPanelClass() : string
     {
-
         $class = 'widget col-xs-' . $this->xs;
         $class .=  $this->sm != 0 ? ' col-sm-' . $this->sm : null;
         $class .=  $this->md != 0 ? ' col-md-' . $this->md : null;

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4983d280f377889f4e5feaee58ea26fc",
+    "content-hash": "b08274edbc5ddf37c01a317cbb125f16",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -98,25 +98,26 @@
         },
         {
             "name": "duosecurity/duo_universal_php",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/duosecurity/duo_universal_php.git",
-                "reference": "d7d9bd3bf996d16ff7f4af57b45ed5ca3144cd16"
+                "reference": "8734a47480d2d2f0539e8ee782675e052025d026"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/duosecurity/duo_universal_php/zipball/d7d9bd3bf996d16ff7f4af57b45ed5ca3144cd16",
-                "reference": "d7d9bd3bf996d16ff7f4af57b45ed5ca3144cd16",
+                "url": "https://api.github.com/repos/duosecurity/duo_universal_php/zipball/8734a47480d2d2f0539e8ee782675e052025d026",
+                "reference": "8734a47480d2d2f0539e8ee782675e052025d026",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
+                "ext-json": "*",
                 "firebase/php-jwt": "^6.0",
                 "php": ">=7.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.0",
+                "phpunit/phpunit": "^9.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -131,9 +132,9 @@
             "support": {
                 "email": "support@duosecurity.com",
                 "issues": "https://github.com/duosecurity/duo_universal_php/issues",
-                "source": "https://github.com/duosecurity/duo_universal_php/tree/1.0.1"
+                "source": "https://github.com/duosecurity/duo_universal_php/tree/1.0.2"
             },
-            "time": "2022-07-06T13:56:13+00:00"
+            "time": "2023-01-13T18:47:58+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -1138,16 +1139,16 @@
     "packages-dev": [
         {
             "name": "phalcon/ide-stubs",
-            "version": "v5.1.3",
+            "version": "v5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/ide-stubs.git",
-                "reference": "6ad86e7542f00cc943b8f70242a7eede8857bfc7"
+                "reference": "20b21b8a6fc5c97586b004c00b862bd03d88be4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/ide-stubs/zipball/6ad86e7542f00cc943b8f70242a7eede8857bfc7",
-                "reference": "6ad86e7542f00cc943b8f70242a7eede8857bfc7",
+                "url": "https://api.github.com/repos/phalcon/ide-stubs/zipball/20b21b8a6fc5c97586b004c00b862bd03d88be4f",
+                "reference": "20b21b8a6fc5c97586b004c00b862bd03d88be4f",
                 "shasum": ""
             },
             "require": {
@@ -1201,7 +1202,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-12-01T18:31:01+00:00"
+            "time": "2023-01-15T00:28:59+00:00"
         }
     ],
     "aliases": [],
