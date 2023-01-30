@@ -1,4 +1,5 @@
-﻿end_of_line = lf
+﻿[*]
+end_of_line = lf
 
 [/vendor/**]
 php_diagnostic = false
