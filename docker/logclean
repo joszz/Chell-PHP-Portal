@@ -1,3 +1,0 @@
-#! /bin/bash
-
-find /var/www/portal/app/logs/ -name "*.log" -mtime +1 -exec rm -rf {} \;
