@@ -4,11 +4,14 @@ FROM php:8.1-fpm-alpine
 ENV PATH="${PATH}:/usr/bin"
 ENV TZ=Europe/Amsterdam
 
+ARG SERVERNAME=
+ARG CHELLPORT=8094
+
 WORKDIR /var/www/portal
 COPY . .
 
 RUN apk update && apk upgrade && \
-	apk add --no-cache ca-certificates nginx python3 python3-dev py3-pip linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
+	apk add --no-cache ca-certificates gettext nginx python3 python3-dev py3-pip linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
 	docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \
 	docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets && \
@@ -35,7 +38,7 @@ RUN apk update && apk upgrade && \
 	apk del py3-pip python3-dev linux-headers wget unzip zip gcc pcre-dev ${PHPIZE_DEPS}
 
 # Copy Nginx configuration
-COPY ./docker/nginx-site.conf /etc/nginx/http.d/default.conf
+COPY ./docker/nginx-site.conf /etc/nginx/http.d/default.conf.template
 COPY ./docker/entrypoint.sh /etc/entrypoint.sh
 
 # Setup cron
@@ -44,7 +47,7 @@ COPY --chmod=0744 ./docker/logclean.sh /etc/periodic/daily/logclean.sh
 # Cleanup
 RUN rm -rf /var/www/portal/docker
 
-EXPOSE 8094
+EXPOSE ${CHELLPORT}
 
 ENTRYPOINT ["sh", "/etc/entrypoint.sh"]
 
