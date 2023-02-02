@@ -13,11 +13,10 @@ use Phalcon\Mvc\Dispatcher;
 class SecurityPlugin extends Injectable
 {
     private array $publiclyAccessible = [
-        ['controller' => 'rss',         'action' => '*'],
-        ['controller' => 'index',       'action' => 'manifest'],
-        ['controller' => 'index',       'action' => 'worker'],
-        ['controller' => 'install',     'action' => '*'],
-        ['controller' => 'speedtest',   'action' => 'share']
+        ['controller' => 'rss',         'actions' => ['*']],
+        ['controller' => 'index',       'actions' => ['healthcheck', 'manifest', 'worker']],
+        ['controller' => 'install',     'actions' => ['*']],
+        ['controller' => 'speedtest',   'actions' => ['share']]
     ];
 
     /**
@@ -44,7 +43,7 @@ class SecurityPlugin extends Injectable
 
         foreach ($this->publiclyAccessible AS $access)
         {
-            if ($controller == $access['controller'] && ($access['action'] == '*' || $action == $access['action']))
+            if ($controller == $access['controller'] && (in_array('*', $access['actions']) || in_array($action, $access['actions'])))
             {
                 return true;
             }

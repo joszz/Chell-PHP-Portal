@@ -4,10 +4,9 @@ FROM php:8.1-fpm-alpine
 ENV PATH="${PATH}:/usr/bin"
 ENV TZ=Europe/Amsterdam
 ENV SERVERNAME=
-ENV CHELLPORT=8094
+ENV PORT=8094
 
 WORKDIR /var/www/portal
-COPY . .
 
 RUN apk update && apk upgrade && \
 	apk add --no-cache gettext nginx python3 python3-dev py3-pip linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
@@ -19,11 +18,7 @@ RUN apk update && apk upgrade && \
 	# Install ADB
 	wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip && \
 	unzip -p platform-tools-latest-linux.zip platform-tools/adb > adb && \
-	chmod +x adb && \
 	rm platform-tools-latest-linux.zip && \
-	# set permissions
-	chown -R www-data:www-data ./../ && \
-	chmod -R 0750 ./ && \
 	# Use the default production configuration and change some settings
 	mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 	sed -i 's#;session.cookie_secure =#session.cookie_secure = 1#' /usr/local/etc/php/php.ini && \
@@ -36,12 +31,13 @@ RUN apk update && apk upgrade && \
 	# Cleanup 
 	apk del py3-pip python3-dev linux-headers wget unzip zip gcc pcre-dev ${PHPIZE_DEPS}
 
+COPY --chmod=0750 --chown=www-data:www-data . .
 COPY ./docker/nginx-site.conf /etc/nginx/http.d/default.conf.template
 COPY ./docker/entrypoint.sh /etc/entrypoint.sh
 COPY --chmod=0744 ./docker/logclean.sh /etc/periodic/daily/logclean.sh
 
-EXPOSE ${CHELLPORT}
+EXPOSE ${PORT}
 
 ENTRYPOINT ["sh", "/etc/entrypoint.sh"]
 
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:${CHELLPORT}/
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:${PORT}/
