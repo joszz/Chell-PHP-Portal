@@ -1,3 +1,3 @@
 ﻿module.exports = {
-    production_path: '//gotgeeks.local/portal/'
+    production_path: 'path to copy using watch'
 };
