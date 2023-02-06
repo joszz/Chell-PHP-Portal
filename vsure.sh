@@ -1,7 +1,7 @@
-#! /bin/bash
+#! /bin/sh
 
 # Run as:
-# docker exec -it <containername/containerid> /var/www/portal/vsure.sh
+# docker exec -it --user www-data <containername/containerid> /var/www/portal/vsure.sh
 
 USERNAME=""
 PASSWORD=""

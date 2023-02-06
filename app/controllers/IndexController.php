@@ -133,6 +133,11 @@ class IndexController extends BaseController
         $this->response->redirect('?moveWidgetVisible=true');
     }
 
+    public function healthcheckAction()
+    {
+        die();
+    }
+
     /**
      * Sets the URLs for <link rel="dns-prefetch" />
      *
