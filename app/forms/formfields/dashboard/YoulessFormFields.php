@@ -45,8 +45,7 @@ class YoulessFormFields extends FormFields
 		$youlessPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->youless->password)
-			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled']));
+			->setDefault($this->form->settings->youless->password);
 
         if ($this->form->settings->hibp->enabled)
         {
