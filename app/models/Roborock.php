@@ -42,6 +42,13 @@ class Roborock extends BaseModel
     public function getStatus() : array
     {
         $status = $this->executeCommand('status');
+
+        if (!$status)
+        {
+            return [];
+        }
+
+        \Chell\dump($status);
         $fanSpeed = $this->getStatusPart($status, 'fanspeed=');
 
         return [
