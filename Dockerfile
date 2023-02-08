@@ -9,7 +9,7 @@ ENV PORT=8094
 WORKDIR /var/www/portal
 
 RUN apk update && apk upgrade && \
-	apk add --no-cache gettext nginx python3 python3-dev py3-pip linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
+	apk add --no-cache gettext nginx python3 python3-dev py3-pip py-six linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
 	docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \
 	docker-php-ext-configure sockets && docker-php-ext-install -j$(nproc) sockets && \
@@ -25,7 +25,7 @@ RUN apk update && apk upgrade && \
 	sed -i 's#session.cookie_httponly =#session.cookie_httponly = 1#' /usr/local/etc/php/php.ini && \
 	sed -i 's#session.cookie_samesite =#session.cookie_samesite = "Lax"#' /usr/local/etc/php/php.ini && \
 	# Install python packages
-	pip install python-miio vsure six && \
+	pip install python-miio vsure && \
 	# Set timezone
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
 	# Cleanup 

@@ -15,6 +15,7 @@ class Youless extends BaseModel
 	 * Gets the current power usage from YouLess
 	 *
      * @return object        The current statss.
+     * @todo				 Add Basic auth authentication
 	 */
 	public function getCurrentStats()
 	{
