@@ -13,6 +13,19 @@ use Chell\Models\Widget;
  */
 class JellyfinController extends WidgetController
 {
+    private Jellyfin $_model;
+
+    /**
+     * Initializes the controller, creating a new Motion model.
+     */
+	public function initialize()
+    {
+		parent::initialize();
+
+        $this->_model = new Jellyfin();
+        $this->view->disable();
+    }
+
     /**
      * Adds the assets for the widget.
      */
@@ -30,6 +43,11 @@ class JellyfinController extends WidgetController
         $this->widget = new Widget(12, 6, 4, true);
     }
 
+    public function indexAction()
+    {
+        $this->response->setJsonContent($this->_model->getLatestForViews())->send();
+    }
+
     /**
      * Retrieves all Jellyfin libraries.
      */
@@ -40,6 +58,6 @@ class JellyfinController extends WidgetController
         $this->settings->jellyfin->token = $_POST['jellyfin-token'];
         $this->settings->jellyfin->url = $_POST['jellyfin-url'];
 
-        $this->response->setJsonContent(array_flip((new Jellyfin())->getViews()))->send();
+        $this->response->setJsonContent($this->_model->getViews())->send();
     }
 }

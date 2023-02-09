@@ -2,8 +2,10 @@
 
 namespace Chell\Models;
 
-use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Promise\PromiseInterface;
+use Phalcon\Mvc\Micro;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -25,7 +27,7 @@ class Jellyfin extends BaseModel
 
         try
         {
-            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Views');
+            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Views', false);
         }
         catch (Exception $exception)
         {
@@ -45,7 +47,7 @@ class Jellyfin extends BaseModel
         }
 
         ksort($result);
-        return $result;
+        return array_flip($result);
     }
 
     /**
@@ -55,53 +57,58 @@ class Jellyfin extends BaseModel
      * @param int $limit         The limit of items to retrieve. This seems to not always be honored by the API?
      * @return array             An array of latest items with some information about this item, such as the title.
      */
-    public function getLatestForView(string $viewId, int $limit = 10) : array
+    public function getLatestForViews(int $limit = 10) : array
     {
+        $views = explode(',', $this->settings->jellyfin->views);
+        $promises = [];
+
+        foreach ($views as $view)
+        {
+            list($title, $viewId) = explode(':', $view);
+            $promises[$title] = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId, true);
+        }
+
         $result = [];
+        $responses = Promise\Utils::settle($promises)->wait();
 
-        try
+        foreach ($responses as $title => $response)
         {
-            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId);
-        }
-        catch(Exception $exception)
-        {
-            $this->logger->LogException($exception);
-            return $result;
-        }
+            $output = $response['value']->getBody();
+            $count = 0;
+            $viewResult = [];
 
-        $output = $response->getBody();
-
-        $count = 0;
-
-        if (!empty($output))
-        {
-            $output = json_decode($output);
-
-            foreach($output as $item)
+            if (!empty($output))
             {
-                $result[$count] = [
-                    'id'        => $item->Id,
-                    'serverId'  => $item->ServerId,
-                    'title'     => $item->Name,
-                    'subtitle'  => $item->ProductionYear ?? false,
-                    'played'    => $item->UserData->Played ?? false
-                ];
+                $output = json_decode($output);
 
-                switch (strtolower($item->Type))
+                foreach($output as $item)
                 {
-                    case 'episode':
-                        $result[$count]['title'] = $item->SeriesName;
-                        $result[$count]['subtitle'] = $item->Name;
-                        break;
-                    case 'musicalbum':
-                        $result[$count]['title'] = implode(', ', $item->Artists);
-                        $result[$count]['played'] = false;
-                        $result[$count]['subtitle'] = $item->Name;
-                        break;
-                }
+                    $viewResult[$count] = [
+                        'id'        => $item->Id,
+                        'serverId'  => $item->ServerId,
+                        'title'     => $item->Name,
+                        'subtitle'  => $item->ProductionYear ?? false,
+                        'played'    => $item->UserData->Played ?? false
+                    ];
 
-                $count++;
+                    switch (strtolower($item->Type))
+                    {
+                        case 'episode':
+                            $viewResult[$count]['title'] = $item->SeriesName;
+                            $viewResult[$count]['subtitle'] = $item->Name;
+                            break;
+                        case 'musicalbum':
+                            $viewResult[$count]['title'] = implode(', ', $item->Artists);
+                            $viewResult[$count]['played'] = false;
+                            $viewResult[$count]['subtitle'] = $item->Name;
+                            break;
+                    }
+
+                    $count++;
+                }
             }
+
+            $result[$title] = $viewResult;
         }
 
         return $result;
@@ -110,12 +117,12 @@ class Jellyfin extends BaseModel
     /**
      * Gets the ResponseInterface to be used to invoke the PSA Remote API.
      *
-     * @param string $url            The PSA Remote endpoint to call.
-     * @return ResponseInterface     The ResponseInterface to call the API with.
+     * @param string $url           The PSA Remote endpoint to call.
+     * @return PromiseInterface     The PromiseInterface to call the API with.
      */
-    private function getHttpClient(string $url) : ResponseInterface
+    private function getHttpClient(string $url, bool $async) : PromiseInterface | ResponseInterface
     {
         $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->settings->jellyfin->token]]);
-        return $client->request('GET', $this->settings->jellyfin->url . $url);
+        return $client->{ 'request' . ($async ? 'Async' : null) }('GET', $this->settings->jellyfin->url . $url);
     }
 }

@@ -34,21 +34,9 @@ class IndexController extends BaseController
         if ($this->settings->jellyfin->enabled)
         {
             $jellyfin = new Jellyfin();
-            $views = explode(',', $this->settings->jellyfin->views);
-            $jellyfinviews = [];
-
-            foreach ($views as $view)
-            {
-                list($title, $viewId) = explode(':', $view);
-                if ($viewId)
-                {
-                    $jellyfinviews[strtolower($title)] = $jellyfin->getLatestForView($viewId);
-                }
-            }
-
-            $this->view->jellyfinviews = $jellyfinviews;
+            $this->view->jellyfinviews = $jellyfin->getLatestForViews();
         }
-
+        
         if ($this->settings->motion->enabled)
         {
             $this->view->motionModifiedTime = (new Motion())->getModifiedTime();
