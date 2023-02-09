@@ -5,7 +5,6 @@ namespace Chell\Models;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Promise\PromiseInterface;
-use Phalcon\Mvc\Micro;
 use Psr\Http\Message\ResponseInterface;
 
 /**

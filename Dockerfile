@@ -19,11 +19,12 @@ RUN apk update && apk upgrade && \
 	wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip && \
 	unzip -p platform-tools-latest-linux.zip platform-tools/adb > adb && \
 	rm platform-tools-latest-linux.zip && \
-	# Use the default production configuration and change some settings
+	# Use the default PHP production configuration and change some settings
 	mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
 	sed -i 's#;session.cookie_secure =#session.cookie_secure = 1#' /usr/local/etc/php/php.ini && \
 	sed -i 's#session.cookie_httponly =#session.cookie_httponly = 1#' /usr/local/etc/php/php.ini && \
 	sed -i 's#session.cookie_samesite =#session.cookie_samesite = "Lax"#' /usr/local/etc/php/php.ini && \
+	sed -i 's#pm.max_children = 5#pm.max_children = 20#' /usr/local/etc/php-fpm.d/www.conf && \
 	# Install python packages
 	pip install python-miio vsure && \
 	# Set timezone
@@ -34,7 +35,7 @@ RUN apk update && apk upgrade && \
 COPY --chmod=0750 --chown=www-data:www-data . .
 COPY ./docker/nginx-site.conf /etc/nginx/http.d/default.conf.template
 COPY ./docker/entrypoint.sh /etc/entrypoint.sh
-COPY --chmod=0744 ./docker/logclean.sh /etc/periodic/daily/logclean.sh
+COPY --chmod=0744 ./docker/logclean.sh /etc/periodic/hourly/logclean.sh
 
 EXPOSE ${PORT}
 
