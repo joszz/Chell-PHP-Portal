@@ -14,7 +14,6 @@ Take a look at the wiki to find out how to setup this project.
 # Screenshots
 
 #### Home screenshot
-![Home](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/public/img/screenshots/desktop_home.png "Home")
 #### Menu screenshot
 ![Menu](https://raw.githubusercontent.com/joszz/Chell-PHP-Portal/master/public/img/screenshots/desktop_menu.png "Menu")
 [More screenshots](https://github.com/joszz/Chell-PHP-Portal/tree/master/public/img/screenshots)
