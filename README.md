@@ -1,6 +1,6 @@
 Chell PHP Portal
 ================
-&copy; 2022, Jos Nienhuis
+&copy; 2023, Jos Nienhuis
 
 I created this project to have an easy to use portal for my homeserver. 
 It aggregates different services and webapplications that I want easily accessible from within this portal.
