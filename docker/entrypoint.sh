@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 envsubst '${SERVERNAME} ${PORT}' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 

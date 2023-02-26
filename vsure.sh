@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # Run as:
 # docker exec -it --user www-data <containername/containerid> /var/www/portal/vsure.sh
