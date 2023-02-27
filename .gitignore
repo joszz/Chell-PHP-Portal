@@ -54,6 +54,7 @@ SyncToy_*.dat
 *.v12.suo
 .vs/
 app/config/config.ini
+app/Migrations.php
 app/logs/
 node_modules/
 vendor/

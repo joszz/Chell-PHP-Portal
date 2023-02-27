@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM php:8.1-fpm-alpine
+FROM php:8.2-fpm-alpine
 
 ENV PATH="${PATH}:/usr/bin"
 ENV TZ=Europe/Amsterdam
@@ -12,9 +12,9 @@ RUN apk update && apk upgrade && \
 	apk add --no-cache gettext nginx python3 python3-dev py3-pip py-six linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
 	pecl install redis && \
 	# Install phalcon
-	wget https://github.com/phalcon/cphalcon/releases/download/v5.1.4/phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
-	unzip phalcon-php8.1-nts-ubuntu-gcc-x64.zip -d /usr/local/lib/php/extensions/no-debug-non-zts-20210902 && \
-	rm phalcon-php8.1-nts-ubuntu-gcc-x64.zip && \
+	wget https://github.com/phalcon/cphalcon/releases/download/v5.2.0/phalcon-php8.2-nts-ubuntu-gcc-x64.zip && \
+	unzip phalcon-php8.2-nts-ubuntu-gcc-x64.zip -d /usr/local/lib/php/extensions/no-debug-non-zts-20210902 && \
+	rm phalcon-php8.2-nts-ubuntu-gcc-x64.zip && \
 	# Install PHP extensions
 	docker-php-ext-configure snmp && docker-php-ext-install -j$(nproc) snmp && \
 	docker-php-ext-configure pdo_mysql && docker-php-ext-install -j$(nproc) pdo_mysql && \

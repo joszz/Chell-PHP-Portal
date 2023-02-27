@@ -5,6 +5,7 @@ icons/
 .git*/
 .vs/
 app/logs/*
+app/Migrations.php
 Chell.phpproj*
 Chell.sln
 .dockerignore
