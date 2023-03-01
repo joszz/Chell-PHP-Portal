@@ -17,6 +17,7 @@ class ErrorController
     private array $css = [];
     private array $js = [];
 
+    public string $guid;
     /**
      * Controller created by FrontController, bypassing most of the Phalcon framework to have less of a dependency.
      * The constructor handles rendering and logging of the error page.
@@ -31,6 +32,7 @@ class ErrorController
         }
 
         $this->exception = $exception;
+        $this->guid = $this->getGUID();
         $this->content = $this->exception();
         $exceptionContent = $this->layout();
 
@@ -153,5 +155,15 @@ class ErrorController
         ob_start();
         require APP_PATH . 'app/views/layouts/exception.phtml';
         return ob_get_clean();
+    }
+
+    /**
+     * Generates a unique string.
+     *
+     * @return string   A GUID string.
+     */
+    private function getGUID() : string
+    {
+        return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
 }

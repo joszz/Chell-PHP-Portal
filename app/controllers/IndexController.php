@@ -134,7 +134,7 @@ class IndexController extends BaseController
     private function setDNSPrefetchRecords() : array
     {
         $hostname = getenv('HTTP_HOST');
-        $dnsPrefetchRecords = $this->settings->couchpotato->enabled ? [$this->settings->couchpotato->tmdb_api_url] : [];
+        $dnsPrefetchRecords = [];
 
         foreach($this->settings as $settingSectionValue)
         {
@@ -213,7 +213,7 @@ class IndexController extends BaseController
                     $cssFilesProperty->setAccessible(true);
                     $styles = [...$cssFilesProperty->getValue($controllerInstance), ...$styles];
 
-                    if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled || !isset($this->settings->{$name}))
+                    if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled)
                     {
                         $this->addWidget($controller, $controllerInstance, $widgetPositions, $name, $widgets);
 

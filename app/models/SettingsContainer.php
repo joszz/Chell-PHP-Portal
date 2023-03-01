@@ -4,12 +4,14 @@ namespace Chell\Models;
 
 use ArrayObject;
 use Exception;
+use Iterator;
 use IteratorAggregate;
-use Chell\Models\SettingsDefault;
+use Chell\Models\Settings;
 use Chell\Models\SettingsCategory;
 use Chell\Models\SettingsDefaultStorageType;
-use Phalcon\Config\Adapter\Ini as ConfigIni;
+use Chell\Models\SettingsSection;
 use Phalcon\Di\Exception as DiException;
+use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
 /**
@@ -19,7 +21,7 @@ use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
  */
 class SettingsContainer implements IteratorAggregate
 {
-    private array $_categories = [];
+    private array $_sections = [];
 
     /**
      * If DB is configured; get all settings from the database and add them to the SettingsContainer.
@@ -27,29 +29,36 @@ class SettingsContainer implements IteratorAggregate
      */
     public function __construct(ConfigIni $config)
     {
-        $this->_categories = ['application' => new SettingsCategory('general', 'application')];
-        $this->application->addSetting(new SettingsDefault('version', $this->getVersion(), SettingsDefaultStorageType::none));
-        $this->application->addSetting(new SettingsDefault('debug', $config->general->debug, SettingsDefaultStorageType::ini));
+        $this->addSection($dashboardSection = new SettingsSection('dashboard'));
+        $this->addSection($generalSection = new SettingsSection('general'));
+        $dashboardSection->addCategory(new SettingsCategory('dashboard', $generalSection));
+        $generalSection->addCategory($applicationCategory = new SettingsCategory('application', $generalSection));
 
+        $applicationCategory->addSetting(new Settings(['name' => 'version', 'value' => $this->getVersion(), 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::none]));
+        $applicationCategory->addSetting(new Settings(['name' => 'debug', 'value' => $config->general->debug, 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::ini]));
+        $applicationCategory->addSetting(new Settings(['name' => 'title', 'value' => 'Chell PHP Portal', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new Settings(['name' => 'background', 'value' => 'autobg', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new Settings(['name' => 'demo_mode', 'value' => '0', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new Settings(['name' => 'alert_timeout', 'value' => '5', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new Settings(['name' => 'items_per_page', 'value' => '10', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new Settings(['name' => 'check_device_states_interval', 'value' => '10', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+
+        //todo: better way to check if DB is initialized
         try {
             $settings = Settings::find(['order' => 'category']);
 
             foreach ($settings as $setting)
             {
-                if (!isset($this->{$setting->category}))
+                if (!isset($this->{$setting->section}->{$setting->category}))
                 {
-                    $this->addCategory(new SettingsCategory($setting->section, $setting->category));
+                    $this->{$setting->section}->addCategory(new SettingsCategory($setting->category, $this->{$setting->section}));
                 }
 
-                $this->{$setting->category}->addSetting($setting);
+                $this->{$setting->section}->{$setting->category}->addSetting($setting);
             }
         }
         catch (DiException $exception)
         {
-            $this->application->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
-            $this->application->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));
-            $this->application->addSetting(new SettingsDefault('demo_mode', '0', SettingsDefaultStorageType::db));
-            $this->application->addSetting(new SettingsDefault('alert_timeout', '5', SettingsDefaultStorageType::db));
         }
     }
 
@@ -65,20 +74,23 @@ class SettingsContainer implements IteratorAggregate
         return json_decode(ob_get_clean())->version;
     }
 
-    /**
-     * Retrieves a setting category.
-     *
-     * @param string $name  The name of the setting category.
-     * @return mixed
-     */
-    public function __get(string $name) : SettingsCategory
+
+    public function __get(string $name) : SettingsSection | SettingsCategory | null
     {
-        if (!isset($this->_categories[$name]))
+        if (!isset($this->_sections[$name]))
         {
-            throw new Exception('Category "' . $name . '" does not exist');
+            foreach ($this->_sections as $section)
+            {
+                if (isset($section->{$name}))
+                {
+                    return $section->{$name};
+                }
+            }
+
+            return null;
         }
 
-        return $this->_categories[$name];
+        return $this->_sections[$name];
     }
 
     /**
@@ -89,12 +101,12 @@ class SettingsContainer implements IteratorAggregate
      */
     public function __isset(string $name) : bool
     {
-        return isset($this->_categories[$name]);
+        return isset($this->_sections[$name]);
     }
 
-    public function getIterator()
+    public function getIterator() : Iterator
     {
-        return (new ArrayObject($this->_categories))->getIterator();
+        return (new ArrayObject($this->_sections))->getIterator();
     }
 
     /**
@@ -102,28 +114,28 @@ class SettingsContainer implements IteratorAggregate
      *
      * @param SettingsCategory $category    The category to add.
      */
-    public function addCategory(SettingsCategory $category)
+    public function addSection(SettingsSection $section)
     {
-        $this->_categories[$category->category] = $category;
+        $this->_sections[$section->name] = $section;
     }
 
     /**
-     * Calls save on all SettingsCategories that match the provided $secion.
+     * Calls save on all sections that match $sectionName.
      *
-     * @param string $section   The categories with matching section to save.
+     * @param string $sectionName   The name of the section to save.
      */
-    public function save(string $section)
+    public function save(string $sectionName)
     {
         $transactionManager = new TransactionManager();
         $transaction = $transactionManager->get();
 
         try
         {
-            foreach ($this->_categories as $category)
+            foreach ($this->_sections as $section)
             {
-                if ($category->section == $section)
+                if ($section->name == $sectionName)
                 {
-                    $category->save($transaction);
+                    $section->save($transaction);
                 }
             }
 
@@ -138,7 +150,7 @@ class SettingsContainer implements IteratorAggregate
 
     /**
      * Retrieves the current domain with the protocol (either HTTP or HTTPS).
-     * 
+     *
      * @param bool $urlEncode   Whether or not to urlencode the output.
      * @return string           The protocol + domain.
      */
@@ -150,7 +162,7 @@ class SettingsContainer implements IteratorAggregate
             isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
             $protocol = 'https://';
         }
-        
+
         $domainWithProtocol = $protocol . $_SERVER['SERVER_NAME'];
         return $urlEncode ? urlencode($domainWithProtocol) : $domainWithProtocol;
     }

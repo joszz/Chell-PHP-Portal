@@ -2,7 +2,7 @@
 
 namespace Chell\Models;
 
-use Chell\Models\SettingsSection;
+use Chell\Models\SettingsCategory;
 use Phalcon\Mvc\Model\TransactionInterface;
 
 /**
@@ -10,16 +10,16 @@ use Phalcon\Mvc\Model\TransactionInterface;
  *
  * @package Models
  */
-class SettingsCategory
+class SettingsSection
 {
-    private array $_settings = [];
+    private array $_categories = [];
 
     /**
-     * Initializes a settings category.
+     * Initializes a settings section.
      *
-     * @param string $category   The category, such as application wide or plugin specific.
+     * @param string $section    The section, such as general or dashboard.
      */
-    public function __construct(public string $name, public SettingsSection $section)
+    public function __construct(public string $name)
     {
     }
 
@@ -29,30 +29,25 @@ class SettingsCategory
      * @param string $name  The name of the Setting to set the value for.
      * @param string $value The value to set for the given setting.
      */
-    public function __set(string $name, ?string $value)
+    public function __set(string $name, SettingsCategory $value)
     {
-        if (!isset($this->_settings[$name]))
-        {
-            $this->_settings[$name] = new Settings(['name' => $name, 'category' => $this->name, 'section' => $this->section->name, 'value' => $value]);
-        }
-
-        $this->_settings[$name]->value = $value;
+        $this->_categories[$name] = $value;
     }
 
     /**
      * Retrieves a setting's value by the provided setting $name.
      *
      * @param string $name  The name of the setting to retrieve the value for.
-     * @return string       The retrieved value.
      */
     public function __get(string $name)
     {
-        if (!isset($this->_settings[$name]))
+        if (!isset($this->_categories[$name]))
         {
-            return null;
+            $this->_categories[] = $category = new SettingsCategory($name, $this);
+            return $category;
         }
 
-        return $this->_settings[$name]->value;
+        return $this->_categories[$name];
     }
 
     /**
@@ -63,7 +58,7 @@ class SettingsCategory
      */
     public function __isset(string $name) : bool
     {
-        return isset($this->_settings[$name]);
+        return isset($this->_categories[$name]);
     }
 
     /**
@@ -71,14 +66,9 @@ class SettingsCategory
      */
     public function save(TransactionInterface $transaction)
     {
-        foreach ($this->_settings as $setting)
+        foreach ($this->_categories as $category)
         {
-            if ($setting instanceof Settings)
-            {
-                $setting->setTransaction($transaction);
-            }
-
-            $setting->save();
+            $category->save($transaction);
         }
     }
 
@@ -87,8 +77,8 @@ class SettingsCategory
      *
      * @param object $setting     The setting to add.
      */
-    public function addSetting(object $setting)
+    public function addCategory(SettingsCategory $category)
     {
-        $this->_settings[$setting->name] = $setting;
+        $this->_categories[$category->name] = $category;
     }
 }

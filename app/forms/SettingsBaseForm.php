@@ -252,6 +252,7 @@ class SettingsBaseForm extends Form
         foreach ($elements as $field => $element)
         {
             $field = str_replace('[]', '', $field);
+            $section = $element->getForm()::class == 'Chell\Forms\SettingsGeneralForm' ? 'general' : 'dashboard';
             $category = substr($field, 0, $categoryEnd = strpos($field, '-'));
             $setting = substr($field, $categoryEnd + 1);
 
@@ -268,12 +269,12 @@ class SettingsBaseForm extends Form
 
             if (is_a($element, Check::class))
             {
-                $this->settings->$category->$setting = $data[$field] ?? '0';
-                $element->setAttribute('checked', $this->settings->$category->$setting == '1' ? 'checked' : null);
+                $this->settings->$section->$category->$setting = $data[$field] ?? '0';
+                $element->setAttribute('checked', $this->settings->$section->$category->$setting == '1' ? 'checked' : null);
             }
             else if (isset($data[$field]))
             {
-                $this->settings->$category->$setting = is_array($data[$field]) ? implode(',', $data[$field]) : $data[$field];
+                $this->settings->$section->$category->$setting = is_array($data[$field]) ? implode(',', $data[$field]) : $data[$field];
                 $element->setDefault($data[$field]);
             }
         }

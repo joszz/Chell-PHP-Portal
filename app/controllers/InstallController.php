@@ -77,7 +77,8 @@ class InstallController extends BaseController
         });
 
         $this->createAdminUser();
-        $this->createDefaultSettings();
+        $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
+        //$this->createDefaultSettings();
         $this->writeConfig();
         $this->cleanup();
 
