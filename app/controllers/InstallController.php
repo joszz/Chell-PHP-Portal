@@ -5,7 +5,9 @@ namespace Chell\Controllers;
 use PDO;
 use Chell\Models\Users;
 use Chell\Models\Settings;
+use Phalcon\Config\Config;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Migrations\Migrations;
 use WriteiniFile\WriteiniFile;
 
 /**
@@ -64,7 +66,26 @@ class InstallController extends BaseController
         $this->postedData = $config = $this->request->getPost();
 
         $this->createDatabase();
-        $this->createDatabaseStructure();
+        $migration = new Migrations();
+        $migration::run([
+            'migrationsDir' => [
+                __DIR__ . '/../migrations',
+            ],
+            'directory' => __DIR__ . '/../',
+            'version' => $this->settings->application->version,
+            'config' => new Config([
+                'database' => [
+                    'adapter' => 'mysql',
+                    'host' => $config['mysql-host'],
+                    'username' => $config['chell-database-user'],
+                    'password' => $config['chell-database-password'],
+                    'dbname' => $config['chell-database'],
+                    'charset' => 'utf8',
+                ]
+            ])
+        ]);
+
+        //$this->createDatabaseStructure();
 
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
@@ -77,8 +98,7 @@ class InstallController extends BaseController
         });
 
         $this->createAdminUser();
-        $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
-        //$this->createDefaultSettings();
+        (new Settings(['name' => 'phalcon_crypt_key', 'section' => 'general', 'category' => 'application', 'value' => bin2hex(random_bytes(32))]))->save();
         $this->writeConfig();
         $this->cleanup();
 
@@ -115,7 +135,7 @@ class InstallController extends BaseController
         $connection = new PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
         $connection->exec('CREATE USER IF NOT EXISTS \'' . $this->postedData['chell-database-user'] . '\'@\'' . $this->postedData['mysql-host'] . '\' IDENTIFIED WITH mysql_native_password BY \'' . $this->postedData['chell-database-password'] . '\'');
-        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE, CREATE, REFERENCES on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
     }
 
@@ -138,186 +158,6 @@ class InstallController extends BaseController
         $user = new Users(['username' => $this->postedData['chell-user']]);
         $user->password = $this->security->hash($this->postedData['chell-password']);
         $user->save();
-    }
-
-    /**
-     * Creates all default setting records.
-     */
-    private function createDefaultSettings()
-    {
-        //General
-        $this->createDefaultSetting('title', 'general', 'application', 'Chell PHP Portal');
-        $this->createDefaultSetting('background', 'general', 'application', 'autobg');
-        $this->createDefaultSetting('background_latitude', 'general', 'application', '');
-        $this->createDefaultSetting('background_longitude', 'general', 'application', '');
-        $this->createDefaultSetting('alert_timeout', 'general', 'application', '5');
-        $this->createDefaultSetting('items_per_page', 'general', 'application', '10');
-        $this->createDefaultSetting('phalcon_crypt_key', 'general', 'application', bin2hex(random_bytes(32)));
-        $this->createDefaultSetting('demo_mode', 'general', 'application', '0');
-        $this->createDefaultSetting('check_device_states_interval', 'general', 'application', '10');
-        //Redis
-        $this->createDefaultSetting('enabled', 'general', 'redis', '0');
-        $this->createDefaultSetting('host', 'general', 'redis', 'localhost');
-        $this->createDefaultSetting('port', 'general', 'redis', '6379');
-        $this->createDefaultSetting('auth', 'general', 'redis', '');
-        //Imageproxy
-        $this->createDefaultSetting('enabled', 'general', 'imageproxy', '0');
-        $this->createDefaultSetting('url', 'general', 'imageproxy', '');
-        //HIBP
-        $this->createDefaultSetting('enabled', 'general', 'hibp', '0');
-        //Speedtest
-        $this->createDefaultSetting('enabled', 'dashboard', 'speedtest', '0');
-        $this->createDefaultSetting('test_order', 'dashboard', 'speedtest', 'IPDU');
-        $this->createDefaultSetting('time_upload', 'dashboard', 'speedtest', '10');
-        $this->createDefaultSetting('time_download', 'dashboard', 'speedtest', '10');
-        $this->createDefaultSetting('get_isp_info', 'dashboard', 'speedtest', '0');
-        $this->createDefaultSetting('get_isp_distance', 'dashboard', 'speedtest', 'km');
-        $this->createDefaultSetting('telemetry', 'dashboard', 'speedtest', 'full');
-        $this->createDefaultSetting('ip_info_url', 'dashboard', 'speedtest', 'https://ipinfo.io/');
-        $this->createDefaultSetting('ip_info_token', 'dashboard', 'speedtest', '');
-        $this->createDefaultSetting('what_is_my_browser_api_key', 'dashboard', 'speedtest', '');
-        $this->createDefaultSetting('what_is_my_browser_api_url', 'dashboard', 'speedtest', 'https://api.whatismybrowser.com/api/v2/');
-        //Couchpotato
-        $this->createDefaultSetting('enabled', 'dashboard', 'couchpotato', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'couchpotato', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'couchpotato', '');
-        $this->createDefaultSetting('rotate_interval', 'dashboard', 'couchpotato', '');
-        $this->createDefaultSetting('tmdb_api_url', 'dashboard', 'couchpotato', 'https://api.themoviedb.org/3/');
-        $this->createDefaultSetting('tmdb_api_key', 'dashboard', 'couchpotato', '');
-        //CPU
-        $this->createDefaultSetting('enabled', 'dashboard', 'cpu', '0');
-        //Torrents
-        $this->createDefaultSetting('enabled', 'dashboard', 'torrents', '0');
-        $this->createDefaultSetting('client', 'dashboard', 'torrents', '');
-        $this->createDefaultSetting('username', 'dashboard', 'torrents', '');
-        $this->createDefaultSetting('password', 'dashboard', 'torrents', '');
-        $this->createDefaultSetting('url', 'dashboard', 'torrents', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'torrents', '10');
-        //Subsonic
-        $this->createDefaultSetting('enabled', 'dashboard', 'subsonic', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'subsonic', '');
-        $this->createDefaultSetting('username', 'dashboard', 'subsonic', '');
-        $this->createDefaultSetting('password', 'dashboard', 'subsonic', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'subsonic', '30');
-        //Duo
-        $this->createDefaultSetting('enabled', 'dashboard', 'duo', '0');
-        $this->createDefaultSetting('clientid', 'dashboard', 'duo', '');
-        $this->createDefaultSetting('clientsecret', 'dashboard', 'duo', '');
-        $this->createDefaultSetting('api_hostname', 'dashboard', 'duo', '');
-        //Motion
-        $this->createDefaultSetting('enabled', 'dashboard', 'motion', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'motion', '');
-        $this->createDefaultSetting('picture_path', 'dashboard', 'motion', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'motion', '30');
-        //Opcache
-        $this->createDefaultSetting('enabled', 'dashboard', 'opcache', '0');
-        //Pihole
-        $this->createDefaultSetting('enabled', 'dashboard', 'pihole', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'pihole', '');
-        //Youless
-        $this->createDefaultSetting('enabled', 'dashboard', 'youless', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'youless', '');
-        $this->createDefaultSetting('password', 'dashboard', 'youless', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'youless', '5');
-        $this->createDefaultSetting('threshold_primary', 'dashboard', 'youless', '250');
-        $this->createDefaultSetting('threshold_warning', 'dashboard', 'youless', '500');
-        $this->createDefaultSetting('threshold_danger', 'dashboard', 'youless', '1000');
-        //SNMP
-        $this->createDefaultSetting('enabled', 'dashboard', 'snmp', '0');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'snmp', '5');
-        //Verisure
-        $this->createDefaultSetting('enabled', 'dashboard', 'verisure', '0');
-        $this->createDefaultSetting('username', 'dashboard', 'verisure', '');
-        $this->createDefaultSetting('password', 'dashboard', 'verisure', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'verisure', '180');
-        $this->createDefaultSetting('securitycode', 'dashboard', 'verisure', '');
-        //Roborock
-        $this->createDefaultSetting('enabled', 'dashboard', 'roborock', '0');
-        $this->createDefaultSetting('ip', 'dashboard', 'roborock', '');
-        $this->createDefaultSetting('token', 'dashboard', 'roborock', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'roborock', '30');
-        //Jellyfin
-        $this->createDefaultSetting('enabled', 'dashboard', 'jellyfin', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'jellyfin', '');
-        $this->createDefaultSetting('token', 'dashboard', 'jellyfin', '');
-        $this->createDefaultSetting('userid', 'dashboard', 'jellyfin', '');
-        $this->createDefaultSetting('views', 'dashboard', 'jellyfin', '');
-        $this->createDefaultSetting('rotate_interval', 'dashboard', 'jellyfin', '30');
-        //Pulseway
-        $this->createDefaultSetting('enabled', 'dashboard', 'pulseway', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'pulseway', 'https://api.pulseway.com/v2/');
-        $this->createDefaultSetting('username', 'dashboard', 'pulseway', '');
-        $this->createDefaultSetting('password', 'dashboard', 'pulseway', '');
-        $this->createDefaultSetting('systems', 'dashboard', 'pulseway', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'pulseway', '30');
-        //Database stats
-        $this->createDefaultSetting('enabled', 'dashboard', 'databasestats', '0');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'databasestats', '30');
-        //Apache
-        $this->createDefaultSetting('enabled', 'dashboard', 'apache', '0');
-        $this->createDefaultSetting('server_status_url', 'dashboard', 'apache', '');
-        $this->createDefaultSetting('fpm_status_url', 'dashboard', 'apache', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'apache', '30');
-        //Docker
-        $this->createDefaultSetting('enabled', 'dashboard', 'docker', '0');
-        $this->createDefaultSetting('remote_api_url', 'dashboard', 'docker', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'docker', '30');
-        //Disks
-        $this->createDefaultSetting('enabled', 'dashboard', 'disks', '0');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'disks', '30');
-        //Tdarr
-        $this->createDefaultSetting('enabled', 'dashboard', 'tdarr', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'tdarr', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'tdarr', '30');
-        //Sonarr
-        $this->createDefaultSetting('enabled', 'dashboard', 'sonarr', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'sonarr', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'sonarr', '');
-        //Radarr
-        $this->createDefaultSetting('enabled', 'dashboard', 'radarr', '0');
-        $this->createDefaultSetting('url', 'dashboard', 'radarr', '');
-        $this->createDefaultSetting('api_key', 'dashboard', 'radarr', '');
-        //PSA Remote
-        $this->createDefaultSetting('enabled', 'dashboard', 'psaremote', '0');
-        $this->createDefaultSetting('vin', 'dashboard', 'psaremote', '');
-        $this->createDefaultSetting('url', 'dashboard', 'psaremote', '');
-        $this->createDefaultSetting('username', 'dashboard', 'psaremote', '');
-        $this->createDefaultSetting('password', 'dashboard', 'psaremote', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'psaremote', '30');
-        //Sonos
-        $this->createDefaultSetting('enabled', 'dashboard', 'sonos', '0');
-        $this->createDefaultSetting('api_key', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('api_secret', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('access_token', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('refresh_token', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('token_expires', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('household', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('group', 'dashboard', 'sonos', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'sonos', '30');
-        //AdGuard
-        $this->createDefaultSetting('enabled', 'dashboard', 'adguard', '0');
-        $this->createDefaultSetting('username', 'dashboard', 'adguard', '');
-        $this->createDefaultSetting('password', 'dashboard', 'adguard', '');
-        $this->createDefaultSetting('url', 'dashboard', 'adguard', '');
-        $this->createDefaultSetting('update_interval', 'dashboard', 'adguard', '30');
-    }
-
-    /**
-     * Creates a setting with specified values, and saves it to the database.
-     *
-     * @param mixed $name       The name of the setting.
-     * @param mixed $section    The section of the setting.
-     * @param mixed $category   The category of the setting.
-     * @param mixed $value      The value of the setting.
-     */
-    private function createDefaultSetting($name, $section, $category, $value)
-    {
-        $setting = new Settings();
-        $setting->name = $name;
-        $setting->section = $section;
-        $setting->category = $category;
-        $setting->value = $value;
-        $setting->save();
     }
 
     /**

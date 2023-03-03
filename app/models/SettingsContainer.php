@@ -34,14 +34,14 @@ class SettingsContainer implements IteratorAggregate
         $dashboardSection->addCategory(new SettingsCategory('dashboard', $generalSection));
         $generalSection->addCategory($applicationCategory = new SettingsCategory('application', $generalSection));
 
-        $applicationCategory->addSetting(new Settings(['name' => 'version', 'value' => $this->getVersion(), 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::none]));
-        $applicationCategory->addSetting(new Settings(['name' => 'debug', 'value' => $config->general->debug, 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::ini]));
-        $applicationCategory->addSetting(new Settings(['name' => 'title', 'value' => 'Chell PHP Portal', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
-        $applicationCategory->addSetting(new Settings(['name' => 'background', 'value' => 'autobg', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
-        $applicationCategory->addSetting(new Settings(['name' => 'demo_mode', 'value' => '0', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
-        $applicationCategory->addSetting(new Settings(['name' => 'alert_timeout', 'value' => '5', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
-        $applicationCategory->addSetting(new Settings(['name' => 'items_per_page', 'value' => '10', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
-        $applicationCategory->addSetting(new Settings(['name' => 'check_device_states_interval', 'value' => '10', 'section' => 'general', 'category' => 'application', 'storagetype' => SettingsDefaultStorageType::db]));
+        $applicationCategory->addSetting(new SettingsDefault('version', $this->getVersion(), SettingsDefaultStorageType::none));
+        $applicationCategory->addSetting(new SettingsDefault('debug', $config->general->debug, SettingsDefaultStorageType::ini));
+        $applicationCategory->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
+        $applicationCategory->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));
+        $applicationCategory->addSetting(new SettingsDefault('demo_mode', '0', SettingsDefaultStorageType::db));
+        $applicationCategory->addSetting(new SettingsDefault('alert_timeout', '5', SettingsDefaultStorageType::db));
+        $applicationCategory->addSetting(new SettingsDefault('items_per_page', '10', SettingsDefaultStorageType::db));
+        $applicationCategory->addSetting(new SettingsDefault('check_device_states_interval', '10', SettingsDefaultStorageType::db));
 
         //todo: better way to check if DB is initialized
         try {

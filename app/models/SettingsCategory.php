@@ -2,6 +2,8 @@
 
 namespace Chell\Models;
 
+use Chell\Models\Settings;
+use Chell\Models\SettingsDefault;
 use Chell\Models\SettingsSection;
 use Phalcon\Mvc\Model\TransactionInterface;
 
@@ -87,7 +89,7 @@ class SettingsCategory
      *
      * @param object $setting     The setting to add.
      */
-    public function addSetting(object $setting)
+    public function addSetting(Settings | SettingsDefault $setting)
     {
         $this->_settings[$setting->name] = $setting;
     }

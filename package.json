@@ -1,6 +1,6 @@
 {
 	"name": "chell-php-portal",
-	"version": "4.0.0",
+	"version": "5.0.0",
 	"description": "A PHP portal to aggregate all your server services",
 	"author": {
 		"name": "Jos Nienhuis",
