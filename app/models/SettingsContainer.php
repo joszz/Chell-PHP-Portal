@@ -74,7 +74,6 @@ class SettingsContainer implements IteratorAggregate
         return json_decode(ob_get_clean())->version;
     }
 
-
     public function __get(string $name) : SettingsSection | SettingsCategory | null
     {
         if (!isset($this->_sections[$name]))

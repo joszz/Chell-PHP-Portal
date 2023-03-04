@@ -210,7 +210,7 @@ class FrontController
             $session = new Manager();
             $adapter = null;
 
-            if ($dbSet && $settings->redis->enabled)
+            if ($dbSet && $settings->redis?->enabled)
             {
                 $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
                    'host'   => $settings->redis->host,

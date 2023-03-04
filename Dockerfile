@@ -12,7 +12,8 @@ RUN apk update && apk upgrade && \
 	apk add --no-cache gettext nginx python3 python3-dev py3-pip py-six linux-headers tzdata curl zlib-dev libzip-dev freetype-dev libjpeg-turbo-dev libpng-dev net-snmp-tools net-snmp-dev iputils wget unzip zip gcc pcre-dev ${PHPIZE_DEPS} && \
 	pecl install redis && \
 	# Install phalcon
-	wget https://github.com/phalcon/cphalcon/releases/download/v5.2.0/phalcon-php8.2-nts-ubuntu-gcc-x64.zip && \
+	wget https://github.com/phalcon/cphalcon/releases/download/v5.2.1/phalcon-php8.2-nts-ubuntu-gcc-x64.zip && \
+	unzip -p phalcon-php8.2-nts-ubuntu-gcc-x64.zip phalcon.so > /usr/local/lib/php/extensions/no-debug-non-zts-20220829/phalcon.so && \
 	unzip phalcon-php8.2-nts-ubuntu-gcc-x64.zip -d /usr/local/lib/php/extensions/no-debug-non-zts-20210902 && \
 	rm phalcon-php8.2-nts-ubuntu-gcc-x64.zip && \
 	# Install PHP extensions

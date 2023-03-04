@@ -20,6 +20,8 @@ class InstallController extends BaseController
     private string $dbStructureFilename = APP_PATH . 'sql/db-structure.sql';
     private $postedData;
 
+    private $tableOrder = ['devices', 'menu_items', 'users', 'menu_items_users', 'settings', 'snmp_hosts', 'snmp_records', 'speedtest', 'widget_position'];
+
     /**
      * Add the install CSS file to the head.
      */
@@ -67,7 +69,7 @@ class InstallController extends BaseController
 
         $this->createDatabase();
         $migration = new Migrations();
-        $migration::run([
+        $migrationOptions = [
             'migrationsDir' => [
                 __DIR__ . '/../migrations',
             ],
@@ -83,10 +85,19 @@ class InstallController extends BaseController
                     'charset' => 'utf8',
                 ]
             ])
-        ]);
+        ];
 
-        //$this->createDatabaseStructure();
-
+        foreach($this->tableOrder as $table)
+        {
+            $migrationOptions['tableName'] = $table;
+            $migration::run($migrationOptions);
+         
+            if ($this->tableOrder[count($this->tableOrder)-1] != $table)
+            {
+                $migration::removeCurrentVersion($migrationOptions, $migrationOptions['version']);
+            }
+        }
+        
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
                 'host'     => $config['mysql-host'],
@@ -135,19 +146,8 @@ class InstallController extends BaseController
         $connection = new PDO('mysql:host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
         $connection->exec('CREATE DATABASE IF NOT EXISTS ' . $this->postedData['chell-database']);
         $connection->exec('CREATE USER IF NOT EXISTS \'' . $this->postedData['chell-database-user'] . '\'@\'' . $this->postedData['mysql-host'] . '\' IDENTIFIED WITH mysql_native_password BY \'' . $this->postedData['chell-database-password'] . '\'');
-        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE, CREATE, REFERENCES on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
+        $connection->exec('GRANT DELETE, SELECT, INSERT, UPDATE, CREATE, REFERENCES, ALTER on ' . $this->postedData['chell-database'] . '.* TO ' . $this->postedData['chell-database-user'] . '@' . $this->postedData['mysql-host']);
         $connection  = null;
-    }
-
-    /**
-     * Uses the db structure file to create the DB structure for Chell.
-     */
-    private function createDatabaseStructure()
-    {
-        $connection = new PDO('mysql:dbname=' . $this->postedData['chell-database'] . ';host=' . $this->postedData['mysql-host'], 'root', $this->postedData['root-password']);
-        $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, 0);
-        $connection->exec(file_get_contents($this->dbStructureFilename));
-        $connection = null;
     }
 
     /**
