@@ -10,6 +10,7 @@ const rename = require('gulp-rename');
 const iconfont = require('gulp-iconfont');
 const iconfontCss = require('gulp-iconfont-css');
 const clc = require('cli-color');
+const run = require('gulp-run-command').default;
 const package = require('./package.json');
 const config = require("./gulpfile_config.js");
 const configdev = require("./gulpfile_configdev.js");
@@ -132,6 +133,8 @@ gulp.task('robotofont', () => {
     return gulp.src(['node_modules/@fontsource/roboto/files/roboto-latin-300-normal.*'])
         .pipe(gulp.dest('public/fonts/'));
 });
+
+gulp.task('genrate_migration', run(`vendor/bin/phalcon-migrations generate --config=app/Migrations.php --version=${package.version} --skip-ref-schema --no-auto-increment`));
 
 gulp.task('watch', () => {
     gulp.watch('css/**/*.scss', gulp.series(['sass', 'styles']));
