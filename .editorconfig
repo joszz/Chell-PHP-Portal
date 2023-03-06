@@ -1,5 +1,6 @@
 ﻿[*]
 end_of_line = lf
+php_diagnostic_php0416 = false
 
 [/vendor/**]
 php_diagnostic = false

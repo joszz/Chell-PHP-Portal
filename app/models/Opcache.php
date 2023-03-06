@@ -15,6 +15,7 @@ class Opcache extends Model
 
     /**
      * Retrieves the Opcache status.
+     * @suppress PHP0417
      */
     public function initialize()
     {
@@ -123,5 +124,13 @@ class Opcache extends Model
             case 'opcache.max_wasted_percentage':
                 return number_format($value, 2) . '%';
         }
+    }
+
+    /**
+     * @suppress PHP0417
+     */
+    public function getConfiguration()
+    {
+        return opcache_get_configuration();
     }
 }

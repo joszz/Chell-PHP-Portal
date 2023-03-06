@@ -27,7 +27,7 @@ class SettingsContainer implements IteratorAggregate
      * If DB is configured; get all settings from the database and add them to the SettingsContainer.
      * If DB is not configured; set some default settings which are required for Chell to work.
      */
-    public function __construct(ConfigIni $config)
+    public function __construct(ConfigIni $config, bool $dbSet)
     {
         $this->addSection($dashboardSection = new SettingsSection('dashboard'));
         $this->addSection($generalSection = new SettingsSection('general'));
@@ -44,7 +44,8 @@ class SettingsContainer implements IteratorAggregate
         $applicationCategory->addSetting(new SettingsDefault('check_device_states_interval', '10', SettingsDefaultStorageType::db));
 
         //todo: better way to check if DB is initialized
-        try {
+        if ($dbSet)
+        {
             $settings = Settings::find(['order' => 'category']);
 
             foreach ($settings as $setting)
@@ -56,9 +57,6 @@ class SettingsContainer implements IteratorAggregate
 
                 $this->{$setting->section}->{$setting->category}->addSetting($setting);
             }
-        }
-        catch (DiException $exception)
-        {
         }
     }
 

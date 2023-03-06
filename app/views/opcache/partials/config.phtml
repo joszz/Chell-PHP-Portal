@@ -2,8 +2,10 @@
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <tbody>
-                <?php $config = opcache_get_configuration();
-                      foreach ($config['directives'] as $key => $value): ?>
+                <?php
+                $config = $opcache->getConfiguration();
+                foreach ($config['directives'] as $key => $value): 
+                ?>
                 <tr>
                     <td>
                         <?php echo ucfirst(str_replace('_', ' ', $key)) ?>

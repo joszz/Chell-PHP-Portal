@@ -2,6 +2,7 @@
 
 namespace Chell\Models;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Promise\PromiseInterface;

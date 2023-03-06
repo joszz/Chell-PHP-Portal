@@ -17,7 +17,6 @@ use WriteiniFile\WriteiniFile;
  */
 class InstallController extends BaseController
 {
-    private string $dbStructureFilename = APP_PATH . 'sql/db-structure.sql';
     private $postedData;
 
     private $tableOrder = ['devices', 'menu_items', 'users', 'menu_items_users', 'settings', 'snmp_hosts', 'snmp_records', 'speedtest', 'widget_position'];
@@ -91,13 +90,13 @@ class InstallController extends BaseController
         {
             $migrationOptions['tableName'] = $table;
             $migration::run($migrationOptions);
-         
+
             if ($this->tableOrder[count($this->tableOrder)-1] != $table)
             {
                 $migration::removeCurrentVersion($migrationOptions, $migrationOptions['version']);
             }
         }
-        
+
         $this->di->set('db', function() use ($config) {
             return new DbAdapter([
                 'host'     => $config['mysql-host'],
@@ -185,9 +184,8 @@ class InstallController extends BaseController
      */
     private function cleanup()
     {
-        @unlink($this->dbStructureFilename);
         @unlink(APP_PATH . 'app/controllers/InstallController.php');
-        @array_map('unlink', array_filter(glob(APP_PATH . 'app/views/install/')));
-        @unlink(APP_PATH . 'app/views/install/');
+        @unlink(APP_PATH . 'app/views/install/index.phtml');
+        @rmdir(APP_PATH . 'app/views/install/');
     }
 }

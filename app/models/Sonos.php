@@ -63,9 +63,12 @@ class Sonos extends BaseModel
         $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
         $result = [];
 
-        foreach ($content->households as $household)
+        if ($content)
         {
-            $result[$household->name] = $household->name;
+            foreach ($content->households as $household)
+            {
+                $result[$household->name] = $household->name;
+            }
         }
 
         return $result;
@@ -74,11 +77,15 @@ class Sonos extends BaseModel
     private function getHouseholdIdByName($name)
     {
         $content = $this->getHttpClient($this->apiControlUrl . 'households', 'GET', $this->getBearerAuthorization());
-        foreach ($content->households as $household)
+
+        if ($content)
         {
-            if ($household->name == $name)
+            foreach ($content->households as $household)
             {
-                return $household->id;
+                if ($household->name == $name)
+                {
+                    return $household->id;
+                }
             }
         }
 
@@ -97,9 +104,12 @@ class Sonos extends BaseModel
         $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $householdId . '/groups', 'GET', $this->getBearerAuthorization());
         $result = [];
 
-        foreach ($content->groups as $group)
+        if ($content)
         {
-            $result[$group->name] = $group->name;
+            foreach ($content->groups as $group)
+            {
+                $result[$group->name] = $group->name;
+            }
         }
 
         return $result;

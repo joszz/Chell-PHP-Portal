@@ -35,7 +35,7 @@ class SettingsCategory
     {
         if (!isset($this->_settings[$name]))
         {
-            $this->_settings[$name] = new Settings(['name' => $name, 'category' => $this->name, 'section' => $this->section->name, 'value' => $value]);
+            $this->_settings[$name] = new Settings(['name' => $name, 'category' => $this->name, 'section' => $this->section?->name, 'value' => $value]);
         }
 
         $this->_settings[$name]->value = $value;

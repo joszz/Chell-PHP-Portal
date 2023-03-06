@@ -2,6 +2,7 @@
 
 namespace Chell;
 
+use Exception;
 use Throwable;
 
 use Chell\Controllers\ErrorController;
@@ -270,7 +271,7 @@ class FrontController
      */
     private function setSettings()
     {
-        $structuredSettings = new SettingsContainer($this->config);
+        $structuredSettings = new SettingsContainer($this->config, $this->dbSet);
         $this->di->set('settings', $structuredSettings);
         $this->settings =  $structuredSettings;
     }
@@ -283,6 +284,14 @@ class FrontController
     public function __toString() : string
     {
         $uri = (new Request())->getURI();
-        return $this->application->handle($uri)->getContent();
+        try 
+        {
+            return $this->application->handle($uri)->getContent();
+        }
+        catch (Exception $exception)
+        {
+            (new ErrorController())->initialize(new ChellException($exception));
+            return '';
+        }
     }
 }
