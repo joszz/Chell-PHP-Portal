@@ -43,7 +43,6 @@ class SettingsContainer implements IteratorAggregate
         $applicationCategory->addSetting(new SettingsDefault('items_per_page', '10', SettingsDefaultStorageType::db));
         $applicationCategory->addSetting(new SettingsDefault('check_device_states_interval', '10', SettingsDefaultStorageType::db));
 
-        //todo: better way to check if DB is initialized
         if ($dbSet)
         {
             $settings = Settings::find(['order' => 'category']);
@@ -72,7 +71,14 @@ class SettingsContainer implements IteratorAggregate
         return json_decode(ob_get_clean())->version;
     }
 
-    public function __get(string $name) : SettingsSection | SettingsCategory | null
+    /**
+     * Retrieve a SettingsSection.
+     * If $name is not found in array of sections, loop through all sections and try to get a SettingsCategory by the provided $name.
+     *
+     * @param string $name                         The name of the SettingsSection or SettingsCategory to retrieve.
+     * @return SettingsSection|SettingsCategory    Either SettingsSection or SettingsCategory.
+     */
+    public function __get(string $name) : SettingsSection | SettingsCategory
     {
         if (!isset($this->_sections[$name]))
         {
@@ -101,6 +107,10 @@ class SettingsContainer implements IteratorAggregate
         return isset($this->_sections[$name]);
     }
 
+    /**
+     * Retrieves the iterator so you can loop over this object.
+     * @return Iterator
+     */
     public function getIterator() : Iterator
     {
         return (new ArrayObject($this->_sections))->getIterator();

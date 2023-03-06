@@ -28,7 +28,7 @@
 		"jquery.shorten": "github:joszz/jquery-shorten",
 		"jquery.vibrate": "Illyism/jquery.vibrate.js",
 		"librespeed": "github:joszz/speedtest",
-		"luxon": "^3.2.1",
+		"luxon": "^3.3.0",
 		"node-waves": "github:joszz/waves",
 		"prismjs": "^1.29.0",
 		"responsive-paginate": "joszz/rpage",
