@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   chell:
-    build: .
+    image: gotgeeks/chell:latest
     # Host networking needed to do UDP broadcasts for WOL
     network_mode: host
     restart: unless-stopped
@@ -13,19 +13,14 @@ services:
       - /proc:/prochost:ro
       # In order to have the disk widget work, add volumes for the mountpoints of each disk you want to get stats on here.
       # They need to be mounted in /mnt/<name>
-      - /unraid:/var/www/portal
-    environment:
-      - SERVERNAME=Chell
-
+      - /mnt/disk1:/host/mountpath:ro
+      - /mnt/disk2:/host/mountpath2:ro
+      
   db:
-    image: mysql:latest
+    image: mysql
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: chell
       MYSQL_USER: chell
       MYSQL_PASSWORD: example
-      MYSQL_ROOT_HOST: '192.168.1.%'
-    command: ["mysqld", "--bind-address=0.0.0.0"]
-    ports:
-      - 3306:3306
