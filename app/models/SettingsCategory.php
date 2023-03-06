@@ -21,7 +21,7 @@ class SettingsCategory
      *
      * @param string $category   The category, such as application wide or plugin specific.
      */
-    public function __construct(public string $name, public SettingsSection $section)
+    public function __construct(public string $name, public ?SettingsSection $section)
     {
     }
 

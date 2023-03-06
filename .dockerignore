@@ -10,6 +10,7 @@ Chell.phpproj*
 Chell.sln
 .dockerignore
 .editorconfig
+docker-compose-dev.yml
 Dockerfile
 gulpfile_configdev.js
 app/.phalcon

@@ -86,7 +86,7 @@ class SettingsContainer implements IteratorAggregate
                 }
             }
 
-            return null;
+            return new SettingsCategory($name, null);
         }
 
         return $this->_sections[$name];
