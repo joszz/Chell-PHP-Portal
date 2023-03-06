@@ -53,7 +53,9 @@ SyncToy_*.dat
 *.sln
 *.v12.suo
 .vs/
+app/.phalcon
 app/config/config.ini
+app/GenerateMigration.bat
 app/Migrations.php
 app/logs/
 node_modules/

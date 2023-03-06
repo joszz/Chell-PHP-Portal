@@ -12,3 +12,5 @@ Chell.sln
 .editorconfig
 Dockerfile
 gulpfile_configdev.js
+app/.phalcon
+app/GenerateMigration.bat
