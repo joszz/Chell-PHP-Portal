@@ -5,7 +5,6 @@ icons/
 .git*/
 .vs/
 app/logs/*
-app/Migrations.php
 Chell.phpproj*
 Chell.sln
 .dockerignore
@@ -14,4 +13,3 @@ docker-compose-dev.yml
 Dockerfile
 gulpfile_configdev.js
 app/.phalcon
-app/GenerateMigration.bat

@@ -134,7 +134,7 @@ gulp.task('robotofont', () => {
         .pipe(gulp.dest('public/fonts/'));
 });
 
-gulp.task('genrate_migration', run(`vendor/bin/phalcon-migrations generate --config=app/Migrations.php --version=${package.version} --skip-ref-schema --no-auto-increment`));
+gulp.task('genrate_migration', run(`vendor/bin/phalcon-migrations generate --config=app/migrations/Config.php --version=${package.version} --skip-ref-schema --no-auto-increment`));
 
 gulp.task('watch', () => {
     gulp.watch('css/**/*.scss', gulp.series(['sass', 'styles']));

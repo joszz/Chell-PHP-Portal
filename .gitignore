@@ -55,8 +55,6 @@ SyncToy_*.dat
 .vs/
 app/.phalcon
 app/config/config.ini
-app/GenerateMigration.bat
-app/Migrations.php
 app/logs/
 node_modules/
 vendor/
