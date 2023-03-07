@@ -40,10 +40,10 @@ class DockerFormFields extends FormFields
 			]);
 
         $this->fields[] = $dockerInterval = new Numeric('docker-update_interval');
-		$dockerInterval->setLabel('Interval')
+		$dockerInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->docker->update_interval)
+			->setDefault($this->form->settings->docker->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'docker-enabled'])

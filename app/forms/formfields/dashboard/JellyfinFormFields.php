@@ -55,16 +55,6 @@ class JellyfinFormFields extends FormFields
 			->setDefault($this->form->settings->jellyfin->userid)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
 
-		$this->fields[] = $jellyfinRotateInterval = new Numeric('jellyfin-rotate_interval');
-		$jellyfinRotateInterval->setLabel('Rotate interval')
-			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->jellyfin->rotate_interval)
-			->addValidators([
-				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled'])
-		]);
-
 		$this->fields[] = $jellyfinViews = new Select('jellyfin-views[]');
 		$jellyfinViews->setLabel('Libraries')
 			->setFilters(['striptags', 'string'])
@@ -75,5 +65,15 @@ class JellyfinFormFields extends FormFields
 				'data-apiurl' => '../jellyfin/views'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
+
+		$this->fields[] = $jellyfinRotateInterval = new Numeric('jellyfin-rotate_interval');
+		$jellyfinRotateInterval->setLabel('Rotate interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->jellyfin->rotate_interval ?? 30)
+			->addValidators([
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled'])
+		]);
 	}
 }

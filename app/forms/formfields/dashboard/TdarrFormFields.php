@@ -29,16 +29,6 @@ class TdarrFormFields extends FormFields
 			'checked' => $this->form->settings->tdarr->enabled == '1' ? 'checked' : null
 		]);
 
-		$this->fields[] = $tdarrInterval = new Numeric('tdarr-update_interval');
-		$tdarrInterval->setLabel('Interval')
-			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->tdarr->update_interval)
-			->addValidators([
-				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled'])
-			]);
-
 		$this->fields[] = $tdarrURL = new Text('tdarr-url');
 		$tdarrURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
@@ -47,6 +37,16 @@ class TdarrFormFields extends FormFields
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
+			]);
+
+		$this->fields[] = $tdarrInterval = new Numeric('tdarr-update_interval');
+		$tdarrInterval->setLabel('Update interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->tdarr->update_interval ?? 30)
+			->addValidators([
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'tdarr-enabled'])
 			]);
 	}
 }

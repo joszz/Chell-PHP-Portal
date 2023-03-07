@@ -61,16 +61,6 @@ class PulsewayFormFields extends FormFields
 			$pulsewayPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
 
-        $this->fields[] = $pulsewayInterval = new Numeric('pulseway-update_interval');
-		$pulsewayInterval->setLabel('Interval')
-			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->update_interval)
-			->addValidators([
-				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled'])
-			]);
-
         $this->fields[] = $pulsewaySystems = new Select('pulseway-systems[]');
 		$pulsewaySystems->setLabel('Systems')
 			->setFilters(['striptags', 'string'])
@@ -82,5 +72,15 @@ class PulsewayFormFields extends FormFields
 				'data-apiurl' => '../pulseway/systems'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
+
+        $this->fields[] = $pulsewayInterval = new Numeric('pulseway-update_interval');
+		$pulsewayInterval->setLabel('Update interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->pulseway->update_interval ?? 30)
+			->addValidators([
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled'])
+			]);
 	}
 }

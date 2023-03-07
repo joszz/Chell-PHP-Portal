@@ -56,10 +56,10 @@ class SubsonicFormFields extends FormFields
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$this->fields[] = $sonosInterval = new Numeric('subsonic-update_interval');
-		$sonosInterval->setLabel('Interval')
+		$sonosInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->update_interval)
+			->setDefault($this->form->settings->sonos->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled'])

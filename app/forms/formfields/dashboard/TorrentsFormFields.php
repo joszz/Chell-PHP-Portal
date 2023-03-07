@@ -72,7 +72,7 @@ class TorrentsFormFields extends FormFields
 		$torrentsInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->torrents->update_interval)
+			->setDefault($this->form->settings->torrents->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled'])

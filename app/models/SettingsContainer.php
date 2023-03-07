@@ -70,7 +70,12 @@ class SettingsContainer implements IteratorAggregate
         return json_decode(ob_get_clean())->version;
     }
 
-    public static function getMigrationVersion()
+    /**
+     * Retrieves the latest migration version AKA the highest version directory number in the migrations directory.
+     * 
+     * @return string   The version used for DB migration.
+     */
+    public static function getMigrationVersion() : string
     {
         $version = self::getVersion();
         

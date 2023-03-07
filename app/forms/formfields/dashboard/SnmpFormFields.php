@@ -28,10 +28,10 @@ class SnmpFormFields extends FormFields
 		]);
 
 		$this->fields[] = $snmpInterval = new Numeric('snmp-update_interval');
-		$snmpInterval->setLabel('Interval')
+		$snmpInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->snmp->update_interval)
+			->setDefault($this->form->settings->snmp->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'snmp-enabled'])

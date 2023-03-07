@@ -30,16 +30,6 @@ class VerisureFormFields extends FormFields
 			'checked' => $this->form->settings->verisure->enabled == '1' ? 'checked' : null
 		]);
 
-		$this->fields[] = $verisureInterval = new Numeric('verisure-update_interval');
-		$verisureInterval->setLabel('Interval')
-			->setFilters(['striptags', 'int'])
-			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->verisure->update_interval)
-			->addValidators([
-				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled'])
-			]);
-
 		$this->fields[] = $verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
@@ -64,5 +54,15 @@ class VerisureFormFields extends FormFields
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
 			->setDefault($this->form->settings->verisure->securitycode);
+
+		$this->fields[] = $verisureInterval = new Numeric('verisure-update_interval');
+		$verisureInterval->setLabel('Update interval')
+			->setFilters(['striptags', 'int'])
+			->setAttributes(['class' => 'form-control'])
+			->setDefault($this->form->settings->verisure->update_interval ?? 180)
+			->addValidators([
+				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled'])
+			]);
 	}
 }

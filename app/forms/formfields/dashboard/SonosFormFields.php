@@ -40,7 +40,7 @@ class SonosFormFields extends FormFields
 
 		$session = $this->form->di->get('session');
         if (!$session->get('sonos_state'))
-        { 
+        {
             $session->set('sonos_state', bin2hex(random_bytes(32)));
 		}
 
@@ -76,10 +76,10 @@ class SonosFormFields extends FormFields
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
 
 		$this->fields[] = $sonosInterval = new Numeric('sonos-update_interval');
-		$sonosInterval->setLabel('Interval')
+		$sonosInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->update_interval)
+			->setDefault($this->form->settings->sonos->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])

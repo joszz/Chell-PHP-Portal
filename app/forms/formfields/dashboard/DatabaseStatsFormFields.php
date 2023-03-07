@@ -29,10 +29,10 @@ class DatabaseStatsFormFields extends FormFields
 		]);
 
         $this->fields[] = $dbStatsInterval = new Numeric('databasestats-update_interval');
-		$dbStatsInterval->setLabel('Interval')
+		$dbStatsInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->update_interval)
+			->setDefault($this->form->settings->databasestats->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'databasestats-enabled'])
