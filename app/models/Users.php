@@ -3,6 +3,8 @@
 namespace Chell\Models;
 
 use Phalcon\Mvc\Model;
+use Chell\Models\MenuItems;
+use Chell\Models\MenuItemsUsers;
 
 /**
  * The model responsible for all actions related to Users.
@@ -18,10 +20,10 @@ class Users extends Model
     {
         $this->hasManyToMany(
             'id',
-            'Chell\Models\MenuItemsUsers',
+            MenuItemsUsers::class,
             'user_id',
             'menu_item_id',
-            'Chell\Models\MenuItems',
+            MenuItems::class,
             'id',
             ['alias' => 'menuitems']
         );
