@@ -72,13 +72,13 @@ class SettingsContainer implements IteratorAggregate
 
     /**
      * Retrieves the latest migration version AKA the highest version directory number in the migrations directory.
-     * 
+     *
      * @return string   The version used for DB migration.
      */
     public static function getMigrationVersion() : string
     {
         $version = self::getVersion();
-        
+
         if (!is_dir(__DIR__ . '/../migrations/' . $version))
         {
             $allMigrations = glob(__DIR__ . '/../migrations/*', GLOB_ONLYDIR);
@@ -122,7 +122,20 @@ class SettingsContainer implements IteratorAggregate
      */
     public function __isset(string $name) : bool
     {
-        return isset($this->_sections[$name]);
+        if (!isset($this->_sections[$name]))
+        {
+            foreach ($this->_sections as $section)
+            {
+                if (isset($section->{$name}))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
