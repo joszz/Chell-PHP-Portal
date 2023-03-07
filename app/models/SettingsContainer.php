@@ -10,7 +10,6 @@ use Chell\Models\Settings;
 use Chell\Models\SettingsCategory;
 use Chell\Models\SettingsDefaultStorageType;
 use Chell\Models\SettingsSection;
-use Phalcon\Di\Exception as DiException;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Mvc\Model\Transaction\Manager as TransactionManager;
 
@@ -34,7 +33,7 @@ class SettingsContainer implements IteratorAggregate
         $dashboardSection->addCategory(new SettingsCategory('dashboard', $generalSection));
         $generalSection->addCategory($applicationCategory = new SettingsCategory('application', $generalSection));
 
-        $applicationCategory->addSetting(new SettingsDefault('version', $this->getVersion(), SettingsDefaultStorageType::none));
+        $applicationCategory->addSetting(new SettingsDefault('version', self::getVersion(), SettingsDefaultStorageType::none));
         $applicationCategory->addSetting(new SettingsDefault('debug', $config->general->debug, SettingsDefaultStorageType::ini));
         $applicationCategory->addSetting(new SettingsDefault('title', 'Chell PHP Portal', SettingsDefaultStorageType::db));
         $applicationCategory->addSetting(new SettingsDefault('background', 'autobg', SettingsDefaultStorageType::db));
@@ -64,11 +63,25 @@ class SettingsContainer implements IteratorAggregate
      *
      * @return string   Version
      */
-    private function getVersion() : string
+    private static function getVersion() : string
     {
         ob_start();
-        require_once(APP_PATH . 'package.json');
+        require_once(__DIR__ . '/../../package.json');
         return json_decode(ob_get_clean())->version;
+    }
+
+    public static function getMigrationVersion()
+    {
+        $version = self::getVersion();
+        
+        if (!is_dir(__DIR__ . '/../migrations/' . $version))
+        {
+            $allMigrations = glob(__DIR__ . '/../migrations/*', GLOB_ONLYDIR);
+            rsort($allMigrations);
+            $version = basename($allMigrations[0]);
+        }
+
+        return $version;
     }
 
     /**

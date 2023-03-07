@@ -2,32 +2,22 @@
 
 use Phalcon\Migrations\Migrations;
 use Phalcon\Config\Config;
+use Chell\Models\SettingsContainer;
 
+require_once(__DIR__ . '/models/SettingsContainer.php');
 require_once(__DIR__ . '/../vendor/autoload.php');
 $config = parse_ini_file(__DIR__ . '/config/config.ini', true);
 
 //Only run migrations if initial setup is done
 if ($config['general']['installed'])
 {
-    ob_start();
-    require_once(__DIR__ . '/../package.json');
-    $version = json_decode(ob_get_clean())->version;
-
-    //Migration version doesn't exist, grab latest version that exists from the migration folder.
-    if (!is_dir(__DIR__ . '/migrations/' . $version))
-    {
-        $allMigrations = glob(__DIR__ . '/migrations/*', GLOB_ONLYDIR);
-        rsort($allMigrations);
-        $version = basename($allMigrations[0]);
-    }
-
     $migration = new Migrations();
     $migrationOptions = [
         'migrationsDir' => [
             __DIR__ . '/migrations',
         ],
         'directory' => __DIR__ . '/',
-        'version' => $version,
+        'version' => SettingsContainer::getMigrationVersion(),
         'config' => new Config([
             'database' => [
                 'adapter' => 'mysql',

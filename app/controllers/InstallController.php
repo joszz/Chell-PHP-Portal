@@ -5,6 +5,7 @@ namespace Chell\Controllers;
 use PDO;
 use Chell\Models\Users;
 use Chell\Models\Settings;
+use Chell\Models\SettingsContainer;
 use Phalcon\Config\Config;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Migrations\Migrations;
@@ -68,22 +69,13 @@ class InstallController extends BaseController
 
         $this->createDatabase();
 
-        $version = $this->settings->application->version;
-        //Migration version doesn't exist, grab latest version that exists from the migration folder.
-        if (!is_dir(__DIR__ . '/../migrations/' . $version))
-        {
-            $allMigrations = glob(__DIR__ . '/../migrations/*', GLOB_ONLYDIR);
-            rsort($allMigrations);
-            $version = basename($allMigrations[0]);
-        }
-
         $migration = new Migrations();
         $migrationOptions = [
             'migrationsDir' => [
                 __DIR__ . '/../migrations',
             ],
             'directory' => __DIR__ . '/../',
-            'version' => $version,
+            'version' => SettingsContainer::getMigrationVersion(),
             'config' => new Config([
                 'database' => [
                     'adapter' => 'mysql',
@@ -95,7 +87,7 @@ class InstallController extends BaseController
                 ]
             ])
         ];
-        
+
         foreach($this->tableOrder as $table)
         {
             $migrationOptions['tableName'] = $table;
