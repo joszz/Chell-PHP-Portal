@@ -36,7 +36,7 @@ class PulsewayFormFields extends FormFields
 		$pulsewayURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->url)
+			->setDefault($this->form->settings->pulseway->url ?? 'https://api.pulseway.com/v2/')
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])

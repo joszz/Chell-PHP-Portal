@@ -56,7 +56,7 @@ class YoulessFormFields extends FormFields
 		$youlessPrimaryThreshold->setLabel('Primary threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_primary)
+			->setDefault($this->form->settings->youless->threshold_primary ?? 250)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
@@ -66,7 +66,7 @@ class YoulessFormFields extends FormFields
 		$youlessWarnThreshold->setLabel('Warn threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_warning)
+			->setDefault($this->form->settings->youless->threshold_warning ?? 500)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
@@ -76,7 +76,7 @@ class YoulessFormFields extends FormFields
 		$youlessDangerThreshold->setLabel('Danger threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_danger)
+			->setDefault($this->form->settings->youless->threshold_danger ?? 1000)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
