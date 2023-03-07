@@ -49,7 +49,7 @@ class SettingsCategory
      */
     public function __get(string $name)
     {
-        if (!isset($this->_settings[$name]))
+        if (empty($this->_settings[$name]?->value))
         {
             return null;
         }

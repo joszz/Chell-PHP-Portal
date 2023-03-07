@@ -35,14 +35,14 @@ class SpeedtestFormFields extends FormFields
 		$speedtestTestOrder->setLabel('Test order')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->speedtest->test_order)
+			->setDefault($this->form->settings->speedtest->test_order ?? 'IPDU')
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled']));
 
 		$this->fields[] = $speedtestUpTime = new Numeric('speedtest-time_upload');
 		$speedtestUpTime->setLabel('Upload time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->speedtest->time_upload)
+			->setDefault($this->form->settings->speedtest->time_upload ?? 10)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled'])
@@ -52,7 +52,7 @@ class SpeedtestFormFields extends FormFields
 		$speedtestDownloadTime->setLabel('Download time')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->speedtest->time_download)
+			->setDefault($this->form->settings->speedtest->time_download ?? 10)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'speedtest-enabled'])
