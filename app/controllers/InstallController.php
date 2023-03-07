@@ -67,13 +67,23 @@ class InstallController extends BaseController
         $this->postedData = $config = $this->request->getPost();
 
         $this->createDatabase();
+
+        $version = $this->settings->application->version;
+        //Migration version doesn't exist, grab latest version that exists from the migration folder.
+        if (!is_dir(__DIR__ . '/../migrations/' . $version))
+        {
+            $allMigrations = glob(__DIR__ . '/../migrations/*', GLOB_ONLYDIR);
+            rsort($allMigrations);
+            $version = basename($allMigrations[0]);
+        }
+
         $migration = new Migrations();
         $migrationOptions = [
             'migrationsDir' => [
                 __DIR__ . '/../migrations',
             ],
             'directory' => __DIR__ . '/../',
-            'version' => $this->settings->application->version,
+            'version' => $version,
             'config' => new Config([
                 'database' => [
                     'adapter' => 'mysql',
@@ -85,7 +95,7 @@ class InstallController extends BaseController
                 ]
             ])
         ];
-
+        
         foreach($this->tableOrder as $table)
         {
             $migrationOptions['tableName'] = $table;
