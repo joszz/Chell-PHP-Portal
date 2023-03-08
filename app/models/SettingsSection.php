@@ -81,4 +81,9 @@ class SettingsSection
     {
         $this->_categories[$category->name] = $category;
     }
+
+    public function getCategories()
+    {
+        return $this->_categories;
+    }
 }

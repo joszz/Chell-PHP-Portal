@@ -25,17 +25,17 @@ class WidgetPosition extends BaseModel
         $transaction = $transactionManager->get();
 
         $widgetPositions = WidgetPosition::find(['order' => 'position']);
-        $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 1;
+        $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 0;
 
         try
         {
             foreach ($settings as $widget)
             {
-                if ($widget->section === 'dashboard')
+                if ($widget->section->name === 'dashboard')
                 {
                     $widgetPosition = current($widgetPositions->filter(function($position) use ($widget) {
-                        if ($position->controller == $widget->category ||
-                            ($position->controller == 'arr' && ($widget->category == 'sonarr' || $widget->category == 'radarr'))){
+                        if ($position->controller == $widget->name ||
+                            ($position->controller == 'arr' && ($widget->name == 'sonarr' || $widget->name == 'radarr'))){
                             return $position;
                         }
                     }));
@@ -43,7 +43,7 @@ class WidgetPosition extends BaseModel
                     if ($widget->enabled && empty($widgetPosition))
                     {
                         $widgetPosition = new WidgetPosition();
-                        $widgetPosition->controller = $widget->category == 'sonarr' || $widget->category == 'radarr' ? 'arr' : $widget->category;
+                        $widgetPosition->controller = $widget->name == 'sonarr' || $widget->name == 'radarr' ? 'arr' : $widget->name;
                         $widgetPosition->position = ++$maxWidgetPosition;
                         $widgetPosition->setTransaction($transaction);
                         $widgetPosition->save();

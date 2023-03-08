@@ -144,7 +144,14 @@ class SettingsContainer implements IteratorAggregate
      */
     public function getIterator() : Iterator
     {
-        return (new ArrayObject($this->_sections))->getIterator();
+        $result = [];
+        foreach($this->_sections as $section){
+            $categories = $section->getCategories();
+            foreach($categories as $category){
+                $result[] = $section->{$category->name};
+            }
+        }
+        return (new ArrayObject($result))->getIterator();
     }
 
     /**

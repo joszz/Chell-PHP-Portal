@@ -36,7 +36,7 @@ class IndexController extends BaseController
             $jellyfin = new Jellyfin();
             $this->view->jellyfinviews = $jellyfin->getLatestForViews();
         }
-        
+
         if ($this->settings->motion->enabled)
         {
             $this->view->motionModifiedTime = (new Motion())->getModifiedTime();
@@ -138,17 +138,17 @@ class IndexController extends BaseController
 
         foreach($this->settings as $settingSectionValue)
         {
-            foreach($settingSectionValue as $settingKey => $settingValue)
+            foreach($settingSectionValue as $settingKey => $setting)
             {
                 // Disabled in the config so skip complete section
-                if (strtolower($settingKey) == 'enabled' && !$settingValue)
+                if (strtolower($settingKey) == 'enabled' && !$setting)
                 {
                     continue 2;
                 }
 
                 if (strtolower($settingKey) == 'url')
                 {
-                    $parsedURL = parse_url($settingValue);
+                    $parsedURL = parse_url($setting->value);
 
                     if (isset($parsedURL['host'] ) && $parsedURL['host'] != $hostname)
                     {
