@@ -66,7 +66,7 @@ class SettingsContainer implements IteratorAggregate
     private static function getVersion() : string
     {
         ob_start();
-        require_once(__DIR__ . '/../../package.json');
+        require(__DIR__ . '/../../package.json');
         return json_decode(ob_get_clean())->version;
     }
 

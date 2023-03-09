@@ -10,6 +10,10 @@ div.cpu {
     width: 100%;
 }
 
+div.panel {
+    height: 402px;
+}
+
 div.panel-heading h4 {
     font-weight: bold;
     line-height: 3.4rem;
@@ -25,11 +29,20 @@ div.panel-heading button {
     white-space: nowrap;
 }
 
+div.panel-body{
+    height: calc(402px - 56px);
+
+    .graph {
+        height: 100%;
+    }
+}
+
 div.panel li > div:not(.embed-responsive) {
     &:first-child {
         padding-left: 0;
     }
-    &:last-child{
+
+    &:last-child {
         padding-right: 0;
     }
 }
@@ -76,10 +89,6 @@ li.list-group-item {
         color: $state-success-text;
         background-color: $state-success-bg;
     }
-}
-
-.panel .graph {
-    height: 285px;
 }
 
 .tooltip-inner ul {

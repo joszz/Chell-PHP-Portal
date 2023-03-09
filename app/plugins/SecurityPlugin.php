@@ -39,8 +39,6 @@ class SecurityPlugin extends Injectable
             return false;
         }
 
-
-
         foreach ($this->publiclyAccessible AS $access)
         {
             if ($controller == $access['controller'] && (in_array('*', $access['actions']) || in_array($action, $access['actions'])))

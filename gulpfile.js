@@ -58,6 +58,7 @@ gulp.task('sass', () => {
     return gulp.src(config.styles.sass)
         .pipe(sass())
         .pipe(header(config.banner.main, { package: package }))
+        .pipe(gulp.dest(config.output_path + config.styles.output_path))
         .pipe(rename({ suffix: '.min' }))
         .pipe(
             cssnano({

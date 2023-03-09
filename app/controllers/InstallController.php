@@ -28,6 +28,14 @@ class InstallController extends BaseController
     public function initialize()
     {
         parent::initialize();
+
+        $config = $this->di->get('config');
+        if ($config->general->installed)
+        {
+            $this->response->redirect('');
+            return;
+        }
+
         $this->assets->addStyle('install');
         $this->assets->addScript('toggle-passwords');
     }
@@ -112,7 +120,6 @@ class InstallController extends BaseController
         $this->createAdminUser();
         (new Settings(['name' => 'phalcon_crypt_key', 'section' => 'general', 'category' => 'application', 'value' => bin2hex(random_bytes(32))]))->save();
         $this->writeConfig();
-        $this->cleanup();
 
         $this->response->redirect('');
     }
@@ -179,15 +186,5 @@ class InstallController extends BaseController
             ]
         ];
         (new WriteiniFile(APP_PATH . 'app/config/config.ini'))->create($config)->write();
-    }
-
-    /**
-     * Cleans up the files for install. Silently fails (when for example insufficient privileges.
-     */
-    private function cleanup()
-    {
-        @unlink(APP_PATH . 'app/controllers/InstallController.php');
-        @unlink(APP_PATH . 'app/views/install/index.phtml');
-        @rmdir(APP_PATH . 'app/views/install/');
     }
 }
