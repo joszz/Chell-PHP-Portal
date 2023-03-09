@@ -75,40 +75,4 @@ class WidgetPosition extends BaseModel
             throw($exception);
         }
     }
-
-    /**
-     * When a new device is added in the settings, make sure the device widget is added to the widget positions.
-     *
-     * @param Devices $device   The device added.
-     */
-    public static function addDeviceWidgetPosition(Devices $device)
-    {
-        $transactionManager = new TransactionManager();
-        $transaction = $transactionManager->get();
-
-        try
-        {
-            $dashboardDeviceCount = Devices::count('show_on_dashboard = 1');
-            $deviceWidgetAdded = WidgetPosition::findFirst(['conditions' => 'controller = "devices"']);
-
-            if ($dashboardDeviceCount == 0 && !$deviceWidgetAdded)
-            {
-                $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 1;
-                $widgetPosition = new WidgetPosition();
-                $widgetPosition->controller = 'devices';
-                $widgetPosition->position = ++$maxWidgetPosition;
-                $widgetPosition->setTransaction($transaction);
-                $widgetPosition->save();
-            }
-
-            $device->setTransaction($transaction);
-            $device->save();
-            $transaction->commit();
-        }
-        catch (Exception $exception)
-        {
-            $transaction->rollback();
-            throw($exception);
-        }
-    }
 }

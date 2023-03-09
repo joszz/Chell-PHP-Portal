@@ -131,7 +131,8 @@ class SettingsController extends BaseController
 
             if ($form->isValid($data, $device))
             {
-                WidgetPosition::addDeviceWidgetPosition($device);
+                $device->save();
+
                 return $this->response->redirect('settings/devices');
             }
         }

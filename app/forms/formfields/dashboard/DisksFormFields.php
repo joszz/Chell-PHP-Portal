@@ -9,11 +9,11 @@ use Phalcon\Forms\Element\Numeric;
 use Phalcon\Filter\Validation\Validator\Numericality;
 
 /**
- * The formfields for the Sysinfo plugin
+ * The formfields for the Disks plugin
  *
  * @package Formfields
  */
-class SysinfoFormFields extends FormFields
+class DisksFormFields extends FormFields
 {
     /**
      * Add all fields to the form.
@@ -22,19 +22,19 @@ class SysinfoFormFields extends FormFields
 	{
 		$this->hasFieldset = true;
 
-		$this->fields[] = new Check('sysinfo-enabled', [
-			'fieldset' => 'Sysinfo',
-			'checked' => $this->form->settings->sysinfo->enabled == '1' ? 'checked' : null
+		$this->fields[] = new Check('disks-enabled', [
+			'fieldset' => 'Disks',
+			'checked' => $this->form->settings->disks->enabled == '1' ? 'checked' : null
 		]);
 
-        $this->fields[] = $interval = new Numeric('sysinfo-update_interval');
+        $this->fields[] = $interval = new Numeric('disks-update_interval');
 		$interval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sysinfo->update_interval ?? 30)
+			->setDefault($this->form->settings->disks->update_interval ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
-				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sysinfo-enabled'])
+				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'disks-enabled'])
 			]);
 	}
 }
