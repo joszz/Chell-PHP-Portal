@@ -24,14 +24,14 @@ class PiholeFormFields extends FormFields
 
 		$this->fields[] = new Check('pihole-enabled', [
 			'fieldset' => 'Pi-hole',
-			'checked' => $this->form->settings->pihole->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->pihole->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $piholeURL = new Text('pihole-url');
 		$piholeURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pihole->url)
+			->setDefault($this->form->settings->pihole->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pihole-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])

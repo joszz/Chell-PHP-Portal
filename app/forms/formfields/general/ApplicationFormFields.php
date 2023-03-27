@@ -27,7 +27,7 @@ class ApplicationFormFields extends FormFields
         $title->setLabel('Title')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->title)
+            ->setDefault($this->form->settings->application->title->value)
             ->addValidators([new PresenceOf(['message' => $this->form->translator->validation['required']])]);
 
         $this->fields[] = $bgcolor = new Select(
@@ -36,21 +36,21 @@ class ApplicationFormFields extends FormFields
             ['useEmpty' => false]
         );
         $bgcolor->setLabel('Background color')
-            ->setDefault($this->form->settings->application->background);
+            ->setDefault($this->form->settings->application->background->value);
 
         $this->fields[] = $bgColorLatitude = new Numeric('application-background_latitude');
         $bgColorLatitude->setLabel('Latitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location latitude' . ($this->form->settings->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->form->settings->application->background_latitude)
+            ->setAttributes(['class' => 'form-control location latitude' . ($this->form->settings->application->background->value != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->form->settings->application->background_latitude->value)
             ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->form->translator->validation['not-a-number']]));
 
         $this->fields[] = $bgColorLongitude= new Numeric('application-background_longitude');
         $bgColorLongitude->setLabel('Longitude')
             ->setFilters(['striptags', 'float'])
-            ->setAttributes(['class' => 'form-control location longitude' . ($this->form->settings->application->background != 'timebg' ? 'hidden' : null), 'step' => 'any'])
-            ->setDefault($this->form->settings->application->background_longitude)
+            ->setAttributes(['class' => 'form-control location longitude' . ($this->form->settings->application->background->value != 'timebg' ? 'hidden' : null), 'step' => 'any'])
+            ->setDefault($this->form->settings->application->background_longitude->value)
             ->setUserOptions(['buttons' => ['location']])
             ->addValidator(new Numericality(['message' => $this->form->translator->validation['not-a-number']]));
 
@@ -58,7 +58,7 @@ class ApplicationFormFields extends FormFields
         $alertTimeout->setLabel('Alert timeout')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->alert_timeout)
+            ->setDefault($this->form->settings->application->alert_timeout->value)
             ->addValidators([
                 new PresenceOf(['message' => $this->form->translator->validation['required']]),
                 new Numericality(['message' => $this->form->translator->validation['not-a-number']])
@@ -68,7 +68,7 @@ class ApplicationFormFields extends FormFields
         $itemsPerPage->setLabel('Items per page')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->items_per_page)
+            ->setDefault($this->form->settings->application->items_per_page->value)
             ->addValidators([
                 new PresenceOf(['message' => $this->form->translator->validation['required']]),
                 new Numericality(['message' => $this->form->translator->validation['not-a-number']])
@@ -78,28 +78,28 @@ class ApplicationFormFields extends FormFields
         $cryptKey->setLabel('Cryptkey')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->phalcon_crypt_key)
+            ->setDefault($this->form->settings->application->phalcon_crypt_key->value)
             ->addValidator(new PresenceOf(['message' => $this->form->translator->validation['required']]));
 
         $this->fields[] = $devicestateTimeouts = new Numeric('application-check_device_states_interval');
         $devicestateTimeouts->setLabel('Check device state interval')
             ->setFilters(['striptags', 'int'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->application->check_device_states_interval)
+            ->setDefault($this->form->settings->application->check_device_states_interval->value)
             ->addValidator(new Numericality(['message' => 'Not a number']));
 
         $this->fields[] = $hibp = new Check('hibp-enabled', [
-            'checked' => $this->form->settings->hibp->enabled == '1' ? 'checked' : null
+            'checked' => $this->form->settings->hibp->enabled->value == '1' ? 'checked' : null
         ]);
         $hibp->setLabel('Have I Been Pwned');
 
         $this->fields[] = $demo = new Check('application-demo_mode', [
-            'checked' => $this->form->settings->application->demo_mode == '1' ? 'checked' : null
+            'checked' => $this->form->settings->application->demo_mode->value == '1' ? 'checked' : null
         ]);
         $demo->setLabel('Demo mode');
 
         $this->fields[] = $demo = new Check('application-debug', [
-            'checked' => $this->form->settings->application->debug == '1' ? 'checked' : null
+            'checked' => $this->form->settings->application->debug->value == '1' ? 'checked' : null
         ]);
         $demo->setLabel('Debug mode');
 	}

@@ -28,14 +28,14 @@ class YoulessFormFields extends FormFields
 
 		$this->fields[] = new Check('youless-enabled', [
 			'fieldset' => 'Youless',
-			'checked' => $this->form->settings->youless->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->youless->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $youlessURL = new Text('youless-url');
 		$youlessURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->url)
+			->setDefault($this->form->settings->youless->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -45,9 +45,9 @@ class YoulessFormFields extends FormFields
 		$youlessPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->youless->password);
+			->setDefault($this->form->settings->youless->password->value);
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$youlessPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
@@ -56,7 +56,7 @@ class YoulessFormFields extends FormFields
 		$youlessPrimaryThreshold->setLabel('Primary threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_primary ?? 250)
+			->setDefault($this->form->settings->youless->threshold_primary->value ?? 250)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
@@ -66,7 +66,7 @@ class YoulessFormFields extends FormFields
 		$youlessWarnThreshold->setLabel('Warn threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_warning ?? 500)
+			->setDefault($this->form->settings->youless->threshold_warning->value ?? 500)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
@@ -76,7 +76,7 @@ class YoulessFormFields extends FormFields
 		$youlessDangerThreshold->setLabel('Danger threshold')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->threshold_danger ?? 1000)
+			->setDefault($this->form->settings->youless->threshold_danger->value ?? 1000)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])
@@ -86,7 +86,7 @@ class YoulessFormFields extends FormFields
 		$youlessInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->youless->update_interval ?? 5)
+			->setDefault($this->form->settings->youless->update_interval->value ?? 5)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'youless-enabled'])

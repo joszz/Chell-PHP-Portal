@@ -27,24 +27,24 @@ class VerisureFormFields extends FormFields
 
 		$this->fields[] = new Check('verisure-enabled', [
 			'fieldset' => 'Verisure',
-			'checked' => $this->form->settings->verisure->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->verisure->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $verisureUsername = new Text('verisure-username');
 		$verisureUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->verisure->username)
+			->setDefault($this->form->settings->verisure->username->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
 		$this->fields[] = $verisurePassword = new Password('verisure-password');
 		$verisurePassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->verisure->password)
+			->setDefault($this->form->settings->verisure->password->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled']));
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$verisurePassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
@@ -53,13 +53,13 @@ class VerisureFormFields extends FormFields
 		$verisurePin->setLabel('Pin')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->verisure->securitycode);
+			->setDefault($this->form->settings->verisure->securitycode->value);
 
 		$this->fields[] = $verisureInterval = new Numeric('verisure-update_interval');
 		$verisureInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->verisure->update_interval ?? 180)
+			->setDefault($this->form->settings->verisure->update_interval->value ?? 180)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'verisure-enabled'])

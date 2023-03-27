@@ -65,3 +65,5 @@ public/js/
 public/fonts/
 /gulpfile_configdev.js
 /docker-compose-dev.yml
+.stfolder
+.stignore

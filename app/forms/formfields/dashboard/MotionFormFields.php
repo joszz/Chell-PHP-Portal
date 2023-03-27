@@ -26,14 +26,14 @@ class MotionFormFields extends FormFields
 
 		$this->fields[] = new Check('motion-enabled', [
 			'fieldset' => 'Motion',
-			'checked' => $this->form->settings->motion->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->motion->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $motionURL = new Text('motion-url');
 		$motionURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->motion->url)
+			->setDefault($this->form->settings->motion->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'motion-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -43,14 +43,14 @@ class MotionFormFields extends FormFields
 		$motionPicturePath->setLabel('Picture path')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->motion->picture_path)
+			->setDefault($this->form->settings->motion->picture_path->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'motion-enabled']));
 
 		$this->fields[] = $motionInterval = new Numeric('motion-update_interval');
 		$motionInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->motion->update_interval ?? 30)
+			->setDefault($this->form->settings->motion->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'motion-enabled'])

@@ -50,7 +50,7 @@ class OpcacheController extends WidgetController
     public function detailsAction(string $tab = 'status', int $currentPage = 1)
     {
         $totalPages = 0;
-        $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->settings->application->items_per_page);
+        $scripts = $this->_model->getScriptStatusRows($currentPage, $totalPages, $this->settings->application->items_per_page->value);
 
         $this->assets->cssFiles[] = 'opcache';
         $this->view->scripts = $scripts;

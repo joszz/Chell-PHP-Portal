@@ -5,6 +5,8 @@ namespace Chell\Models;
 use WriteiniFile\ReadiniFile;
 use WriteiniFile\WriteiniFile;
 
+use Chell\Models\Settings;
+
 /**
  * This model represents a setting.
  * Used to substitute for a Settings model, when settings can't be retrieved from the db yet.
@@ -13,10 +15,7 @@ use WriteiniFile\WriteiniFile;
  */
 class SettingsDefault
 {
-    public string $category = 'application';
-    public string $section = 'general';
-
-    public function __construct(public string $name, public string $value, public SettingsDefaultStorageType $type)
+    public function __construct(public string $value, public SettingsDefaultStorageType $type)
     {
     }
 
@@ -24,7 +23,7 @@ class SettingsDefault
      * Saves only data for ini based settings.
      * Other types of default settings do not need to be stored.
      */
-    public function save()
+    public function save($name, $categoryId)
     {
         if ($this->type == SettingsDefaultStorageType::ini)
         {
@@ -32,6 +31,14 @@ class SettingsDefault
             $data['general']['debug'] = $this->value;
             (new WriteiniFile(APP_PATH . 'app/config/config.ini'))->create($data)->write();
         }
+        else if ($this->type == SettingsDefaultStorageType::db)
+        {
+            (new Settings(['name' => $name, 'value' => $this->value, 'settings_category_id' => $categoryId]))->save();
+        }
+    }
+
+    public function hasChanged(){
+        return true;
     }
 }
 

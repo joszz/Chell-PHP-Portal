@@ -41,7 +41,7 @@ class ApacheController extends WidgetController
         $this->SetEmptyLayout();
         $this->view->apache = $this->_model->getServerStatus();
 
-        if (!empty($this->settings->apache->fpm_status_url))
+        if (!empty($this->settings->apache->fpm_status_url->value))
         {
             $this->view->php = $this->_model->getFpmStatus();
         }

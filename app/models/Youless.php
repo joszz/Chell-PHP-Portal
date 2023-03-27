@@ -20,7 +20,7 @@ class Youless extends BaseModel
 	public function getCurrentStats()
 	{
 		$client = new Client();
-		$response = $client->request('GET', $this->settings->youless->url . 'a&f=j');
+		$response = $client->request('GET', $this->settings->youless->url->value . 'a&f=j');
 		$content = json_decode($response->getBody());
 
 		return $content;
@@ -36,19 +36,19 @@ class Youless extends BaseModel
 	{
 		$class = 'text-';
 
-		if ($power <= $this->settings->youless->threshold_primary)
+		if ($power <= $this->settings->youless->threshold_primary->value)
 		{
 			$class .=  'success';
 		}
-		if ($power > $this->settings->youless->threshold_primary && $power <= $this->settings->youless->threshold_warning)
+		if ($power > $this->settings->youless->threshold_primary->value && $power <= $this->settings->youless->threshold_warning->value)
 		{
 			$class .=  'primary';
 		}
-		if ($power > $this->settings->youless->threshold_warning && $power <= $this->settings->youless->threshold_danger)
+		if ($power > $this->settings->youless->threshold_warning->value && $power <= $this->settings->youless->threshold_danger->value)
 		{
 			$class .=  'warning';
 		}
-		if ($power > $this->settings->youless->threshold_danger)
+		if ($power > $this->settings->youless->threshold_danger->value)
 		{
 			$class .=  'danger';
 		}

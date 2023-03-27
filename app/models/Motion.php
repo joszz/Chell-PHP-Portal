@@ -11,7 +11,7 @@ class Motion extends BaseModel
 {
     public function getLatest() : array
     {
-        $files = glob($this->settings->motion->picture_path . '*.jpg');
+        $files = glob($this->settings->motion->picture_path->value . '*.jpg');
         $files = array_combine($files, array_map("filemtime", $files));
         arsort($files);
 

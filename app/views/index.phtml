@@ -26,12 +26,12 @@
     ?>
 </head>
 
-<body id="bootstrap" data-baseuri="<?php echo $this->url->get() ?>" class="<?php echo $this->settings->application->demo_mode ? 'demo-mode' : null ?>">
+<body id="bootstrap" data-baseuri="<?php echo $this->url->get() ?>" class="<?php echo $this->settings->application->demo_mode->value ? 'demo-mode' : null ?>">
     <div class="container <?php echo isset($containerFullHeight) ? 'full-height' : 'content' ?>">
         <?php echo $this->getContent() ?>
     </div>
 
-    <div class="alert" role="alert" data-alert-timeout="<?php echo $this->settings->application->alert_timeout ?>"></div>
+    <div class="alert" role="alert" data-alert-timeout="<?php echo $this->settings->application->alert_timeout->value ?>"></div>
 
     <?php
     $this->partial('dialog-confirm');

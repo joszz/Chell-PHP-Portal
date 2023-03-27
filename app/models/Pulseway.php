@@ -66,7 +66,7 @@ class Pulseway extends BaseModel
      */
     private function getHttpClient(string $url, bool $decode = true)
     {
-        if (empty($this->settings->pulseway->username) || empty($this->settings->pulseway->password) || empty($this->settings->pulseway->url))
+        if (empty($this->settings->pulseway->username->value) || empty($this->settings->pulseway->password->value) || empty($this->settings->pulseway->url->value))
         {
             return false;
         }
@@ -75,8 +75,8 @@ class Pulseway extends BaseModel
 
         try
         {
-            $response = $client->request('GET', $this->settings->pulseway->url . $url,
-                ['auth' => [$this->settings->pulseway->username , $this->settings->pulseway->password]]);
+            $response = $client->request('GET', $this->settings->pulseway->url->value . $url,
+                ['auth' => [$this->settings->pulseway->username->value, $this->settings->pulseway->password->value]]);
             $content = $response->getBody();
             return $decode ? json_decode($content) : $content;
         }

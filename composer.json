@@ -7,7 +7,7 @@
         "duosecurity/duo_universal_php": "^1.0.2"
     },
     "require-dev": {
-        "phalcon/ide-stubs": "^5.1.4",
+        "phalcon/ide-stubs": "^5.2.1",
         "phalcon/migrations": "^3.0"
     }
 }

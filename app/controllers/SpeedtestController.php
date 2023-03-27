@@ -115,7 +115,7 @@ class SpeedtestController extends WidgetController
             'model' => $this->_model,
             'data'  => $this->_model->find(),
             'parameters' => ['order' => 'timestamp DESC'],
-            'limit' => $this->settings->application->items_per_page,
+            'limit' => $this->settings->application->items_per_page->value,
             'page'  => $requestedPage
         ]);
 
@@ -261,8 +261,8 @@ class SpeedtestController extends WidgetController
             return 'false';
         }
 
-        $client = new Client(['headers' => ['X-API-KEY' => $this->settings->speedtest->what_is_my_browser_api_key]]);
-        $response = $client->request('POST', $this->settings->speedtest->what_is_my_browser_api_url . 'user_agent_parse', [
+        $client = new Client(['headers' => ['X-API-KEY' => $this->settings->speedtest->what_is_my_browser_api_key->value]]);
+        $response = $client->request('POST', $this->settings->speedtest->what_is_my_browser_api_url->value . 'user_agent_parse', [
             'body' => '{"user_agent":"' . $_SERVER['HTTP_USER_AGENT'] . '"}'
         ]);
         $output = $response->getBody();

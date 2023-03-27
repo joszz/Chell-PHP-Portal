@@ -80,7 +80,7 @@ class SessionController extends BaseController
             else if ($this->security->checkHash($password, $user->password))
             {
                 //Duo 2 factor login
-                if ($this->settings->duo->enabled)
+                if ($this->settings->duo->enabled->value)
                 {
                     $this->loginDuo($user);
                 }
@@ -150,7 +150,7 @@ class SessionController extends BaseController
 
             if ($webauthn->authenticate($this->request->get('webauth'), $user->webauthn))
             {
-                if ($this->settings->duo->enabled)
+                if ($this->settings->duo->enabled->value)
                 {
                     $client = $this->getDuoClient();
                     $user->duostate = $client->generateState();
@@ -335,9 +335,9 @@ class SessionController extends BaseController
     private function getDuoClient() : DuoClient
     {
         return new DuoClient(
-            $this->settings->duo->clientid,
-            $this->settings->duo->clientsecret,
-            $this->settings->duo->api_hostname,
+            $this->settings->duo->clientid->value,
+            $this->settings->duo->clientsecret->value,
+            $this->settings->duo->api_hostname->value,
             'https://' . $_SERVER['SERVER_NAME'] . $this->url->get('session/duoVerify')
         );
     }

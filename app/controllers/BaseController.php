@@ -50,15 +50,15 @@ class BaseController extends Controller
      */
     private function getBackgroundColor() : string
     {
-        if ($this->settings->application->background == 'timebg')
+        if ($this->settings->application->background->value == 'timebg')
         {
-            $sunInfo = date_sun_info(time(), $this->settings->application->background_latitude, $this->settings->application->background_longitude);
+            $sunInfo = date_sun_info(time(), $this->settings->application->background_latitude->value, $this->settings->application->background_longitude->value);
             $currentTime = time();
 
             return $currentTime < $sunInfo['sunrise'] || $currentTime > $sunInfo['sunset'] ? 'darkbg' : 'lightbg';
         }
 
-        return $this->settings->application->background;
+        return $this->settings->application->background->value;
     }
 
     /**

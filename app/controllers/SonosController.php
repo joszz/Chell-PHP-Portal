@@ -32,12 +32,12 @@ class SonosController extends WidgetController
      */
     public function indexAction()
     {
-        if ($this->settings->sonos->token_expires - time() < 0)
+        if ($this->settings->sonos->token_expires->value - time() < 0)
         {
             $this->_model->refreshAccessToken();
         }
 
-        if (!$this->settings->sonos->url)
+        if (!$this->settings->sonos->url->value)
         {
             $this->_model->setUrl();
         }
@@ -71,7 +71,7 @@ class SonosController extends WidgetController
 
         if ($url[0] == '/')
         {
-            $url = $this->settings->sonos->url .':1400' . $url;
+            $url = $this->settings->sonos->url->value .':1400' . $url;
         }
         $output = $client->request('GET', $url)->getBody()->getContents();
 

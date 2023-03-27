@@ -5,7 +5,7 @@ $faviconDir = 'img/icons/favicons/';
 $screenshotDir = 'img/screenshots/';
 ?>
 {
-    "name": "<?php echo $this->settings->application->title ?>",
+    "name": "<?php echo $this->settings->application->title->value ?>",
     "short_name": "Server Portal",
     "description": "A PHP portal to aggregate all your server services.",
     "start_url": "<?php echo $this->url->get() ?>",
@@ -42,7 +42,7 @@ $screenshotDir = 'img/screenshots/';
     "shortcuts": [
         {
             "name": "Settings",
-            "Description": "The settings of <?php echo $this->settings->application->title ?>",
+            "Description": "The settings of <?php echo $this->settings->application->title->value ?>",
             "url": "<?php echo $this->url->get('settings') ?>",
             "icons": [
                 {

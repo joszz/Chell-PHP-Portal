@@ -25,7 +25,7 @@ class TorrentsController extends WidgetController
     {
         parent::initialize();
 
-        switch($this->settings->torrents->client)
+        switch($this->settings->torrents->client->value)
         {
             case 'qbittorrent':
                 $this->_client = new qBittorrent();

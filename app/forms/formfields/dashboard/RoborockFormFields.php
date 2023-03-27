@@ -27,14 +27,14 @@ class RoborockFormFields extends FormFields
 
 		$this->fields[] = new Check('roborock-enabled', [
 			'fieldset' => 'Roborock',
-			'checked' => $this->form->settings->roborock->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->roborock->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $roborockIp = new Text('roborock-ip');
 		$roborockIp->setLabel('IP')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->roborock->ip)
+			->setDefault($this->form->settings->roborock->ip->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'roborock-enabled']),
 				new Ip(['message' => $this->form->translator->validation['ip'], 'allowPrivate' => true, 'allowEmpty' => true]),
@@ -44,14 +44,14 @@ class RoborockFormFields extends FormFields
 		$roborockToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->roborock->token)
+			->setDefault($this->form->settings->roborock->token->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'roborock-enabled']));
 
         $this->fields[] =  $roborockInterval = new Numeric('roborock-update_interval');
 		$roborockInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->roborock->update_interval ?? 30)
+			->setDefault($this->form->settings->roborock->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'roborock-enabled'])

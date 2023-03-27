@@ -21,7 +21,7 @@ class CpuFormFields extends FormFields
 
 		$this->fields[] = new Check('cpu-enabled', [
 			'fieldset' => 'CPU',
-			'checked' => $this->form->settings->cpu->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->cpu->enabled->value == '1' ? 'checked' : null
 		]);
 	}
 }

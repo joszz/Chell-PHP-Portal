@@ -121,7 +121,7 @@ class FrontController
         $settings = $this->settings;
         $this->di->set('crypt', function() use ($settings) {
             $crypt = new Crypt();
-            $crypt->setKey($settings->application->phalcon_crypt_key);
+            $crypt->setKey($settings->application->phalcon_crypt_key->value);
             return $crypt;
         });
     }
@@ -211,13 +211,13 @@ class FrontController
             $session = new Manager();
             $adapter = null;
 
-            if ($dbSet && $settings->redis?->enabled)
+            if ($dbSet && $settings->redis?->enabled->value)
             {
                 $adapter = new Redis(new AdapterFactory(new SerializerFactory()), [
-                   'host'   => $settings->redis->host,
-                   'port'   => $settings->redis->port,
+                   'host'   => $settings->redis->host->value,
+                   'port'   => $settings->redis->port->value,
                    'index'  => '1',
-                   'auth'   => $settings->redis->auth
+                   'auth'   => $settings->redis->auth->value
                ]);
             }
             else
@@ -227,7 +227,7 @@ class FrontController
             }
 
             $session->setAdapter($adapter);
-            $session->setName(ini_get('session.name') . '_' . str_replace(' ', '_', $settings->application->title));
+            $session->setName(ini_get('session.name') . '_' . str_replace(' ', '_', $settings->application->title->value));
             $session->start();
 
             return $session;
@@ -239,7 +239,7 @@ class FrontController
      */
     private function setTitle()
     {
-        Tag::setTitle($this->settings->application->title);
+        Tag::setTitle($this->settings->application->title->value);
     }
 
     /**
@@ -284,7 +284,7 @@ class FrontController
     public function __toString() : string
     {
         $uri = (new Request())->getURI();
-        try 
+        try
         {
             return $this->application->handle($uri)->getContent();
         }

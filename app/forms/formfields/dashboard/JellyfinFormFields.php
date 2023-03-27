@@ -28,14 +28,14 @@ class JellyfinFormFields extends FormFields
 
 		$this->fields[] = new Check('jellyfin-enabled', [
 			'fieldset' => 'Jellyfin',
-			'checked' => $this->form->settings->jellyfin->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->jellyfin->enabled->value == '1' ? 'checked' : null
 		]);
 
         $this->fields[] = $jellyfinUrl = new Text('jellyfin-url');
 		$jellyfinUrl->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->jellyfin->url)
+			->setDefault($this->form->settings->jellyfin->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -45,14 +45,14 @@ class JellyfinFormFields extends FormFields
 		$jellyfinToken->setLabel('Token')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->jellyfin->token)
+			->setDefault($this->form->settings->jellyfin->token->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
 
         $this->fields[] = $jellyfinUserId = new Text('jellyfin-userid');
 		$jellyfinUserId->setLabel('User id')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->jellyfin->userid)
+			->setDefault($this->form->settings->jellyfin->userid->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled']));
 
 		$this->fields[] = $jellyfinViews = new Select('jellyfin-views[]');
@@ -61,7 +61,7 @@ class JellyfinFormFields extends FormFields
 			->setAttributes([
 				'class' => 'form-control',
 				'multiple' => 'multiple',
-				'data-selected' => $this->form->settings->jellyfin->views ?? '',
+				'data-selected' => $this->form->settings->jellyfin->views->value ?? '',
 				'data-apiurl' => '../jellyfin/views'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -70,7 +70,7 @@ class JellyfinFormFields extends FormFields
 		$jellyfinRotateInterval->setLabel('Rotate interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->jellyfin->rotate_interval ?? 30)
+			->setDefault($this->form->settings->jellyfin->rotate_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'jellyfin-enabled'])

@@ -153,7 +153,7 @@ class Roborock extends BaseModel
      */
     private function executeCommand(string $command, bool $removeFirstLine = true) : string
     {
-        $output = shell_exec('miiocli roborockvacuum --ip ' . escapeshellcmd($this->settings->roborock->ip) . ' --token ' . escapeshellcmd($this->settings->roborock->token) . ' ' . $command);
+        $output = shell_exec('miiocli roborockvacuum --ip ' . escapeshellcmd($this->settings->roborock->ip->value) . ' --token ' . escapeshellcmd($this->settings->roborock->token->value) . ' ' . $command);
 
         if ($removeFirstLine)
         {

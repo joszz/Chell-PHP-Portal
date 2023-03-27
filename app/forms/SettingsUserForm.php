@@ -58,7 +58,7 @@ class SettingsUserForm extends SettingsBaseForm
                 new Confirmation(['message' => $this->translator->validation['password-not-match'], 'with' => 'password_again'])
             ]);
 
-        if ($this->settings->hibp->enabled)
+        if ($this->settings->hibp->enabled->value)
         {
             $password->addValidator(new Hibp(['message' => $this->translator->validation['hibp']]));
             $passwordAgain->addValidator(new Hibp(['message' => $this->translator->validation['hibp']]));

@@ -23,7 +23,7 @@
 </head>
 
 <body data-bg-image="<?php echo $bgImage ?? null ?>"
-    class="<?php echo isset($overflow) && $overflow == true ? 'overflow' : null ?> <?php echo $this->settings->application->demo_mode ? 'demo-mode' : null ?>">
+    class="<?php echo isset($overflow) && $overflow == true ? 'overflow' : null ?> <?php echo $this->settings->application->demo_mode->value ? 'demo-mode' : null ?>">
     <div class="container-fluid no-gutter container-relative">
         <?php echo $this->getContent() ?>
     </div>

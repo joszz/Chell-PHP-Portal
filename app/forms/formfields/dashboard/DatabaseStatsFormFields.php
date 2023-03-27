@@ -25,14 +25,14 @@ class DatabaseStatsFormFields extends FormFields
 
 		$this->fields[] = new Check('databasestats-enabled', [
 			'fieldset' => 'Database',
-			'checked' => $this->form->settings->databasestats->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->databasestats->enabled->value == '1' ? 'checked' : null
 		]);
 
         $this->fields[] = $dbStatsInterval = new Numeric('databasestats-update_interval');
 		$dbStatsInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->databasestats->update_interval ?? 30)
+			->setDefault($this->form->settings->databasestats->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'databasestats-enabled'])

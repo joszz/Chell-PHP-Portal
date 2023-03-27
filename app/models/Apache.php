@@ -18,7 +18,7 @@ class Apache extends BaseModel
      */
     public function getServerStatus() : array
     {
-        $client = new Client(['base_uri' => $this->settings->apache->server_status_url . '?auto']);
+        $client = new Client(['base_uri' => $this->settings->apache->server_status_url->value . '?auto']);
         $data = $client->request('GET')->getBody();
         $data = explode(PHP_EOL, $data);
         $result = [];
@@ -43,7 +43,7 @@ class Apache extends BaseModel
     public function getFpmStatus() : array
     {
         $client = new Client();
-        $data = $client->request('GET', $this->settings->apache->fpm_status_url)->getBody();
+        $data = $client->request('GET', $this->settings->apache->fpm_status_url->value)->getBody();
         $data = explode(PHP_EOL, $data);
         $result = [];
 

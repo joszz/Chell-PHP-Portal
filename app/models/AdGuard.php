@@ -20,7 +20,7 @@ class AdGuard extends BaseModel
      */
     public function getStats() : array
     {
-        $result = $this->getHttpClient($this->settings->adguard->url . '/control/stats', 'GET');
+        $result = $this->getHttpClient($this->settings->adguard->url->value . '/control/stats', 'GET');
         return ['DNS Queries' => $result->num_dns_queries, 'Blocked by Filters ' => $result->num_blocked_filtering];
     }
 
@@ -30,12 +30,12 @@ class AdGuard extends BaseModel
      */
     private function getBasicAuthorization() : string
     {
-        return 'Basic ' . base64_encode($this->settings->adguard->username . ':' . $this->settings->adguard->password);
+        return 'Basic ' . base64_encode($this->settings->adguard->username->value . ':' . $this->settings->adguard->password->value);
     }
 
     /**
-     * Calls the AdGuard API with specified $url and $method. 
-     * 
+     * Calls the AdGuard API with specified $url and $method.
+     *
      * @param string $url           The AdGuard API URL to call.
      * @param string $method        The method to call the AdGuard API with, either 'POST' or 'GET'
      * @return bool|\stdclass       Either a boolean indicating failure or a stdclass with a deserialized JSON object.

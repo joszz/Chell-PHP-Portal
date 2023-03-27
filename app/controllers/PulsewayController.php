@@ -30,7 +30,7 @@ class PulsewayController extends WidgetController
      */
     public function indexAction()
     {
-        $systems = explode(',', $this->settings->pulseway->systems);
+        $systems = explode(',', $this->settings->pulseway->systems->value);
         $result = [];
 
         foreach ($systems as $system)
@@ -46,9 +46,9 @@ class PulsewayController extends WidgetController
      */
     public function systemsAction()
     {
-        $this->settings->pulseway->username = $_POST['pulseway-username'];
-        $this->settings->pulseway->password = $_POST['pulseway-password'];
-        $this->settings->pulseway->url = $_POST['pulseway-url'];
+        $this->settings->pulseway->username->value = $_POST['pulseway-username'];
+        $this->settings->pulseway->password->value = $_POST['pulseway-password'];
+        $this->settings->pulseway->url->value = $_POST['pulseway-url'];
         $this->response->setJsonContent($this->_model->getSystems())->send();
     }
 }

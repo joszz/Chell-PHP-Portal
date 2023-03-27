@@ -147,7 +147,7 @@ class Verisure extends BaseModel
      */
     private function executeCommand(string $command)
     {
-        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username) . ' ' . escapeshellcmd($this->settings->verisure->password) . ' ' . $command);
+        $output = shell_exec('vsure ' . escapeshellcmd($this->settings->verisure->username->value) . ' ' . escapeshellcmd($this->settings->verisure->password->value) . ' ' . $command);
         return json_decode($output);
     }
 

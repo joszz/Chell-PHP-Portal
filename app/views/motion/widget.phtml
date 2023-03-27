@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="panel panel-success motion gallery" data-motion-interval="<?php echo $this->settings->motion->update_interval ?>">
+<div class="panel panel-success motion gallery" data-motion-interval="<?php echo $this->settings->motion->update_interval->value ?>">
     <div class="panel-heading">
         <div class="backdrop"></div>
         <div class="btn-group pull-right">
@@ -14,7 +14,7 @@
         <h4 class="truncate-text" title="Motion">Motion</h4>
     </div>
     <div class="panel-body hidden-xs">
-        <a class="item" href="<?php echo $this->settings->motion->url ?>" target="_blank"
+        <a class="item" href="<?php echo $this->settings->motion->url->value ?>" target="_blank"
             style="background-image: url('<?php echo $this->url->get('motion/?t=' . time()) ?>')">
             <div class="overlay"></div>
             <div class="title">Modified on</div>

@@ -16,7 +16,7 @@
                 <button class="btn btn-dark fa fa-expand rounded-not-mobile" title="Fullscreen" aria-label="Fullscreen"></button>
             </div>
             <div class="visible-sm visible-md visible-lg execution-time pull-right">
-                Version: <?php echo $this->settings->application->version ?> |
+                Version: <?php echo $this->settings->application->version->value ?> |
                 Execution time: <?php echo round(($executionTime + microtime(true)), 2) ?>s
             </div>
         </div>

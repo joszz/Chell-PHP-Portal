@@ -28,14 +28,14 @@ class SubsonicFormFields extends FormFields
 
 		$this->fields[] = new Check('subsonic-enabled', [
 			'fieldset' => 'Subsonic',
-			'checked' => $this->form->settings->subsonic->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->subsonic->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $subsonicURL = new Text('subsonic-url');
 		$subsonicURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->subsonic->url)
+			->setDefault($this->form->settings->subsonic->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -45,27 +45,27 @@ class SubsonicFormFields extends FormFields
 		$subsonicUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->subsonic->username)
+			->setDefault($this->form->settings->subsonic->username->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$this->fields[] = $subsonicPassword = new Password('subsonic-password');
 		$subsonicPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->subsonic->password)
+			->setDefault($this->form->settings->subsonic->password->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled']));
 
 		$this->fields[] = $sonosInterval = new Numeric('subsonic-update_interval');
 		$sonosInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->update_interval ?? 30)
+			->setDefault($this->form->settings->sonos->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'subsonic-enabled'])
 			]);
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$subsonicPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }

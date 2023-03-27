@@ -26,12 +26,13 @@ class WidgetPosition extends BaseModel
 
         $widgetPositions = WidgetPosition::find(['order' => 'position']);
         $maxWidgetPosition = WidgetPosition::maximum(['column' => 'position']) ?? 0;
+        $generalCategories = ['application', 'redis', 'imageproxy', 'duo', 'hibp'];
 
         try
         {
             foreach ($settings as $widget)
             {
-                if ($widget->section->name === 'dashboard')
+                if (!in_array($widget->name,  $generalCategories))
                 {
                     $widgetPosition = current($widgetPositions->filter(function($position) use ($widget) {
                         if ($position->controller == $widget->name ||
@@ -40,7 +41,7 @@ class WidgetPosition extends BaseModel
                         }
                     }));
 
-                    if ($widget->enabled && empty($widgetPosition))
+                    if ($widget->enabled->value && !$widgetPosition)
                     {
                         $widgetPosition = new WidgetPosition();
                         $widgetPosition->controller = $widget->name == 'sonarr' || $widget->name == 'radarr' ? 'arr' : $widget->name;

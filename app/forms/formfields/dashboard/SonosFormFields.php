@@ -25,7 +25,7 @@ class SonosFormFields extends FormFields
 		$this->hasFieldset = true;
 		$this->fields[] = $sonosEnabled = new Check('sonos-enabled', [
 			'fieldset' => 'Sonos',
-			'checked' => $this->form->settings->sonos->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->sonos->enabled->value == '1' ? 'checked' : null
 		]);
 		$sonosEnabled->setUserOptions(['buttons' => ['sonos_request_authorization_code']]);
 
@@ -33,7 +33,7 @@ class SonosFormFields extends FormFields
 		$sonosAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->api_key)
+			->setDefault($this->form->settings->sonos->api_key->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])
 			]);
@@ -48,7 +48,7 @@ class SonosFormFields extends FormFields
 		$sonosAPISecret->setLabel('API secret')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->api_secret)
+			->setDefault($this->form->settings->sonos->api_secret->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])
 			]);
@@ -59,7 +59,7 @@ class SonosFormFields extends FormFields
 			->setAttributes([
 				'class' => 'form-control',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->sonos->household ?? '',
+				'data-selected' => $this->form->settings->sonos->household->value ?? '',
 				'data-apiurl' => '../sonos/households'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -70,7 +70,7 @@ class SonosFormFields extends FormFields
 			->setAttributes([
 				'class' => 'form-control',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->sonos->group ?? '',
+				'data-selected' => $this->form->settings->sonos->group->value ?? '',
 				'data-apiurl' => '../sonos/groups'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -79,7 +79,7 @@ class SonosFormFields extends FormFields
 		$sonosInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sonos->update_interval ?? 30)
+			->setDefault($this->form->settings->sonos->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sonos-enabled'])

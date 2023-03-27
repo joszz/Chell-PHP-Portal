@@ -18,7 +18,7 @@ $action = $this->router->getActionName();
                 <li <?php echo ($action == 'devices' ? 'class="active"' : null) ?>>
                     <a href="<?php echo $this->url->get('settings/devices') ?>">Devices</a>
                 </li>
-                <?php if ($this->settings->snmp->enabled) : ?>
+                <?php if ($this->settings->snmp->enabled->value) : ?>
                 <li <?php echo ($action == 'snmp' ? 'class="active"' : null) ?>>
                     <a href="<?php echo $this->url->get('settings/snmp') ?>">SNMP</a>
                 </li>

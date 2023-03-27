@@ -26,7 +26,7 @@ class ImageProxyFormFields extends FormFields
         $imageproxyEnabled->setLabel('Enabled')
             ->setAttributes([
                 'value' => '1',
-                'checked' => $this->form->settings->imageproxy->enabled == '1' ? 'checked' : null,
+                'checked' => $this->form->settings->imageproxy->enabled->value == '1' ? 'checked' : null,
                 'data-toggle' => 'toggle',
                 'data-onstyle' => 'success',
                 'data-offstyle' => 'danger',
@@ -38,7 +38,7 @@ class ImageProxyFormFields extends FormFields
         $imageproxyUrl->setLabel('URL')
             ->setFilters(['striptags', 'string'])
             ->setAttributes(['class' => 'form-control'])
-            ->setDefault($this->form->settings->imageproxy->url)
+            ->setDefault($this->form->settings->imageproxy->url->value)
             ->addValidators([
                 new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'imageproxy-enabled']),
                 new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])

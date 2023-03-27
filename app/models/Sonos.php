@@ -45,7 +45,7 @@ class Sonos extends BaseModel
         $options = [
             'form_params' => [
                 'grant_type' => 'refresh_token',
-                'refresh_token' => $this->settings->sonos->refresh_token
+                'refresh_token' => $this->settings->sonos->refresh_token->value
             ]
         ];
 
@@ -117,7 +117,7 @@ class Sonos extends BaseModel
 
     private function getGroupIdByName($name)
     {
-        $householdId = $this->getHouseholdIdByName($this->settings->sonos->household);
+        $householdId = $this->getHouseholdIdByName($this->settings->sonos->household->value);
 
         if ($householdId)
         {
@@ -141,7 +141,7 @@ class Sonos extends BaseModel
      */
     public function getPlayingDetails()
     {
-        $groupId = $this->getGroupIdByName($this->settings->sonos->group);
+        $groupId = $this->getGroupIdByName($this->settings->sonos->group->value);
 
         if ($groupId)
         {
@@ -200,10 +200,10 @@ class Sonos extends BaseModel
      */
     public function setUrl()
     {
-        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $this->settings->sonos->household_id . '/groups', 'GET', $this->getBearerAuthorization());
+        $content = $this->getHttpClient($this->apiControlUrl . 'households/' . $this->settings->sonos->household_id->value . '/groups', 'GET', $this->getBearerAuthorization());
         $url = str_replace('wss://', '', current($content->players)->websocketUrl);
         $url = substr($url, 0, stripos($url, ':'));
-        $this->settings->sonos->url = $url;
+        $this->settings->sonos->url->value = $url;
         $this->settings->save('dashboard');
     }
 
@@ -214,7 +214,7 @@ class Sonos extends BaseModel
      */
     private function getBasicAuthorization()
     {
-        return 'Basic ' . base64_encode($this->settings->sonos->api_key . ':' . $this->settings->sonos->api_secret);
+        return 'Basic ' . base64_encode($this->settings->sonos->api_key->value . ':' . $this->settings->sonos->api_secret->value);
     }
 
     /**
@@ -224,7 +224,7 @@ class Sonos extends BaseModel
      */
     private function getBearerAuthorization()
     {
-        return 'Bearer ' . $this->settings->sonos->access_token;
+        return 'Bearer ' . $this->settings->sonos->access_token->value;
     }
 
     /**
@@ -262,9 +262,9 @@ class Sonos extends BaseModel
         if ($content)
         {
             //tokens need to be encrypted
-            $this->settings->sonos->access_token = $content->access_token;
-            $this->settings->sonos->refresh_token = $content->refresh_token;
-            $this->settings->sonos->token_expires = time() + $content->expires_in;
+            $this->settings->sonos->access_token->value = $content->access_token;
+            $this->settings->sonos->refresh_token->value = $content->refresh_token;
+            $this->settings->sonos->token_expires->value = time() + $content->expires_in;
             $this->settings->save('dashboard');
             return true;
         }

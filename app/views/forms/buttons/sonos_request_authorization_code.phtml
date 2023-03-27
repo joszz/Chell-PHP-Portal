@@ -1,6 +1,6 @@
 <?php /** @var Chell\Forms\SettingsBaseForm $this */ ?>
 
 <a class="btn btn-default input-group-addon" title="Refresh data from API"
-    href="https://api.sonos.com/login/v3/oauth?client_id=<?php echo $this->settings->sonos->api_key ?>&response_type=code&state=<?php echo $this->session->get('sonos_state') ?>&scope=playback-control-all&redirect_uri=<?php echo $this->settings->getDomainWithProtocol() ?>%2Fsettings%2Fsonos%2F">
+    href="https://api.sonos.com/login/v3/oauth?client_id=<?php echo $this->settings->sonos->api_key->value ?>&response_type=code&state=<?php echo $this->session->get('sonos_state') ?>&scope=playback-control-all&redirect_uri=<?php echo $this->settings->getDomainWithProtocol() ?>%2Fsettings%2Fsonos%2F">
     <i class="fa fa-gear"></i>
 </a>

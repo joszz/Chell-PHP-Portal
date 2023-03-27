@@ -28,14 +28,14 @@ class AdGuardFormFields extends FormFields
 
 		$this->fields[] = new Check('adguard-enabled', [
 			'fieldset' => 'Adguard',
-			'checked' => $this->form->settings->adguard->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->adguard->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $adGuardURL = new Text('adguard-url');
 		$adGuardURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->adguard->url)
+			->setDefault($this->form->settings->adguard->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'adguard-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -45,17 +45,17 @@ class AdGuardFormFields extends FormFields
 		$adGuardUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->adguard->username)
+			->setDefault($this->form->settings->adguard->username->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'adguard-enabled']));
 
 		$this->fields[] = $adGuardPassword = new Password('adguard-password');
 		$adGuardPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->adguard->password)
+			->setDefault($this->form->settings->adguard->password->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'adguard-enabled']));
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$adGuardPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
@@ -64,7 +64,7 @@ class AdGuardFormFields extends FormFields
 		$adGuardInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->adguard->update_interval ?? 30)
+			->setDefault($this->form->settings->adguard->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'adguard-enabled'])

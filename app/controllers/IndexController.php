@@ -31,18 +31,18 @@ class IndexController extends BaseController
         $this->view->devices = Devices::find(['order' => 'name ASC']);
         $this->view->maxWidgetPosition = $this->getMaxWidgetPosition();
 
-        if ($this->settings->jellyfin->enabled)
+        if ($this->settings->jellyfin->enabled->value)
         {
             $jellyfin = new Jellyfin();
             $this->view->jellyfinviews = $jellyfin->getLatestForViews();
         }
 
-        if ($this->settings->motion->enabled)
+        if ($this->settings->motion->enabled->value)
         {
             $this->view->motionModifiedTime = (new Motion())->getModifiedTime();
         }
 
-        if ($this->settings->snmp->enabled)
+        if ($this->settings->snmp->enabled->value)
         {
             $this->view->snmpHosts = SnmpHosts::find();
         }
@@ -213,7 +213,7 @@ class IndexController extends BaseController
                     $cssFilesProperty->setAccessible(true);
                     $styles = [...$cssFilesProperty->getValue($controllerInstance), ...$styles];
 
-                    if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled)
+                    if (isset($this->settings->{$name}) && $this->settings->{$name}->enabled->value)
                     {
                         $this->addWidget($controller, $controllerInstance, $widgetPositions, $name, $widgets);
 

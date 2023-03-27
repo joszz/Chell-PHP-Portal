@@ -1,15 +1,15 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
 <div class="panel panel-success pull-left speedtest"
-    data-speedtest-testorder="<?php echo $this->settings->speedtest->test_order ?>"
-    data-speedtest-uploadtime="<?php echo $this->settings->speedtest->time_upload ?>"
-    data-speedtest-downloadtime="<?php echo $this->settings->speedtest->time_download ?>"
-    data-speedtest-getispip="<?php echo $this->settings->speedtest->get_isp_info ?>"
-    data-speedtest-distance="<?php echo $this->settings->speedtest->get_isp_distance ?>"
-    data-speedtest-telemetry="<?php echo $this->settings->speedtest->telemetry ?>">
+    data-speedtest-testorder="<?php echo $this->settings->speedtest->test_order->value ?>"
+    data-speedtest-uploadtime="<?php echo $this->settings->speedtest->time_upload->value ?>"
+    data-speedtest-downloadtime="<?php echo $this->settings->speedtest->time_download->value ?>"
+    data-speedtest-getispip="<?php echo $this->settings->speedtest->get_isp_info->value ?>"
+    data-speedtest-distance="<?php echo $this->settings->speedtest->get_isp_distance->value ?>"
+    data-speedtest-telemetry="<?php echo $this->settings->speedtest->telemetry->value ?>">
     <div class="panel-heading">
         <div class="btn-group pull-right">
-            <?php if ($this->settings->speedtest->telemetry != 'off') : ?>
+            <?php if ($this->settings->speedtest->telemetry->value != 'off') : ?>
             <a href="<?php echo $this->url->get('speedtest/stats') ?>" class="btn btn-default fa fa-chart-bar" data-fancybox data-type="iframe" title="Statistics"></a>
             <?php endif ?>
             <button class="btn btn-default fa fa-play" title="Start/Stop" aria-label="Start/Stop"></button>

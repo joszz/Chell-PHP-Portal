@@ -29,21 +29,21 @@ class TorrentsFormFields extends FormFields
 
 		$this->fields[] = new Check('torrents-enabled', [
 			'fieldset' => 'Torrents',
-			'checked' => $this->form->settings->torrents->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->torrents->enabled->value == '1' ? 'checked' : null
 		]);
 
         $this->fields[] = $speedtestISPInfo = new Select('torrents-client', ['qbittorrent' => 'qBittorrent', 'transmission' => 'Transmission']);
 		$speedtestISPInfo->setLabel('Bittorrent client')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->torrents->client)
+			->setDefault($this->form->settings->torrents->client->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled']));
 
         $this->fields[] = $torrentsURL = new Text('torrents-url');
 		$torrentsURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->torrents->url)
+			->setDefault($this->form->settings->torrents->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -53,17 +53,17 @@ class TorrentsFormFields extends FormFields
 		$torrentsUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->torrents->username)
+			->setDefault($this->form->settings->torrents->username->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled']));
 
 		$this->fields[] = $torrentsPassword = new Password('torrents-password');
 		$torrentsPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->torrents->password)
+			->setDefault($this->form->settings->torrents->password->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled']));
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$torrentsPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
@@ -72,7 +72,7 @@ class TorrentsFormFields extends FormFields
 		$torrentsInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->torrents->update_interval ?? 30)
+			->setDefault($this->form->settings->torrents->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'torrents-enabled'])

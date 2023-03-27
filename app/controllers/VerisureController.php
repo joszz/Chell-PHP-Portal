@@ -52,7 +52,7 @@ class VerisureController extends WidgetController
      */
     public function armAction(string $state, string $pin = '')
     {
-        $this->_model->setArmState($state, empty($pin) ? $this->settings->verisure->securitycode : $pin);
+        $this->_model->setArmState($state, empty($pin) ? $this->settings->verisure->securitycode->value : $pin);
         $this->view->disable();
         $this->response->setJsonContent('true')->send();
     }

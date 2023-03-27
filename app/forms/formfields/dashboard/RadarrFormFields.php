@@ -25,14 +25,14 @@ class RadarrFormFields extends FormFields
 
 		$this->fields[] = new Check('radarr-enabled', [
 			'fieldset' => 'Radarr',
-			'checked' => $this->form->settings->radarr->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->radarr->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $radarrURL = new Text('radarr-url');
 		$radarrURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->radarr->url)
+			->setDefault($this->form->settings->radarr->url->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'radarr-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -42,7 +42,7 @@ class RadarrFormFields extends FormFields
 		$radarrAPIKey->setLabel('API key')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->radarr->api_key)
+			->setDefault($this->form->settings->radarr->api_key->value)
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'radarr-enabled'])
 			]);

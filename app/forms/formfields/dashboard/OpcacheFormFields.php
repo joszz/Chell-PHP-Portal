@@ -21,7 +21,7 @@ class OpcacheFormFields extends FormFields
 
 		$this->fields[] = new Check('opcache-enabled', [
 			'fieldset' => 'Opcache',
-			'checked' => $this->form->settings->opcache->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->opcache->enabled->value == '1' ? 'checked' : null
 		]);
 	}
 }

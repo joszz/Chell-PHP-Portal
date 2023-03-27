@@ -21,7 +21,7 @@ class DevicesFormFields extends FormFields
 
 		$this->fields[] = new Check('devices-enabled', [
 			'fieldset' => 'Devices',
-			'checked' => $this->form->settings->devices->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->devices->enabled->value == '1' ? 'checked' : null
 		]);
 	}
 }

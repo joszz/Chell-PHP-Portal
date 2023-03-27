@@ -1,6 +1,6 @@
 <?php /** @var Phalcon\Mvc\View $this */ ?>
 
-<div class="panel panel-success verisure" data-update-interval="<?php echo $this->settings->verisure->update_interval ?>">
+<div class="panel panel-success verisure" data-update-interval="<?php echo $this->settings->verisure->update_interval->value ?>">
     <?php $this->partial('is-loading') ?>
 
     <div class="panel-heading">
@@ -70,7 +70,7 @@
         <i id="current_stay" class="btn btn-warning fa fa-verisure-stay text-warning hidden" title="Stay"></i>
         <h2>Select new arm state </h2>
 
-        <?php if (empty($this->settings->verisure->securitycode)): ?>
+        <?php if (empty($this->settings->verisure->securitycode->value)): ?>
         <input type="password" id="verisure_pin" value="" class="form-control" placeholder="PIN" />
         <?php endif ?>
 

@@ -27,7 +27,7 @@ class Jellyfin extends BaseModel
 
         try
         {
-            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Views', false);
+            $response = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid->value . '/Views', false);
         }
         catch (Exception $exception)
         {
@@ -59,13 +59,13 @@ class Jellyfin extends BaseModel
      */
     public function getLatestForViews(int $limit = 10) : array
     {
-        $views = explode(',', $this->settings->jellyfin->views);
+        $views = explode(',', $this->settings->jellyfin->views->value);
         $promises = [];
 
         foreach ($views as $view)
         {
             list($title, $viewId) = explode(':', $view);
-            $promises[$title] = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId, true);
+            $promises[$title] = $this->getHttpClient('/Users/' . $this->settings->jellyfin->userid->value . '/Items/Latest?limit=' . $limit . '&ParentId=' . $viewId, true);
         }
 
         $result = [];
@@ -122,7 +122,7 @@ class Jellyfin extends BaseModel
      */
     private function getHttpClient(string $url, bool $async) : PromiseInterface | ResponseInterface
     {
-        $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->settings->jellyfin->token]]);
-        return $client->{ 'request' . ($async ? 'Async' : null) }('GET', $this->settings->jellyfin->url . $url);
+        $client = new Client(['headers' => ['X-MediaBrowser-Token' => $this->settings->jellyfin->token->value]]);
+        return $client->{ 'request' . ($async ? 'Async' : null) }('GET', $this->settings->jellyfin->url->value . $url);
     }
 }

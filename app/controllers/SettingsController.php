@@ -419,7 +419,7 @@ class SettingsController extends BaseController
 
         asort($logsOrdered);
         $totalItems = count($logsOrdered);
-        $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->settings->application->items_per_page, $this->settings->application->items_per_page);
+        $logsOrdered = array_slice(array_reverse($logsOrdered), ($currentPage - 1) * $this->settings->application->items_per_page->value, $this->settings->application->items_per_page->value);
 
         return $logsOrdered;
     }

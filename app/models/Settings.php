@@ -2,6 +2,7 @@
 
 namespace Chell\Models;
 
+use Chell\Models\SettingsCategory;
 use Phalcon\Mvc\Model;
 
 /**
@@ -11,13 +12,13 @@ use Phalcon\Mvc\Model;
  */
 class Settings extends Model
 {
-    /**
-     * Saves only data for ini based settings.
-     * Other types of default settings do not need to be stored.
-     */
-    public function save(): bool
+    public function initialize()
     {
-        unset($this->type);
-        return parent::save();
+        $this->hasOne(
+            'settings_category_id',
+            SettingsCategory::class,
+            'id',
+            ['alias' => 'category']
+        );
     }
 }

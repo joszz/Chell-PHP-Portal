@@ -29,14 +29,14 @@ class PulsewayFormFields extends FormFields
 
 		$this->fields[] = new Check('pulseway-enabled', [
 			'fieldset' => 'Pulseway',
-			'checked' => $this->form->settings->pulseway->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->pulseway->enabled->value == '1' ? 'checked' : null
 		]);
 
 		$this->fields[] = $pulsewayURL = new Text('pulseway-url');
 		$pulsewayURL->setLabel('URL')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->url ?? 'https://api.pulseway.com/v2/')
+			->setDefault($this->form->settings->pulseway->url->value ?? 'https://api.pulseway.com/v2/')
 			->addValidators([
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']),
 				new UrlValidator(['message' => $this->form->translator->validation['url'], 'allowEmpty' => true])
@@ -46,17 +46,17 @@ class PulsewayFormFields extends FormFields
 		$pulsewayUsername->setLabel('Username')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->username)
+			->setDefault($this->form->settings->pulseway->username->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
 		$this->fields[] = $pulsewayPassword = new Password('pulseway-password');
 		$pulsewayPassword->setLabel('Password')
 			->setFilters(['striptags', 'string'])
 			->setAttributes(['class' => 'form-control', 'autocomplete' => 'new-password'])
-			->setDefault($this->form->settings->pulseway->password)
+			->setDefault($this->form->settings->pulseway->password->value)
 			->addValidator(new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled']));
 
-        if ($this->form->settings->hibp->enabled)
+        if ($this->form->settings->hibp->enabled->value)
         {
 			$pulsewayPassword->addValidator(new Hibp(['message' => $this->form->translator->validation['hibp']]));
         }
@@ -68,7 +68,7 @@ class PulsewayFormFields extends FormFields
 				'class' => 'form-control',
 				'multiple' => 'multiple',
 				'disabled' => true,
-				'data-selected' => $this->form->settings->pulseway->systems ?? '',
+				'data-selected' => $this->form->settings->pulseway->systems->value ?? '',
 				'data-apiurl' => '../pulseway/systems'
 			])
 			->setUserOptions(['buttons' => ['refresh_api_data']]);
@@ -77,7 +77,7 @@ class PulsewayFormFields extends FormFields
 		$pulsewayInterval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->pulseway->update_interval ?? 30)
+			->setDefault($this->form->settings->pulseway->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'pulseway-enabled'])

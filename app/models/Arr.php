@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * The model responsible for all actions related to Radarr and Sonarr.
- * 
+ *
  * @see https://github.com/Sonarr/Sonarr/wiki/API
  * @package Models
  */
@@ -26,11 +26,11 @@ class Arr extends BaseModel
     {
         $result = [];
 
-        if ($this->settings->sonarr->enabled)
+        if ($this->settings->sonarr->enabled->value)
         {
             $result = array_merge($result, $this->getSonarrCalendar($start, $end));
         }
-        if ($this->settings->radarr->enabled)
+        if ($this->settings->radarr->enabled->value)
         {
             $result = array_merge($result, $this->getRadarrCalendar($start, $end));
         }
@@ -50,7 +50,7 @@ class Arr extends BaseModel
      */
     private function getSonarrCalendar(string $start, string $end) : array
     {
-        $episodes = $this->getHttpClient($this->settings->sonarr->url . 'calendar', $this->settings->sonarr->api_key, '&start=' . $start . '&end=' . $end);
+        $episodes = $this->getHttpClient($this->settings->sonarr->url->value . 'calendar', $this->settings->sonarr->api_key->value, '&start=' . $start . '&end=' . $end);
         $episodes = json_decode($episodes->getBody());
         $series = $this->getSonarrSeries();
         $result = [];
@@ -78,7 +78,7 @@ class Arr extends BaseModel
      */
     private function getSonarrSeries()
     {
-        $series = $this->getHttpClient($this->settings->sonarr->url . 'series', $this->settings->sonarr->api_key);
+        $series = $this->getHttpClient($this->settings->sonarr->url->value . 'series', $this->settings->sonarr->api_key->value);
         $series = json_decode($series->getBody());
         return $series;
     }
@@ -92,7 +92,7 @@ class Arr extends BaseModel
      */
     private function getRadarrCalendar(string $start, string $end)
     {
-        $movies = $this->getHttpClient($this->settings->radarr->url . 'calendar', $this->settings->radarr->api_key, '&start=' . $start . '&end=' . $end);
+        $movies = $this->getHttpClient($this->settings->radarr->url->value . 'calendar', $this->settings->radarr->api_key->value, '&start=' . $start . '&end=' . $end);
         $movies = json_decode($movies->getBody());
         $result = [];
 

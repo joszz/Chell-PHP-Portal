@@ -44,11 +44,11 @@ class AssetsPlugin extends Injectable
 
             if (file_exists(PUBLIC_PATH . $file))
             {
-                $this->assets->collection('scripts')->addJs(BASEPATH . $file, true, false, ['defer' => 'defer'], $this->settings->application->version);
+                $this->assets->collection('scripts')->addJs(BASEPATH . $file, true, false, ['defer' => 'defer'], $this->settings->application->version->value);
             }
         }
 
-        $this->assets->collection('scripts')->addJs(BASEPATH . 'js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version);
+        $this->assets->collection('scripts')->addJs(BASEPATH . 'js/general' . (DEBUG ? '.js' : '.min.js'), true, false, ['defer' => 'defer'], $this->settings->application->version->value);
 
         foreach (array_unique($this->styles) as $cssFile)
         {
@@ -57,7 +57,7 @@ class AssetsPlugin extends Injectable
             if (file_exists(PUBLIC_PATH . $file))
             {
 
-                $this->assets->collection('styles')->addCss(BASEPATH . $file, true, false, [], $this->settings->application->version);
+                $this->assets->collection('styles')->addCss(BASEPATH . $file, true, false, [], $this->settings->application->version->value);
             }
         }
 

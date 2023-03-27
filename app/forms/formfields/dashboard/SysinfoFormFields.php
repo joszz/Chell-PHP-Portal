@@ -24,14 +24,14 @@ class SysinfoFormFields extends FormFields
 
 		$this->fields[] = new Check('sysinfo-enabled', [
 			'fieldset' => 'Sysinfo',
-			'checked' => $this->form->settings->sysinfo->enabled == '1' ? 'checked' : null
+			'checked' => $this->form->settings->sysinfo->enabled->value == '1' ? 'checked' : null
 		]);
 
         $this->fields[] = $interval = new Numeric('sysinfo-update_interval');
 		$interval->setLabel('Update interval')
 			->setFilters(['striptags', 'int'])
 			->setAttributes(['class' => 'form-control'])
-			->setDefault($this->form->settings->sysinfo->update_interval ?? 30)
+			->setDefault($this->form->settings->sysinfo->update_interval->value ?? 30)
 			->addValidators([
 				new Numericality(['message' => $this->form->translator->validation['not-a-number']]),
 				new PresenceOfConfirmation(['message' => $this->form->translator->validation['required'], 'with' => 'sysinfo-enabled'])
