@@ -11,7 +11,7 @@
 		"@duosecurity/duo_web": "^1.0.6",
 		"@fancyapps/fancybox": "^3.5.7",
 		"@fontsource/roboto": "^4.5.8",
-		"@fortawesome/fontawesome-free": "6.3.0",
+		"@fortawesome/fontawesome-free": "6.4.0",
 		"bootstrap-sass": "3.4.1",
 		"bootstrap-select": "^1.13.18",
 		"bootstrap-toggle": "^2.2.2",
